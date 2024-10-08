@@ -6,6 +6,7 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { VerticalChoicesModal } from '@components/modals/vertical-choices-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -13,6 +14,7 @@ import { Modal } from '@components/shared/modal'
 import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
 import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
+import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
 import { t } from '@utils/translations'
 
@@ -35,15 +37,16 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
           onActivePriority={viewModel.onChangeTaskPriority}
         />
 
-        <CustomButton
-          size="large"
-          type="primary"
-          icon={<BsDownload />}
-          disabled={viewModel.downloadTaskFileDisabled}
-          onClick={viewModel.onClickReport}
-        >
-          {t(TranslationKey['Download task file'])}
-        </CustomButton>
+        {status === TaskStatus.NEW ? (
+          <CustomButton
+            type="primary"
+            size="large"
+            disabled={!viewModel.selectedRows.length}
+            onClick={viewModel.onPickupTasks}
+          >
+            {t(TranslationKey['Take on the work of the selected'])}
+          </CustomButton>
+        ) : null}
       </div>
 
       <div className={styles.flexRow}>
@@ -57,6 +60,16 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
           placeholder="Search by ASIN, Order ID, Item, Track number"
           onSearch={viewModel.onSearchSubmit}
         />
+
+        <CustomButton
+          size="large"
+          type="primary"
+          icon={<BsDownload />}
+          disabled={!viewModel.selectedRows.length}
+          onClick={viewModel.onClickReport}
+        >
+          {t(TranslationKey['Download task file'])}
+        </CustomButton>
       </div>
 
       <CustomDataGrid
@@ -125,6 +138,30 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
           task={viewModel.currentTask}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showEditPriorityData}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditPriorityData')}
+      >
+        <EditTaskPriorityModal
+          data={viewModel.editPriorityData}
+          handleClose={() => viewModel.onTriggerOpenModal('showEditPriorityData')}
+          onSubmitHandler={viewModel.updateTaskPriority}
+        />
+      </Modal>
+
+      <Modal
+        openModal={viewModel.showVerticalChoicesModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showVerticalChoicesModal')}
+      >
+        <VerticalChoicesModal
+          title="Task picked up"
+          firstButtonText="Go to task"
+          secondButtonText="Continue to work with new tasks"
+          onClickFirstButton={viewModel.goToMyTasks}
+          onClickSecondButton={() => viewModel.onTriggerOpenModal('showVerticalChoicesModal')}
         />
       </Modal>
     </div>
