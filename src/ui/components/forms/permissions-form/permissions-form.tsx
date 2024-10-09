@@ -47,7 +47,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        {viewModel.isFreelancer ? (
+        {viewModel.hasExpiredRoles ? (
           <p className={styles.title}>{t(TranslationKey['Assign permissions'])}</p>
         ) : (
           <CustomRadioButton
@@ -81,7 +81,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
               size="large"
               maxTagCount="responsive"
               disabled={viewModel.mainLoading}
-              showSearch={{ filter: viewModel.searchfilter }}
+              showSearch={{ filter: viewModel.searchFilter }}
               options={viewModel.mainOptions}
               rootClassName={styles.cascader}
               popupClassName={styles.cascaderPopup}
