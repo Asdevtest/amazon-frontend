@@ -2066,5 +2066,8 @@
   "This profile has already been used! Do you want to continue?": "Даний профіль вже використовувався! Бажаєте продовжити?",
   "By proposal": "За пропозиції",
   "By announcement": "За оголошенням",
-  "Select user": "Вибрати користувача"
+  "Select user": "Вибрати користувача",
+  "Integration": "Інтеграція",
+  "Products linked successfully": "Продукти успішно пов'язані",
+  "Product linking error": "Помилка прив'язки продуктів"
 }

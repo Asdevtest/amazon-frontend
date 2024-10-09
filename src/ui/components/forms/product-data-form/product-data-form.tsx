@@ -47,9 +47,8 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
         <CustomInputSearch
           allowClear
           wrapperClassName={styles.searchInput}
-          value={viewModel.currentSearchValue}
-          placeholder={t(TranslationKey['Batch number and FBA'])}
-          onSubmit={viewModel.onSearchSubmit}
+          placeholder={'Batch number and FBA'}
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 

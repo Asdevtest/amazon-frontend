@@ -100,7 +100,7 @@ export class ShopsViewModel extends DataGridFilterTableModel {
 
   async onParsingProfile(id: string) {
     try {
-      await ParserModel.onParsingProfile(id)
+      await ParserModel.parsingProfile(id)
 
       this.getCurrentData()
     } catch (error) {
@@ -110,7 +110,7 @@ export class ShopsViewModel extends DataGridFilterTableModel {
 
   async onParsingAccess(email: string) {
     try {
-      await ParserModel.onParsingAccess(email)
+      await ParserModel.parsingAccess(email)
 
       toast.success(t(TranslationKey['Access confirmation request sent successfully']))
 
@@ -122,7 +122,7 @@ export class ShopsViewModel extends DataGridFilterTableModel {
 
   async onParsingStatus(id: string, isActive: boolean) {
     try {
-      await ParserModel.onParsingStatus(id, isActive)
+      await ParserModel.parsingStatus(id, isActive)
 
       this.getCurrentData()
     } catch (error) {
@@ -132,7 +132,7 @@ export class ShopsViewModel extends DataGridFilterTableModel {
 
   async onParsingProfileInvited(id: string) {
     try {
-      await ParserModel.onParsingProfileInvited(id)
+      await ParserModel.parsingProfileInvited(id)
 
       this.getCurrentData()
     } catch (error) {

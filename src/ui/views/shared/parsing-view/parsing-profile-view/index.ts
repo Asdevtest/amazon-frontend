@@ -1,1 +1,1 @@
-export { ParsingProdileView } from './parsing-profile-view'
+export { ParsingProfileView } from './parsing-profile-view'
