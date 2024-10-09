@@ -51,8 +51,8 @@ export class LinkCascaderModel {
   async onBindProductToTable() {
     try {
       const data = {
-        shopIds: this.selectedShopsOptions.flat().filter(item => !item.includes('select-all-shops')),
-        tables: this.selectedTableOptions.flat().filter(item => !item.includes('select-all-tables')),
+        shopIds: this.selectedShopsOptions.flat().filter(item => item !== 'select-all-shops'),
+        tables: this.selectedTableOptions.flat().filter(item => item !== 'select-all-tables'),
       }
       await ParserModel.bindProductToTable(data)
       toast.success(t(TranslationKey['Data exported successfully']))
