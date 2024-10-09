@@ -206,6 +206,10 @@ export class EditProductTagModel {
     this.selectedTags = this.selectedTags?.filter(selectedTag => selectedTag?._id !== tagId)
   }
 
+  handleClearTags() {
+    this.selectedTags = []
+  }
+
   async handleBindTagsToProduct(handleUpdateRow: IHandleUpdateRow) {
     try {
       await ProductModel.editProductTags(this.productId, { tags: this.selectedTags?.map(tag => tag?._id) })
