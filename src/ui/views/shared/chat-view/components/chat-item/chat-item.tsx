@@ -1,3 +1,4 @@
+import { Badge } from 'antd'
 import { CSSProperties, FC, memo, useMemo } from 'react'
 
 import { ChatsType } from '@constants/keys/chats'
@@ -31,6 +32,7 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickCh
 
   const chatTitle = useMemo(() => getChatTitle(chat), [])
   const lastMessageDate = useMemo(() => formatDateWithoutTimeLocal(chat.lastMessage?.updatedAt), [chat.lastMessage])
+  const unreadMessages = useMemo(() => chat.unread, [chat.unread])
 
   return (
     <CustomButton
@@ -46,7 +48,10 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickCh
           <p className={styles.lastMessageDate}>{lastMessageDate}</p>
         </div>
 
-        <p className={styles.text}>{chat.lastMessage?.text}</p>
+        <div className={styles.lastMessageBlock}>
+          <p className={styles.text}>{chat.lastMessage?.text}</p>
+          {unreadMessages ? <Badge count={unreadMessages} className={styles.badge} /> : null}
+        </div>
       </div>
     </CustomButton>
   )

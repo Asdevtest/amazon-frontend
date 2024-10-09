@@ -48,4 +48,5 @@ export interface Chat {
   isActual?: boolean
   crmItemId?: string
   crmItemType?: string
+  unread: string
 }

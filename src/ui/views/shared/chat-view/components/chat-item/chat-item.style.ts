@@ -26,7 +26,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   text: {
-    width: '100%',
+    flex: 1,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -49,5 +49,18 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
+  },
+
+  lastMessageBlock: {
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  badge: {
+    '.ant-badge-count': {
+      background: theme.palette.primary.main,
+    },
   },
 }))

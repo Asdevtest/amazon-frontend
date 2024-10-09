@@ -6,6 +6,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     height: '100%',
     minWidth: '300px',
+    width: '300px',
 
     gap: '10px',
 
