@@ -6,31 +6,45 @@ import { GridRowModel } from '@mui/x-data-grid-premium'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomSelect } from '@components/shared/custom-select'
 
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
+import { useStyles } from './parsing-reports.style'
+
 import { getSelectConfig } from './parsing-reports.config'
 import { ParsingReportsModel } from './parsing-reports.model'
 
 export const ParsingReports = observer(() => {
+  const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new ParsingReportsModel(), [])
 
   return (
     <div className="viewWrapper">
-      <CustomSelect
-        showSearch
-        size="large"
-        options={getSelectConfig()}
-        value={viewModel.table}
-        listHeight={384}
-        filterOption={(inputValue, option) =>
-          (option?.label as string)?.toLowerCase?.()?.includes?.(inputValue.toLowerCase())
-        }
-        onChange={viewModel.onChangeActiveTable}
-      />
+      <div className={styles.header}>
+        <CustomSelect
+          showSearch
+          size="large"
+          options={getSelectConfig()}
+          value={viewModel.table}
+          listHeight={384}
+          filterOption={(inputValue, option) =>
+            (option?.label as string)?.toLowerCase?.()?.includes?.(inputValue.toLowerCase())
+          }
+          onChange={viewModel.onChangeActiveTable}
+        />
+
+        <CustomInputSearch
+          enterButton
+          allowClear
+          size="large"
+          placeholder="Search"
+          onSearch={viewModel.onSearchSubmit}
+        />
+      </div>
 
       <CustomDataGrid
         rowCount={viewModel.rowCount}

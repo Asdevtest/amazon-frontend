@@ -43,7 +43,8 @@ export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = memo(({ req
           disableColumnMenu
           disableRowSelectionOnClick
           rows={requests}
-          rowCount={requests.length}
+          sortingMode="client"
+          paginationMode="client"
           columns={bindIdeaToRequestColumns}
           getRowHeight={() => 'auto'}
           sx={{
