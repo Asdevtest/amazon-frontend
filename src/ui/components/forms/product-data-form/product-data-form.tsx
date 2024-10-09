@@ -41,7 +41,12 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
       <div className={styles.flexRow}>
         <p className={styles.title}>{t(TranslationKey[title])}</p>
 
-        <CustomInputSearch allowClear placeholder="Batch number and FBA" onSearch={viewModel.onSearchSubmit} />
+        <CustomInputSearch
+          allowClear
+          enterButton
+          placeholder="Batch number and FBA"
+          onSearch={viewModel.onSearchSubmit}
+        />
       </div>
 
       <div className={styles.flexRow}>

@@ -233,7 +233,7 @@ export const AccessToProductForm = memo(props => {
                 wrapperClassName={styles.searchInput}
                 value={searchInputValue}
                 placeholder={t(TranslationKey.Search)}
-                onChange={e => setSearchInputValue(e.target.value.trim())}
+                onChange={e => setSearchInputValue(e.target.value)}
               />
             </div>
 

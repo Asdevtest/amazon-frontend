@@ -1,5 +1,7 @@
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -27,6 +29,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.xid || 0} />,
       width: 80,
+      table: DataGridFilterTables.BATCHES,
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
@@ -35,6 +39,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch title'])} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.title || '-'} />,
       width: 110,
+      table: DataGridFilterTables.BATCHES,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -43,6 +49,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Number of units'])} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.amountInBatch || 0} />,
       width: 110,
+      table: DataGridFilterTables.BATCHES,
+      columnKey: columnnsKeys.shared.QUANTITY,
     },
 
     {
@@ -61,8 +69,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.storekeeper?.name || '-'} />,
       width: 180,
-      disableCustomSort: true,
-      filterable: false,
+      table: DataGridFilterTables.BATCHES,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {

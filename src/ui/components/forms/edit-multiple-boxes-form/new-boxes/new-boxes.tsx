@@ -73,7 +73,7 @@ export const NewBoxes: FC<NewBoxesProps> = memo(props => {
           allowClear
           value={nameSearchValue}
           placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-          onChange={e => setNameSearchValue(e.target.value.trim())}
+          onChange={e => setNameSearchValue(e.target.value)}
         />
       </div>
 

@@ -125,7 +125,7 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
         <CustomInputSearch
           allowClear
           placeholder={t(TranslationKey['Search by Performer, Title, Description'])}
-          onChange={e => setNameSearchValue(e.target.value.trim())}
+          onChange={e => setNameSearchValue(e.target.value)}
         />
 
         <Button

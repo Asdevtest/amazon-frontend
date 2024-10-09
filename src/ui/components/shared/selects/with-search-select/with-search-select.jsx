@@ -182,7 +182,7 @@ export const WithSearchSelect = memo(
                     placeholder={placeholder ? placeholder : 'Search'}
                     value={nameSearchValue}
                     onSearch={onClickSubmitSearch ? onClickSubmitSearch : undefined}
-                    onChange={onClickSubmitSearch ? undefined : e => setNameSearchValue(e.target.value.trim())}
+                    onChange={onClickSubmitSearch ? undefined : e => setNameSearchValue(e.target.value)}
                   />
                 )}
                 <div

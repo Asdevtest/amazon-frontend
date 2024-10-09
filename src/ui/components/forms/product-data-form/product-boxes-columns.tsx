@@ -70,7 +70,6 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       headerName: t(TranslationKey['Boxes x units']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Boxes x units'])} />,
       renderCell: ({ row }: GridRowModel) => <BoxesAndQuantityCell boxesData={row} />,
-      disableColumnMenu: true,
       disableCustomSort: true,
       filterable: false,
       width: 170,
