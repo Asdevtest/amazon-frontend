@@ -125,8 +125,6 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
           <CustomInputSearch
             allowClear
             placeholder="Search by Tariff, Destination"
-            value={viewModel.currentSearchValue}
-            onChange={viewModel.onChangeSearchValue}
             onSearch={viewModel.onSearchSubmit}
           />
         </div>
