@@ -271,88 +271,129 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditMultipleBoxes(newBoxes, sharedFields) {
+  async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes, sharedFields) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
       const uploadedShippingLabels = []
       const uploadedBarcodes = []
+      const uploadedTransparencyFiles = []
       const updatedBoxes = []
-
-      for (const [i, newBox] of newBoxes.entries()) {
-        const newBoxCopy = { ...newBox }
-
-        // Upload shipping label if needed
-        if (newBoxCopy.tmpShippingLabel?.length) {
-          newBoxCopy.shippingLabel = await this.uploadImageIfNotUploaded(
-            newBoxCopy.tmpShippingLabel[0],
-            uploadedShippingLabels,
-          )
-        }
-
-        const dataToBarCodeChange = newBoxCopy.items
-          .filter(el => el.tmpBarCode?.length)
-          .map(el => ({
-            changeBarCodInInventory: el.changeBarCodInInventory,
-            productId: el.product._id,
-            tmpBarCode: el.tmpBarCode,
-            newData: [],
-          }))
-
-        for (const barcodeChange of dataToBarCodeChange) {
-          barcodeChange.newData = [await this.uploadImageIfNotUploaded(barcodeChange.tmpBarCode[0], uploadedBarcodes)]
-        }
-
-        const currentBoxItems = []
-
-        for (const el of newBoxCopy.items) {
-          const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
-          let transparencyFileLink = el.transparencyFile || ''
-
-          if (el.tmpTransparencyFile?.length) {
-            await onSubmitPostImages.call(this, {
-              images: el.tmpTransparencyFile,
-              type: 'uploadedFiles',
-              withoutShowProgress: true,
-            })
-            transparencyFileLink = this.uploadedFiles[0]
-          }
-
-          const validItem = {
-            ...getObjectFilteredByKeyArrayBlackList(el, [
-              '_id',
-              'order',
-              'product',
-              'tmpBarCode',
-              'changeBarCodInInventory',
-              'tmpTransparencyFile',
-              'amount',
-            ]),
-            orderId: el.order._id,
-            productId: el.product._id,
-            barCode: prodInDataToUpdateBarCode?.newData[0] || el.barCode,
-            transparencyFile: transparencyFileLink,
-            isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
-            isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
-          }
-
-          currentBoxItems.push(validItem)
-        }
-
-        newBoxCopy.items = currentBoxItems
-        updatedBoxes.push(getObjectFilteredByKeyArrayWhiteList(newBoxCopy, updateManyBoxesWhiteList))
-      }
 
       // Upload sharedFields files
       await this.uploadSharedFieldFile(sharedFields, 'tmpShippingLabel', 'shippingLabel')
       await this.uploadSharedFieldFile(sharedFields, 'tmpBarCode', 'barCode')
       await this.uploadSharedFieldFile(sharedFields, 'tmpTransparencyFile', 'transparencyFile')
 
+      for (let i = 0; i < newBoxes.length; i++) {
+        const newBox = { ...newBoxes[i] }
+        const selectedBox = { ...selectedBoxes[i] }
+
+        let linkToShippingLabel = newBox.shippingLabel || null
+        // Upload shipping label if needed
+        const isSameShippingLabel =
+          JSON.stringify(newBox?.tmpShippingLabel?.[0]) === JSON.stringify(sharedFields?.tmpShippingLabel?.[0])
+        if (!isSameShippingLabel) {
+          linkToShippingLabel = await this.uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
+        }
+
+        const dataToBarCodeChange = newBox.items
+          .map(el => {
+            if (el.tmpBarCode?.length) {
+              const isSameBarCode =
+                JSON.stringify(el?.tmpBarCode?.[0]) === JSON.stringify(sharedFields?.tmpBarCode?.[0])
+
+              return {
+                changeBarCodInInventory: el.changeBarCodInInventory,
+                productId: el.product._id || el.productId,
+                tmpBarCode: el.tmpBarCode,
+                newData: [],
+                isSameBarCode,
+              }
+            }
+            return null
+          })
+          .filter(el => el !== null)
+
+        // Upload bar code if needed
+        if (dataToBarCodeChange?.length) {
+          for (const barcodeChange of dataToBarCodeChange) {
+            if (barcodeChange.isSameBarCode) {
+              // If barcode is same as shared, skip uploading
+              continue
+            }
+            const findUploadedBarcode = uploadedBarcodes.find(
+              el => el.strKey === JSON.stringify(barcodeChange.tmpBarCode[0]),
+            )
+
+            if (!findUploadedBarcode) {
+              await onSubmitPostImages.call(this, {
+                images: barcodeChange.tmpBarCode,
+                type: 'uploadedFiles',
+                withoutShowProgress: true,
+              })
+
+              uploadedBarcodes.push({
+                strKey: JSON.stringify(barcodeChange.tmpBarCode[0]),
+                link: this.uploadedFiles[0] || barcodeChange.tmpBarCode[0],
+              })
+            }
+
+            barcodeChange.newData = findUploadedBarcode
+              ? [findUploadedBarcode.link]
+              : [this.uploadedFiles[0] || barcodeChange.tmpBarCode[0]]
+          }
+        }
+
+        const currentBoxItems = []
+
+        for (const el of newBox.items) {
+          const prodInDataToUpdateBarCode = dataToBarCodeChange.find(
+            item => item.productId === (el?.product?._id || el?.productId),
+          )
+
+          let transparencyFileLink = el.transparencyFile || ''
+          const isSameTransparencyFile =
+            JSON.stringify(el?.tmpTransparencyFile?.[0]) === JSON.stringify(sharedFields.tmpTransparencyFile[0])
+          if (!isSameTransparencyFile) {
+            transparencyFileLink = await this.uploadImageIfNotUploaded(
+              el.tmpTransparencyFile[0],
+              uploadedTransparencyFiles,
+            )
+          }
+          const barcodeValue = prodInDataToUpdateBarCode?.newData?.[0] || el.barCode
+
+          const validItem = {
+            orderId: el?.order?._id || el?.orderId,
+            productId: el?.product?._id || el?.productId,
+            isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
+            isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
+            isTransparencyFileAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
+            isTransparencyFileAlreadyAttachedByTheSupplier: el.isTransparencyFileAlreadyAttachedByTheSupplier,
+            ...(barcodeValue !== selectedBox.items[0].barCode && { barCode: barcodeValue }),
+            ...(transparencyFileLink !== selectedBox.items[0].transparencyFile && {
+              transparencyFile: transparencyFileLink,
+            }),
+          }
+
+          currentBoxItems.push(validItem)
+        }
+
+        newBox.items = currentBoxItems
+
+        updatedBoxes.push({
+          ...getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList),
+          ...(linkToShippingLabel !== selectedBox.shippingLabel && { shippingLabel: linkToShippingLabel }),
+        })
+      }
+
       const boxesToSend = {
         ...getObjectFilteredByKeyArrayWhiteList(sharedFields, sharedFieldsWhiteList),
+        ...(sharedFields.shippingLabel && { shippingLabel: sharedFields.shippingLabel }),
         boxes: updatedBoxes,
       }
+
       await BoxesModel.editManyBoxes(boxesToSend)
 
       toast.success(t(TranslationKey['Editing completed']))

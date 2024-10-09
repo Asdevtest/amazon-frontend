@@ -38,6 +38,7 @@ export const ParsingReports = observer(() => {
             }
             onChange={viewModel.onChangeActiveTable}
           />
+
           <LinkCascader />
         </div>
 
@@ -45,7 +46,7 @@ export const ParsingReports = observer(() => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by Title"
+          placeholder="Search"
           onSearch={viewModel.onSearchSubmit}
         />
       </div>
