@@ -38,7 +38,6 @@ export const updateBoxWhiteList = [
 export const updateManyBoxesWhiteList = [
   '_id',
   'logicsTariffId',
-  'shippingLabel',
   'fbaShipment',
   'fbaNumber',
   'destinationId',
