@@ -12,7 +12,7 @@ import { IParsingProfile } from '@typings/models/parser/parsing-profile'
 import { parsingProfileViewColumns } from './parsing-profile-view.columns'
 import { ColumnsProps, fieldsForSearch, parsingProfileViewConfig } from './parsing-profile-view.config'
 
-export class ParsingProdileViewModel extends DataGridFilterTableModel {
+export class ParsingProfileViewModel extends DataGridFilterTableModel {
   selectedProfile?: IParsingProfile
   showToggleProfileModal = false
 

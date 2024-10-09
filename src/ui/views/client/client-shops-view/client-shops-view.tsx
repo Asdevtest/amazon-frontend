@@ -22,7 +22,6 @@ import { ShopForm } from './components/shop-form'
 
 export const ClientShopsView = observer(() => {
   const { classes: styles } = useStyles()
-
   const viewModel = useMemo(() => new ShopsViewModel(), [])
 
   return (

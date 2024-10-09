@@ -2068,4 +2068,5 @@ export enum TranslationKey {
   'By proposal' = 'By proposal',
   'By announcement' = 'By announcement',
   'Select user' = 'Select user',
+  'Integration' = 'Integration',
 }
