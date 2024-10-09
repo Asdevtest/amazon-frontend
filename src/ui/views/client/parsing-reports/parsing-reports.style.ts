@@ -1,7 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  header: {
+  flexRow: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
