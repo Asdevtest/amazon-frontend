@@ -191,8 +191,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   }
 
   onChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim()
-    this.currentSearchValue = value
+    this.currentSearchValue = e.target.value.trim()
   }
 
   async getBoxData() {
