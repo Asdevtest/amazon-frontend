@@ -1,5 +1,5 @@
 import { Chat } from './types/chat.type'
-import { ChatMessage } from './types/message.type'
+import { ChatMessage, IncomingMessage } from './types/message.type'
 
 export enum ChatListenEvents {
   APP_PONG = 'App:pong',
@@ -29,7 +29,7 @@ export interface ChatListenEventsHandlers {
   [ChatHandlerName.onConnectionError]: (error: Error) => void
   [ChatHandlerName.onDisconnect]: () => void
 
-  [ChatHandlerName.onNewMessage]: (message: ChatMessage) => void
+  [ChatHandlerName.onNewMessage]: (message: IncomingMessage) => void
   [ChatHandlerName.onNewChat]: (chat: Chat) => void
   [ChatHandlerName.onReadMessage]: (message: ChatMessage) => void
   [ChatHandlerName.onTypingMessage]: (message: ChatMessage) => void

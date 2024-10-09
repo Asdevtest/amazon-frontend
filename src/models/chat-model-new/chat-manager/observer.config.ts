@@ -2,9 +2,13 @@ import { action, observable } from 'mobx'
 
 export const observerConfig = {
   chatsManager: observable,
+  notificationSound: observable,
 
   setAllChats: action.bound,
   addMessagesToChatById: action.bound,
   addChatToManager: action.bound,
   setChatPagination: action.bound,
+  playNotificationSound: action.bound,
+  setTypingUser: action.bound,
+  checkIsTypingUser: action.bound,
 }

@@ -1,17 +1,11 @@
-import { id } from 'date-fns/locale'
 import { observer } from 'mobx-react'
-import { FC, memo } from 'react'
+import { FC, useEffect } from 'react'
 import { ImAttachment } from 'react-icons/im'
 import { IoSend } from 'react-icons/io5'
-
-import { chatModel } from '@models/chat-model-new/chat-model'
-import { UserModel } from '@models/user-model'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-
-import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './send-message-block.style'
 
@@ -27,6 +21,7 @@ export const SendMessageBlock: FC = observer(() => {
 
     message,
     onChangeMessage,
+    onNewLine,
 
     showFilesLoader,
     onClickShowFilesLoader,
@@ -35,22 +30,11 @@ export const SendMessageBlock: FC = observer(() => {
     onChangeFiles,
 
     onClickEmoji,
+
+    onClickSendMessage,
   } = useSendMessageBlock()
 
-  const onClickSendMessage = () => {
-    chatModel.sendMessage({
-      chatId: chatModel.selectedChatId,
-      // crmItemId: null,
-      text: message,
-      files,
-      // replyMessageId: '',
-      // forwardedMessageId: '',
-      user: {
-        name: UserModel.userInfo.name,
-        _id: UserModel.userInfo._id,
-      },
-    })
-  }
+  useEffect(() => {}, [])
 
   return (
     <div className={styles.sendMessageBlock}>
@@ -72,6 +56,18 @@ export const SendMessageBlock: FC = observer(() => {
           placeholder="Write a message"
           className={styles.messageTextarea}
           autoSize={{ minRows: 1, maxRows: 8 }}
+          onPressEnter={e => {
+            if (e.shiftKey) {
+              e.preventDefault()
+              onNewLine()
+            } else {
+              e.preventDefault()
+              if (disabledSubmit) {
+                return
+              }
+              onClickSendMessage()
+            }
+          }}
           onChange={event => onChangeMessage(event.target.value)}
         />
 

@@ -10,15 +10,15 @@ import { Direction } from './chat-manager/chat-manager.type'
 import { ChatHandlerName, ChatListenEventsHandlers } from './chat.type'
 import { observerConfig } from './observer.config'
 import { Chat } from './types/chat.type'
-import { ChatMessage, SendMessage } from './types/message.type'
-import { UploadedFiles } from './types/uploaded-files'
+import { ChatMessage, IncomingMessage, IncomingTypingMessage, SendMessage } from './types/message.type'
 
 export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
   selectedChatId: string = ''
   chatsLoading: boolean = false
   messagesLoading: boolean = false
-
   showCreateNewChatModal: boolean = false
+
+  typing: boolean = false
 
   get chats() {
     return Array.from(this.chatsManager?.values?.() || [])
@@ -46,6 +46,9 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
       // @ts-ignore
       handlers: {
         [ChatHandlerName.onConnect]: () => this.getChats(),
+        [ChatHandlerName.onNewMessage]: (message: IncomingMessage) => this.getNewMessage(message),
+
+        [ChatHandlerName.onTypingMessage]: (message: ChatMessage) => this.getTypingMessage(message),
       },
     })
     makeObservable(this, observerConfig)
@@ -213,6 +216,41 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  getNewMessage(message: IncomingMessage) {
+    const chatId = message.chatId
+
+    this.addMessagesToChatById(chatId, message)
+    this.playNotificationSound(chatId)
+  }
+
+  getTypingMessage(typingMessage: IncomingTypingMessage) {
+    this.setTypingUser(typingMessage, true)
+
+    setTimeout(() => {
+      this.setTypingUser(typingMessage, false)
+    }, 3000)
+  }
+
+  onTypingMessage() {
+    if (this.typing) {
+      return
+    }
+
+    this.setTyping(true)
+
+    this.emitTypingMessage(this.currentChat?._id as string)
+
+    setTimeout(() => {
+      this.setTyping(false)
+    }, 3000)
+  }
+
+  setTyping(value: boolean) {
+    runInAction(() => {
+      this.typing = value
+    })
   }
 }
 

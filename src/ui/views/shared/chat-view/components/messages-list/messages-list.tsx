@@ -60,7 +60,6 @@ export const MessagesList: FC = observer(() => {
       const newHeight = listRef.current?.Grid?._scrollingContainer.scrollHeight
 
       const newScroll = curScroll + (newHeight - curHeight)
-      console.log('newScroll :>> ', newScroll)
 
       listRef.current.scrollToPosition(newScroll)
     }

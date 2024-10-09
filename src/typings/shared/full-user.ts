@@ -27,4 +27,5 @@ export interface IFullUser {
   hideSuppliers: boolean
   createdAt: string
   updatedAt: string
+  typing: boolean
 }

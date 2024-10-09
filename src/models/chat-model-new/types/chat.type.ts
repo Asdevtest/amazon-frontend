@@ -12,6 +12,12 @@ export interface ChatPagination {
   hasMoreBottom: boolean
 }
 
+export interface ChatInfo {
+  image: string
+  title: string
+  createdBy?: string
+}
+
 export interface Chat {
   _id: string
 
@@ -32,13 +38,11 @@ export interface Chat {
   type: ChatsType
   messagesCount: number
 
-  info: {
-    image: string
-    title: string
-    createdBy?: string
-  } | null
+  info: ChatInfo | null
 
   pagination: ChatPagination
+
+  muted: boolean
 
   blockedById?: string
   isActual?: boolean

@@ -67,4 +67,10 @@ export class EmitsClient<T> extends WebsocketSpacename<T> {
       })
     })
   }
+
+  public async emitTypingMessage(chatId: string) {
+    return new Promise(() => {
+      this.socket.emit(ChatEmits.TYPING_MESSAGE, { chatId })
+    })
+  }
 }

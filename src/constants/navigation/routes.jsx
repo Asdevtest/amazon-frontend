@@ -863,7 +863,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/buyer/messages',
-    component: MessagesView,
+    component: ChatView,
     exact: false,
     permission: [UserRole.BUYER],
 
@@ -1006,7 +1006,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/researcher/messages',
-    component: MessagesView,
+    component: ChatView,
     exact: false,
     permission: [UserRole.RESEARCHER],
     permissionKey: permissionsKeys.researcher.SHOW_CHAT_RESEARCHER,
@@ -1877,7 +1877,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/messages',
-    component: MessagesView,
+    component: ChatView,
     exact: false,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_CHAT_CLIENT,
@@ -2075,7 +2075,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/supervisor/messages',
-    component: MessagesView,
+    component: ChatView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
     permissionKey: permissionsKeys.supervisor.SHOW_CHAT_SUPERVISOR,
@@ -2651,7 +2651,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/admin/messages',
-    component: MessagesView,
+    component: ChatView,
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Messages,
@@ -2870,7 +2870,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/freelancer/messages',
-    component: MessagesView,
+    component: ChatView,
     exact: false,
     permission: [UserRole.FREELANCER],
     permissionKey: permissionsKeys.freelancer.SHOW_CHAT_FREELANCER,
@@ -3147,7 +3147,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/moderator/messages',
-    component: MessagesView,
+    component: ChatView,
     exact: false,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey.Messages,

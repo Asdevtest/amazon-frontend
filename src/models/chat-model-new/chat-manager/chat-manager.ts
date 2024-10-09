@@ -4,17 +4,17 @@ import { WebsocketSpacenameParams } from '@services/websocket/websocket-spacenam
 
 import { EmitsClient } from '../emits-client'
 import { Chat, ChatPagination } from '../types/chat.type'
-import { ChatMessage } from '../types/message.type'
+import { ChatMessage, IncomingTypingMessage } from '../types/message.type'
 
 import { Direction } from './chat-manager.type'
 import { observerConfig } from './observer.config'
 
 export class ChatsManager<T> extends EmitsClient<T> {
   chatsManager: ObservableMap<string, Chat> | null = null
+  notificationSound: HTMLAudioElement = new Audio(`${process.env.PUBLIC_URL}/assets/sounds/notice3.mp3`)
 
   constructor(params: WebsocketSpacenameParams<T>) {
     super(params)
-
     makeObservable(this, observerConfig)
   }
 
@@ -22,14 +22,20 @@ export class ChatsManager<T> extends EmitsClient<T> {
     chats.forEach(this.addChatToManager)
   }
 
-  addMessagesToChatById(chatId: string, messages: ChatMessage[], addDirection: Direction = Direction.END) {
+  addMessagesToChatById(
+    chatId: string,
+    messages: ChatMessage[] | ChatMessage,
+    addDirection: Direction = Direction.END,
+  ) {
     const chat = this.chatsManager?.get(chatId)
+
+    const messagesArray = Array.isArray(messages) ? messages : [messages]
 
     if (chat) {
       if (addDirection === Direction.START) {
-        chat.messages = [...messages, ...chat.messages]
+        chat.messages = [...messagesArray, ...chat.messages]
       } else if (addDirection === Direction.END) {
-        chat.messages = [...chat.messages, ...messages]
+        chat.messages = [...chat.messages, ...messagesArray]
       }
 
       this.chatsManager?.set(chatId, chat)
@@ -56,5 +62,45 @@ export class ChatsManager<T> extends EmitsClient<T> {
       chat.pagination = pagination
       this.chatsManager?.set(chatId, chat)
     }
+  }
+
+  playNotificationSound(chatId: string) {
+    const chat = this.chatsManager?.get(chatId)
+
+    if (!chat || chat?.muted) {
+      return
+    }
+
+    this.notificationSound.play()
+  }
+
+  setTypingUser(typingMessage: IncomingTypingMessage, typingValue: boolean) {
+    const chat = this.chatsManager?.get(typingMessage?.chatId)
+
+    if (!chat) {
+      return
+    }
+
+    chat.users?.forEach((user, index) => {
+      if (user?._id === typingMessage?.user?._id) {
+        const currentUser = chat.users[index]
+
+        currentUser.typing = typingValue
+        currentUser.lastSeen = typingMessage?.user?.lastSeen
+      }
+    })
+  }
+
+  checkIsTypingUser(typingMessage: IncomingTypingMessage) {
+    const chatId = typingMessage?.chatId
+    const userId = typingMessage?.user?._id
+
+    const chat = this.chatsManager?.get(chatId)
+
+    if (!chat) {
+      return false
+    }
+
+    return chat.users?.some(user => user?._id === userId && user?.typing)
   }
 }
