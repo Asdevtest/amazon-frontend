@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx'
 
 export const productDataFormConfig = {
-  batchArchive: observable,
+  archive: observable,
   batch: observable,
   showBatchInfoModal: observable,
 

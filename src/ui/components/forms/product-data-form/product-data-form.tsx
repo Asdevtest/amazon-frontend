@@ -59,7 +59,7 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
         />
 
         <CustomButton size="large" onClick={viewModel.onToggleArchive}>
-          {t(TranslationKey[viewModel.batchArchive ? 'Actual batches' : 'Archive'])}
+          {t(TranslationKey[viewModel.archive ? 'Actual batches' : 'Archive'])}
         </CustomButton>
       </div>
 

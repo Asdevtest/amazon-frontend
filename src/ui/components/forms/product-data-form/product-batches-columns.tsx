@@ -71,6 +71,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       width: 180,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      disableCustomSort: true,
     },
 
     {
