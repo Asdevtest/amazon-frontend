@@ -1,10 +1,17 @@
+import { id } from 'date-fns/locale'
+import { observer } from 'mobx-react'
 import { FC, memo } from 'react'
 import { ImAttachment } from 'react-icons/im'
 import { IoSend } from 'react-icons/io5'
 
+import { chatModel } from '@models/chat-model-new/chat-model'
+import { UserModel } from '@models/user-model'
+
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+
+import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './send-message-block.style'
 
@@ -12,7 +19,7 @@ import { EmojiPickerBlock } from '../emoji-picker-block'
 
 import { useSendMessageBlock } from './hooks/use-send-message-block'
 
-export const SendMessageBlock: FC = memo(() => {
+export const SendMessageBlock: FC = observer(() => {
   const { classes: styles } = useStyles()
 
   const {
@@ -29,6 +36,21 @@ export const SendMessageBlock: FC = memo(() => {
 
     onClickEmoji,
   } = useSendMessageBlock()
+
+  const onClickSendMessage = () => {
+    chatModel.sendMessage({
+      chatId: chatModel.selectedChatId,
+      // crmItemId: null,
+      text: message,
+      files,
+      // replyMessageId: '',
+      // forwardedMessageId: '',
+      user: {
+        name: UserModel.userInfo.name,
+        _id: UserModel.userInfo._id,
+      },
+    })
+  }
 
   return (
     <div className={styles.sendMessageBlock}>
@@ -59,6 +81,7 @@ export const SendMessageBlock: FC = memo(() => {
           type={disabledSubmit ? 'text' : 'primary'}
           disabled={disabledSubmit}
           icon={<IoSend size={20} />}
+          onClick={onClickSendMessage}
         />
       </div>
     </div>

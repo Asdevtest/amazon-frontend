@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   chatInfoHeaderWrapper: {
+    height: '52px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',

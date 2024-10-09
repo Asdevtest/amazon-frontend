@@ -5,7 +5,7 @@ import { FC, useMemo } from 'react'
 import { ChatsType } from '@constants/keys/chats'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChatContract } from '@models/chat-model/contracts'
+import { Chat } from '@models/chat-model-new/types/chat.type'
 
 import { CustomAvatar } from '@components/shared/custom-avatar'
 import { CustomButton } from '@components/shared/custom-button'
@@ -22,7 +22,7 @@ import { useStyles } from './create-new-chat-modal.style'
 import { CreateNewChatModalModel } from './create-new-chat-modal.model'
 
 export interface CreateNewChatModalProps {
-  chatToEdit?: ChatContract
+  chatToEdit?: Chat
   closeModal: () => void
 }
 
@@ -92,6 +92,7 @@ export const CreateNewChatModal: FC<CreateNewChatModalProps> = observer(props =>
       <CustomButton
         size="large"
         type="primary"
+        className={styles.createButton}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
         disabled={isDisabled}
         onClick={chatToEdit ? viewModel.onSubmitPatchInfoGroupChat : viewModel.onClickCreateChat}

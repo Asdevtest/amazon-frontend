@@ -17,11 +17,11 @@ import { ChatAvatar } from '../chat-avatar'
 interface ChatItemProps {
   chat: Chat
   onClickChat: (chat: Chat) => void
-  style: CSSProperties
+
   isActiveChat: boolean
 }
 
-export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickChat, style }) => {
+export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickChat }) => {
   const { classes: styles, cx } = useStyles()
 
   const isFavoritesChat = useMemo(() => chat.type === ChatsType.SAVED, [])
@@ -36,7 +36,6 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickCh
     <CustomButton
       type="text"
       className={cx(styles.chatItem, { [styles.activeChatItem]: isActiveChat })}
-      style={style}
       onClick={() => onClickChat(chat)}
     >
       <ChatAvatar avatarSrc={avatarSrc} isFavoritesChat={isFavoritesChat} />

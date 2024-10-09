@@ -47,11 +47,8 @@ export const MessagesList: FC = observer(() => {
       offset: currentChat.pagination.offset + (direction === Direction.START ? 20 : -20),
     }
 
-    const prevScrollHeight = listRef.current?.Grid?.getScrollHeight?.()
-    console.log('prevScrollHeight :>> ', prevScrollHeight)
-    const prevScrollTop = listRef.current?.Grid?.getScrollTop?.()
-    console.log('prevScrollTop :>> ', prevScrollTop)
-    const distanceFromBottom = prevScrollHeight - prevScrollTop
+    const curScroll = listRef.current?.Grid?._scrollingContainer.scrollTop
+    const curHeight = listRef.current?.Grid?._scrollingContainer.scrollHeight
 
     chatModel.setChatPagination(currentChat._id, pagination)
 
@@ -60,36 +57,31 @@ export const MessagesList: FC = observer(() => {
     cache.clearAll()
 
     if (direction === Direction.START) {
-      const newScrollHeight = listRef.current?.Grid?.getScrollHeight?.()
-      console.log('newScrollHeight :>> ', newScrollHeight)
-      console.log('distanceFromBottom :>> ', distanceFromBottom)
+      const newHeight = listRef.current?.Grid?._scrollingContainer.scrollHeight
 
-      const newScrollTop = newScrollHeight - distanceFromBottom
+      const newScroll = curScroll + (newHeight - curHeight)
+      console.log('newScroll :>> ', newScroll)
 
-      console.log('newScrollTop :>> ', newScrollTop)
-
-      listRef.current?.scrollToPosition(newScrollTop)
+      listRef.current.scrollToPosition(newScroll)
     }
 
     setIsLoading(false)
   }
 
-  const handleScroll = ({ clientHeight, scrollHeight, scrollTop }: ScrollParams) => {
+  const handleScroll = (/* { clientHeight, scrollHeight, scrollTop }: ScrollParams */) => {
     if (isLoading) {
       return
     }
 
-    const prevScrollHeight = scrollHeight
-    console.log('prevScrollHeight :>> ', prevScrollHeight)
-    const prevScrollTop = scrollTop
-    console.log('prevScrollTop :>> ', prevScrollTop)
-    const distanceFromBottom = prevScrollHeight - prevScrollTop
+    const scrollTop = listRef.current?.Grid?._scrollingContainer.scrollTop
 
-    if (scrollTop <= 100 && currentChat?.pagination.hasMoreTop) {
+    console.log('scrollTop :>> ', scrollTop)
+    if (scrollTop === 0 && currentChat?.pagination.hasMoreTop) {
       loadMessages(Direction.START)
-    } else if (scrollTop + clientHeight >= scrollHeight && currentChat?.pagination.hasMoreBottom) {
-      loadMessages(Direction.END)
     }
+    //  else if (scrollTop + clientHeight >= scrollHeight && currentChat?.pagination.hasMoreBottom) {
+    //   loadMessages(Direction.END)
+    // }
   }
 
   const initChat = async () => {
@@ -103,13 +95,14 @@ export const MessagesList: FC = observer(() => {
     initChat()
   }, [])
 
-  console.log('listRef.current :>> ', listRef.current)
+  console.log('listRef :>> ', listRef)
 
   return (
     <AutoSizer className={styles.autoSizer}>
       {({ width, height }) => (
         <List
           ref={listRef}
+          id="messages-list"
           width={width}
           height={height}
           rowCount={chatMessages?.length}

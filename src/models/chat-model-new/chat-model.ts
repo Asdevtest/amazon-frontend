@@ -1,5 +1,7 @@
 import { ObservableMap, makeObservable, runInAction } from 'mobx'
 
+import { OtherModel } from '@models/other-model'
+
 import { WebsocketNamespace } from '@services/websocket/websocket-spacename/types/websocket-spacename.type'
 import WebsocketsManager from '@services/websocket/websockets-manager/websockets-manager'
 
@@ -8,12 +10,15 @@ import { Direction } from './chat-manager/chat-manager.type'
 import { ChatHandlerName, ChatListenEventsHandlers } from './chat.type'
 import { observerConfig } from './observer.config'
 import { Chat } from './types/chat.type'
-import { ChatMessage } from './types/message.type'
+import { ChatMessage, SendMessage } from './types/message.type'
+import { UploadedFiles } from './types/uploaded-files'
 
 export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
   selectedChatId: string = ''
   chatsLoading: boolean = false
   messagesLoading: boolean = false
+
+  showCreateNewChatModal: boolean = false
 
   get chats() {
     return Array.from(this.chatsManager?.values?.() || [])
@@ -102,6 +107,109 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
       const result = await this.emitGetChatMessages(chatId, offset, limit)
 
       this.addMessagesToChatById(this.selectedChatId, result?.rows, direction)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onTriggerOpenModal(key: string, value: boolean) {
+    runInAction(() => {
+      // @ts-ignore
+      this[key] = value
+    })
+  }
+
+  async sendMessage(params: SendMessage) {
+    const { files, replyMessageId, forwardedMessageId }: SendMessage = params
+
+    // const replyMessageId =
+
+    try {
+      const images = []
+      const video = []
+      const uploadedFiles = []
+
+      if (files?.length) {
+        for (const file of files) {
+          if (typeof file === 'string') {
+            video.push(file)
+          } else {
+            const result = await this.onPostFile(file?.file)
+
+            if (!result) {
+              continue
+            }
+
+            const type = result.type
+            const url = result.url
+
+            if (type === 'image') {
+              images.push(url)
+            } else if (type === 'video') {
+              video.push(url)
+            } else {
+              uploadedFiles.push(url)
+            }
+          }
+        }
+      }
+
+      const messageWithoutFiles = {
+        ...params,
+        files: [],
+        images,
+        video,
+      }
+
+      if (params.text || images.length || video.length /* || params?.forwardedMessageId */) {
+        await this.emitSendMessage(messageWithoutFiles)
+      }
+
+      if (uploadedFiles.length) {
+        const messageWithFiles = {
+          chatId: params.chatId,
+          // crmItemId: params.crmItemId,
+          files: uploadedFiles,
+          // replyMessageId: params.replyMessageId,
+        }
+
+        await this.emitSendMessage(messageWithFiles)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  public async onPostFile(fileData: File) {
+    const formData = new FormData()
+
+    const fileWithoutSpaces = new File([fileData], fileData.name.replace(/ /g, ''), {
+      type: fileData.type,
+      lastModified: fileData.lastModified,
+    })
+
+    formData.append('filename', fileWithoutSpaces)
+
+    try {
+      const fileName: string = await OtherModel.postImage(formData)
+      const fileUrl = '/uploads/' + fileName
+
+      if (fileData.type.startsWith('image')) {
+        return {
+          url: fileUrl,
+          type: 'image',
+        }
+      } else if (fileData.type.startsWith('video')) {
+        return {
+          url: fileUrl,
+          type: 'video',
+        }
+      } else {
+        return {
+          url: fileUrl,
+          type: 'file',
+        }
+      }
     } catch (error) {
       console.error(error)
     }

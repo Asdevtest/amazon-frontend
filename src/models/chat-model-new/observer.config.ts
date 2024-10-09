@@ -2,6 +2,7 @@ import { action, computed, observable } from 'mobx'
 
 export const observerConfig = {
   selectedChatId: observable,
+  showCreateNewChatModal: observable,
 
   chats: computed,
   currentChat: computed,
@@ -12,4 +13,5 @@ export const observerConfig = {
   getChats: action.bound,
   getChatMessages: action.bound,
   getChatFirstMessages: action.bound,
+  onTriggerOpenModal: action.bound,
 }

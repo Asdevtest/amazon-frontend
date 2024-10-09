@@ -26,6 +26,7 @@ export const useStyles = makeStyles()(() => ({
 
   createButton: {
     alignSelf: 'flex-end',
+    width: 'fit-content',
   },
 
   userOption: {

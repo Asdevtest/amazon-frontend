@@ -1,6 +1,10 @@
 import { observer } from 'mobx-react'
 
 import { chatModel } from '@models/chat-model-new/chat-model'
+import { Chat } from '@models/chat-model-new/types/chat.type'
+
+import { CreateNewChatModal } from '@components/modals/create-new-chat-modal'
+import { Modal } from '@components/shared/modal'
 
 import { useStyles } from './chat-view.style'
 
@@ -18,7 +22,7 @@ export const ChatView = observer(() => {
       <ChatsList />
 
       <div className={cx('viewWrapper', styles.messagesWrapper)}>
-        {chatModel.currentChat ? <ChatHeader /> : null}
+        <ChatHeader />
 
         <MessagesBlock />
 
@@ -26,6 +30,17 @@ export const ChatView = observer(() => {
       </div>
 
       {/* {chatModel.currentChat ? <ChatInfo /> : null} */}
+
+      <Modal
+        unsetHidden
+        openModal={chatModel.showCreateNewChatModal}
+        setOpenModal={() => chatModel.onTriggerOpenModal('showCreateNewChatModal', false)}
+      >
+        <CreateNewChatModal
+          chatToEdit={chatModel.currentChat as Chat}
+          closeModal={() => chatModel.onTriggerOpenModal('showCreateNewChatModal', false)}
+        />
+      </Modal>
     </div>
   )
 })
