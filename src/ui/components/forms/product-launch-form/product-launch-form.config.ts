@@ -6,6 +6,7 @@ export const productLaunchConfig = {
 
   disabledSubmit: computed,
   asinOptions: computed,
+  defaultAsinOption: computed,
 
   onChangeRadioValue: action.bound,
   onChangeProduct: action.bound,
