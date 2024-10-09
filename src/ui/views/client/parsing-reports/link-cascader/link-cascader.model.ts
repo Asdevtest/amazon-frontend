@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ParserModel } from '@models/parser-model'
 import { ShopModel } from '@models/shop-model'
 
 import { t } from '@utils/translations'
@@ -49,6 +50,11 @@ export class LinkCascaderModel {
 
   async onBindProductToTable() {
     try {
+      const data = {
+        shopIds: this.selectedShopsOptions.flat(),
+        tables: this.selectedTableOptions.flat(),
+      }
+      await ParserModel.bindProductToTable(data)
       toast.success(t(TranslationKey['Data exported successfully']))
     } catch (error) {
       toast.error(t(TranslationKey['Error while exporting data']))
@@ -59,11 +65,12 @@ export class LinkCascaderModel {
   }
 
   onChangeTableOptions = (value: string[][]) => {
-    const hasAllOption = value.some(item => item.includes('select-all-shops'))
-    const allOptionSelected = this.selectedTableOptions.some(item => item.includes('select-all-shops'))
-    const shopsOptions = this.shops.map(shop => [shop._id])
-    const allOptions = [...shopsOptions, ['select-all-shops']]
-    const arraysMatch = value.length === shopsOptions.length && value.every(ids => shopsOptions.flat().includes(ids[0]))
+    const hasAllOption = value.some(item => item.includes('select-all-tables'))
+    const allOptionSelected = this.selectedTableOptions.some(item => item.includes('select-all-tables'))
+    const allOptions = getTableOptions().map(table => [table.value])
+    const tablesOptions = allOptions.filter(item => !item.includes('select-all-tables'))
+    const arraysMatch =
+      value.length === tablesOptions.length && value.every(ids => tablesOptions.flat().includes(ids[0]))
 
     if (hasAllOption && !allOptionSelected) {
       this.selectedTableOptions = allOptions
@@ -72,7 +79,7 @@ export class LinkCascaderModel {
     } else if (arraysMatch) {
       this.selectedTableOptions = allOptions
     } else if (allOptionSelected) {
-      this.selectedTableOptions = value.filter(item => !item.includes('select-all-shops'))
+      this.selectedTableOptions = value.filter(item => !item.includes('select-all-tables'))
     } else {
       this.selectedTableOptions = value
     }
@@ -107,7 +114,7 @@ export class LinkCascaderModel {
   }
 
   onChangeInput(event: ChangeEvent<HTMLInputElement>) {
-    this.inputValue = event.target.value.trim()
+    this.inputValue = event.target.value
   }
 
   clearSelection() {

@@ -7,8 +7,7 @@ export const useStyles = makeStyles()(() => ({
 
   cascader: {
     '.ant-cascader-menu': {
-      height: '204px',
-      paddingBottom: 8,
+      height: '196px',
     },
   },
 
@@ -38,7 +37,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   footer: {
-    padding: '8px 16px',
+    padding: '0 16px 8px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',

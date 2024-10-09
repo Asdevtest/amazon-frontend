@@ -2068,5 +2068,7 @@
   "By proposal": "По предложению",
   "By announcement": "По объявлению",
   "Select user": "Выбрать пользователя",
-  "Integration": "Интеграция"
+  "Integration": "Интеграция",
+  "Products linked successfully": "Продукты успешно связаны",
+  "Product linking error": "Ошибка привязки продуктов"
 }

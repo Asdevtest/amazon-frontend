@@ -2067,5 +2067,7 @@
   "By proposal": "За пропозиції",
   "By announcement": "За оголошенням",
   "Select user": "Вибрати користувача",
-  "Integration": "Інтеграція"
+  "Integration": "Інтеграція",
+  "Products linked successfully": "Продукти успішно пов'язані",
+  "Product linking error": "Помилка прив'язки продуктів"
 }
