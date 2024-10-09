@@ -12,7 +12,7 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
   table: ParsingReportsType = ParsingReportsType.BUSINESS_REPORTS
 
   constructor() {
-    const { columnsModel, filtersFields, mainMethodURL, sortModel } = getParsingReportsModelSettings(
+    const { columnsModel, filtersFields, mainMethodURL, sortModel, fieldsForSearch } = getParsingReportsModelSettings(
       ParsingReportsType.BUSINESS_REPORTS,
     )
 
@@ -25,7 +25,7 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
       columnsModel,
       filtersFields,
       mainMethodURL,
-      fieldsForSearch: [],
+      fieldsForSearch,
       tableKey: ParsingReportsType.BUSINESS_REPORTS,
       defaultGetCurrentDataOptions,
       defaultSortModel: sortModel,
@@ -37,7 +37,8 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
   }
 
   onChangeActiveTable(value: ParsingReportsType) {
-    const { columnsModel, filtersFields, mainMethodURL, sortModel } = getParsingReportsModelSettings(value)
+    const { columnsModel, filtersFields, mainMethodURL, sortModel, fieldsForSearch } =
+      getParsingReportsModelSettings(value)
 
     this.table = value
     this.tableKey = value
@@ -45,6 +46,7 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
     this.defaultColumnsModel = columnsModel
     this.filtersFields = filtersFields
     this.mainMethodURL = mainMethodURL
+    this.fieldsForSearch = fieldsForSearch
     this.setColumnMenuSettings(filtersFields)
 
     this.sortModel = sortModel
