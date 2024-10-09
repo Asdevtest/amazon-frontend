@@ -262,7 +262,6 @@ export const navbarConfig = {
             checkGroupPermissions(permissionsKeys.client.SHOW_WAREHOUSE_BOXESINSTOCK_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_WAREHOUSE_BOXESINSTOCK_CLIENT),
         },
-
         {
           subtitle: () => t(TranslationKey.Tasks),
           subRoute: '/client/warehouse/tasks',
@@ -539,7 +538,7 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        checkGroupPermissions(permissionsKeys.client.SHOW_DASHBOARD_CLIENT) ||
+        checkGroupPermissions(permissionsKeys.freelancer.SHOW_FREELANCE_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FREELANCE_FREELANCER),
     },
     {
