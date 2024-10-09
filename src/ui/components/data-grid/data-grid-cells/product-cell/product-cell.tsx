@@ -1,12 +1,12 @@
-import { Image, Tooltip, Typography } from 'antd'
+import { Tooltip, Typography } from 'antd'
 import { FC, memo } from 'react'
 import { IoWarningOutline } from 'react-icons/io5'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomImage } from '@components/shared/custom-image'
 import { Text } from '@components/shared/text'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useHover } from '@hooks/use-hover'
@@ -51,14 +51,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
       {title && !notAsinAndSku ? renderTextCell(title, 1) : null}
 
       <div className={styles.flexRow}>
-        <Image
-          preview={{ maskClassName: styles.mask }}
-          width={32}
-          height={32}
-          src={getAmazonImageUrl(image, true)}
-          wrapperClassName={styles.image}
-          onClick={e => e.stopPropagation()}
-        />
+        <CustomImage width={32} height={32} src={image} maskClassName={styles.mask} />
 
         <div className={styles.flexColumn}>
           {notAsinAndSku && title ? (

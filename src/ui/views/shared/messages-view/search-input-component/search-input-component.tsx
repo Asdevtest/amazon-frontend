@@ -40,7 +40,7 @@ export const SearchInputComponent: FC<SearchInputComponentProps> = memo(props =>
     <div className={styles.searchMessageContainer}>
       <CustomInputSearch
         allowClear
-        placeholder={t(TranslationKey['Message Search'])}
+        placeholder={'Message Search'}
         value={searchInputValue}
         wrapperClassName={cx(styles.searchInput, {
           [styles.searchInputShort]: isShortInput,

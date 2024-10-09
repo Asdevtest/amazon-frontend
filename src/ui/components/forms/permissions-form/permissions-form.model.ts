@@ -12,7 +12,7 @@ import { UserModel } from '@models/user-model'
 import { t } from '@utils/translations'
 
 import { Specs } from '@typings/enums/specs'
-import { isClient, isFreelancer } from '@typings/guards/roles'
+import { isClient, isFreelancer, isStorekeeper } from '@typings/guards/roles'
 import { IPermission } from '@typings/models/permissions/permission'
 import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 import { IPermissions } from '@typings/models/permissions/permissions'
@@ -37,8 +37,6 @@ export class PermissionsFormModel {
   shops: IShop[] = []
   products: IProduct[] = []
   selectedUserIds: string[] = []
-  // allProductsCount = 0
-  // selectedProductsCount = 0
   currentPermissionOptions: string[][] = []
   currentProductOptions: string[][] = []
   searchFocus = false
@@ -92,6 +90,10 @@ export class PermissionsFormModel {
   get isFreelancer() {
     return isFreelancer(this.userInfo?.role)
   }
+  get hasExpiredRoles() {
+    return this.isFreelancer || isStorekeeper(this.userInfo?.role)
+  }
+
   get productsOptions() {
     const mainOptions = this.shops.map(item => ({
       label: item.name,
@@ -107,6 +109,7 @@ export class PermissionsFormModel {
         subOption: true,
       })),
     }))
+
     const extraOption =
       this.products.length > 0
         ? {
@@ -249,7 +252,7 @@ export class PermissionsFormModel {
   }
 
   initSelectedSpecs() {
-    this.userInfo?.allowedSpec?.forEach(spec => this.selectedSpecs.push(spec.type))
+    this.subUser?.allowedSpec?.forEach(spec => this.selectedSpecs.push(spec.type))
   }
 
   onChangeSearchFocus(value: boolean) {
@@ -273,8 +276,8 @@ export class PermissionsFormModel {
     }
   }
 
-  onChangeUsersData(data: string[]) {
-    this.selectedUserIds = data
+  onChangeUsersData(userIds: string[]) {
+    this.selectedUserIds = userIds
   }
 
   async loadData() {
@@ -356,7 +359,7 @@ export class PermissionsFormModel {
     try {
       await UserModel.onEditMySubUser({ userIds: this.userIds, ...this.editingPermissions })
 
-      if (!this.isFreelancer) {
+      if (!this.hasExpiredRoles) {
         await PermissionsModel.setProductsPermissionsForUser({
           userIds: this.userIds,
           productIds: this.editingProducts.productIds,
@@ -375,34 +378,49 @@ export class PermissionsFormModel {
       }
 
       toast.success(t(TranslationKey['User permissions were changed']))
-      this.onUpdateData?.()
     } catch (error) {
       toast.error(t(TranslationKey['User permissions are not changed']))
     } finally {
+      this.onUpdateData?.()
       this.onCloseModal?.()
     }
   }
 
+  async getProductsPermissions() {
+    try {
+      const response = (await PermissionsModel.getProductsPermissionsForUserByIdV2(
+        this.subUser?._id,
+      )) as unknown as IProducts
+
+      return response.rows
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  async getPermissionsShops() {
+    try {
+      const response = (await PermissionsModel.getPermissionsShopsByGuidV2(this.subUser?._id)) as unknown as IShops
+
+      return response.rows
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   async getProduts() {
-    if (isFreelancer(this.userInfo?.role)) {
+    if (this.hasExpiredRoles) {
       return
     }
 
     runInAction(() => (this.productsLoading = true))
 
-    const responseProducts = (await PermissionsModel.getProductsPermissionsForUserByIdV2(
-      this.subUser?._id,
-    )) as unknown as IProducts
-    const responseShops = (await PermissionsModel.getPermissionsShopsByGuidV2(this.subUser?._id)) as unknown as IShops
+    const products = await this.getProductsPermissions()
+    const shops = isClient(this.userInfo?.role) && (await this.getPermissionsShops())
 
     runInAction(() => {
-      this.products = responseProducts?.rows
-      /* this.allProductsCount = responseProducts?.count
-      this.selectedProductsCount = responseProducts.rows?.reduce(
-        (acc: number, el: IProduct) => acc + Number(el.selected),
-        0,
-      ) */
-      this.shops = responseShops.rows
+      this.products = products || []
+      this.shops = shops || []
       this.productsOptions.forEach(el => {
         if (el.selected) {
           this.currentProductOptions.push([el.value])
@@ -421,12 +439,12 @@ export class PermissionsFormModel {
       if (allProductsExist && allShopsExist) {
         this.currentProductOptions.push([SELECT_ALL_PRODUCTS])
       }
-
-      this.productsLoading = false
     })
+
+    this.productsLoading = false
   }
 
-  searchfilter(inputValue: string, path: DefaultOptionType[]) {
+  searchFilter(inputValue: string, path: DefaultOptionType[]) {
     if (this.isAssignPermissions) {
       return path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
     } else {

@@ -171,7 +171,7 @@ export class ShopsCascaderModel {
   }
 
   onChangeInput(event: ChangeEvent<HTMLInputElement>) {
-    this.inputValue = event.target.value.trim()
+    this.inputValue = event.target.value
   }
 
   clearSelection() {

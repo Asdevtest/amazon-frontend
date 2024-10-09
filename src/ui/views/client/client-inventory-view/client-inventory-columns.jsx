@@ -215,7 +215,7 @@ export const clientInventoryColumns = ({
         </div>
       ),
       width: 85,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {

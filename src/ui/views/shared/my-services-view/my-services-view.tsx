@@ -64,6 +64,7 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
             <ServiceExchangeCard
               key={service._id}
               order
+              freelancer
               // @ts-ignore
               service={service}
               variant={cardVariant}
