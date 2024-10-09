@@ -374,7 +374,7 @@ export class PermissionsFormModel {
       }
 
       if (this.isFreelancer) {
-        await UserModel.changeSubUserSpec(this.subUser?._id, { allowedSpec: this.selectedSpecs.flat() })
+        await UserModel.changeSubUserSpec({ userIds: this.userIds, allowedSpec: this.selectedSpecs.flat() })
       }
 
       toast.success(t(TranslationKey['User permissions were changed']))
