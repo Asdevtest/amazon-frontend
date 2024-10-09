@@ -80,6 +80,6 @@ export const filtersFields = [
   'clientComment',
 ]
 
-export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'id', 'item', 'productId', 'xid', 'prepId']
+export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'orderXid', 'item', 'productId', 'xid', 'prepId'] //* check search
 
 export const disableSelectionCells = ['prepId']
