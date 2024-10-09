@@ -45,6 +45,7 @@ export const OrderProductModal = memo(props => {
     onSubmit,
     onClickCancel,
     reorderOrdersData,
+    pendingOrderQuantity,
     destinationsFavourites,
     setDestinationsFavouritesItem,
     isPendingOrdering,
@@ -71,7 +72,7 @@ export const OrderProductModal = memo(props => {
   const triggerBarcodeModal = () => {
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
-
+  console.log('pendingOrderQuantity', pendingOrderQuantity)
   const [productsForRender, setProductsForRender] = useState(
     reorderOrdersData?.length
       ? reorderOrdersData.map(reorderOrder => {
@@ -121,7 +122,7 @@ export const OrderProductModal = memo(props => {
         })
       : selectedProductsData.map(product => ({
           ...product,
-          amount: 1,
+          amount: pendingOrderQuantity || 1,
           clientComment: isPendingOrdering ? product?.clientComment : '',
           expressChinaDelivery: false,
           priority: '30',
@@ -197,7 +198,7 @@ export const OrderProductModal = memo(props => {
           }
         })
       : selectedProductsData.map(product => ({
-          amount: 1,
+          amount: pendingOrderQuantity || 1,
           clientComment: isPendingOrdering ? product?.clientComment : '',
           barCode: product?.barCode || '',
           productId: product?._id,

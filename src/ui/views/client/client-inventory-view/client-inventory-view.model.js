@@ -54,7 +54,8 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   activeProductsTags = []
 
   receivedFiles = undefined
-
+  pendingOrderQuantity = undefined
+  previousSelectedRows = []
   paymentMethods = []
 
   curProduct = undefined
@@ -226,6 +227,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
       editRecommendationForStockByGuid: (productId, storekeeperId, recommendedValue) =>
         this.editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue),
+      onClickRepurchase: (rowId, value) => this.onClickRepurchase(rowId, value),
     }
 
     const stockUsHandlers = {
@@ -693,6 +695,13 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     }
   }
 
+  onClickRepurchase(rowId, value) {
+    this.pendingOrderQuantity = undefined
+    this.selectedRows.push(rowId)
+    this.pendingOrderQuantity = value
+    this.onClickOrderBtn()
+  }
+
   showBarcodeOrHscode(barcode, hscode) {
     this.currentHscode = hscode
     this.currentBarcode = barcode
@@ -766,7 +775,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       })
 
       toast.success(t(TranslationKey['The order has been created']))
-
+      this.pendingOrderQuantity = undefined
       await this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
