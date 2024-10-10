@@ -2068,5 +2068,8 @@
   "By announcement": "За оголошенням",
   "Select user": "Вибрати користувача",
   "Select a chat room to start messaging": "Виберіть чат для початку спілкування",
-  "Looks like no one has chatted here yet. Send a message to get started!": "Посилання не знайдено. Напишіть повідомлення, щоб почати!"
+  "Looks like no one has chatted here yet. Send a message to get started!": "Посилання не знайдено. Напишіть повідомлення, щоб почати!",
+  "Integration": "Інтеграція",
+  "Products linked successfully": "Продукти успішно пов'язані",
+  "Product linking error": "Помилка прив'язки продуктів"
 }

@@ -18,18 +18,10 @@ type OperatorsSettingsType = {
 }
 
 const onlyDigitsRegex = /^\d+$/
-const onlyNumberColumns = ['xid', 'id', 'orderHumanFriendlyId', 'batchHumanFriendlyId']
+const onlyNumberColumns = ['xid', 'id', 'orderXid', 'batchHumanFriendlyId']
 
 const searchOperatorByColumn = {
-  $eq: [
-    'xid',
-    'id',
-    'orderHumanFriendlyId',
-    'orderHumanFriendlyId',
-    'productId',
-    'batchHumanFriendlyId',
-    'productCount',
-  ],
+  $eq: ['xid', 'id', 'orderXid', 'orderXid', 'productId', 'batchHumanFriendlyId', 'productCount'],
 }
 const filterOperatorByColumn = {
   $any: ['tags', 'redFlags', 'buyer', 'createdBy'],

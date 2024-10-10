@@ -1,4 +1,3 @@
-import { OrderStatusByCode, OrderStatusTranslate } from '@constants/orders/order-status'
 import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
 import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -49,34 +48,6 @@ export const myRequestsDataConverter = (data, shopsData) =>
     uploadedToListing: item?.uploadedToListing,
     taskComplexity: item?.taskComplexity,
     shopId: shopsData?.find(el => el._id === item?.product?.shopId)?.name || '',
-  }))
-
-export const clientOrdersDataConverter = (data, shopsData) =>
-  data.map(item => ({
-    originalData: item,
-    id: item._id,
-
-    idItem: `${item.id} / ${item.item ? item.item : '-'}`,
-
-    barCode: item.product.barCode,
-    totalPrice: item.totalPrice,
-    grossWeightKg: item.product.weight * item.amount,
-    warehouses: item.destination?.name,
-    // status: OrderStatusByCode[item.status],
-
-    status: OrderStatusTranslate(OrderStatusByCode[item.status]),
-
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    amount: item.amount,
-    trackingNumberChina: item.trackingNumberChina,
-    asin: item.product.asin,
-    storekeeper: item.storekeeper?.name,
-    deadline: item.deadline,
-    needsResearch: item.needsResearch,
-    buyerComment: item.buyerComment,
-    clientComment: item.clientComment,
-    shopId: shopsData?.find(el => el._id === item.product.shopId)?.name || '',
   }))
 
 export const addOrEditBatchDataConverter = (

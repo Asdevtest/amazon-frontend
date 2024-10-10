@@ -93,7 +93,7 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'id', // change field name
+      field: 'orderXid',
 
       headerName: t(TranslationKey['№ Order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
@@ -102,7 +102,7 @@ export const clientBoxesViewColumns = (
       valueGetter: ({ row }) => row.items?.[0]?.order?.xid,
       width: 160,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
       table: DataGridFilterTables.ORDERS,
       disableCustomSort: true,
     },

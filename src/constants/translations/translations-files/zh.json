@@ -2063,5 +2063,8 @@
   "By announcement": "通过公告",
   "Select user": "选择用户",
   "Select a chat room to start messaging": "选择聊天室开始聊天",
-  "Looks like no one has chatted here yet. Send a message to get started!": "没有人在这里聊过话了。发送一条消息以开始!"
+  "Looks like no one has chatted here yet. Send a message to get started!": "没有人在这里聊过话了。发送一条消息以开始!",
+  "Integration": "集成",
+  "Products linked successfully": "产品链接成功",
+  "Product linking error": "产品绑定错误"
 }

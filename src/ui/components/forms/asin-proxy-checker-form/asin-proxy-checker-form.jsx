@@ -161,12 +161,8 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
             allowClear
             wrapperClassName={styles.searchInput}
             value={nameSearchValue}
-            placeholder={
-              checkIsAdmin(userRole)
-                ? t(TranslationKey['Search by Proxy'])
-                : t(TranslationKey['Search by ASIN, Reason'])
-            }
-            onChange={e => setNameSearchValue(e.target.value.trim())}
+            placeholder={checkIsAdmin(userRole) ? 'Search by Proxy' : 'Search by ASIN, Reason'}
+            onChange={e => setNameSearchValue(e.target.value)}
           />
         </div>
         {updatedAsinsAndReasonsData.length ? (

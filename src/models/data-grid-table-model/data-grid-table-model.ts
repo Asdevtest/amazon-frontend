@@ -45,7 +45,7 @@ export class DataGridTableModel extends DefaultModel {
 
   get filteredData() {
     if (this.fieldsForSearch?.length) {
-      const searchValue = this.currentSearchValue.toLowerCase()
+      const searchValue = this.currentSearchValue.trim().toLowerCase()
 
       return this.currentData?.filter((item: any) => this.checkNestedFields(item, searchValue, this.fieldsForSearch))
     } else {
@@ -150,7 +150,7 @@ export class DataGridTableModel extends DefaultModel {
   }
 
   onChangeUnserverSearchValue(value: string) {
-    this.currentSearchValue = value.trim()
+    this.currentSearchValue = value
   }
 
   handlePinColumn(pinnedColumns: GridPinnedColumns) {

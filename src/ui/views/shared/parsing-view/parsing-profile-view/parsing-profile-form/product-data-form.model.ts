@@ -90,7 +90,7 @@ export class ParsingProfileFormModel {
 
   async onParsingProfileRemoved() {
     try {
-      await ParserModel.onParsingProfileRemoved(this.profile?._id)
+      await ParserModel.parsingProfileRemoved(this.profile?._id)
       toast.success(t(TranslationKey['Parsing profile successfully deleted']))
     } catch (error) {
       toast.error(t(TranslationKey['Error deleting parsing profile']))

@@ -15,6 +15,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './parsing-reports.style'
 
+import { LinkCascader } from './link-cascader'
 import { getSelectConfig } from './parsing-reports.config'
 import { ParsingReportsModel } from './parsing-reports.model'
 
@@ -24,18 +25,22 @@ export const ParsingReports = observer(() => {
 
   return (
     <div className="viewWrapper">
-      <div className={styles.header}>
-        <CustomSelect
-          showSearch
-          size="large"
-          options={getSelectConfig()}
-          value={viewModel.table}
-          listHeight={384}
-          filterOption={(inputValue, option) =>
-            (option?.label as string)?.toLowerCase?.()?.includes?.(inputValue.toLowerCase())
-          }
-          onChange={viewModel.onChangeActiveTable}
-        />
+      <div className={styles.flexRow}>
+        <div className={styles.flexRow}>
+          <CustomSelect
+            showSearch
+            size="large"
+            options={getSelectConfig()}
+            value={viewModel.table}
+            listHeight={384}
+            filterOption={(inputValue, option) =>
+              (option?.label as string)?.toLowerCase?.()?.includes?.(inputValue.toLowerCase())
+            }
+            onChange={viewModel.onChangeActiveTable}
+          />
+
+          <LinkCascader />
+        </div>
 
         <CustomInputSearch
           enterButton
@@ -69,19 +74,16 @@ export const ParsingReports = observer(() => {
               onClickResetFilters: viewModel.onClickResetFilters,
               isSomeFilterOn: viewModel.isSomeFilterOn,
             },
-
             columsBtnSettings: {
               columnsModel: viewModel.columnsModel,
               columnVisibilityModel: viewModel.columnVisibilityModel,
               onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
             },
-
             sortSettings: {
               sortModel: viewModel.sortModel,
               columnsModel: viewModel.columnsModel,
               onSortModelChange: viewModel.onChangeSortingModel,
             },
-
             tablePresets: {
               showPresetsSelect: viewModel.showPresetsSelect,
               presetsTableData: viewModel.presetsTableData,
@@ -100,7 +102,6 @@ export const ParsingReports = observer(() => {
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
-        // onRowDoubleClick={params => viewModel.getDataForIdeaModal(params.row)}
       />
     </div>
   )

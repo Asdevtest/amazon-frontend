@@ -2070,4 +2070,7 @@ export enum TranslationKey {
   'Select user' = 'Select user',
   'Select a chat room to start messaging' = 'Select a chat room to start messaging',
   'Looks like no one has chatted here yet. Send a message to get started!' = 'Looks like no one has chatted here yet. Send a message to get started!',
+  'Integration' = 'Integration',
+  'Products linked successfully' = 'Products linked successfully',
+  'Product linking error' = 'Product linking error',
 }

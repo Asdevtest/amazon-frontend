@@ -5,7 +5,7 @@ import { paginationModelInitialValue } from '@models/data-grid-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 
 import { getParsingReportsModelSettings } from './helpers/get-parsing-reports-model-settings'
-import { observerConfig } from './observer-config'
+import { parsingReportsModelConfig } from './parsing-reports.config'
 import { ParsingReportsType } from './parsing-reports.type'
 
 export class ParsingReportsModel extends DataGridFilterTableModel {
@@ -15,7 +15,6 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
     const { columnsModel, filtersFields, mainMethodURL, sortModel, fieldsForSearch } = getParsingReportsModelSettings(
       ParsingReportsType.BUSINESS_REPORTS,
     )
-
     const defaultGetCurrentDataOptions = () => ({
       table: this.table,
     })
@@ -31,7 +30,7 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
       defaultSortModel: sortModel,
       defaultColumnVisibilityModel: { client: false },
     })
-    makeObservable(this, observerConfig)
+    makeObservable(this, parsingReportsModelConfig)
 
     this.getTableSettingsPreset()
   }
@@ -48,11 +47,9 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
     this.mainMethodURL = mainMethodURL
     this.fieldsForSearch = fieldsForSearch
     this.setColumnMenuSettings(filtersFields)
-
     this.sortModel = sortModel
     this.paginationModel = paginationModelInitialValue
     this.setDefaultPinnedColumns()
-
     this.getTableSettingsPreset()
   }
 }

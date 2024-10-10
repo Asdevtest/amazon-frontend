@@ -24,7 +24,7 @@ import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/da
 export const adminOrdersViewColumns = () => {
   const columns: IGridColumn[] = [
     {
-      field: 'id',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <Text isCell text={params.value} />,

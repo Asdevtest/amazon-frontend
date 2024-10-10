@@ -33,7 +33,6 @@ interface TextCellProps extends TextAreaProps {
   textStyle?: React.CSSProperties
   type?: 'secondary' | 'success' | 'warning' | 'danger'
   error?: boolean
-  link?: boolean
   bold?: boolean
   onClickSubmit?: (id: string, comment?: string) => void
 }
@@ -53,7 +52,6 @@ export const Text: FC<TextCellProps> = memo(props => {
     textStyle,
     type,
     error,
-    link,
     bold,
     onClickSubmit,
     ...restProps
