@@ -29,8 +29,8 @@ export class MyServicesViewModel {
   showConfirmModal = false
   columnMenuSettings = {
     ...dataGridFiltersInitializer(filterFields),
-    archive: { currentFilterData: [false] }, // default init value
-    specType: { currentFilterData: [] as Specs[] }, // default init value
+    archive: { currentFilterData: [false] },
+    specType: { currentFilterData: [] as Specs[] },
   }
 
   get userInfo() {
