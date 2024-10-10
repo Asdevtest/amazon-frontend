@@ -29,7 +29,7 @@ import { productionTermColumnMenuItems, productionTermColumnMenuValue } from './
 export const pendingOrdersColumns = () => {
   const columns: IGridColumn[] = [
     {
-      field: 'xid', // ! remove hide
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <Text isCell text={params.value} />,

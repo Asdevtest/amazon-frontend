@@ -31,7 +31,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     field: 'xid',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-    renderCell: params => <Text isCell text={params.row.xid} />, // ! hidded values?
+    renderCell: params => <Text isCell text={params.row.xid} />,
     width: 100,
     type: 'number',
   },
