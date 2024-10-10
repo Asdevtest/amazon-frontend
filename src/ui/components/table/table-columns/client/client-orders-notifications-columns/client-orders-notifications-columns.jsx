@@ -1,4 +1,3 @@
-import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { OrderStatusByCode, OrderStatusTranslate, orderColorByStatus } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -50,8 +49,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
 
       renderCell: params => <Text isCell text={params.row.xid} />,
       type: 'number',
-      width: 60,
-      columnKey: columnnsKeys.shared.NUMBER,
+      width: 65,
     },
 
     {
