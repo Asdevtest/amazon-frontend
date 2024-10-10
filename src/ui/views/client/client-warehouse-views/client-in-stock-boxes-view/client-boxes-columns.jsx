@@ -93,7 +93,7 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'orderXid', // change field name
+      field: 'orderXid',
 
       headerName: t(TranslationKey['№ Order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,

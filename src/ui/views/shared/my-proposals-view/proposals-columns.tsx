@@ -129,7 +129,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
     },
 
     {
-      field: 'xid',
+      field: 'requestXid', //  ! rename after update back
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: (params: GridCellParams) => <Text isCell text={params.row?.request.xid} />,

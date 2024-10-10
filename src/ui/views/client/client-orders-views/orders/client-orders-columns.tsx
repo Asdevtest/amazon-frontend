@@ -60,7 +60,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
     },
 
     {
-      field: 'id',
+      field: 'xid',
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
       valueGetter: params => params.row.xid,
