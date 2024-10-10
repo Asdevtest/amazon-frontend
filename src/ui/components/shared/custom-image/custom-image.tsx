@@ -21,7 +21,7 @@ export const CustomImage: FC<CustomImageProps> = memo(props => {
       <Image
         preview={!!src && { maskClassName: cx(styles.maskClassNameRoot, maskClassName) }}
         src={getAmazonImageUrl(src, fullImage)}
-        className={className}
+        className={cx(styles.image, className)}
         {...restProps}
       />
     </div>

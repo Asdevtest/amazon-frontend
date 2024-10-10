@@ -61,7 +61,9 @@ export const excludedLaunches = [Launches.CUSTOM, Launches.AB_TEST, Launches.PRI
 export const getAsinOptions = (products: IPermissionsData[]) =>
   products?.map(product => {
     const mediaFile = product?.images?.[0]
-    const displayedMediaFile = checkIsImageLink(mediaFile) ? getAmazonImageUrl(mediaFile) : '/assets/img/no-photo.jpg'
+    const displayedMediaFile = checkIsImageLink(mediaFile)
+      ? getAmazonImageUrl(mediaFile)
+      : '/assets/img/defaultImage.png'
 
     return {
       ...product,

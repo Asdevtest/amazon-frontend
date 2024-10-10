@@ -57,7 +57,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
 
             <img
               className={styles.groupImage}
-              src={getAmazonImageUrl(message.data.prevData?.image) || '/assets/img/no-photo.jpg'}
+              src={getAmazonImageUrl(message.data.prevData?.image) || '/assets/img/defaultImage.png'}
               onClick={() => {
                 setShowPhotosModal(!showPhotosModal)
 
