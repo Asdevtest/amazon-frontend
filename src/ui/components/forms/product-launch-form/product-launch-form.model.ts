@@ -36,7 +36,6 @@ export class ProductLaunchFormModel extends UseProductsPermissions {
 
   onChangeRadioValue(e: RadioChangeEvent) {
     this.radioValue = e.target.value
-    this.selectedProduct = undefined
   }
 
   onChangeProduct = (value: string, option: BaseOptionType) => {
