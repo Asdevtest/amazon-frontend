@@ -24,4 +24,6 @@ export const observerConfig = {
   onPaginationModelChange: override,
   currentSearchValue: override,
   onClickResetFilters: override,
+  getPresetSettingForSave: override,
+  setSettingsFromActivePreset: override,
 }
