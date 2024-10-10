@@ -136,7 +136,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           disabled={chipConfig === chipConfigSettings.RECOMMENDED}
           value={searchInputValue}
           placeholder={t(TranslationKey.Search)}
-          onSubmit={e => setSearchInputValue(e.target.value.trim())}
+          onSearch={e => setSearchInputValue(e.target.value.trim())}
         />
       </div>
 

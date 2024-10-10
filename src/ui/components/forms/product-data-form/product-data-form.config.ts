@@ -1,9 +1,7 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const productDataFormConfig = {
-  rows: computed,
-
-  batchArchive: observable,
+  archive: observable,
   batch: observable,
   showBatchInfoModal: observable,
 

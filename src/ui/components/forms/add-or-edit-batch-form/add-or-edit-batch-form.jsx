@@ -446,7 +446,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             allowClear
             value={nameSearchValueBoxesToAddData}
             placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
-            onChange={e => setNameSearchValueBoxesToAddData(e.target.value.trim())}
+            onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
           />
         </div>
 
@@ -557,7 +557,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             allowClear
             value={nameSearchValueChosenBoxes}
             placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
-            onChange={e => setNameSearchValueChosenBoxes(e.target.value.trim())}
+            onChange={e => setNameSearchValueChosenBoxes(e.target.value)}
           />
         </div>
 
