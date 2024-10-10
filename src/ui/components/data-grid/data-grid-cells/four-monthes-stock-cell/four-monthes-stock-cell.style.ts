@@ -11,6 +11,12 @@ export const useStyles = makeStyles()(theme => ({
     gap: '5px',
   },
 
+  text: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '3px',
+  },
+
   title: {
     fontSize: '14px',
     lineHeight: '19px',

@@ -306,7 +306,6 @@ export const ClientInventoryView = observer(({ history }) => {
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           selectedProductsData={viewModel.dataForOrderModal}
-          pendingOrderQuatity={viewModel.pendingOrderQuatity}
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onDoubleClickBarcode={viewModel.onDoubleClickBarcode}
           onSubmit={viewModel.onConfirmSubmitOrderProductModal}

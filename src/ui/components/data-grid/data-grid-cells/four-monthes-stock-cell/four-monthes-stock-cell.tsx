@@ -34,20 +34,19 @@ export const FourMonthesStockCell: FC<FourMonthesStockCellProps> = memo(props =>
     disabled = false,
   } = props
 
-  const { classes: styles } = useStyles()
+  const { cx, classes: styles } = useStyles()
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>{`${title || t(TranslationKey['To repurchase'])}: `} </p>
-      <p
-        className={styles.multilineLink}
-        onClick={e => {
-          e.stopPropagation()
-          onClickRepurchase?.(rowId, value)
-        }}
-      >
-        {value}
-      </p>
+      <div className={styles.text}>
+        <p className={styles.title}>{`${title || t(TranslationKey['To repurchase'])}: `} </p>
+        <p
+          className={cx({ [styles.multilineLink]: !!onClickRepurchase })}
+          onClick={() => onClickRepurchase?.(rowId, value)}
+        >
+          {value}
+        </p>
+      </div>
       <ChangeInputCell
         isInteger
         isPepurchase={!isNotPepurchase}
