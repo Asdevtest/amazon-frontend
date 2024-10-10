@@ -30,6 +30,7 @@ export class ProductLaunchFormModel extends UseProductsPermissions {
   constructor(selectedProduct?: IProduct) {
     super(ClientModel.getProductPermissionsData)
     this.setOptions({ isChild: false })
+    this.radioValue = selectedProduct ? RadioValue.VARIATION : RadioValue.NEW
     this.selectedProduct = selectedProduct
     makeObservable(this, productLaunchConfig)
   }
