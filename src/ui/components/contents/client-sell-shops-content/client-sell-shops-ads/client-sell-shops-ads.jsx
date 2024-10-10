@@ -77,12 +77,7 @@ export const ClientSellShopsAds = observer(() => {
         </Button>
       </div>
 
-      <CustomInputSearch
-        allowClear
-        placeholder={t(TranslationKey.Search)}
-        value={nameSearchValue}
-        onChange={onChangeNameSearchValue}
-      />
+      <CustomInputSearch allowClear placeholder="Search" value={nameSearchValue} onChange={onChangeNameSearchValue} />
 
       {model.currentData?.length ? (
         <div>

@@ -133,10 +133,11 @@ export const BindInventoryGoodsToStockForm = observer(props => {
 
         <CustomInputSearch
           allowClear
+          size="large"
           disabled={chipConfig === chipConfigSettings.RECOMMENDED}
           value={searchInputValue}
-          placeholder={t(TranslationKey.Search)}
-          onSearch={e => setSearchInputValue(e.target.value.trim())}
+          placeholder="Search"
+          onChange={e => setSearchInputValue(e.target.value)}
         />
       </div>
 
