@@ -61,7 +61,7 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
           placeholder="From"
           value={fromSearchValue}
           wrapperClassName={sharedStyles.searchInput}
-          onChange={e => setFromSearchValue(e.target.value.trim())}
+          onChange={e => setFromSearchValue(e.target.value)}
         />
 
         <CustomInputSearch
@@ -69,7 +69,7 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
           placeholder="To"
           value={toSearchValue}
           wrapperClassName={sharedStyles.searchInput}
-          onChange={e => setToSearchValue(e.target.value.trim())}
+          onChange={e => setToSearchValue(e.target.value)}
         />
       </div>
 
@@ -78,7 +78,7 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
         placeholder="Search"
         value={nameSearchValue}
         wrapperClassName={sharedStyles.searchInput}
-        onChange={e => setNameSearchValue(e.target.value.trim())}
+        onChange={e => setNameSearchValue(e.target.value)}
       />
 
       <DataWrapperColumnMenu

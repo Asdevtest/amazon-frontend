@@ -310,8 +310,8 @@ export const BatchInfoModal = observer(
                 allowClear
                 wrapperClassName={styles.searchInput}
                 value={nameSearchValue}
-                placeholder={t(TranslationKey.Search)}
-                onChange={e => setNameSearchValue(e.target.value.trim())}
+                placeholder="Search"
+                onChange={e => setNameSearchValue(e.target.value)}
               />
             </Tooltip>
           </div>

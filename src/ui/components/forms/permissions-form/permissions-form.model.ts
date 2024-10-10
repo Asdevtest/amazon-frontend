@@ -211,7 +211,8 @@ export class PermissionsFormModel {
     const allOptions = this.permissionsOptions.map(permission => [permission.value])
     const permissionsOptions = allOptions.filter(item => !item.includes(SELECT_ALL_PERMISSION))
     const arraysMatch =
-      value.length === permissionsOptions.length && value.every(ids => permissionsOptions.flat().includes(ids[0]))
+      value.length === permissionsOptions.length &&
+      value.every(ids => permissionsOptions.flat().includes(ids[1] || ids[0]))
 
     if (hasAllOption && !allOptionSelected) {
       this.currentPermissionOptions = allOptions
@@ -232,7 +233,7 @@ export class PermissionsFormModel {
     const allOptions = this.productsOptions.map(permission => [permission.value])
     const productsOptions = allOptions.filter(item => !item.includes(SELECT_ALL_PRODUCTS))
     const arraysMatch =
-      value.length === productsOptions.length && value.every(ids => productsOptions.flat().includes(ids[0]))
+      value.length === productsOptions.length && value.every(ids => productsOptions.flat().includes(ids[1] || ids[0]))
 
     if (hasAllOption && !allOptionSelected) {
       this.currentProductOptions = allOptions
@@ -374,7 +375,7 @@ export class PermissionsFormModel {
       }
 
       if (this.isFreelancer) {
-        await UserModel.changeSubUserSpec(this.subUser?._id, { allowedSpec: this.selectedSpecs.flat() })
+        await UserModel.changeSubUserSpec({ userIds: this.userIds, allowedSpec: this.selectedSpecs.flat() })
       }
 
       toast.success(t(TranslationKey['User permissions were changed']))

@@ -61,7 +61,7 @@ export class ClientSellShopsDealsModel {
   }
 
   onChangeNameSearchValue(e) {
-    this.nameSearchValue = e.target.value.trim()
+    this.nameSearchValue = e.target.value
   }
 
   async loadData() {

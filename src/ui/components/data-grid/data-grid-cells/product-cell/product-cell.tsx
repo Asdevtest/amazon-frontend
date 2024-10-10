@@ -24,10 +24,11 @@ interface ProductCellProps {
   superbox?: number
   errorMessage?: string
   errorDescription?: string
+  isCell?: boolean
 }
 
 export const ProductCell: FC<ProductCellProps> = memo(props => {
-  const { image, title, asin, sku, quantity, superbox, errorMessage, errorDescription } = props
+  const { image, title, asin, sku, quantity, superbox, errorMessage, errorDescription, isCell = true } = props
 
   const { classes: styles, cx, theme } = useStyles()
   const hoverAsin = useHover()
@@ -46,7 +47,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
   const isErrorText = !!errorMessage || !!errorDescription
 
   return (
-    <div className={styles.root}>
+    <div className={cx(styles.root, { [styles.cell]: isCell })}>
       {title && !notAsinAndSku ? renderTextCell(title, 1) : null}
 
       <div className={styles.flexRow}>

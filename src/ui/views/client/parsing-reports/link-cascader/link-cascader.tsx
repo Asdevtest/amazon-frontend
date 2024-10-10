@@ -63,7 +63,7 @@ export const LinkCascader: FC = observer(() => {
 
         <div className={styles.footer}>
           <CustomButton disabled={viewModel.disabledLinkButton} type="primary" onClick={viewModel.onBindProductToTable}>
-            {t(TranslationKey.Link)}
+            {t(TranslationKey.Bind)}
           </CustomButton>
         </div>
       </>
