@@ -63,7 +63,6 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
         image={params.row.product?.images?.[0]}
         sku={params.row.product?.skuByClient}
         title={params.row.product?.amazonTitle}
-        superbox={params.row.amount}
       />
     ),
     sortable: false,
