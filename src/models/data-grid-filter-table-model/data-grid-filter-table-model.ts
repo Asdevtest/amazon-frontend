@@ -4,12 +4,14 @@ import { makeObservable, runInAction } from 'mobx'
 import { GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid-premium'
 
 import { DataGridTableModel } from '@models/data-grid-table-model'
+import { defaultPinnedColumns, paginationModelInitialValue } from '@models/data-grid-table-model/model-config'
 import { GeneralModel } from '@models/general-model'
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IGridColumn } from '@typings/shared/grid-column'
 
 import { DataGridFilterTableModelParams } from './data-grid-filter-table-model.type'
 import { observerConfig } from './observer-config'
@@ -128,6 +130,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   onChangeFullFieldMenuItem(value: any, field: string) {
+    if (!this.columnMenuSettings[field]) {
+      return
+    }
+
     this.columnMenuSettings[field].currentFilterData = value
   }
 
@@ -198,5 +204,106 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this.paginationModel = model
     this.getCurrentData()
     this.setDataGridState()
+  }
+
+  getPresetSettingForSave(colomns: IGridColumn[]) {
+    const filters = this.getFilters()
+
+    const fields = colomns?.map(column => ({
+      field: column.field,
+      width: column.width,
+    }))
+
+    return {
+      sortModel: this?.sortModel,
+      paginationModel: this?.paginationModel,
+      pinnedColumns: this?.pinnedColumns,
+      columnVisibilityModel: this?.columnVisibilityModel,
+      filters,
+      fields,
+    }
+  }
+
+  async setSettingsFromActivePreset() {
+    const activePreset = this.getActivePreset()
+
+    if (activePreset) {
+      // @ts-ignore
+      const savedColumns: IGridColumn[] = []
+
+      for await (const field of activePreset.settings.fields) {
+        const foundColumn = await this.columnsModel?.find(column => column?.field === field?.field)
+
+        if (foundColumn) {
+          foundColumn.width = field?.width
+        } else {
+          continue
+        }
+
+        savedColumns.push(foundColumn)
+      }
+
+      const parsedValue = this.parseQueryString(activePreset?.settings?.filters)
+
+      this.setFilterFromPreset(parsedValue)
+
+      runInAction(() => {
+        this.columnsModel = savedColumns
+        this.sortModel = activePreset?.settings?.sortModel
+        this.pinnedColumns = activePreset?.settings?.pinnedColumns
+        this.paginationModel = activePreset?.settings?.paginationModel
+        this.columnVisibilityModel = activePreset?.settings?.columnVisibilityModel
+      })
+    } else {
+      this.handlePinColumn(defaultPinnedColumns)
+
+      const savedColumns: IGridColumn[] = await this.defaultColumnsModel?.map(column => ({
+        ...column,
+      }))
+
+      this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
+
+      runInAction(() => {
+        this.columnsModel = savedColumns
+        this.sortModel = this.defaultSortModel
+        this.paginationModel = paginationModelInitialValue
+        this.columnVisibilityModel = this.defaultColumnVisibilityModel || {}
+      })
+    }
+
+    this.getCurrentData()
+  }
+
+  parseQueryString(queryString?: string): Record<string, string[]> {
+    if (!queryString) {
+      return {}
+    }
+
+    const params = queryString.split(';')
+    const result: Record<string, string[]> = {}
+
+    params.forEach(param => {
+      const [key, value] = param.split('=')
+      const decodedKey = decodeURIComponent(key).replace(/\[.*?\]/, '')
+      const decodedValue = decodeURIComponent(value)
+
+      let valueArray: string[] = []
+
+      if (decodedValue) {
+        valueArray = decodedValue.split(',').map(item => item.replace(/"/g, ''))
+      }
+
+      result[decodedKey] = valueArray
+    })
+
+    return result
+  }
+
+  setFilterFromPreset(presetFilters: Record<string, string[]>) {
+    const keys = Object.keys(presetFilters)
+
+    for (const key of keys) {
+      this.onChangeFullFieldMenuItem(presetFilters[key], key)
+    }
   }
 }

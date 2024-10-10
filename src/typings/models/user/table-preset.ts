@@ -8,6 +8,7 @@ export interface ITablePreset {
   title: string
   createdAt: string
   updatedAt: string
+  filters: string
 }
 
 export interface ITablePresetSetting {
