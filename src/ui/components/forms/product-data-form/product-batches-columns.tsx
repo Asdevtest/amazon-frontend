@@ -71,7 +71,6 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       width: 180,
       table: DataGridFilterTables.BATCHES,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
-      disableCustomSort: true,
     },
 
     {
@@ -80,7 +79,6 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.boxes?.[0]?.destination?.name || '-'} />,
       width: 150,
-      disableCustomSort: true,
       filterable: false,
     },
 
@@ -97,7 +95,6 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         />
       ),
       width: 165,
-      disableCustomSort: true,
       filterable: false,
     },
 
@@ -109,7 +106,6 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         <Text isCell text={formatDate(row?.boxes?.[0]?.logicsTariff?.cls) || '-'} />
       ),
       width: 110,
-      disableCustomSort: true,
       filterable: false,
     },
 
@@ -121,7 +117,6 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         <Text isCell text={formatDate(row?.boxes?.[0]?.logicsTariff?.etd) || '-'} />
       ),
       width: 110,
-      disableCustomSort: true,
       filterable: false,
     },
 
@@ -133,7 +128,6 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         <Text isCell text={formatDate(row?.boxes?.[0]?.logicsTariff?.eta) || '-'} />
       ),
       width: 110,
-      disableCustomSort: true,
       filterable: false,
     },
 
