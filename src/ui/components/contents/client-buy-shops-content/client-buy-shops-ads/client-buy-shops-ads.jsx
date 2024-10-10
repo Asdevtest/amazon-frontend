@@ -81,7 +81,7 @@ export const ClientBuyShopsAds = observer(() => {
 
             <CustomInputSearch
               allowClear
-              placeholder={t(TranslationKey.Search)}
+              placeholder="Search"
               value={nameSearchValue}
               onChange={onChangeNameSearchValue}
             />

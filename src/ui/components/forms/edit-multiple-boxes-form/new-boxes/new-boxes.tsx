@@ -72,8 +72,8 @@ export const NewBoxes: FC<NewBoxesProps> = memo(props => {
         <CustomInputSearch
           allowClear
           value={nameSearchValue}
-          placeholder={t(TranslationKey['Search by SKU, ASIN, Title'])}
-          onChange={e => setNameSearchValue(e.target.value.trim())}
+          placeholder="Search by SKU, ASIN, Title"
+          onChange={e => setNameSearchValue(e.target.value)}
         />
       </div>
 

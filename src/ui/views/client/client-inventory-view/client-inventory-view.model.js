@@ -535,9 +535,8 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
 
   async onClickProductLaunch() {
     try {
-      const result = this.currentData?.find(
-        product => product?._id === this.selectedRows?.[0] && !product?.parentProductId,
-      )
+      const result = this.currentData?.find(product => product?._id === this.selectedRows?.[0])
+
       runInAction(() => (this.selectedProductToLaunch = result))
 
       this.onTriggerOpenModal('showProductLaunch')

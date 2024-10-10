@@ -111,6 +111,6 @@ export class SourceFilesViewModel {
   }
 
   onChangeNameSearchValue(value) {
-    this.nameSearchValue = value.trim()
+    this.nameSearchValue = value
   }
 }

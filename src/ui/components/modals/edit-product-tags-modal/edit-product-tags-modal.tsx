@@ -81,6 +81,7 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
           onDeselect={value => viewModel.handleDeleteTag(value)}
           onPopupScroll={viewModel.loadMoreDataHadler}
           onSearch={viewModel.onSearch}
+          onClear={viewModel.handleClearTags}
         />
 
         <div className={styles.footerModal}>
