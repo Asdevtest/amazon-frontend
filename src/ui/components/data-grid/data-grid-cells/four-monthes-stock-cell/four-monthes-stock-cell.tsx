@@ -12,6 +12,7 @@ interface FourMonthesStockCellProps {
   value: string
   fourMonthesStockValue: string
   onClick: (rowId: string, value: string | number) => void
+  onClickRepurchase?: (rowId: string, value: string | number) => void
   title?: string
   disabled?: boolean
   isNotPepurchase?: boolean
@@ -29,15 +30,23 @@ export const FourMonthesStockCell: FC<FourMonthesStockCellProps> = memo(props =>
     minValue,
     maxValue,
     onClick,
+    onClickRepurchase,
     disabled = false,
   } = props
 
-  const { classes: styles } = useStyles()
+  const { cx, classes: styles } = useStyles()
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>{`${title || t(TranslationKey['To repurchase'])}: ${value}`}</p>
-
+      <div className={styles.text}>
+        <p className={styles.title}>{`${title || t(TranslationKey['To repurchase'])}: `} </p>
+        <p
+          className={cx({ [styles.multilineLink]: !!onClickRepurchase })}
+          onClick={() => onClickRepurchase?.(rowId, value)}
+        >
+          {value}
+        </p>
+      </div>
       <ChangeInputCell
         isInteger
         isPepurchase={!isNotPepurchase}
