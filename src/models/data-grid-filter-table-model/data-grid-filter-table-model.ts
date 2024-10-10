@@ -130,6 +130,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   onChangeFullFieldMenuItem(value: any, field: string) {
+    if (!this.columnMenuSettings[field]) {
+      return
+    }
+
     this.columnMenuSettings[field].currentFilterData = value
   }
 
@@ -239,7 +243,9 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         savedColumns.push(foundColumn)
       }
 
-      const savedFilters = activePreset?.filters?.replaceAll(/%2C/g, ',')
+      const parsedValue = this.parseQueryString(activePreset?.settings?.filters)
+
+      this.setFilterFromPreset(parsedValue)
 
       runInAction(() => {
         this.columnsModel = savedColumns
@@ -255,6 +261,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         ...column,
       }))
 
+      this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
+
       runInAction(() => {
         this.columnsModel = savedColumns
         this.sortModel = this.defaultSortModel
@@ -264,5 +272,38 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     }
 
     this.getCurrentData()
+  }
+
+  parseQueryString(queryString?: string): Record<string, string[]> {
+    if (!queryString) {
+      return {}
+    }
+
+    const params = queryString.split(';')
+    const result: Record<string, string[]> = {}
+
+    params.forEach(param => {
+      const [key, value] = param.split('=')
+      const decodedKey = decodeURIComponent(key).replace(/\[.*?\]/, '')
+      const decodedValue = decodeURIComponent(value)
+
+      let valueArray: string[] = []
+
+      if (decodedValue) {
+        valueArray = decodedValue.split(',').map(item => item.replace(/"/g, ''))
+      }
+
+      result[decodedKey] = valueArray
+    })
+
+    return result
+  }
+
+  setFilterFromPreset(presetFilters: Record<string, string[]>) {
+    const keys = Object.keys(presetFilters)
+
+    for (const key of keys) {
+      this.onChangeFullFieldMenuItem(presetFilters[key], key)
+    }
   }
 }
