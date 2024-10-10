@@ -61,7 +61,7 @@ export const Select: FC<SelectProps> = memo(props => {
           <CustomInputSearch
             allowClear
             value={searchValue}
-            placeholder={t(TranslationKey.Search)}
+            placeholder="Search"
             wrapperClassName={styles.searchInput}
             onChange={e => setSearchValue(e.target.value)}
           />
