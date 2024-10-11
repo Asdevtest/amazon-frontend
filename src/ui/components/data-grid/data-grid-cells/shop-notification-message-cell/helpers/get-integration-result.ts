@@ -1,4 +1,4 @@
-import { IShop, ShopUpdateResult } from '../shop-notification.type'
+import { IIntegrationResult, IShop, ShopUpdateResult } from '../shop-notification.type'
 
 export const getIntegrationResult = (shopData: IShop['data']) => {
   if (!shopData) {
@@ -18,8 +18,8 @@ export const getIntegrationResult = (shopData: IShop['data']) => {
       return acc
     },
     {
-      [ShopUpdateResult.SUCCESS]: [] as string[],
-      [ShopUpdateResult.ERROR]: [] as { table: string; error: string }[],
+      [ShopUpdateResult.SUCCESS]: [] as IIntegrationResult[ShopUpdateResult.SUCCESS],
+      [ShopUpdateResult.ERROR]: [] as IIntegrationResult[ShopUpdateResult.ERROR],
     },
   )
 }
