@@ -155,7 +155,7 @@ export const MultipleChats = observer(
                 <div className={styles.searchMessageContainer}>
                   <CustomInputSearch
                     allowClear
-                    placeholder={'Message Search'}
+                    placeholder="Message Search"
                     value={mesSearchValue}
                     onChange={onChangeMesSearchValue}
                   />

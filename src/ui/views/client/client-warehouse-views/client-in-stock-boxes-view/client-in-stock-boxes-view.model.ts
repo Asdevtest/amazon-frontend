@@ -873,7 +873,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSubmitEditMultipleBoxes(newBoxes: any, sharedFields: any) {
+  async onClickSubmitEditMultipleBoxes(newBoxes: any, selectedBoxes: any, sharedFields: any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
@@ -881,11 +881,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       const uploadedShippingLabels: { strKey: string; link: string }[] = []
       const uploadedBarcodes: { strKey: string; link: string }[] = []
       const uploadedTransparencyFiles: { strKey: string; link: string }[] = []
-      const updatedBoxes: any[] = []
-
-      runInAction(() => {
-        this.boxesIdsToTask = []
-      })
+      const updatedBoxes = []
 
       // Upload sharedFields files
       await this.uploadSharedFieldFile(sharedFields, 'tmpShippingLabel', 'shippingLabel')
@@ -894,30 +890,41 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = { ...newBoxes[i] }
+        const selectedBox = { ...selectedBoxes[i] }
 
+        let linkToShippingLabel = newBox.shippingLabel || null
         // Upload shipping label if needed
-        if (newBox.tmpShippingLabel?.length) {
-          newBox.shippingLabel = await this.uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
-        } else if (sharedFields.shippingLabel) {
-          newBox.shippingLabel = sharedFields.shippingLabel
+        const isSameShippingLabel =
+          JSON.stringify(newBox?.tmpShippingLabel?.[0]) === JSON.stringify(sharedFields?.tmpShippingLabel?.[0])
+        if (!isSameShippingLabel) {
+          linkToShippingLabel = await this.uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
         }
 
         const dataToBarCodeChange = newBox.items
-          .map((el: any) =>
-            el.tmpBarCode?.length || sharedFields.barCode
-              ? {
-                  changeBarCodInInventory: el.changeBarCodInInventory,
-                  productId: el.product._id || el.productId,
-                  tmpBarCode: el.tmpBarCode || [sharedFields.barCode],
-                  newData: [],
-                }
-              : null,
-          )
+          .map((el: any) => {
+            if (el.tmpBarCode?.length) {
+              const isSameBarCode =
+                JSON.stringify(el?.tmpBarCode?.[0]) === JSON.stringify(sharedFields?.tmpBarCode?.[0])
+
+              return {
+                changeBarCodInInventory: el.changeBarCodInInventory,
+                productId: el.product._id || el.productId,
+                tmpBarCode: el.tmpBarCode,
+                newData: [],
+                isSameBarCode,
+              }
+            }
+            return null
+          })
           .filter((el: any) => el !== null)
 
         // Upload bar code if needed
         if (dataToBarCodeChange?.length) {
           for (const barcodeChange of dataToBarCodeChange) {
+            if (barcodeChange.isSameBarCode) {
+              // If barcode is same as shared, skip uploading
+              continue
+            }
             const findUploadedBarcode = uploadedBarcodes.find(
               el => el.strKey === JSON.stringify(barcodeChange.tmpBarCode[0]),
             )
@@ -950,21 +957,23 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           )
 
           let transparencyFileLink = el.transparencyFile || ''
-
-          if (el.tmpTransparencyFile?.length) {
+          const isSameTransparencyFile =
+            JSON.stringify(el?.tmpTransparencyFile?.[0]) === JSON.stringify(sharedFields.tmpTransparencyFile[0])
+          if (!isSameTransparencyFile) {
             transparencyFileLink = await this.uploadImageIfNotUploaded(
               el.tmpTransparencyFile[0],
               uploadedTransparencyFiles,
             )
-          } else if (sharedFields.transparencyFile) {
-            transparencyFileLink = sharedFields.transparencyFile
           }
+          const barcodeValue = prodInDataToUpdateBarCode?.newData?.[0] || el.barCode
 
           const validItem = {
             orderId: el?.order?._id || el?.orderId,
             productId: el?.product?._id || el?.productId,
-            barCode: prodInDataToUpdateBarCode?.newData?.[0] || el.barCode || sharedFields.barCode,
-            transparencyFile: transparencyFileLink,
+            ...(barcodeValue !== selectedBox.items[0].barCode && { barCode: barcodeValue }),
+            ...(transparencyFileLink !== selectedBox.items[0].transparencyFile && {
+              transparencyFile: transparencyFileLink,
+            }),
           }
 
           currentBoxItems.push(validItem)
@@ -972,11 +981,15 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
         newBox.items = currentBoxItems
 
-        updatedBoxes.push(getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList))
+        updatedBoxes.push({
+          ...getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList),
+          ...(linkToShippingLabel !== selectedBox.shippingLabel && { shippingLabel: linkToShippingLabel }),
+        })
       }
 
       const boxesToSend = {
         ...getObjectFilteredByKeyArrayWhiteList(sharedFields, sharedFieldsWhiteList),
+        ...(sharedFields.shippingLabel && { shippingLabel: sharedFields.shippingLabel }),
         boxes: updatedBoxes,
       }
 

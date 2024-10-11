@@ -5,17 +5,16 @@ import { paginationModelInitialValue } from '@models/data-grid-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 
 import { getParsingReportsModelSettings } from './helpers/get-parsing-reports-model-settings'
-import { observerConfig } from './observer-config'
+import { parsingReportsModelConfig } from './parsing-reports.config'
 import { ParsingReportsType } from './parsing-reports.type'
 
 export class ParsingReportsModel extends DataGridFilterTableModel {
   table: ParsingReportsType = ParsingReportsType.BUSINESS_REPORTS
 
   constructor() {
-    const { columnsModel, filtersFields, mainMethodURL, sortModel } = getParsingReportsModelSettings(
+    const { columnsModel, filtersFields, mainMethodURL, sortModel, fieldsForSearch } = getParsingReportsModelSettings(
       ParsingReportsType.BUSINESS_REPORTS,
     )
-
     const defaultGetCurrentDataOptions = () => ({
       table: this.table,
     })
@@ -25,19 +24,20 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
       columnsModel,
       filtersFields,
       mainMethodURL,
-      fieldsForSearch: [],
+      fieldsForSearch,
       tableKey: ParsingReportsType.BUSINESS_REPORTS,
       defaultGetCurrentDataOptions,
       defaultSortModel: sortModel,
       defaultColumnVisibilityModel: { client: false },
     })
-    makeObservable(this, observerConfig)
+    makeObservable(this, parsingReportsModelConfig)
 
     this.getTableSettingsPreset()
   }
 
   onChangeActiveTable(value: ParsingReportsType) {
-    const { columnsModel, filtersFields, mainMethodURL, sortModel } = getParsingReportsModelSettings(value)
+    const { columnsModel, filtersFields, mainMethodURL, sortModel, fieldsForSearch } =
+      getParsingReportsModelSettings(value)
 
     this.table = value
     this.tableKey = value
@@ -45,12 +45,11 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
     this.defaultColumnsModel = columnsModel
     this.filtersFields = filtersFields
     this.mainMethodURL = mainMethodURL
+    this.fieldsForSearch = fieldsForSearch
     this.setColumnMenuSettings(filtersFields)
-
     this.sortModel = sortModel
     this.paginationModel = paginationModelInitialValue
     this.setDefaultPinnedColumns()
-
     this.getTableSettingsPreset()
   }
 }

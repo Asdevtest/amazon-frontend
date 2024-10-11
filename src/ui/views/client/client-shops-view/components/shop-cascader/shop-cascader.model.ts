@@ -147,7 +147,8 @@ export class ShopsCascaderModel {
     const allOptionSelected = this.selectedShopsOptions.some(item => item.includes('select-all-shops'))
     const shopsOptions = this.shops.map(shop => [shop._id])
     const allOptions = [...shopsOptions, ['select-all-shops']]
-    const arraysMatch = value.length === shopsOptions.length && value.every(ids => shopsOptions.flat().includes(ids[0]))
+    const arraysMatch =
+      value.length === shopsOptions.length && value.every(ids => shopsOptions.flat().includes(ids[1] || ids[0]))
 
     if (hasAllOption && !allOptionSelected) {
       this.selectedShopsOptions = allOptions
@@ -171,7 +172,7 @@ export class ShopsCascaderModel {
   }
 
   onChangeInput(event: ChangeEvent<HTMLInputElement>) {
-    this.inputValue = event.target.value.trim()
+    this.inputValue = event.target.value
   }
 
   clearSelection() {

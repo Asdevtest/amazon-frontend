@@ -52,6 +52,7 @@ export const defaultHiddenColumns = [
 export const additionalFilterFields = [
   'inventoryAsin',
   'inventorySku',
+  'inTransfer',
   'asin',
   'skuByClient',
   'amazonTitle',
@@ -65,7 +66,7 @@ export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode',
 
 export const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
 
-export const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders']
+export const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders', 'sentToFbaSum']
 
 export const inventoryAdditionalFilterFields = {
   inventory: [

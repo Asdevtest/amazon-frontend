@@ -10,7 +10,7 @@ import { t } from '@utils/translations'
 
 export const batchDataColumns = (handleOpenBatchModal: (id: string) => void) => [
   {
-    field: 'id',
+    field: 'xid',
     headerName: t(TranslationKey['Batch number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.xid} />,

@@ -2063,5 +2063,8 @@
   "This profile has already been used! Do you want to continue?": "This profile has already been used! Do you want to continue?",
   "By proposal": "By proposal",
   "By announcement": "By announcement",
-  "Select user": "Select user"
+  "Select user": "Select user",
+  "Integration": "Integration",
+  "Products linked successfully": "Products linked successfully",
+  "Product linking error": "Product linking error"
 }

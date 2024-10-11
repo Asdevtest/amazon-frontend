@@ -12,7 +12,7 @@ import { UserModel } from '@models/user-model'
 import { t } from '@utils/translations'
 
 import { Specs } from '@typings/enums/specs'
-import { isClient, isFreelancer } from '@typings/guards/roles'
+import { isClient, isFreelancer, isStorekeeper } from '@typings/guards/roles'
 import { IPermission } from '@typings/models/permissions/permission'
 import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 import { IPermissions } from '@typings/models/permissions/permissions'
@@ -90,6 +90,10 @@ export class PermissionsFormModel {
   get isFreelancer() {
     return isFreelancer(this.userInfo?.role)
   }
+  get hasExpiredRoles() {
+    return this.isFreelancer || isStorekeeper(this.userInfo?.role)
+  }
+
   get productsOptions() {
     const mainOptions = this.shops.map(item => ({
       label: item.name,
@@ -207,7 +211,8 @@ export class PermissionsFormModel {
     const allOptions = this.permissionsOptions.map(permission => [permission.value])
     const permissionsOptions = allOptions.filter(item => !item.includes(SELECT_ALL_PERMISSION))
     const arraysMatch =
-      value.length === permissionsOptions.length && value.every(ids => permissionsOptions.flat().includes(ids[0]))
+      value.length === permissionsOptions.length &&
+      value.every(ids => permissionsOptions.flat().includes(ids[1] || ids[0]))
 
     if (hasAllOption && !allOptionSelected) {
       this.currentPermissionOptions = allOptions
@@ -228,7 +233,7 @@ export class PermissionsFormModel {
     const allOptions = this.productsOptions.map(permission => [permission.value])
     const productsOptions = allOptions.filter(item => !item.includes(SELECT_ALL_PRODUCTS))
     const arraysMatch =
-      value.length === productsOptions.length && value.every(ids => productsOptions.flat().includes(ids[0]))
+      value.length === productsOptions.length && value.every(ids => productsOptions.flat().includes(ids[1] || ids[0]))
 
     if (hasAllOption && !allOptionSelected) {
       this.currentProductOptions = allOptions
@@ -355,7 +360,7 @@ export class PermissionsFormModel {
     try {
       await UserModel.onEditMySubUser({ userIds: this.userIds, ...this.editingPermissions })
 
-      if (!this.isFreelancer) {
+      if (!this.hasExpiredRoles) {
         await PermissionsModel.setProductsPermissionsForUser({
           userIds: this.userIds,
           productIds: this.editingProducts.productIds,
@@ -370,14 +375,14 @@ export class PermissionsFormModel {
       }
 
       if (this.isFreelancer) {
-        await UserModel.changeSubUserSpec(this.subUser?._id, { allowedSpec: this.selectedSpecs.flat() })
+        await UserModel.changeSubUserSpec({ userIds: this.userIds, allowedSpec: this.selectedSpecs.flat() })
       }
 
       toast.success(t(TranslationKey['User permissions were changed']))
-      this.onUpdateData?.()
     } catch (error) {
       toast.error(t(TranslationKey['User permissions are not changed']))
     } finally {
+      this.onUpdateData?.()
       this.onCloseModal?.()
     }
   }
@@ -405,7 +410,7 @@ export class PermissionsFormModel {
   }
 
   async getProduts() {
-    if (isFreelancer(this.userInfo?.role)) {
+    if (this.hasExpiredRoles) {
       return
     }
 
@@ -440,7 +445,7 @@ export class PermissionsFormModel {
     this.productsLoading = false
   }
 
-  searchfilter(inputValue: string, path: DefaultOptionType[]) {
+  searchFilter(inputValue: string, path: DefaultOptionType[]) {
     if (this.isAssignPermissions) {
       return path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
     } else {

@@ -82,7 +82,7 @@ export class AnotherProfileViewModel extends DataGridTableModel {
 
   async getReviews() {
     try {
-      const response = (await FeedbackModel.getMyFeedback()) as unknown as IFeedback[]
+      const response = (await FeedbackModel.getFeedback(this.userId)) as unknown as IFeedback[]
 
       runInAction(() => {
         this.reviews = response

@@ -4,7 +4,7 @@ describe('Test getAmazonImageUrl(str, big)', () => {
   const validTestValue = [
     { str: 'String', big: true, expect: 'https://images-na.ssl-images-amazon.com/images/I/String._SL1400_.jpg' },
     { str: 'String', big: false, expect: 'https://images-na.ssl-images-amazon.com/images/I/String._SS64_.jpg' },
-    { str: null, big: false, expect: '/assets/img/no-photo.jpg' },
+    { str: null, big: false, expect: '/assets/img/defaultImage.png' },
   ]
 
   validTestValue.forEach(value => {

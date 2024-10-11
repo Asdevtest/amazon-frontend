@@ -52,7 +52,7 @@ export class ParsingRequestsViewModel extends DataGridFilterTableModel {
 
   async onApproveProfile(id: string, profileId: string) {
     try {
-      await ParserModel.onApproveProfile(id, profileId)
+      await ParserModel.approveProfile(id, profileId)
 
       this.getCurrentData()
     } catch (error) {
@@ -62,7 +62,7 @@ export class ParsingRequestsViewModel extends DataGridFilterTableModel {
 
   async onRejectProfile(id: string) {
     try {
-      await ParserModel.onRejectProfile(id)
+      await ParserModel.rejectProfile(id)
 
       this.getCurrentData()
     } catch (error) {

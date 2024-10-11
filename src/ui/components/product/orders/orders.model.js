@@ -12,8 +12,6 @@ import { UserModel } from '@models/user-model'
 
 import { clientProductOrdersViewColumns } from '@components/table/table-columns/client/client-product-orders-columns'
 
-import { clientOrdersDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -181,7 +179,7 @@ export class OrdersModel {
       const result = await ClientModel.getOrdersByProductId(this.productId)
 
       runInAction(() => {
-        this.orders = clientOrdersDataConverter(result).sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
+        this.orders = result
       })
 
       this.setRequestStatus(loadingStatus.SUCCESS)

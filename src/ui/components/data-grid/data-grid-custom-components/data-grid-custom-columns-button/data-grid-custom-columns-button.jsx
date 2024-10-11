@@ -83,8 +83,8 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
               <CustomInputSearch
                 allowClear
                 wrapperClassName={styles.searchInput}
-                placeholder={t(TranslationKey.Search)}
-                onChange={e => setNameSearchValue(e.target.value.trim())}
+                placeholder="Search"
+                onChange={e => setNameSearchValue(e.target.value)}
                 onKeyDown={e => e.stopPropagation()}
               />
             </div>
