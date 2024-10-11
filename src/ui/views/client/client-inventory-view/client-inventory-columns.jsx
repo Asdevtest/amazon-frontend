@@ -30,10 +30,9 @@ import { t } from '@utils/translations'
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/production-time'
 
-import { complexCells } from './cell-types'
 import { productionTimeColumnMenuValue } from './client-inventory-view.config'
 import { inventoryAdditionalFilterFields } from './client-inventory-view.constants'
-import { getCellType } from './helpers/get-cell-type'
+import { getColumn } from './helpers/get-column'
 
 export const clientInventoryColumns = ({
   barCodeHandlers,
@@ -42,6 +41,7 @@ export const clientInventoryColumns = ({
   stockUsHandlers,
   otherHandlers,
   storekeepers,
+  integrationTables,
 }) => {
   const defaultColumns = [
     {
@@ -590,42 +590,56 @@ export const clientInventoryColumns = ({
     defaultColumns.splice(11, 1, ...storekeeperCells)
   }
 
-  for (const table in inventoryAdditionalFilterFields) {
-    if (inventoryAdditionalFilterFields[table]) {
-      const columns = inventoryAdditionalFilterFields[table]
+  if (integrationTables) {
+    for (const table in integrationTables) {
+      if (integrationTables[table]) {
+        const currentTableColumns = integrationTables[table]
 
-      if (columns?.some(column => complexCells?.includes(column))) {
-        const formedTableName = formatCamelCaseString(table)
+        for (const column of currentTableColumns) {
+          const currentColumn = getColumn(column)
 
-        const complexCell = {
-          field: table,
-          headerName: `${formedTableName} product`,
-          renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
-          valueGetter: ({ row }) => row?.[table]?.asin,
-          renderCell: ({ row }) => {
-            const product = row?.[table]
-
-            return <ProductCell image={product?.image} asin={product?.asin} sku={product?.sku} />
-          },
-
-          fields: getProductColumnMenuItems({ withoutTitle: true }),
-          columnMenuConfig: getProductColumnMenuValue(),
-          columnKey: columnnsKeys.shared.MULTIPLE,
-          width: 170,
-        }
-
-        defaultColumns.push(complexCell)
-      }
-
-      for (const column of columns) {
-        const cell = getCellType(column, table)
-
-        if (cell) {
-          defaultColumns.push(cell)
+          defaultColumns.push(currentColumn)
         }
       }
     }
   }
+
+  // for (const table in inventoryAdditionalFilterFields) {
+  //   if (inventoryAdditionalFilterFields[table]) {
+  //     const columns = inventoryAdditionalFilterFields[table]
+
+  //     if (columns?.some(column => complexCells?.includes(column))) {
+  //       const formedTableName = formatCamelCaseString(table)
+
+  //       const complexCell = {
+  //         field: table,
+  //         headerName: `${formedTableName} product`,
+  //         renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
+  //         valueGetter: ({ row }) => row?.[table]?.asin,
+  //         renderCell: ({ row }) => {
+  //           const product = row?.[table]
+
+  //           return <ProductCell image={product?.image} asin={product?.asin} sku={product?.sku} />
+  //         },
+
+  //         fields: getProductColumnMenuItems({ withoutTitle: true }),
+  //         columnMenuConfig: getProductColumnMenuValue(),
+  //         columnKey: columnnsKeys.shared.MULTIPLE,
+  //         width: 170,
+  //       }
+
+  //       defaultColumns.push(complexCell)
+  //     }
+
+  //     for (const column of columns) {
+  //       const cell = getCellType(column, table)
+
+  //       if (cell) {
+  //         defaultColumns.push(cell)
+  //       }
+  //     }
+  //   }
+  // }
 
   for (const column of defaultColumns) {
     if (column.table) {

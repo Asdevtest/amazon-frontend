@@ -67,35 +67,3 @@ export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode',
 export const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
 
 export const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders', 'sentToFbaSum']
-
-export const inventoryAdditionalFilterFields = {
-  inventory: [
-    'asin',
-    'sku',
-    'price',
-    'fbaFee',
-    'refFee',
-    'available',
-    'inbound',
-    'reserved',
-    'image',
-    'categoryAbc',
-    'dateUpdated',
-    'timeUpdated',
-    'updatedAt',
-    'createdAt',
-    'organicCv',
-    'historicalDaysOfSupply',
-    'estimatedStorageCost',
-    'estimatedAgedInventorySurcharge',
-    'age0to90Days',
-    'age91to180Days',
-    'age181to270Days',
-    'age271to365Days',
-    'age365plusDays',
-    'storageVolume',
-    'lowInventoryLevelFee',
-    'cog',
-    'unitProfit',
-  ],
-}
