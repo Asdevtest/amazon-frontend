@@ -11,4 +11,8 @@ export const useStyles = makeStyles()(theme => ({
   maskClassNameRoot: {
     overflow: 'hidden',
   },
+
+  image: {
+    objectFit: 'contain',
+  },
 }))

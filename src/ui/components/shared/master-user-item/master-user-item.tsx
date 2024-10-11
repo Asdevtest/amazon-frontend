@@ -24,7 +24,7 @@ export const MasterUserItem: FC<MasterUserItemProps> = observer(props => {
         src={getUserAvatarSrc(id)}
         alt={getUserAvatarSrc(id)}
         className={styles.userAvatar}
-        onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
+        onError={e => ((e.target as HTMLImageElement).src = '/assets/img/defaultImage.png')}
       />
 
       <p className={styles.userName}>{name}</p>
