@@ -16,6 +16,6 @@ export const productLaunchConfig = {
 }
 
 export enum RadioValue {
-  NEW = 0,
-  VARIATION = 1,
+  NEW,
+  VARIATION,
 }
