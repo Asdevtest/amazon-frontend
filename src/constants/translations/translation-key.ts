@@ -1411,6 +1411,7 @@ export enum TranslationKey {
   'My filter' = 'My filter',
   'Search by' = 'Search by',
   '№ Order' = '№ Order',
+  '№ Item' = '№ Item',
   'From' = 'From',
   'To' = 'To',
   'Without strategy' = 'Without strategy',

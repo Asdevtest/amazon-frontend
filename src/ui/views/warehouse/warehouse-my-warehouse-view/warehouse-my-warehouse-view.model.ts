@@ -1,5 +1,8 @@
-import { makeAutoObservable, reaction, runInAction, toJS } from 'mobx'
+import { RadioChangeEvent } from 'antd'
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
+
+import { GridColDef } from '@mui/x-data-grid-premium'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { Errors } from '@constants/errors'
@@ -9,25 +12,27 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { BatchesModel } from '@models/batches-model'
 import { BoxesModel } from '@models/boxes-model'
 import { ClientModel } from '@models/client-model'
-import { GeneralModel } from '@models/general-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
 
-import { warehouseBatchesDataConverter, warehouseBoxesDataConverter } from '@utils/data-grid-data-converters'
-import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
+import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
-import { getTableByColumn, objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IBox } from '@typings/models/boxes/box'
+import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
+import { IDestination } from '@typings/shared/destinations'
+import { IPlatformSettings } from '@typings/shared/patform-settings'
 
+import { observerConfig } from './warehous-my-warehouse-config'
 import {
   filtersFields,
   sharedFieldsWhiteList,
@@ -35,25 +40,20 @@ import {
   updateManyBoxesWhiteList,
 } from './warehouse-my-warehouse-view.constants'
 
-export class WarehouseMyWarehouseViewModel {
-  requestStatus = undefined
-
-  nameSearchValue = ''
-  boxesMy = []
-  tasksMy = []
-  boxesData = []
+export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
   batches = []
   baseBoxesMy = []
 
-  destinations = []
+  destinations: IDestination[] = []
 
-  curBox = ''
-  curBoxToMove = undefined
-  sourceBoxForBatch = undefined
+  uploadedTrackNumber: any[] = []
 
+  curBox: any = undefined
+  curBoxToMove: any = undefined
+  sourceBoxForBatch: any = undefined
+  storekeepersData: IStorekeeper[] = []
+  modalRedistributeBoxAddNewBox: any = undefined
   unitsOption = Dimensions.EU
-
-  selectedBoxes = []
 
   curOpenedTask = {}
   toCancelData = {}
@@ -70,45 +70,9 @@ export class WarehouseMyWarehouseViewModel {
   showEditBoxModalR = false
   showEditMultipleBoxesModal = false
 
-  rowHandlers = {
-    moveBox: item => this.moveBox(item),
-    setHsCode: item => this.setHsCode(item),
-    setDimensions: item => this.setDimensions(item),
-    onEditBox: item => this.onEditBox(item),
-    onClickSavePrepId: (item, value) => this.onClickSavePrepId(item, value),
-    onClickSaveStorage: (item, value) => this.onClickSaveStorage(item, value),
-    onChangeUnitsOption: option => this.onChangeUnitsOption(option),
-  }
-
   uploadedImages = []
   uploadedFiles = []
   uploadedTransparencyFiles = []
-
-  progressValue = 0
-  showProgress = false
-
-  rowCount = 0
-
-  sortModel = []
-  filterModel = { items: [] }
-  paginationModel = { page: 0, pageSize: 15 }
-  columnVisibilityModel = {}
-  densityModel = 'compact'
-  columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.unitsOption)
-
-  columnMenuSettings = {
-    onClickFilterBtn: field => this.onClickFilterBtn(field),
-    onChangeFullFieldMenuItem: (value, field) => this.onChangeFullFieldMenuItem(value, field),
-    onClickAccept: () => {
-      this.onLeaveColumnField()
-      this.getBoxesMy()
-      this.getDataGridState()
-    },
-
-    filterRequestStatus: undefined,
-
-    ...dataGridFiltersInitializer(filtersFields),
-  }
 
   get userInfo() {
     return UserModel.userInfo
@@ -118,136 +82,76 @@ export class WarehouseMyWarehouseViewModel {
     return SettingsModel.destinationsFavourites
   }
 
-  get currentData() {
-    return this.boxesMy
-  }
-
-  get isSomeFilterOn() {
-    return filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData.length)
-  }
-
   get platformSettings() {
-    return UserModel.platformSettings
+    return UserModel.platformSettings as unknown as IPlatformSettings
   }
 
   constructor() {
-    makeAutoObservable(this, undefined, { autoBind: true })
+    const rowHandlers = {
+      moveBox: (item: any) => this.moveBox(item),
+      setHsCode: (item: any) => this.setHsCode(item),
+      setDimensions: (item: any) => this.setDimensions(item),
+      onEditBox: (item: any) => this.onEditBox(),
+      onClickSavePrepId: (item: any, value: any) => this.onClickSavePrepId(item, value),
+      onClickSaveStorage: (item: any, value: any) => this.onClickSaveStorage(item, value),
+      onChangeUnitsOption: (option: RadioChangeEvent) => this.onChangeUnitsOption(option),
+    }
+    const columnsModel = warehouseBoxesViewColumns(rowHandlers, () => this.unitsOption) as GridColDef[]
 
-    reaction(
-      () => this.unitsOption,
-      () => (this.columnsModel = warehouseBoxesViewColumns(this.rowHandlers, () => this.unitsOption)),
-    )
+    super({
+      getMainDataMethod: StorekeeperModel.getBoxesMyPag,
+      columnsModel,
+      filtersFields,
+      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient', 'item', 'orderXid', 'xid', 'prepId'],
+      mainMethodURL: 'storekeepers/pag/boxes?',
+      tableKey: DataGridTablesKeys.CLIENT_WAREHOUSE,
+      defaultSortModel: [{ field: 'createdAt', sort: 'desc' }],
+    })
+
+    makeObservable(this, observerConfig)
   }
 
-  setDestinationsFavouritesItem(item) {
+  setDestinationsFavouritesItem(item: any) {
     SettingsModel.setDestinationsFavouritesItem(item)
   }
 
-  onChangeFilterModel(model) {
-    this.filterModel = model
-    this.setDataGridState()
-  }
-
-  onPaginationModelChange(model) {
-    this.paginationModel = model
-    this.setDataGridState()
-    this.getBoxesMy()
-  }
-
-  onColumnVisibilityModelChange(model) {
-    this.columnVisibilityModel = model
-    this.setDataGridState()
-    this.getBoxesMy()
-  }
-
-  onTriggerShowEditBoxModalR(box) {
+  onTriggerShowEditBoxModalR(box: string) {
     this.curBox = box
     this.showEditBoxModalR = !this.showEditBoxModalR
   }
 
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.CLIENT_WAREHOUSE)
-  }
-
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.CLIENT_WAREHOUSE)
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
-  setRequestStatus(requestStatus) {
-    this.requestStatus = requestStatus
-  }
-
-  onChangeSortingModel(sortModel) {
-    this.sortModel = sortModel
-
-    this.setDataGridState()
-    this.getBoxesMy()
-  }
-
-  onSelectionModel(model) {
-    this.selectedBoxes = model
-  }
-
-  onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue.trim()
-
-    this.getBoxesMy()
-  }
-
-  loadData() {
-    try {
-      this.getDataGridState()
-      this.getBoxesMy()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickSavePrepId(itemId, value) {
+  async onClickSavePrepId(itemId: any, value: any) {
     try {
       await BoxesModel.editAdditionalInfo(itemId, {
         prepId: value,
       })
 
-      this.getBoxesMy()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onClickSaveStorage(itemId, value) {
+  async onClickSaveStorage(itemId: any, value: any) {
     try {
       await BoxesModel.editAdditionalInfo(itemId, {
         storage: value,
       })
 
-      this.getBoxesMy()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  async uploadImageIfNotUploaded(image, cache) {
+  async uploadImageIfNotUploaded(image: any, cache: any[]) {
     const imageKey = JSON.stringify(image)
-    const cachedImage = cache.find(el => el.strKey === imageKey)
+    const cachedImage = cache.find((el: any) => el.strKey === imageKey)
 
     if (cachedImage) {
       return cachedImage.link
     } else {
+      // @ts-ignore
       await onSubmitPostImages.call(this, {
         images: [image],
         type: 'uploadedFiles',
@@ -260,8 +164,9 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async uploadSharedFieldFile(sharedFields, fieldName, uploadedFieldName) {
+  async uploadSharedFieldFile(sharedFields: any, fieldName: string, uploadedFieldName: string) {
     if (sharedFields[fieldName]?.length) {
+      // @ts-ignore
       await onSubmitPostImages.call(this, {
         images: sharedFields[fieldName],
         type: 'uploadedFiles',
@@ -271,14 +176,14 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditMultipleBoxes(newBoxes, selectedBoxes, sharedFields) {
+  async onClickSubmitEditMultipleBoxes(newBoxes: any[], selectedBoxes: any[], sharedFields: any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
-      const uploadedShippingLabels = []
-      const uploadedBarcodes = []
-      const uploadedTransparencyFiles = []
+      const uploadedShippingLabels: never[] = []
+      const uploadedBarcodes: { strKey: string; link: never }[] = []
+      const uploadedTransparencyFiles: never[] = []
       const updatedBoxes = []
 
       // Upload sharedFields files
@@ -299,7 +204,7 @@ export class WarehouseMyWarehouseViewModel {
         }
 
         const dataToBarCodeChange = newBox.items
-          .map(el => {
+          .map((el: any) => {
             if (el.tmpBarCode?.length) {
               const isSameBarCode =
                 JSON.stringify(el?.tmpBarCode?.[0]) === JSON.stringify(sharedFields?.tmpBarCode?.[0])
@@ -314,7 +219,7 @@ export class WarehouseMyWarehouseViewModel {
             }
             return null
           })
-          .filter(el => el !== null)
+          .filter((el: null) => el !== null)
 
         // Upload bar code if needed
         if (dataToBarCodeChange?.length) {
@@ -328,6 +233,7 @@ export class WarehouseMyWarehouseViewModel {
             )
 
             if (!findUploadedBarcode) {
+              // @ts-ignore
               await onSubmitPostImages.call(this, {
                 images: barcodeChange.tmpBarCode,
                 type: 'uploadedFiles',
@@ -350,7 +256,7 @@ export class WarehouseMyWarehouseViewModel {
 
         for (const el of newBox.items) {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(
-            item => item.productId === (el?.product?._id || el?.productId),
+            (item: { productId: any }) => item.productId === (el?.product?._id || el?.productId),
           )
 
           let transparencyFileLink = el.transparencyFile || ''
@@ -398,7 +304,7 @@ export class WarehouseMyWarehouseViewModel {
 
       toast.success(t(TranslationKey['Editing completed']))
 
-      this.loadData()
+      this.getCurrentData()
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
@@ -406,13 +312,14 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickSubmitEditBox({ id, boxData, imagesOfBox }) {
+  async onClickSubmitEditBox(id: any, boxData: any, imagesOfBox: any) {
     runInAction(() => {
-      this.selectedBoxes = []
+      this.selectedRows = []
       this.uploadedTrackNumber = []
     })
 
-    if (boxData.tmpShippingLabel?.length) {
+    if (boxData?.tmpShippingLabel?.length) {
+      // @ts-ignore
       await onSubmitPostImages.call(this, {
         images: boxData.tmpShippingLabel,
         type: 'uploadedFiles',
@@ -422,7 +329,8 @@ export class WarehouseMyWarehouseViewModel {
       boxData.shippingLabel = this.uploadedFiles[0]
     }
 
-    if (boxData.tmpTrackNumberFile?.length) {
+    if (boxData?.tmpTrackNumberFile?.length) {
+      // @ts-ignore
       await onSubmitPostImages.call(this, {
         images: boxData.tmpTrackNumberFile,
         type: 'uploadedTrackNumber',
@@ -431,6 +339,7 @@ export class WarehouseMyWarehouseViewModel {
     }
 
     if (imagesOfBox?.length) {
+      // @ts-ignore
       await onSubmitPostImages.call(this, {
         images: imagesOfBox,
         type: 'uploadedImages',
@@ -439,7 +348,7 @@ export class WarehouseMyWarehouseViewModel {
     }
 
     let dataToBarCodeChange = boxData.items
-      .map(el =>
+      .map((el: { tmpBarCode: any; changeBarCodInInventory: any; product: any }) =>
         el.tmpBarCode?.length
           ? {
               changeBarCodInInventory: el.changeBarCodInInventory,
@@ -449,7 +358,7 @@ export class WarehouseMyWarehouseViewModel {
             }
           : null,
       )
-      .filter(el => el !== null)
+      .filter((el: null) => el !== null)
 
     if (dataToBarCodeChange?.length) {
       dataToBarCodeChange = await onSubmitPostFilesInData({
@@ -463,9 +372,12 @@ export class WarehouseMyWarehouseViewModel {
         const newItems = []
 
         for await (const el of boxData.items) {
-          const prodInDataToUpdateBarCode = dataToBarCodeChange.find(item => item.productId === el.product._id)
+          const prodInDataToUpdateBarCode = dataToBarCodeChange.find(
+            (item: { productId: any }) => item.productId === el.product._id,
+          )
 
           if (el.tmpTransparencyFile.length) {
+            // @ts-ignore
             await onSubmitPostImages.call(this, {
               images: el.tmpTransparencyFile,
               type: 'uploadedTransparencyFiles',
@@ -515,8 +427,8 @@ export class WarehouseMyWarehouseViewModel {
 
       this.onTriggerOpenModal('showFullEditBoxModal')
       toast.success(t(TranslationKey['Data saved successfully']))
-      this.loadData()
-    } catch (error) {
+      this.getCurrentData()
+    } catch (error: any) {
       console.error(error)
 
       if (error.message === Errors.INVALID_IMAGE) {
@@ -527,7 +439,7 @@ export class WarehouseMyWarehouseViewModel {
         return
       }
 
-      this.loadData()
+      this.getCurrentData()
 
       this.onTriggerOpenModal('showFullEditBoxModal')
 
@@ -543,8 +455,8 @@ export class WarehouseMyWarehouseViewModel {
       ])
 
       runInAction(() => {
-        this.destinations = destinations
-        this.storekeepersData = storekeepersData
+        this.destinations = destinations as IDestination[]
+        this.storekeepersData = storekeepersData as IStorekeeper[]
       })
 
       this.onTriggerOpenModal('showEditBoxModal')
@@ -565,7 +477,7 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async moveBox(row) {
+  async moveBox(row: undefined) {
     try {
       runInAction(() => {
         this.curBoxToMove = row
@@ -578,11 +490,11 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async setHsCode(row) {
+  async setHsCode(row: any) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
       runInAction(() => {
-        this.curBox = box
+        this.curBox = box as IBox
       })
 
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
@@ -595,15 +507,14 @@ export class WarehouseMyWarehouseViewModel {
     try {
       const destinations = await ClientModel.getDestinations()
       const storekeepersData = await StorekeeperModel.getStorekeepers()
-
       runInAction(() => {
-        this.destinations = destinations
-        this.storekeepersData = storekeepersData
+        this.destinations = destinations as IDestination[]
+        this.storekeepersData = storekeepersData as IStorekeeper[]
       })
 
-      if (this.selectedBoxes.length === 1) {
+      if (this.selectedRows.length === 1) {
         runInAction(() => {
-          this.curBox = this.boxesMy.find(el => el._id === this.selectedBoxes[0]).originalData
+          this.curBox = this.currentData.find(el => el._id === this.selectedRows[0])
         })
 
         this.onTriggerOpenModal('showFullEditBoxModal')
@@ -617,9 +528,7 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickMergeBtn() {
     try {
-      const selectedBoxes = this.boxesMy
-        .filter(box => this.selectedBoxes.includes(box._id))
-        ?.map(box => box.originalData)
+      const selectedBoxes = this.currentData.filter(box => this.selectedRows.includes(box._id))?.map(box => box)
 
       const isMasterBoxSelected = selectedBoxes.some(box => box?.amount > 1)
       const isDifferentClient = selectedBoxes.some(box => box?.client?._id !== selectedBoxes[0]?.client?._id)
@@ -639,8 +548,8 @@ export class WarehouseMyWarehouseViewModel {
       ])
 
       runInAction(() => {
-        this.destinations = destinations
-        this.storekeepersData = storekeepersData
+        this.destinations = destinations as IDestination[]
+        this.storekeepersData = storekeepersData as IStorekeeper[]
       })
 
       this.onTriggerOpenModal('showMergeBoxModal')
@@ -649,24 +558,26 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onClickConfirmSplit(id, updatedBoxes, isMasterBox) {
+  async onClickConfirmSplit(id: string, updatedBoxes: any[], isMasterBox: any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
-        this.selectedBoxes = []
+        this.selectedRows = []
       })
 
-      if (this.selectedBoxes.length === updatedBoxes.length && !isMasterBox) {
+      if (this.selectedRows.length === updatedBoxes.length && !isMasterBox) {
         toast.warning(t(TranslationKey['The box is not split!']))
       } else {
         const resBoxes = []
 
         for (let i = 0; i < updatedBoxes.length; i++) {
           if (updatedBoxes[i].tmpShippingLabel.length) {
+            // @ts-ignore
             await onSubmitPostImages.call(this, { images: updatedBoxes[i].tmpShippingLabel, type: 'uploadedFiles' })
           }
 
           if (updatedBoxes[i]?.images?.length) {
+            // @ts-ignore
             await onSubmitPostImages.call(this, {
               images: updatedBoxes[i]?.images,
               type: 'uploadedImages',
@@ -691,7 +602,7 @@ export class WarehouseMyWarehouseViewModel {
               images: this.uploadedImages.length ? this.uploadedImages : [],
             },
             boxItems: [
-              ...updatedBoxes[i].items.map(item => ({
+              ...updatedBoxes[i].items.map((item: any) => ({
                 amount: item.amount,
                 productId: item.product._id,
                 orderId: item.order._id,
@@ -723,33 +634,33 @@ export class WarehouseMyWarehouseViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
 
-      await this.getBoxesMy()
+      await this.getCurrentData()
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
 
-  async splitBoxes(id, data) {
+  async splitBoxes(id: any, data: any) {
     try {
       const result = await BoxesModel.splitBoxes(id, data)
-      await this.getBoxesMy()
+      await this.getCurrentData()
       return result
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onClickConfirmMerge(boxBody) {
+  async onClickConfirmMerge(boxBody: any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
-
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: boxBody.tmpShippingLabel, type: 'uploadedFiles' })
       boxBody = {
         ...boxBody,
         shippingLabel: this.uploadedFiles[0],
       }
-
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: boxBody.images, type: 'uploadedFiles' })
       boxBody = {
         ...boxBody,
@@ -758,7 +669,7 @@ export class WarehouseMyWarehouseViewModel {
 
       const newBoxBody = getObjectFilteredByKeyArrayBlackList(boxBody, ['tmpShippingLabel', 'storekeeperId', 'xid'])
 
-      const mergeBoxesResult = await this.mergeBoxes(this.selectedBoxes, newBoxBody)
+      const mergeBoxesResult = await this.mergeBoxes(this.selectedRows, newBoxBody)
 
       if (mergeBoxesResult) {
         toast.success(t(TranslationKey['Data saved successfully']))
@@ -771,11 +682,10 @@ export class WarehouseMyWarehouseViewModel {
 
       this.setRequestStatus(loadingStatus.SUCCESS)
 
-      await this.getBoxesMy()
+      await this.getCurrentData()
 
       runInAction(() => {
-        this.selectedBoxes = []
-        this.tmpClientComment = ''
+        this.selectedRows = []
       })
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
@@ -783,7 +693,7 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async mergeBoxes(ids, boxBody) {
+  async mergeBoxes(ids: any, boxBody: any) {
     try {
       const result = await BoxesModel.mergeBoxes(ids, boxBody)
       return result
@@ -792,10 +702,10 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  onRemoveBoxFromSelected(boxId) {
-    this.selectedBoxes = this.selectedBoxes.filter(id => id !== boxId)
+  onRemoveBoxFromSelected(boxId: any) {
+    this.selectedRows = this.selectedRows.filter(id => id !== boxId)
 
-    if (this.selectedBoxes.length < 2) {
+    if (this.selectedRows.length < 2) {
       this.onTriggerOpenModal('showMergeBoxModal')
     }
   }
@@ -808,8 +718,8 @@ export class WarehouseMyWarehouseViewModel {
       ])
 
       runInAction(() => {
-        this.destinations = destinations
-        this.storekeepersData = storekeepersData
+        this.destinations = destinations as IDestination[]
+        this.storekeepersData = storekeepersData as IStorekeeper[]
       })
 
       this.onTriggerOpenModal('showRedistributeBoxModal')
@@ -818,15 +728,15 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  onModalRedistributeBoxAddNewBox(value) {
+  onModalRedistributeBoxAddNewBox(value: null) {
     this.modalRedistributeBoxAddNewBox = value
   }
 
-  async onClickSubmitGroupingBoxes({ oldBoxes, newBoxes }) {
+  async onClickSubmitGroupingBoxes({ oldBoxes, newBoxes }: { oldBoxes: any[]; newBoxes: any[] }) {
     try {
       const createdBoxes = await BoxesModel.regroupBoxes({
-        boxIds: oldBoxes.map(el => el._id),
-        newAmounts: newBoxes.map(el => Number(el.amount)).filter(num => num >= 1),
+        boxIds: oldBoxes.map((el: any) => el._id),
+        newAmounts: newBoxes.map((el: any) => Number(el.amount)).filter((num: number) => num >= 1),
       })
 
       const patchPrepIds = createdBoxes.map((el, index) => ({
@@ -837,12 +747,12 @@ export class WarehouseMyWarehouseViewModel {
       await BoxesModel.updatePrepId(patchPrepIds)
 
       runInAction(() => {
-        this.selectedBoxes = []
+        this.selectedRows = []
 
         toast.success(t(TranslationKey['Data was successfully saved']))
       })
 
-      this.loadData()
+      this.getCurrentData()
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
     } catch (error) {
@@ -855,10 +765,10 @@ export class WarehouseMyWarehouseViewModel {
 
   async onClickGroupingBtn() {
     try {
-      const firstBox = this.boxesMy.find(box => box._id === this.selectedBoxes[0])
+      const firstBox = this.currentData.find(box => box._id === this.selectedRows[0])
 
-      const boxesWithDifferentStorekeepers = this.selectedBoxes.filter(boxId => {
-        const findBox = this.boxesMy.find(box => box._id === boxId)
+      const boxesWithDifferentStorekeepers = this.selectedRows.filter(boxId => {
+        const findBox = this.currentData.find(box => box._id === boxId)
         return findBox?.storekeeper !== firstBox?.storekeeper
       })
 
@@ -871,7 +781,7 @@ export class WarehouseMyWarehouseViewModel {
       const destinations = await ClientModel.getDestinations()
 
       runInAction(() => {
-        this.destinations = destinations
+        this.destinations = destinations as IDestination[]
       })
 
       this.onTriggerOpenModal('showGroupingBoxesModal')
@@ -880,7 +790,7 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async setDimensions(row) {
+  async setDimensions(row: any) {
     try {
       const box = await BoxesModel.getBoxById(row._id)
       runInAction(() => {
@@ -892,9 +802,10 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onSubmitEditBox(id, data) {
+  async onSubmitEditBox(id: any, data: any) {
     try {
       if (data.images.length > 0) {
+        // @ts-ignore
         await onSubmitPostImages.call(this, { images: data.images, type: 'uploadedFiles' })
         data = { ...data, images: [...data.images, ...this.uploadedFiles] }
       }
@@ -905,7 +816,7 @@ export class WarehouseMyWarehouseViewModel {
           // ['deliveryLength', 'deliveryWidth', 'deliveryHeight', 'deliveryMass', 'fitsInitialDimensions', 'images'],
           ['lengthCmWarehouse', 'widthCmWarehouse', 'heightCmWarehouse', 'weighGrossKgWarehouse', 'images'],
           false,
-          (key, value) => {
+          (key: string, value: any) => {
             if (key === 'images') {
               return value || []
             } else {
@@ -917,14 +828,15 @@ export class WarehouseMyWarehouseViewModel {
 
       await BoxesModel.editBoxByStorekeeper(id, updateBoxData)
       this.onTriggerShowEditBoxModal()
-      this.loadData()
+      this.getCurrentData()
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onSubmitAddBatch({ boxesIds, filesToAdd, batchFields }) {
+  async onSubmitAddBatch(boxesIds: any, filesToAdd: any, batchFields: any) {
     try {
+      // @ts-ignore
       await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
 
       const batchId = await BatchesModel.createBatch({
@@ -936,7 +848,7 @@ export class WarehouseMyWarehouseViewModel {
 
       await BatchesModel.editAttachedDocuments(batchId.guid, this.uploadedFiles)
 
-      this.loadData()
+      this.getCurrentData()
       this.onTriggerOpenModal('showAddBatchModal')
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
@@ -944,31 +856,31 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onSubmitAddOrEditHsCode(data) {
+  async onSubmitAddOrEditHsCode(data: any) {
     try {
       await ProductModel.editProductsHsCods(data)
-      this.loadData()
+      this.getCurrentData()
       this.onTriggerOpenModal('showAddOrEditHsCodeInBox')
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onSubmitMoveBoxToBatch(box, selectedBatch) {
+  async onSubmitMoveBoxToBatch(box: any, selectedBatch: any) {
     try {
       if (box.batchId) {
         await BatchesModel.removeBoxFromBatch(box.batchId, [box._id])
       }
 
       await BatchesModel.addBoxToBatch(selectedBatch.id, [box._id])
-      this.loadData()
+      this.getCurrentData()
       this.onTriggerOpenModal('showBoxMoveToBatchModal')
     } catch (error) {
       console.error(error)
     }
   }
 
-  async setCurrentOpenedBox(row) {
+  async setCurrentOpenedBox(row: any) {
     try {
       this.curBox = row._id
 
@@ -978,13 +890,11 @@ export class WarehouseMyWarehouseViewModel {
     }
   }
 
-  async onSubmitCreateBatch(box) {
+  async onSubmitCreateBatch(box: any) {
     try {
       const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
 
       runInAction(() => {
-        this.boxesData = boxes
-
         this.sourceBoxForBatch = box
       })
 
@@ -998,114 +908,8 @@ export class WarehouseMyWarehouseViewModel {
     this.showEditBoxModal = !this.showEditBoxModal
   }
 
-  onTriggerOpenModal(modalState) {
-    this[modalState] = !this[modalState]
-  }
-
-  async getBoxesMy() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      const boxes = await StorekeeperModel.getBoxesMyPag({
-        filters: this.getFilter(),
-
-        limit: this.paginationModel.pageSize,
-        offset: this.paginationModel.page * this.paginationModel.pageSize,
-
-        sortField: this.sortModel.length ? this.sortModel[0].field : 'updatedAt',
-        sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-      })
-
-      runInAction(() => {
-        this.rowCount = boxes.count
-        this.baseBoxesMy = boxes.rows
-        this.boxesMy = warehouseBoxesDataConverter(boxes.rows, this.platformSettings?.volumeWeightCoefficient)
-      })
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-      runInAction(() => {
-        this.boxesMy = []
-        this.baseBoxesMy = []
-      })
-      this.setRequestStatus(loadingStatus.FAILED)
-    }
-  }
-
-  onClickResetFilters() {
-    this.columnMenuSettings = {
-      ...this.columnMenuSettings,
-
-      ...filtersFields.reduce(
-        (ac, cur) =>
-          (ac = {
-            ...ac,
-            [cur]: {
-              filterData: [],
-              currentFilterData: [],
-            },
-          }),
-        {},
-      ),
-    }
-
-    this.getBoxesMy()
-    this.getDataGridState()
-  }
-
-  onLeaveColumnField() {
-    this.onHover = null
-    this.getDataGridState()
-  }
-
-  async onClickFilterBtn(column) {
-    const currentColumn =
-      column === 'logicsTariffId' ? 'logicsTariff' : column === 'destinationId' ? 'destination' : column
-
-    try {
-      const data = await GeneralModel.getDataForColumn(
-        // Костылики, если ты это видишь, то Паша обещал решить эту проблему после релиза 11.12.2023
-        // Будущий чел, исправь это в следующем релизе, году, десятилетии, в общем разберись
-        // Удалить currentColumn и поставить на его место аргумент функции, column
-        // Костыли зло ┗( T﹏T )┛
-        getTableByColumn(currentColumn, currentColumn === 'redFlags' ? 'products' : 'boxes'),
-        currentColumn,
-        `storekeepers/pag/boxes?filters=${this.getFilter(column)}`,
-      )
-
-      if (this.columnMenuSettings[column]) {
-        runInAction(() => {
-          this.columnMenuSettings = {
-            ...this.columnMenuSettings,
-            [column]: { ...this.columnMenuSettings[column], filterData: data },
-          }
-        })
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  onChangeUnitsOption(event) {
+  onChangeUnitsOption(event: RadioChangeEvent) {
     const currentValue = event.target.value
     this.unitsOption = currentValue
-  }
-
-  onChangeFullFieldMenuItem(value, field) {
-    this.columnMenuSettings[field].currentFilterData = value
-  }
-
-  getFilter(exclusion) {
-    return objectToUrlQs(
-      dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
-        'asin',
-        'amazonTitle',
-        'skuByClient',
-        'item',
-        'id',
-        'xid',
-        'prepId',
-      ]),
-    )
   }
 }

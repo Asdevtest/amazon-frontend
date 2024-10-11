@@ -1,4 +1,3 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useMemo } from 'react'
 
@@ -28,13 +27,13 @@ import { useStyles } from './warehouse-my-warehouse-view.style'
 import { ActionButtons } from './action-buttons'
 import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 
-export const WarehouseMyWarehouseView = observer(({ history }) => {
+export const WarehouseMyWarehouseView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const viewModel = useMemo(() => new WarehouseMyWarehouseViewModel({ history }), [])
+  const viewModel = useMemo(() => new WarehouseMyWarehouseViewModel(), [])
 
   useEffect(() => {
-    viewModel.loadData()
+    viewModel.getCurrentData()
   }, [])
 
   const getRowClassName = params => params.row.isDraft && styles.isDraftRow
@@ -45,7 +44,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
     <div className="viewWrapper">
       <div className={styles.headerWrapper}>
         <ActionButtons
-          selectedBoxes={viewModel.selectedBoxes}
+          selectedBoxes={viewModel.selectedRows}
           onEditBox={viewModel.onEditBox}
           onClickMergeBtn={viewModel.onClickMergeBtn}
           onClickSplitBtn={viewModel.onClickSplitBtn}
@@ -67,12 +66,13 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         disableRowSelectionOnClick
         isRowSelectable={params =>
           params.row.isDraft === false &&
-          params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
-          params.row.originalData.status !== BoxStatus.IN_BATCH
+          params.row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
+          params.row.status !== BoxStatus.IN_BATCH
         }
         getRowClassName={getRowClassName}
         rowCount={viewModel.rowCount}
-        rowSelectionModel={viewModel.selectedBoxes}
+        getRowId={row => row._id}
+        rowSelectionModel={viewModel.selectedRows}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -105,7 +105,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
         onCellDoubleClick={params =>
-          !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
+          !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
         }
       />
 
@@ -128,8 +128,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddBatchModal')}
       >
         <AddOrEditBatchForm
-          progressValue={viewModel.progressValue}
-          showProgress={viewModel.showProgress}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           sourceBox={viewModel.sourceBoxForBatch}
           boxesData={viewModel.boxesData}
@@ -174,9 +172,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           userInfo={viewModel.userInfo}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={viewModel.currentData
-            .filter(el => viewModel.selectedBoxes.includes(el._id))
-            .map(box => box.originalData)}
+          selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           onSubmit={viewModel.onClickSubmitEditMultipleBoxes}
@@ -212,13 +208,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           userInfo={viewModel.userInfo}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={
-            (viewModel.selectedBoxes.length &&
-              toJS(viewModel.boxesMy.filter(box => viewModel.selectedBoxes.includes(box._id)))?.map(
-                box => box.originalData,
-              )) ||
-            []
-          }
+          selectedBoxes={viewModel.currentData.filter(box => viewModel.selectedRows.includes(box._id))}
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -242,8 +232,8 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           addNewBoxModal={viewModel.showRedistributeBoxAddNewBoxModal}
           setAddNewBoxModal={value => viewModel.onModalRedistributeBoxAddNewBox(value)}
           selectedBox={
-            viewModel.selectedBoxes.length &&
-            viewModel.boxesMy.find(box => box._id === viewModel.selectedBoxes.slice()[0])?.originalData
+            viewModel.selectedRows.length &&
+            viewModel.currentData.find(box => box._id === viewModel.selectedRows.slice()[0])
           }
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -262,9 +252,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <GroupingBoxesForm
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={viewModel.boxesMy
-            .filter(el => viewModel.selectedBoxes.includes(el._id))
-            .map(box => box.originalData)}
+          selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}
           onSubmit={viewModel.onClickSubmitGroupingBoxes}
           onCloseModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
         />
