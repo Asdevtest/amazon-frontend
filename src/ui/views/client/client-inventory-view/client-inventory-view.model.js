@@ -5,6 +5,7 @@ import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
+import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, createOrderRequestWhiteList } from '@constants/white-list'
 
@@ -13,6 +14,7 @@ import { DataGridTagsFilter } from '@models/data-grid-tags-filter'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
 import { OtherModel } from '@models/other-model'
+import { ParserModel } from '@models/parser-model'
 import { ProductModel } from '@models/product-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 import { SettingsModel } from '@models/settings-model'
@@ -107,6 +109,8 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   showProgress = false
 
   getCustomSortFields = []
+
+  setAllColumns = undefined
 
   get userInfo() {
     return UserModel.userInfo
@@ -324,16 +328,17 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive') || false
 
-    this.getTableSettingsPreset()
+    this.initTableColumns()
 
-    const getValidColumns = async () => {
+    this.setAllColumns = (storekeepers, integrationFields) => {
       const newColumns = clientInventoryColumns({
         barCodeHandlers,
         hsCodeHandlers,
         fourMonthesStockHandlers,
         stockUsHandlers,
         otherHandlers,
-        storekeepers: this.meta?.storekeepers,
+        storekeepers,
+        integrationFields,
       })
 
       const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
@@ -342,21 +347,6 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       this.filtersFields = newFiltersFields
       this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
     }
-
-    reaction(
-      () => this.meta?.storekeepers?.length,
-      () => {
-        for (const storekeeper of this.meta.storekeepers) {
-          const currentColumnName = `toRefill${storekeeper?._id}`
-
-          if (!this.columnVisibilityModel?.[currentColumnName] && !storekeeper?.isUserPreprocessingCenterUSA) {
-            this.columnVisibilityModel[currentColumnName] = false
-          }
-        }
-
-        getValidColumns()
-      },
-    )
   }
 
   setDestinationsFavouritesItem(item) {
@@ -1496,5 +1486,34 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
+  }
+
+  async getStorekeepers() {
+    try {
+      const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK, undefined, true)
+
+      return result
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getIntegrationFields() {
+    try {
+      const result = await ParserModel.getFieldsInventoryIntegration()
+
+      return result
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async initTableColumns() {
+    const [storekeepers, integrationFields] = await Promise.all([this.getStorekeepers(), this.getIntegrationFields()])
+
+    console.log('storekeepers :>> ', storekeepers)
+    console.log('fields :>> ', integrationFields)
+
+    this.setAllColumns(storekeepers, integrationFields)
   }
 }

@@ -109,4 +109,6 @@ export const observerConfig = {
 
   onClickSaveSupplierBtn: action.bound,
   onClickEditTags: action.bound,
+  getStorekeepers: action.bound,
+  getIntegrationFields: action.bound,
 }
