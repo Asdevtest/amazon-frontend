@@ -275,6 +275,7 @@ export const clientInventoryColumns = ({
           minValue={100}
           maxValue={99999}
           onClick={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
+          onClickRepurchase={fourMonthesStockHandlers.onClickRepurchase}
         />
       ),
 
