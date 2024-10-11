@@ -328,9 +328,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive') || false
 
-    this.initTableColumns()
-
-    this.setAllColumns = (storekeepers, integrationFields) => {
+    this.setAllColumns = (storekeepers, integrationTables) => {
       const newColumns = clientInventoryColumns({
         barCodeHandlers,
         hsCodeHandlers,
@@ -338,15 +336,18 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
         stockUsHandlers,
         otherHandlers,
         storekeepers,
-        integrationFields,
+        integrationTables,
       })
 
       const newFiltersFields = getFilterFields(newColumns, additionalFilterFields)
 
       this.columnsModel = newColumns
+      this.defaultColumnsModel = newColumns
       this.filtersFields = newFiltersFields
       this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
     }
+
+    this.initTableColumns()
   }
 
   setDestinationsFavouritesItem(item) {
@@ -1509,11 +1510,12 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   }
 
   async initTableColumns() {
-    const [storekeepers, integrationFields] = await Promise.all([this.getStorekeepers(), this.getIntegrationFields()])
+    const [storekeepers, integrationTables] = await Promise.all([this.getStorekeepers(), this.getIntegrationFields()])
 
-    console.log('storekeepers :>> ', storekeepers)
-    console.log('fields :>> ', integrationFields)
+    console.log('integrationFields await:>> ', integrationTables)
 
-    this.setAllColumns(storekeepers, integrationFields)
+    this.setAllColumns(storekeepers, integrationTables)
+
+    this.getTableSettingsPreset()
   }
 }

@@ -596,7 +596,7 @@ export const clientInventoryColumns = ({
         const currentTableColumns = integrationTables[table]
 
         for (const column of currentTableColumns) {
-          const currentColumn = getColumn(column)
+          const currentColumn = getColumn(table, column)
 
           defaultColumns.push(currentColumn)
         }

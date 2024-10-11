@@ -111,4 +111,5 @@ export const observerConfig = {
   onClickEditTags: action.bound,
   getStorekeepers: action.bound,
   getIntegrationFields: action.bound,
+  initTableColumns: action.bound,
 }

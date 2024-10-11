@@ -17,18 +17,15 @@ export const getColumn = (table: string, column: { name: string; type: string })
   // const columnKey = getColumnKey(type)
 
   return {
-    field: name,
+    field: table + name,
     headerName,
     renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
-    valueGetter: (params: GridRenderCellParams) => params.row?.[table]?.[name],
-    renderCell: (params: GridRenderCellParams) => {
-      return (
-        <Tooltip title={params.row?.[table]?.updated_at}>
-          <Text isCell text={params.value} />
-        </Tooltip>
-      )
-    },
-
+    valueGetter: (params: GridRenderCellParams) => params.row?.reports?.[table]?.[name],
+    renderCell: (params: GridRenderCellParams) => (
+      <Tooltip title={params.row?.reports?.[table]?.updated_at}>
+        <Text isCell text={params.value} />
+      </Tooltip>
+    ),
     width: 150,
     // columnKey,
   }
