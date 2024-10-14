@@ -1150,6 +1150,7 @@ export enum TranslationKey {
   'Access to selected products only' = 'Access to selected products only',
   'Search by product description and ASIN, SKU:' = 'Search by product description and ASIN, SKU:',
   'Search by SKU, ASIN, Title' = 'Search by SKU, ASIN, Title',
+  'Search by SKU, ASIN, Title, ID' = 'Search by SKU, ASIN, Title, ID',
   'Repeat order' = 'Repeat order',
   'Box data' = 'Box data',
   'Total goods In Box' = 'Total goods In Box',
@@ -1367,6 +1368,7 @@ export enum TranslationKey {
   'Quantity of boxes in batch' = 'Quantity of boxes in batch',
   'Quantity in group' = 'Quantity in group',
   'Search by ASIN, Title, Batch ID, Order ID' = 'Search by ASIN, Title, Batch ID, Order ID',
+  'Search by ASIN, Title, Batch ID' = 'Search by ASIN, Title, Batch ID',
   'Unlink an product from Amazon' = 'Unlink an product from Amazon',
   'Unlink success' = 'Unlink success',
   'Buyer comments to the task' = 'Buyer comments to the task',
@@ -2067,4 +2069,6 @@ export enum TranslationKey {
   'Integration' = 'Integration',
   'Products linked successfully' = 'Products linked successfully',
   'Product linking error' = 'Product linking error',
+  'Successfully integrated' = 'Successfully integrated',
+  'Failed' = 'Failed',
 }

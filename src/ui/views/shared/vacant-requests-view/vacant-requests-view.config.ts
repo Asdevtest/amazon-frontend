@@ -18,5 +18,5 @@ export const vacantRequestsConfig = {
   onClickOpenInNewTab: action.bound,
 }
 
-export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient']
+export const fieldsForSearch = ['xid', 'asin', 'amazonTitle', 'skuByClient']
 export const additionalFields = ['amazonTitle', 'skuByClient']
