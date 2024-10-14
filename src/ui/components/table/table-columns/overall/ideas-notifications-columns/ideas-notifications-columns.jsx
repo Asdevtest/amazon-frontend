@@ -22,7 +22,6 @@ export const ideasNotificationsViewColumns = handlers => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 85,
-    // type: 'date',
   },
 
   {

@@ -27,9 +27,11 @@ import { IGridColumn } from '@typings/shared/grid-column'
 import { ColumnsProps } from './warehouse-main-tasks-view.config'
 
 export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
-  const { onChangeTask, onPickupTask, onCancelTask, onUpdateTaskPriority, onUpdateTaskComment, status } = props
+  const { onChangeTask, onPickupTask, onCancelTask, onUpdateTaskPriority, onUpdateTask, status } = props
 
   const isNewOrMyTasks = [TaskStatus.NEW, TaskStatus.AT_PROCESS].includes(status)
+  const isMyTask = status === TaskStatus.AT_PROCESS
+  const isNewTask = status === TaskStatus.NEW
 
   const commentColumn = isNewOrMyTasks
     ? {
@@ -41,7 +43,7 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
             isCell
             editMode
             text={row.reason}
-            onClickSubmit={reason => onUpdateTaskComment(row._id, row.priority, reason)}
+            onClickSubmit={reason => onUpdateTask(row._id, row.priority, reason)}
           />
         ),
         width: 280,
@@ -63,16 +65,16 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
       renderCell: ({ row }) => {
-        const firstContent = t(TranslationKey[isNewOrMyTasks ? 'Get to work' : 'View'])
-        const onClickFirst = () => (isNewOrMyTasks ? onPickupTask(row as ITask) : onChangeTask(row._id))
-        const showSecond = isNewOrMyTasks && row.operationType !== TaskOperationType.RECEIVE
+        const firstContent = t(TranslationKey[isNewTask ? 'Get to work' : isMyTask ? 'Resolve' : 'View'])
+        const onClickFirst = () => (isNewTask ? onPickupTask(row as ITask) : onChangeTask(row._id))
 
         return (
           <ActionButtonsCell
             showFirst
             secondDanger
             firstContent={firstContent}
-            showSecond={showSecond}
+            showSecond={isNewOrMyTasks}
+            secondDisabled={row.operationType === TaskOperationType.RECEIVE}
             secondContent={t(TranslationKey['Cancel task'])}
             secondConfirmText="After confirmation, the task will be cancelled. Confirm?"
             onClickFirst={onClickFirst}

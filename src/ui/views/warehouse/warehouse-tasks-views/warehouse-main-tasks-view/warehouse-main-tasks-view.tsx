@@ -129,15 +129,20 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
       />
 
       <Modal
-        openModal={viewModel.showTaskInfoModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
+        missClickModalOn
+        openModal={viewModel.showTaskModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showTaskModal')}
       >
         <EditTaskModal
           // @ts-ignore
-          readOnly
+          readOnly={status === TaskStatus.NEW}
           task={viewModel.currentTask}
+          showEditBoxModal={viewModel.showEditBoxModal}
           volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
-          onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskInfoModal')}
+          onClickOpenCloseModal={() => viewModel.onTriggerOpenModal('showTaskModal')}
+          onTriggerShowEditBoxModal={viewModel.onTriggerShowEditBoxModal}
+          onEditBox={viewModel.onTriggerShowEditBoxModal}
+          onClickSolveTask={viewModel.onClickSolveTask}
         />
       </Modal>
 
@@ -148,7 +153,7 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
         <EditTaskPriorityModal
           data={viewModel.editPriorityData}
           handleClose={() => viewModel.onTriggerOpenModal('showEditPriorityData')}
-          onSubmitHandler={viewModel.updateTaskPriority}
+          onSubmitHandler={viewModel.onUpdateTask}
         />
       </Modal>
 

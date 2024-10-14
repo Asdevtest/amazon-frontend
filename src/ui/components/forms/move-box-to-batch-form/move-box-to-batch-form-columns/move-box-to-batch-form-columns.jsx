@@ -67,7 +67,6 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
-    // type: 'date',
   },
 
   {
