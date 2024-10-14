@@ -1625,6 +1625,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         this.selectedWarehouseOrderProduct = { ...result, _id: selectedBoxProductId } as unknown as IProduct
       })
 
+      this.getBatches()
+
       this.onTriggerOpenModal('showProductModal')
 
       if (this.showProductModal) {
@@ -1641,10 +1643,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   onClickChangeProductAndBatchModalCondition(value: ProductAndBatchModalSwitcherConditions) {
     this.productAndBatchModalSwitcherCondition = value
-
-    if (value === ProductAndBatchModalSwitcherConditions.BATCH_DATA) {
-      this.getBatches()
-    }
   }
 
   async getCurrBatch(guid: string) {
