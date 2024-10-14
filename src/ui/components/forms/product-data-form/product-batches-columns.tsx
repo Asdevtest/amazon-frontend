@@ -79,7 +79,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.boxes?.[0]?.destination?.name || '-'} />,
       width: 150,
-      table: DataGridFilterTables.BATCHES,
+      table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
@@ -96,43 +96,43 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         />
       ),
       width: 165,
-      table: DataGridFilterTables.BATCHES,
+      table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
-      field: 'logicsTariffCls',
+      field: 'cls',
       headerName: t(TranslationKey['CLS (batch closing date)']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['CLS (batch closing date)'])} />,
       renderCell: ({ row }: GridRowModel) => (
         <Text isCell text={formatDate(row?.boxes?.[0]?.logicsTariff?.cls) || '-'} />
       ),
       width: 110,
-      table: DataGridFilterTables.BATCHES,
+      table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
     },
 
     {
-      field: 'logicsTariffEtd',
+      field: 'etd',
       headerName: t(TranslationKey['ETD (date of shipment)']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETD (date of shipment)'])} />,
       renderCell: ({ row }: GridRowModel) => (
         <Text isCell text={formatDate(row?.boxes?.[0]?.logicsTariff?.etd) || '-'} />
       ),
       width: 110,
-      table: DataGridFilterTables.BATCHES,
+      table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
     },
 
     {
-      field: 'logicsTariffEta',
+      field: 'eta',
       headerName: t(TranslationKey['ETA (arrival date)']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETA (arrival date)'])} />,
       renderCell: ({ row }: GridRowModel) => (
         <Text isCell text={formatDate(row?.boxes?.[0]?.logicsTariff?.eta) || '-'} />
       ),
       width: 110,
-      table: DataGridFilterTables.BATCHES,
+      table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.DATE,
     },
 
