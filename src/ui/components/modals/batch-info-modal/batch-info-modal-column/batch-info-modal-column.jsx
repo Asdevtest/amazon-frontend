@@ -55,6 +55,8 @@ export const batchInfoModalColumn = (
       <ProductCell
         image={params.row.items?.[0]?.product?.images?.[0]}
         title={params.row.items?.[0]?.product?.amazonTitle}
+        asin={params.row.items?.[0]?.product?.asin}
+        sku={params.row.items?.[0]?.product?.skuByClient}
         superbox={params.row.amount}
       />
     ),
