@@ -268,7 +268,7 @@ export class WarehouseVacantViewModel {
               }`]: this.nameSearchValue,
             },
           },
-          { id: { $eq: this.nameSearchValue } },
+          { xid: { $eq: this.nameSearchValue } },
           { item: { $eq: this.nameSearchValue } },
         ].filter(
           el =>

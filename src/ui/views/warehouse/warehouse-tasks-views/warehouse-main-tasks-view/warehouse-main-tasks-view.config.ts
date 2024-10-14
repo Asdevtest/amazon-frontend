@@ -15,7 +15,7 @@ export const warehouseCanceledTasksConfig = {
   onChangeTask: action.bound,
 }
 
-export const fieldsForSearch = ['asin', 'trackNumberText', 'id', 'item']
+export const fieldsForSearch = ['asin', 'trackNumberText', 'xid', 'item']
 
 export interface ColumnsProps {
   onChangeTask: (id: string) => void
