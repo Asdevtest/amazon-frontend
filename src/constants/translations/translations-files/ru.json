@@ -2070,5 +2070,7 @@
   "Select user": "Выбрать пользователя",
   "Integration": "Интеграция",
   "Products linked successfully": "Продукты успешно связаны",
-  "Product linking error": "Ошибка привязки продуктов"
+  "Product linking error": "Ошибка привязки продуктов",
+  "Successfully integrated": "Успешно интегрировано",
+  "Failed": "Не удалось"
 }
