@@ -1512,9 +1512,9 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   async initTableColumns() {
     const [storekeepers, integrationTables] = await Promise.all([this.getStorekeepers(), this.getIntegrationFields()])
 
-    console.log('integrationFields await:>> ', integrationTables)
+    const filteredStorekeepers = storekeepers?.filter(storekeeper => storekeeper?.boxesCount > 0)
 
-    this.setAllColumns(storekeepers, integrationTables)
+    this.setAllColumns(filteredStorekeepers, integrationTables)
 
     this.getTableSettingsPreset()
   }

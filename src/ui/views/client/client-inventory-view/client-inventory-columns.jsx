@@ -31,7 +31,7 @@ import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/da
 import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/production-time'
 
 import { productionTimeColumnMenuValue } from './client-inventory-view.config'
-import { inventoryAdditionalFilterFields } from './client-inventory-view.constants'
+import { exceptionColumns, inventoryAdditionalFilterFields } from './client-inventory-view.constants'
 import { getColumn } from './helpers/get-column'
 
 export const clientInventoryColumns = ({
@@ -558,7 +558,7 @@ export const clientInventoryColumns = ({
           return (
             <FourMonthesStockCell
               isNotPepurchase
-              title={'For shipping'}
+              title="For shipping"
               rowId={storekeeper?._id}
               value={currentBoxAmounts?.toRefill || 0}
               fourMonthesStockValue={currentBoxAmounts?.recommendedValue || 0}
@@ -596,6 +596,10 @@ export const clientInventoryColumns = ({
         const currentTableColumns = integrationTables[table]
 
         for (const column of currentTableColumns) {
+          if (exceptionColumns?.[column]) {
+            continue
+          }
+
           const currentColumn = getColumn(table, column)
 
           defaultColumns.push(currentColumn)
@@ -603,43 +607,6 @@ export const clientInventoryColumns = ({
       }
     }
   }
-
-  // for (const table in inventoryAdditionalFilterFields) {
-  //   if (inventoryAdditionalFilterFields[table]) {
-  //     const columns = inventoryAdditionalFilterFields[table]
-
-  //     if (columns?.some(column => complexCells?.includes(column))) {
-  //       const formedTableName = formatCamelCaseString(table)
-
-  //       const complexCell = {
-  //         field: table,
-  //         headerName: `${formedTableName} product`,
-  //         renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
-  //         valueGetter: ({ row }) => row?.[table]?.asin,
-  //         renderCell: ({ row }) => {
-  //           const product = row?.[table]
-
-  //           return <ProductCell image={product?.image} asin={product?.asin} sku={product?.sku} />
-  //         },
-
-  //         fields: getProductColumnMenuItems({ withoutTitle: true }),
-  //         columnMenuConfig: getProductColumnMenuValue(),
-  //         columnKey: columnnsKeys.shared.MULTIPLE,
-  //         width: 170,
-  //       }
-
-  //       defaultColumns.push(complexCell)
-  //     }
-
-  //     for (const column of columns) {
-  //       const cell = getCellType(column, table)
-
-  //       if (cell) {
-  //         defaultColumns.push(cell)
-  //       }
-  //     }
-  //   }
-  // }
 
   for (const column of defaultColumns) {
     if (column.table) {
