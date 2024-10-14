@@ -4,12 +4,6 @@ export const getFieldsForSearch = (activeTable: ParsingReportsType) => {
   switch (activeTable) {
     case ParsingReportsType.ORDERS:
       return ['amzOrderId', 'asin', 'sku']
-    case ParsingReportsType.BUSINESS_REPORTS:
-    case ParsingReportsType.INVENTORY_PLANNING:
-    case ParsingReportsType.ACCOUNT_HEALTH:
-    case ParsingReportsType.CAMPAIGNS:
-    case ParsingReportsType.TOTAL_BALANCE:
-      return ['shop']
     case ParsingReportsType.FEEDBACK:
       return ['comments', 'shop']
     case ParsingReportsType.TRANSACTIONS:
@@ -28,8 +22,10 @@ export const getFieldsForSearch = (activeTable: ParsingReportsType) => {
       return ['asin', 'sku', 'fnsku']
     case ParsingReportsType.FYP_OUT_OF_STOCK:
       return ['shop', 'asin', 'sku']
-    default:
-      // case ParsingReportsType.PPC_ORGANIC:
+    case ParsingReportsType.PPC_ORGANIC:
       return ['asin', 'sku']
+
+    default:
+      return []
   }
 }

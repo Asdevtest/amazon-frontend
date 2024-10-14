@@ -50,7 +50,7 @@ export const HeaderTable = ({ viewModel }) => {
           allowClear
           wrapperClassName={styles.searchInput}
           size="large"
-          placeholder="Search by ASIN, Title, Batch ID, Order ID"
+          placeholder="Search by ASIN, Title, Batch ID"
           onSearch={viewModel.onSearchSubmit}
         />
 

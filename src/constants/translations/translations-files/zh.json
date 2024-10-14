@@ -1149,6 +1149,7 @@
   "Access to selected products only": "访问选定的产品",
   "Search by product description and ASIN, SKU:": "按产品的描述和 ASIN, SKU搜索:",
   "Search by SKU, ASIN, Title": "按 SKU, ASIN, 名称搜索",
+  "Search by SKU, ASIN, Title, ID": "按 SKU, ASIN, 名称搜索, ID",
   "Repeat order": "重复订单",
   "Box data": "箱子数据",
   "Total goods In Box": "箱子里所有的产品",
@@ -1366,6 +1367,7 @@
   "Quantity of boxes in batch": "批次中盒子的数量",
   "Quantity in group": "组中的数量",
   "Search by ASIN, Title, Batch ID, Order ID": "按ASIN, 标题, 批次ID, 订单ID搜索",
+  "Search by ASIN, Title, Batch ID": "按ASIN, 标题, 批次ID",
   "Unlink an product from Amazon": "解除产品与亚马逊的关联",
   "Unlink success": "解除关联成功",
   "Buyer comments to the task": "买家对任务的评论",
@@ -2065,5 +2067,7 @@
   "Select user": "选择用户",
   "Integration": "集成",
   "Products linked successfully": "产品链接成功",
-  "Product linking error": "产品绑定错误"
+  "Product linking error": "产品绑定错误",
+  "Successfully integrated": "成功集成",
+  "Failed": "失败"
 }

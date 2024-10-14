@@ -54,6 +54,7 @@ export const filtersFields = [
 ]
 
 export const fieldsForSearch = [
+  'xid',
   'parentProductSkuByClient',
   'parentProductAmazonTitle',
   'parentProductAsin',

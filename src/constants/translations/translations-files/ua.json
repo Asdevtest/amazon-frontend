@@ -1153,6 +1153,7 @@
   "Access to selected products only": "Доступ тільки до вибраних товарів",
   "Search by product description and ASIN, SKU:": "Пошук за описом товару та ASIN, SKU:",
   "Search by SKU, ASIN, Title": "Пошук за SKU, ASIN, Назва",
+  "Search by SKU, ASIN, Title, ID": "Пошук за SKU, ASIN, Назва, ID",
   "Repeat order": "Повторити замовлення",
   "Box data": "Дані коробки",
   "Total goods In Box": "Усього товарів у коробці",
@@ -1370,6 +1371,7 @@
   "Quantity of boxes in batch": "Кількість коробок у партії",
   "Quantity in group": "Кількість у групі",
   "Search by ASIN, Title, Batch ID, Order ID": "Пошук по ASIN, Title, ID партії, ID замовлення",
+  "Search by ASIN, Title, Batch ID": "Пошук по ASIN, Title, ID партії",
   "Unlink an product from Amazon": "Відв'язати товар від Amazon",
   "Unlink success": "Успішне відв'язання",
   "Buyer comments to the task": "Коментар байера до задачі",
@@ -2070,5 +2072,7 @@
   "Select user": "Вибрати користувача",
   "Integration": "Інтеграція",
   "Products linked successfully": "Продукти успішно пов'язані",
-  "Product linking error": "Помилка прив'язки продуктів"
+  "Product linking error": "Помилка прив'язки продуктів",
+  "Successfully integrated": "Успішно інтегровано",
+  "Failed": "Не вдалося"
 }

@@ -77,7 +77,7 @@ export const MyRequestsView = observer(() => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by SKU, ASIN, Title"
+          placeholder="Search by SKU, ASIN, Title, ID"
           onSearch={viewModel.onSearchSubmit}
         />
 

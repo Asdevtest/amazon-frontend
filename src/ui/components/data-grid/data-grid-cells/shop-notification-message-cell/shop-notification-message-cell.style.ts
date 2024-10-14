@@ -17,7 +17,6 @@ export const useStyles = makeStyles()(theme => {
     },
 
     shopLink: {
-      color: colorPrimary,
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
@@ -49,9 +48,10 @@ export const useStyles = makeStyles()(theme => {
       display: 'flex',
       flexDirection: 'column',
       fontSize: '14px',
-      color: colorPrimary,
-      backgroundColor: theme.palette.background.second,
       whiteSpace: 'pre-wrap',
+      backgroundColor: theme.palette.background.general,
+      boxShadow: theme.palette.boxShadow.paper,
+      color: theme.palette.text.general,
     },
   }
 })

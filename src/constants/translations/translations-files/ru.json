@@ -1153,6 +1153,7 @@
   "Access to selected products only": "Доступ только к выбранным товарам",
   "Search by product description and ASIN, SKU:": "Поиск по описанию товара и ASIN, SKU:",
   "Search by SKU, ASIN, Title": "Поиск по SKU, ASIN, Названию",
+  "Search by SKU, ASIN, Title, ID": "Поиск по SKU, ASIN, Названию, ID",
   "Repeat order": "Повторить заказ",
   "Box data": "Данные коробки",
   "Total goods In Box": "Всего товаров в коробке",
@@ -1370,6 +1371,7 @@
   "Quantity of boxes in batch": "Количество коробок в партии",
   "Quantity in group": "Количество в группе",
   "Search by ASIN, Title, Batch ID, Order ID": "Поиск по ASIN, Названию, ID партии, ID заказа",
+  "Search by ASIN, Title, Batch ID": "Поиск по ASIN, Названию, ID партии",
   "Unlink an product from Amazon": "Отвязать товар с Amazon",
   "Unlink success": "Успешная отвязка",
   "Buyer comments to the task": "Комментарий к задаче от байера",
@@ -2071,5 +2073,7 @@
   "Select user": "Выбрать пользователя",
   "Integration": "Интеграция",
   "Products linked successfully": "Продукты успешно связаны",
-  "Product linking error": "Ошибка привязки продуктов"
+  "Product linking error": "Ошибка привязки продуктов",
+  "Successfully integrated": "Успешно интегрировано",
+  "Failed": "Не удалось"
 }
