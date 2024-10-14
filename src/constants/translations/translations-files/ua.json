@@ -2073,5 +2073,6 @@
   "Products linked successfully": "Продукти успішно пов'язані",
   "Product linking error": "Помилка прив'язки продуктів",
   "Successfully integrated": "Успішно інтегровано",
-  "Failed": "Не вдалося"
+  "Failed": "Не вдалося",
+  "Select at least 2 users": "Виберіть щонайменше 2 користувача"
 }

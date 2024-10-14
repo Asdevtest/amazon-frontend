@@ -2068,5 +2068,6 @@
   "Products linked successfully": "产品链接成功",
   "Product linking error": "产品绑定错误",
   "Successfully integrated": "成功集成",
-  "Failed": "失败"
+  "Failed": "失败",
+  "Select at least 2 users": "请选择至少两个用户"
 }

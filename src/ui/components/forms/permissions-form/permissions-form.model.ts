@@ -12,7 +12,7 @@ import { UserModel } from '@models/user-model'
 import { t } from '@utils/translations'
 
 import { Specs } from '@typings/enums/specs'
-import { isClient, isFreelancer, isStorekeeper } from '@typings/guards/roles'
+import { isBuyer, isClient, isFreelancer, isStorekeeper } from '@typings/guards/roles'
 import { IPermission } from '@typings/models/permissions/permission'
 import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 import { IPermissions } from '@typings/models/permissions/permissions'
@@ -109,7 +109,6 @@ export class PermissionsFormModel {
         subOption: true,
       })),
     }))
-
     const extraOption =
       this.products.length > 0
         ? {
@@ -188,6 +187,11 @@ export class PermissionsFormModel {
   }
   get userIds() {
     return this.subUser?._id ? [this.subUser?._id, ...this.selectedUserIds] : this.selectedUserIds
+  }
+  get disableSubmit() {
+    const hasEnoughUsers = this.subUser ? this.userIds.length > 0 : this.userIds.length >= 2
+
+    return this.mainLoading || !hasEnoughUsers
   }
 
   constructor({ subUser, onCloseModal, onUpdateData }: PermissionsFormProps) {
@@ -417,7 +421,7 @@ export class PermissionsFormModel {
     runInAction(() => (this.productsLoading = true))
 
     const products = await this.getProductsPermissions()
-    const shops = isClient(this.userInfo?.role) && (await this.getPermissionsShops())
+    const shops = (isClient(this.userInfo?.role) || isBuyer(this.userInfo?.role)) && (await this.getPermissionsShops())
 
     runInAction(() => {
       this.products = products || []
@@ -435,14 +439,16 @@ export class PermissionsFormModel {
       })
 
       const allProductsExist = !this.products.some(option => !option.selected)
-      const allShopsExist = !this.shops.some(option => !option.selected)
+      const allShopsExist = !this.shops.some(
+        option => !option.selected && option.products?.some(child => !child.selected),
+      )
 
       if (allProductsExist && allShopsExist) {
         this.currentProductOptions.push([SELECT_ALL_PRODUCTS])
       }
-    })
 
-    this.productsLoading = false
+      this.productsLoading = false
+    })
   }
 
   searchFilter(inputValue: string, path: DefaultOptionType[]) {
