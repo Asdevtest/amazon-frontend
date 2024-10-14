@@ -39,7 +39,8 @@ export const ClientOrdersView = observer(history => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by SKU, ASIN, Title"
+          placeholder="Search by SKU, ASIN, Title, Order, item"
+          wrapperClassName={styles.inputSearch}
           onSearch={viewModel.onSearchSubmit}
         />
 
@@ -116,7 +117,7 @@ export const ClientOrdersView = observer(history => {
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
-              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset, 
+              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },
           },
         }}

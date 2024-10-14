@@ -55,9 +55,9 @@ export class LinkCascaderModel {
         tables: this.selectedTableOptions.flat().filter(item => item !== 'select-all-tables'),
       }
       await ParserModel.bindProductToTable(data)
-      toast.success(t(TranslationKey['Data exported successfully']))
+      toast.success(t(TranslationKey['Products linked successfully']))
     } catch (error) {
-      toast.error(t(TranslationKey['Error while exporting data']))
+      toast.error(t(TranslationKey['Product linking error']))
     } finally {
       runInAction(() => (this.open = false))
       this.clearSelection()

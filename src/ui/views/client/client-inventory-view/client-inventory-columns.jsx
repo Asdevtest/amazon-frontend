@@ -137,17 +137,13 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Inbound),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
       renderCell: params => (
-        <div
-          type="submit"
-          onClick={e => {
-            if (Number(params.value) > 0) {
-              e.stopPropagation()
-              otherHandlers.onOpenProductDataModal(params.row, true)
-            }
+        <OrderIdAndAmountCountCell
+          orderId={params.value}
+          onClickOrderId={e => {
+            e.stopPropagation()
+            otherHandlers.onOpenProductDataModal(params.row, true)
           }}
-        >
-          <Text isCell text={String(params.value)} />
-        </div>
+        />
       ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -275,6 +271,7 @@ export const clientInventoryColumns = ({
           minValue={100}
           maxValue={99999}
           onClick={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
+          onClickRepurchase={fourMonthesStockHandlers.onClickRepurchase}
         />
       ),
 

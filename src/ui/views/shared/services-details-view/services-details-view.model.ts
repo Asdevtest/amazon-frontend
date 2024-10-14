@@ -6,13 +6,12 @@ import { AnnouncementsModel } from '@models/announcements-model'
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { FeedbackModel } from '@models/feedback-model'
 
-import { freelancerFreelanceColumns } from '@components/table/table-columns/freelancer/freelancer-freelance-columns'
-
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { IFeedback } from '@typings/models/feedbacks/feedback'
 import { ICreatedBy } from '@typings/shared/created-by'
 import { HistoryType } from '@typings/types/history'
 
+import { serviceDetailsColumns } from './services-details-view.columns'
 import { servicesDetailsViewConfig } from './services-details-view.config'
 
 export class ServiceDetailsViewModel extends DataGridTableModel {
@@ -32,7 +31,7 @@ export class ServiceDetailsViewModel extends DataGridTableModel {
     const columnsProps = {
       onClickOpenButton: (id: string) => this.onClickOpenBtn(id),
     }
-    const columnsModel = freelancerFreelanceColumns(columnsProps)
+    const columnsModel = serviceDetailsColumns(columnsProps)
 
     super({
       getMainDataMethod: AnnouncementsModel.getAnnouncementsByGuid,

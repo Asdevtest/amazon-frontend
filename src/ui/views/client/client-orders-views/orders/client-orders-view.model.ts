@@ -444,10 +444,6 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
 
   onClickChangeProductAndBatchModalCondition(value: ProductAndBatchModalSwitcherConditions) {
     this.productAndBatchModalSwitcherCondition = value
-
-    if (value === ProductAndBatchModalSwitcherConditions.BATCH_DATA) {
-      this.getBatches()
-    }
   }
 
   async onClickWarehouseOrderButton(guid: string) {
@@ -460,6 +456,8 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.selectedWarehouseOrderProduct = { ...result, _id: guid }
       })
+
+      this.getBatches()
 
       this.onTriggerOpenModal('showProductModal')
 

@@ -124,9 +124,32 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     )
   }
 
-  onSearchSubmit(value: any) {
-    this.currentSearchValue = value.trim()
-    this.getCurrentData()
+  onSearchSubmit(
+    value: string,
+    _event?:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.MouseEvent<HTMLElement>
+      | React.KeyboardEvent<HTMLInputElement>,
+    info?: {
+      source?: 'clear' | 'input'
+    },
+  ) {
+    const wasFilterApplied = this.getFilters().includes(this.fieldsForSearch?.[0]) // stores information about the previous filter (when there was a value and it was cleared)
+
+    this.currentSearchValue = value.trim() // remove spaces
+
+    if (!this.currentSearchValue && info?.source !== 'clear') {
+      // request with an empty value
+      this.getCurrentData()
+      return
+    }
+
+    const isFilterApplied = this.getFilters().includes(this.fieldsForSearch?.[0]) // stores information about the current filter (when there is a value)
+
+    if (wasFilterApplied || isFilterApplied) {
+      // the re-request is triggered only if the value exists, or it was before clearing, otherwise the two conditions are 'false' (the case when we entered a value and it was deleted - without a request)
+      this.getCurrentData()
+    }
   }
 
   onChangeFullFieldMenuItem(value: any, field: string) {
