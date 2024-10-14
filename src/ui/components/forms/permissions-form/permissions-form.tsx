@@ -60,7 +60,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           />
         )}
         <UsersSelect
-          disabled={!!viewModel.subUser}
+          disabled={!!viewModel.subUser || viewModel.mainLoading}
           size="large"
           suffixIcon={viewModel.subUser && null}
           mode={viewModel.subUser ? undefined : 'multiple'}
