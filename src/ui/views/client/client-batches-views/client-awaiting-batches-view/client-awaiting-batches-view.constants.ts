@@ -20,4 +20,4 @@ export const filtersFields = [
   'subUsers',
 ]
 
-export const fieldsForSearch = ['amazonTitle', 'xid', 'asin', 'orderXid']
+export const fieldsForSearch = ['amazonTitle', 'xid', 'asin']

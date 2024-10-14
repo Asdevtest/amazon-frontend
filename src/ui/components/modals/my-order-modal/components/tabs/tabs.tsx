@@ -13,7 +13,7 @@ import { useStyles } from './tabs.style'
 import { IOrderWithAdditionalFields, SetFormFieldsType } from '../../my-order-modal.type'
 
 import { BasicInfo } from './basic-info'
-import { customSwitcherSettings } from './tabs.config'
+import { generateSwitcherSettings } from './tabs.config'
 import { MyOrderModalSwitcherConditions } from './tabs.type'
 
 interface TabsProps {
@@ -59,7 +59,7 @@ export const Tabs: FC<TabsProps> = memo(props => {
     <div className={styles.tabs}>
       <CustomRadioButton
         size="large"
-        options={customSwitcherSettings}
+        options={generateSwitcherSettings()}
         value={switcherCondition}
         onChange={e => onClickChangeCondition(e.target.value)}
       />
