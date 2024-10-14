@@ -79,7 +79,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.boxes?.[0]?.destination?.name || '-'} />,
       width: 150,
-      filterable: false,
+      table: DataGridFilterTables.BATCHES,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -95,7 +96,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         />
       ),
       width: 165,
-      filterable: false,
+      table: DataGridFilterTables.BATCHES,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -106,7 +108,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         <Text isCell text={formatDate(row?.boxes?.[0]?.logicsTariff?.cls) || '-'} />
       ),
       width: 110,
-      filterable: false,
+      table: DataGridFilterTables.BATCHES,
+      columnKey: columnnsKeys.shared.DATE,
     },
 
     {
@@ -117,7 +120,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         <Text isCell text={formatDate(row?.boxes?.[0]?.logicsTariff?.etd) || '-'} />
       ),
       width: 110,
-      filterable: false,
+      table: DataGridFilterTables.BATCHES,
+      columnKey: columnnsKeys.shared.DATE,
     },
 
     {
@@ -128,7 +132,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
         <Text isCell text={formatDate(row?.boxes?.[0]?.logicsTariff?.eta) || '-'} />
       ),
       width: 110,
-      filterable: false,
+      table: DataGridFilterTables.BATCHES,
+      columnKey: columnnsKeys.shared.DATE,
     },
 
     {
