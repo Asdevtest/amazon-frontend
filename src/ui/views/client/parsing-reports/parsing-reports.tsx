@@ -45,6 +45,7 @@ export const ParsingReports = observer(() => {
         <CustomInputSearch
           enterButton
           allowClear
+          disabled={!viewModel.fieldsForSearch.length}
           size="large"
           placeholder="Search"
           onSearch={viewModel.onSearchSubmit}
