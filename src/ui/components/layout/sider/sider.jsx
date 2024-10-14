@@ -1,4 +1,5 @@
-import { Badge, Flex, Layout, Menu } from 'antd'
+import { Badge, Flex, Menu } from 'antd'
+import AntSider from 'antd/es/layout/Sider'
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 import { BsFire } from 'react-icons/bs'
@@ -20,6 +21,8 @@ import { t } from '@utils/translations'
 
 import { isAdmin, isModerator } from '@typings/guards/roles'
 
+import { useHover } from '@hooks/use-hover'
+
 import { useStyles } from './sider.style'
 
 import { SiderModel } from './sider.model'
@@ -28,8 +31,6 @@ export const alwaysShowSubCategoryKeys = [
   navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
   navBarActiveCategory.NAVBAR_READY_TO_CHECK,
 ]
-
-const { Sider: AntSider } = Layout
 
 export const Sider = observer(({ activeCategory, activeSubCategory }) => {
   const { classes: styles, theme, cx } = useStyles()
@@ -91,10 +92,9 @@ export const Sider = observer(({ activeCategory, activeSubCategory }) => {
         return null
     }
   }
-
   const getItem = item =>
     item?.checkHideBlock?.(viewModel.userInfo) && {
-      key: item.key,
+      key: item.route,
       icon: (
         <Badge
           size="small"
@@ -115,10 +115,11 @@ export const Sider = observer(({ activeCategory, activeSubCategory }) => {
           <Badge count={getBadge(item.route)} overflowCount={999} />
         </>
       ),
+      onClick: () => !item.children && history.push(item.route),
       children: item.children?.map(
         subItem =>
           subItem?.checkHideBlock?.(viewModel.userInfo) && {
-            key: subItem.key,
+            key: subItem.route,
             icon: <Badge count={getBadge(subItem.route)} overflowCount={999} color={theme.palette.primary.main} />,
             label: t(TranslationKey[subItem.label]),
             route: subItem.route,
@@ -131,15 +132,17 @@ export const Sider = observer(({ activeCategory, activeSubCategory }) => {
 
   const options = viewModel.menuItems.map((menuItem, index) => getItem(menuItem))
 
+  const [isHover, onMouseFunctions] = useHover()
+
   return (
     <>
-      <AntSider width={280} className={styles.sider}>
-        <Flex component="div" align="center" justify="center" style={{ minHeight: 50 }}>
+      <AntSider {...onMouseFunctions} width={280} collapsed={!isHover} className={styles.sider}>
+        <Flex align="center" justify="center" style={{ minHeight: 50 }}>
           <ShortLogoIcon />
         </Flex>
 
         <Flex vertical>
-          <Menu triggerSubMenuAction="hover" defaultSelectedKeys={[activeCategory]} mode="vertical" items={options} />
+          <Menu defaultSelectedKeys={[activeCategory]} mode="inline" items={options} />
         </Flex>
 
         <Flex vertical>

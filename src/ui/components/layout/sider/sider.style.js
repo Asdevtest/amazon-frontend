@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   sider: {
+    transition: 'all .5s ease',
     background: theme.palette.background.general,
   },
 

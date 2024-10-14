@@ -194,7 +194,7 @@ export const getClientDashboardCardConfig = () => ({
         icon: '/assets/icons/party.svg',
         subIcon: '/assets/icons/check.svg',
         color: '#C69109',
-        route: '/client/warehouse/in-stock',
+        route: '/client/warehouse/boxes-in-stock',
       },
       {
         dataKey: ClientDashboardCardDataKey.IS_BEING_COLLECTED,

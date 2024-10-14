@@ -1366,7 +1366,7 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/inventory',
+    routePath: '/client/inventory/products',
     component: ClientInventoryView,
     exact: true,
     permission: [UserRole.CLIENT],

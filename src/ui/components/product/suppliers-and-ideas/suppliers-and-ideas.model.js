@@ -143,7 +143,11 @@ export class SuppliersAndIdeasModel {
     window
       .open(
         `${
-          checkIsClient(userRole) ? '/client/inventory' : checkIsBuyer(userRole) ? '/buyer/my-products' : userRole
+          checkIsClient(userRole)
+            ? '/client/inventory/products'
+            : checkIsBuyer(userRole)
+            ? '/buyer/my-products'
+            : userRole
         }/product?product-id=${productId}&show-tab=ideas&ideaId=${ideaId}`,
         '_blank',
       )

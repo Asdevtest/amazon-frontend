@@ -379,7 +379,9 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
         ? this.history.push(`/client/inventory?product-id=${row._id}&isArchive=true`)
         : this.history.push(`/client/inventory?product-id=${row._id}`)
     } else {
-      this.isArchive ? this.history.push(`/client/inventory?isArchive=true`) : this.history.push(`/client/inventory`)
+      this.isArchive
+        ? this.history.push(`/client/inventory/products?isArchive=true`)
+        : this.history.push(`/client/inventory/products`)
     }
 
     this.onTriggerOpenModal('productCardModal')
@@ -402,8 +404,8 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   onClickOrderCell(productId) {
     if (productId) {
       this.isArchive
-        ? this.history.push(`/client/inventory?product-id=${productId}&isArchive=true&show-tab=orders`)
-        : this.history.push(`/client/inventory?product-id=${productId}&show-tab=orders`)
+        ? this.history.push(`/client/inventory/products?product-id=${productId}&isArchive=true&show-tab=orders`)
+        : this.history.push(`/client/inventory/products?product-id=${productId}&show-tab=orders`)
     }
 
     this.onTriggerOpenModal('productCardModal')
@@ -502,7 +504,9 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   onTriggerArchive() {
     this.selectedRows = []
 
-    this.isArchive ? this.history.push('/client/inventory') : this.history.push('/client/inventory?isArchive=true')
+    this.isArchive
+      ? this.history.push('/client/inventory/products')
+      : this.history.push('/client/inventory/products?isArchive=true')
     this.isArchive = this.isArchive ? false : true
 
     this.getCurrentData()

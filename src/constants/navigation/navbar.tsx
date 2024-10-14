@@ -38,7 +38,7 @@ export const navbarConfig: Record<string, Route[]> = {
     {
       icon: <SiFreelancermap size={18} />,
       label: 'Freelance',
-      route: '/client/freelance/my-requests',
+      route: '/client/freelance',
       children: [
         {
           label: 'Service exchange',
@@ -72,7 +72,7 @@ export const navbarConfig: Record<string, Route[]> = {
       children: [
         {
           label: 'Products',
-          route: '/client/inventory',
+          route: '/client/inventory/products',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
@@ -202,7 +202,7 @@ export const navbarConfig: Record<string, Route[]> = {
     {
       icon: <FaClipboardList size={18} />,
       label: 'My orders',
-      route: '/client/my-orders/orders',
+      route: '/client/my-orders',
       children: [
         {
           label: 'Orders',
@@ -232,7 +232,7 @@ export const navbarConfig: Record<string, Route[]> = {
     {
       icon: <MdOutlineWarehouse size={18} />,
       label: 'My warehouse',
-      route: '/client/warehouse/in-stock',
+      route: '/client/warehouse',
       children: [
         {
           label: 'Boxes in stock',
@@ -262,7 +262,7 @@ export const navbarConfig: Record<string, Route[]> = {
     {
       icon: <FaBoxOpen size={18} />,
       label: 'My batches',
-      route: '/client/batches/awaiting-batch',
+      route: '/client/batches',
       children: [
         {
           label: 'Awaiting send',
