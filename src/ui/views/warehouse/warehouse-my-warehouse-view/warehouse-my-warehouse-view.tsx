@@ -1,5 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
+
+import { GridRowClassNameParams, GridRowModel, GridRowParams } from '@mui/x-data-grid-premium'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -32,11 +34,14 @@ export const WarehouseMyWarehouseView = observer(() => {
 
   const viewModel = useMemo(() => new WarehouseMyWarehouseViewModel(), [])
 
-  useEffect(() => {
-    viewModel.getCurrentData()
-  }, [])
-
-  const getRowClassName = params => params.row.isDraft && styles.isDraftRow
+  const getRowClassName = (params: GridRowClassNameParams) => params.row.isDraft && styles.isDraftRow
+  const getIsRowSelectable = (params: GridRowParams) => {
+    return (
+      !params.row.isDraft &&
+      params.row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
+      params.row.status !== BoxStatus.IN_BATCH
+    )
+  }
 
   const disableSelectionCells = ['prepId']
 
@@ -64,14 +69,10 @@ export const WarehouseMyWarehouseView = observer(() => {
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick
-        isRowSelectable={params =>
-          params.row.isDraft === false &&
-          params.row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
-          params.row.status !== BoxStatus.IN_BATCH
-        }
+        isRowSelectable={getIsRowSelectable}
         getRowClassName={getRowClassName}
         rowCount={viewModel.rowCount}
-        getRowId={row => row._id}
+        getRowId={({ _id }: GridRowModel) => _id}
         rowSelectionModel={viewModel.selectedRows}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
@@ -85,14 +86,32 @@ export const WarehouseMyWarehouseView = observer(() => {
             title: t(TranslationKey.Filter),
           },
           toolbar: {
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
+            },
+
             resetFiltersBtnSettings: {
               onClickResetFilters: viewModel.onClickResetFilters,
               isSomeFilterOn: viewModel.isSomeFilterOn,
             },
+
             columsBtnSettings: {
               columnsModel: viewModel.columnsModel,
               columnVisibilityModel: viewModel.columnVisibilityModel,
               onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
             },
           },
         }}
@@ -104,7 +123,7 @@ export const WarehouseMyWarehouseView = observer(() => {
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
-        onCellDoubleClick={params =>
+        onCellDoubleClick={(params: any) =>
           !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
         }
       />
@@ -116,7 +135,6 @@ export const WarehouseMyWarehouseView = observer(() => {
         <MoveBoxToBatchForm
           box={viewModel.curBoxToMove}
           batches={viewModel.batches}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxMoveToBatchModal')}
           onSubmit={viewModel.onSubmitMoveBoxToBatch}
           onSubmitCreateBatch={viewModel.onSubmitCreateBatch}
@@ -127,8 +145,8 @@ export const WarehouseMyWarehouseView = observer(() => {
         openModal={viewModel.showAddBatchModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddBatchModal')}
       >
+        {/* @ts-ignore  */}
         <AddOrEditBatchForm
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           sourceBox={viewModel.sourceBoxForBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddBatchModal')}
@@ -142,7 +160,7 @@ export const WarehouseMyWarehouseView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showFullEditBoxModal')}
       >
         <EditBoxStorekeeperForm
-          showCheckbox
+          /* @ts-ignore */
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           requestStatus={viewModel.requestStatus}
@@ -151,7 +169,6 @@ export const WarehouseMyWarehouseView = observer(() => {
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           onSubmit={viewModel.onClickSubmitEditBox}
           onTriggerOpenModal={() => viewModel.onTriggerOpenModal('showFullEditBoxModal')}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 
@@ -187,10 +204,12 @@ export const WarehouseMyWarehouseView = observer(() => {
         <AddOrEditHsCodeInBox
           box={viewModel.curBox}
           setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditHsCodeInBox')}
+          startData={undefined}
           onSubmit={viewModel.onSubmitAddOrEditHsCode}
         />
       </Modal>
       <Modal openModal={viewModel.showEditBoxModal} setOpenModal={viewModel.onTriggerShowEditBoxModal}>
+        {/* @ts-ignore */}
         <EditBoxTasksForm
           isInStorekeeperWarehouse
           setEditModal={viewModel.onTriggerShowEditBoxModal}
@@ -204,7 +223,6 @@ export const WarehouseMyWarehouseView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showMergeBoxModal')}
       >
         <MergeBoxesModal
-          showCheckbox
           userInfo={viewModel.userInfo}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
@@ -224,13 +242,10 @@ export const WarehouseMyWarehouseView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showRedistributeBoxModal')}
       >
         <StorekeeperRedistributeBox
-          showCheckbox
           showEditBoxModalR={viewModel.showEditBoxModalR}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           requestStatus={viewModel.requestStatus}
-          addNewBoxModal={viewModel.showRedistributeBoxAddNewBoxModal}
-          setAddNewBoxModal={value => viewModel.onModalRedistributeBoxAddNewBox(value)}
           selectedBox={
             viewModel.selectedRows.length &&
             viewModel.currentData.find(box => box._id === viewModel.selectedRows.slice()[0])
@@ -250,6 +265,7 @@ export const WarehouseMyWarehouseView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
       >
         <GroupingBoxesForm
+          /* @ts-ignore */
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}

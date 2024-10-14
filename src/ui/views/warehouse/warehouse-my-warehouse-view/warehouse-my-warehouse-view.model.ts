@@ -21,6 +21,7 @@ import { UserModel } from '@models/user-model'
 import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
 
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
+import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
@@ -34,7 +35,8 @@ import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { observerConfig } from './warehous-my-warehouse-config'
 import {
-  filtersFields,
+  additionalFilterFields,
+  fieldsForSearch,
   sharedFieldsWhiteList,
   updateBoxWhiteList,
   updateManyBoxesWhiteList,
@@ -54,7 +56,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
   storekeepersData: IStorekeeper[] = []
   modalRedistributeBoxAddNewBox: any = undefined
   unitsOption = Dimensions.EU
-
+  boxesData: any
   curOpenedTask = {}
   toCancelData = {}
 
@@ -101,14 +103,16 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     super({
       getMainDataMethod: StorekeeperModel.getBoxesMyPag,
       columnsModel,
-      filtersFields,
-      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient', 'item', 'orderXid', 'xid', 'prepId'],
+      filtersFields: getFilterFields(columnsModel, additionalFilterFields),
+      fieldsForSearch,
       mainMethodURL: 'storekeepers/pag/boxes?',
       tableKey: DataGridTablesKeys.CLIENT_WAREHOUSE,
       defaultSortModel: [{ field: 'createdAt', sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
+    this.getTableSettingsPreset()
+    this.getCurrentData()
   }
 
   setDestinationsFavouritesItem(item: any) {
@@ -312,7 +316,8 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSubmitEditBox(id: any, boxData: any, imagesOfBox: any) {
+  async onClickSubmitEditBox(boxSubmissionData: any) {
+    const { id, boxData, imagesOfBox } = boxSubmissionData
     runInAction(() => {
       this.selectedRows = []
       this.uploadedTrackNumber = []
@@ -348,7 +353,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
 
     let dataToBarCodeChange = boxData.items
-      .map((el: { tmpBarCode: any; changeBarCodInInventory: any; product: any }) =>
+      .map((el: any) =>
         el.tmpBarCode?.length
           ? {
               changeBarCodInInventory: el.changeBarCodInInventory,
@@ -372,9 +377,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
         const newItems = []
 
         for await (const el of boxData.items) {
-          const prodInDataToUpdateBarCode = dataToBarCodeChange.find(
-            (item: { productId: any }) => item.productId === el.product._id,
-          )
+          const prodInDataToUpdateBarCode = dataToBarCodeChange.find((item: any) => item.productId === el.product._id)
 
           if (el.tmpTransparencyFile.length) {
             // @ts-ignore
@@ -895,6 +898,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
       const boxes = await BoxesModel.getBoxesReadyToBatchStorekeeper()
 
       runInAction(() => {
+        this.boxesData = boxes
         this.sourceBoxForBatch = box
       })
 
