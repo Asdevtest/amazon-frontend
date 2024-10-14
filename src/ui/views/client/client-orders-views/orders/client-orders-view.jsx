@@ -39,7 +39,8 @@ export const ClientOrdersView = observer(history => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by SKU, ASIN, Title"
+          placeholder="Search by SKU, ASIN, Title, Order, item"
+          wrapperClassName={styles.inputSearch}
           onSearch={viewModel.onSearchSubmit}
         />
 

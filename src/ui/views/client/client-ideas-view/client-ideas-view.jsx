@@ -54,7 +54,7 @@ export const ClientIdeasView = observer(({ history }) => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by SKU, ASIN, Title"
+          placeholder="Search by SKU, ASIN, Title, ID"
           onSearch={viewModel.onSearchSubmit}
         />
 

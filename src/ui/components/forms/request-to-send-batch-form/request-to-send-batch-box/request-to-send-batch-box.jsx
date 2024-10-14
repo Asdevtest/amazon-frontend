@@ -55,7 +55,7 @@ export const RequestToSendBatchBox = memo(
         }}
       >
         <div className={cx(tableCellClsx, styles.indexCell)}>
-          <Typography variant="subtitle2">{`№ ${box.humanFriendlyId}`}</Typography>
+          <Typography variant="subtitle2">{`№ ${box.xid}`}</Typography>
         </div>
 
         <div className={cx(tableCellClsx, styles.productCell)}>

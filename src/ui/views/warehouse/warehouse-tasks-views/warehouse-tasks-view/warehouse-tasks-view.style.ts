@@ -3,14 +3,14 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   title: {
     fontSize: '18px',
-    lineHeight: '140%',
+    lineHeight: '25px',
     marginBottom: 20,
   },
 
-  btnsWrapper: {
+  flexColumn: {
     width: 300,
     display: 'flex',
-    gap: 20,
     flexDirection: 'column',
+    gap: 20,
   },
 }))

@@ -13,7 +13,7 @@ import { Text } from '@components/shared/text'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-export const freelancerFreelanceColumns = handlers => [
+export const serviceDetailsColumns = handlers => [
   {
     field: 'status',
     headerName: t(TranslationKey.Status),
@@ -28,9 +28,7 @@ export const freelancerFreelanceColumns = handlers => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 228,
-    renderCell: params => (
-      <UserCell name={params.row.originalData.createdBy.name} id={params.row.originalData.createdBy._id} />
-    ),
+    renderCell: params => <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} />,
   },
   {
     field: 'updatedAt',
@@ -39,7 +37,6 @@ export const freelancerFreelanceColumns = handlers => [
     renderCell: params => <NormDateCell value={params.row.updatedAt} />,
     width: 116,
   },
-
   {
     field: 'title',
     headerName: t(TranslationKey['Request title']),
@@ -47,15 +44,13 @@ export const freelancerFreelanceColumns = handlers => [
     renderCell: params => <Text isCell text={params.row.title} />,
     width: 220,
   },
-
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey['Request ID']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request ID'])} />,
-    renderCell: params => <Text isCell text={params.row.humanFriendlyId} />,
+    renderCell: params => <Text isCell text={params.row.xid} />,
     width: 80,
   },
-
   {
     field: 'price',
     headerName: t(TranslationKey.Cost),
@@ -70,7 +65,6 @@ export const freelancerFreelanceColumns = handlers => [
     renderCell: params => <NormDateCell value={params.row.timeoutAt} />,
     width: 134,
   },
-
   {
     field: 'actions',
     headerName: t(TranslationKey.Actions),

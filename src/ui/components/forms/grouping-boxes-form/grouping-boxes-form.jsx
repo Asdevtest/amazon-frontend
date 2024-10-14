@@ -99,7 +99,7 @@ export const GroupingBoxesForm = memo(props => {
   }
 
   const onClickAddBox = () => {
-    setNewBoxes([...newBoxes, { ...basicBox, amount: 1, humanFriendlyId: '' }])
+    setNewBoxes([...newBoxes, { ...basicBox, amount: 1, xid: '' }])
   }
   const onRemoveOldBox = boxId => {
     const arr = oldBoxes.filter(box => box._id !== boxId)

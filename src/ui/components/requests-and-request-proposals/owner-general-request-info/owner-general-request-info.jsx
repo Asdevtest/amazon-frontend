@@ -58,7 +58,7 @@ export const OwnerGeneralRequestInfo = props => {
         requestProposals={requestProposals}
         title={request?.request?.title}
         asin={request?.request.asin}
-        humanFriendlyId={request?.request.humanFriendlyId}
+        xid={request?.request.xid}
         sub={request?.request?.sub}
         createdBy={request?.request?.createdBy}
       />

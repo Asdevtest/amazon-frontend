@@ -25,7 +25,6 @@ export const updateBoxWhiteList = [
 export const updateManyBoxesWhiteList = [
   '_id',
   'logicsTariffId',
-  'shippingLabel',
   'fbaShipment',
   'fbaNumber',
   'destinationId',
@@ -51,7 +50,7 @@ export const sharedFieldsWhiteList = [
 ]
 
 export const filtersFields = [
-  'humanFriendlyId',
+  'xid',
   'orderIdsItems',
   'orders',
   'amount',

@@ -82,10 +82,9 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-
       renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
       width: 80,
@@ -94,15 +93,16 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'id',
+      field: 'orderXid',
+
       headerName: t(TranslationKey['№ Order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
-      renderCell: params => <Text isCell text={params.row.items?.[0]?.order?.id} />,
-      valueGetter: ({ row }) => row.items?.[0]?.order?.id,
+      renderCell: params => <Text isCell text={params.row.items?.[0]?.order?.xid} />,
+      valueGetter: ({ row }) => row.items?.[0]?.order?.xid,
       width: 160,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
       table: DataGridFilterTables.ORDERS,
       disableCustomSort: true,
     },

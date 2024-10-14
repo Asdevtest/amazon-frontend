@@ -124,7 +124,7 @@ export const OrderContent = ({
         <div className={styles.infosWrapper}>
           <div className={styles.orderItemWrapper}>
             <Typography className={styles.orderTitle}>{t(TranslationKey['Order number'])}</Typography>
-            <Typography className={styles.orderText}>{`№ ${updatedOrder.id}`}</Typography>
+            <Typography className={styles.orderText}>{`№ ${updatedOrder.xid}`}</Typography>
           </div>
 
           <div className={styles.orderItemWrapper}>

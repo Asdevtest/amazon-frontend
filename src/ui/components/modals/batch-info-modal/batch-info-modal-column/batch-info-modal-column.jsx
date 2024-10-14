@@ -55,7 +55,9 @@ export const batchInfoModalColumn = (
       <ProductCell
         image={params.row.items?.[0]?.product?.images?.[0]}
         title={params.row.items?.[0]?.product?.amazonTitle}
-        superbox={params.row.items?.[0]?.amount}
+        asin={params.row.items?.[0]?.product?.asin}
+        sku={params.row.items?.[0]?.product?.skuByClient}
+        superbox={params.row.amount}
       />
     ),
     valueGetter: ({ row }) => row?.amount,
@@ -75,12 +77,12 @@ export const batchInfoModalColumn = (
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <Text isCell text={params.value} />,
-    valueGetter: ({ row }) => row?.humanFriendlyId,
+    valueGetter: ({ row }) => row?.xid,
     type: 'number',
     width: 80,
   },

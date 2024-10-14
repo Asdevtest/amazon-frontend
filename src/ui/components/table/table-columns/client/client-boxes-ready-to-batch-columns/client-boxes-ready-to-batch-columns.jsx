@@ -14,7 +14,7 @@ import { t } from '@utils/translations'
 
 export const clientBoxesReadyToBatchViewColumns = () => [
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 

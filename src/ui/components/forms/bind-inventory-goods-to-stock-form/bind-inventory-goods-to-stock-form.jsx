@@ -133,10 +133,11 @@ export const BindInventoryGoodsToStockForm = observer(props => {
 
         <CustomInputSearch
           allowClear
+          size="large"
           disabled={chipConfig === chipConfigSettings.RECOMMENDED}
           value={searchInputValue}
-          placeholder={t(TranslationKey.Search)}
-          onSubmit={setSearchInputValue}
+          placeholder="Search"
+          onChange={e => setSearchInputValue(e.target.value)}
         />
       </div>
 
@@ -175,7 +176,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           paginationMode="client"
           rows={chosenGoods || []}
           columns={chosenGoodsColumns({ onClickTrash })}
-          rowHeight={40}
+          getRowHeight={() => 'auto'}
         />
       </div>
 

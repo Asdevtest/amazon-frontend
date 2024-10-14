@@ -129,10 +129,10 @@ export const proposalsColumns = (handlers: IHandlers) => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'requestXid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.request.humanFriendlyId} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.request.xid} />,
       width: 80,
 
       columnKey: columnnsKeys.shared.QUANTITY,

@@ -903,6 +903,7 @@
   "Supplier search options": "Supplier search options",
   "Product name": "Product name",
   "Idea": "Idea",
+  "Idea ID": "Idea ID",
   "Important criteria": "Important criteria",
   "Desired purchase price": "Desired purchase price",
   "Edit and balance": "Edit and balance",
@@ -1152,6 +1153,7 @@
   "Access to selected products only": "Access to selected products only",
   "Search by product description and ASIN, SKU:": "Search by product description and ASIN, SKU:",
   "Search by SKU, ASIN, Title": "Search by SKU, ASIN, Title",
+  "Search by SKU, ASIN, Title, ID": "Search by SKU, ASIN, Title, ID",
   "Repeat order": "Repeat order",
   "Box data": "Box data",
   "Total goods In Box": "Total goods In Box",
@@ -1369,6 +1371,7 @@
   "Quantity of boxes in batch": "Quantity of boxes in batch",
   "Quantity in group": "Quantity in group",
   "Search by ASIN, Title, Batch ID, Order ID": "Search by ASIN, Title, Batch ID, Order ID",
+  "Search by ASIN, Title, Batch ID": "Search by ASIN, Title, Batch ID",
   "Unlink an product from Amazon": "Unlink an product from Amazon",
   "Unlink success": "Unlink success",
   "Buyer comments to the task": "Buyer comments to the task",
@@ -1864,7 +1867,6 @@
   "Data not added": "Data not added",
   "Data not saved": "Data not saved",
   "Sub user": "Sub user",
-  "Sub user by shop": "Sub user by shop",
   "Data removed successfully": "Data removed successfully",
   "Data not removed": "Data not removed",
   "Quantity in box": "Quantity in box",
@@ -2067,5 +2069,10 @@
   "This profile has already been used! Do you want to continue?": "This profile has already been used! Do you want to continue?",
   "By proposal": "By proposal",
   "By announcement": "By announcement",
-  "Select user": "Select user"
+  "Select user": "Select user",
+  "Integration": "Integration",
+  "Products linked successfully": "Products linked successfully",
+  "Product linking error": "Product linking error",
+  "Successfully integrated": "Successfully integrated",
+  "Failed": "Failed"
 }

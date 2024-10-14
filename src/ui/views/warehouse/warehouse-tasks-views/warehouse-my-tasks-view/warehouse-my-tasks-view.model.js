@@ -145,7 +145,7 @@ export class WarehouseMyTasksViewModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    this.nameSearchValue = searchValue.trim()
 
     this.getTasksMy()
   }
@@ -223,7 +223,7 @@ export class WarehouseMyTasksViewModel {
               }`]: this.nameSearchValue,
             },
           },
-          { id: { $eq: this.nameSearchValue } },
+          { xid: { $eq: this.nameSearchValue } },
           { item: { $eq: this.nameSearchValue } },
         ].filter(
           el =>
@@ -236,11 +236,11 @@ export class WarehouseMyTasksViewModel {
         status: mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS],
         limit: this.paginationModel.pageSize,
         offset: this.paginationModel.page * this.paginationModel.pageSize,
-        filters: this.nameSearchValue ? filter : null,
+        filters: this.nameSearchValue ? filter : undefined,
         sortField: this.sortModel.length ? this.sortModel[0].field : 'priority',
         sortType: this.sortModel.length ? this.sortModel[0].sort.toUpperCase() : 'DESC',
-        operationType: this.curTaskType,
-        priority: this.curTaskPriority,
+        operationType: this.curTaskType || undefined,
+        priority: this.curTaskPriority || undefined,
       })
 
       runInAction(() => {

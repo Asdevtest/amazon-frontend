@@ -1,5 +1,5 @@
 export const filtersFields = [
-  'id',
+  'xid',
   'item',
   'shopId',
   'priority',
@@ -24,4 +24,4 @@ export const filtersFields = [
   'logicsTariff',
 ]
 
-export const fieldsForSearch = ['amazonTitle', 'id', 'asin', 'skuByClient', 'item']
+export const fieldsForSearch = ['amazonTitle', 'xid', 'asin', 'skuByClient', 'item']

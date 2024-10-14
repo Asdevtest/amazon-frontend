@@ -1,9 +1,7 @@
-import { action, computed, observable } from 'mobx'
+import { action, observable } from 'mobx'
 
 export const productDataFormConfig = {
-  rows: computed,
-
-  batchArchive: observable,
+  archive: observable,
   batch: observable,
   showBatchInfoModal: observable,
 
@@ -12,4 +10,4 @@ export const productDataFormConfig = {
   patchActualShippingCostBatch: action.bound,
 }
 
-export const searchFields: string[] = ['batchHumanFriendlyId', 'fbaShipment']
+export const searchFields: string[] = ['xid', 'fbaShipment']

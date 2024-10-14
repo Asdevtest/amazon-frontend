@@ -4,11 +4,14 @@ export const useStyles = makeStyles()(theme => ({
   root: {
     minWidth: '150px',
     width: '100%',
-    padding: '5px 0px',
     display: 'flex',
     flexDirection: 'column',
     gap: '3px',
     position: 'relative',
+  },
+
+  cell: {
+    padding: '5px 0px',
   },
 
   text: {
@@ -33,13 +36,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  image: {
-    minWidth: '32px',
-    borderRadius: '4px',
-    overflow: 'hidden',
-    boxShadow: theme.palette.boxShadow.paper,
-  },
-
   superbox: {
     color: theme.palette.primary.main,
     fontWeight: 600,
@@ -54,6 +50,7 @@ export const useStyles = makeStyles()(theme => ({
   warningText: {
     color: theme.palette.text.red,
   },
+
   mask: {
     padding: '0 5px',
     display: 'flex',

@@ -77,13 +77,13 @@ export const feedbackColumns = () => {
     },
 
     {
-      field: 'orderId',
-      headerName: 'Order id',
-      renderHeader: () => <MultilineTextHeaderCell text="Order id" />,
+      field: 'amzOrderId',
+      headerName: 'Amz Order Id',
+      renderHeader: () => <MultilineTextHeaderCell text="Amz Order Id" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {

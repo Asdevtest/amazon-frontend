@@ -48,7 +48,7 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
         />
 
         <div className={styles.flexRow}>
-          <CustomButton size="large" onClick={() => viewModel.onToggleArchive()}>
+          <CustomButton size="large" onClick={viewModel.onToggleArchive}>
             {t(TranslationKey[viewModel.archive ? 'To the actual' : 'Open archive'])}
           </CustomButton>
 
@@ -63,11 +63,11 @@ export const MyServicesView = observer(({ history }: { history: HistoryType }) =
           {viewModel.currentData.map(service => (
             <ServiceExchangeCard
               key={service._id}
-              order
+              freelancer
               // @ts-ignore
               service={service}
               variant={cardVariant}
-              onClickButton={viewModel.onClickCreateService}
+              onClickButton={viewModel.onClickOpenButton}
             />
           ))}
         </div>

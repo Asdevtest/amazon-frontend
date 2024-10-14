@@ -16,7 +16,7 @@ import { bindIdeaToRequestColumns } from './bind-idea-to-request-columns/bind-id
 
 interface IRequest {
   _id: string
-  humanFriendlyId: number
+  xid: number
   spec: ISpec
   title: string
   status: string
@@ -43,7 +43,8 @@ export const BindIdeaToRequestForm: FC<BindIdeaToRequestFormProps> = memo(({ req
           disableColumnMenu
           disableRowSelectionOnClick
           rows={requests}
-          rowCount={requests.length}
+          sortingMode="client"
+          paginationMode="client"
           columns={bindIdeaToRequestColumns}
           getRowHeight={() => 'auto'}
           sx={{

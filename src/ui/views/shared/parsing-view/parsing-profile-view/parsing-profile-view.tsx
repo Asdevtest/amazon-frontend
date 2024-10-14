@@ -18,11 +18,11 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { useStyles } from './parsing-profile-view.style'
 
 import { ParsingProfileForm } from './parsing-profile-form'
-import { ParsingProdileViewModel } from './parsing-profile-view.model'
+import { ParsingProfileViewModel } from './parsing-profile-view.model'
 
-export const ParsingProdileView = observer(() => {
+export const ParsingProfileView = observer(() => {
   const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new ParsingProdileViewModel(), [])
+  const viewModel = useMemo(() => new ParsingProfileViewModel(), [])
 
   return (
     <>

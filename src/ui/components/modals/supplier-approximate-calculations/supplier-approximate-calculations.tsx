@@ -125,8 +125,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
           <CustomInputSearch
             allowClear
             placeholder="Search by Tariff, Destination"
-            value={viewModel.currentSearchValue}
-            onSubmit={viewModel.onSearchSubmit}
+            onSearch={viewModel.onSearchSubmit}
           />
         </div>
 
@@ -144,7 +143,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
                 key={product._id}
                 isActive={viewModel?.productId === product?._id && viewModel?.orderId === order?._id}
                 product={product}
-                orderId={order?.id}
+                orderId={order?.xid}
                 onClickChangeActive={() =>
                   viewModel?.handleChangeActiveProduct(
                     product?._id,

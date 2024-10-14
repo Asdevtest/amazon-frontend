@@ -27,6 +27,8 @@ export const TaskStatusTranslate = status => {
       return t(TranslationKey['Not solved'])
     case TaskStatus.SOLVED:
       return t(TranslationKey.Solved)
+    default:
+      return t(TranslationKey.Missing)
   }
 }
 

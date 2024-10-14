@@ -24,7 +24,7 @@ export const SourceFilesView = observer(() => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by SKU, ASIN, Title"
+          placeholder="Search by SKU, ASIN, Title, ID"
           onSearch={viewModel.onChangeNameSearchValue}
         />
       </div>

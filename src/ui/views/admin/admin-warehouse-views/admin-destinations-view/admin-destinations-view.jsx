@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -35,7 +35,7 @@ export const AdminDestinationsView = observer(props => {
         columnVisibilityModel={viewModel.columnVisibilityModel}
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
-        rowHeight={120}
+        getRowHeight={() => 'auto'}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         slotProps={{

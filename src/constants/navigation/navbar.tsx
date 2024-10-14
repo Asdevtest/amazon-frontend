@@ -19,6 +19,7 @@ import { Route } from '@typings/shared/navbar-config'
 
 import { permissionsKeys } from '../keys/permissions'
 
+import { checkGroupPermissions } from './check-group-permissions'
 import { navBarActiveCategory, navBarActiveSubCategory } from './navbar-active-category'
 
 export const navbarConfig: Record<string, Route[]> = {
@@ -31,6 +32,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_DASHBOARD_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_DASHBOARD_CLIENT),
     },
     {
@@ -44,6 +46,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_FREELANCE_EXCHANGE_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_FREELANCE_EXCHANGE_CLIENT),
         },
         {
@@ -52,12 +55,14 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_FREELANCE_REQUESTS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_FREELANCE_REQUESTS_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_FREELANCE_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_FREELANCE_CLIENT),
     },
     {
@@ -71,6 +76,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.inventory.SHOW_PRODUCTS_INVENTORY_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.inventory.SHOW_PRODUCTS_INVENTORY_CLIENT),
         },
         {
@@ -79,12 +85,14 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY_REPORTS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.inventory.SHOW_INVENTORY_LISTING_REPORTS) ||
             user?.permissions?.some(item => item === permissionsKeys.client.inventory.SHOW_INVENTORY_LISTING_REPORTS),
         },
       ],
       key: navBarActiveCategory.NAVBAR_INVENTORY,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.inventory.SHOW_INVENTORY_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.inventory.SHOW_INVENTORY_CLIENT),
     },
     {
@@ -97,6 +105,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/ideas/all',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT),
         },
         {
@@ -104,6 +113,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/ideas/new',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.ideas.SHOW_NEW_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_NEW_IDEAS_CLIENT),
         },
         {
@@ -111,6 +121,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/ideas/on-checking',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.ideas.SHOW_ON_CHECKING_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_ON_CHECKING_IDEAS_CLIENT),
         },
         {
@@ -118,6 +129,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/ideas/search-suppliers',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.ideas.SHOW_SEARCH_SUPPLIER_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_SEARCH_SUPPLIER_IDEAS_CLIENT),
         },
         {
@@ -125,6 +137,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/ideas/create-card',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.ideas.SHOW_CREATE_CARD_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_CREATE_CARD_IDEAS_CLIENT),
         },
         {
@@ -132,6 +145,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/ideas/add-asin',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.ideas.SHOW_ADD_ASIN_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_ADD_ASIN_IDEAS_CLIENT),
         },
         {
@@ -139,6 +153,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/ideas/closed',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.ideas.SHOW_CLOSED_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_CLOSED_IDEAS_CLIENT),
         },
         {
@@ -146,12 +161,14 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/ideas/realized',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_IDEAS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.ideas.SHOW_IDEAS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_IDEAS_CLIENT),
     },
     {
@@ -164,6 +181,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/product-exchange/forks-exchange',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_COMEXCHANGE_RESEXCHANGE_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_COMEXCHANGE_RESEXCHANGE_CLIENT),
         },
         {
@@ -171,12 +189,15 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/product-exchange/private-label',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_COMEXCHANGE_PRLABEL_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_COMEXCHANGE_PRLABEL_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.client.SHOW_VACANT_CLIENT),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_VACANT_CLIENT) ||
+        user?.permissions?.some(item => item === permissionsKeys.client.SHOW_VACANT_CLIENT),
     },
     {
       icon: <FaClipboardList size={18} />,
@@ -189,6 +210,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_ORDERS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_ORDERS_CLIENT),
         },
         {
@@ -197,12 +219,14 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_MYORDERS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_MYORDERS_CLIENT),
     },
     {
@@ -216,6 +240,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_WAREHOUSE_BOXESINSTOCK_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_WAREHOUSE_BOXESINSTOCK_CLIENT),
         },
         {
@@ -224,12 +249,14 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_TASKS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_WAREHOUSE_TASKS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_WAREHOUSE_TASKS_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_WAREHOUSE_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_WAREHOUSE_CLIENT),
     },
     {
@@ -243,6 +270,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_BATCHES_AWAITINGSEND_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_BATCHES_AWAITINGSEND_CLIENT),
         },
         {
@@ -251,12 +279,15 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_BATCHES_SENTBOXES_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_BATCHES_SENTBOXES_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_BATCHES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.client.SHOW_BATCHES_CLIENT),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_BATCHES_CLIENT) ||
+        user?.permissions?.some(item => item === permissionsKeys.client.SHOW_BATCHES_CLIENT),
     },
     {
       icon: <FaUsers size={18} />,
@@ -265,7 +296,9 @@ export const navbarConfig: Record<string, Route[]> = {
       children: [{ label: 'My users', route: '/client/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.client.SHOW_USERS_CLIENT),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_USERS_CLIENT) ||
+        user?.permissions?.some(item => item === permissionsKeys.client.SHOW_USERS_CLIENT),
     },
     {
       icon: <FaShop size={18} />,
@@ -278,6 +311,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/shops/shops',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_SHOPS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_CLIENT),
         },
         {
@@ -285,6 +319,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/shops/reports',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT),
         },
         {
@@ -293,7 +328,9 @@ export const navbarConfig: Record<string, Route[]> = {
         },
       ],
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.client.SHOW_STORES_CLIENT),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_STORES_CLIENT) ||
+        user?.permissions?.some(item => item === permissionsKeys.client.SHOW_STORES_CLIENT),
     },
     {
       icon: <FaRegCreditCard size={18} />,
@@ -302,6 +339,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_PAYMENTS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_PAYMENTS_CLIENT),
     },
     {
@@ -314,6 +352,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/notifications/orders-notifications',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_ORDERS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_ORDERS_CLIENT),
         },
         {
@@ -321,14 +360,15 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/notifications/boxes-notifications',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_BOXES_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_BOXES_CLIENT),
         },
-
         {
           label: 'On boxes tariffs',
           route: '/client/notifications/tariffs-notifications',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_BOXESTARIF_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_BOXESTARIF_CLIENT),
         },
         {
@@ -336,6 +376,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/notifications/freelance-notifications',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_REQUESTS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_REQUESTS_CLIENT),
         },
         {
@@ -344,12 +385,14 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/client/notifications/general-notifications-view',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_GENERAL_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_GENERAL_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT),
     },
     {
@@ -359,7 +402,9 @@ export const navbarConfig: Record<string, Route[]> = {
       children: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.client.SHOW_CHAT_CLIENT),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_CHAT_CLIENT) ||
+        user?.permissions?.some(item => item === permissionsKeys.client.SHOW_CHAT_CLIENT),
     },
   ],
   [UserRole.RESEARCHER]: [
@@ -371,6 +416,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.researcher.SHOW_DASHBOARD_RESEARCHER) ||
         user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_DASHBOARD_RESEARCHER),
     },
     {
@@ -381,6 +427,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.researcher.SHOW_PRODUCTS_RESEARCHER) ||
         user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_PRODUCTS_RESEARCHER),
     },
     {
@@ -391,6 +438,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.researcher.SHOW_USERS_RESEARCHER) ||
         user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_USERS_RESEARCHER),
     },
     {
@@ -401,6 +449,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.researcher.SHOW_CHAT_RESEARCHER) ||
         user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_CHAT_RESEARCHER),
     },
   ],
@@ -413,6 +462,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.freelancer.SHOW_DASHBOARD_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_DASHBOARD_FREELANCER),
     },
     {
@@ -426,6 +476,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER),
         },
         {
@@ -434,6 +485,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER),
         },
         {
@@ -442,6 +494,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_ALL_PROPOSALS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER),
         },
         {
@@ -451,6 +504,7 @@ export const navbarConfig: Record<string, Route[]> = {
 
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER),
         },
         {
@@ -459,12 +513,14 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_SOURCE_FILES,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.freelancer.SHOW_FREELANCE_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FREELANCE_FREELANCER),
     },
     {
@@ -475,6 +531,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.freelancer.SHOW_USERS_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_USERS_FREELANCER),
     },
     {
@@ -484,6 +541,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.freelancer.SHOW_PAYMENTS_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_PAYMENTS_FREELANCER),
     },
     {
@@ -494,6 +552,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.freelancer.SHOW_CHAT_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_CHAT_FREELANCER),
     },
     {
@@ -507,6 +566,7 @@ export const navbarConfig: Record<string, Route[]> = {
 
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.freelancer.SHOW_NOTIFICATIONS_REQUESTS_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_NOTIFICATIONS_REQUESTS_FREELANCER),
         },
         {
@@ -516,12 +576,14 @@ export const navbarConfig: Record<string, Route[]> = {
 
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.freelancer.SHOW_NOTIFICATIONS_GENERAL_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_NOTIFICATIONS_GENERAL_FREELANCER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER),
     },
   ],
@@ -534,6 +596,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.supervisor.SHOW_DASHOBARD_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_DASHOBARD_SUPERVISOR),
     },
     {
@@ -547,6 +610,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_RESEARCHER,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR) ||
             user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR),
         },
         {
@@ -555,12 +619,14 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_CLIENT,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR) ||
             user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR),
         },
       ],
       key: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.supervisor.SHOW_READYTOCHECK_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_READYTOCHECK_SUPERVISOR),
     },
     {
@@ -571,6 +637,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.supervisor.SHOW_PRODUCTS_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_PRODUCTS_SUPERVISOR),
     },
     {
@@ -581,6 +648,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.supervisor.SHOW_USERS_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_USERS_SUPERVISOR),
     },
     {
@@ -590,6 +658,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.supervisor.SHOW_PAYMENTS_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_PAYMENTS_SUPERVISOR),
     },
     {
@@ -600,6 +669,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_SETTINGS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.supervisor.SHOW_SETTINGS_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_SETTINGS_SUPERVISOR),
     },
     {
@@ -610,6 +680,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.supervisor.SHOW_CHAT_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_CHAT_SUPERVISOR),
     },
   ],
@@ -621,7 +692,9 @@ export const navbarConfig: Record<string, Route[]> = {
       route: '/buyer/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_DASHBOARD_BUYER),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_DASHBOARD_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_DASHBOARD_BUYER),
     },
     {
       icon: <FaClipboardList size={18} />,
@@ -631,6 +704,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER),
     },
     {
@@ -641,6 +715,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_PENDING_ORDERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_PENDING_ORDERS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PENDING_ORDERS_BUYER),
     },
     {
@@ -654,6 +729,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_NOT_PAID_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_NOT_PAID_BUYER),
         },
         {
@@ -662,6 +738,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_READY_FOR_PAYMENT,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER),
         },
         {
@@ -670,6 +747,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_PARTIALLY_PAID,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_PARTIALLY_PAID_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_PARTIALLY_PAID_BUYER),
         },
         {
@@ -678,6 +756,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER),
         },
         {
@@ -686,6 +765,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_INBOUND,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER),
         },
         {
@@ -694,6 +774,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CONFIRMATION_REQUIRED,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER),
         },
         {
@@ -702,6 +783,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER),
         },
         {
@@ -710,12 +792,15 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_BUYER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_MYORDERS_BUYER),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_MYORDERS_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_MYORDERS_BUYER),
     },
     {
       icon: <BsBasket size={18} />,
@@ -724,7 +809,9 @@ export const navbarConfig: Record<string, Route[]> = {
       children: null,
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_PRODUCTS_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
     },
     {
       icon: <CiSearch size={18} />,
@@ -736,6 +823,7 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/buyer/search-supplier-by-supervisor',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.buyer.SHOW_VAC_BY_SUP_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_VAC_BY_SUP_BUYER),
         },
         {
@@ -743,12 +831,15 @@ export const navbarConfig: Record<string, Route[]> = {
           route: '/buyer/search-supplier-by-client',
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_SUPSEARCH_BUYER),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_SUPSEARCH_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_SUPSEARCH_BUYER),
     },
     {
       icon: <FaUsers size={18} />,
@@ -757,7 +848,9 @@ export const navbarConfig: Record<string, Route[]> = {
       children: [{ label: 'My users', route: '/buyer/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_USERS_BUYER),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_USERS_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_USERS_BUYER),
     },
     {
       icon: <FaRegCreditCard size={18} />,
@@ -765,7 +858,9 @@ export const navbarConfig: Record<string, Route[]> = {
       route: '/buyer/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PAYMENTS_BUYER),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_PAYMENTS_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PAYMENTS_BUYER),
     },
     {
       icon: <MdNotificationsActive size={18} />,
@@ -781,6 +876,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER),
     },
     {
@@ -790,7 +886,9 @@ export const navbarConfig: Record<string, Route[]> = {
       children: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_CHAT_BUYER),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_CHAT_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_CHAT_BUYER),
     },
   ],
   [UserRole.STOREKEEPER]: [
@@ -802,6 +900,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_DASHBOARD_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_DASHBOARD_STOREKEEPER),
     },
     {
@@ -814,6 +913,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.storekeeper.SHOW_TASKS_NEWTASKS_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_NEWTASKS_STOREKEEPER),
         },
         {
@@ -822,6 +922,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.storekeeper.SHOW_TASKS_MYTASKS_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_MYTASKS_STOREKEEPER),
         },
         {
@@ -830,6 +931,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.storekeeper.SHOW_TASKS_COMPLETTASKS_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_COMPLETTASKS_STOREKEEPER),
         },
         {
@@ -838,6 +940,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.storekeeper.SHOW_TASKS_CANCELTASKS_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_CANCELTASKS_STOREKEEPER),
         },
       ],
@@ -845,6 +948,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_TASKS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER),
     },
     {
@@ -854,6 +958,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER),
     },
     {
@@ -867,6 +972,7 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.storekeeper.SHOW_BATCHES_AWAITINGSEND_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_BATCHES_AWAITINGSEND_STOREKEEPER),
         },
         {
@@ -875,12 +981,14 @@ export const navbarConfig: Record<string, Route[]> = {
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
           checkHideBlock: user =>
             !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.storekeeper.SHOW_BATCHES_SENT_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_BATCHES_SENT_STOREKEEPER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_BATCHES,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_BATCHES_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_BATCHES_STOREKEEPER),
     },
     {
@@ -891,6 +999,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER),
     },
     {
@@ -900,6 +1009,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_PAYMENTS_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_PAYMENTS_STOREKEEPER),
     },
     {
@@ -909,6 +1019,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_MANAGEMENT,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_MANAGEMENT_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_MANAGEMENT_STOREKEEPER),
     },
     {
@@ -919,6 +1030,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_CHAT_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_CHAT_STOREKEEPER),
     },
   ],
@@ -1082,6 +1194,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),
     },
     {
@@ -1091,7 +1204,9 @@ export const navbarConfig: Record<string, Route[]> = {
       children: null,
       key: navBarActiveCategory.NAVBAR_APPEALS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_PRODUCTS_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
     },
     {
       icon: <BsBasket size={18} />,
@@ -1100,7 +1215,9 @@ export const navbarConfig: Record<string, Route[]> = {
       children: null,
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) || user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_PRODUCTS_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
     },
     {
       icon: <GrUpdate size={18} />,
@@ -1118,6 +1235,7 @@ export const navbarConfig: Record<string, Route[]> = {
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER),
     },
     {

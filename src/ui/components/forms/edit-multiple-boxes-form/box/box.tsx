@@ -206,7 +206,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 <div>
                   <div className={styles.asinWrapper}>
                     <p className={styles.asinTitle}>{t(TranslationKey.Box)}</p>
-                    <p className={styles.asinValue}>{box.humanFriendlyId}</p>
+                    <p className={styles.asinValue}>{box.xid}</p>
                   </div>
 
                   <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order.product.asin} />

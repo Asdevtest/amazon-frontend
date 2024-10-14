@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   flexRow: {
     display: 'flex',
     alignItems: 'center',
@@ -14,13 +14,6 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
   },
 
-  image: {
-    minWidth: '40px',
-    borderRadius: '4px',
-    overflow: 'hidden',
-    boxShadow: theme.palette.boxShadow.paper,
-  },
-
   title: {
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -30,5 +23,11 @@ export const useStyles = makeStyles()(theme => ({
   text: {
     fontSize: '12px',
     lineHeight: '18px',
+  },
+
+  mask: {
+    padding: '0 10px',
+    display: 'flex',
+    gap: '20px',
   },
 }))

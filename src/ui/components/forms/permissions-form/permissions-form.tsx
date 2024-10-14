@@ -47,7 +47,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        {viewModel.isFreelancer ? (
+        {viewModel.hasExpiredRoles ? (
           <p className={styles.title}>{t(TranslationKey['Assign permissions'])}</p>
         ) : (
           <CustomRadioButton
@@ -60,7 +60,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           />
         )}
         <UsersSelect
-          disabled={!!viewModel.subUser}
+          disabled={!!viewModel.subUser || viewModel.mainLoading}
           size="large"
           suffixIcon={viewModel.subUser && null}
           mode={viewModel.subUser ? undefined : 'multiple'}
@@ -81,7 +81,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
               size="large"
               maxTagCount="responsive"
               disabled={viewModel.mainLoading}
-              showSearch={{ filter: viewModel.searchfilter }}
+              showSearch={{ filter: viewModel.searchFilter }}
               options={viewModel.mainOptions}
               rootClassName={styles.cascader}
               popupClassName={styles.cascaderPopup}
@@ -89,6 +89,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
               value={viewModel.currentMainOptions}
               onInputKeyDown={viewModel.onInputKeyDown}
               onSearch={viewModel.onSeacrh}
+              onBlur={() => viewModel.onChangeSearchFocus(false)}
               // @ts-ignore
               onChange={viewModel.mainChangeMethod}
             />
@@ -105,12 +106,12 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
             <Skeleton.Button active block size="large" />
           ) : (
             <CustomSelect
-              allowClear
               isRow
               label="Available request types"
               mode="multiple"
               size="large"
               maxTagCount="responsive"
+              optionFilterProp="label"
               defaultValue={viewModel.selectedSpecs}
               options={viewModel.specsOptions}
               wrapperClassName={styles.specCascader}

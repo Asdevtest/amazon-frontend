@@ -56,7 +56,7 @@ export const BatchInfoModal = observer(
       currentBatch?.boxes?.map(item => ({
         ...item,
         orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
-          .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
+          .reduce((acc, cur) => (acc += cur.order?.xid + ', '), '')
           .slice(0, -2)}  item №: ${item.items
           .reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
           .slice(0, -2)}`,
@@ -81,7 +81,7 @@ export const BatchInfoModal = observer(
                   String(item.order.id)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
                   String(item.order.item)?.toLowerCase().includes(nameSearchValue.toLowerCase()),
               ) ||
-              String(el.humanFriendlyId)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
+              String(el.xid)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
               String(el.fbaShipment)?.toLowerCase().includes(nameSearchValue.toLowerCase()) ||
               el.prepId?.toLowerCase().includes(nameSearchValue.toLowerCase()),
           ),
@@ -93,7 +93,7 @@ export const BatchInfoModal = observer(
 
     const uploadTemplateFile = async () => {
       setIsFileDownloading(true)
-      await OtherModel.getReportBatchByHumanFriendlyId(currentBatch?.humanFriendlyId)
+      await OtherModel.getReportBatchByHumanFriendlyId(currentBatch?.xid)
       setIsFileDownloading(false)
     }
 
@@ -134,7 +134,7 @@ export const BatchInfoModal = observer(
               inputClasses={cx(styles.infoField, styles.batchTitleField)}
               labelClasses={styles.subFieldLabel}
               label={t(TranslationKey['Batch number'])}
-              value={currentBatch?.humanFriendlyId}
+              value={currentBatch?.xid}
               placeholder={t(TranslationKey.Missing)}
             />
 
@@ -310,7 +310,7 @@ export const BatchInfoModal = observer(
                 allowClear
                 wrapperClassName={styles.searchInput}
                 value={nameSearchValue}
-                placeholder={t(TranslationKey.Search)}
+                placeholder="Search"
                 onChange={e => setNameSearchValue(e.target.value)}
               />
             </Tooltip>

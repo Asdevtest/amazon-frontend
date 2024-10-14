@@ -36,7 +36,7 @@ export const ChatInfoHeader: FC<Props> = memo(props => {
   const chatAvatar =
     !isGroupChat && currentOpponent
       ? getUserAvatarSrc(currentOpponent?._id)
-      : getAmazonImageUrl(chat?.info?.image) || '/assets/img/no-photo.jpg'
+      : getAmazonImageUrl(chat?.info?.image) || '/assets/img/defaultImage.png'
 
   const chatInfoTitle = isGroupChat ? chat?.info?.title : currentOpponent?.name
 

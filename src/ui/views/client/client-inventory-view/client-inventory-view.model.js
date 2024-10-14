@@ -9,7 +9,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { creatSupplier, createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
-import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { DataGridTagsFilter } from '@models/data-grid-tags-filter'
 import { IdeaModel } from '@models/ideas-model'
 import { OrderModel } from '@models/order-model'
@@ -34,9 +33,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { clientInventoryColumns } from './client-inventory-columns'
 import {
-  TAGS,
   additionalFilterFields,
-  defaultHiddenColumns,
   fieldsOfProductAllowedToCreate,
   fieldsOfProductAllowedToUpdate,
 } from './client-inventory-view.constants'
@@ -58,6 +55,10 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
 
   receivedFiles = undefined
 
+  pendingOrderQuantity = undefined
+  currentRow = undefined
+
+  previousSelectedRows = []
   paymentMethods = []
 
   curProduct = undefined
@@ -229,6 +230,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       onClickSaveFourMonthsStock: (item, value) => this.onClickSaveFourMonthesStockValue(item, value),
       editRecommendationForStockByGuid: (productId, storekeeperId, recommendedValue) =>
         this.editRecommendationForStockByGuid(productId, storekeeperId, recommendedValue),
+      onClickRepurchase: (rowId, value) => this.onClickOrderBtn(rowId, value),
     }
 
     const stockUsHandlers = {
@@ -533,9 +535,8 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
 
   async onClickProductLaunch() {
     try {
-      const result = this.currentData?.find(
-        product => product?._id === this.selectedRows?.[0] && !product?.parentProductId,
-      )
+      const result = this.currentData?.find(product => product?._id === this.selectedRows?.[0])
+
       runInAction(() => (this.selectedProductToLaunch = result))
 
       this.onTriggerOpenModal('showProductLaunch')
@@ -564,30 +565,42 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     }
   }
 
-  async onClickOrderBtn() {
+  async checkPendingOrder(id) {
+    const result = await OrderModel.checkPendingOrderByProductGuid(id)
+    if (result?.length) {
+      const currentProduct = this.currentData.find(product => product?._id === id)
+      return {
+        asin: currentProduct?.asin,
+        orders: result,
+      }
+    }
+    return null
+  }
+
+  async onClickOrderBtn(rowId, value) {
     try {
       const resultArray = []
-
-      for await (const id of this.selectedRows) {
-        await OrderModel.checkPendingOrderByProductGuid(id).then(result => {
-          if (result?.length) {
-            const currentProduct = this.currentData.find(product => product?._id === id)
-
-            const resultObject = {
-              asin: currentProduct?.asin,
-              orders: result,
-            }
-
-            resultArray.push(resultObject)
+      if (value && rowId) {
+        const result = await this.checkPendingOrder(rowId)
+        if (result) {
+          resultArray.push(result)
+        }
+      } else {
+        for (const id of this.selectedRows) {
+          const result = await this.checkPendingOrder(id)
+          if (result) {
+            resultArray.push(result)
           }
-        })
+        }
       }
 
-      if (resultArray?.length) {
+      this.pendingOrderQuantity = value
+      this.currentRow = typeof rowId === 'string' ? rowId : null
+
+      if (resultArray.length) {
         runInAction(() => {
           this.existingProducts = resultArray
         })
-
         this.onTriggerOpenModal('showCheckPendingOrderFormModal')
       } else {
         await this.onClickContinueBtn()
@@ -605,8 +618,13 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     const [storekeepers, destinations, dataForOrder] = await Promise.all([
       StorekeeperModel.getStorekeepers(),
       ClientModel.getDestinations(),
-      ClientModel.getProductsInfoForOrders(this.selectedRows.join(',')),
+      ClientModel.getProductsInfoForOrders(this.currentRow ? this.currentRow : this.selectedRows.join(',')),
     ])
+
+    if (this.pendingOrderQuantity === 0 || this.pendingOrderQuantity) {
+      dataForOrder[0].pendingOrderQuantity = this.pendingOrderQuantity
+      dataForOrder[0].isPending = true
+    }
 
     runInAction(() => {
       this.storekeepers = storekeepers
@@ -769,7 +787,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       })
 
       toast.success(t(TranslationKey['The order has been created']))
-
+      this.pendingOrderQuantity = undefined
       await this.getCurrentData()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
