@@ -42,4 +42,4 @@ export const radioButtonOptions = () => [
   },
 ]
 
-export const fieldsForSearch = ['title', 'xid', 'asin']
+export const fieldsForSearch = ['title', 'xid', 'asin', 'skuByClient']
