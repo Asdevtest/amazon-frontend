@@ -34,8 +34,6 @@ export const SendMessageBlock: FC = observer(() => {
     onClickSendMessage,
   } = useSendMessageBlock()
 
-  useEffect(() => {}, [])
-
   return (
     <div className={styles.sendMessageBlock}>
       {showFilesLoader ? (

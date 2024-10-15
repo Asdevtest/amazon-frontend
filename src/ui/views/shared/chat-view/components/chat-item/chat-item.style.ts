@@ -33,6 +33,10 @@ export const useStyles = makeStyles()(theme => ({
     textAlign: 'start',
   },
 
+  textTyping: {
+    color: theme.palette.text.second,
+  },
+
   title: {
     fontWeight: '600',
     fontSize: '16px',

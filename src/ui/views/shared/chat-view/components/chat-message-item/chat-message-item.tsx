@@ -1,6 +1,5 @@
 import { FC, memo } from 'react'
 import { IoCheckmarkDone, IoCheckmarkSharp } from 'react-icons/io5'
-import { CellMeasurerChildProps } from 'react-virtualized/dist/es/CellMeasurer'
 
 import { ChatMessage } from '@models/chat-model-new/types/message.type'
 
@@ -15,10 +14,9 @@ import { MediaFiles } from '../media-files'
 interface ChatMessageItemProps {
   currentUserId: string
   message: ChatMessage
-  measure: CellMeasurerChildProps['measure']
 }
 
-export const ChatMessageItem: FC<ChatMessageItemProps> = memo(({ message, currentUserId, measure }) => {
+export const ChatMessageItem: FC<ChatMessageItemProps> = memo(({ message, currentUserId }) => {
   const { classes: styles, cx } = useStyles()
 
   const isYourMessage = message?.user?._id === currentUserId
@@ -31,7 +29,7 @@ export const ChatMessageItem: FC<ChatMessageItemProps> = memo(({ message, curren
 
   return (
     <div className={cx(styles.messageWrapper, { [styles.yourMessage]: isYourMessage })}>
-      <MediaFiles measure={measure} mediaFiles={mediaFiles} />
+      <MediaFiles mediaFiles={mediaFiles} />
 
       <ChatMessageFiles files={files} />
 

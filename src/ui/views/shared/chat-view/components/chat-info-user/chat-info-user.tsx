@@ -16,6 +16,8 @@ import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './chat-info-user.style'
 
+import { useOnlineUser } from '../../hooks/use-online-user'
+
 interface ChatInfoHeaderUserProps {
   currentChat: Chat
 }
@@ -23,23 +25,7 @@ interface ChatInfoHeaderUserProps {
 export const ChatInfoUser: FC<ChatInfoHeaderUserProps> = memo(({ currentChat }) => {
   const { classes: styles, cx } = useStyles()
 
-  const isFavoritesChat = useMemo(() => currentChat.type === ChatsType.SAVED, [currentChat])
-  const isGroupChat = useMemo(() => currentChat.type === ChatsType.GROUP, [currentChat])
-
-  const currentOpponent = getChatOponent(currentChat?.users as unknown as IFullUser[])
-
-  const isOnlineUser = checkOnline(currentChat?.type, currentOpponent as unknown as IFullUser)
-  const lastSeen = currentOpponent?.lastSeen as string
-  const dateGap = getDistanceBetweenDatesSeconds(new Date(), new Date(lastSeen))
-
-  const chatTitle = isGroupChat ? currentChat?.info?.title : currentOpponent?.name
-
-  const lastSeenMessage =
-    dateGap > ONE_DAY_IN_SECONDS
-      ? `${t(TranslationKey['Last seen'], {
-          date: formatDateWithoutTimeLocal(new Date(lastSeen)),
-        })}`
-      : `${t(TranslationKey.Today)} ${formatDateTimeHourAndMinutesLocal(new Date(lastSeen))}`
+  const { chatTitle, isFavoritesChat, isGroupChat, isOnlineUser, lastSeenMessage } = useOnlineUser(currentChat)
 
   const defaultChatSubTitle = isOnlineUser ? t(TranslationKey.Online) : lastSeenMessage
 

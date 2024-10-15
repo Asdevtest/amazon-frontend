@@ -1,5 +1,5 @@
 import { Chat } from './types/chat.type'
-import { ChatMessage, IncomingMessage } from './types/message.type'
+import { ChatMessage, IncomingMessage, IncomingTypingMessage } from './types/message.type'
 
 export enum ChatListenEvents {
   APP_PONG = 'App:pong',
@@ -32,5 +32,5 @@ export interface ChatListenEventsHandlers {
   [ChatHandlerName.onNewMessage]: (message: IncomingMessage) => void
   [ChatHandlerName.onNewChat]: (chat: Chat) => void
   [ChatHandlerName.onReadMessage]: (message: ChatMessage) => void
-  [ChatHandlerName.onTypingMessage]: (message: ChatMessage) => void
+  [ChatHandlerName.onTypingMessage]: (message: IncomingTypingMessage) => void
 }

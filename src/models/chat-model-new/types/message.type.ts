@@ -38,9 +38,8 @@ export interface SendMessage {
   chatId: string
   text: string
   files: (string | UploadFileType)[]
-  replyMessageId: string
-  forwardedMessageId: string
-  user: IFullUser
+  replyMessageId: string | null
+  forwardedMessageId: string | null
 }
 
 export interface emitSendMessage {
@@ -49,7 +48,6 @@ export interface emitSendMessage {
   files?: string[]
   images?: string[]
   video?: string[]
-  user: IFullUser
   // replyMessageId?: string
   // forwardedMessageId?: string
 }

@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
-import { ChatContract, ChatUserContract } from '@models/chat-model/contracts'
+import { Chat } from '@models/chat-model-new/types/chat.type'
 import { ChatsModel } from '@models/chats-model'
 import { DefaultModel } from '@models/default-model'
 import { OtherModel } from '@models/other-model'
@@ -29,7 +29,7 @@ export class CreateNewChatModalModel extends DefaultModel {
   chatName: string = ''
   chatImage: UploadFileType = ''
   selectedUsersId: string[] = []
-  chatToEdit: ChatContract | undefined
+  chatToEdit: Chat | undefined
   closeModalMethod: () => void = () => {}
 
   get user() {
@@ -198,7 +198,7 @@ export class CreateNewChatModalModel extends DefaultModel {
   }
 
   getUsersToAddAndRemove() {
-    const originalUsers = this.getChatUsers(this.chatToEdit?.users as ChatUserContract[])
+    const originalUsers = this.getChatUsers(this.chatToEdit?.users as IFullUser[])
 
     const usersToAdd = this.selectedUsersId?.filter(userId => !originalUsers.includes(userId))
     const usersToRemove = originalUsers.filter(userId => !this.selectedUsersId?.includes(userId))
@@ -232,7 +232,7 @@ export class CreateNewChatModalModel extends DefaultModel {
     }
   }
 
-  getChatUsers(users: ChatUserContract[]) {
+  getChatUsers(users: IFullUser[]) {
     const usersId = []
 
     for (const user of users) {

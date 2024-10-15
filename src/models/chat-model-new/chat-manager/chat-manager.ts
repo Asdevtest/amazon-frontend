@@ -38,7 +38,9 @@ export class ChatsManager<T> extends EmitsClient<T> {
         chat.messages = [...chat.messages, ...messagesArray]
       }
 
-      this.chatsManager?.set(chatId, chat)
+      chat.lastMessage = messagesArray[messagesArray?.length - 1]
+
+      this.chatsManager?.set(chatId, { ...chat })
     }
   }
 
@@ -89,6 +91,8 @@ export class ChatsManager<T> extends EmitsClient<T> {
         currentUser.lastSeen = typingMessage?.user?.lastSeen
       }
     })
+
+    this.chatsManager?.set(typingMessage?.chatId, { ...chat })
   }
 
   checkIsTypingUser(typingMessage: IncomingTypingMessage) {
@@ -102,5 +106,57 @@ export class ChatsManager<T> extends EmitsClient<T> {
     }
 
     return chat.users?.some(user => user?._id === userId && user?.typing)
+  }
+
+  setLastMessage(chatId: string, message: ChatMessage) {
+    const chat = this.chatsManager?.get(chatId)
+
+    if (!chat) {
+      return
+    }
+
+    chat.lastMessage = message
+  }
+
+  setReplyMessage(chatId: string, message: ChatMessage | null) {
+    const chat = this.chatsManager?.get(chatId)
+
+    if (!chat) {
+      return
+    }
+
+    chat.replyMessage = message
+
+    this.chatsManager?.set(chatId, { ...chat })
+  }
+
+  setSelectedMessage(chatId: string, message: ChatMessage) {
+    const chat = this.chatsManager?.get(chatId)
+
+    if (!chat) {
+      return
+    }
+
+    const forwardMessageIndex = chat.selectedMessages?.findIndex(el => el === message?._id) as number
+
+    if (forwardMessageIndex === -1) {
+      chat.selectedMessages?.push(message?._id)
+    } else {
+      chat.selectedMessages?.splice(forwardMessageIndex, 1)
+    }
+
+    this.chatsManager?.set(chatId, { ...chat })
+  }
+
+  setForwarderMessages(chatId: string, messages: ChatMessage[]) {
+    const chat = this.chatsManager?.get(chatId)
+
+    if (!chat) {
+      return
+    }
+
+    chat.messagesToForward = messages
+
+    this.chatsManager?.set(chatId, { ...chat })
   }
 }

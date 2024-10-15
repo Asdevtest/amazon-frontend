@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AutoSizer, CellMeasurer, CellMeasurerCache, List, ScrollParams } from 'react-virtualized'
 
 import { Direction } from '@models/chat-model-new/chat-manager/chat-manager.type'
@@ -12,6 +12,7 @@ import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './messages-list.style'
 
+import { ChatMessageControls } from '../chat-message-controls'
 import { ChatMessageItem } from '../chat-message-item'
 
 export const MessagesList: FC = observer(() => {
@@ -20,121 +21,135 @@ export const MessagesList: FC = observer(() => {
   const currentChat = chatModel.currentChat as Chat
   const chatMessages = chatModel.currentChatMessages as ChatMessage[]
 
-  const listRef = useRef(null)
   const [isLoading, setIsLoading] = useState(true)
 
   const currentUserId = (UserModel.userInfo as unknown as IFullUser)?._id
 
-  const cache = useMemo(
-    () =>
-      new CellMeasurerCache({
-        defaultHeight: 30,
-        fixedHeight: false,
-        fixedWidth: true,
-      }),
-    [chatMessages],
-  )
+  // const loadMessages = async (direction: Direction) => {
+  //   if (!currentChat) {
+  //     return
+  //   }
 
-  const loadMessages = async (direction: Direction) => {
-    if (!currentChat) {
-      return
-    }
+  //   setIsLoading(true)
 
-    setIsLoading(true)
+  //   const pagination = {
+  //     ...currentChat?.pagination,
+  //     offset: currentChat.pagination.offset + (direction === Direction.START ? 20 : -20),
+  //   }
 
-    const pagination = {
-      ...currentChat?.pagination,
-      offset: currentChat.pagination.offset + (direction === Direction.START ? 20 : -20),
-    }
+  //   chatModel.setChatPagination(currentChat._id, pagination)
 
-    const curScroll = listRef.current?.Grid?._scrollingContainer.scrollTop
-    const curHeight = listRef.current?.Grid?._scrollingContainer.scrollHeight
+  //   await chatModel.getChatMessages(pagination.offset, pagination.limit, direction)
 
-    chatModel.setChatPagination(currentChat._id, pagination)
+  //   if (direction === Direction.START) {
+  //     const newHeight = listRef.current?.Grid?._scrollingContainer.scrollHeight
 
-    await chatModel.getChatMessages(pagination.offset, pagination.limit, direction)
+  //     const newScroll = curScroll + (newHeight - curHeight)
 
-    cache.clearAll()
+  //     listRef.current.scrollToPosition(newScroll)
+  //   }
 
-    if (direction === Direction.START) {
-      const newHeight = listRef.current?.Grid?._scrollingContainer.scrollHeight
+  //   setIsLoading(false)
+  // }
 
-      const newScroll = curScroll + (newHeight - curHeight)
+  // const handleScroll = (/* { clientHeight, scrollHeight, scrollTop }: ScrollParams */) => {
+  //   if (isLoading) {
+  //     return
+  //   }
 
-      listRef.current.scrollToPosition(newScroll)
-    }
+  //   const scrollTop = listRef.current?.Grid?._scrollingContainer.scrollTop
 
-    setIsLoading(false)
-  }
-
-  const handleScroll = (/* { clientHeight, scrollHeight, scrollTop }: ScrollParams */) => {
-    if (isLoading) {
-      return
-    }
-
-    const scrollTop = listRef.current?.Grid?._scrollingContainer.scrollTop
-
-    console.log('scrollTop :>> ', scrollTop)
-    if (scrollTop === 0 && currentChat?.pagination.hasMoreTop) {
-      loadMessages(Direction.START)
-    }
-    //  else if (scrollTop + clientHeight >= scrollHeight && currentChat?.pagination.hasMoreBottom) {
-    //   loadMessages(Direction.END)
-    // }
-  }
+  //   if (scrollTop === 0 && currentChat?.pagination.hasMoreTop) {
+  //     loadMessages(Direction.START)
+  //   }
+  //   //  else if (scrollTop + clientHeight >= scrollHeight && currentChat?.pagination.hasMoreBottom) {
+  //   //   loadMessages(Direction.END)
+  //   // }
+  // }
 
   const initChat = async () => {
     setIsLoading(true)
     await chatModel.getChatFirstMessages()
-    listRef.current?.scrollToRow(chatMessages?.length - 1)
     setIsLoading(false)
   }
+
+  const onClickReply = useCallback((message: ChatMessage) => {
+    chatModel.setReplyMessage(chatModel.selectedChatId, message)
+  }, [])
+
+  const onSelectMessage = useCallback((message: ChatMessage) => {
+    chatModel.setSelectedMessage(chatModel.selectedChatId, message)
+  }, [])
+
+  // const onClickForwardMessages = useCallback((message: ChatMessage) => {
+  //   chatModel.onClickForwardMessages(chatModel.selectedChatId, [message])
+  // }, [])
+
+  const onClickCopyMessageText = useCallback((message: ChatMessage) => {
+    navigator.clipboard.writeText(message?.text)
+  }, [])
 
   useEffect(() => {
     initChat()
   }, [])
 
-  console.log('listRef :>> ', listRef)
+  // console.log('listRef :>> ', listRef)
 
   return (
-    <AutoSizer className={styles.autoSizer}>
-      {({ width, height }) => (
-        <List
-          ref={listRef}
-          id="messages-list"
-          width={width}
-          height={height}
-          rowCount={chatMessages?.length}
-          rowHeight={cache.rowHeight}
-          deferredMeasurementCache={cache}
-          rowRenderer={({ index, key, style, parent }) => {
-            const message = chatMessages?.[index]
+    <>
+      {chatMessages?.map((message, index) => (
+        <ChatMessageControls
+          key={message._id}
+          showDropdown
+          message={message}
+          onClickReply={onClickReply}
+          onSelectMessage={onSelectMessage}
+          // onClickForwardMessages={}
+          onClickCopyMessageText={onClickCopyMessageText}
+        >
+          <ChatMessageItem currentUserId={currentUserId} message={message} />
+        </ChatMessageControls>
+      ))}
+    </>
 
-            return (
-              <CellMeasurer key={key} parent={parent} cache={cache} columnIndex={0} rowIndex={index}>
-                {({ measure, registerChild: cellMeasurerRegisterChild }) => (
-                  <div
-                    // @ts-ignore
-                    ref={cellMeasurerRegisterChild}
-                    style={{
-                      ...style,
-                      padding: '3px 0',
-                    }}
-                  >
-                    <ChatMessageItem
-                      key={message._id}
-                      currentUserId={currentUserId}
-                      message={message}
-                      measure={measure}
-                    />
-                  </div>
-                )}
-              </CellMeasurer>
-            )
-          }}
-          onScroll={handleScroll}
-        />
-      )}
-    </AutoSizer>
+    // <AutoSizer className={styles.autoSizer}>
+    //   {({ width, height }) => (
+    //     <List
+    //       ref={listRef}
+    //       id="messages-list"
+    //       width={width}
+    //       height={height}
+    //       rowCount={chatMessages?.length}
+    //       rowHeight={cache.rowHeight}
+    //       deferredMeasurementCache={cache}
+    //       rowRenderer={({ index, key, style, parent }) => {
+    //         const message = chatMessages?.[index]
+
+    //         return (
+    //           <CellMeasurer key={key} parent={parent} cache={cache} columnIndex={0} rowIndex={index}>
+    //             {({ measure, registerChild: cellMeasurerRegisterChild }) => (
+    //               <div
+    //                 // @ts-ignore
+    //                 ref={cellMeasurerRegisterChild}
+    //                 style={{
+    //                   ...style,
+    //                   padding: '3px 0',
+    //                 }}
+    //               >
+    //                 <ChatMessageItem
+    //                   key={message._id}
+    //                   currentUserId={currentUserId}
+    //                   message={message}
+    //                   measure={measure}
+    //                 />
+    //               </div>
+    //             )}
+    //           </CellMeasurer>
+    //         )
+    //       }}
+    //       onScroll={handleScroll}
+    //     />
+    //   )}
+    // </AutoSizer>
   )
 })

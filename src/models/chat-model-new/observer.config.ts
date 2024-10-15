@@ -18,4 +18,5 @@ export const observerConfig = {
   onTypingMessage: action.bound,
   getTypingMessage: action.bound,
   setTyping: action.bound,
+  getNewChat: action.bound,
 }

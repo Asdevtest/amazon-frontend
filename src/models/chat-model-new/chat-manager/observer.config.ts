@@ -11,4 +11,8 @@ export const observerConfig = {
   playNotificationSound: action.bound,
   setTypingUser: action.bound,
   checkIsTypingUser: action.bound,
+  setLastMessage: action.bound,
+  setReplyMessage: action.bound,
+  setSelectedMessage: action.bound,
+  setForwarderMessages: action.bound,
 }

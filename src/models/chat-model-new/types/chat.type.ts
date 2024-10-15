@@ -49,4 +49,8 @@ export interface Chat {
   crmItemId?: string
   crmItemType?: string
   unread: string
+
+  replyMessage?: ChatMessage | null
+  selectedMessages?: string[]
+  messagesToForward?: ChatMessage[]
 }

@@ -6,6 +6,8 @@ import {
 } from '@services/websocket/websocket-spacename/types/websocket-spacename.type'
 import { WebsocketSpacename } from '@services/websocket/websocket-spacename/websocket-spacename'
 
+import { IFullUser } from '@typings/shared/full-user'
+
 import { ChatEmits } from '../types/chat-emits.type'
 import { Chat } from '../types/chat.type'
 import { ChatMessage, ResponseChats, SendMessage, emitSendMessage } from '../types/message.type'
@@ -71,6 +73,23 @@ export class EmitsClient<T> extends WebsocketSpacename<T> {
   public async emitTypingMessage(chatId: string) {
     return new Promise(() => {
       this.socket.emit(ChatEmits.TYPING_MESSAGE, { chatId })
+    })
+  }
+
+  public async addUsersToGroupChat(params: { chatId: string; users: string[] }): Promise<
+    {
+      _id: string
+      name: string
+    }[]
+  > {
+    return new Promise((resolve, reject) => {
+      this.socket.emit(ChatEmits.ADD_USERS_TO_GROUP_CHAT_BY_ADMIN, params, (sendMessageResponse: any) => {
+        if (!sendMessageResponse.success || !sendMessageResponse.data) {
+          reject(sendMessageResponse.error)
+        } else {
+          resolve(sendMessageResponse.data)
+        }
+      })
     })
   }
 }

@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 import { chatModel } from '@models/chat-model-new/chat-model'
 import { Chat } from '@models/chat-model-new/types/chat.type'
 
+import { ForwardMessagesForm } from '@components/forms/forward-messages-form'
 import { CreateNewChatModal } from '@components/modals/create-new-chat-modal'
 import { Modal } from '@components/shared/modal'
 
@@ -39,6 +40,17 @@ export const ChatView = observer(() => {
         <CreateNewChatModal
           chatToEdit={chatModel.currentChat as Chat}
           closeModal={() => chatModel.onTriggerOpenModal('showCreateNewChatModal', false)}
+        />
+      </Modal>
+
+      <Modal
+        openModal={chatModel.showForwardMessagesModal}
+        setOpenModal={() => chatModel.onTriggerOpenModal('showForwardMessagesModal', false)}
+      >
+        <ForwardMessagesForm
+          chats={chatModel.chats}
+          onClickChat={() => chatModel.onTriggerOpenModal('showForwardMessagesModal', false)}
+          onCloseModal={() => chatModel.onTriggerOpenModal('showForwardMessagesModal', false)}
         />
       </Modal>
     </div>

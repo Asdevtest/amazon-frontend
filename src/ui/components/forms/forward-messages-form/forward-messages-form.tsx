@@ -2,53 +2,40 @@ import { FC, memo, useMemo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChatContract } from '@models/chat-model/contracts'
+import { Chat } from '@models/chat-model-new/types/chat.type'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
-import { t } from '@utils/translations'
+import { ChatItem } from '@views/shared/chat-view/components/chat-item'
 
-import { IFullUser } from '@typings/shared/full-user'
+import { getChatTitle } from '@utils/chat/get-chat-title'
+import { t } from '@utils/translations'
 
 import { useStyles } from './forward-messages-form.style'
 
-import { ChatItem } from './chat-item'
-import { getChatTitle } from './helpers/get-chat-title'
-
 interface ForwardMessagesFormProps {
-  user: IFullUser
-  chats: ChatContract[]
-  onClickChat: (chat: ChatContract) => void
+  chats: Chat[]
+  onClickChat: (chat: Chat) => void
   onCloseModal: () => void
 }
 
 export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
-  const { user, chats, onClickChat, onCloseModal } = props
+  const { chats, onClickChat, onCloseModal } = props
   const { classes: styles } = useStyles()
 
   const [nameSearchValue, setNameSearchValue] = useState<string>('')
 
   const renderData = useMemo(() => {
-    return chats
-      .filter(el => {
-        if (!nameSearchValue) {
-          return true
-        }
+    return chats.filter(el => {
+      if (!nameSearchValue) {
+        return true
+      }
 
-        const title = getChatTitle(el, user)
+      const title = getChatTitle(el)
 
-        return title.toLocaleLowerCase().includes(nameSearchValue.toLocaleLowerCase())
-      })
-      .sort((a, b) => {
-        if (a.type === 'SAVED' && b.type !== 'SAVED') {
-          return -1
-        } else if (a.type !== 'SAVED' && b.type === 'SAVED') {
-          return 1
-        } else {
-          return 0
-        }
-      })
+      return title.toLocaleLowerCase().includes(nameSearchValue.toLocaleLowerCase())
+    })
   }, [chats, nameSearchValue])
 
   return (
@@ -64,7 +51,7 @@ export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
 
       <div className={styles.chatList}>
         {renderData.map(chat => (
-          <ChatItem key={chat._id} chat={chat} user={user} onClickChat={() => onClickChat(chat)} />
+          <ChatItem key={chat._id} chat={chat} onClickChat={() => onClickChat(chat)} />
         ))}
       </div>
 

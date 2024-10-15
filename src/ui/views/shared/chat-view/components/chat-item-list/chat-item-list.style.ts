@@ -7,9 +7,9 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: '5px',
     overflowY: 'scroll',
-    paddingRight: '5px',
     boxShadow: theme.palette.boxShadow.box,
     borderRadius: '20px 0 0 20px',
+    paddingRight: '5px',
 
     '::-webkit-scrollbar': {
       display: 'none',

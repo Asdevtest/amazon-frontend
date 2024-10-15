@@ -2076,5 +2076,6 @@
   "Products linked successfully": "Продукты успешно связаны",
   "Product linking error": "Ошибка привязки продуктов",
   "Successfully integrated": "Успешно интегрировано",
-  "Failed": "Не удалось"
+  "Failed": "Не удалось",
+  "typing": "печатает"
 }

@@ -1,36 +1,35 @@
 import { Badge } from 'antd'
-import { CSSProperties, FC, memo, useMemo } from 'react'
+import { FC, memo, useMemo } from 'react'
 
-import { ChatsType } from '@constants/keys/chats'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Chat } from '@models/chat-model-new/types/chat.type'
 
 import { CustomButton } from '@components/shared/custom-button'
 
 import { getChatAvatarSrc } from '@utils/chat/get-chat-avatar-src'
-import { getChatTitle } from '@utils/chat/get-chat-title'
 import { formatDateWithoutTimeLocal } from '@utils/date-time'
+import { t } from '@utils/translations'
 
 import { useStyles } from './chat-item.style'
 
+import { useOnlineUser } from '../../hooks/use-online-user'
 import { ChatAvatar } from '../chat-avatar'
 
 interface ChatItemProps {
   chat: Chat
   onClickChat: (chat: Chat) => void
 
-  isActiveChat: boolean
+  isActiveChat?: boolean
 }
 
 export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickChat }) => {
   const { classes: styles, cx } = useStyles()
 
-  const isFavoritesChat = useMemo(() => chat.type === ChatsType.SAVED, [])
-  const isGroupChat = useMemo(() => chat.type === ChatsType.GROUP, [])
+  const { chatTitle, isFavoritesChat, isGroupChat, isOnlineUser, isTyping } = useOnlineUser(chat)
 
   const avatarSrc = useMemo(() => getChatAvatarSrc(chat, isGroupChat), [])
 
-  const chatTitle = useMemo(() => getChatTitle(chat), [])
   const lastMessageDate = useMemo(() => formatDateWithoutTimeLocal(chat.lastMessage?.updatedAt), [chat.lastMessage])
   const unreadMessages = useMemo(() => chat.unread, [chat.unread])
 
@@ -40,7 +39,9 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickCh
       className={cx(styles.chatItem, { [styles.activeChatItem]: isActiveChat })}
       onClick={() => onClickChat(chat)}
     >
-      <ChatAvatar avatarSrc={avatarSrc} isFavoritesChat={isFavoritesChat} />
+      <Badge dot={isOnlineUser} offset={[-5, 40]}>
+        <ChatAvatar avatarSrc={avatarSrc} isFavoritesChat={isFavoritesChat} />
+      </Badge>
 
       <div className={styles.chatItemInfo}>
         <div className={styles.titleWrapper}>
@@ -49,7 +50,9 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickCh
         </div>
 
         <div className={styles.lastMessageBlock}>
-          <p className={styles.text}>{chat.lastMessage?.text}</p>
+          <p className={cx(styles.text, { [styles.textTyping]: isTyping })}>
+            {isTyping ? `${t(TranslationKey.typing)}...` : chat.lastMessage?.text}
+          </p>
           {unreadMessages ? <Badge count={unreadMessages} className={styles.badge} /> : null}
         </div>
       </div>

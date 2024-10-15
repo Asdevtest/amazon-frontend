@@ -1,4 +1,7 @@
+import { compareDesc, parseISO } from 'date-fns'
 import { ObservableMap, makeObservable, runInAction } from 'mobx'
+
+import { ChatsType } from '@constants/keys/chats'
 
 import { OtherModel } from '@models/other-model'
 
@@ -8,6 +11,7 @@ import WebsocketsManager from '@services/websocket/websockets-manager/websockets
 import { ChatsManager } from './chat-manager'
 import { Direction } from './chat-manager/chat-manager.type'
 import { ChatHandlerName, ChatListenEventsHandlers } from './chat.type'
+import { getSortChats } from './helpers/get-sort-chats'
 import { observerConfig } from './observer.config'
 import { Chat } from './types/chat.type'
 import { ChatMessage, IncomingMessage, IncomingTypingMessage, SendMessage } from './types/message.type'
@@ -16,12 +20,14 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
   selectedChatId: string = ''
   chatsLoading: boolean = false
   messagesLoading: boolean = false
+
   showCreateNewChatModal: boolean = false
+  showForwardMessagesModal: boolean = false
 
   typing: boolean = false
 
   get chats() {
-    return Array.from(this.chatsManager?.values?.() || [])
+    return getSortChats(Array.from(this.chatsManager?.values?.() || []))
   }
 
   get currentChat() {
@@ -46,9 +52,12 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
       // @ts-ignore
       handlers: {
         [ChatHandlerName.onConnect]: () => this.getChats(),
+
+        [ChatHandlerName.onNewChat]: (chat: Chat) => this.getNewChat(chat),
         [ChatHandlerName.onNewMessage]: (message: IncomingMessage) => this.getNewMessage(message),
 
-        [ChatHandlerName.onTypingMessage]: (message: ChatMessage) => this.getTypingMessage(message),
+        [ChatHandlerName.onTypingMessage]: (typingMessage: IncomingTypingMessage) =>
+          this.getTypingMessage(typingMessage),
       },
     })
     makeObservable(this, observerConfig)
@@ -251,6 +260,10 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
     runInAction(() => {
       this.typing = value
     })
+  }
+
+  getNewChat(chat: Chat) {
+    this.addChatToManager(chat)
   }
 }
 

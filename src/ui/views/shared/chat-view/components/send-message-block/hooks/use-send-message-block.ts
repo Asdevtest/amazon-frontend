@@ -42,16 +42,13 @@ export const useSendMessageBlock = () => {
       // crmItemId: null,
       text: message?.trim(),
       files,
-      // replyMessageId: '',
-      // forwardedMessageId: '',
-      user: {
-        name: UserModel.userInfo.name,
-        _id: UserModel.userInfo._id,
-      },
+      replyMessageId: null,
+      forwardedMessageId: null,
     })
 
     onChangeMessage('')
     onChangeFiles([])
+    setShowFilesLoader(false)
   }
 
   return {
