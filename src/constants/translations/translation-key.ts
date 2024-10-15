@@ -2073,4 +2073,5 @@ export enum TranslationKey {
   'Successfully integrated' = 'Successfully integrated',
   'Failed' = 'Failed',
   'Select at least 2 users' = 'Select at least 2 users',
+  'Requested in batch' = 'Requested in batch',
 }

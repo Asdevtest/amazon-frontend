@@ -2071,5 +2071,6 @@
   "Product linking error": "Помилка прив'язки продуктів",
   "Successfully integrated": "Успішно інтегровано",
   "Failed": "Не вдалося",
-  "Select at least 2 users": "Виберіть щонайменше 2 користувача"
+  "Select at least 2 users": "Виберіть щонайменше 2 користувача",
+  "Requested in batch": "Запрошено в партію"
 }
