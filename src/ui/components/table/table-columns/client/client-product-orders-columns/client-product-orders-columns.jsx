@@ -251,7 +251,6 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
     width: 115,
     renderCell: params => <NormDateCell value={params.row.createdAt} />,
-    // type: 'date',
   },
 
   {
@@ -261,6 +260,5 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
     width: 115,
     renderCell: params => <NormDateCell value={params.row.updatedAt} />,
-    // type: 'date',
   },
 ]
