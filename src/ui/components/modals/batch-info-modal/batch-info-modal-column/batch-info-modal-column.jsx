@@ -135,7 +135,6 @@ export const batchInfoModalColumn = (
     renderCell: params => <NormDateCell value={params.value} />,
     valueGetter: ({ row }) => row.updatedAt || t(TranslationKey.Missing),
     width: 100,
-    // type: 'date',
   },
 
   {

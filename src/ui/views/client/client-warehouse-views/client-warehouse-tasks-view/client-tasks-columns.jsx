@@ -193,7 +193,6 @@ export const clientTasksViewColumns = handlers => {
 
       width: 130,
       renderCell: params => <NormDateFromUnixCell value={params.value} />,
-      // type: 'date',
     },
   ]
 

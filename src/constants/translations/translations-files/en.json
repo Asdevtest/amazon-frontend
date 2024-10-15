@@ -20,11 +20,9 @@
   "Resolve task": "Resolve task",
   "No": "No",
   "Yes": "Yes",
-  "Confirm action": "Confirm action",
   "After confirmation, the task will be cancelled. Confirm?": "After confirmation, the task will be cancelled. Confirm?",
   "Ok": "Ok",
   "Cancel": "Cancel",
-  "Reason for canceling the task": "Reason for canceling the task",
   "Created": "Created",
   "My warehouse": "My warehouse",
   "Boxes": "Boxes",
@@ -751,8 +749,6 @@
   "Proposal Edition": "Proposal Edition",
   "Choose a section in Freelance": "Choose a section in Freelance",
   "All orders available for pickup": "All orders available for pickup",
-  "Go to the order and open the \"Edit order\" window": "Go to the order and open the \"Edit order\" window",
-  "Stay in \"Free orders\"": "Stay in \"Free orders\"",
   "Statistics on goods/orders/finances": "Statistics on goods/orders/finances",
   "All available tasks for finding a supplier": "All available tasks for finding a supplier",
   "Manage the list of employees": "Manage the list of employees",
@@ -1412,6 +1408,7 @@
   "My filter": "My filter",
   "Search by": "Search by",
   "№ Order": "№ Order",
+  "№ Item": "№ Item",
   "From": "From",
   "To": "To",
   "Without strategy": "Without strategy",
@@ -2077,5 +2074,6 @@
   "Product linking error": "Product linking error",
   "Successfully integrated": "Successfully integrated",
   "Failed": "Failed",
-  "typing": "typing"
+  "typing": "typing",
+  "Select at least 2 users": "Select at least 2 users"
 }

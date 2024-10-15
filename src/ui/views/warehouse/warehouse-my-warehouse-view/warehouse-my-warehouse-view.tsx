@@ -1,6 +1,7 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
+
+import { GridRowClassNameParams, GridRowModel, GridRowParams } from '@mui/x-data-grid-premium'
 
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -28,16 +29,19 @@ import { useStyles } from './warehouse-my-warehouse-view.style'
 import { ActionButtons } from './action-buttons'
 import { WarehouseMyWarehouseViewModel } from './warehouse-my-warehouse-view.model'
 
-export const WarehouseMyWarehouseView = observer(({ history }) => {
+export const WarehouseMyWarehouseView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const viewModel = useMemo(() => new WarehouseMyWarehouseViewModel({ history }), [])
+  const viewModel = useMemo(() => new WarehouseMyWarehouseViewModel(), [])
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
-  const getRowClassName = params => params.row.isDraft && styles.isDraftRow
+  const getRowClassName = (params: GridRowClassNameParams) => params.row.isDraft && styles.isDraftRow
+  const getIsRowSelectable = (params: GridRowParams) => {
+    return (
+      !params.row.isDraft &&
+      params.row.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
+      params.row.status !== BoxStatus.IN_BATCH
+    )
+  }
 
   const disableSelectionCells = ['prepId']
 
@@ -45,7 +49,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
     <div className="viewWrapper">
       <div className={styles.headerWrapper}>
         <ActionButtons
-          selectedBoxes={viewModel.selectedBoxes}
+          selectedBoxes={viewModel.selectedRows}
           onEditBox={viewModel.onEditBox}
           onClickMergeBtn={viewModel.onClickMergeBtn}
           onClickSplitBtn={viewModel.onClickSplitBtn}
@@ -65,14 +69,11 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick
-        isRowSelectable={params =>
-          params.row.isDraft === false &&
-          params.row.originalData.status !== BoxStatus.REQUESTED_SEND_TO_BATCH &&
-          params.row.originalData.status !== BoxStatus.IN_BATCH
-        }
+        isRowSelectable={getIsRowSelectable}
         getRowClassName={getRowClassName}
         rowCount={viewModel.rowCount}
-        rowSelectionModel={viewModel.selectedBoxes}
+        getRowId={({ _id }: GridRowModel) => _id}
+        rowSelectionModel={viewModel.selectedRows}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
@@ -85,14 +86,32 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
             title: t(TranslationKey.Filter),
           },
           toolbar: {
+            tablePresets: {
+              showPresetsSelect: viewModel.showPresetsSelect,
+              presetsTableData: viewModel.presetsTableData,
+              handleChangeSelectState: viewModel.onChangeShowPresetsSelect,
+              handleSetPresetActive: viewModel.handleSetPresetActive,
+              handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
+              handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
+              handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
+              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
+            },
+
             resetFiltersBtnSettings: {
               onClickResetFilters: viewModel.onClickResetFilters,
               isSomeFilterOn: viewModel.isSomeFilterOn,
             },
+
             columsBtnSettings: {
               columnsModel: viewModel.columnsModel,
               columnVisibilityModel: viewModel.columnVisibilityModel,
               onColumnVisibilityModelChange: viewModel.onColumnVisibilityModelChange,
+            },
+            sortSettings: {
+              sortModel: viewModel.sortModel,
+              columnsModel: viewModel.columnsModel,
+              onSortModelChange: viewModel.onChangeSortingModel,
             },
           },
         }}
@@ -104,8 +123,8 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
-        onCellDoubleClick={params =>
-          !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row.originalData)
+        onCellDoubleClick={(params: GridRowModel) =>
+          !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
         }
       />
 
@@ -116,7 +135,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <MoveBoxToBatchForm
           box={viewModel.curBoxToMove}
           batches={viewModel.batches}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           setOpenModal={() => viewModel.onTriggerOpenModal('showBoxMoveToBatchModal')}
           onSubmit={viewModel.onSubmitMoveBoxToBatch}
           onSubmitCreateBatch={viewModel.onSubmitCreateBatch}
@@ -127,10 +145,8 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         openModal={viewModel.showAddBatchModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddBatchModal')}
       >
+        {/* @ts-ignore  */}
         <AddOrEditBatchForm
-          progressValue={viewModel.progressValue}
-          showProgress={viewModel.showProgress}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           sourceBox={viewModel.sourceBoxForBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddBatchModal')}
@@ -144,7 +160,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showFullEditBoxModal')}
       >
         <EditBoxStorekeeperForm
-          showCheckbox
+          // @ts-ignore
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           requestStatus={viewModel.requestStatus}
@@ -153,7 +169,6 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           onSubmit={viewModel.onClickSubmitEditBox}
           onTriggerOpenModal={() => viewModel.onTriggerOpenModal('showFullEditBoxModal')}
-          onClickHsCode={viewModel.onClickHsCode}
         />
       </Modal>
 
@@ -174,9 +189,7 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
           userInfo={viewModel.userInfo}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={viewModel.currentData
-            .filter(el => viewModel.selectedBoxes.includes(el._id))
-            .map(box => box.originalData)}
+          selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
           onSubmit={viewModel.onClickSubmitEditMultipleBoxes}
@@ -191,10 +204,12 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         <AddOrEditHsCodeInBox
           box={viewModel.curBox}
           setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditHsCodeInBox')}
+          startData={undefined}
           onSubmit={viewModel.onSubmitAddOrEditHsCode}
         />
       </Modal>
       <Modal openModal={viewModel.showEditBoxModal} setOpenModal={viewModel.onTriggerShowEditBoxModal}>
+        {/* @ts-ignore */}
         <EditBoxTasksForm
           isInStorekeeperWarehouse
           setEditModal={viewModel.onTriggerShowEditBoxModal}
@@ -208,17 +223,10 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showMergeBoxModal')}
       >
         <MergeBoxesModal
-          showCheckbox
           userInfo={viewModel.userInfo}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={
-            (viewModel.selectedBoxes.length &&
-              toJS(viewModel.boxesMy.filter(box => viewModel.selectedBoxes.includes(box._id)))?.map(
-                box => box.originalData,
-              )) ||
-            []
-          }
+          selectedBoxes={viewModel.currentData.filter(box => viewModel.selectedRows.includes(box._id))}
           requestStatus={viewModel.requestStatus}
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -234,16 +242,13 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showRedistributeBoxModal')}
       >
         <StorekeeperRedistributeBox
-          showCheckbox
           showEditBoxModalR={viewModel.showEditBoxModalR}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           requestStatus={viewModel.requestStatus}
-          addNewBoxModal={viewModel.showRedistributeBoxAddNewBoxModal}
-          setAddNewBoxModal={value => viewModel.onModalRedistributeBoxAddNewBox(value)}
           selectedBox={
-            viewModel.selectedBoxes.length &&
-            viewModel.boxesMy.find(box => box._id === viewModel.selectedBoxes.slice()[0])?.originalData
+            viewModel.selectedRows.length &&
+            viewModel.currentData.find(box => box._id === viewModel.selectedRows.slice()[0])
           }
           destinationsFavourites={viewModel.destinationsFavourites}
           setDestinationsFavouritesItem={viewModel.setDestinationsFavouritesItem}
@@ -260,11 +265,10 @@ export const WarehouseMyWarehouseView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
       >
         <GroupingBoxesForm
+          // @ts-ignore
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
-          selectedBoxes={viewModel.boxesMy
-            .filter(el => viewModel.selectedBoxes.includes(el._id))
-            .map(box => box.originalData)}
+          selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}
           onSubmit={viewModel.onClickSubmitGroupingBoxes}
           onCloseModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
         />

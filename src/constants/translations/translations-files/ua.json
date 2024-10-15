@@ -20,11 +20,9 @@
   "Resolve task": "Вирішити завдання",
   "No": "Ні",
   "Yes": "Так",
-  "Confirm action": "Підтвердіть дію",
   "After confirmation, the task will be cancelled. Confirm?": "Після підтвердження завдання буде скасоване. Підтвердити?",
   "Ok": "Ок",
   "Cancel": "Скасувати",
-  "Reason for canceling the task": "Причина скасування завдання",
   "Created": "Створено",
   "My warehouse": "Мій склад",
   "Boxes": "Коробки",
@@ -752,8 +750,6 @@
   "Proposal Edition": "Редагування пропозиції",
   "Choose a section in Freelance": "Оберіть розділ у фрілансі",
   "All orders available for pickup": "Усі замовлення, доступні для взяття в роботу",
-  "Go to the order and open the \"Edit order\" window": "Перейти до замовлення та відкрити вікно \"Редагування замовлення\"",
-  "Stay in \"Free orders\"": "Залишитися в \"Вільні замовлення\"",
   "Statistics on goods/orders/finances": "Статистика по товарам/замовленням/фінансам",
   "All available tasks for finding a supplier": "Усі доступні завдання для пошуку постачальника",
   "Manage the list of employees": "Управління списком співробітників",
@@ -1412,6 +1408,7 @@
   "My filter": "Мій фільтр",
   "Search by": "Пошук по",
   "№ Order": "№ Замовлення",
+  "№ Item": "№ Item",
   "From": "Від",
   "To": "До",
   "Without strategy": "Без стратегії",
@@ -2076,5 +2073,6 @@
   "Product linking error": "Помилка прив'язки продуктів",
   "Successfully integrated": "Успішно інтегровано",
   "Failed": "Не вдалося",
-  "typing": "написує"
+  "typing": "написує",
+  "Select at least 2 users": "Виберіть щонайменше 2 користувача"
 }

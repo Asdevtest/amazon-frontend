@@ -47,6 +47,9 @@
   border-radius: 4px !important;
 }
 .ant-select-dropdown {
+  z-index: 8;
+}
+.ant-cascader-dropdown {
   z-index: 7;
 }
 

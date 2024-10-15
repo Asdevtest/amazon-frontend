@@ -11,7 +11,7 @@ import { useStyles } from './product-and-batch-modal.style'
 
 import { IModalConfig, ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
 
-export const switcherSettings = [
+export const generateSwitcherSettings = () => [
   { label: t(TranslationKey['Orders info']), value: ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION },
   { label: t(TranslationKey['Batch data']), value: ProductAndBatchModalSwitcherConditions.BATCH_DATA },
 ]

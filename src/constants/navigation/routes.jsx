@@ -493,22 +493,25 @@ const WarehouseCompletedTasksView = lazy(() =>
     return { default: props => <Component status={TaskStatus.SOLVED} {...props} /> }
   }),
 )
-const WarehouseMyTasksView = lazy(() =>
-  import('@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view').then(module => ({
-    default: module.WarehouseMyTasksView,
-  })),
-)
 const WarehouseTasksView = lazy(() =>
   import('@views/warehouse/warehouse-tasks-views/warehouse-tasks-view').then(module => ({
     default: module.WarehouseTasksView,
   })),
 )
 const WarehouseVacantTasksView = lazy(() =>
-  import('@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view').then(module => ({
-    default: module.WarehouseVacantTasksView,
-  })),
-)
+  import('@views/warehouse/warehouse-tasks-views/warehouse-main-tasks-view').then(module => {
+    const Component = module.WarehouseMainTasksView
 
+    return { default: props => <Component status={TaskStatus.NEW} {...props} /> }
+  }),
+)
+const WarehouseMyTasksView = lazy(() =>
+  import('@views/warehouse/warehouse-tasks-views/warehouse-main-tasks-view').then(module => {
+    const Component = module.WarehouseMainTasksView
+
+    return { default: props => <Component status={TaskStatus.AT_PROCESS} {...props} /> }
+  }),
+)
 const CategoryRootView = lazy(() =>
   import('@views/shared/category-root-view/category-root-view').then(module => ({
     default: module.CategoryRootView,
