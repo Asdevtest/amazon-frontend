@@ -232,44 +232,74 @@ export const EditMultipleBoxesForm = observer(
       let updatedNewBoxes
 
       if (field === 'tmpBarCode') {
-        updatedNewBoxes = newBoxes.map(newBox =>
-          visibleBoxesIds.includes(newBox._id)
-            ? {
-                ...newBox,
-                items: newBox?.items
-                  ? newBox.items.map(el => ({
-                      ...el,
-                      changeBarCodInInventory: false,
-                      tmpBarCode: sharedFields.tmpBarCode,
-                    }))
-                  : [],
+        updatedNewBoxes = newBoxes.map(newBox => {
+          if (visibleBoxesIds.includes(newBox._id)) {
+            const updatedItems = newBox.items.map(item => {
+              if (!sharedFields.tmpBarCode.length) {
+                return {
+                  ...item,
+                  barCode: '',
+                  tmpBarCode: [],
+                }
+              } else {
+                return {
+                  ...item,
+                  tmpBarCode: sharedFields.tmpBarCode,
+                }
               }
-            : newBox,
-        )
+            })
+            return {
+              ...newBox,
+              items: updatedItems,
+            }
+          } else {
+            return newBox
+          }
+        })
       } else if (field === 'tmpTransparencyFile') {
-        updatedNewBoxes = newBoxes.map(newBox =>
-          visibleBoxesIds.includes(newBox._id)
-            ? {
-                ...newBox,
-                items: newBox?.items
-                  ? newBox.items.map(el => ({
-                      ...el,
-                      changeBarCodInInventory: false,
-                      tmpTransparencyFile: sharedFields.tmpTransparencyFile,
-                    }))
-                  : [],
+        updatedNewBoxes = newBoxes.map(newBox => {
+          if (visibleBoxesIds.includes(newBox._id)) {
+            const updatedItems = newBox.items.map(item => {
+              if (!sharedFields.tmpTransparencyFile.length) {
+                return {
+                  ...item,
+                  transparencyFile: '',
+                  tmpTransparencyFile: [],
+                }
+              } else {
+                return {
+                  ...item,
+                  tmpTransparencyFile: sharedFields.tmpTransparencyFile,
+                }
               }
-            : newBox,
-        )
+            })
+            return {
+              ...newBox,
+              items: updatedItems,
+            }
+          } else {
+            return newBox
+          }
+        })
       } else if (field === 'tmpShippingLabel') {
-        updatedNewBoxes = newBoxes.map(newBox =>
-          visibleBoxesIds.includes(newBox._id)
-            ? {
+        updatedNewBoxes = newBoxes.map(newBox => {
+          if (visibleBoxesIds.includes(newBox._id)) {
+            if (!sharedFields.tmpShippingLabel.length) {
+              return {
+                ...newBox,
+                shippingLabel: '',
+                tmpShippingLabel: [],
+              }
+            } else {
+              return {
                 ...newBox,
                 tmpShippingLabel: sharedFields.tmpShippingLabel,
               }
-            : newBox,
-        )
+            }
+          } else {
+            return newBox
+          }
+        })
       } else if (field === 'isBarcodeLabelAttached') {
         updatedNewBoxes = newBoxes.map(newBox =>
           visibleBoxesIds.includes(newBox._id)
