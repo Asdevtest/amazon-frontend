@@ -78,11 +78,9 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
   get userInfo() {
     return UserModel.userInfo
   }
-
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
   }
-
   get platformSettings() {
     return UserModel.platformSettings as unknown as IPlatformSettings
   }
@@ -111,7 +109,6 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
 
     makeObservable(this, observerConfig)
     this.getTableSettingsPreset()
-    this.getCurrentData()
   }
 
   setDestinationsFavouritesItem(item: any) {
@@ -123,7 +120,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     this.showEditBoxModalR = !this.showEditBoxModalR
   }
 
-  async onClickSavePrepId(itemId: any, value: any) {
+  async onClickSavePrepId(itemId: string, value: string) {
     try {
       await BoxesModel.editAdditionalInfo(itemId, {
         prepId: value,
@@ -135,7 +132,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSaveStorage(itemId: any, value: any) {
+  async onClickSaveStorage(itemId: string, value: any) {
     try {
       await BoxesModel.editAdditionalInfo(itemId, {
         storage: value,
@@ -643,7 +640,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async splitBoxes(id: any, data: any) {
+  async splitBoxes(id: string, data: any) {
     try {
       const result = await BoxesModel.splitBoxes(id, data)
       await this.getCurrentData()
@@ -695,7 +692,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async mergeBoxes(ids: any, boxBody: any) {
+  async mergeBoxes(ids: string[], boxBody: any) {
     try {
       const result = await BoxesModel.mergeBoxes(ids, boxBody)
       return result
@@ -704,7 +701,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onRemoveBoxFromSelected(boxId: any) {
+  onRemoveBoxFromSelected(boxId: string) {
     this.selectedRows = this.selectedRows.filter(id => id !== boxId)
 
     if (this.selectedRows.length < 2) {
@@ -804,7 +801,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitEditBox(id: any, data: any) {
+  async onSubmitEditBox(id: string, data: any) {
     try {
       if (data.images.length > 0) {
         // @ts-ignore
@@ -836,7 +833,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitAddBatch(boxesIds: any, filesToAdd: any, batchFields: any) {
+  async onSubmitAddBatch(boxesIds: string[], filesToAdd: any, batchFields: any) {
     try {
       // @ts-ignore
       await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
