@@ -199,7 +199,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
         const newBox = { ...newBoxes[i] }
         const selectedBox = { ...selectedBoxes[i] }
 
-        let linkToShippingLabel = newBox.shippingLabel || null
+        let linkToShippingLabel = newBox.shippingLabel || ''
         // Upload shipping label if needed
         const isSameShippingLabel =
           JSON.stringify(newBox?.tmpShippingLabel?.[0]) === JSON.stringify(sharedFields?.tmpShippingLabel?.[0])
@@ -279,7 +279,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
             productId: el?.product?._id || el?.productId,
             isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
             isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
-            isTransparencyFileAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
+            isTransparencyFileAttachedByTheStorekeeper: el.isTransparencyFileAttachedByTheStorekeeper,
             isTransparencyFileAlreadyAttachedByTheSupplier: el.isTransparencyFileAlreadyAttachedByTheSupplier,
             ...(barcodeValue !== selectedBox.items[0].barCode && { barCode: barcodeValue }),
             ...(transparencyFileLink !== selectedBox.items[0].transparencyFile && {
