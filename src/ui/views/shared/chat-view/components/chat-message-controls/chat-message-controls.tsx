@@ -13,6 +13,8 @@ import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
+import { useHover } from '@hooks/use-hover'
+
 import { useStyles } from './chat-message-controls.style'
 
 interface ChatMessageControlsOverlayProps extends PropsWithChildren {
@@ -37,11 +39,13 @@ export const ChatMessageControls: FC<ChatMessageControlsOverlayProps> = memo(pro
     onClickCopyMessageText,
   } = props
 
-  if (!showDropdown) {
-    return <>{children}</>
-  }
+  // if (!showDropdown) {
+  //   return <>{children}</>
+  // }
 
   const { classes: styles } = useStyles()
+
+  const hoverMessage = useHover()
 
   const items = useMemo(
     () => [
@@ -96,9 +100,11 @@ export const ChatMessageControls: FC<ChatMessageControlsOverlayProps> = memo(pro
     [isSelectedMessage],
   )
 
+  console.log('items :>> ', items)
+
   return (
     <Dropdown menu={{ items }} trigger={['contextMenu']}>
-      {children}
+      <div>{children}</div>
     </Dropdown>
   )
 })

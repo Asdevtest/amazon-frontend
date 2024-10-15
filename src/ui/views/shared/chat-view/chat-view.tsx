@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react'
+import { useCallback } from 'react'
 
 import { chatModel } from '@models/chat-model-new/chat-model'
 import { Chat } from '@models/chat-model-new/types/chat.type'
@@ -10,13 +11,21 @@ import { Modal } from '@components/shared/modal'
 import { useStyles } from './chat-view.style'
 
 import { ChatHeader } from './components/chat-header'
+import { ChatInfo } from './components/chat-info'
 import { ChatsList } from './components/chats-list'
 import { MessagesBlock } from './components/messages-block'
-import { MessagesList } from './components/messages-list'
 import { SendMessageBlock } from './components/send-message-block'
 
 export const ChatView = observer(() => {
   const { classes: styles, cx } = useStyles()
+
+  const onCloseCreateNewChat = useCallback(() => {
+    chatModel.onTriggerOpenModal('showCreateNewChatModal', false)
+  }, [])
+
+  const onClickCloseForwardMessages = useCallback(() => {
+    chatModel.onTriggerOpenModal('showForwardMessagesModal', false)
+  }, [])
 
   return (
     <div className={cx('viewWrapper', styles.chatViewWrapper)}>
@@ -30,27 +39,17 @@ export const ChatView = observer(() => {
         {chatModel.currentChat ? <SendMessageBlock /> : null}
       </div>
 
-      {/* {chatModel.currentChat ? <ChatInfo /> : null} */}
+      {chatModel.currentChat ? <ChatInfo /> : null}
 
-      <Modal
-        unsetHidden
-        openModal={chatModel.showCreateNewChatModal}
-        setOpenModal={() => chatModel.onTriggerOpenModal('showCreateNewChatModal', false)}
-      >
-        <CreateNewChatModal
-          chatToEdit={chatModel.currentChat as Chat}
-          closeModal={() => chatModel.onTriggerOpenModal('showCreateNewChatModal', false)}
-        />
+      <Modal unsetHidden openModal={chatModel.showCreateNewChatModal} setOpenModal={onCloseCreateNewChat}>
+        <CreateNewChatModal chatToEdit={chatModel.currentChat as Chat} closeModal={onCloseCreateNewChat} />
       </Modal>
 
-      <Modal
-        openModal={chatModel.showForwardMessagesModal}
-        setOpenModal={() => chatModel.onTriggerOpenModal('showForwardMessagesModal', false)}
-      >
+      <Modal openModal={chatModel.showForwardMessagesModal} setOpenModal={onClickCloseForwardMessages}>
         <ForwardMessagesForm
           chats={chatModel.chats}
-          onClickChat={() => chatModel.onTriggerOpenModal('showForwardMessagesModal', false)}
-          onCloseModal={() => chatModel.onTriggerOpenModal('showForwardMessagesModal', false)}
+          onClickChat={onClickCloseForwardMessages}
+          onCloseModal={onClickCloseForwardMessages}
         />
       </Modal>
     </div>

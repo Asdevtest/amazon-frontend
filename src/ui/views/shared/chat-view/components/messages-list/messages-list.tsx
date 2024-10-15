@@ -25,48 +25,6 @@ export const MessagesList: FC = observer(() => {
 
   const currentUserId = (UserModel.userInfo as unknown as IFullUser)?._id
 
-  // const loadMessages = async (direction: Direction) => {
-  //   if (!currentChat) {
-  //     return
-  //   }
-
-  //   setIsLoading(true)
-
-  //   const pagination = {
-  //     ...currentChat?.pagination,
-  //     offset: currentChat.pagination.offset + (direction === Direction.START ? 20 : -20),
-  //   }
-
-  //   chatModel.setChatPagination(currentChat._id, pagination)
-
-  //   await chatModel.getChatMessages(pagination.offset, pagination.limit, direction)
-
-  //   if (direction === Direction.START) {
-  //     const newHeight = listRef.current?.Grid?._scrollingContainer.scrollHeight
-
-  //     const newScroll = curScroll + (newHeight - curHeight)
-
-  //     listRef.current.scrollToPosition(newScroll)
-  //   }
-
-  //   setIsLoading(false)
-  // }
-
-  // const handleScroll = (/* { clientHeight, scrollHeight, scrollTop }: ScrollParams */) => {
-  //   if (isLoading) {
-  //     return
-  //   }
-
-  //   const scrollTop = listRef.current?.Grid?._scrollingContainer.scrollTop
-
-  //   if (scrollTop === 0 && currentChat?.pagination.hasMoreTop) {
-  //     loadMessages(Direction.START)
-  //   }
-  //   //  else if (scrollTop + clientHeight >= scrollHeight && currentChat?.pagination.hasMoreBottom) {
-  //   //   loadMessages(Direction.END)
-  //   // }
-  // }
-
   const initChat = async () => {
     setIsLoading(true)
     await chatModel.getChatFirstMessages()
@@ -97,7 +55,7 @@ export const MessagesList: FC = observer(() => {
 
   return (
     <>
-      {chatMessages?.map((message, index) => (
+      {chatMessages?.map(message => (
         <ChatMessageControls
           key={message._id}
           showDropdown
