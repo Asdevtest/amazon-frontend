@@ -1,5 +1,3 @@
-import { mapTaskOperationTypeKeyToEnum, mapTaskOperationTypeToLabel } from '@constants/task/task-operation-type'
-import { mapTaskStatusKeyToEnum } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Notification } from '@typings/enums/notification'
@@ -126,57 +124,6 @@ export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
     ),
 
     deliveryTotalPrice: getTariffRateForBoxOrOrder(item.boxes[0]) * item.finalWeight,
-  }))
-
-export const warehouseTasksDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-
-    id: item?._id,
-    operationType: mapTaskOperationTypeToLabel[mapTaskOperationTypeKeyToEnum[item?.operationType]],
-    status: mapTaskStatusKeyToEnum[item?.status],
-
-    priority: item?.priority,
-    isBarCodeAttached: item?.isBarCodeAttached,
-
-    createdAt: item?.createdAt,
-    updatedAt: item?.updatedAt,
-    storekeeper: item?.storekeeper?.name,
-
-    asin: Array.from(
-      new Set(
-        item?.boxesBefore?.reduce(
-          (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.product?.asin && cur?.product?.asin], [])],
-          [],
-        ),
-      ),
-    ),
-
-    orderId: Array.from(
-      new Set(
-        item.boxesBefore.reduce(
-          (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur.order.id && cur.order.id], [])],
-          [],
-        ),
-      ),
-    ),
-
-    item: Array.from(
-      new Set(
-        item.boxesBefore.reduce(
-          (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur.order.item && cur.order.item], [])],
-          [],
-        ),
-      ),
-    ),
-
-    trackNumber: Array.from(
-      new Set(item.boxesBefore.reduce((ac, c) => [...ac, c.trackNumberText && c.trackNumberText], [])),
-    ),
-
-    barcode: !item[item.boxes?.length ? 'boxes' : 'boxesBefore'].some(box =>
-      box.items.some(item => !item.isBarCodeAlreadyAttachedByTheSupplier && !item.isBarCodeAttachedByTheStorekeeper),
-    ),
   }))
 
 export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>

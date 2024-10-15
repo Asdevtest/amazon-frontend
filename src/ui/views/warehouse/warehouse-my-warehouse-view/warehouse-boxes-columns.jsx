@@ -9,7 +9,6 @@ import {
   DimensionsCell,
   DimensionsHeaderCell,
   MultilineTextHeaderCell,
-  OrdersIdsItemsCell,
   ProductsCell,
   RedFlagsCell,
   UserCell,
@@ -154,8 +153,8 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       valueGetter: ({ row }) => `${row?.warehouse || ''} / ${row?.logicsTariff || ''}`,
       renderCell: params => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%' }}>
-          <Text isCell text={params.row?.destination.name} />
-          <Text isCell text={params.row?.logicsTariff.name} />
+          <Text isCell text={params.row?.destination?.name} />
+          <Text isCell text={params.row?.logicsTariff?.name} />
         </div>
       ),
       width: 170,
