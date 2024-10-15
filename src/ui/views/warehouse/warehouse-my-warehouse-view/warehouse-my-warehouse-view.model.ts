@@ -18,8 +18,6 @@ import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
-
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
@@ -34,6 +32,7 @@ import { IDestination } from '@typings/shared/destinations'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { observerConfig } from './warehous-my-warehouse-config'
+import { warehouseBoxesViewColumns } from './warehouse-boxes-columns'
 import {
   additionalFilterFields,
   fieldsForSearch,
@@ -93,7 +92,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
       moveBox: (item: any) => this.moveBox(item),
       setHsCode: (item: any) => this.setHsCode(item),
       setDimensions: (item: any) => this.setDimensions(item),
-      onEditBox: (item: any) => this.onEditBox(),
+      onEditBox: () => this.onEditBox(),
       onClickSavePrepId: (item: any, value: any) => this.onClickSavePrepId(item, value),
       onClickSaveStorage: (item: any, value: any) => this.onClickSaveStorage(item, value),
       onChangeUnitsOption: (option: RadioChangeEvent) => this.onChangeUnitsOption(option),
