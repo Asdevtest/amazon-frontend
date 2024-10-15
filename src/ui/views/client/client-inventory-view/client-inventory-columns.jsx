@@ -195,7 +195,7 @@ export const clientInventoryColumns = ({
     {
       field: 'inTransfer',
       headerName: 'In Transfer',
-      renderHeader: () => <MultilineTextHeaderCell text={'In Transfer'} />,
+      renderHeader: () => <MultilineTextHeaderCell text="In Transfer" />,
       renderCell: params => (
         <div
           type="submit"
@@ -586,7 +586,7 @@ export const clientInventoryColumns = ({
       storekeeperCells.push(purchaseQuantityCell)
     }
 
-    defaultColumns.splice(11, 1, ...storekeeperCells)
+    defaultColumns.splice(11, 0, ...storekeeperCells)
   }
 
   if (integrationTables) {
