@@ -11,7 +11,7 @@ export const wholeIntegersList = [
   'reservedSum',
   'sentToFbaSum',
   'sumStock',
-  'xid',
+  'orderXid',
   'ideasVerified',
   'ideasClosed',
   'ideasOnCheck',
@@ -19,7 +19,7 @@ export const wholeIntegersList = [
   'ideasClosed',
   'ideasFinished',
   'fbaamount',
-  'id',
+  'xid',
   'reworkCounter',
   'fbaFbmStock',
   'daysOfStockLeft',
@@ -57,6 +57,7 @@ export const wholeIntegersList = [
   'maxProductionTerm',
   'currentSupplierMinProductionTerm',
   'currentSupplierMaxProductionTerm',
+  'amountInBatch',
 ]
 
 export const negativeOrPositiveList = ['roi']

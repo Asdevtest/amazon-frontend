@@ -1408,6 +1408,7 @@
   "My filter": "我的过滤器",
   "Search by": "按...搜索",
   "№ Order": "订单号",
+  "№ Item": "№ Item",
   "From": "从",
   "To": "到",
   "Without strategy": "无策略",
@@ -2069,5 +2070,6 @@
   "Product linking error": "产品绑定错误",
   "Successfully integrated": "成功集成",
   "Failed": "失败",
-  "Select at least 2 users": "请选择至少两个用户"
+  "Select at least 2 users": "请选择至少两个用户",
+  "Orders info": "订单信息"
 }
