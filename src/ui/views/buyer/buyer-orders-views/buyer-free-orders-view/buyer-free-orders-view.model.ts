@@ -16,7 +16,7 @@ import { observerConfig } from './buyer-free-orders-view.config'
 
 export class BuyerFreeOrdersViewModel extends DataGridFilterTableModel {
   curOrder: IOrder | null = null
-  showTwoVerticalChoicesModal = false
+  showVerticalChoicesModal = false
 
   constructor() {
     const rowHandlers = {
@@ -46,7 +46,7 @@ export class BuyerFreeOrdersViewModel extends DataGridFilterTableModel {
   }
 
   goToMyOrders() {
-    this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+    this.onTriggerOpenModal('showVerticalChoicesModal')
     this.history.push(
       this.curOrder?.status === OrderStatusByKey[OrderStatus.FORMED as keyof typeof OrderStatusByKey]
         ? `/buyer/pending-orders?orderId=${this.curOrder?._id}`
@@ -73,7 +73,7 @@ export class BuyerFreeOrdersViewModel extends DataGridFilterTableModel {
           this.curOrder = order
         })
 
-        this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+        this.onTriggerOpenModal('showVerticalChoicesModal')
       }
 
       this.getCurrentData()
@@ -106,7 +106,7 @@ export class BuyerFreeOrdersViewModel extends DataGridFilterTableModel {
   }
 
   onClickContinueWorkButton() {
-    this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+    this.onTriggerOpenModal('showVerticalChoicesModal')
     this.getCurrentData()
   }
 }

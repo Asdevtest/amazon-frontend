@@ -298,7 +298,7 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      // type: 'date',
+
       columnKey: columnnsKeys.shared.DATE,
     },
 

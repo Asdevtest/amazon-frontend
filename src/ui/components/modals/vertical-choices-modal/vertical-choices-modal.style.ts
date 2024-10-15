@@ -1,7 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  wrapper: {
+  root: {
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
@@ -10,5 +10,6 @@ export const useStyles = makeStyles()(() => ({
   title: {
     fontSize: 18,
     lineHeight: '25px',
+    fweight: 600,
   },
 }))

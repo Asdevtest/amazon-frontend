@@ -1,12 +1,9 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { CreateOrEditProposalContent } from '@components/contents/create-or-edit-proposal-content'
-import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
-
-import { t } from '@utils/translations'
+import { VerticalChoicesModal } from '@components/modals/vertical-choices-modal'
+import { Modal } from '@components/shared/modal'
 
 import { HistoryType } from '@typings/types/history'
 
@@ -28,22 +25,22 @@ export const CreateOrEditProposalView = observer(({ history }: { history: Histor
         onEditSubmit={viewModel.onSubmitEditProposal}
       />
 
-      {viewModel.showResultModal ? (
-        <TwoVerticalChoicesModal
-          // @ts-ignore
-          openModal={viewModel.showResultModal}
-          setOpenModal={() => {
-            viewModel.onTriggerOpenModal('showResultModal')
-            viewModel.onClickResultModal({ goBack: true })
-          }}
-          topBtnText={t(TranslationKey['Go to request'])}
-          bottomBtnText={t(TranslationKey['To vacant requests'])}
-          thirdBtnText={t(TranslationKey['To the list of proposals'])}
-          onClickTopBtn={() => viewModel.goToMyRequest()}
-          onClickBottomBtn={() => viewModel.onClickResultModal({ goBack: true })}
-          onClickThirdBtn={() => viewModel.onClickResultModal({ goBack: false })}
+      <Modal
+        openModal={viewModel.showResultModal}
+        setOpenModal={() => {
+          viewModel.onTriggerOpenModal('showResultModal')
+          viewModel.onClickResultModal({ goBack: true })
+        }}
+      >
+        <VerticalChoicesModal
+          firstButtonText="Go to request"
+          secondButtonText="To vacant requests"
+          thirdButtonText="To the list of proposals"
+          onClickFirstButton={viewModel.goToMyRequest}
+          onClickSecondButton={() => viewModel.onClickResultModal({ goBack: true })}
+          onClickThirdButton={() => viewModel.onClickResultModal({ goBack: false })}
         />
-      ) : null}
+      </Modal>
     </>
   )
 })

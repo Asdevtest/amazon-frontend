@@ -16,8 +16,8 @@ class StorekeeperModelStatic {
     return response.data
   }
 
-  getLightTasksWithPag = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagMyGet(data)
+  getLightTasksWithPag = async body => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagMyGet({ ...body, noCache: true })
     return response.data
   }
 

@@ -2,7 +2,7 @@ import { action, observable } from 'mobx'
 
 export const observerConfig = {
   curOrder: observable,
-  showTwoVerticalChoicesModal: observable,
+  showVerticalChoicesModal: observable,
 
   goToMyOrders: action.bound,
   onClickTableRowBtn: action.bound,

@@ -13,7 +13,6 @@ export const financesViewColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    // type: 'date',
   },
 
   {
