@@ -15,6 +15,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   text: {
+    width: 'max-content',
     fontSize: '12px',
     lineHeight: '16px',
   },

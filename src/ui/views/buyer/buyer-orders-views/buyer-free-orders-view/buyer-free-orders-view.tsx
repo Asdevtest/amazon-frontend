@@ -3,9 +3,10 @@ import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
+import { VerticalChoicesModal } from '@components/modals/vertical-choices-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
@@ -18,7 +19,7 @@ export const BuyerFreeOrdersView = observer(() => {
   const viewModel = useMemo(() => new BuyerFreeOrdersViewModel(), [])
 
   return (
-    <>
+    <div className="viewWrapper">
       <CustomButton
         type="primary"
         size="large"
@@ -85,20 +86,18 @@ export const BuyerFreeOrdersView = observer(() => {
         onRowSelectionModelChange={viewModel.onSelectionModel}
       />
 
-      {viewModel.showTwoVerticalChoicesModal ? (
-        <TwoVerticalChoicesModal
-          // @ts-ignore
-          tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
-          tooltipSecondButton={t(TranslationKey['Stay in "Free orders"'])}
-          openModal={viewModel.showTwoVerticalChoicesModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
-          title={t(TranslationKey['Order picked up'])}
-          topBtnText={t(TranslationKey['Go to order'])}
-          bottomBtnText={t(TranslationKey['Free orders'])}
-          onClickTopBtn={viewModel.goToMyOrders}
-          onClickBottomBtn={viewModel.onClickContinueWorkButton}
+      <Modal
+        openModal={viewModel.showVerticalChoicesModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showVerticalChoicesModal')}
+      >
+        <VerticalChoicesModal
+          title="Order picked up"
+          firstButtonText="Go to order"
+          secondButtonText="Free orders"
+          onClickFirstButton={viewModel.goToMyOrders}
+          onClickSecondButton={viewModel.onClickContinueWorkButton}
         />
-      ) : null}
-    </>
+      </Modal>
+    </div>
   )
 })
