@@ -66,6 +66,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           mode={viewModel.subUser ? undefined : 'multiple'}
           maxTagCount="responsive"
           defaultUser={viewModel.subUser}
+          placeholder={props.subUser ? 'Select user' : 'Select at least 2 users'}
           onChange={viewModel.onChangeUsersData}
         />
       </div>
@@ -120,12 +121,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           )
         ) : null}
 
-        <CustomButton
-          type="primary"
-          size="large"
-          disabled={viewModel.mainLoading || !viewModel.userIds.length}
-          onClick={viewModel.onEditSubUser}
-        >
+        <CustomButton type="primary" size="large" disabled={viewModel.disableSubmit} onClick={viewModel.onEditSubUser}>
           {t(TranslationKey.Save)}
         </CustomButton>
         <CustomButton size="large" onClick={props.onCloseModal}>

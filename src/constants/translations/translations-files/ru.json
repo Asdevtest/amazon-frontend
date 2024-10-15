@@ -20,11 +20,9 @@
   "Resolve task": "Решить задачу",
   "No": "Нет",
   "Yes": "Да",
-  "Confirm action": "Подтвердите действие",
   "After confirmation, the task will be cancelled. Confirm?": "После подтверждения, задача будет отменена. Подтвердить?",
   "Ok": "Ок",
   "Cancel": "Отмена",
-  "Reason for canceling the task": "Причина отмены задачи",
   "Created": "Создано",
   "My warehouse": "Мой склад",
   "Boxes": "Коробки",
@@ -752,8 +750,6 @@
   "Proposal Edition": "Редактирование предложения",
   "Choose a section in Freelance": "Выберите  раздел во фрилансе",
   "All orders available for pickup": "Все доступные для взятия в работу заказы",
-  "Go to the order and open the \"Edit order\" window": "Перейти к заказу и открыть окно \"Редактирование заказа\"",
-  "Stay in \"Free orders\"": "Остаться в \"Свободные заказы\"",
   "Statistics on goods/orders/finances": "Статистика по товарам/заказам/финансам",
   "All available tasks for finding a supplier": "Все доступные задачи для поиска поставщика",
   "Manage the list of employees": "Управление списком сотрудников",
@@ -1412,6 +1408,7 @@
   "My filter": "Мой фильтр",
   "Search by": "Поиск по",
   "№ Order": "№ Заказа",
+  "№ Item": "№ Item",
   "From": "От",
   "To": "До",
   "Without strategy": "Без стратегии",
@@ -2074,5 +2071,6 @@
   "Products linked successfully": "Продукты успешно связаны",
   "Product linking error": "Ошибка привязки продуктов",
   "Successfully integrated": "Успешно интегрировано",
-  "Failed": "Не удалось"
+  "Failed": "Не удалось",
+  "Select at least 2 users": "Выберите минимум 2 пользователя"
 }
