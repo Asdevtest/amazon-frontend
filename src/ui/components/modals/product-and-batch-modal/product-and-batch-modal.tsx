@@ -23,7 +23,7 @@ import { BatchInfoModal } from '../batch-info-modal'
 
 import { aboutProductsColumns } from './about-product-columns/about-products-columns'
 import { batchDataColumns } from './batch-data-columns/batch-data-columns'
-import { infoModalConfig, switcherSettings } from './product-and-batch-modal.config'
+import { generateSwitcherSettings, infoModalConfig } from './product-and-batch-modal.config'
 import { ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
 
 export interface ProductAndBatchModalProps {
@@ -124,7 +124,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
         </div>
 
         <CustomRadioButton
-          options={switcherSettings}
+          options={generateSwitcherSettings()}
           value={currentSwitch}
           onChange={e => onChangeSwitcher(e.target.value)}
         />
