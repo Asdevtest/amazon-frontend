@@ -2076,4 +2076,5 @@ export enum TranslationKey {
   'Product linking error' = 'Product linking error',
   'Successfully integrated' = 'Successfully integrated',
   'Failed' = 'Failed',
+  'Select at least 2 users' = 'Select at least 2 users',
 }
