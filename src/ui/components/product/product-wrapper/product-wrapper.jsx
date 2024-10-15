@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -46,9 +47,21 @@ export const getTab = tabKey => {
   }
 }
 
+export const getOrderStatus = status => {
+  switch (status) {
+    case 'atProcess':
+      return chosenStatusesByFilter.AT_PROCESS
+    case 'pending':
+      return chosenStatusesByFilter.PENDING
+    default:
+      return chosenStatusesByFilter.ALL
+  }
+}
+
 export const ProductWrapper = memo(
   ({
     showTab,
+    filterStatus,
     user,
     imagesForLoad,
     showProgress,
@@ -194,7 +207,7 @@ export const ProductWrapper = memo(
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
-          <Orders modal={modal} productId={product?._id} showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS} />
+          <Orders modal={modal} productId={product?._id} filterStatus={getOrderStatus(filterStatus)} />
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.REPORTS}>
