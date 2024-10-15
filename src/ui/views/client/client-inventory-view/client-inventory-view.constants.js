@@ -67,12 +67,3 @@ export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode',
 export const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
 
 export const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders', 'sentToFbaSum']
-
-export const exceptionColumns = {
-  asin: true,
-  sku: true,
-  _id: true,
-  client_id: true,
-  shop_id: true,
-  product_id: true,
-}

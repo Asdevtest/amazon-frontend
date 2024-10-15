@@ -112,4 +112,5 @@ export const observerConfig = {
   getStorekeepers: action.bound,
   getIntegrationFields: action.bound,
   initTableColumns: action.bound,
+  hideByDefaultIntegrationColumns: action.bound,
 }

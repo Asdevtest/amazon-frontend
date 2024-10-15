@@ -31,7 +31,6 @@ import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/da
 import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/production-time'
 
 import { productionTimeColumnMenuValue } from './client-inventory-view.config'
-import { exceptionColumns, inventoryAdditionalFilterFields } from './client-inventory-view.constants'
 import { getColumn } from './helpers/get-column'
 
 export const clientInventoryColumns = ({
@@ -596,10 +595,6 @@ export const clientInventoryColumns = ({
         const currentTableColumns = integrationTables[table]
 
         for (const column of currentTableColumns) {
-          if (exceptionColumns?.[column]) {
-            continue
-          }
-
           const currentColumn = getColumn(table, column)
 
           defaultColumns.push(currentColumn)

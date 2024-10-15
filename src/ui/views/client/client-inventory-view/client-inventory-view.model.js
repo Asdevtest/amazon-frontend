@@ -39,6 +39,7 @@ import {
   fieldsOfProductAllowedToCreate,
   fieldsOfProductAllowedToUpdate,
 } from './client-inventory-view.constants'
+import { getIntegrationColumns } from './helpers/get-integration-columns'
 import { observerConfig } from './model-observer.config'
 
 export class ClientInventoryViewModel extends DataGridTagsFilter {
@@ -345,6 +346,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       this.defaultColumnsModel = newColumns
       this.filtersFields = newFiltersFields
       this.setColumnMenuSettings(newFiltersFields, additionalPropertiesColumnMenuSettings)
+      this.hideByDefaultIntegrationColumns(integrationTables)
     }
 
     this.initTableColumns()
@@ -1516,6 +1518,13 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
 
     this.setAllColumns(filteredStorekeepers, integrationTables)
 
+    this.setAllColumns = undefined
+
     this.getTableSettingsPreset()
+  }
+
+  hideByDefaultIntegrationColumns(integrationTables) {
+    const columnsVisibility = getIntegrationColumns(integrationTables)
+    this.defaultColumnVisibilityModel = columnsVisibility
   }
 }
