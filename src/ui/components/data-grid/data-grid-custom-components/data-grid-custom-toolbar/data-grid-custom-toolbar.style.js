@@ -36,7 +36,7 @@ export const useStyles = makeStyles()(theme => ({
 
   exportButton: {
     padding: '0 15px',
-    height: '28px',
+    height: '32px',
     borderRadius: '100px',
     boxShadow: theme.palette.button.defaultBoxShadow,
     border: `1px solid ${theme.palette.input.customBorder}`,
