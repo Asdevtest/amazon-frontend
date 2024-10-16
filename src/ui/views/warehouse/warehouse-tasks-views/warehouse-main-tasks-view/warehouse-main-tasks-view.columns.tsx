@@ -125,7 +125,7 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
       field: 'trackNumber',
       headerName: t(TranslationKey['Track number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
-      renderCell: ({ row }) => <StringListCell data={[]} />,
+      renderCell: ({ row }) => <StringListCell data={row.boxesBeforeTrackNumberTexts} />,
       width: 160,
     },
     {
