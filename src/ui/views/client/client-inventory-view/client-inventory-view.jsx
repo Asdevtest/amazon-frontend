@@ -19,6 +19,7 @@ import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
+import { ParsingReportsModal } from '@components/modals/parsing-reports-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
@@ -399,6 +400,8 @@ export const ClientInventoryView = observer(({ history }) => {
           handleUpdateRow={tags => apiRef.current.updateRows([{ _id: viewModel.selectedRowId, tags }])}
         />
       ) : null}
+
+      {viewModel.showParsingReportsModal ? <ParsingReportsModal /> : null}
     </div>
   )
 })

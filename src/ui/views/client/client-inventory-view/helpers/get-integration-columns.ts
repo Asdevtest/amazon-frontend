@@ -1,4 +1,6 @@
-export const getIntegrationColumns = (integrationTables: { [key: string]: { name: string; type: string }[] }) => {
+export const getIntegrationColumns = (integrationTables: {
+  [key: string]: { name: string; type: string } | { name: string; type: string }[]
+}) => {
   const columns: { [key: string]: boolean } = {}
 
   if (integrationTables) {
@@ -6,9 +8,14 @@ export const getIntegrationColumns = (integrationTables: { [key: string]: { name
       if (integrationTables[table]) {
         const currentTableColumns = integrationTables[table]
 
-        for (const column of currentTableColumns) {
-          const currentField = table + column.name
+        if (Array.isArray(currentTableColumns)) {
+          for (const column of currentTableColumns) {
+            const currentField = table + column.name
 
+            columns[currentField] = false
+          }
+        } else {
+          const currentField = table + currentTableColumns.name
           columns[currentField] = false
         }
       }

@@ -97,6 +97,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   showProductVariationsForm = false
   showAddOrEditSupplierModal = false
   showEditProductTagsModal = false
+  showParsingReportsModal = false
 
   onAmazon = false
   isBatches = false

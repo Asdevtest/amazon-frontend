@@ -46,6 +46,7 @@ export const observerConfig = {
   readyImages: observable,
   progressValue: observable,
   showProgress: observable,
+  showParsingReportsModal: observable,
 
   isSomeFilterOn: override,
   getCurrentData: override,
