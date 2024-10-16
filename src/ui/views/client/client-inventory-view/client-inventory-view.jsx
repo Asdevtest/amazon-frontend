@@ -401,7 +401,14 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       ) : null}
 
-      {viewModel.showParsingReportsModal ? <ParsingReportsModal /> : null}
+      {viewModel.showParsingReportsModal ? (
+        <ParsingReportsModal
+          openModal={viewModel.showParsingReportsModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showParsingReportsModal')}
+          product={viewModel?.curProduct}
+          table={viewModel.parsingTable}
+        />
+      ) : null}
     </div>
   )
 })

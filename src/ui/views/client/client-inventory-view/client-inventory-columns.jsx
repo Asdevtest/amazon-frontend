@@ -604,12 +604,17 @@ export const clientInventoryColumns = ({
 
         if (Array?.isArray(currentTableColumns)) {
           for (const column of currentTableColumns) {
-            const currentColumn = getColumn(table, column)
+            const currentColumn = getColumn({ table, column })
 
             defaultColumns.push(currentColumn)
           }
         } else {
-          const currentColumn = getColumn(table, currentTableColumns, true)
+          const currentColumn = getColumn({
+            table,
+            column: currentTableColumns,
+            isCounter: true,
+            onClickParsingReportCell: otherHandlers.onClickParsingReportCell,
+          })
           defaultColumns.push(currentColumn)
         }
       }

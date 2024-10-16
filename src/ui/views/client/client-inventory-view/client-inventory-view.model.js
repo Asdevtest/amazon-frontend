@@ -65,6 +65,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   paymentMethods = []
 
   curProduct = undefined
+  parsingTable = undefined
 
   productsToLaunch = []
   productVariations = []
@@ -251,6 +252,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       onClickVariationButton: id => this.onClickVariationButton(id),
       onClickTag: tag => this.setActiveProductsTagFromTable(tag),
       onClickEdit: productId => this.onClickEditTags(productId),
+      onClickParsingReportCell: (product, table) => this.onClickParsingReportCell(product, table),
     }
 
     const defaultGetCurrentDataOptions = () => ({
@@ -1529,5 +1531,11 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   hideByDefaultIntegrationColumns(integrationTables) {
     const columnsVisibility = getIntegrationColumns(integrationTables)
     this.defaultColumnVisibilityModel = columnsVisibility
+  }
+
+  onClickParsingReportCell(product, table) {
+    this.curProduct = product
+    this.parsingTable = table
+    this.onTriggerOpenModal('showParsingReportsModal')
   }
 }

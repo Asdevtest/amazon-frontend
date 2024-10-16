@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Tooltip } from 'antd'
+import { KeyboardEvent, MouseEvent, MouseEventHandler } from 'react'
 
 import { GridRenderCellParams } from '@mui/x-data-grid-premium'
 
@@ -9,9 +10,21 @@ import { Text } from '@components/shared/text'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { formatSnakeCaseString } from '@utils/text'
 
+import { IProduct } from '@typings/models/products/product'
+
 import { getColumnKey } from './get-column-key'
 
-export const getColumn = (table: string, column: { name: string; type: string }, isCounter?: string) => {
+export const getColumn = ({
+  table,
+  column,
+  isCounter,
+  onClickParsingReportCell,
+}: {
+  table: string
+  column: { name: string; type: string }
+  isCounter?: string
+  onClickParsingReportCell?: (row: IProduct, table: string) => void
+}) => {
   const { name, type } = column
 
   let headerName = formatSnakeCaseString(name)
@@ -41,7 +54,13 @@ export const getColumn = (table: string, column: { name: string; type: string },
     },
     renderCell: (params: GridRenderCellParams) => (
       <Tooltip title={params.row?.reports?.[table]?.updated_at}>
-        <div>
+        <div
+          style={{ width: '100%', height: '100%' }}
+          onClick={(event: MouseEvent<HTMLDivElement>) => {
+            event.stopPropagation()
+            onClickParsingReportCell?.(params.row, table)
+          }}
+        >
           <Text isCell text={params.value} />
         </div>
       </Tooltip>

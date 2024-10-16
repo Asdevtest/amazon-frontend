@@ -5,7 +5,7 @@ export const getAdditionalFiltersFields = (activeTable: ParsingReportsType) => {
     case ParsingReportsType.VOICE:
     case ParsingReportsType.FBA_INVENTORY:
     case ParsingReportsType.RETURNS:
-      return ['productName', 'sku']
+      return ['productName', 'sku', 'productId']
 
     case ParsingReportsType.INVENTORY:
       return ['title', 'sku']
@@ -15,6 +15,6 @@ export const getAdditionalFiltersFields = (activeTable: ParsingReportsType) => {
 
     case ParsingReportsType.ORDERS:
     case ParsingReportsType.PPC_ORGANIC:
-      return ['sku']
+      return ['sku', 'productId']
   }
 }
