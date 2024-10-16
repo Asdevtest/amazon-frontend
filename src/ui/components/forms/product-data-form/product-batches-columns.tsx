@@ -4,12 +4,7 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  ActionButtonsCell,
-  BoxesAndQuantityCell,
-  MultilineTextHeaderCell,
-  StringListCell,
-} from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, BoxesAndQuantityCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { formatDate } from '@utils/date-time'
@@ -86,15 +81,8 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     {
       field: 'fbaShipment',
       headerName: 'FBA Shipment',
-      renderHeader: () => <MultilineTextHeaderCell text={'FBA Shipment'} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <StringListCell
-          withCopy
-          maxItemsDisplay={4}
-          maxLettersInItem={15}
-          sourceString={row?.boxes?.[0]?.fbaShipment}
-        />
-      ),
+      renderHeader: () => <MultilineTextHeaderCell text="FBA Shipment" />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.boxes?.[0]?.fbaShipment || '-'} />,
       width: 165,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.STRING_VALUE,

@@ -5,12 +5,7 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { boxStatusTranslateKey } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  ActionButtonsCell,
-  BoxesAndQuantityCell,
-  MultilineTextHeaderCell,
-  StringListCell,
-} from '@components/data-grid/data-grid-cells'
+import { ActionButtonsCell, BoxesAndQuantityCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { formatDate } from '@utils/date-time'
@@ -101,9 +96,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       field: 'fbaShipment',
       headerName: 'FBA Shipment',
       renderHeader: () => <MultilineTextHeaderCell text="FBA Shipment" />,
-      renderCell: ({ row }: GridRowModel) => (
-        <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={row?.fbaShipment} />
-      ),
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.fbaShipment || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 165,
