@@ -367,7 +367,7 @@ export const BatchInfoModal = observer(
           />
 
           <div className={styles.filesAndButtonWrapper}>
-            <SlideshowGallery slidesToShow={2} files={currentBatch?.attachedDocuments} />
+            <SlideshowGallery slidesToShow={1} files={currentBatch?.attachedDocuments} />
 
             <div className={styles.buttonsWrapper}>
               <Button onClick={uploadTemplateFile}>
