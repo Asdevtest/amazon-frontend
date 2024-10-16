@@ -13,9 +13,6 @@ export const getInitialSortModel = (activeTable: ParsingReportsType): GridSortMo
     case ParsingReportsType.RETURNS:
     case ParsingReportsType.INVENTORY_SHIPMENTS:
     case ParsingReportsType.VOICE:
-    case ParsingReportsType.FYP_OUT_OF_STOCK:
-      // case ParsingReportsType.FYP_SEARCH_SUPPRESSED:
-      // case ParsingReportsType.INCOME:
       return [{ field: 'updatedAt', sort: 'desc' }]
 
     case ParsingReportsType.CAMPAIGNS:
