@@ -9,7 +9,6 @@ import {
   DimensionsCell,
   DimensionsHeaderCell,
   MultilineTextHeaderCell,
-  OrdersIdsItemsCell,
   ProductsCell,
   RedFlagsCell,
   UserCell,
@@ -49,8 +48,6 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
           <Text text={params.row.items?.[0].order?.item} />
         </div>
       ),
-      width: 140,
-      sortable: false,
 
       fields: [
         {
@@ -76,6 +73,8 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
         },
       ],
       columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 140,
     },
 
     {
@@ -154,8 +153,8 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       valueGetter: ({ row }) => `${row?.warehouse || ''} / ${row?.logicsTariff || ''}`,
       renderCell: params => (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center', width: '100%' }}>
-          <Text isCell text={params.row?.destination.name} />
-          <Text isCell text={params.row?.logicsTariff.name} />
+          <Text isCell text={params.row?.destination?.name} />
+          <Text isCell text={params.row?.logicsTariff?.name} />
         </div>
       ),
       width: 170,
@@ -193,7 +192,9 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+      ),
       width: 150,
       sortable: false,
     },

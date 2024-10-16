@@ -68,7 +68,13 @@ export const ideasNotificationsViewColumns = handlers => [
     headerName: t(TranslationKey['Updated by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Updated by'])} />,
 
-    renderCell: params => <UserCell name={params?.value} id={params?.row?.originalData?.createdBy._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params?.row?.originalData?.createdBy.name}
+        id={params?.row?.originalData?.createdBy._id}
+        email={params?.row?.originalData?.createdBy.email}
+      />
+    ),
     width: 160,
   },
 

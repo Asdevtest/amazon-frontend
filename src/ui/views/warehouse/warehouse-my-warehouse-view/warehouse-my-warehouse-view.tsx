@@ -123,7 +123,7 @@ export const WarehouseMyWarehouseView = observer(() => {
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
-        onCellDoubleClick={(params: any) =>
+        onCellDoubleClick={(params: GridRowModel) =>
           !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
         }
       />
@@ -160,7 +160,7 @@ export const WarehouseMyWarehouseView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showFullEditBoxModal')}
       >
         <EditBoxStorekeeperForm
-          /* @ts-ignore */
+          // @ts-ignore
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           requestStatus={viewModel.requestStatus}
@@ -265,7 +265,7 @@ export const WarehouseMyWarehouseView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showGroupingBoxesModal')}
       >
         <GroupingBoxesForm
-          /* @ts-ignore */
+          // @ts-ignore
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}

@@ -18,8 +18,6 @@ import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { warehouseBoxesViewColumns } from '@components/table/table-columns/warehouse/warehouse-boxes-columns'
-
 import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
@@ -34,6 +32,7 @@ import { IDestination } from '@typings/shared/destinations'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { observerConfig } from './warehous-my-warehouse-config'
+import { warehouseBoxesViewColumns } from './warehouse-boxes-columns'
 import {
   additionalFilterFields,
   fieldsForSearch,
@@ -79,11 +78,9 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
   get userInfo() {
     return UserModel.userInfo
   }
-
   get destinationsFavourites() {
     return SettingsModel.destinationsFavourites
   }
-
   get platformSettings() {
     return UserModel.platformSettings as unknown as IPlatformSettings
   }
@@ -93,7 +90,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
       moveBox: (item: any) => this.moveBox(item),
       setHsCode: (item: any) => this.setHsCode(item),
       setDimensions: (item: any) => this.setDimensions(item),
-      onEditBox: (item: any) => this.onEditBox(),
+      onEditBox: () => this.onEditBox(),
       onClickSavePrepId: (item: any, value: any) => this.onClickSavePrepId(item, value),
       onClickSaveStorage: (item: any, value: any) => this.onClickSaveStorage(item, value),
       onChangeUnitsOption: (option: RadioChangeEvent) => this.onChangeUnitsOption(option),
@@ -112,7 +109,6 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
 
     makeObservable(this, observerConfig)
     this.getTableSettingsPreset()
-    this.getCurrentData()
   }
 
   setDestinationsFavouritesItem(item: any) {
@@ -124,7 +120,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     this.showEditBoxModalR = !this.showEditBoxModalR
   }
 
-  async onClickSavePrepId(itemId: any, value: any) {
+  async onClickSavePrepId(itemId: string, value: string) {
     try {
       await BoxesModel.editAdditionalInfo(itemId, {
         prepId: value,
@@ -136,7 +132,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSaveStorage(itemId: any, value: any) {
+  async onClickSaveStorage(itemId: string, value: any) {
     try {
       await BoxesModel.editAdditionalInfo(itemId, {
         storage: value,
@@ -199,7 +195,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
         const newBox = { ...newBoxes[i] }
         const selectedBox = { ...selectedBoxes[i] }
 
-        let linkToShippingLabel = newBox.shippingLabel || null
+        let linkToShippingLabel = newBox.shippingLabel || ''
         // Upload shipping label if needed
         const isSameShippingLabel =
           JSON.stringify(newBox?.tmpShippingLabel?.[0]) === JSON.stringify(sharedFields?.tmpShippingLabel?.[0])
@@ -279,7 +275,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
             productId: el?.product?._id || el?.productId,
             isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier,
             isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
-            isTransparencyFileAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
+            isTransparencyFileAttachedByTheStorekeeper: el.isTransparencyFileAttachedByTheStorekeeper,
             isTransparencyFileAlreadyAttachedByTheSupplier: el.isTransparencyFileAlreadyAttachedByTheSupplier,
             ...(barcodeValue !== selectedBox.items[0].barCode && { barCode: barcodeValue }),
             ...(transparencyFileLink !== selectedBox.items[0].transparencyFile && {
@@ -644,7 +640,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async splitBoxes(id: any, data: any) {
+  async splitBoxes(id: string, data: any) {
     try {
       const result = await BoxesModel.splitBoxes(id, data)
       await this.getCurrentData()
@@ -696,7 +692,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async mergeBoxes(ids: any, boxBody: any) {
+  async mergeBoxes(ids: string[], boxBody: any) {
     try {
       const result = await BoxesModel.mergeBoxes(ids, boxBody)
       return result
@@ -705,7 +701,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onRemoveBoxFromSelected(boxId: any) {
+  onRemoveBoxFromSelected(boxId: string) {
     this.selectedRows = this.selectedRows.filter(id => id !== boxId)
 
     if (this.selectedRows.length < 2) {
@@ -805,7 +801,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitEditBox(id: any, data: any) {
+  async onSubmitEditBox(id: string, data: any) {
     try {
       if (data.images.length > 0) {
         // @ts-ignore
@@ -837,7 +833,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitAddBatch(boxesIds: any, filesToAdd: any, batchFields: any) {
+  async onSubmitAddBatch(boxesIds: string[], filesToAdd: any, batchFields: any) {
     try {
       // @ts-ignore
       await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })

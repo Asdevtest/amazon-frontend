@@ -350,6 +350,11 @@ export const OrderStatusMenuItem = memo(
         label: t(TranslationKey.Completed),
         checked: isCheckedStatusByFilter.COMPLETED,
       },
+      {
+        name: chosenStatusesByFilter.PENDING,
+        label: t(TranslationKey.Pending),
+        checked: isCheckedStatusByFilter.PENDING,
+      },
     ]
 
     return (

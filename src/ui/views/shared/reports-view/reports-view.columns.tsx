@@ -138,7 +138,11 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
       renderCell: ({ row }: GridRowModel) => (
-        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row.createdBy?._id} />
+        <UserCell
+          name={row.sub?.name || row.createdBy?.name}
+          id={row.sub?._id || row.createdBy?._id}
+          email={row.sub?.email || row.createdBy?.email}
+        />
       ),
       valueGetter: (row: GridRowModel) => row?.sub?.name || row?.createdBy?.name,
 

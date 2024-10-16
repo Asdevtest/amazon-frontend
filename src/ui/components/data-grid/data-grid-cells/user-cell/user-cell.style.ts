@@ -11,8 +11,13 @@ export const useStyles = makeStyles()(() => ({
 
   text: {
     fontSize: '14px',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
+    lineHeight: '19px',
+  },
+
+  vertical: {
+    width: '100%',
+    minWidth: '0px',
+    display: 'flex',
+    flexDirection: 'column',
   },
 }))

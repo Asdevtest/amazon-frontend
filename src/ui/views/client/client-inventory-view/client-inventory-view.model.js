@@ -246,7 +246,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     const otherHandlers = {
       onClickInStock: (item, storekeeper) => this.onClickInStock(item, storekeeper),
       onOpenProductDataModal: (product, onAmazon) => this.onOpenProductDataModal(product, onAmazon),
-      onClickOrderCell: productId => this.onClickOrderCell(productId),
+      onClickOrderCell: (productId, filterStatus) => this.onClickOrderCell(productId, filterStatus),
       onClickShowProduct: row => this.onClickShowProduct(row),
       onClickVariationButton: id => this.onClickVariationButton(id),
       onClickTag: tag => this.setActiveProductsTagFromTable(tag),
@@ -393,11 +393,13 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     win.focus()
   }
 
-  onClickOrderCell(productId) {
+  onClickOrderCell(productId, filterStatus) {
     if (productId) {
       this.isArchive
-        ? this.history.push(`/client/inventory?product-id=${productId}&isArchive=true&show-tab=orders`)
-        : this.history.push(`/client/inventory?product-id=${productId}&show-tab=orders`)
+        ? this.history.push(
+            `/client/inventory?product-id=${productId}&isArchive=true&show-tab=orders&status=${filterStatus}`,
+          )
+        : this.history.push(`/client/inventory?product-id=${productId}&show-tab=orders&status=${filterStatus}`)
     }
 
     this.onTriggerOpenModal('productCardModal')

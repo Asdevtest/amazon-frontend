@@ -50,6 +50,7 @@ export const adminWarehouseBoxesColumns = () => {
         <UserCell
           name={params.row.items?.[0]?.product?.client?.name}
           id={params.row.items?.[0]?.product?.client?._id}
+          email={params.row.items?.[0]?.product?.client?.email}
         />
       ),
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -62,7 +63,13 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'storekeeper',
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
-      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.storekeeper?.name}
+          id={params.row.storekeeper?._id}
+          email={params.row.storekeeper?.email}
+        />
+      ),
       width: 180,
       hideEmptyObject: true,
       disableCustomSort: true,
