@@ -2072,5 +2072,6 @@
   "Product linking error": "Ошибка привязки продуктов",
   "Successfully integrated": "Успешно интегрировано",
   "Failed": "Не удалось",
-  "Select at least 2 users": "Выберите минимум 2 пользователя"
+  "Select at least 2 users": "Выберите минимум 2 пользователя",
+  "Requested in batch": "Запрошено в партию"
 }
