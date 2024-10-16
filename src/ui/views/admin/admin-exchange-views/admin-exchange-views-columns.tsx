@@ -105,7 +105,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserCell name={params.value.name} id={params.value._id} />,
+      renderCell: params => <UserCell name={params.value.name} id={params.value._id} email={params.value.email} />,
       width: 200,
       hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -115,7 +115,13 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Supervisor),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
-      renderCell: params => <UserCell name={params.row.checkedBy?.name} id={params.row.checkedBy?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.checkedBy?.name}
+          id={params.row.checkedBy?._id}
+          email={params.row.checkedBy?.email}
+        />
+      ),
       width: 200,
       hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -127,7 +133,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} email={params.value?.email} />,
       width: 200,
       hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

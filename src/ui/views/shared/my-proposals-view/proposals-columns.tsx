@@ -173,7 +173,11 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
       width: 180,
       renderCell: (params: GridCellParams) => (
-        <UserCell name={params?.row?.request?.createdBy?.name} id={params?.row?.request?.createdBy?._id} />
+        <UserCell
+          name={params?.row?.request?.createdBy?.name}
+          id={params?.row?.request?.createdBy?._id}
+          email={params?.row?.request?.createdBy?.email}
+        />
       ),
       columnKey: columnnsKeys.shared.OBJECT,
     },

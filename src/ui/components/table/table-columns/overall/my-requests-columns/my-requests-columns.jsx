@@ -173,6 +173,7 @@ export const myRequestsViewColumns = rowHandlers => {
         <UserCell
           name={params.row.sub?.name || params.row.createdBy?.name}
           id={params.row.sub?._id || params.row.createdBy?._id}
+          email={params.row.sub?.email || params.row.createdBy?.email}
         />
       ),
       width: 110,
@@ -237,7 +238,11 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service representative'])} />,
 
       renderCell: params => (
-        <UserCell name={params.row.announcement?.createdBy.name} id={params.row.announcement?.createdBy._id} />
+        <UserCell
+          name={params.row.announcement?.createdBy.name}
+          id={params.row.announcement?.createdBy._id}
+          email={params.row.announcement?.createdBy.email}
+        />
       ),
       width: 160,
 

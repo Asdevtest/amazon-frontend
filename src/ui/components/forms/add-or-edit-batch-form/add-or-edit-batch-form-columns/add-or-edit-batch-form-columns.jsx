@@ -65,6 +65,7 @@ export const addOrEditBatchFormColumns = isClient => [
       <UserCell
         name={isClient ? params.row.originalData?.storekeeper?.name : params.row.originalData?.client?.name}
         id={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
+        email={isClient ? params.row.originalData?.storekeeper?.email : params.row.originalData?.client?.email}
       />
     ),
     width: 130,

@@ -92,7 +92,13 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Researcher),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Researcher)} />,
 
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.createdBy?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.originalData.createdBy?.name}
+        id={params.row.originalData.createdBy?._id}
+        email={params.row.originalData.createdBy?.email}
+      />
+    ),
     width: 160,
   },
 
@@ -101,7 +107,13 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.buyer?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.originalData.buyer?.name}
+        id={params.row.originalData.buyer?._id}
+        email={params.row.originalData.buyer?.email}
+      />
+    ),
     width: 150,
   },
 
@@ -110,7 +122,13 @@ export const clientExchangeViewColumns = rowHandlers => [
     headerName: t(TranslationKey.Supervisor),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.checkedBy?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.originalData.checkedBy?.name}
+        id={params.row.originalData.checkedBy?._id}
+        email={params.row.originalData.checkedBy?.email}
+      />
+    ),
     width: 150,
   },
 
