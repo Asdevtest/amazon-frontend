@@ -17,7 +17,6 @@ export interface IExportOption {
 export const getTableOptions = (): IExportOption[] => [
   { label: t(TranslationKey['Select all']), value: 'select-all-tables' },
   { label: convertToSentenceCase(ParsingReportsType.FBA_INVENTORY), value: ParsingReportsType.FBA_INVENTORY },
-  { label: convertToSentenceCase(ParsingReportsType.FYP_OUT_OF_STOCK), value: ParsingReportsType.FYP_OUT_OF_STOCK },
   { label: convertToSentenceCase(ParsingReportsType.INVENTORY), value: ParsingReportsType.INVENTORY },
   {
     label: convertToSentenceCase(ParsingReportsType.INVENTORY_SHIPMENTS),
