@@ -48,8 +48,6 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
           <Text text={params.row.items?.[0].order?.item} />
         </div>
       ),
-      width: 140,
-      sortable: false,
 
       fields: [
         {
@@ -75,6 +73,8 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
         },
       ],
       columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 140,
     },
 
     {
