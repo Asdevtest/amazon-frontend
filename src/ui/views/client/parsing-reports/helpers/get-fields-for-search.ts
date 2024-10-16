@@ -20,8 +20,6 @@ export const getFieldsForSearch = (activeTable: ParsingReportsType) => {
       return ['sku', 'shipmentId', 'referenceId', 'shipTo', 'trackingNumber']
     case ParsingReportsType.VOICE:
       return ['asin', 'sku', 'fnsku']
-    case ParsingReportsType.FYP_OUT_OF_STOCK:
-      return ['shop', 'asin', 'sku']
     case ParsingReportsType.PPC_ORGANIC:
       return ['asin', 'sku']
 
