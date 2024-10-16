@@ -297,36 +297,45 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this.getCurrentData()
   }
 
-  parseQueryString(queryString?: string): Record<string, string[]> {
+  parseQueryString(queryString?: string): Record<string, string | string[]> {
     if (!queryString) {
       return {}
     }
 
     const params = queryString.split(';')
-    const result: Record<string, string[]> = {}
+    const result: Record<string, string | string[]> = {}
 
     params.forEach(param => {
       const [key, value] = param.split('=')
-      const decodedKey = decodeURIComponent(key).replace(/\[.*?\]/, '')
-      const decodedValue = decodeURIComponent(value)
 
-      let valueArray: string[] = []
+      if (key?.includes('or') && !result.currentSearchValue) {
+        result.currentSearchValue = value
+      } else {
+        const decodedKey = decodeURIComponent(key).replace(/\[.*?\]/, '')
+        const decodedValue = decodeURIComponent(value)
 
-      if (decodedValue) {
-        valueArray = decodedValue.split(',').map(item => item.replace(/"/g, ''))
+        let valueArray: string[] = []
+
+        if (decodedValue) {
+          valueArray = decodedValue.split(',').map(item => item.replace(/"/g, ''))
+        }
+
+        result[decodedKey] = valueArray
       }
-
-      result[decodedKey] = valueArray
     })
 
     return result
   }
 
-  setFilterFromPreset(presetFilters: Record<string, string[]>) {
+  setFilterFromPreset(presetFilters: Record<string, string | string[]>) {
     const keys = Object.keys(presetFilters)
 
     for (const key of keys) {
-      this.onChangeFullFieldMenuItem(presetFilters[key], key)
+      if (key === 'currentSearchValue' && typeof presetFilters[key] === 'string') {
+        this.currentSearchValue = presetFilters[key]
+      } else {
+        this.onChangeFullFieldMenuItem(presetFilters[key], key)
+      }
     }
   }
 }

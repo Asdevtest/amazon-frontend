@@ -48,7 +48,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
 
       width: 180,
       align: 'center',
-      renderCell: params => <UserCell name={params.value.name} id={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value.name} id={params.value?._id} email={params.value?.email} />,
     },
 
     {

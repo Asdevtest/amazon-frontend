@@ -26,7 +26,9 @@ export const adminFeedbackViewColumns = ({ onClickOpenFeedback }: IAdminFeedback
     field: 'userName',
     headerName: t(TranslationKey.User),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-    renderCell: ({ row }: GridRowModel) => <UserCell id={row.user?._id} name={row.user?.name} />,
+    renderCell: ({ row }: GridRowModel) => (
+      <UserCell id={row.user?._id} name={row.user?.name} email={row.user?.email} />
+    ),
     width: 320,
     sortable: false,
   },

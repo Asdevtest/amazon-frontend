@@ -2076,4 +2076,5 @@ export enum TranslationKey {
   'Failed' = 'Failed',
   'typing' = 'typing',
   'Select at least 2 users' = 'Select at least 2 users',
+  'Requested in batch' = 'Requested in batch',
 }

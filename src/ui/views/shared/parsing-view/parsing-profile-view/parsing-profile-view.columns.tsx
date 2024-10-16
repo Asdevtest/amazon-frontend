@@ -38,7 +38,9 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: ({ row }: GridRowModel) => <UserCell name={row.client?.name} id={row.client?._id} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <UserCell name={row.client?.name} id={row.client?._id} email={row.client?.email} />
+      ),
       valueGetter: ({ row }: GridRowModel) => row.client?.name || '',
       width: 160,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

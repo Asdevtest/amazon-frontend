@@ -28,7 +28,9 @@ export const serviceDetailsColumns = handlers => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 228,
-    renderCell: params => <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} />,
+    renderCell: params => (
+      <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} email={params.row.createdBy?.email} />
+    ),
   },
   {
     field: 'updatedAt',

@@ -219,7 +219,13 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'storekeeper',
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.storekeeper?.name}
+          id={params.row.storekeeper?._id}
+          email={params.row.storekeeper?.email}
+        />
+      ),
       width: 160,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,

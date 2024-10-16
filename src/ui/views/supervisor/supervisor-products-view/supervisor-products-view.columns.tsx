@@ -109,7 +109,9 @@ export const supervisorProductsViewColumns = ({ onClickTableRow, onClickTag }: S
       field: 'createdBy',
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-      renderCell: ({ row }: GridRowModel) => <UserCell name={row?.createdBy?.name} id={row?.createdBy?._id} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <UserCell name={row?.createdBy?.name} id={row?.createdBy?._id} email={row?.createdBy?.email} />
+      ),
       valueGetter: ({ row }: GridRowModel) => row?.createdBy?.name,
       width: 180,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -119,7 +121,9 @@ export const supervisorProductsViewColumns = ({ onClickTableRow, onClickTag }: S
       field: 'buyer',
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
-      renderCell: ({ row }: GridRowModel) => <UserCell name={row?.buyer?.name} id={row?.buyer?._id} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <UserCell name={row?.buyer?.name} id={row?.buyer?._id} email={row?.buyer?.email} />
+      ),
       valueGetter: ({ row }: GridRowModel) => row?.buyer?.name,
 
       width: 180,

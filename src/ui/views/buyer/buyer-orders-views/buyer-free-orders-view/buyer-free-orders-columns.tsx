@@ -204,7 +204,13 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'storekeeper',
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.storekeeper?.name}
+          id={params.row.storekeeper?._id}
+          email={params.row.storekeeper?.email}
+        />
+      ),
       valueGetter: params => params.row.storekeeper?.name,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -215,7 +221,13 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: params => <UserCell name={params.row.product.client?.name} id={params.row.product.client?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.product.client?.name}
+          id={params.row.product.client?._id}
+          email={params.row.product.client?.email}
+        />
+      ),
 
       valueGetter: params => params.row.product?.client?.name,
 

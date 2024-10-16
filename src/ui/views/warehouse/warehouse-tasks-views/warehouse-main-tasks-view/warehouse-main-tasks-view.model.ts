@@ -77,7 +77,8 @@ export class WarehouseMainTasksViewModel extends DataGridFilterTableModel {
     })
 
     super({
-      getMainDataMethod: StorekeeperModel.getLightTasksWithPag,
+      getMainDataMethod:
+        status === TaskStatus.NEW ? StorekeeperModel.getLightTasksVacantPag : StorekeeperModel.getLightTasksWithPag,
       columnsModel,
       filtersFields,
       mainMethodURL: 'storekeepers/tasks_light/pag/my?',

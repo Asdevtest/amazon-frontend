@@ -20,7 +20,10 @@ export const OrderIdAndAmountCountCell: FC<OrderIdAndAmountCountCellProps> = mem
         </p>
         {amount >= 1 && (
           <div className={styles.amountWithClocks}>
-            <MdOutlineWatchLater size={20} /> {amount}
+            <MdOutlineWatchLater size={20} />
+            <p className={styles.multilineLink} onClick={onClickOrderId}>
+              {amount}
+            </p>
           </div>
         )}
       </div>

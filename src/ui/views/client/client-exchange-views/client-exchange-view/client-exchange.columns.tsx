@@ -105,7 +105,13 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Researcher),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Researcher)} />,
 
-      renderCell: params => <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.createdBy?.name}
+          id={params.row.createdBy?._id}
+          email={params.row.createdBy?.email}
+        />
+      ),
       width: 160,
       disableCustomSort: true,
     },
@@ -115,7 +121,9 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-      renderCell: params => <UserCell name={params.row.buyer?.name} id={params.row.buyer?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.buyer?.name} id={params.row.buyer?._id} email={params.row.buyer?.email} />
+      ),
       width: 150,
       disableCustomSort: true,
     },

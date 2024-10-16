@@ -158,7 +158,7 @@ export const clientInventoryColumns = ({
           orderId={params.value}
           onClickOrderId={e => {
             e.stopPropagation()
-            otherHandlers.onClickOrderCell(params.row?._id)
+            otherHandlers.onClickOrderCell(params.row?._id, 'atProcess')
           }}
         />
       ),
@@ -170,7 +170,15 @@ export const clientInventoryColumns = ({
       field: 'amountInPendingOrders',
       headerName: t(TranslationKey['Pending order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pending order'])} />,
-      renderCell: params => <OrderIdAndAmountCountCell amount={params.row?.amountInPendingOrders} />,
+      renderCell: params => (
+        <OrderIdAndAmountCountCell
+          amount={params.row?.amountInPendingOrders}
+          onClickOrderId={e => {
+            e.stopPropagation()
+            otherHandlers.onClickOrderCell(params.row?._id, 'pending')
+          }}
+        />
+      ),
       width: 85,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
