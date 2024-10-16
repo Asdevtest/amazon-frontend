@@ -96,7 +96,13 @@ export const financesViewColumns = (userBalance?: boolean) => {
 
       width: 170,
 
-      renderCell: params => <UserCell name={params.row?.createdBy?.name} id={params.row?.createdBy?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row?.createdBy?.name}
+          id={params.row?.createdBy?._id}
+          email={params.row?.createdBy?.email}
+        />
+      ),
       valueGetter: params => params.value.name,
       hideEmptyObject: true,
 
@@ -110,7 +116,13 @@ export const financesViewColumns = (userBalance?: boolean) => {
 
       width: 170,
 
-      renderCell: params => <UserCell name={params.row?.recipient?.name} id={params.row?.recipient?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row?.recipient?.name}
+          id={params.row?.recipient?._id}
+          email={params.row?.recipient?.email}
+        />
+      ),
       valueGetter: params => params.value.name,
       hideEmptyObject: true,
 

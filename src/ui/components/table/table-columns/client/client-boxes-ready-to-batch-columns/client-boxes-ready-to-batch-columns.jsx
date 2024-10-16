@@ -80,7 +80,13 @@ export const clientBoxesReadyToBatchViewColumns = () => [
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.storekeeper?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.originalData.storekeeper?.name}
+        id={params.row.originalData.storekeeper?._id}
+        email={params.row.originalData.storekeeper?.email}
+      />
+    ),
     width: 160,
   },
 

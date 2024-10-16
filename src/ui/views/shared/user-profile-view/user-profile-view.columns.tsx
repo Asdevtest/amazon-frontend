@@ -83,7 +83,9 @@ export const userProfileColumns = () => {
       field: 'researcherName',
       headerName: t(TranslationKey.Researcher),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Researcher)} />,
-      renderCell: ({ row }) => <UserCell name={row.createdBy?.name} id={row.createdBy?._id} />,
+      renderCell: ({ row }) => (
+        <UserCell name={row.createdBy?.name} id={row.createdBy?._id} email={row.createdBy?.email} />
+      ),
       width: 200,
     },
 
@@ -91,7 +93,7 @@ export const userProfileColumns = () => {
       field: 'buyerName',
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
-      renderCell: ({ row }) => <UserCell name={row.buyer?.name} id={row.buyer?._id} />,
+      renderCell: ({ row }) => <UserCell name={row.buyer?.name} id={row.buyer?._id} email={row.buyer?.email} />,
 
       width: 200,
     },
@@ -100,7 +102,9 @@ export const userProfileColumns = () => {
       field: 'supervisorName',
       headerName: t(TranslationKey.Supervisor),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
-      renderCell: ({ row }) => <UserCell name={row.checkedBy?.name} id={row.checkedBy?._id} />,
+      renderCell: ({ row }) => (
+        <UserCell name={row.checkedBy?.name} id={row.checkedBy?._id} email={row.checkedBy?.email} />
+      ),
       width: 200,
     },
   ]

@@ -83,7 +83,13 @@ export const clientBatchesViewColumns = rowHandlers => {
       field: 'storekeeper',
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-      renderCell: params => <UserCell name={params.row?.storekeeper?.name} id={params.row?.storekeeper?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row?.storekeeper?.name}
+          id={params.row?.storekeeper?._id}
+          email={params.row?.storekeeper?.email}
+        />
+      ),
       width: 150,
       sortable: false,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
