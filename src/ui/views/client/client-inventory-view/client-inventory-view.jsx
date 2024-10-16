@@ -51,7 +51,11 @@ export const ClientInventoryView = observer(({ history }) => {
   const viewModel = useMemo(() => new ClientInventoryViewModel(), [])
   viewModel.initHistory()
 
-  const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
+  const getCellClassName = params => {
+    if (clickableCells.includes(params.field) || params.field?.includes('counter')) {
+      return styles.clickableCell
+    }
+  }
 
   const apiRef = useGridApiRef()
 
