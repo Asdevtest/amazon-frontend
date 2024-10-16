@@ -101,7 +101,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     },
 
     {
-      field: 'cls',
+      field: 'logicsTariffCls',
       headerName: t(TranslationKey['CLS (batch closing date)']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['CLS (batch closing date)'])} />,
       renderCell: ({ row }: GridRowModel) => (
@@ -113,7 +113,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     },
 
     {
-      field: 'etd',
+      field: 'logicsTariffEtd',
       headerName: t(TranslationKey['ETD (date of shipment)']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETD (date of shipment)'])} />,
       renderCell: ({ row }: GridRowModel) => (
@@ -125,7 +125,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
     },
 
     {
-      field: 'eta',
+      field: 'logicsTariffEta',
       headerName: t(TranslationKey['ETA (arrival date)']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETA (arrival date)'])} />,
       renderCell: ({ row }: GridRowModel) => (
