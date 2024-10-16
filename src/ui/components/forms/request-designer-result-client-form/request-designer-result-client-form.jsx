@@ -50,10 +50,7 @@ export const RequestDesignerResultClientForm = memo(props => {
 
   const noShowActions = isNotClient || proposalIsAccepted || onlyRead
 
-  const selectedSourceFile =
-    proposal?.proposal?.sourceFiles?.length === 1
-      ? proposal.proposal.sourceFiles[0]?.sourceFile
-      : proposal?.proposal?.sourceFiles?.[proposal.proposal.sourceFiles.length - 1]?.sourceFile
+  const selectedSourceFile = proposal?.proposal?.sourceFiles?.[proposal.proposal.sourceFiles.length - 1]?.sourceFile
 
   const [showImageModal, setShowImageModal] = useState(false)
   const [curImageIndex, setCurImageIndex] = useState(0)
