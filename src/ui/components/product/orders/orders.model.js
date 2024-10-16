@@ -19,7 +19,7 @@ import { onSubmitPostImages } from '@utils/upload-files'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { getActiveStatuses } from './helpers/get-active-statuses'
-import { canceledStatus, completedStatus, selectedStatus } from './orders.constant'
+import { canceledStatus, completedStatus, selectedStatus, statusesForChecking } from './orders.constant'
 
 export class OrdersModel {
   requestStatus = undefined
@@ -66,10 +66,11 @@ export class OrdersModel {
     return UserModel.platformSettings
   }
 
-  constructor({ productId, showAtProcessOrders }) {
+  constructor({ productId, filterStatus }) { 
+   
     this.productId = productId
 
-    this.isCheckedStatusByFilter = getActiveStatuses(showAtProcessOrders)
+    this.isCheckedStatusByFilter = getActiveStatuses(filterStatus)
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -91,7 +92,7 @@ export class OrdersModel {
 
   onCheckboxChange(event) {
     const { name, checked } = event.target
-    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED, PENDING } = chosenStatusesByFilter
 
     if (name === ALL) {
       this.isCheckedStatusByFilter = {
@@ -99,6 +100,7 @@ export class OrdersModel {
         [AT_PROCESS]: checked,
         [CANCELED]: checked,
         [COMPLETED]: checked,
+        [PENDING]: checked,
       }
     } else {
       this.isCheckedStatusByFilter = {
@@ -109,7 +111,8 @@ export class OrdersModel {
       if (
         this.isCheckedStatusByFilter[AT_PROCESS] &&
         this.isCheckedStatusByFilter[CANCELED] &&
-        this.isCheckedStatusByFilter[COMPLETED]
+        this.isCheckedStatusByFilter[COMPLETED] &&
+        this.isCheckedStatusByFilter[PENDING]
       ) {
         this.isCheckedStatusByFilter = {
           ...this.isCheckedStatusByFilter,
@@ -131,13 +134,14 @@ export class OrdersModel {
   }
 
   onClickResetFilters() {
-    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED, PENDING } = chosenStatusesByFilter
 
     this.isCheckedStatusByFilter = {
       [ALL]: true,
       [AT_PROCESS]: true,
       [CANCELED]: true,
       [COMPLETED]: true,
+      [PENDING]: true,
     }
 
     this.getOrdersByProductId()
@@ -148,16 +152,16 @@ export class OrdersModel {
   }
 
   getCurrentData() {
-    const { ALL, AT_PROCESS, CANCELED, COMPLETED } = chosenStatusesByFilter
+    const { ALL, AT_PROCESS, CANCELED, COMPLETED, PENDING } = chosenStatusesByFilter
 
     if (!this.isCheckedStatusByFilter[ALL]) {
       return this.orders.filter(el => {
-        const { status } = el.originalData
-
+        const { status } = el
         return (
           (this.isCheckedStatusByFilter[AT_PROCESS] && selectedStatus.includes(status)) ||
           (this.isCheckedStatusByFilter[CANCELED] && canceledStatus.includes(status)) ||
-          (this.isCheckedStatusByFilter[COMPLETED] && completedStatus.includes(status))
+          (this.isCheckedStatusByFilter[COMPLETED] && completedStatus.includes(status)) ||
+          (this.isCheckedStatusByFilter[PENDING] && statusesForChecking.includes(status))
         )
       })
     }

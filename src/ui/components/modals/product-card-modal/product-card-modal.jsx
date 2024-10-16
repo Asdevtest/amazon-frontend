@@ -113,6 +113,7 @@ export const ProductCardModal = observer(props => {
           <ProductWrapper
             modal
             showTab={viewModel?.showTab}
+            filterStatus={viewModel?.filterStatus}
             user={viewModel?.userInfo}
             userRole={viewModel?.userInfo.role}
             imagesForLoad={viewModel?.imagesForLoad}
