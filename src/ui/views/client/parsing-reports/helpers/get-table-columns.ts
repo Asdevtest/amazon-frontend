@@ -4,7 +4,6 @@ import { businessReportsColumns } from '../parsing-reports-columns/business-repo
 import { campaignsColumns } from '../parsing-reports-columns/campaigns.columns'
 import { fbaInventoryColumns } from '../parsing-reports-columns/fba-inventory.columns'
 import { feedbackColumns } from '../parsing-reports-columns/feedback.columns'
-import { fypOutOfStockColumns } from '../parsing-reports-columns/fyp-out-of-stock.columns'
 import { inventoryPlanningColumns } from '../parsing-reports-columns/inventory-planning.columns'
 import { inventoryShipmentsColumns } from '../parsing-reports-columns/inventory-shipments.columns'
 import { inventoryColumns } from '../parsing-reports-columns/inventory.columns'
@@ -63,18 +62,6 @@ export const getTableColumns = (activeTable: ParsingReportsType) => {
 
     case ParsingReportsType.VOICE:
       return voiceColumns()
-
-    case ParsingReportsType.FYP_OUT_OF_STOCK:
-      return fypOutOfStockColumns()
-
-    // case ParsingReportsType.FYP_SEARCH_SUPPRESSED:
-    //   return fypSearchSuppressedColumns()
-
-    // case ParsingReportsType.INCOME:
-    //   return incomeColumns()
-
-    // case ParsingReportsType.PPC_SALES_WEEKS:
-    //   return ppcSalesWeeksColumns()
 
     case ParsingReportsType.PPC_ORGANIC:
       return ppcOrganicColumns()
