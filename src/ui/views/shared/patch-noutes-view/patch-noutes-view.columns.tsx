@@ -68,7 +68,9 @@ export const moderatorUpdatedColumns = ({
     field: 'createdBy',
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-    renderCell: ({ row }: GridRowModel) => <UserCell name={row.author?.name} id={row.author?._id} />,
+    renderCell: ({ row }: GridRowModel) => (
+      <UserCell name={row.author?.name} id={row.author?._id} email={row.author?.email} />
+    ),
     filterable: false,
     sortable: false,
     width: 160,

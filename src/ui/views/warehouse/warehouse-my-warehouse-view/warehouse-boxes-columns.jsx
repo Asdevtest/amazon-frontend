@@ -48,8 +48,6 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
           <Text text={params.row.items?.[0].order?.item} />
         </div>
       ),
-      width: 140,
-      sortable: false,
 
       fields: [
         {
@@ -75,6 +73,8 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
         },
       ],
       columnKey: columnnsKeys.shared.MULTIPLE,
+      disableCustomSort: true,
+      width: 140,
     },
 
     {
@@ -192,7 +192,9 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+      ),
       width: 150,
       sortable: false,
     },

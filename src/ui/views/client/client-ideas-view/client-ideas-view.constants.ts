@@ -54,12 +54,12 @@ export const filtersFields = [
 ]
 
 export const fieldsForSearch = [
-  'xid',
   'parentProductSkuByClient',
   'parentProductAmazonTitle',
   'parentProductAsin',
   'childProductAmazonTitle',
   'childProductSkuByClient',
   'childProductAsin',
+  'xid',
   'title',
 ]

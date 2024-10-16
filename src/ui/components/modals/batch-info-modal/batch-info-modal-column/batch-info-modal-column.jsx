@@ -97,7 +97,9 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => <UserCell name={params.row?.client?.name} id={params.row?.client?._id} />,
+    renderCell: params => (
+      <UserCell name={params.row?.client?.name} id={params.row?.client?._id} email={params.row?.client?.email} />
+    ),
     valueGetter: ({ row }) => row?.client?.name || t(TranslationKey.Missing),
     width: 180,
   },

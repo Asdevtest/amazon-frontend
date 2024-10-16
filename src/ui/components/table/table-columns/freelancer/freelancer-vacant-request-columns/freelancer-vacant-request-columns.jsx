@@ -107,7 +107,9 @@ export const freelancerVacantRequestColumns = handlers => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 145,
-    renderCell: params => <UserCell name={params.row.createdBy.name} id={params.row.createdBy._id} />,
+    renderCell: params => (
+      <UserCell name={params.row.createdBy.name} id={params.row.createdBy._id} email={params.row.createdBy.email} />
+    ),
 
     columnKey: columnnsKeys.shared.OBJECT,
   },
@@ -197,6 +199,7 @@ export const freelancerVacantRequestColumns = handlers => [
       <UserCell
         name={row.proposals?.[0]?.sub?.name || row.announcement?.createdBy?.name}
         id={row.proposals?.[0]?.sub?._id || row.announcement?.createdBy?._id}
+        email={row.proposals?.[0]?.sub?.email || row.announcement?.createdBy?.email}
       />
     ),
 
