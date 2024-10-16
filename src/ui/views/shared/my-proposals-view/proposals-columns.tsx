@@ -135,7 +135,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderCell: (params: GridCellParams) => <Text isCell text={params.row?.request.xid} />,
       width: 80,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
       table: DataGridFilterTables.REQUESTS,
     },
 
