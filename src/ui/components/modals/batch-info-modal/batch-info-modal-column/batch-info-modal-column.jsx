@@ -35,11 +35,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: ({ row }) => (
-      <StringListCell
-        sourceString={row.items?.map(item => item?.product?.asin || t(TranslationKey.Missing)).join(', ')}
-      />
-    ),
+    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.product?.asin)} />,
 
     valueGetter: ({ row }) => row.items?.map(item => item?.product?.asin || t(TranslationKey.Missing)).join(', '),
 
@@ -69,9 +65,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey['Quantity in box']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Quantity in box'])} />,
 
-    renderCell: ({ row }) => (
-      <StringListCell sourceString={row.items?.map(item => item?.amount || t(TranslationKey.Missing)).join(', ')} />
-    ),
+    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.amount)} />,
     valueGetter: ({ row }) => row.items?.map(item => item?.amount || t(TranslationKey.Missing)).join(', '),
     width: 80,
   },
@@ -287,11 +281,7 @@ export const batchInfoModalColumn = (
     field: 'Account',
     headerName: 'Account',
     renderHeader: () => <MultilineTextHeaderCell text="Account" />,
-    renderCell: ({ row }) => (
-      <StringListCell
-        sourceString={row.items?.map(item => item?.product?.shop?.name || t(TranslationKey.Missing)).join(', ')}
-      />
-    ),
+    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.product?.shop?.name)} />,
     valueGetter: ({ row }) => row.items?.map(item => item?.product?.shop?.name || t(TranslationKey.Missing)).join(', '),
     width: 100,
   },
@@ -300,9 +290,7 @@ export const batchInfoModalColumn = (
     field: 'fbaShipment',
     headerName: 'FBA Shipment',
     renderHeader: () => <MultilineTextHeaderCell text="FBA Shipment" />,
-    renderCell: ({ row }) => (
-      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={row.fbaShipment} />
-    ),
+    renderCell: ({ row }) => <Text isCell text={row.fbaShipment || '-'} />,
     valueGetter: ({ row }) => row.fbaShipment,
     width: 165,
   },
