@@ -1,48 +1,22 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  flexDirectionColumn: {
+export const useStyles = makeStyles()(() => ({
+  root: {
+    padding: '0 5px 0 0',
+    height: '48px',
+    overflowY: 'auto',
+    width: '100%',
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'column',
-    width: '100%',
+    justifyContent: 'center',
   },
 
-  stringListMenuWrapper: {
-    width: 160,
-    padding: '10px',
-    maxHeight: 400,
-  },
-
-  searchInput: {
-    width: '100%',
-  },
-
-  multilineTextHeaderWrapper: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    gap: 5,
-  },
-
-  shopOrderText: {
-    width: '100%',
-    textAlign: 'center',
-    color: theme.palette.text.general,
-
-    fontWeight: '600',
+  text: {
+    minHeight: '16px',
     fontSize: '12px',
-    lineHeight: '14px',
-
-    whiteSpace: 'pre-line',
-    wordBreak: 'break-word',
-  },
-  icon: {
-    color: theme.palette.text.main,
-  },
-
-  moreButton: {
-    maxHeight: '24px',
+    lineHeight: '16px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    margin: 0,
   },
 }))
