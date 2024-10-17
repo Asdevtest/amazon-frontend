@@ -93,6 +93,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   productsToLaunch: IProduct[] = []
   productId: string = ''
   currentIdeaId: string = ''
+  ideaIdFromParam: string | null
   currentProposal: IProposal | undefined = undefined
   currentRequest = undefined
   paymentMethods: IPaymentMethod[] = []
@@ -152,7 +153,30 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       statusGroup: {
         $eq: statusGroup,
       },
+      // ...(this.ideaIdFromParam && {
+      //   xid: {
+      //     $eq: this.ideaIdFromParam,
+      //   },
+      // }),
     })
+
+    // const additionalPropertiesGetFilters = () => ({
+    //   ...(this.ideaIdFromParam && {
+    //     xid: {
+    //       $eq: this.ideaIdFromParam,
+    //     },
+    //   }),
+    // })
+
+    // const additionalPropertiesGetFilters = () => {
+    //   return !this.columnMenuSettings?.xid?.currentFilterData?.length
+    //     ? {
+    //         xid: {
+    //           $eq: this.ideaIdFromParam,
+    //         },
+    //       }
+    //     : {}
+    // }
 
     super({
       getMainDataMethod: IdeaModel.getIdeaList,
@@ -163,10 +187,14 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       tableKey,
       defaultGetCurrentDataOptions,
       defaultFilterParams,
+      // additionalPropertiesGetFilters,
       defaultSortModel: [{ field: pageSettings.defaultSortingModel, sort: 'desc' }],
     })
 
     makeObservable(this, observerConfig)
+
+    const url = new URL(window.location.href)
+    this.ideaIdFromParam = url.searchParams.get('ideaId')
 
     this.history = history
 
