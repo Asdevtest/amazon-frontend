@@ -1,6 +1,6 @@
 import { AdminOrdersStatusGroup } from './admin-orders-views.types'
 
-export const fieldsForSearch = ['asin', 'skuByClient', 'amazonTitle']
+export const fieldsForSearch = ['asin', 'xid', 'skuByClient', 'amazonTitle']
 
 export const ordersStatusGroupTranslate: Record<AdminOrdersStatusGroup, string> = {
   [AdminOrdersStatusGroup.ALL]: 'All',
