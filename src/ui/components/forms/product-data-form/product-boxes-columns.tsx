@@ -46,7 +46,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
     },
 
     {
-      field: 'batchHumanFriendlyId',
+      field: 'batchXid',
       headerName: t(TranslationKey['Batch number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.batch?.xid || '-'} />,
