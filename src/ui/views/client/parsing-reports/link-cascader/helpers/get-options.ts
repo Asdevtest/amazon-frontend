@@ -16,14 +16,14 @@ export interface IExportOption {
 
 export const getTableOptions = (): IExportOption[] => [
   { label: t(TranslationKey['Select all']), value: 'select-all-tables' },
-  { label: convertToSentenceCase(ParsingReportsType.FBA_INVENTORY), value: ParsingReportsType.FBA_INVENTORY },
+  { label: 'FBA inventory', value: ParsingReportsType.FBA_INVENTORY },
   { label: convertToSentenceCase(ParsingReportsType.INVENTORY), value: ParsingReportsType.INVENTORY },
   {
     label: convertToSentenceCase(ParsingReportsType.INVENTORY_SHIPMENTS),
     value: ParsingReportsType.INVENTORY_SHIPMENTS,
   },
   { label: convertToSentenceCase(ParsingReportsType.ORDERS), value: ParsingReportsType.ORDERS },
-  { label: convertToSentenceCase(ParsingReportsType.PPC_ORGANIC), value: ParsingReportsType.PPC_ORGANIC },
+  { label: 'PPC organic', value: ParsingReportsType.PPC_ORGANIC },
   { label: convertToSentenceCase(ParsingReportsType.RETURNS), value: ParsingReportsType.RETURNS },
   { label: convertToSentenceCase(ParsingReportsType.VOICE), value: ParsingReportsType.VOICE },
 ]

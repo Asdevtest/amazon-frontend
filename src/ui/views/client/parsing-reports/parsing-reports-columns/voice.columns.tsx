@@ -85,8 +85,8 @@ export const voiceColumns = () => {
 
     {
       field: 'ncxOrders',
-      headerName: 'Ncx orders',
-      renderHeader: () => <MultilineTextHeaderCell text="Ncx orders" />,
+      headerName: 'NCX orders',
+      renderHeader: () => <MultilineTextHeaderCell text="NCX orders" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 90,
@@ -107,8 +107,8 @@ export const voiceColumns = () => {
 
     {
       field: 'ncxRate',
-      headerName: 'Ncx rate',
-      renderHeader: () => <MultilineTextHeaderCell text="Ncx rate" />,
+      headerName: 'NCX rate',
+      renderHeader: () => <MultilineTextHeaderCell text="NCX rate" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 90,
@@ -118,8 +118,8 @@ export const voiceColumns = () => {
 
     {
       field: 'topNcxReason',
-      headerName: 'Top ncx reason',
-      renderHeader: () => <MultilineTextHeaderCell text="Top ncx reason" />,
+      headerName: 'Top NCX reason',
+      renderHeader: () => <MultilineTextHeaderCell text="Top NCX reason" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 90,
@@ -139,8 +139,8 @@ export const voiceColumns = () => {
 
     {
       field: 'pcxHealth',
-      headerName: 'Pcx health',
-      renderHeader: () => <MultilineTextHeaderCell text="Pcx health" />,
+      headerName: 'PCX health',
+      renderHeader: () => <MultilineTextHeaderCell text="PCX health" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 90,

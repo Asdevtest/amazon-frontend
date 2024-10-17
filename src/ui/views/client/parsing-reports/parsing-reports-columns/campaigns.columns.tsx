@@ -134,8 +134,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'budgetUsd',
-      headerName: 'Budget usd',
-      renderHeader: () => <MultilineTextHeaderCell text="Budget usd" />,
+      headerName: 'Budget USD',
+      renderHeader: () => <MultilineTextHeaderCell text="Budget USD" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -175,8 +175,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'ctr',
-      headerName: 'Ctr',
-      renderHeader: () => <MultilineTextHeaderCell text="Ctr" />,
+      headerName: 'CTR',
+      renderHeader: () => <MultilineTextHeaderCell text="CTR" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -185,8 +185,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'spentUsd',
-      headerName: 'Spent usd',
-      renderHeader: () => <MultilineTextHeaderCell text="Spent usd" />,
+      headerName: 'Spent USD',
+      renderHeader: () => <MultilineTextHeaderCell text="Spent USD" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -195,8 +195,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'cpcUsd',
-      headerName: 'Cpc usd',
-      renderHeader: () => <MultilineTextHeaderCell text="Cpc usd" />,
+      headerName: 'CPC USD',
+      renderHeader: () => <MultilineTextHeaderCell text="CPC USD" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -215,8 +215,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'acos',
-      headerName: 'Acos',
-      renderHeader: () => <MultilineTextHeaderCell text="Acos" />,
+      headerName: 'ACOS',
+      renderHeader: () => <MultilineTextHeaderCell text="ACOS" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -225,8 +225,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'roas',
-      headerName: 'Roas',
-      renderHeader: () => <MultilineTextHeaderCell text="Roas" />,
+      headerName: 'ROAS',
+      renderHeader: () => <MultilineTextHeaderCell text="ROAS" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -235,8 +235,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'ntbOrders',
-      headerName: 'Ntb orders',
-      renderHeader: () => <MultilineTextHeaderCell text="Ntb orders" />,
+      headerName: 'NTB orders',
+      renderHeader: () => <MultilineTextHeaderCell text="NTB orders" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -245,8 +245,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'percentageOfOrdersNtb',
-      headerName: 'Percentage of orders ntb',
-      renderHeader: () => <MultilineTextHeaderCell text="Percentage of orders ntb" />,
+      headerName: 'Percentage of orders NTB',
+      renderHeader: () => <MultilineTextHeaderCell text="Percentage of orders NTB" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -255,8 +255,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'ntbSalesUsd',
-      headerName: 'Ntb sales usd',
-      renderHeader: () => <MultilineTextHeaderCell text="Ntb sales usd" />,
+      headerName: 'NTB sales USD',
+      renderHeader: () => <MultilineTextHeaderCell text="NTB sales USD" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -265,8 +265,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'percentageOfSalesNtb',
-      headerName: 'Percentage of sales ntb',
-      renderHeader: () => <MultilineTextHeaderCell text="Percentage of sales ntb" />,
+      headerName: 'Percentage of sales NTB',
+      renderHeader: () => <MultilineTextHeaderCell text="Percentage of sales NTB" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -285,8 +285,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'vcpmUsd',
-      headerName: 'Vcpm usd',
-      renderHeader: () => <MultilineTextHeaderCell text="Vcpm usd" />,
+      headerName: 'VCPM USD',
+      renderHeader: () => <MultilineTextHeaderCell text="VCPM USD" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -345,8 +345,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'vtr',
-      headerName: 'Vtr',
-      renderHeader: () => <MultilineTextHeaderCell text="Vtr" />,
+      headerName: 'VTR',
+      renderHeader: () => <MultilineTextHeaderCell text="VTR" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -355,8 +355,8 @@ export const campaignsColumns = () => {
 
     {
       field: 'vctr',
-      headerName: 'Vctr',
-      renderHeader: () => <MultilineTextHeaderCell text="Vctr" />,
+      headerName: 'VCTR',
+      renderHeader: () => <MultilineTextHeaderCell text="VCTR" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,

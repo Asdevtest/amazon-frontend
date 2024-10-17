@@ -80,8 +80,8 @@ export const feedbackColumns = () => {
 
     {
       field: 'amzOrderId',
-      headerName: 'Amz Order Id',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz Order Id" />,
+      headerName: 'AMZ Order ID',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ Order ID" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,

@@ -120,8 +120,8 @@ export const brandsReviewColumns = () => {
 
     {
       field: 'amzId',
-      headerName: 'Amz id',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz id" />,
+      headerName: 'AMZ ID',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,

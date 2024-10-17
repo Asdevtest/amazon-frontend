@@ -66,8 +66,8 @@ export const transactionsColumns = () => {
 
     {
       field: 'amzOrderId',
-      headerName: 'Amz order id',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz order id" />,
+      headerName: 'AMZ order ID',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ order ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
@@ -76,8 +76,8 @@ export const transactionsColumns = () => {
 
     {
       field: 'productId',
-      headerName: 'Product id',
-      renderHeader: () => <MultilineTextHeaderCell text="Product id" />,
+      headerName: ' Product ID',
+      renderHeader: () => <MultilineTextHeaderCell text=" Product ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
@@ -127,8 +127,8 @@ export const transactionsColumns = () => {
 
     {
       field: 'totalUsd',
-      headerName: 'Total usd',
-      renderHeader: () => <MultilineTextHeaderCell text="Total usd" />,
+      headerName: 'Total USD',
+      renderHeader: () => <MultilineTextHeaderCell text="Total USD" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
