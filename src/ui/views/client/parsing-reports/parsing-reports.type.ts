@@ -1,3 +1,8 @@
+export interface ParsingReportsModelParams {
+  table?: ParsingReportsType
+  productId?: string
+}
+
 export enum ParsingReportsType {
   BUSINESS_REPORTS = 'BUSINESS_REPORTS',
   ORDERS = 'ORDERS',

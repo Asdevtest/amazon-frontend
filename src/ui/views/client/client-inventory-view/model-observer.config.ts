@@ -46,9 +46,11 @@ export const observerConfig = {
   readyImages: observable,
   progressValue: observable,
   showProgress: observable,
+  showParsingReportsModal: observable,
 
   isSomeFilterOn: override,
   getCurrentData: override,
+  getFilters: override,
 
   userInfo: computed,
   destinationsFavourites: computed,
@@ -109,4 +111,8 @@ export const observerConfig = {
 
   onClickSaveSupplierBtn: action.bound,
   onClickEditTags: action.bound,
+  getStorekeepers: action.bound,
+  getIntegrationFields: action.bound,
+  initTableColumns: action.bound,
+  hideByDefaultIntegrationColumns: action.bound,
 }

@@ -80,7 +80,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     }
   }
 
-  async onClickFilterBtn(column: string, table: string, searchValue?: string) {
+  async onClickFilterBtn(column: string, table: string, additionalFilterSettings: string = '') {
     try {
       this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
@@ -88,7 +88,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         table,
         column,
         // "?" не нужен, т.к. он должен быть в mainMethodURL, на случай если url должна содержать больше свойств
-        `${this.mainMethodURL}filters=${this.getFilters(column)}${searchValue || ''}`,
+        `${this.mainMethodURL}filters=${this.getFilters(column)}${additionalFilterSettings}`,
       )
 
       if (this.columnMenuSettings[column as keyof typeof this.columnMenuSettings]) {
