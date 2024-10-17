@@ -145,4 +145,5 @@ export const DataGridTablesKeys = {
   PARSING_PROFILES: 'parsingProfiles',
   PARSING_REQUESTS: 'parsingRequests',
   SERVICES_DETAILS: 'servicesDetails',
+  FEEDBACK: 'feedback',
 }

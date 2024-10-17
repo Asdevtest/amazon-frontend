@@ -10,8 +10,6 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-textarea.style'
 
-const { TextArea } = Input
-
 interface CustomTextareaProps extends TextAreaProps, IDefaultPropsExtensionAntdComponent {
   resize?: boolean
   placeholder?: string
@@ -41,9 +39,9 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
           {required ? <span>*</span> : null}
         </p>
       ) : null}
-      <TextArea
+      <Input.TextArea
         {...restProps}
-        className={cx(styles.textarea, className)}
+        className={className}
         style={{ resize: resize ? 'vertical' : 'none' }}
         placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
         onKeyDown={event => event.stopPropagation()}

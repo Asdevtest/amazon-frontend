@@ -9,16 +9,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cell: {
-    padding: '10px 0',
+    padding: '5px 0',
   },
 
   row: {
     alignItems: 'center',
     flexDirection: 'row',
-  },
-
-  textarea: {
-    width: '100%',
   },
 
   label: {

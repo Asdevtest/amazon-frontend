@@ -10,6 +10,12 @@ import { TaskStatus } from '@typings/enums/task-status'
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'
 
+const FeedbackView = lazy(() =>
+  import('@views/shared/feedback-view/feedback-view').then(module => ({
+    default: module.FeedbackView,
+  })),
+)
+
 const ParsingProfileView = lazy(() =>
   import('@views/shared/parsing-view/parsing-profile-view').then(module => ({
     default: module.ParsingProfileView,
@@ -1144,6 +1150,20 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
       title: () => t(TranslationKey['Buy store']),
+    },
+  },
+
+  {
+    routePath: '/client/feedback',
+    component: FeedbackView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT,
+    crumbNameKey: TranslationKey.Feedback,
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
+      activeSubCategory: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BUY_SHOPS,
+      title: () => t(TranslationKey.Feedback),
     },
   },
 
