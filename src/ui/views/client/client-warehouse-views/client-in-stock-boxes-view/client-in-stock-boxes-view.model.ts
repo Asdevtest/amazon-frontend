@@ -892,7 +892,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         const newBox = { ...newBoxes[i] }
         const selectedBox = { ...selectedBoxes[i] }
 
-        let linkToShippingLabel = newBox.shippingLabel || null
+        let linkToShippingLabel = newBox.shippingLabel || ''
         // Upload shipping label if needed
         const isSameShippingLabel =
           JSON.stringify(newBox?.tmpShippingLabel?.[0]) === JSON.stringify(sharedFields?.tmpShippingLabel?.[0])
