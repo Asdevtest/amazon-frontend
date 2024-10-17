@@ -1,5 +1,5 @@
 import { RadioChangeEvent } from 'antd'
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { GridColDef } from '@mui/x-data-grid-premium'
@@ -109,6 +109,11 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
 
     makeObservable(this, observerConfig)
     this.getTableSettingsPreset()
+
+    reaction(
+      () => this.unitsOption,
+      () => (this.columnsModel = columnsModel),
+    )
   }
 
   setDestinationsFavouritesItem(item: any) {
