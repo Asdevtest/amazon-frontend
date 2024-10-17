@@ -461,7 +461,6 @@ export class OwnerRequestDetailCustomViewModel {
 
   onClickIdeaId(ideaId) {
     this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/ideas/all?ideaId=${ideaId}`)
-    console.log(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/ideas/all?ideaId=${ideaId}`)
   }
 
   async onSubmitAbortRequest(comment) {
