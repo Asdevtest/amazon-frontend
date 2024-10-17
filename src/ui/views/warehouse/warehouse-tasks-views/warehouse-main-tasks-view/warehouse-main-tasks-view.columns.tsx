@@ -8,7 +8,6 @@ import {
   ActionButtonsCell,
   CheckboxCell,
   MultilineTextHeaderCell,
-  MultipleAsinCell,
   NormDateFromUnixCell,
   StringListCell,
   TaskDescriptionCell,
@@ -83,6 +82,7 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
         )
       },
       width: isNewOrMyTasks ? 150 : 120,
+      disableCustomSort: true,
     },
     commentColumn as IGridColumn,
     {
@@ -114,36 +114,39 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
       renderCell: ({ row }) => <TaskDescriptionCell task={row} />,
       width: 320,
+      disableCustomSort: true,
     },
     {
       field: 'asin',
       headerName: 'ASIN',
       renderHeader: () => <MultilineTextHeaderCell text="ASIN" />,
-      renderCell: ({ row }) => <MultipleAsinCell asinList={row.asin} />,
+      renderCell: ({ row }) => <StringListCell asin data={row.boxesBeforeAsins} />,
       width: 160,
+      disableCustomSort: true,
     },
     {
       field: 'trackNumber',
       headerName: t(TranslationKey['Track number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
-      renderCell: ({ row }) => (
-        <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={10} sourceString={row.trackNumber} />
-      ),
+      renderCell: ({ row }) => <StringListCell data={row.boxesBeforeTrackNumberTexts} />,
       width: 160,
+      disableCustomSort: true,
     },
     {
       field: 'orderId',
       headerName: t(TranslationKey['Order number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
-      renderCell: ({ row }) => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={row.orderId} />,
+      renderCell: ({ row }) => <StringListCell data={row.boxesBeforeOrderXids} />,
       width: 160,
+      disableCustomSort: true,
     },
     {
       field: 'item',
       headerName: 'item',
       renderHeader: () => <MultilineTextHeaderCell text="item" />,
-      renderCell: ({ row }) => <StringListCell maxItemsDisplay={4} maxLettersInItem={10} sourceString={row.item} />,
+      renderCell: ({ row }) => <StringListCell data={row.boxesBeforeOrderItems} />,
       width: 160,
+      disableCustomSort: true,
     },
     isBarCodeAttachedColumn as IGridColumn,
     {

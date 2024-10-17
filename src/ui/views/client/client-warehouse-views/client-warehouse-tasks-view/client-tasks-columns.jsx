@@ -93,17 +93,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: 'ASIN',
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-      renderCell: params => (
-        <StringListCell
-          withCopy
-          maxItemsDisplay={4}
-          maxLettersInItem={10}
-          sourceString={params.row?.boxesBefore?.reduce(
-            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.product?.asin], [])],
-            [],
-          )}
-        />
-      ),
+      renderCell: params => <StringListCell data={params.row?.boxesBefore} />,
 
       disableCustomSort: true,
       width: window.innerWidth < 1282 ? 100 : 160,
@@ -139,16 +129,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey['Order number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
 
-      renderCell: params => (
-        <StringListCell
-          maxItemsDisplay={4}
-          maxLettersInItem={10}
-          sourceString={params.row?.boxesBefore.reduce(
-            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.order?.xid], [])],
-            [],
-          )}
-        />
-      ),
+      renderCell: params => <StringListCell data={params.row?.boxesBefore} />,
       type: 'number',
       disableCustomSort: true,
       width: window.innerWidth < 1282 ? 73 : 160,
@@ -169,16 +150,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: 'item',
       renderHeader: () => <MultilineTextHeaderCell text="item" />,
 
-      renderCell: params => (
-        <StringListCell
-          maxItemsDisplay={4}
-          maxLettersInItem={10}
-          sourceString={params.row?.boxesBefore.reduce(
-            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur.order.item && cur.order.item], [])],
-            [],
-          )}
-        />
-      ),
+      renderCell: params => <StringListCell data={params.row?.boxesBefore} />,
       disableCustomSort: true,
       width: window.innerWidth < 1282 ? 54 : 160,
     },
