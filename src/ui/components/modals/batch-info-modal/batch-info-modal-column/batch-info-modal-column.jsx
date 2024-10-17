@@ -35,7 +35,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.product?.asin)} />,
+    renderCell: ({ row }) => <StringListCell asin data={row.items?.map(item => item?.product?.asin)} />,
 
     valueGetter: ({ row }) => row.items?.map(item => item?.product?.asin || t(TranslationKey.Missing)).join(', '),
 
