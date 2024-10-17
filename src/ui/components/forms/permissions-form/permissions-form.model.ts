@@ -160,7 +160,13 @@ export class PermissionsFormModel {
         productIds.push(productId)
       } else if ([WITHOUT_GROUP, SELECT_ALL_PRODUCTS].includes(shopId)) {
         this.products.forEach(product => productIds.push(product._id))
-      } else {
+      } else if (shopId && !productId && isBuyer(this.userInfo?.role)) {
+        const shop = this.shops.find(({ _id }) => _id === shopId)
+
+        if (shop?.products) {
+          shop.products.forEach(({ _id }) => productIds.push(_id))
+        }
+      } else if (shopId) {
         shopIds.push(shopId)
       }
     })
@@ -192,9 +198,6 @@ export class PermissionsFormModel {
     const hasEnoughUsers = this.subUser ? this.userIds.length > 0 : this.userIds.length >= 2
 
     return this.mainLoading || !hasEnoughUsers
-  }
-  get isClientAndBuyer() {
-    return isClient(this.userInfo?.role) || isBuyer(this.userInfo?.role)
   }
 
   constructor({ subUser, onCloseModal, onUpdateData }: PermissionsFormProps) {
@@ -374,7 +377,7 @@ export class PermissionsFormModel {
         })
       }
 
-      if (this.isClientAndBuyer) {
+      if (isClient(this.userInfo?.role)) {
         await PermissionsModel.patchPermissionsShops({
           userIds: this.userIds,
           shopIds: this.editingProducts.shopIds,
@@ -424,7 +427,7 @@ export class PermissionsFormModel {
     runInAction(() => (this.productsLoading = true))
 
     const products = await this.getProductsPermissions()
-    const shops = this.isClientAndBuyer && (await this.getPermissionsShops())
+    const shops = (isClient(this.userInfo?.role) || isBuyer(this.userInfo?.role)) && (await this.getPermissionsShops())
 
     runInAction(() => {
       this.products = products || []
