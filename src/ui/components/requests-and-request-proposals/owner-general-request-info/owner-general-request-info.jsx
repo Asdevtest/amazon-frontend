@@ -35,7 +35,7 @@ export const OwnerGeneralRequestInfo = props => {
 
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
 
-  const ideaId = request?.request?.onCheckIdea?.xid || request?.request?.onFinishedIdea?.xid
+  const ideaIds = request?.request?.onCheckIdea || request?.request?.onFinishedIdea
 
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
@@ -78,7 +78,7 @@ export const OwnerGeneralRequestInfo = props => {
           updatedAt={request?.request?.updatedAt}
           status={request?.request?.status}
           taskComplexity={request?.request?.taskComplexity}
-          ideaId={ideaId}
+          ideaIds={ideaIds}
           onClickIdeaId={onClickIdeaId}
         />
       )}
