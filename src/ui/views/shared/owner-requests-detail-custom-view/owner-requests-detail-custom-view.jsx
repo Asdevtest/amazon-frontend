@@ -85,6 +85,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
             onClickAbortBtn={viewModel.onClickAbortBtn}
             onRecoverRequest={viewModel.onRecoverRequest}
             onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
+            onClickIdeaId={viewModel.onClickIdeaId}
           />
         ) : null}
 

@@ -93,6 +93,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   productsToLaunch: IProduct[] = []
   productId: string = ''
   currentIdeaId: string = ''
+  ideaIdFromParam: string | null
   currentProposal: IProposal | undefined = undefined
   currentRequest = undefined
   paymentMethods: IPaymentMethod[] = []
@@ -168,12 +169,27 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
 
     makeObservable(this, observerConfig)
 
+    const url = new URL(window.location.href)
+    this.ideaIdFromParam = url.searchParams.get('ideaId')
+    if (this.ideaIdFromParam) {
+      this.getIdea(this.ideaIdFromParam)
+    }
+
     this.history = history
 
     this.getTableSettingsPreset()
   }
 
-  async getDataForIdeaModal(idea: IIdea) {
+  async getIdea(ideaId: string) {
+    try {
+      const response = await IdeaModel.getIdeaById(ideaId)
+      await this.getDataForIdeaModal(response)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getDataForIdeaModal(idea: IIdea | any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 

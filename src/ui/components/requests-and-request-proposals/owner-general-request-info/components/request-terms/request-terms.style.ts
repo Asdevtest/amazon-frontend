@@ -11,6 +11,7 @@ export const useStyles = makeStyles()(theme => ({
   requestInformationTitleWrapper: {
     display: 'flex',
     gap: 15,
+    alignItems: 'center',
   },
 
   sectionTitle: {
@@ -19,6 +20,18 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-end',
+    whiteSpace: 'nowrap',
+  },
+
+  lnkTitle: {
+    fontSize: 14,
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+    transition: '.3s ease',
+    '&:hover': {
+      opacity: '.7',
+      textDecoration: 'underline',
+    },
   },
 
   confirmationWrapper: {
