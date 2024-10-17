@@ -50,6 +50,8 @@ export const RequestDesignerResultClientForm = memo(props => {
 
   const noShowActions = isNotClient || proposalIsAccepted || onlyRead
 
+  const selectedSourceFile = proposal?.proposal?.sourceFiles?.[proposal.proposal.sourceFiles.length - 1]?.sourceFile
+
   const [showImageModal, setShowImageModal] = useState(false)
   const [curImageIndex, setCurImageIndex] = useState(0)
   const [comment, setComment] = useState('')
@@ -143,13 +145,10 @@ export const RequestDesignerResultClientForm = memo(props => {
               inputComponent={
                 proposal?.proposal?.sourceFiles?.[0]?.sourceFile ? (
                   <div className={styles.viewLinkWrapper}>
-                    <Link
-                      href={checkAndMakeAbsoluteUrl(proposal.proposal.sourceFiles?.[0]?.sourceFile)}
-                      target="_blank"
-                    >
+                    <Link href={checkAndMakeAbsoluteUrl(selectedSourceFile)} target="_blank">
                       {t(TranslationKey.View)}
                     </Link>
-                    <CopyValue text={proposal.proposal.sourceFiles?.[0]?.sourceFile} />
+                    <CopyValue text={selectedSourceFile} />
                   </div>
                 ) : (
                   <div className={styles.shippingLabelWrapper}>
