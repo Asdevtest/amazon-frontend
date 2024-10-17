@@ -3,7 +3,6 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   messageWrapper: {
     display: 'flex',
-    alignSelf: 'flex-start',
     flexDirection: 'column',
     maxWidth: '400px',
 
@@ -17,7 +16,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   yourMessage: {
-    alignSelf: 'flex-end',
     borderRadius: '10px 10px 0px 10px',
   },
 

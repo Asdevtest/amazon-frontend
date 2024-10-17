@@ -39,9 +39,9 @@ export const MessagesList: FC = observer(() => {
     chatModel.setSelectedMessage(chatModel.selectedChatId, message)
   }, [])
 
-  // const onClickForwardMessages = useCallback((message: ChatMessage) => {
-  //   chatModel.onClickForwardMessages(chatModel.selectedChatId, [message])
-  // }, [])
+  const onClickForwardMessages = useCallback(() => {
+    chatModel.handleClickForwardMessages()
+  }, [])
 
   const onClickCopyMessageText = useCallback((message: ChatMessage) => {
     navigator.clipboard.writeText(message?.text)
@@ -51,63 +51,26 @@ export const MessagesList: FC = observer(() => {
     initChat()
   }, [])
 
-  // console.log('listRef :>> ', listRef)
-
   return (
     <>
-      {chatMessages?.map(message => (
-        <ChatMessageControls
-          key={message._id}
-          showDropdown
-          message={message}
-          onClickReply={onClickReply}
-          onSelectMessage={onSelectMessage}
-          // onClickForwardMessages={}
-          onClickCopyMessageText={onClickCopyMessageText}
-        >
-          <ChatMessageItem currentUserId={currentUserId} message={message} />
-        </ChatMessageControls>
-      ))}
+      {chatMessages?.map(message => {
+        const isYourMessage = currentUserId === message.user?._id
+
+        return (
+          <ChatMessageControls
+            key={message._id}
+            disableSelect={false}
+            alignRight={isYourMessage}
+            message={message}
+            onClickReply={onClickReply}
+            onSelectMessage={onSelectMessage}
+            onClickForwardMessages={onClickForwardMessages}
+            onClickCopyMessageText={onClickCopyMessageText}
+          >
+            <ChatMessageItem isYourMessage={isYourMessage} message={message} />
+          </ChatMessageControls>
+        )
+      })}
     </>
-
-    // <AutoSizer className={styles.autoSizer}>
-    //   {({ width, height }) => (
-    //     <List
-    //       ref={listRef}
-    //       id="messages-list"
-    //       width={width}
-    //       height={height}
-    //       rowCount={chatMessages?.length}
-    //       rowHeight={cache.rowHeight}
-    //       deferredMeasurementCache={cache}
-    //       rowRenderer={({ index, key, style, parent }) => {
-    //         const message = chatMessages?.[index]
-
-    //         return (
-    //           <CellMeasurer key={key} parent={parent} cache={cache} columnIndex={0} rowIndex={index}>
-    //             {({ measure, registerChild: cellMeasurerRegisterChild }) => (
-    //               <div
-    //                 // @ts-ignore
-    //                 ref={cellMeasurerRegisterChild}
-    //                 style={{
-    //                   ...style,
-    //                   padding: '3px 0',
-    //                 }}
-    //               >
-    //                 <ChatMessageItem
-    //                   key={message._id}
-    //                   currentUserId={currentUserId}
-    //                   message={message}
-    //                   measure={measure}
-    //                 />
-    //               </div>
-    //             )}
-    //           </CellMeasurer>
-    //         )
-    //       }}
-    //       onScroll={handleScroll}
-    //     />
-    //   )}
-    // </AutoSizer>
   )
 })

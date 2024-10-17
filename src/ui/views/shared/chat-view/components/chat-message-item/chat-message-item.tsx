@@ -12,14 +12,13 @@ import { useStyles } from './chat-message-item.style'
 import { MediaFiles } from '../media-files'
 
 interface ChatMessageItemProps {
-  currentUserId: string
   message: ChatMessage
+  isYourMessage: boolean
 }
 
-export const ChatMessageItem: FC<ChatMessageItemProps> = memo(({ message, currentUserId }) => {
+export const ChatMessageItem: FC<ChatMessageItemProps> = memo(({ message, isYourMessage }) => {
   const { classes: styles, cx } = useStyles()
 
-  const isYourMessage = message?.user?._id === currentUserId
   const isReadMessage = message?.isRead
 
   const mediaFiles = message?.images?.concat(message?.video)

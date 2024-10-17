@@ -23,12 +23,6 @@ export const useStyles = makeStyles()(() => ({
         display: 'block',
       },
     },
-
-    '.ant-dropdown-trigger': {
-      // display: 'contents',
-      // width: '100%',
-      // backgroundColor: 'red',
-    },
   },
 
   noSelectedChat: {
