@@ -8,7 +8,7 @@ import { MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { formatDateWithoutTime } from '@utils/date-time'
-import { formatSnakeCaseString } from '@utils/text'
+import { formatCamelCaseString, formatSnakeCaseString } from '@utils/text'
 
 import { IProduct } from '@typings/models/products/product'
 
@@ -27,16 +27,16 @@ export const getColumn = ({
 }) => {
   const { name, type } = column
 
-  let headerName = formatSnakeCaseString(name)
+  let headerName = formatCamelCaseString(name)
 
   if (isCounter) {
     const tableName = formatSnakeCaseString(table)
     headerName = `${tableName} ${headerName}`
   }
-  // const columnKey = getColumnKey(type)
+  const columnKey = getColumnKey(type)
 
   return {
-    field: table + name,
+    field: `${table}:${name}`,
     headerName,
     renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
     valueGetter: (params: GridRenderCellParams) => {
@@ -47,13 +47,13 @@ export const getColumn = ({
       } else if (isCounter) {
         value = params.row?.reports?.[table]
       } else {
-        params.row?.reports?.[table]?.[name]
+        value = params.row?.reports?.[table]?.[name]
       }
 
       return value
     },
     renderCell: (params: GridRenderCellParams) => (
-      <Tooltip title={params.row?.reports?.[table]?.updated_at}>
+      <Tooltip title={formatDateWithoutTime(params.row?.reports?.[table]?.updated_at)}>
         <div
           style={{ width: '100%', height: '100%' }}
           onClick={(event: MouseEvent<HTMLDivElement>) => {
@@ -66,6 +66,9 @@ export const getColumn = ({
       </Tooltip>
     ),
     width: 150,
-    // columnKey,
+    additionalFilterSettings: ";product[$notnull]=''",
+    fieldNameFilter: name,
+    columnKey,
+    table,
   }
 }

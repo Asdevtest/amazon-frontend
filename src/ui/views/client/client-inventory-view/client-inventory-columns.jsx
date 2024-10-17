@@ -622,11 +622,10 @@ export const clientInventoryColumns = ({
   }
 
   for (const column of defaultColumns) {
-    if (column.table) {
-      continue
+    if (!column.table) {
+      column.table = DataGridFilterTables.PRODUCTS
     }
 
-    column.table = DataGridFilterTables.PRODUCTS
     column.sortable = false
   }
 

@@ -12,6 +12,8 @@ export const useStringColumnMenu = ({
   field,
   table,
   filtersData,
+  additionalFilterSettings,
+  fieldNameFilter,
   transformValueMethod,
   onClickFilterBtn,
 }: useStringColumnMenuProps) => {
@@ -42,8 +44,8 @@ export const useStringColumnMenu = ({
   }, [])
 
   useEffect(() => {
-    onClickFilterBtn(field, table)
-  }, [field])
+    onClickFilterBtn(fieldNameFilter || field, table, additionalFilterSettings)
+  }, [fieldNameFilter, field])
 
   useEffect(() => {
     setChosenItems(currentFilterData)

@@ -50,6 +50,7 @@ export const observerConfig = {
 
   isSomeFilterOn: override,
   getCurrentData: override,
+  getFilters: override,
 
   userInfo: computed,
   destinationsFavourites: computed,

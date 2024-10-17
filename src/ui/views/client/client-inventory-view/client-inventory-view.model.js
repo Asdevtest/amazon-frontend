@@ -1,4 +1,5 @@
 import { makeObservable, reaction, runInAction, toJS } from 'mobx'
+import QueryString from 'qs'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
@@ -24,10 +25,11 @@ import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { addIdDataConverter } from '@utils/data-grid-data-converters'
+import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
-import { formatCamelCaseString, toFixed } from '@utils/text'
+import { formatCamelCaseString, objectToUrlQs, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -1313,7 +1315,6 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       )
 
       runInAction(() => {
-        this.meta = result?.meta
         this.currentData = result?.rows || result
         this.rowCount = result?.count || result.length
       })
@@ -1537,5 +1538,58 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     this.curProduct = product
     this.parsingTable = table
     this.onTriggerOpenModal('showParsingReportsModal')
+  }
+
+  getFilters(exclusion) {
+    const obj = dataGridFiltersConverter(
+      this.columnMenuSettings,
+      this.currentSearchValue,
+      exclusion,
+      this.filtersFields,
+      this.fieldsForSearch,
+      this.additionalPropertiesGetFilters?.(),
+      this.operatorsSettings,
+      this.defaultFilterParams?.(),
+    )
+
+    console.log('parseToQueryString :>> ', this.parseToQueryString(obj))
+
+    return objectToUrlQs(
+      dataGridFiltersConverter(
+        this.columnMenuSettings,
+        this.currentSearchValue,
+        exclusion,
+        this.filtersFields,
+        this.fieldsForSearch,
+        this.additionalPropertiesGetFilters?.(),
+        this.operatorsSettings,
+        this.defaultFilterParams?.(),
+      ),
+    )
+  }
+
+  parseToQueryString(objParams) {
+    let queryString = ''
+
+    const keys = Object.keys(objParams)
+
+    for (const key of keys) {
+      if (key === 'or') {
+        for (let i = 0; i < objParams[key].length; i++) {
+          const orObj = objParams[key][i]
+          const field = Object.keys(orObj)[0]
+          const fieldValue = Object.keys(orObj[field])[0]
+
+          queryString += `or[${i}][${field}][${fieldValue}]=${orObj[field][fieldValue]}];`
+        }
+      } else {
+        const field = Object.keys(objParams[key])[0]
+        const fieldValue = Object.keys(objParams[key][field])[0]
+
+        queryString += `${key}[${field}]=${objParams[key][field]};`
+      }
+    }
+
+    return queryString
   }
 }

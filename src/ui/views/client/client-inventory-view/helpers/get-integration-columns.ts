@@ -10,12 +10,12 @@ export const getIntegrationColumns = (integrationTables: {
 
         if (Array.isArray(currentTableColumns)) {
           for (const column of currentTableColumns) {
-            const currentField = table + column.name
+            const currentField = `${table}:${column.name}`
 
             columns[currentField] = false
           }
         } else {
-          const currentField = table + currentTableColumns.name
+          const currentField = `${table}:${currentTableColumns.name}`
           columns[currentField] = false
         }
       }

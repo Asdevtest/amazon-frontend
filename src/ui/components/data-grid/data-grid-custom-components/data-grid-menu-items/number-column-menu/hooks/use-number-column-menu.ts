@@ -4,7 +4,14 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { HookParams } from '../../column-menu.type'
 import { wholeIntegersList } from '../../whole-integers-list'
 
-export const useNumberColumnMenu = ({ field, table, filtersData, onClickFilterBtn }: HookParams<number>) => {
+export const useNumberColumnMenu = ({
+  field,
+  table,
+  filtersData,
+  additionalFilterSettings,
+  fieldNameFilter,
+  onClickFilterBtn,
+}: HookParams<number>) => {
   const [chosenItems, setChosenItems] = useState<number[]>([])
 
   const [fromSearchValue, setFromSearchValue] = useState('')
@@ -43,8 +50,8 @@ export const useNumberColumnMenu = ({ field, table, filtersData, onClickFilterBt
   )
 
   useEffect(() => {
-    onClickFilterBtn(field, table)
-  }, [field])
+    onClickFilterBtn(fieldNameFilter || field, table, additionalFilterSettings)
+  }, [fieldNameFilter, field])
 
   useEffect(() => {
     setChosenItems(currentFilterData)
