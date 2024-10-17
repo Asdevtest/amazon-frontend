@@ -67,7 +67,6 @@ export const File: FC<FileProps & RefAttributes<HTMLDivElement | null>> = memo(
       <div ref={ref} className={styles.fileContainer}>
         {clientOrReadOnly ? (
           <Checkbox
-            stopPropagation
             checked={checked}
             className={styles.checkbox}
             wrapperClassName={styles.checkboxWrapper}

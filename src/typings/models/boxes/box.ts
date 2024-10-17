@@ -23,8 +23,8 @@ export interface IBox {
   prepId: string
   upsTrackNumber: string
   referenceId: string
-  clientComment: string
-  storekeeperComment: string
+  clientComment?: string
+  storekeeperComment?: string
   lengthCmWarehouse: number
   widthCmWarehouse: number
   heightCmWarehouse: number
@@ -64,7 +64,7 @@ export interface IBox {
   deadline: string
   weightFinalAccountingKgWarehouse: number
   volumeWeightKgWarehouse: number
-  storage: string
+  storage?: string
   productId: string
   orderSupplier: ISupplier
   currentSupplier: ISupplier

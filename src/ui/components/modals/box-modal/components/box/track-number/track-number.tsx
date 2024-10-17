@@ -17,7 +17,7 @@ import { useStyles } from './track-number.style'
 interface TrackNumberProps {
   isClient: boolean
   isEdit: boolean
-  formFields: IBox
+  formFields?: IBox
   onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
   onChangeTrackNumberFile: (files: string[]) => void
 }
@@ -65,7 +65,7 @@ export const TrackNumber: FC<TrackNumberProps> = memo(props => {
         <SetBarcodeModal
           title={t(TranslationKey['Track number'])}
           maxNumber={50}
-          tmpCode={formFields?.trackNumberFile}
+          tmpCode={formFields?.trackNumberFile || []}
           onClickSaveBarcode={onChangeTrackNumberFile}
           onCloseModal={() => setShowSetBarcodeModal(!showSetBarcodeModal)}
         />

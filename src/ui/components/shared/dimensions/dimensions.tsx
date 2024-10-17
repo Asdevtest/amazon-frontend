@@ -15,7 +15,7 @@ import { useStyles } from './dimensions.style'
 import { SizeSwitcher } from '../size-switcher'
 
 interface DimensionsProps {
-  data: IBox // if need other data - replace "IBox" to "any" or use combine types
+  data?: IBox // if need other data - replace "IBox" to "any" or use combine types
   calculationField?: Entities
   title?: string
   isCell?: boolean
@@ -25,6 +25,10 @@ interface DimensionsProps {
 
 export const Dimensions: FC<DimensionsProps> = memo(props => {
   const { data, calculationField = Entities.WAREHOUSE, title, isCell, isTotalWeight, transmittedSizeSetting } = props
+
+  if (!data) {
+    return null
+  }
 
   const { classes: styles, cx } = useStyles()
   const [sizeSetting, setSizeSetting] = useState(DimensionsEnum.EU)

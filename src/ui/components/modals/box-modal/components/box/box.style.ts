@@ -48,4 +48,9 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.general,
   },
+
+  skeleton: {
+    width: '1040px !important',
+    height: '280px !important',
+  },
 }))

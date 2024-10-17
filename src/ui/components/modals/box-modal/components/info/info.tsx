@@ -15,7 +15,7 @@ import { IBox } from '@typings/models/boxes/box'
 import { useStyles } from './info.style'
 
 interface InfoProps {
-  formFields: IBox
+  formFields?: IBox
   isStorekeeper: boolean
   onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
 }
