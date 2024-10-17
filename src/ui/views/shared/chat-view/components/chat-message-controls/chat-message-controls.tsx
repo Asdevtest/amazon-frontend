@@ -13,13 +13,12 @@ import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { useHover } from '@hooks/use-hover'
-
 import { useStyles } from './chat-message-controls.style'
 
 interface ChatMessageControlsOverlayProps extends PropsWithChildren {
-  showDropdown: boolean
+  disableSelect: boolean
   message: ChatMessage
+  alignRight: boolean
   isSelectedMessage?: boolean
   onSelectMessage?: (message: ChatMessage) => void
   onClickReply?: (message: ChatMessage) => void
@@ -31,21 +30,16 @@ export const ChatMessageControls: FC<ChatMessageControlsOverlayProps> = memo(pro
   const {
     message,
     children,
-    showDropdown,
+    disableSelect,
     isSelectedMessage,
+    alignRight,
     onClickReply,
     onSelectMessage,
     onClickForwardMessages,
     onClickCopyMessageText,
   } = props
 
-  // if (!showDropdown) {
-  //   return <>{children}</>
-  // }
-
-  const { classes: styles } = useStyles()
-
-  const hoverMessage = useHover()
+  const { classes: styles, cx } = useStyles()
 
   const items = useMemo(
     () => [
@@ -53,6 +47,7 @@ export const ChatMessageControls: FC<ChatMessageControlsOverlayProps> = memo(pro
         key: 'select',
         label: (
           <CustomButton
+            withoutPropagation={false}
             className={styles.button}
             icon={isSelectedMessage ? <AiOutlineCloseCircle /> : <FaRegCheckCircle />}
             onClick={() => onSelectMessage?.(message)}
@@ -64,7 +59,12 @@ export const ChatMessageControls: FC<ChatMessageControlsOverlayProps> = memo(pro
       {
         key: 'reply',
         label: (
-          <CustomButton className={styles.button} icon={<MdReply />} onClick={() => onClickReply?.(message)}>
+          <CustomButton
+            withoutPropagation={false}
+            className={styles.button}
+            icon={<MdReply />}
+            onClick={() => onClickReply?.(message)}
+          >
             {t(TranslationKey.Reply)}
           </CustomButton>
         ),
@@ -73,6 +73,7 @@ export const ChatMessageControls: FC<ChatMessageControlsOverlayProps> = memo(pro
         key: 'forward',
         label: (
           <CustomButton
+            withoutPropagation={false}
             className={styles.button}
             icon={<RiShareForwardFill />}
             onClick={() => {
@@ -88,6 +89,7 @@ export const ChatMessageControls: FC<ChatMessageControlsOverlayProps> = memo(pro
         key: 'copy',
         label: (
           <CustomButton
+            withoutPropagation={false}
             className={styles.button}
             icon={<MdOutlineContentCopy />}
             onClick={() => onClickCopyMessageText?.(message)}
@@ -100,10 +102,14 @@ export const ChatMessageControls: FC<ChatMessageControlsOverlayProps> = memo(pro
     [isSelectedMessage],
   )
 
-  console.log('items :>> ', items)
-
   return (
-    <Dropdown menu={{ items }} trigger={['contextMenu']}>
+    <Dropdown
+      destroyPopupOnHide
+      disabled={disableSelect}
+      menu={{ items }}
+      trigger={['contextMenu']}
+      className={cx(styles.dropdown, { [styles.alignRight]: alignRight })}
+    >
       <div>{children}</div>
     </Dropdown>
   )

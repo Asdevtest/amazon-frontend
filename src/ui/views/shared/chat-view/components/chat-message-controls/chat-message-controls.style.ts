@@ -6,4 +6,14 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'flex-start',
     color: theme.palette.text.primary,
   },
+
+  dropdown: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+  },
+
+  alignRight: {
+    justifyContent: 'flex-end',
+  },
 }))

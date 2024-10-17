@@ -265,6 +265,10 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
   getNewChat(chat: Chat) {
     this.addChatToManager(chat)
   }
+
+  handleClickForwardMessages() {
+    this.onTriggerOpenModal('showForwardMessagesModal', true)
+  }
 }
 
 export const chatModel = new ChatModel()

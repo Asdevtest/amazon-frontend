@@ -3,6 +3,7 @@ import { action, computed, observable } from 'mobx'
 export const observerConfig = {
   selectedChatId: observable,
   showCreateNewChatModal: observable,
+  showForwardMessagesModal: observable,
   typing: observable,
 
   chats: computed,
@@ -19,4 +20,5 @@ export const observerConfig = {
   getTypingMessage: action.bound,
   setTyping: action.bound,
   getNewChat: action.bound,
+  handleClickForwardMessages: action.bound,
 }
