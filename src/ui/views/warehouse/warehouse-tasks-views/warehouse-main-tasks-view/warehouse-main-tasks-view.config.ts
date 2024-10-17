@@ -37,7 +37,7 @@ export const warehouseCanceledTasksConfig = {
   onTriggerShowEditBoxModal: action.bound,
 }
 
-export const fieldsForSearch = ['asin', 'trackNumberText', 'xid', 'item']
+export const fieldsForSearch = ['asin', 'trackNumberText', 'orderXid', 'item']
 
 export interface ColumnsProps {
   onChangeTask: (id: string) => void
