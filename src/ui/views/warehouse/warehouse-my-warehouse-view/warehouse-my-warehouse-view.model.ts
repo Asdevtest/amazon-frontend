@@ -833,8 +833,9 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitAddBatch(boxesIds: string[], filesToAdd: any, batchFields: any) {
+  async onSubmitAddBatch(batchData: any) {
     try {
+      const { boxesIds, filesToAdd, batchFields } = batchData
       // @ts-ignore
       await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
 
