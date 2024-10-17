@@ -5,8 +5,6 @@ import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 import { TabPanel } from '@components/shared/tab-panel'
 
-import { IBox } from '@typings/models/boxes/box'
-
 import { useStyles } from './box-modal.style'
 
 import { EditHSCodeModal } from '../edit-hs-code-modal'
@@ -30,20 +28,20 @@ export const BoxModal: FC<BoxModalProps> = observer(props => {
   return (
     <div className={styles.wrapper}>
       <Header
-        formFields={viewModel.currentData as unknown as IBox}
+        formFields={viewModel.box}
         disabledPrepId={!(viewModel.isClient || viewModel.isStorekeeper)}
         onChangeField={viewModel.onChangeField}
       />
 
       <Info
-        formFields={viewModel.currentData as unknown as IBox}
+        formFields={viewModel.box}
         isStorekeeper={viewModel.isStorekeeper}
         onChangeField={viewModel.onChangeField}
       />
 
       <div className={styles.switcherWrapper}>
         <div className={styles.switcher}>
-          <Quantities formFields={viewModel.currentData as unknown as IBox} />
+          <Quantities formFields={viewModel.box} />
 
           <CustomRadioButton
             size="large"
@@ -59,7 +57,7 @@ export const BoxModal: FC<BoxModalProps> = observer(props => {
             isEdit={viewModel.isEdit}
             isBuyer={viewModel.isBuyer}
             isClient={viewModel.isClient}
-            formFields={viewModel.currentData as unknown as IBox}
+            formFields={viewModel.box}
             onChangeField={viewModel.onChangeField}
             onChangeTrackNumberFile={viewModel.onChangeTrackNumberFile}
           />
@@ -67,8 +65,8 @@ export const BoxModal: FC<BoxModalProps> = observer(props => {
         <TabPanel value={viewModel.activeTab} index={BoxTabs.ORDER_INFO}>
           <Order
             isClient={viewModel.isClient}
-            formFields={viewModel.currentData as unknown as IBox}
-            onClickHsCode={viewModel.onClickHsCode}
+            formFields={viewModel.box}
+            onClickHsCode={viewModel.onToggleEditHSCodeModal}
           />
         </TabPanel>
       </div>
@@ -76,7 +74,7 @@ export const BoxModal: FC<BoxModalProps> = observer(props => {
       <Comments
         isClient={viewModel.isClient}
         isStorekeeper={viewModel.isStorekeeper}
-        formFields={viewModel.currentData as unknown as IBox}
+        formFields={viewModel.box}
         onChangeField={viewModel.onChangeField}
         onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
       />
@@ -88,14 +86,10 @@ export const BoxModal: FC<BoxModalProps> = observer(props => {
         onSubmitChangeFields={viewModel.onSubmitChangeBoxFields}
       />
 
-      <Modal
-        openModal={viewModel.showEditHSCodeModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
-      >
+      <Modal openModal={viewModel.showEditHSCodeModal} setOpenModal={viewModel.onToggleEditHSCodeModal}>
         <EditHSCodeModal
-          // @ts-ignore
-          productId={viewModel.currentData?.items?.[0]?.product?._id}
-          onCloseModal={() => viewModel.onTriggerOpenModal('showEditHSCodeModal')}
+          productId={viewModel.box?.items?.[0]?.product?._id}
+          onCloseModal={viewModel.onToggleEditHSCodeModal}
         />
       </Modal>
     </div>

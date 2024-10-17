@@ -15,7 +15,7 @@ import { useStyles } from './edit-hs-code-modal.style'
 import { EditHSCodeModalModel } from './edit-hs-code-modal.model'
 
 interface EditHSCodeModalProps {
-  productId: string
+  productId?: string
   onCloseModal: () => void
   onUpdateData?: () => void
 }
