@@ -12,7 +12,7 @@ import { IBox } from '@typings/models/boxes/box'
 import { useStyles } from './fields.style'
 
 interface FieldsProps {
-  formFields: IBox
+  formFields?: IBox
   isClient: boolean
   isBuyer: boolean
   isEdit: boolean

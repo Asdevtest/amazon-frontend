@@ -481,7 +481,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         // @ts-ignore
         idsBeforeData: [this.selectedBox?._id],
         type: TaskOperationType.EDIT,
-        clientComment: boxData.clientComment,
+        clientComment: boxData.clientComment || '',
       })
 
       toast.success(

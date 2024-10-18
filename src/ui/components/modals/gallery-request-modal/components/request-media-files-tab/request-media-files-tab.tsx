@@ -68,7 +68,6 @@ export const RequestMediaFilesTab: FC<RequestMediaFilesTabProps> = memo(props =>
                       )}
 
                       <Checkbox
-                        stopPropagation
                         checked={getCheckboxState(file)}
                         disabled={getDisabledCheckbox(file)}
                         className={styles.checkbox}
