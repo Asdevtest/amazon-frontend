@@ -98,8 +98,8 @@ export const inventoryColumns = () => {
 
     {
       field: 'fbaFees',
-      headerName: 'Fba fees',
-      renderHeader: () => <MultilineTextHeaderCell text="Fba fees" />,
+      headerName: 'FBA fees',
+      renderHeader: () => <MultilineTextHeaderCell text="FBA fees" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -108,8 +108,8 @@ export const inventoryColumns = () => {
 
     {
       field: 'refFees',
-      headerName: 'Ref fees',
-      renderHeader: () => <MultilineTextHeaderCell text="Ref fees" />,
+      headerName: 'REF fees',
+      renderHeader: () => <MultilineTextHeaderCell text="REF fees" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -158,8 +158,8 @@ export const inventoryColumns = () => {
 
     {
       field: 'fnSku',
-      headerName: 'FnSku',
-      renderHeader: () => <MultilineTextHeaderCell text="FnSku" />,
+      headerName: 'FNSKU',
+      renderHeader: () => <MultilineTextHeaderCell text="FNSKU" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,

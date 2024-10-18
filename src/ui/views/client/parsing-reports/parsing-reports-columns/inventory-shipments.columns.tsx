@@ -60,8 +60,8 @@ export const inventoryShipmentsColumns = () => {
 
     {
       field: 'sku',
-      headerName: 'Sku',
-      renderHeader: () => <MultilineTextHeaderCell text="Sku" />,
+      headerName: 'SKU',
+      renderHeader: () => <MultilineTextHeaderCell text="SKU" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
@@ -70,8 +70,8 @@ export const inventoryShipmentsColumns = () => {
 
     {
       field: 'shipmentId',
-      headerName: 'Shipment id',
-      renderHeader: () => <MultilineTextHeaderCell text="Shipment id" />,
+      headerName: 'Shipment ID',
+      renderHeader: () => <MultilineTextHeaderCell text="Shipment ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
@@ -80,8 +80,8 @@ export const inventoryShipmentsColumns = () => {
 
     {
       field: 'referenceId',
-      headerName: 'Reference id',
-      renderHeader: () => <MultilineTextHeaderCell text="Reference id" />,
+      headerName: 'Reference ID',
+      renderHeader: () => <MultilineTextHeaderCell text="Reference ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
@@ -90,8 +90,8 @@ export const inventoryShipmentsColumns = () => {
 
     {
       field: 'amzDateCreated',
-      headerName: 'Amz date created',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz date created" />,
+      headerName: 'AMZ date created',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ date created" />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
