@@ -16,4 +16,10 @@ export const useStyles = makeStyles()(theme => ({
   alignRight: {
     justifyContent: 'flex-end',
   },
+
+  selected: {
+    backgroundColor: theme.palette.background.activeChat,
+    borderRadius: 10,
+    padding: '2px',
+  },
 }))

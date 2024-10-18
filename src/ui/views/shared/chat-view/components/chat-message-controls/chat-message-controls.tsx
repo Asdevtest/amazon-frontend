@@ -20,6 +20,7 @@ interface ChatMessageControlsOverlayProps extends PropsWithChildren {
   message: ChatMessage
   alignRight: boolean
   isSelectedMessage?: boolean
+  onClickMessage?: (message: ChatMessage) => void
   onSelectMessage?: (message: ChatMessage) => void
   onClickReply?: (message: ChatMessage) => void
   onClickForwardMessages?: (message: ChatMessage) => void
@@ -33,6 +34,7 @@ export const ChatMessageControls: FC<ChatMessageControlsOverlayProps> = memo(pro
     disableSelect,
     isSelectedMessage,
     alignRight,
+    onClickMessage,
     onClickReply,
     onSelectMessage,
     onClickForwardMessages,
@@ -108,7 +110,9 @@ export const ChatMessageControls: FC<ChatMessageControlsOverlayProps> = memo(pro
       disabled={disableSelect}
       menu={{ items }}
       trigger={['contextMenu']}
-      className={cx(styles.dropdown, { [styles.alignRight]: alignRight })}
+      className={cx(styles.dropdown, { [styles.alignRight]: alignRight, [styles.selected]: isSelectedMessage })}
+      // @ts-ignore
+      onClick={() => onClickMessage?.(message)}
     >
       <div>{children}</div>
     </Dropdown>
