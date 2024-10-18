@@ -11,10 +11,6 @@ export const useStyles = makeStyles()(() => ({
 
   button: {
     position: 'relative',
-    width: 30,
-    height: 30,
-    padding: 0,
-    borderRadius: 7,
   },
 
   starIcon: {
@@ -22,12 +18,12 @@ export const useStyles = makeStyles()(() => ({
   },
 
   pasteInput: {
-    width: 30,
-    height: 30,
+    width: 32,
+    height: 32,
     position: 'absolute',
     top: 0,
     left: 0,
     opacity: 0,
-    borderRadius: 7,
+    borderRadius: 16,
   },
 }))

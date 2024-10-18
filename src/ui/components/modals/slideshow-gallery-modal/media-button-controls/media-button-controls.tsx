@@ -1,19 +1,20 @@
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC } from 'react'
+import { IoArchiveOutline } from 'react-icons/io5'
 import {
   MdAutorenew,
   MdDeleteOutline,
   MdOutlineDownload,
   MdOutlineModeEdit,
+  MdOutlineSimCardDownload,
   MdOutlineStar,
   MdZoomOutMap,
 } from 'react-icons/md'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { checkIsImageLink } from '@utils/checks'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { isString } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
 
@@ -26,6 +27,7 @@ interface MediaButtonControlsProps {
   onUploadFile: (event: ChangeEvent<HTMLInputElement>, mediaFileIndex: number) => void
   onMakeMainFile: (mediaFile: UploadFileType, mediaFileIndex: number) => void
   onDownloadFile: (mediaFile: UploadFileType) => void
+  onDownloadFiles: () => void
   onOpenImageZoomModal: () => void
   isEditable?: boolean
   withoutMakeMainImage?: boolean
@@ -41,6 +43,7 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
     onImageEditToggle,
     onRemoveFile,
     onUploadFile,
+    onDownloadFiles,
     onMakeMainFile,
     onDownloadFile,
     onOpenImageZoomModal,
@@ -50,47 +53,50 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
 
   const isImageType = checkIsImageLink(isString(mediaFile) ? mediaFile : '.' + mediaFile?.file?.name) // checkIsImageLink accepts .extension
 
+  const downloadMenuItems = [
+    {
+      key: 'download',
+      label: <MdOutlineSimCardDownload size={20} />,
+      onClick: () => onDownloadFile(mediaFile),
+    },
+    {
+      key: 'download-all',
+      label: <IoArchiveOutline size={20} />,
+      onClick: onDownloadFiles,
+    },
+  ]
+
   return (
     <div className={styles.controls}>
-      <Button className={styles.button} onClick={() => onDownloadFile(mediaFile)}>
-        <MdOutlineDownload size={20} />
-      </Button>
+      <div>
+        <CustomButton dropdown menuItems={downloadMenuItems} icon={<MdOutlineDownload size={20} />} />
+      </div>
 
-      <Button className={styles.button} onClick={onOpenImageZoomModal}>
-        <MdZoomOutMap size={20} />
-      </Button>
+      <CustomButton icon={<MdZoomOutMap size={20} />} onClick={onOpenImageZoomModal} />
 
       {isEditable ? (
         <>
           {!withoutMakeMainImage ? (
-            <Button
+            <CustomButton
+              icon={<MdOutlineStar size={20} className={cx({ [styles.starIcon]: mediaFileIndex === 0 })} />}
               disabled={mediaFileIndex === 0}
-              className={styles.button}
               onClick={() => onMakeMainFile(mediaFile, mediaFileIndex)}
-            >
-              <MdOutlineStar size={20} className={cx({ [styles.starIcon]: mediaFileIndex === 0 })} />
-            </Button>
+            />
           ) : null}
 
-          {isImageType ? (
-            <Button className={styles.button} onClick={() => onImageEditToggle?.()}>
-              <MdOutlineModeEdit size={20} />
-            </Button>
-          ) : null}
+          {isImageType ? <CustomButton icon={<MdOutlineModeEdit size={20} />} onClick={onImageEditToggle} /> : null}
 
-          <Button className={styles.button}>
-            <MdAutorenew size={20} />
+          <div className={styles.button}>
+            <CustomButton icon={<MdAutorenew size={20} />} />
             <input
               type="file"
               defaultValue=""
               className={styles.pasteInput}
               onChange={event => onUploadFile(event, mediaFileIndex)}
             />
-          </Button>
+          </div>
 
-          <Button styleType={ButtonStyle.DANGER} className={styles.button} onClick={() => onRemoveFile(mediaFileIndex)}>
-            <MdDeleteOutline size={20} />
-          </Button>
+          <CustomButton danger icon={<MdDeleteOutline size={20} />} onClick={() => onRemoveFile(mediaFileIndex)} />
         </>
       ) : null}
     </div>
