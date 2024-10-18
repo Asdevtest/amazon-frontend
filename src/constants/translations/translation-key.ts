@@ -2076,4 +2076,7 @@ export enum TranslationKey {
   'Requested in batch' = 'Requested in batch',
   'Create ticket' = 'Create ticket',
   'Edit ticket' = 'Edit ticket',
+  'User files' = 'User files',
+  'Response' = 'Response',
+  'Response files' = 'Response files',
 }

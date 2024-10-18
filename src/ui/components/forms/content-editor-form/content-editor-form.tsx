@@ -4,8 +4,6 @@ import { MdOutlineAttachFile } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
 import { CustomTextarea } from '@components/shared/custom-textarea'
@@ -17,18 +15,18 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './content-editor-form.style'
 
-interface FieldData {
+export interface EditorFormFieldData {
   title: string
   text: string
   media: UploadFileType[]
 }
 
 interface ContentEditorFormProps {
-  onSubmit: (values: FieldData) => void
+  onSubmit: (values: EditorFormFieldData) => void
   onClose: () => void
-  loading?: boolean
-  data?: FieldData
+  data?: EditorFormFieldData
   title?: string
+  loading?: boolean
 }
 
 export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
@@ -40,12 +38,6 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
   const [images, setImages] = useState<UploadFileType[]>([])
 
   useEffect(() => {
-    if (!data) {
-      form.resetFields()
-    }
-  }, [SettingsModel.languageTag])
-
-  useEffect(() => {
     if (data) {
       form.setFieldsValue({
         title: data?.title || '',
@@ -54,11 +46,14 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
       })
 
       setImages(data?.media)
+    } else {
+      form.resetFields()
     }
   }, [data])
 
   const onFinish = useCallback(
-    (values: FieldData) => {
+    (values: EditorFormFieldData) => {
+      console.log('values', values)
       onSubmit(values)
     },
     [onSubmit],
@@ -73,16 +68,16 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
     <Form name="ticket-form" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
       <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
 
-      <Form.Item<FieldData> name="title" validateTrigger="onBlur" rules={[{ required: true, message: '' }]}>
+      <Form.Item<EditorFormFieldData> name="title" validateTrigger="onBlur" rules={[{ required: true, message: '' }]}>
         <CustomInput fullWidth placeholder="Title" />
       </Form.Item>
 
-      <Form.Item<FieldData> name="text" validateTrigger="onBlur" rules={[{ required: true, message: '' }]}>
+      <Form.Item<EditorFormFieldData> name="text" validateTrigger="onBlur" rules={[{ required: true, message: '' }]}>
         <CustomTextarea rows={6} placeholder="Description" />
       </Form.Item>
 
       {showMediaBlock ? (
-        <Form.Item<FieldData> name="media">
+        <Form.Item<EditorFormFieldData> name="media">
           <UploadFilesInput images={images} setImages={handleSetImages} />
         </Form.Item>
       ) : null}
@@ -95,9 +90,9 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
         />
 
         <div className={styles.flexRow}>
-          <Form.Item<FieldData> shouldUpdate>
+          <Form.Item<EditorFormFieldData> shouldUpdate>
             <CustomButton type="primary" htmlType="submit" loading={loading} disabled={loading}>
-              {t(TranslationKey[data ? 'Save' : 'Create ticket'])}
+              {t(TranslationKey[data ? 'Save' : 'Create'])}
             </CustomButton>
           </Form.Item>
 

@@ -2070,5 +2070,8 @@
   "Orders info": "订单信息",
   "Requested in batch": "请求入批次",
   "Create ticket": "创建工单",
-  "Edit ticket": "编辑工单"
+  "Edit ticket": "编辑工单",
+  "User files": "用户文件",
+  "Response": "回应",
+  "Response files": "回应文件"
 }

@@ -2074,5 +2074,8 @@
   "Select at least 2 users": "Виберіть щонайменше 2 користувача",
   "Requested in batch": "Запрошено в партію",
   "Create ticket": "Створити тікет",
-  "Edit ticket": "Редагувати тікет"
+  "Edit ticket": "Редагувати тікет",
+  "User files": "Файли користувача",
+  "Response": "Відповідь",
+  "Response files": "Файли відповіді"
 }

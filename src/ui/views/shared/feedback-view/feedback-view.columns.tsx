@@ -7,7 +7,12 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
+import {
+  ActionButtonsCell,
+  MediaContentCell,
+  MultilineTextHeaderCell,
+  NormDateCell,
+} from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
@@ -18,6 +23,14 @@ import { ColumnProps } from './feedback-view.config'
 
 export const feedbackViewColumns = ({ onToggleTicketForm, onRemoveTicket }: ColumnProps) => {
   const columns: IGridColumn[] = [
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
+      width: 110,
+      columnKey: columnnsKeys.shared.DATE,
+    },
     {
       field: 'status',
       headerName: t(TranslationKey.Status),
@@ -31,7 +44,7 @@ export const feedbackViewColumns = ({ onToggleTicketForm, onRemoveTicket }: Colu
       headerName: t(TranslationKey.Title),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row.title} />,
-      width: 120,
+      width: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
@@ -39,8 +52,34 @@ export const feedbackViewColumns = ({ onToggleTicketForm, onRemoveTicket }: Colu
       headerName: t(TranslationKey.Description),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row.text} />,
-      width: 120,
+      flex: 1,
       columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+    {
+      field: 'media',
+      headerName: t(TranslationKey['User files']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['User files'])} />,
+      renderCell: ({ row }: GridRowModel) => <MediaContentCell image={row.media?.[0]} />,
+      width: 90,
+      filterable: false,
+      disableCustomSort: true,
+    },
+    {
+      field: 'responseText',
+      headerName: t(TranslationKey.Response),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Response)} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.responseText} />,
+      flex: 1,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+    {
+      field: 'responseMedia',
+      headerName: t(TranslationKey['Response files']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Response files'])} />,
+      renderCell: ({ row }: GridRowModel) => <MediaContentCell image={row.responseMedia?.[0]} />,
+      width: 90,
+      filterable: false,
+      disableCustomSort: true,
     },
     {
       field: 'updatedAt',
@@ -50,14 +89,7 @@ export const feedbackViewColumns = ({ onToggleTicketForm, onRemoveTicket }: Colu
       width: 115,
       columnKey: columnnsKeys.shared.DATE,
     },
-    {
-      field: 'createdAt',
-      headerName: t(TranslationKey.Created),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
-      width: 110,
-      columnKey: columnnsKeys.shared.DATE,
-    },
+
     {
       field: 'action',
       headerName: t(TranslationKey.Actions),
