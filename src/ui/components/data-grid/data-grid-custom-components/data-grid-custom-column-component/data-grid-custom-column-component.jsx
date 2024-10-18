@@ -494,6 +494,8 @@ export const DataGridCustomColumnMenuComponent = props => {
           filtersData={props[currentColumn.field]}
           field={currentColumn.field}
           table={currentColumn.table}
+          additionalFilterSettings={currentColumn.additionalFilterSettings}
+          fieldNameFilter={currentColumn.fieldNameFilter}
           filterRequestStatus={filterRequestStatus}
           defaultOption={currentColumn?.defaultOption}
           onClickFilterBtn={onClickFilterBtn}
@@ -512,6 +514,8 @@ export const DataGridCustomColumnMenuComponent = props => {
           filtersData={props[currentColumn.field]}
           field={currentColumn.field}
           table={currentColumn.table}
+          additionalFilterSettings={currentColumn.additionalFilterSettings}
+          fieldNameFilter={currentColumn.fieldNameFilter}
           transformValueMethod={currentColumn.transformValueMethod}
           isShowFullText={currentColumn.isShowFullText}
           filterRequestStatus={filterRequestStatus}
@@ -530,6 +534,8 @@ export const DataGridCustomColumnMenuComponent = props => {
         <ObjectColumnMenu
           field={currentColumn.field}
           table={currentColumn.table}
+          additionalFilterSettings={currentColumn.additionalFilterSettings}
+          fieldNameFilter={currentColumn.fieldNameFilter}
           hideEmptyObject={currentColumn.hideEmptyObject}
           filtersData={props[currentColumn.field]}
           filterRequestStatus={filterRequestStatus}

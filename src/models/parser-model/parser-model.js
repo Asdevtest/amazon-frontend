@@ -100,6 +100,11 @@ class ParserModelStatic {
     const response = await restApiService.parserApi.apiV1IntegrationsParserClientsProductsLinkSkuPatch({ body })
     return response.data
   }
+
+  getFieldsInventoryIntegration = async () => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserFieldsForInventoryGet()
+    return response.data
+  }
 }
 
 export const ParserModel = new ParserModelStatic()

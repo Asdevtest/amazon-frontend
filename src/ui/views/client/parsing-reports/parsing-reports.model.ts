@@ -6,18 +6,24 @@ import { SellerBoardModel } from '@models/seller-board-model'
 
 import { getParsingReportsModelSettings } from './helpers/get-parsing-reports-model-settings'
 import { parsingReportsModelConfig } from './parsing-reports.config'
-import { ParsingReportsType } from './parsing-reports.type'
+import { ParsingReportsModelParams, ParsingReportsType } from './parsing-reports.type'
 
 export class ParsingReportsModel extends DataGridFilterTableModel {
   table: ParsingReportsType = ParsingReportsType.BUSINESS_REPORTS
 
-  constructor() {
-    const { columnsModel, filtersFields, mainMethodURL, sortModel, fieldsForSearch } = getParsingReportsModelSettings(
-      ParsingReportsType.BUSINESS_REPORTS,
-    )
+  constructor({ table = ParsingReportsType.BUSINESS_REPORTS, productId }: ParsingReportsModelParams) {
+    const { columnsModel, filtersFields, mainMethodURL, sortModel, fieldsForSearch } =
+      getParsingReportsModelSettings(table)
+
     const defaultGetCurrentDataOptions = () => ({
       table: this.table,
     })
+
+    const defaultFilterParams = () => {
+      return {
+        product: { $eq: productId },
+      }
+    }
 
     super({
       getMainDataMethod: SellerBoardModel.getIntegrationsReports,
@@ -25,12 +31,15 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
       filtersFields,
       mainMethodURL,
       fieldsForSearch,
-      tableKey: ParsingReportsType.BUSINESS_REPORTS,
+      tableKey: table,
       defaultGetCurrentDataOptions,
       defaultSortModel: sortModel,
       defaultColumnVisibilityModel: { client: false },
+      defaultFilterParams,
     })
     makeObservable(this, parsingReportsModelConfig)
+
+    this.table = table
 
     this.getTableSettingsPreset()
   }

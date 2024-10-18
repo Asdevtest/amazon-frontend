@@ -19,6 +19,7 @@ import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
+import { ParsingReportsModal } from '@components/modals/parsing-reports-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
@@ -50,7 +51,11 @@ export const ClientInventoryView = observer(({ history }) => {
   const viewModel = useMemo(() => new ClientInventoryViewModel(), [])
   viewModel.initHistory()
 
-  const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
+  const getCellClassName = params => {
+    if (clickableCells.includes(params.field) || params.field?.includes('counter')) {
+      return styles.clickableCell
+    }
+  }
 
   const apiRef = useGridApiRef()
 
@@ -397,6 +402,15 @@ export const ClientInventoryView = observer(({ history }) => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
           productId={viewModel.selectedRowId}
           handleUpdateRow={tags => apiRef.current.updateRows([{ _id: viewModel.selectedRowId, tags }])}
+        />
+      ) : null}
+
+      {viewModel.showParsingReportsModal ? (
+        <ParsingReportsModal
+          openModal={viewModel.showParsingReportsModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showParsingReportsModal')}
+          product={viewModel?.curProduct}
+          table={viewModel.parsingTable}
         />
       ) : null}
     </div>
