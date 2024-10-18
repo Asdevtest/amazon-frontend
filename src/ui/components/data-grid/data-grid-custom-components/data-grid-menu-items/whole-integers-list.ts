@@ -58,6 +58,9 @@ export const wholeIntegersList = [
   'currentSupplierMinProductionTerm',
   'currentSupplierMaxProductionTerm',
   'amountInBatch',
+  'orderXid',
+  'batchXid',
+  'requestXid',
 ]
 
 export const negativeOrPositiveList = ['roi']

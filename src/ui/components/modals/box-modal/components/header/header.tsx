@@ -12,7 +12,7 @@ import { IBox } from '@typings/models/boxes/box'
 import { useStyles } from './header.style'
 
 interface HeaderProps {
-  formFields: IBox
+  formFields?: IBox
   disabledPrepId: boolean
   onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
 }

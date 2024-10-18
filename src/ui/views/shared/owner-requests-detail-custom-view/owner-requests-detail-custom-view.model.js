@@ -456,8 +456,11 @@ export class OwnerRequestDetailCustomViewModel {
   onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request/edit-request`,
-      { requestId: this.requestId },
     )
+  }
+
+  onClickIdeaId(ideaId) {
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/ideas/all?ideaId=${ideaId}`)
   }
 
   async onSubmitAbortRequest(comment) {

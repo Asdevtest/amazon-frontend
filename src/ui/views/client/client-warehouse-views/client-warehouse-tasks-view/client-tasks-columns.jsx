@@ -93,7 +93,9 @@ export const clientTasksViewColumns = handlers => {
       headerName: 'ASIN',
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
-      renderCell: params => <StringListCell data={params.row?.boxesBefore} />,
+      renderCell: params => (
+        <StringListCell data={params.row?.boxesBefore.flatMap(box => box.items?.map(item => item.product?.asin))} />
+      ),
 
       disableCustomSort: true,
       width: window.innerWidth < 1282 ? 100 : 160,
@@ -129,7 +131,9 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey['Order number']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
 
-      renderCell: params => <StringListCell data={params.row?.boxesBefore} />,
+      renderCell: params => (
+        <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.xid))} />
+      ),
       type: 'number',
       disableCustomSort: true,
       width: window.innerWidth < 1282 ? 73 : 160,
@@ -150,7 +154,9 @@ export const clientTasksViewColumns = handlers => {
       headerName: 'item',
       renderHeader: () => <MultilineTextHeaderCell text="item" />,
 
-      renderCell: params => <StringListCell data={params.row?.boxesBefore} />,
+      renderCell: params => (
+        <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.item))} />
+      ),
       disableCustomSort: true,
       width: window.innerWidth < 1282 ? 54 : 160,
     },

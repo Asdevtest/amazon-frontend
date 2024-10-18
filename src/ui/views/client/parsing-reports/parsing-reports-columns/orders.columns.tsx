@@ -47,8 +47,8 @@ export const ordersColumns = () => {
 
     {
       field: 'amzOrderId',
-      headerName: 'Amz order id',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz order id" />,
+      headerName: 'AMZ order ID',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ order ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
