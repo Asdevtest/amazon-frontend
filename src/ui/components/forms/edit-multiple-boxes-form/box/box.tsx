@@ -234,6 +234,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     inputComponent={
                       <ChangeChipCell
                         isChipOutTable
+                        disabled={checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])}
                         text={
                           !order?.tmpTransparencyFile?.length && !order?.transparencyFile
                             ? t(TranslationKey.Transparency)

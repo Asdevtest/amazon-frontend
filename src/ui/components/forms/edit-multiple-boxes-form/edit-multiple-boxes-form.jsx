@@ -522,6 +522,7 @@ export const EditMultipleBoxesForm = observer(
                   inputComponent={
                     <ChangeChipCell
                       isChipOutTable
+                      disabled={checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])}
                       text={!sharedFields?.tmpTransparencyFile?.length && t(TranslationKey.Transparency)}
                       value={
                         sharedFields?.tmpTransparencyFile?.[0]?.file?.name || sharedFields?.tmpTransparencyFile?.[0]
@@ -535,7 +536,7 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
                 <Button
-                  disabled={disabledApplyBtn}
+                  disabled={disabledApplyBtn || checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
                 >
                   {applyBtnsClicked.tmpTransparencyFile ? <MdDone size={18} /> : t(TranslationKey.Apply)}
