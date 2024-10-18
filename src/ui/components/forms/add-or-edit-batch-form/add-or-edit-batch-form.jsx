@@ -45,7 +45,6 @@ import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
 export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batchToEdit, sourceBox }) => {
   const viewModel = useMemo(() => new ClientAwaitingBatchesViewModel(true), [])
-  console.log(batchToEdit)
   const { classes: styles, cx } = useStyles()
 
   const isClient = checkIsClient(UserRoleCodeMap[UserModel.platformSettings?.role])
