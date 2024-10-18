@@ -200,14 +200,15 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
     },
 
     {
-      field: 'batchXid', // check after update back
+      field: 'batchXid',
       headerName: t(TranslationKey.Batch),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Batch)} />,
       valueGetter: ({ row }) => row?.batch?.xid || t(TranslationKey['Outside Batch']),
       renderCell: params => <Text isCell text={params.row?.batch?.xid || t(TranslationKey['Outside Batch'])} />,
-      type: 'number',
+
       width: 110,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      table: DataGridFilterTables.BATCHES,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
