@@ -29,4 +29,4 @@ export const getRequestTemplateOptions = (requests: IPermissionsData[]) =>
 export type IChangeData = (data: IRequest) => void
 
 export const options = { kind: RequestSubType.MY }
-export const searchFields = ['asin', 'title', 'humanFriendlyId']
+export const searchFields = ['asin', 'title', 'xid']

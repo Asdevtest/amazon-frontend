@@ -9,7 +9,7 @@ import { IBox } from '@typings/models/boxes/box'
 import { useStyles } from './quantities.style'
 
 interface QuantitiesProps {
-  formFields: IBox
+  formFields?: IBox
 }
 
 export const Quantities: FC<QuantitiesProps> = memo(({ formFields }) => {
@@ -17,7 +17,7 @@ export const Quantities: FC<QuantitiesProps> = memo(({ formFields }) => {
 
   return (
     <div className={styles.wrapper}>
-      {formFields?.amount > 1 ? (
+      {formFields?.amount && formFields?.amount > 1 ? (
         <div className={styles.superBoxContainer}>
           <div className={styles.superBoxIconContainer}>
             <img src="/assets/icons/big-box.svg" className={styles.superBoxIcon} alt="super box" />

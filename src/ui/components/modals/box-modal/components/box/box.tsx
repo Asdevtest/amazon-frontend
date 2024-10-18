@@ -1,3 +1,4 @@
+import { Skeleton } from 'antd'
 import { ChangeEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,7 +24,7 @@ interface BoxProps {
   isEdit: boolean
   isBuyer: boolean
   isClient: boolean
-  formFields: IBox
+  formFields?: IBox
   onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
   onChangeTrackNumberFile: (files: string[]) => void
 }
@@ -35,49 +36,53 @@ export const Box: FC<BoxProps> = memo(props => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.flexContainer}>
-        <Items formFields={formFields} />
+      {formFields ? (
+        <div className={styles.flexContainer}>
+          <Items formFields={formFields} />
 
-        <div className={cx(styles.info, styles.flexContainer)}>
-          <SlideshowGallery hiddenPreviews files={formFields?.images || []} slidesToShow={2} />
+          <div className={cx(styles.info, styles.flexContainer)}>
+            <SlideshowGallery hiddenPreviews files={formFields?.images || []} slidesToShow={2} />
 
-          <Dimensions data={formFields} title={t(TranslationKey['Sizes from storekeeper'])} />
+            <Dimensions data={formFields} title={t(TranslationKey['Sizes from storekeeper'])} />
 
-          <div className={styles.checkboxes}>
-            <div className={styles.checkboxContainer}>
-              <Checkbox disabled className={styles.checkbox} checked={formFields?.isFormed} />
-              {formFields?.sub ? (
-                <img
-                  src={getUserAvatarSrc(formFields?.sub._id)}
-                  alt="user"
-                  className={styles.userIcon}
-                  title={formFields?.sub.name}
-                />
-              ) : (
-                <NoPhotoIcon className={styles.userIcon} />
-              )}
-              <p className={styles.text}>{t(TranslationKey.Formed)}</p>
-            </div>
+            <div className={styles.checkboxes}>
+              <div className={styles.checkboxContainer}>
+                <Checkbox disabled className={styles.checkbox} checked={formFields?.isFormed} />
+                {formFields?.sub ? (
+                  <img
+                    src={getUserAvatarSrc(formFields?.sub._id)}
+                    alt="user"
+                    className={styles.userIcon}
+                    title={formFields?.sub.name}
+                  />
+                ) : (
+                  <NoPhotoIcon className={styles.userIcon} />
+                )}
+                <p className={styles.text}>{t(TranslationKey.Formed)}</p>
+              </div>
 
-            <TrackNumber
-              isClient={isClient}
-              isEdit={isEdit}
-              formFields={formFields}
-              onChangeField={onChangeField}
-              onChangeTrackNumberFile={onChangeTrackNumberFile}
-            />
-
-            <div className={styles.checkboxContainer}>
-              <Checkbox
-                disabled
-                className={styles.checkbox}
-                checked={formFields?.isShippingLabelAttachedByStorekeeper}
+              <TrackNumber
+                isClient={isClient}
+                isEdit={isEdit}
+                formFields={formFields}
+                onChangeField={onChangeField}
+                onChangeTrackNumberFile={onChangeTrackNumberFile}
               />
-              <p className={styles.text}>{t(TranslationKey['Shipping label was glued to the warehouse'])}</p>
+
+              <div className={styles.checkboxContainer}>
+                <Checkbox
+                  disabled
+                  className={styles.checkbox}
+                  checked={formFields?.isShippingLabelAttachedByStorekeeper}
+                />
+                <p className={styles.text}>{t(TranslationKey['Shipping label was glued to the warehouse'])}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <Skeleton.Node active className={styles.skeleton} />
+      )}
 
       <Fields
         formFields={formFields}
