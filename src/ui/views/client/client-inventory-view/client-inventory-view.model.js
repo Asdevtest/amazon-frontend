@@ -1552,20 +1552,10 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       this.defaultFilterParams?.(),
     )
 
-    console.log('parseToQueryString :>> ', this.parseToQueryString(obj))
+    const queryString = this.parseToQueryString(obj)
+    const oldQuery = objectToUrlQs(obj)
 
-    return objectToUrlQs(
-      dataGridFiltersConverter(
-        this.columnMenuSettings,
-        this.currentSearchValue,
-        exclusion,
-        this.filtersFields,
-        this.fieldsForSearch,
-        this.additionalPropertiesGetFilters?.(),
-        this.operatorsSettings,
-        this.defaultFilterParams?.(),
-      ),
-    )
+    return queryString
   }
 
   parseToQueryString(objParams) {
@@ -1580,13 +1570,18 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
           const field = Object.keys(orObj)[0]
           const fieldValue = Object.keys(orObj[field])[0]
 
-          queryString += `or[${i}][${field}][${fieldValue}]=${orObj[field][fieldValue]}];`
+          queryString += `or[${i}][${field}][${fieldValue}]=${orObj[field][fieldValue]};`
         }
-      } else {
-        const field = Object.keys(objParams[key])[0]
-        const fieldValue = Object.keys(objParams[key][field])[0]
+      } else if (key?.includes(':')) {
+        const [table, field] = key.split(':')
+        const operator = Object.keys(objParams[key])[0]
 
-        queryString += `${key}[${field}]=${objParams[key][field]};`
+        queryString += `reports[${table}][${field}][${operator}]=${objParams[key][operator]};`
+      } else {
+        const operator = Object.keys(objParams[key])[0]
+        const fieldValue = Object.keys(objParams[key][operator])[0]
+
+        queryString += `${key}[${operator}]=${objParams[key][operator]};`
       }
     }
 

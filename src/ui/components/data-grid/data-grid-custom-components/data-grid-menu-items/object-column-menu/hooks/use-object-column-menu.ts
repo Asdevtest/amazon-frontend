@@ -83,7 +83,7 @@ export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
   )
 
   useEffect(() => {
-    onClickFilterBtn(fieldNameFilter || field, table, additionalFilterSettings)
+    onClickFilterBtn(field, table, additionalFilterSettings, fieldNameFilter)
   }, [fieldNameFilter, field])
 
   useEffect(() => {

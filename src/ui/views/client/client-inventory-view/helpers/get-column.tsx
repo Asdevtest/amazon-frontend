@@ -66,7 +66,6 @@ export const getColumn = ({
       </Tooltip>
     ),
     width: 150,
-    additionalFilterSettings: ";product[$notnull]=''",
     fieldNameFilter: name,
     columnKey,
     table,

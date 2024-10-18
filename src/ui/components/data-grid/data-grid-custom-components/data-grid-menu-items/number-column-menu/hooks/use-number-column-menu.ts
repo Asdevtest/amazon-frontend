@@ -50,7 +50,7 @@ export const useNumberColumnMenu = ({
   )
 
   useEffect(() => {
-    onClickFilterBtn(fieldNameFilter || field, table, additionalFilterSettings)
+    onClickFilterBtn(field, table, additionalFilterSettings, fieldNameFilter)
   }, [fieldNameFilter, field])
 
   useEffect(() => {

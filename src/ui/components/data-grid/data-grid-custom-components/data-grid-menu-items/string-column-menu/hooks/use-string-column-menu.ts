@@ -44,7 +44,7 @@ export const useStringColumnMenu = ({
   }, [])
 
   useEffect(() => {
-    onClickFilterBtn(fieldNameFilter || field, table, additionalFilterSettings)
+    onClickFilterBtn(field, table, additionalFilterSettings, fieldNameFilter)
   }, [fieldNameFilter, field])
 
   useEffect(() => {

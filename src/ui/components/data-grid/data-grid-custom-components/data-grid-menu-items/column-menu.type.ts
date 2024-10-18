@@ -6,7 +6,7 @@ export interface HookParams<T> {
   field: string
   table: string
   filtersData: IFilter<T>
-  onClickFilterBtn: (field: string, table: string, additionalFilterSettings?: string) => void
+  onClickFilterBtn: (field: string, table: string, additionalFilterSettings?: string, fieldNameFilter?: string) => void
   fieldNameFilter?: string
   additionalFilterSettings?: string
 }
