@@ -107,8 +107,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcAcos',
-      headerName: 'Ppc acos',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc acos" />,
+      headerName: 'PPC acos',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC acos" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -117,8 +117,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcImpressions',
-      headerName: 'Ppc impressions',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc impressions" />,
+      headerName: 'PPC impressions',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC impressions" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -127,8 +127,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcClicks',
-      headerName: 'Ppc clicks',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc clicks" />,
+      headerName: 'PPC clicks',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC clicks" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -137,8 +137,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcSpend',
-      headerName: 'Ppc spend',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc spend" />,
+      headerName: 'PPC spend',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC spend" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -147,8 +147,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrders',
-      headerName: 'Ppc orders',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc orders" />,
+      headerName: 'PPC orders',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC orders" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -157,8 +157,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcUnits',
-      headerName: 'Ppc units',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc units" />,
+      headerName: 'PPC units',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC units" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -167,8 +167,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcAvgUnitsPerOrder',
-      headerName: 'Ppc avg units per order',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc avg units per order" />,
+      headerName: 'PPC AVG units per order',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC AVG units per order" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -177,8 +177,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcSales',
-      headerName: 'Ppc sales',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc sales" />,
+      headerName: 'PPC sales',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC sales" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -187,8 +187,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcUsdPerOrder',
-      headerName: 'Ppc usd per order',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc usd per order" />,
+      headerName: 'PPC USD per order',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC USD per order" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -197,8 +197,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcUsdPerUnit',
-      headerName: 'Ppc usd per unit',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc usd per unit" />,
+      headerName: 'PPC USD per unit',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC USD per unit" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -237,8 +237,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'organicAvgUnitsPerOrder',
-      headerName: 'Organic avg units per order',
-      renderHeader: () => <MultilineTextHeaderCell text="Organic avg units per order" />,
+      headerName: 'Organic AVG units per order',
+      renderHeader: () => <MultilineTextHeaderCell text="Organic AVG units per order" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -257,8 +257,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'organicUsdPerOrder',
-      headerName: 'Organic usd per order',
-      renderHeader: () => <MultilineTextHeaderCell text="Organic usd per order" />,
+      headerName: 'Organic USD per order',
+      renderHeader: () => <MultilineTextHeaderCell text="Organic USD per order" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -267,8 +267,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'organicUsdPerUnit',
-      headerName: 'Organic usd per unit',
-      renderHeader: () => <MultilineTextHeaderCell text="Organic usd per unit" />,
+      headerName: 'Organic USD per unit',
+      renderHeader: () => <MultilineTextHeaderCell text="Organic USD per unit" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -277,8 +277,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicImpressions',
-      headerName: 'Ppc organic impressions',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic impressions" />,
+      headerName: 'PPC organic impressions',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic impressions" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -287,8 +287,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicSessions',
-      headerName: 'Ppc organic sessions',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic sessions" />,
+      headerName: 'PPC organic sessions',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic sessions" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -297,8 +297,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicCtr',
-      headerName: 'Ppc organic ctr',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic ctr" />,
+      headerName: 'PPC organic CTR',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic CTR" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -307,8 +307,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicOrders',
-      headerName: 'Ppc organic orders',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic orders" />,
+      headerName: 'PPC organic orders',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic orders" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -317,8 +317,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicUnits',
-      headerName: 'Ppc organic units',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic units" />,
+      headerName: 'PPC organic units',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic units" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -327,8 +327,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicAvgUnitsPerOrder',
-      headerName: 'Ppc organic avg units per order',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic avg units per order" />,
+      headerName: 'PPC organic AVG units per order',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic AVG units per order" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -337,8 +337,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicSales',
-      headerName: 'Ppc organic sales',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic sales" />,
+      headerName: 'PPC organic sales',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic sales" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -347,8 +347,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicUsdPerOrder',
-      headerName: 'Ppc organic usd per order',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic usd per order" />,
+      headerName: 'PPC organic USD per order',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic USD per order" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -357,8 +357,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicUsdPerUnit',
-      headerName: 'Ppc organic usd per unit',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic usd per unit" />,
+      headerName: 'PPC organic USD per unit',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic USD per unit" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -367,8 +367,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicBuybox',
-      headerName: 'Ppc organic buybox',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic buybox" />,
+      headerName: 'PPC organic buybox',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic buybox" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -397,8 +397,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcOrganicConversion',
-      headerName: 'Ppc organic conversion',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc organic conversion" />,
+      headerName: 'PPC organic conversion',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC organic conversion" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -407,8 +407,8 @@ export const ppcSalesWeeksColumns = () => {
 
     {
       field: 'ppcConversion',
-      headerName: 'Ppc conversion',
-      renderHeader: () => <MultilineTextHeaderCell text="Ppc conversion" />,
+      headerName: 'PPC conversion',
+      renderHeader: () => <MultilineTextHeaderCell text="PPC conversion" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
