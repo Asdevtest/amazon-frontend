@@ -10,6 +10,7 @@ export const useStyles = makeStyles()(theme => ({
     boxShadow: theme.palette.boxShadow.box,
     borderRadius: '20px 0 0 20px',
     paddingRight: '5px',
+    scrollbarGutter: 'stable',
 
     '::-webkit-scrollbar': {
       display: 'none',

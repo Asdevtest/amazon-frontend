@@ -13,6 +13,9 @@ export const observerConfig = {
   checkIsTypingUser: action.bound,
   setLastMessage: action.bound,
   setReplyMessage: action.bound,
+  clearReplyMessage: action.bound,
   setSelectedMessage: action.bound,
   setForwarderMessages: action.bound,
+  clearSelectedMessage: action.bound,
+  clearForwarderMessages: action.bound,
 }

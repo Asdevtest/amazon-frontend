@@ -11,6 +11,8 @@ export const useStyles = makeStyles()(() => ({
 
     paddingRight: '10px',
 
+    scrollbarGutter: 'stable',
+
     '::-webkit-scrollbar': {
       display: 'none',
       background: 'transparent',

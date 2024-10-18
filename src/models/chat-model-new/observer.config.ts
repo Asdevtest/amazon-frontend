@@ -21,4 +21,5 @@ export const observerConfig = {
   setTyping: action.bound,
   getNewChat: action.bound,
   handleClickForwardMessages: action.bound,
+  handleClickForwardMessagesToChat: action.bound,
 }

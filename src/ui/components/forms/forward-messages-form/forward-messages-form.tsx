@@ -51,7 +51,7 @@ export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
 
       <div className={styles.chatList}>
         {renderData.map(chat => (
-          <ChatItem key={chat._id} chat={chat} onClickChat={() => onClickChat(chat)} />
+          <ChatItem key={chat._id} hideMessageBlock chat={chat} onClickChat={() => onClickChat(chat)} />
         ))}
       </div>
 

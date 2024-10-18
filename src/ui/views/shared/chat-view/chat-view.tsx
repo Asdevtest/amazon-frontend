@@ -48,7 +48,7 @@ export const ChatView = observer(() => {
       <Modal openModal={chatModel.showForwardMessagesModal} setOpenModal={onClickCloseForwardMessages}>
         <ForwardMessagesForm
           chats={chatModel.chats}
-          onClickChat={onClickCloseForwardMessages}
+          onClickChat={chatModel.handleClickForwardMessagesToChat}
           onCloseModal={onClickCloseForwardMessages}
         />
       </Modal>

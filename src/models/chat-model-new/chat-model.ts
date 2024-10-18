@@ -96,7 +96,7 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
 
   async getChatFirstMessages() {
     try {
-      if (!this.currentChat) {
+      if (!this.currentChat || this.currentChat?.messages?.length) {
         return
       }
 
@@ -268,6 +268,15 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
 
   handleClickForwardMessages() {
     this.onTriggerOpenModal('showForwardMessagesModal', true)
+  }
+
+  handleClickForwardMessagesToChat(chat: Chat) {
+    const messagesToForward = this.currentChat?.selectedMessages || []
+
+    this.setForwarderMessages(chat?._id, messagesToForward)
+    this.onTriggerOpenModal('showForwardMessagesModal', false)
+    this.clearSelectedMessage(this.currentChat?._id as string)
+    this.onClickChat(chat)
   }
 }
 

@@ -19,11 +19,12 @@ import { ChatAvatar } from '../chat-avatar'
 interface ChatItemProps {
   chat: Chat
   onClickChat: (chat: Chat) => void
-
+  hideMessageBlock?: boolean
   isActiveChat?: boolean
 }
 
-export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickChat }) => {
+export const ChatItem: FC<ChatItemProps> = memo(props => {
+  const { chat, isActiveChat, hideMessageBlock, onClickChat } = props
   const { classes: styles, cx } = useStyles()
 
   const { chatTitle, isFavoritesChat, isGroupChat, isOnlineUser, isTyping } = useOnlineUser(chat)
@@ -49,12 +50,14 @@ export const ChatItem: FC<ChatItemProps> = memo(({ chat, isActiveChat, onClickCh
           <p className={styles.lastMessageDate}>{lastMessageDate}</p>
         </div>
 
-        <div className={styles.lastMessageBlock}>
-          <p className={cx(styles.text, { [styles.textTyping]: isTyping })}>
-            {isTyping ? `${t(TranslationKey.typing)}...` : chat.lastMessage?.text}
-          </p>
-          {unreadMessages ? <Badge count={unreadMessages} className={styles.badge} /> : null}
-        </div>
+        {hideMessageBlock ? null : (
+          <div className={styles.lastMessageBlock}>
+            <p className={cx(styles.text, { [styles.textTyping]: isTyping })}>
+              {isTyping ? `${t(TranslationKey.typing)}...` : chat.lastMessage?.text}
+            </p>
+            {unreadMessages ? <Badge count={unreadMessages} className={styles.badge} /> : null}
+          </div>
+        )}
       </div>
     </CustomButton>
   )

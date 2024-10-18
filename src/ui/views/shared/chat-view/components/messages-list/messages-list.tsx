@@ -20,6 +20,7 @@ export const MessagesList: FC = observer(() => {
 
   const currentChat = chatModel.currentChat as Chat
   const chatMessages = chatModel.currentChatMessages as ChatMessage[]
+  const selectedMessages = currentChat.selectedMessages
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -47,13 +48,27 @@ export const MessagesList: FC = observer(() => {
     navigator.clipboard.writeText(message?.text)
   }, [])
 
+  const onClickMessage = useCallback(
+    (message: ChatMessage) => {
+      if (selectedMessages?.length) {
+        onSelectMessage(message)
+      }
+    },
+    [selectedMessages],
+  )
+
   useEffect(() => {
     initChat()
-  }, [])
+
+    return () => {
+      chatModel?.clearSelectedMessage(currentChat?._id)
+    }
+  }, [currentChat?._id])
 
   return (
     <>
       {chatMessages?.map(message => {
+        const isSelectedMessage = selectedMessages?.find(el => el?._id === message?._id)
         const isYourMessage = currentUserId === message.user?._id
 
         return (
@@ -61,7 +76,9 @@ export const MessagesList: FC = observer(() => {
             key={message._id}
             disableSelect={false}
             alignRight={isYourMessage}
+            isSelectedMessage={!!isSelectedMessage}
             message={message}
+            onClickMessage={onClickMessage}
             onClickReply={onClickReply}
             onSelectMessage={onSelectMessage}
             onClickForwardMessages={onClickForwardMessages}

@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, useCallback } from 'react'
+import { RiShareForwardFill } from 'react-icons/ri'
 import { TbLayoutSidebarRightCollapse } from 'react-icons/tb'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,21 +21,45 @@ export const ChatHeader: FC = observer(() => {
   const { classes: styles } = useStyles()
 
   const currentChat = chatModel.currentChat as Chat
+  const selectedMessages = currentChat?.selectedMessages
+  const selectedLength = selectedMessages?.length
+
+  const onClickForwardMessages = useCallback(() => {
+    chatModel.handleClickForwardMessages()
+  }, [])
+
+  const onClearSelectedMessages = useCallback(() => {
+    chatModel.clearSelectedMessage(currentChat?._id)
+  }, [currentChat])
+
+  const onOpenCreateNewChat = useCallback(() => {
+    chatModel.onTriggerOpenModal('showCreateNewChatModal', true)
+  }, [])
 
   return (
     <div className={styles.chatInfoHeaderWrapper}>
       {currentChat ? (
-        <>
-          <ChatInfoUser currentChat={currentChat} />
+        currentChat && !!selectedLength ? (
+          <>
+            <CustomButton size="large" icon={<RiShareForwardFill />} onClick={onClickForwardMessages}>{`${t(
+              TranslationKey.Forward,
+            )} ${selectedLength}`}</CustomButton>
 
-          <CustomInputSearch placeholder="Search" />
+            <CustomButton size="large" onClick={onClearSelectedMessages}>
+              {t(TranslationKey.Cancel)}
+            </CustomButton>
+          </>
+        ) : (
+          <>
+            <ChatInfoUser currentChat={currentChat} />
 
-          <CustomButton type="text" icon={<TbLayoutSidebarRightCollapse size={20} />} />
-        </>
+            <CustomInputSearch placeholder="Search" />
+
+            <CustomButton type="text" icon={<TbLayoutSidebarRightCollapse size={20} />} />
+          </>
+        )
       ) : (
-        <CustomButton onClick={() => chatModel.onTriggerOpenModal('showCreateNewChatModal', true)}>
-          {t(TranslationKey['New Dialog'])}
-        </CustomButton>
+        <CustomButton onClick={onOpenCreateNewChat}>{t(TranslationKey['New Dialog'])}</CustomButton>
       )}
     </div>
   )

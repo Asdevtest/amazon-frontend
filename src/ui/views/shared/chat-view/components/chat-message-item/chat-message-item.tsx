@@ -3,12 +3,11 @@ import { IoCheckmarkDone, IoCheckmarkSharp } from 'react-icons/io5'
 
 import { ChatMessage } from '@models/chat-model-new/types/message.type'
 
-import { ChatMessageFiles } from '@components/chat/chat/components/chat-messages-list/components/chat-messages/chat-message-files/chat-message-files'
-
 import { formatDateTimeHourAndMinutesLocal } from '@utils/date-time'
 
 import { useStyles } from './chat-message-item.style'
 
+import { Files } from '../files'
 import { MediaFiles } from '../media-files'
 
 interface ChatMessageItemProps {
@@ -30,7 +29,7 @@ export const ChatMessageItem: FC<ChatMessageItemProps> = memo(({ message, isYour
     <div className={cx(styles.messageWrapper, { [styles.yourMessage]: isYourMessage })}>
       <MediaFiles mediaFiles={mediaFiles} />
 
-      <ChatMessageFiles files={files} />
+      <Files size="40px" files={files} />
 
       <p>{message?.text}</p>
 

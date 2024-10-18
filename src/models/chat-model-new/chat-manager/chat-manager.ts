@@ -126,8 +126,21 @@ export class ChatsManager<T> extends EmitsClient<T> {
     }
 
     chat.replyMessage = message
+    chat.messagesToForward = []
 
-    this.chatsManager?.set(chatId, { ...chat })
+    this.chatsManager?.set(chatId, chat)
+  }
+
+  clearReplyMessage(chatId: string) {
+    const chat = this.chatsManager?.get(chatId)
+
+    if (!chat) {
+      return
+    }
+
+    chat.replyMessage = null
+
+    this.chatsManager?.set(chatId, chat)
   }
 
   setSelectedMessage(chatId: string, message: ChatMessage) {
@@ -137,14 +150,27 @@ export class ChatsManager<T> extends EmitsClient<T> {
       return
     }
 
-    const forwardMessageIndex = chat.selectedMessages?.findIndex(el => el === message?._id) as number
+    const forwardMessageIndex = chat.selectedMessages?.find(el => el?._id === message?._id)
 
-    if (forwardMessageIndex === -1) {
-      chat.selectedMessages?.push(message?._id)
+    if (!forwardMessageIndex) {
+      chat.selectedMessages = [...(chat.selectedMessages || []), message]
     } else {
-      chat.selectedMessages?.splice(forwardMessageIndex, 1)
+      chat.selectedMessages = chat.selectedMessages?.filter(el => el?._id !== message?._id)
     }
 
+    chat.replyMessage = null
+
+    this.chatsManager?.set(chatId, chat)
+  }
+
+  clearSelectedMessage(chatId: string) {
+    const chat = this.chatsManager?.get(chatId)
+
+    if (!chat) {
+      return
+    }
+
+    chat.selectedMessages = []
     this.chatsManager?.set(chatId, { ...chat })
   }
 
@@ -156,7 +182,19 @@ export class ChatsManager<T> extends EmitsClient<T> {
     }
 
     chat.messagesToForward = messages
+    chat.replyMessage = null
 
-    this.chatsManager?.set(chatId, { ...chat })
+    this.chatsManager?.set(chatId, chat)
+  }
+
+  clearForwarderMessages(chatId: string) {
+    const chat = this.chatsManager?.get(chatId)
+
+    if (!chat) {
+      return
+    }
+
+    chat.messagesToForward = []
+    this.chatsManager?.set(chatId, chat)
   }
 }

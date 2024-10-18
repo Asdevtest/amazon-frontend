@@ -51,6 +51,6 @@ export interface Chat {
   unread: string
 
   replyMessage?: ChatMessage | null
-  selectedMessages?: string[]
-  messagesToForward?: ChatMessage[]
+  selectedMessages: ChatMessage[]
+  messagesToForward: ChatMessage[]
 }
