@@ -26,7 +26,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.xid || '-'} />,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
       width: 80,
     },
 
@@ -46,7 +46,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Batch number'])} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.batch?.xid || '-'} />,
       table: DataGridFilterTables.BATCHES,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
       width: 100,
     },
 
