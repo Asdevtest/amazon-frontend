@@ -155,16 +155,6 @@ export const inventoryColumns = () => {
     },
 
     {
-      field: 'fnSku',
-      headerName: 'FnSku',
-      renderHeader: () => <MultilineTextHeaderCell text="FnSku" />,
-
-      renderCell: params => <Text isCell text={params.value} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
-    },
-
-    {
       field: 'soldBy',
       headerName: 'Sold by',
       renderHeader: () => <MultilineTextHeaderCell text="Sold by" />,
