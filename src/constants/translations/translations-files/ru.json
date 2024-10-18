@@ -2078,5 +2078,6 @@
   "Edit ticket": "Редактировать тикет",
   "User files": "Файлы пользователя",
   "Response": "Ответ",
-  "Response files": "Файлы ответа"
+  "Response files": "Файлы ответа",
+  "Are you sure you want to delete this ticket?": "Вы уверены, что хотите удалить этот тикет?"
 }

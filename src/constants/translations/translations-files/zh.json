@@ -2073,5 +2073,6 @@
   "Edit ticket": "编辑工单",
   "User files": "用户文件",
   "Response": "回应",
-  "Response files": "回应文件"
+  "Response files": "回应文件",
+  "Are you sure you want to delete this ticket?": "您确定要删除此工单吗?"
 }

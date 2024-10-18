@@ -2077,5 +2077,6 @@
   "Edit ticket": "Редагувати тікет",
   "User files": "Файли користувача",
   "Response": "Відповідь",
-  "Response files": "Файли відповіді"
+  "Response files": "Файли відповіді",
+  "Are you sure you want to delete this ticket?": "Ви впевнені, що хочете видалити цей тікет?"
 }

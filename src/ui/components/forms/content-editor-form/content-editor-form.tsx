@@ -53,7 +53,6 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
 
   const onFinish = useCallback(
     (values: EditorFormFieldData) => {
-      console.log('values', values)
       onSubmit(values)
     },
     [onSubmit],

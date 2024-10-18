@@ -18,6 +18,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { useStyles } from './feedback-view.style'
 
 import { FeedbackViewModel } from './feedback-view.model'
+import { TicketForm } from './ticket-form'
 
 export const FeedbackView = observer(() => {
   const { classes: styles } = useStyles()
@@ -103,6 +104,10 @@ export const FeedbackView = observer(() => {
           onSubmit={() => {}}
           onClose={viewModel.onToggleContentEditorForm}
         />
+      </Modal>
+
+      <Modal openModal={viewModel.showTicketForm} setOpenModal={viewModel.onToggleTicketForm}>
+        <TicketForm onSubmit={() => {}} onClose={viewModel.onToggleTicketForm} />
       </Modal>
     </div>
   )

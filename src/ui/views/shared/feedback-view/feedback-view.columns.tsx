@@ -102,6 +102,7 @@ export const feedbackViewColumns = ({ onToggleTicketForm, onRemoveTicket }: Colu
           secondDanger
           firstGhost
           secondGhost
+          secondConfirmText="Are you sure you want to delete this ticket?"
           firstIcon={<FaEye size={16} />}
           secondIcon={<MdOutlineDelete size={16} />}
           onClickFirst={() => onToggleTicketForm(row)}

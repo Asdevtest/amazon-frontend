@@ -1,9 +1,18 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
-  form: {
-    height: '100%',
-    width: '610px',
+export const useStyles = makeStyles()(theme => ({
+  root: {
+    width: '1000px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+
+  block: {
+    padding: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
   },
 
   flexRow: {
@@ -11,16 +20,14 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: '20px',
-
-    div: {
-      margin: 0,
-    },
   },
 
-  title: {
-    marginBottom: 20,
-    fontSize: 18,
-    lineHeight: '25px',
-    fontWeight: 600,
+  user: {
+    borderRadius: '16px',
+    boxShadow: theme.palette.boxShadow.paper,
+  },
+
+  response: {
+    borderLeft: `2px solid ${theme.palette.primary.main}`,
   },
 }))
