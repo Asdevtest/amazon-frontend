@@ -374,7 +374,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Requests in progress'])} />,
       renderCell: params => <Text isCell text={params.value} />,
       width: 120,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
