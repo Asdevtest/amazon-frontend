@@ -38,6 +38,7 @@ export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props 
     onRemoveFile,
     onEditRotateFile,
     onDownloadFile,
+    onDownloadFiles,
     updateImagesForLoad,
   } = useSlideshowGalleryModal(props)
 
@@ -76,6 +77,7 @@ export const SlideshowGalleryModal: FC<SlideshowGalleryModalProps> = memo(props 
           onUploadFile={onUploadFile}
           onRemoveFile={onRemoveFile}
           onDownloadFile={onDownloadFile}
+          onDownloadFiles={onDownloadFiles}
           onOpenImageZoomModal={onOpenImageZoomModal}
         />
       </div>
