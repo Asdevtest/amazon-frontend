@@ -6,8 +6,8 @@ import { AnnouncementsModel } from '@models/announcements-model'
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { FeedbackModel } from '@models/feedback-model'
 
+import { IFeedback } from '@typings/models/administrators/feedback'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
-import { IFeedback } from '@typings/models/feedbacks/feedback'
 import { ICreatedBy } from '@typings/shared/created-by'
 import { HistoryType } from '@typings/types/history'
 

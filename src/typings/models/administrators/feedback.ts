@@ -1,9 +1,16 @@
-import { IMasterUser } from '../../shared/master-user'
+import { ICreatedBy } from '@typings/shared/created-by'
 
 export interface IFeedback {
   _id: string
+  title: string
+  status: number
+  xid: number
   text: string
-  media: object[]
-  user: IMasterUser
+  media: string[]
+  responseText: string
+  responseMedia: string[]
+  user: ICreatedBy
+  moderator: ICreatedBy
+  createdAt: string
   updatedAt: string
 }

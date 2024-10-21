@@ -415,6 +415,14 @@ export const navbarConfig = {
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT),
     },
     {
+      icon: FeedbackIcon,
+      title: () => t(TranslationKey.Feedback),
+      route: '/client/feedback',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_FEEDBACK,
+      checkHideBlock: () => true,
+    },
+    {
       icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/client/messages',
@@ -459,6 +467,14 @@ export const navbarConfig = {
         !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.researcher.SHOW_USERS_RESEARCHER) ||
         user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_USERS_RESEARCHER),
+    },
+    {
+      icon: FeedbackIcon,
+      title: () => t(TranslationKey.Feedback),
+      route: '/researcher/feedback',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_FEEDBACK,
+      checkHideBlock: () => true,
     },
     {
       icon: MessageIcon,
@@ -561,6 +577,14 @@ export const navbarConfig = {
         !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.freelancer.SHOW_PAYMENTS_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_PAYMENTS_FREELANCER),
+    },
+    {
+      icon: FeedbackIcon,
+      title: () => t(TranslationKey.Feedback),
+      route: '/freelancer/feedback',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_FEEDBACK,
+      checkHideBlock: () => true,
     },
     {
       icon: MessageIcon,
@@ -687,6 +711,14 @@ export const navbarConfig = {
         !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.supervisor.SHOW_SETTINGS_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_SETTINGS_SUPERVISOR),
+    },
+    {
+      icon: FeedbackIcon,
+      title: () => t(TranslationKey.Feedback),
+      route: '/supervisor/feedback',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_FEEDBACK,
+      checkHideBlock: () => true,
     },
     {
       icon: MessageIcon,
@@ -896,6 +928,14 @@ export const navbarConfig = {
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER),
     },
     {
+      icon: FeedbackIcon,
+      title: () => t(TranslationKey.Feedback),
+      route: '/buyer/feedback',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_FEEDBACK,
+      checkHideBlock: () => true,
+    },
+    {
       icon: MessageIcon,
       title: () => t(TranslationKey.Messages),
       route: '/buyer/messages',
@@ -1037,6 +1077,14 @@ export const navbarConfig = {
         !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.storekeeper.SHOW_MANAGEMENT_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_MANAGEMENT_STOREKEEPER),
+    },
+    {
+      icon: FeedbackIcon,
+      title: () => t(TranslationKey.Feedback),
+      route: '/warehouse/feedback',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_FEEDBACK,
+      checkHideBlock: () => true,
     },
     {
       icon: MessageIcon,

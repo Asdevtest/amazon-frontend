@@ -9,7 +9,7 @@ import { UserLink } from '@components/user/user-link'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { IFeedback } from '@typings/models/feedbacks/feedback'
+import { IFeedback } from '@typings/models/administrators/feedback'
 import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './reviews-form.style'

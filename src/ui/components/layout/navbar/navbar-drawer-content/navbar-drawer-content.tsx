@@ -5,18 +5,13 @@ import { List } from '@mui/material'
 import { appVersion } from '@constants/app-version'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { navBarActiveCategory } from '@constants/navigation/navbar-active-category'
-import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { NavbarCategory } from '@components/layout/navbar'
 import { NavbarCollapse } from '@components/layout/navbar/navbar-collapse'
 import { NavbarModel } from '@components/layout/navbar/navbar.model'
-import { FeedbackIcon } from '@components/shared/svg-icons'
 
-import { t } from '@utils/translations'
-
-import { isAdmin, isModerator } from '@typings/guards/roles'
 import { IInfoCounters } from '@typings/shared/info-counters'
 import { NavbarConfigTypes } from '@typings/shared/navbar-config'
 
@@ -41,16 +36,7 @@ export const alwaysShowSubCategoryKeys = [
 ]
 
 export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
-  const {
-    shortNavbar,
-    curNavbar,
-    userInfo,
-    activeCategory,
-    unreadMessages,
-    activeSubCategory,
-    onTriggerOpenModal,
-    onClickVersion,
-  } = props
+  const { shortNavbar, curNavbar, userInfo, activeCategory, unreadMessages, activeSubCategory, onClickVersion } = props
 
   const { classes: styles, cx } = useStyles()
   const [filteredCategories, setFilteredCategories] = useState<NavbarConfigTypes.Route[]>([])
@@ -122,16 +108,6 @@ export const NavbarDrawerContent: FC<NavbarDrawerContentProps> = memo(props => {
             />
           ) : null,
         )}
-
-        {!isAdmin(userInfo.role) && !isModerator(userInfo.role) ? (
-          <div
-            className={cx(styles.feedBackButton, { [styles.shortFeedBackButton]: shortNavbar })}
-            onClick={() => onTriggerOpenModal('showFeedbackModal')}
-          >
-            {!shortNavbar && <p>{t(TranslationKey.Feedback)}</p>}
-            <FeedbackIcon className={styles.feedbackIcon} />
-          </div>
-        ) : null}
 
         <p className={cx(styles.appVersion, { [styles.smallAppVersion]: shortNavbar })} onClick={onClickVersion}>
           {appVersion}

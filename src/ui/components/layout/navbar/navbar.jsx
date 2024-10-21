@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { VersionHistoryForm } from '@components/forms/version-history-form'
 import { NavbarDrawerContent } from '@components/layout/navbar/navbar-drawer-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { FeedBackModal } from '@components/modals/feedback-modal'
 import { DrawerModal } from '@components/shared/drawer-modal'
 import { Modal } from '@components/shared/modal'
 import { LogoIcon, ShortLogoIcon } from '@components/shared/svg-icons'
@@ -52,23 +51,12 @@ export const Navbar = observer(props => {
             activeCategory={activeCategory}
             unreadMessages={viewModel.unreadMessages}
             activeSubCategory={activeSubCategory}
-            sendFeedbackAboutPlatform={viewModel.sendFeedbackAboutPlatform}
-            showFeedbackModal={viewModel.showFeedbackModal}
             onTriggerOpenModal={viewModel.onTriggerOpenModal}
             onClickVersion={viewModel.onClickVersion}
             onToggleModal={onToggleModal}
           />
         </DrawerModal>
       </div>
-
-      {viewModel.showFeedbackModal ? (
-        <FeedBackModal
-          // @ts-ignore
-          openModal={viewModel.showFeedbackModal}
-          onSubmit={viewModel.sendFeedbackAboutPlatform}
-          onClose={() => viewModel.onTriggerOpenModal('showFeedbackModal')}
-        />
-      ) : null}
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

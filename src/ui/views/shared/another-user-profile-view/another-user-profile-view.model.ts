@@ -10,7 +10,7 @@ import { FeedbackModel } from '@models/feedback-model'
 import { ProductModel } from '@models/product-model'
 import { UserModel } from '@models/user-model'
 
-import { IFeedback } from '@typings/models/feedbacks/feedback'
+import { IFeedback } from '@typings/models/administrators/feedback'
 import { IFullUser } from '@typings/shared/full-user'
 import { HistoryType } from '@typings/types/history'
 

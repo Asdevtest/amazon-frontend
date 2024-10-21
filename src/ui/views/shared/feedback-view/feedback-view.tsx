@@ -34,9 +34,11 @@ export const FeedbackView = observer(() => {
           placeholder="Search"
           onSearch={viewModel.onSearchSubmit}
         />
-        <CustomButton type="primary" size="large" onClick={viewModel.onToggleContentEditorForm}>
-          {t(TranslationKey['Create ticket'])}
-        </CustomButton>
+        {!viewModel.creator ? (
+          <CustomButton type="primary" size="large" onClick={viewModel.onToggleContentEditorForm}>
+            {t(TranslationKey['Create ticket'])}
+          </CustomButton>
+        ) : null}
       </div>
 
       <CustomDataGrid
@@ -101,7 +103,7 @@ export const FeedbackView = observer(() => {
       >
         <ContentEditorForm
           title={viewModel.contentEditorFormTitle}
-          onSubmit={() => {}}
+          onSubmit={viewModel.onCreateFeedback}
           onClose={viewModel.onToggleContentEditorForm}
         />
       </Modal>

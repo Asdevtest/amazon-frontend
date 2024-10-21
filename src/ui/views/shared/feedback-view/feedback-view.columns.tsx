@@ -19,9 +19,9 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { ColumnProps } from './feedback-view.config'
+import { ColumnProps, getStatusText } from './feedback-view.config'
 
-export const feedbackViewColumns = ({ onToggleTicketForm, onRemoveTicket }: ColumnProps) => {
+export const feedbackViewColumns = ({ onSelectFeedback, onRemoveFeedback, creator }: ColumnProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'createdAt',
@@ -35,7 +35,7 @@ export const feedbackViewColumns = ({ onToggleTicketForm, onRemoveTicket }: Colu
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.status} />,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={getStatusText(row.status)} />,
       width: 120,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -98,15 +98,15 @@ export const feedbackViewColumns = ({ onToggleTicketForm, onRemoveTicket }: Colu
         <ActionButtonsCell
           row
           showFirst
-          showSecond
           secondDanger
           firstGhost
           secondGhost
+          showSecond={creator()}
           secondConfirmText="Are you sure you want to delete this ticket?"
           firstIcon={<FaEye size={16} />}
           secondIcon={<MdOutlineDelete size={16} />}
-          onClickFirst={() => onToggleTicketForm(row)}
-          onClickSecond={() => onRemoveTicket(row._id)}
+          onClickFirst={() => onSelectFeedback(row)}
+          onClickSecond={() => onRemoveFeedback(row._id)}
         />
       ),
       disableCustomSort: true,

@@ -69,8 +69,8 @@ class AdministratorModelStatic {
     return response.data
   }
 
-  getFeedback = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGet()
+  getFeedback = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGet({ ...body, noCache: true })
     return response.data
   }
 
@@ -207,6 +207,11 @@ class AdministratorModelStatic {
 
   patchLaunchPreDeadlineValue = async body => {
     const response = await restApiService.administratorApi.apiV1AdminsSetLaunchPreDeadlineValuePatch(body)
+    return response.data
+  }
+
+  rejectedFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidRejectedPatch({ guid })
     return response.data
   }
 }

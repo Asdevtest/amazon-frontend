@@ -24,7 +24,7 @@ export const DataGridTablesKeys = {
 
   ADMIN_AWAITING_BATCHES: 'adminAwaitingBatchesDataGridState',
   ADMIN_BATCHES: 'adminBatchesDataGridState',
-  ADMIN_FEEDBACK: 'adminFeedbackDataGridState',
+  FEEDBACK: 'feedbackDataGridState',
 
   COMPLETE_SUPPLIER_WAS_NOT_FOUND: 'adminExchangeCompleteSupplierNotFoundedDataGridState',
   COMPLETE_PRICE_WAS_NOT_ACCEPTABLE: 'adminExchangeCompletePriceWasNotAcceptableDataGridState',
@@ -145,5 +145,4 @@ export const DataGridTablesKeys = {
   PARSING_PROFILES: 'parsingProfiles',
   PARSING_REQUESTS: 'parsingRequests',
   SERVICES_DETAILS: 'servicesDetails',
-  FEEDBACK: 'feedback',
 }
