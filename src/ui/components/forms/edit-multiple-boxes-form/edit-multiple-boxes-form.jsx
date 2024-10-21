@@ -6,7 +6,6 @@ import { MdDone } from 'react-icons/md'
 import { Checkbox, Typography } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,11 +21,11 @@ import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { checkIsStorekeeper } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { TariffModal } from '@typings/enums/tariff-modal'
+import { isStorekeeper } from '@typings/guards/roles'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
@@ -522,7 +521,7 @@ export const EditMultipleBoxesForm = observer(
                   inputComponent={
                     <ChangeChipCell
                       isChipOutTable
-                      disabled={checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])}
+                      disabled={isStorekeeper(userInfo.role)}
                       text={!sharedFields?.tmpTransparencyFile?.length && t(TranslationKey.Transparency)}
                       value={
                         sharedFields?.tmpTransparencyFile?.[0]?.file?.name || sharedFields?.tmpTransparencyFile?.[0]
@@ -536,14 +535,14 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
                 <Button
-                  disabled={disabledApplyBtn || checkIsStorekeeper(UserRoleCodeMap[userInfo?.role])}
+                  disabled={disabledApplyBtn || isStorekeeper(userInfo.role)}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
                 >
                   {applyBtnsClicked.tmpTransparencyFile ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
-              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+              {isStorekeeper(userInfo.role) ? (
                 <div>
                   <Field
                     oneLine
@@ -573,7 +572,7 @@ export const EditMultipleBoxesForm = observer(
                 </div>
               ) : null}
 
-              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) && (
+              {isStorekeeper(userInfo.role) && (
                 <div>
                   <Field
                     oneLine
