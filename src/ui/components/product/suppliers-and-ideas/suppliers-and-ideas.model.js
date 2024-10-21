@@ -125,11 +125,14 @@ export class SuppliersAndIdeasModel {
     try {
       if (this.isModalView && this.currentIdeaId) {
         await this.getIdea(this.currentIdeaId)
+
         if (this.updateData) {
           this.updateData?.()
         }
       } else {
-        await this.getIdeas()
+        if (this.productId) {
+          await this.getIdeas()
+        }
       }
 
       this.getStorekeepers()
