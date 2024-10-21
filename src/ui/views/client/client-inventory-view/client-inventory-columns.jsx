@@ -369,6 +369,15 @@ export const clientInventoryColumns = ({
     },
 
     {
+      field: 'requestsInWork',
+      headerName: t(TranslationKey['Requests in progress']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Requests in progress'])} />,
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 120,
+      columnKey: columnnsKeys.shared.QUANTITY,
+    },
+
+    {
       field: 'transparency',
       headerName: 'Transparency Codes',
       renderHeader: () => <MultilineTextHeaderCell text={'Transparency Codes'} />,
