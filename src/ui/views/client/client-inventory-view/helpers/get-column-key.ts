@@ -5,7 +5,7 @@ export const getColumnKey = (type: string) => {
     case 'number':
       return columnnsKeys.shared.NUMBER
     case 'date':
-      return columnnsKeys.shared.DATE
+      return columnnsKeys.shared.DATE_VALUE
     default:
       return columnnsKeys.shared.STRING_VALUE
   }

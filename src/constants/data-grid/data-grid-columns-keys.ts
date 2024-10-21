@@ -76,6 +76,7 @@ export const columnnsKeys = {
     NUMBER: 'NUMBER',
     OBJECT_VALUE: 'OBJECT_VALUE',
     STRING_VALUE: 'STRING_VALUE',
+    DATE_VALUE: 'DATE_VALUE',
 
     MULTIPLE: 'MULTIPLE',
   },
