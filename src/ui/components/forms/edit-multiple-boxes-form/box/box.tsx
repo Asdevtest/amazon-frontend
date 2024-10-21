@@ -159,6 +159,7 @@ export const Box: FC<BoxProps> = memo(props => {
   }
   const onDeleteShippingLabel = () => {
     onChangeField({ target: { value: '' } }, 'shippingLabel', box._id)
+    setShippingLabel([])
   }
 
   const onDeleteBarcode = (value: any, index: number) => {
@@ -187,6 +188,7 @@ export const Box: FC<BoxProps> = memo(props => {
   )
 
   const isSameDestination = selectedVariationTariff?.destination?._id === curDestination?._id
+  const isShippingLabelMissing = (item: any) => !item.tmpShippingLabel.length && !item.shippingLabel
 
   useEffect(() => {
     if (box?.variationTariffId) {
@@ -426,12 +428,10 @@ export const Box: FC<BoxProps> = memo(props => {
                 inputComponent={
                   <ChangeChipCell
                     isChipOutTable
-                    text={
-                      !box.shippingLabel && !box.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''
-                    }
+                    text={isShippingLabelMissing(box) ? t(TranslationKey['Set Shipping Label']) : ''}
                     value={box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0] || box.shippingLabel}
                     onClickChip={onClickShippingLabel}
-                    onDeleteChip={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                    onDeleteChip={isShippingLabelMissing(box) ? undefined : () => onDeleteShippingLabel()}
                   />
                 }
               />

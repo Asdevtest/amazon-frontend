@@ -160,6 +160,7 @@ export const EditMultipleBoxesForm = observer(
 
     const onDeleteShippingLabel = () => {
       onChangeSharedFields({ target: { value: '' } }, 'shippingLabel')
+      setShippingLabel([])
     }
 
     const [newBoxes, setNewBoxes] = useState(
@@ -384,6 +385,7 @@ export const EditMultipleBoxesForm = observer(
       ) || selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
 
     const disabledApplyBtn = !visibleBoxes.length
+    const isShippingLabelMissing = !sharedFields.shippingLabel && !sharedFields.tmpShippingLabel?.length
 
     return (
       <div className={styles.root}>
@@ -486,7 +488,7 @@ export const EditMultipleBoxesForm = observer(
                       text={!sharedFields.tmpShippingLabel?.length && t(TranslationKey['Set Shipping Label'])}
                       value={sharedFields?.tmpShippingLabel?.[0]?.file?.name || sharedFields?.tmpShippingLabel?.[0]}
                       onClickChip={onClickShippingLabel}
-                      onDeleteChip={!sharedFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                      onDeleteChip={isShippingLabelMissing ? undefined : () => onDeleteShippingLabel()}
                     />
                   }
                 />
