@@ -1,5 +1,5 @@
 import { RadioChangeEvent } from 'antd'
-import { makeObservable, runInAction } from 'mobx'
+import { makeObservable, reaction, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { GridColDef } from '@mui/x-data-grid-premium'
@@ -109,6 +109,11 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
 
     makeObservable(this, observerConfig)
     this.getTableSettingsPreset()
+
+    reaction(
+      () => this.unitsOption,
+      () => (this.columnsModel = columnsModel),
+    )
   }
 
   setDestinationsFavouritesItem(item: any) {
@@ -833,8 +838,9 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onSubmitAddBatch(boxesIds: string[], filesToAdd: any, batchFields: any) {
+  async onSubmitAddBatch(batchData: any) {
     try {
+      const { boxesIds, filesToAdd, batchFields } = batchData
       // @ts-ignore
       await onSubmitPostImages.call(this, { images: filesToAdd, type: 'uploadedFiles' })
 
