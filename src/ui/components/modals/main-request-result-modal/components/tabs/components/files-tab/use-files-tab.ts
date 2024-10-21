@@ -117,16 +117,11 @@ export const useFilesTab = ({ isClient, productId, files, setFields, readOnly }:
 
   const handleDownloadArchive = async () => {
     if (clientOrReadOnly) {
-      try {
-        setArchiveButtonInactiveBeforeDownloading(true)
+      setArchiveButtonInactiveBeforeDownloading(true)
 
-        await downloadArchive(filesForDownload, reversedFormatDateWithoutTime(new Date()))
-      } catch (error) {
-        console.error(error)
-        toast.warning(t(TranslationKey['Failed to download archive. Please try again.']))
-      } finally {
-        setArchiveButtonInactiveBeforeDownloading(false)
-      }
+      await downloadArchive(filesForDownload, reversedFormatDateWithoutTime(new Date()))
+
+      setArchiveButtonInactiveBeforeDownloading(false)
     }
   }
 

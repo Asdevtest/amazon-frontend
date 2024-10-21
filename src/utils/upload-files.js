@@ -1,13 +1,16 @@
 import JSZip from 'jszip'
 import { runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { Errors } from '@constants/errors'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
 import { checkIsHasHttp, checkIsImageInludesPostfixes, checkIsMediaFileLink } from './checks'
 import { getAmazonImageUrl } from './get-amazon-image-url'
 import { getFileNameFromUrl } from './get-file-name-from-url'
+import { t } from './translations'
 
 export const dataURLtoFile = (dataurl, filename) => {
   const arr = dataurl.split(',')
@@ -202,22 +205,26 @@ export const getFileWeight = async url =>
     })
 
 export const downloadArchive = async (files, folderName) => {
-  const zip = new JSZip()
+  try {
+    const zip = new JSZip()
 
-  const validFilesData = files.map(async file => {
-    const res = await fetch(getAmazonImageUrl(file.fileLink?.file || file.fileLink, true))
-    const blob = await res.blob()
+    const validFilesData = files.map(async (file, index) => {
+      const res = await fetch(getAmazonImageUrl(file.fileLink?.file || file.fileLink || file, true))
+      const blob = await res.blob()
 
-    return {
-      title: file.commentByPerformer,
-      blob,
-    }
-  })
+      return {
+        title: file.commentByPerformer || index + getFileNameFromUrl(file)?.fullName,
+        blob,
+      }
+    })
 
-  const fetchedData = await Promise.all(validFilesData)
+    const fetchedData = await Promise.all(validFilesData)
 
-  fetchedData.forEach(file => zip.file(file.title, file.blob, { base64: true }))
-  zip.generateAsync({ type: 'blob' }).then(content => {
-    downloadFile(content, `${folderName}.rar`)
-  })
+    fetchedData.forEach(file => zip.file(file.title, file.blob, { base64: true }))
+    zip.generateAsync({ type: 'blob' }).then(content => {
+      downloadFile(content, `${folderName}.rar`)
+    })
+  } catch (error) {
+    toast.warning(t(TranslationKey['Failed to download archive. Please try again.']))
+  }
 }

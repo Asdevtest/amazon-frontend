@@ -45,7 +45,6 @@ import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
 export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batchToEdit, sourceBox }) => {
   const viewModel = useMemo(() => new ClientAwaitingBatchesViewModel(true), [])
-
   const { classes: styles, cx } = useStyles()
 
   const isClient = checkIsClient(UserRoleCodeMap[UserModel.platformSettings?.role])
@@ -664,7 +663,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
           </Button>
         </div>
 
-        <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} />
+        {filesToAdd ? <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} /> : null}
 
         <div className={styles.btnsWrapper}>
           <Button
