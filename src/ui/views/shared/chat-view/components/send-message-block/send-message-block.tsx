@@ -13,6 +13,7 @@ import { useStyles } from './send-message-block.style'
 
 import { EmojiPickerBlock } from '../emoji-picker-block'
 import { ForwardMessages } from '../forward-messages'
+import { ReplyMessage } from '../reply-message'
 
 import { useSendMessageBlock } from './hooks/use-send-message-block'
 
@@ -38,15 +39,16 @@ export const SendMessageBlock: FC = observer(() => {
   } = useSendMessageBlock()
 
   const currentChat = chatModel.currentChat
+  const currentChatId = currentChat?._id as string
   const messagesToForward = currentChat?.messagesToForward || []
   const replyMessage = currentChat?.replyMessage
 
   const onClickClearForwardMessages = useCallback(() => {
-    chatModel.clearSelectedMessage(currentChat?._id as string)
+    chatModel.clearSelectedMessage(currentChatId)
   }, [currentChat])
 
   const onClickClearReplyMessage = useCallback(() => {
-    chatModel.clearReplyMessage(currentChat?._id as string)
+    chatModel.clearReplyMessage(currentChatId)
   }, [currentChat])
 
   return (
@@ -59,6 +61,10 @@ export const SendMessageBlock: FC = observer(() => {
 
       {messagesToForward?.length ? (
         <ForwardMessages messages={messagesToForward} onClickClearForwardMessages={onClickClearForwardMessages} />
+      ) : null}
+
+      {replyMessage ? (
+        <ReplyMessage message={replyMessage} onClickClearReplyMessage={onClickClearReplyMessage} />
       ) : null}
 
       <div className={styles.messageBlock}>
