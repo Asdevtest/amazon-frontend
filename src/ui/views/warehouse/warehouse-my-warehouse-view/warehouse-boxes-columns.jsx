@@ -139,7 +139,12 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       field: 'amount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <Text isCell text={params.value * params.row.amount} />,
+      renderCell: params => {
+        const sumItemsAmount = params.row.items.reduce((acc, item) => acc + item.amount, 0)
+        const result = params.row.amount * sumItemsAmount
+
+        return <Text isCell text={result} />
+      },
       width: 110,
       type: 'number',
       sortable: false,
