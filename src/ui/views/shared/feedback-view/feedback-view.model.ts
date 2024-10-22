@@ -32,23 +32,26 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
   get creator() {
     return isAdmin(this.userInfo?.role) || isModerator(this.userInfo?.role)
   }
+  get onTicketFormSubmit() {
+    return this.feedback ? this.onUpdateFeedback : this.onCreateFeedback
+  }
 
   constructor() {
     const columnsProps: ColumnProps = {
       onSelectFeedback: feedback => this.onSelectFeedback(feedback),
       onRemoveFeedback: id => this.onRemoveFeedback(id),
-      creator: () => this.creator,
     }
     const columnsModel = feedbackViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
     const getMainDataMethod = (body: any) =>
       this.creator ? AdministratorModel.getFeedback(body) : OtherModel.getFeedbacks(body)
+    const getMainMethodURL = () => (this.creator ? 'admins/feedback?' : 'other/feedback/my?')
 
     super({
       getMainDataMethod,
       columnsModel,
       filtersFields,
-      mainMethodURL: '',
+      mainMethodURL: 'other/feedback/my?',
       fieldsForSearch,
       tableKey: DataGridTablesKeys.FEEDBACK,
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
@@ -58,25 +61,23 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
     this.getTableSettingsPreset()
   }
 
-  onToggleContentEditorForm = () => {
+  onToggleContentEditorForm() {
     this.showContentEditorForm = !this.showContentEditorForm
   }
 
-  onSelectFeedback = (feedback: IFeedback) => {
-    if (feedback) {
-      this.feedback = feedback
-    }
+  onSelectFeedback = (feedback: IFeedback, isTable?: boolean) => {
+    this.feedback = feedback
 
-    this.onToggleTicketForm()
+    isTable ? this.onToggleTicketForm() : this.onToggleContentEditorForm()
   }
 
-  onToggleTicketForm = () => {
+  onToggleTicketForm() {
     this.showTicketForm = !this.showTicketForm
   }
 
   async onRemoveFeedback(id: string) {
     try {
-      await AdministratorModel.rejectedFeedback(id)
+      await OtherModel.removeFeedback(id)
       this.getCurrentData()
     } catch (error) {
       console.error(error)
@@ -86,6 +87,21 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
   async onCreateFeedback(data: EditorFormFieldData) {
     try {
       await OtherModel.createFeedback(data)
+      this.onToggleContentEditorForm()
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onUpdateFeedback(data: EditorFormFieldData) {
+    try {
+      const body = {
+        title: data.title,
+        text: data.text,
+        media: data.media,
+      }
+      await OtherModel.updateFeedback(this.feedback?._id, body)
       this.onToggleContentEditorForm()
       this.getCurrentData()
     } catch (error) {

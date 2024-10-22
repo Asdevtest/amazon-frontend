@@ -94,6 +94,7 @@ export const FeedbackView = observer(() => {
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
         onPinnedColumnsChange={viewModel.handlePinColumn}
+        onRowDoubleClick={({ row }: GridRowModel) => viewModel.onSelectFeedback(row, true)}
       />
 
       <Modal
@@ -102,14 +103,15 @@ export const FeedbackView = observer(() => {
         setOpenModal={viewModel.onToggleContentEditorForm}
       >
         <ContentEditorForm
+          data={viewModel.feedback}
           title={viewModel.contentEditorFormTitle}
-          onSubmit={viewModel.onCreateFeedback}
+          onSubmit={viewModel.onTicketFormSubmit}
           onClose={viewModel.onToggleContentEditorForm}
         />
       </Modal>
 
       <Modal openModal={viewModel.showTicketForm} setOpenModal={viewModel.onToggleTicketForm}>
-        <TicketForm onSubmit={() => {}} onClose={viewModel.onToggleTicketForm} />
+        <TicketForm feedbackId={viewModel.feedback?._id} onClose={viewModel.onToggleTicketForm} />
       </Modal>
     </div>
   )

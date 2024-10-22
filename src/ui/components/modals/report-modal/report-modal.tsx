@@ -91,7 +91,6 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         <div className={styles.textareaContainer}>
           <CustomTextarea
             required
-            rows={3}
             maxLength={1024}
             label="Comment"
             value={viewModel.description}

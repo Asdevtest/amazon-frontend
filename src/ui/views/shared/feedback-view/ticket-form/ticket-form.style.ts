@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '1000px',
+    width: '800px',
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '20px',
+    gap: '60px',
   },
 
   user: {

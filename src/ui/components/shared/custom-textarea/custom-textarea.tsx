@@ -21,7 +21,9 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
     isCell,
     label,
     resize,
+    rows = 3,
     required,
+    readOnly,
     placeholder,
     className,
     labelClassName,
@@ -41,7 +43,10 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
       ) : null}
       <Input.TextArea
         {...restProps}
-        className={className}
+        rows={rows}
+        readOnly={readOnly}
+        autoSize={readOnly && { maxRows: rows, minRows: 1 }}
+        className={cx(className, { [styles.readOnly]: readOnly })}
         style={{ resize: resize ? 'vertical' : 'none' }}
         placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
         onKeyDown={event => event.stopPropagation()}

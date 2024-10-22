@@ -13,6 +13,10 @@ interface CustomPreviewGroupProps {
 export const CustomPreviewGroup: FC<CustomPreviewGroupProps> = memo(props => {
   const { data, width = 40, gap = 10, center } = props
 
+  if (!data.length) {
+    return null
+  }
+
   const { classes: styles, cx } = useStyles()
 
   const scrollableHeight = width * 2 + gap

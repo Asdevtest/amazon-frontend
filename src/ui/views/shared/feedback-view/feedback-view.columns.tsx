@@ -1,5 +1,4 @@
-import { FaEye } from 'react-icons/fa'
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -13,30 +12,34 @@ import {
   MultilineTextHeaderCell,
   NormDateCell,
 } from '@components/data-grid/data-grid-cells'
+import { CustomTextarea } from '@components/shared/custom-textarea'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
+import { FeedbackStatus } from '@typings/enums/feedback-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { ColumnProps, getStatusText } from './feedback-view.config'
+import { ColumnProps, getStatusColor, getStatusText } from './feedback-view.config'
 
-export const feedbackViewColumns = ({ onSelectFeedback, onRemoveFeedback, creator }: ColumnProps) => {
+export const feedbackViewColumns = ({ onSelectFeedback, onRemoveFeedback }: ColumnProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'createdAt',
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
-      width: 110,
+      width: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
     {
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={getStatusText(row.status)} />,
-      width: 120,
+      renderCell: ({ row }: GridRowModel) => (
+        <Text isCell text={getStatusText(row.status)} color={getStatusColor(row.status)} />
+      ),
+      width: 110,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
@@ -51,7 +54,7 @@ export const feedbackViewColumns = ({ onSelectFeedback, onRemoveFeedback, creato
       field: 'text',
       headerName: t(TranslationKey.Description),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.text} />,
+      renderCell: ({ row }: GridRowModel) => <CustomTextarea isCell readOnly value={row.text} />,
       flex: 1,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -68,7 +71,7 @@ export const feedbackViewColumns = ({ onSelectFeedback, onRemoveFeedback, creato
       field: 'responseText',
       headerName: t(TranslationKey.Response),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Response)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.responseText} />,
+      renderCell: ({ row }: GridRowModel) => <CustomTextarea isCell readOnly value={row.responseText} />,
       flex: 1,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -86,7 +89,7 @@ export const feedbackViewColumns = ({ onSelectFeedback, onRemoveFeedback, creato
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
-      width: 115,
+      width: 100,
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -101,9 +104,9 @@ export const feedbackViewColumns = ({ onSelectFeedback, onRemoveFeedback, creato
           secondDanger
           firstGhost
           secondGhost
-          showSecond={creator()}
+          showSecond={row.status === FeedbackStatus.CREATED}
           secondConfirmText="Are you sure you want to delete this ticket?"
-          firstIcon={<FaEye size={16} />}
+          firstIcon={<MdOutlineEdit size={16} />}
           secondIcon={<MdOutlineDelete size={16} />}
           onClickFirst={() => onSelectFeedback(row)}
           onClickSecond={() => onRemoveFeedback(row._id)}
@@ -117,7 +120,7 @@ export const feedbackViewColumns = ({ onSelectFeedback, onRemoveFeedback, creato
 
   for (const column of columns) {
     if (!column.table) {
-      column.table = DataGridFilterTables.PARSING_PROFILES
+      column.table = DataGridFilterTables.FEEDBACK
     }
 
     column.sortable = false

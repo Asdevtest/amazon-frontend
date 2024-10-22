@@ -213,6 +213,21 @@ class OtherModelStatic {
     const response = await restApiService.otherApi.apiV1OtherFeedbackPost({ body })
     return response.data
   }
+
+  removeFeedback = async guid => {
+    const response = await restApiService.otherApi.apiV1OtherFeedbackGuidDelete({ guid })
+    return response.data
+  }
+
+  updateFeedback = async (guid, body) => {
+    const response = await restApiService.otherApi.apiV1OtherFeedbackGuidPatch({ guid, body })
+    return response.data
+  }
+
+  getFeedback = async guid => {
+    const response = await restApiService.otherApi.apiV1OtherFeedbackGuidGet({ guid })
+    return response.data
+  }
 }
 
 export const OtherModel = new OtherModelStatic()

@@ -22,4 +22,13 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '16px',
     color: theme.palette.text.secondary,
   },
+
+  readOnly: {
+    padding: 0,
+    borderRadius: 0,
+    border: 'none',
+    borderColor: 'transparent !important',
+    boxShadow: 'none !important',
+    backgroundColor: 'transparent !important',
+  },
 }))

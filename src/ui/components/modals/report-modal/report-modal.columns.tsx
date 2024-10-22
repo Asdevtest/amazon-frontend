@@ -78,7 +78,6 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
         <CustomTextarea
           isCell
           allowClear
-          rows={4}
           maxLength={512}
           value={row.comment}
           onChange={onChangeCommentCellValue(row._id, 'comment')}
