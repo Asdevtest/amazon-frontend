@@ -20,6 +20,7 @@ import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { DownloadIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
 
@@ -130,42 +131,42 @@ export const BatchInfoModal = observer(
               <div className={styles.rowContainer}>
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Batch title'])}</p>
-                  <p className={styles.infoField}>{currentBatch?.title || t(TranslationKey.Missing)}</p>
+                  <Text bold text={currentBatch?.title || t(TranslationKey.Missing)} textRows={1} />
                 </div>
 
-                <div className={styles.fieldWrapper}>
+                <div className={styles.tariffWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey.Tariff)}</p>
-                  <p className={styles.infoField}>{getNewTariffTextForBoxOrOrder(currentBatch?.boxes?.[0])}</p>
+                  <Text bold text={getNewTariffTextForBoxOrOrder(currentBatch?.boxes?.[0])} textRows={1} />
                 </div>
 
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey.Destination)}</p>
-                  <p className={styles.infoField}>
-                    {currentBatch?.boxes?.[0].destination?.name || t(TranslationKey.Missing)}
-                  </p>
+                  <Text bold text={currentBatch?.boxes?.[0].destination?.name} textRows={1} />
                 </div>
 
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Batch number'])}</p>
-                  <p className={styles.infoField}>{currentBatch?.xid || t(TranslationKey.Missing)}</p>
+                  <Text bold text={currentBatch?.xid || t(TranslationKey.Missing)} textRows={1} />
                 </div>
 
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{`${t(TranslationKey['Total price'])} (${t(
                     TranslationKey.China,
                   )})`}</p>
-                  <p className={styles.infoField}>{currentBatch?.totalPriceFromOrderSupplier || 0}</p>
+                  <Text bold text={currentBatch?.totalPriceFromOrderSupplier || 0} textRows={1} />
                 </div>
 
-                <div className={styles.fieldWrapper}>
+                <div>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Method of batch weight calculation'])}</p>
-                  <p className={styles.infoField}>
-                    {t(BatchWeightCalculationMethodTranslateKey(currentBatch?.calculationMethod))}
-                  </p>
+                  <Text
+                    bold
+                    text={t(BatchWeightCalculationMethodTranslateKey(currentBatch?.calculationMethod))}
+                    textRows={1}
+                  />
                 </div>
               </div>
               <div className={styles.rowContainer}>
-                <div className={styles.fieldWrapper}>
+                <div className={styles.datesField}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey.Dates)}</p>
                   <div className={styles.datesWrapper}>
                     <Tooltip title={t(TranslationKey['CLS (batch closing date)'])}>
@@ -199,7 +200,7 @@ export const BatchInfoModal = observer(
 
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Calculated shipping cost'])}</p>
-                  <p className={styles.infoField}>{toFixed(currentBatch?.calculatedShippingCost, 2) || 0}</p>
+                  <Text bold text={toFixed(currentBatch?.calculatedShippingCost, 2) || 0} textRows={1} />
                 </div>
 
                 <Field
@@ -226,25 +227,27 @@ export const BatchInfoModal = observer(
                 />
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Final weight'])}</p>
-                  <p className={styles.infoField}>{toFixed(currentBatch?.finalWeight, 4) || 0}</p>
+                  <Text bold text={toFixed(currentBatch?.finalWeight, 4) || 0} textRows={1} />
                 </div>
 
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Volume weight'])}</p>
-                  <p className={styles.infoField}>
-                    {toFixed(
+                  <Text
+                    bold
+                    text={toFixed(
                       currentBatch?.boxes?.reduce(
                         (ac, cur) => (ac += calcVolumeWeightForBox(cur, currentBatch?.volumeWeightDivide) * cur.amount),
                         0,
                       ),
                       4,
                     )}
-                  </p>
+                    textRows={1}
+                  />
                 </div>
 
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Gross weight'])}</p>
-                  <p className={styles.infoField}>{toFixed(calcActualBatchWeight(currentBatch?.boxes), 4)}</p>
+                  <Text bold text={toFixed(calcActualBatchWeight(currentBatch?.boxes), 4)} textRows={1} />
                 </div>
               </div>
             </div>

@@ -7,7 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     height: '82vh',
     display: 'flex',
     flexDirection: 'column',
-    width: '1250px',
+    width: '1280px',
     gap: 20,
   },
 
@@ -34,15 +34,15 @@ export const useStyles = makeStyles()(theme => ({
     gap: 40,
   },
 
-  amount: {
-    marginLeft: '5px',
-  },
-
   headerSubWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     gap: 30,
+  },
+
+  datesField: {
+    marginRight: '10px',
   },
 
   datesWrapper: {
@@ -65,8 +65,6 @@ export const useStyles = makeStyles()(theme => ({
   infoWrapper: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: '40px',
   },
 
   fieldsWrapper: {
@@ -78,14 +76,16 @@ export const useStyles = makeStyles()(theme => ({
 
   rowContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
-    gap: '20px',
     alignItems: 'center',
+    gap: '20px',
   },
 
   fieldWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
+    width: '130px',
+  },
+
+  tariffWrapper: {
+    width: '268px',
   },
 
   titleWrapper: {
@@ -118,10 +118,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fieldLabel: {
-    fontWeight: 600,
-    fontSize: 18,
-    lineHeight: '140%',
+    fontWeight: '600',
+    fontSize: '18px',
     whiteSpace: 'nowrap',
+    lineHeight: '140%',
   },
 
   subFieldLabel: {
@@ -129,7 +129,6 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
-    whiteSpace: 'nowrap',
     marginBottom: '5px',
   },
 
@@ -140,7 +139,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   shippinCostContainer: {
-    width: '190px !important',
+    width: '130px !important',
     margin: '0 !important',
   },
 
