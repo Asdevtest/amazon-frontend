@@ -5,7 +5,7 @@ import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/naviga
 
 import { t } from '@utils/translations'
 
-import { TaskStatus } from '@typings/enums/task-status'
+import { TaskStatus } from '@typings/enums/task/task-status'
 
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'

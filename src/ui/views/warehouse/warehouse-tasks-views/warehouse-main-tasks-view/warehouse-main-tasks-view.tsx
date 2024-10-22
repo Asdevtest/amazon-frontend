@@ -10,31 +10,35 @@ import { VerticalChoicesModal } from '@components/modals/vertical-choices-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
-import { BuyerTypeTaskSelect } from '@components/shared/selects/buyer-type-task-select'
-import { TaskPrioritySelector } from '@components/shared/task-priority-selector/task-priority-selector'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { TaskStatus } from '@typings/enums/task-status'
+import { TaskStatus } from '@typings/enums/task/task-status'
 
 import { useStyles } from './warehouse-main-tasks-view.style'
 
+import { taskPriorityOptions, taskTypeOptions } from './warehouse-main-tasks-view.config'
 import { WarehouseMainTasksViewModel } from './warehouse-main-tasks-view.model'
 
 export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus }) => {
   const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new WarehouseMainTasksViewModel(status), [])
 
+  const canceledTasks = status === TaskStatus.NOT_SOLVED
+
   return (
     <div className="viewWrapper">
       <div className={styles.flexRow}>
-        <TaskPrioritySelector
-          currentPriority={viewModel.taskPriority}
-          onActivePriority={viewModel.onChangeTaskPriority}
+        <CustomRadioButton
+          size="large"
+          options={taskPriorityOptions()}
+          defaultValue={viewModel.taskPriority}
+          onChange={viewModel.onChangeTaskPriority}
         />
 
         {status === TaskStatus.NEW ? (
@@ -50,7 +54,12 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
       </div>
 
       <div className={styles.flexRow}>
-        <BuyerTypeTaskSelect curTaskType={viewModel.taskType} onClickOperationTypeBtn={viewModel.onChangeTaskType} />
+        <CustomRadioButton
+          size="large"
+          options={taskTypeOptions(canceledTasks)}
+          defaultValue={viewModel.taskType}
+          onChange={viewModel.onChangeTaskType}
+        />
 
         <CustomInputSearch
           enterButton
