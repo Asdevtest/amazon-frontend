@@ -14,15 +14,11 @@ export const useStyles = makeStyles()(theme => ({
   boxCounterWrapper: {
     display: 'flex',
     alignItems: 'center',
+    gap: '3px',
   },
 
   boxCounterText: {
     color: theme.palette.primary.main,
-  },
-
-  boxCounterCount: {
-    fontWeight: 600,
-    marginLeft: 5,
   },
 
   modalTitle: {
@@ -104,17 +100,11 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
   },
 
-  storekeeperField: {
-    maxWidth: '270px',
-    margin: '0 !important',
-    display: 'flex !important',
-    justifyContent: 'flex-end !important',
-  },
-
   userLinkWrapper: {
     marginLeft: '20px',
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    gap: '10px',
   },
 
   files: {
@@ -131,6 +121,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '140%',
+    whiteSpace: 'nowrap',
   },
 
   subFieldLabel: {
@@ -146,6 +137,11 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     fontWeight: 600,
     lineHeight: '19px',
+  },
+
+  shippinCostContainer: {
+    width: '190px !important',
+    margin: '0 !important',
   },
 
   tableWrapper: {

@@ -104,17 +104,10 @@ export const BatchInfoModal = observer(
           <div className={styles.titleWrapper}>
             <p className={styles.modalTitle}>{t(TranslationKey['Viewing the batch'])}</p>
             <div className={styles.searchWrapper}>
-              <Field
-                oneLine
-                label={t(TranslationKey['Int warehouse']) + ': '}
-                containerClasses={styles.storekeeperField}
-                labelClasses={styles.fieldLabel}
-                inputComponent={
-                  <div className={styles.userLinkWrapper}>
-                    <UserCell name={currentBatch?.storekeeper?.name} id={currentBatch?.storekeeper?._id} />
-                  </div>
-                }
-              />
+              <div className={styles.userLinkWrapper}>
+                <p className={styles.fieldLabel}>{t(TranslationKey['Int warehouse']) + ':'}</p>
+                <UserCell name={currentBatch?.storekeeper?.name} id={currentBatch?.storekeeper?._id} />
+              </div>
               <Tooltip
                 title={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(TranslationKey.Order)}, ${t(
                   TranslationKey['Box ID'],
@@ -255,7 +248,7 @@ export const BatchInfoModal = observer(
                 </div>
               </div>
             </div>
-            <SlideshowGallery slidesToShow={2} files={currentBatch?.attachedDocuments} />
+            <SlideshowGallery slidesToShow={1} files={currentBatch?.attachedDocuments} />
           </div>
 
           <CustomDataGrid
@@ -283,10 +276,10 @@ export const BatchInfoModal = observer(
                 children: (
                   <div className={styles.boxCounterWrapper}>
                     <Typography className={styles.boxCounterText}>
-                      {t(TranslationKey['Quantity of boxes in batch']) + ':'}
+                      {t(TranslationKey['Quantity of boxes in batch']) + ': '}
                     </Typography>
-                    <Typography className={styles.boxCounterCount}>
-                      {currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
+                    <Typography className={styles.boxCounterText}>
+                      {'x ' + currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
                     </Typography>
                   </div>
                 ),
@@ -308,8 +301,6 @@ export const BatchInfoModal = observer(
           />
 
           <div className={styles.filesAndButtonWrapper}>
-            <SlideshowGallery slidesToShow={1} files={currentBatch?.attachedDocuments} />
-
             <div className={styles.buttonsWrapper}>
               <Button onClick={uploadTemplateFile}>
                 <DownloadIcon />
