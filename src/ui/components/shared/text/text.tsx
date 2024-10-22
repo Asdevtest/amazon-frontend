@@ -91,7 +91,11 @@ export const Text: FC<TextCellProps> = memo(props => {
       <Paragraph
         type={type}
         copyable={isCopyable}
-        ellipsis={{ tooltip: text, rows: textRows, onExpand: handleExpand }}
+        ellipsis={{
+          tooltip: { destroyTooltipOnHide: true, arrow: false },
+          rows: textRows,
+          onExpand: handleExpand,
+        }}
         style={{
           margin: 0,
           color,

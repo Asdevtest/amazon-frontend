@@ -11,6 +11,7 @@ export const wholeIntegersList = [
   'reservedSum',
   'sentToFbaSum',
   'sumStock',
+  'requestsInWork',
   'orderXid',
   'ideasVerified',
   'ideasClosed',

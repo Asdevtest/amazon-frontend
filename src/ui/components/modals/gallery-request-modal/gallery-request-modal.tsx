@@ -28,13 +28,14 @@ interface GalleryRequestModalProps {
   onChangeMediaFiles: (mediaFiles: IRequestMedia[]) => void
   onOpenModal: () => void
   maxNumber?: number
+  buttonText?: string
 }
 
 /**
  * The component copies Header, CustoRadioButton with its settings from GalleryModal, but adds its own functionality, tabs and footer.
  */
 export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
-  const { data, openModal, mediaFiles, onChangeMediaFiles, onOpenModal, maxNumber } = props
+  const { data, openModal, mediaFiles, onChangeMediaFiles, onOpenModal, maxNumber, buttonText } = props
 
   const { classes: styles } = useStyles()
 
@@ -99,6 +100,7 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
 
         <Buttons
           disabled={!allFilesToAdd.length}
+          buttonText={buttonText}
           onClick={() => {
             onChangeMediaFiles(allFilesToAdd)
             onOpenModal()

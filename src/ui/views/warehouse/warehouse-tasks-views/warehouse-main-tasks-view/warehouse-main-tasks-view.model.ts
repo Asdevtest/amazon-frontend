@@ -2,7 +2,6 @@ import { RadioChangeEvent } from 'antd'
 import { transformAndValidate } from 'class-transformer-validator'
 import { makeObservable, runInAction } from 'mobx'
 
-import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 
@@ -17,28 +16,18 @@ import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-f
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { TaskStatus } from '@typings/enums/task-status'
+import { TaskStatus } from '@typings/enums/task/task-status'
 import { IBox } from '@typings/models/boxes/box'
 import { ITask } from '@typings/models/tasks/task'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
 import { warehouseMainTasksViewColumns } from './warehouse-main-tasks-view.columns'
-import { ColumnsProps, fieldsForSearch, warehouseCanceledTasksConfig } from './warehouse-main-tasks-view.config'
-
-const getTableKey = (status: TaskStatus) => {
-  switch (status) {
-    case TaskStatus.NEW:
-      return DataGridTablesKeys.WAREHOUSE_VACANT_TASKS
-    case TaskStatus.AT_PROCESS:
-      return DataGridTablesKeys.WAREHOUSE_MY_TASKS
-    case TaskStatus.SOLVED:
-      return DataGridTablesKeys.WAREHOUSE_COMPLETED_TASKS
-    case TaskStatus.NOT_SOLVED:
-      return DataGridTablesKeys.WAREHOUSE_CANCELED_TASKS
-    default:
-      return DataGridTablesKeys.WAREHOUSE_MY_TASKS
-  }
-}
+import {
+  ColumnsProps,
+  fieldsForSearch,
+  getTableKey,
+  warehouseCanceledTasksConfig,
+} from './warehouse-main-tasks-view.config'
 
 export class WarehouseMainTasksViewModel extends DataGridFilterTableModel {
   currentTask?: ITask
@@ -273,7 +262,7 @@ export class WarehouseMainTasksViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async updateBarcodeAndStatusInOrder(id: string, data: any) {
+  async updateBarcodeAndStatusInOrder(id: string, data: { status: string }) {
     try {
       await StorekeeperModel.updateStatusInOrder(id, data)
     } catch (error) {
