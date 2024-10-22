@@ -103,9 +103,9 @@ export const addOrEditBatchDataConverter = (
     volumeWeightCoefficient,
 
     orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
-      ?.reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
+      ?.reduce((acc, cur) => (acc += (cur.order?.xid ?? '-') + ', '), '')
       .slice(0, -2)}  item №: ${item.items
-      ?.reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+      ?.reduce((acc, cur) => (acc += (cur.order?.item ?? '-') + ', '), '')
       .slice(0, -2)}`,
   }))
 

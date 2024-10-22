@@ -9,6 +9,7 @@ import {
   DimensionsCell,
   DimensionsHeaderCell,
   MultilineTextHeaderCell,
+  OrdersIdsItemsCell,
   ProductsCell,
   RedFlagsCell,
   UserCell,
@@ -42,13 +43,22 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       headerName: t(TranslationKey['№ Order/ № Item']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
-      renderCell: params => (
-        <div>
-          <Text text={params.row.items?.[0].order?.xid} />
-          <Text text={params.row.items?.[0].order?.item} />
-        </div>
-      ),
+      valueGetter: ({ row }) => {
+        const orderNumbers = row?.items.map(cur => cur.order?.xid ?? '-').join(', ')
+        const itemNumbers = row?.items.map(cur => cur.order?.item ?? '-').join(', ')
+        return `${t(TranslationKey.Order)} ${orderNumbers} | item: ${itemNumbers}`
+      },
 
+      renderCell: params => {
+        const lines = params.value.split('|')
+        return (
+          <div>
+            {lines.map((line, index) => (
+              <div key={index}>{line}</div>
+            ))}
+          </div>
+        )
+      },
       fields: [
         {
           label: '№ Order',
