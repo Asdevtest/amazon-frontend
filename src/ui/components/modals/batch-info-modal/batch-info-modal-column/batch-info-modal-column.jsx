@@ -22,6 +22,8 @@ import { getTariffRateForBoxOrOrder } from '@utils/calculation'
 import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getPricePerUnit } from '../helpers/get-price-per-unit'
+
 export const batchInfoModalColumn = (
   volumeWeightCoefficient,
   calculationMethod,
@@ -163,8 +165,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey['Price per unit']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
     renderCell: params => <PricePerUnitCell item={params.row} />,
-    valueGetter: ({ row }) =>
-      row.items.map(el => toFixedWithDollarSign(el.order?.totalPrice / el.order?.amount, 2)).join(', '),
+    valueGetter: ({ row }) => row.items.map(el => toFixedWithDollarSign(getPricePerUnit(el), 2)).join(', '),
     type: 'number',
     width: 90,
   },

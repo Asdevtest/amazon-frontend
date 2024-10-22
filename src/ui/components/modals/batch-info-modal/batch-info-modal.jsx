@@ -55,6 +55,9 @@ export const BatchInfoModal = observer(
     const sourceBoxes =
       currentBatch?.boxes?.map(item => ({
         ...item,
+        finalWeight: currentBatch.finalWeight,
+        calculatedShippingCost: currentBatch?.calculatedShippingCost,
+        actualShippingCost: currentBatch?.actualShippingCost,
         orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
           .reduce((acc, cur) => (acc += cur.order?.id + ', '), '')
           .slice(0, -2)}  item №: ${item.items

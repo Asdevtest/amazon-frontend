@@ -3,6 +3,8 @@ import { FC, memo } from 'react'
 
 import { getBatchParameters } from '@constants/statuses/batch-weight-calculations-method'
 
+import { getActualCostWithDeliveryPerUnit } from '@components/modals/batch-info-modal/helpers/get-actual-cost-with-delivery-per-unit'
+
 import { toFixedWithDollarSign } from '@utils/text'
 
 import { useStyles } from './actual-cost-with-delivery.style'
@@ -40,13 +42,35 @@ export const ActualCostWithDelivery: FC<ActualCostWithDeliveryProps> = memo(prop
     return itemsQuantity * singleProductPrice + shippingCost
   }
 
-  return (
-    <div className={styles.pricesWrapper}>
-      {rowMemo.items.map((el: any, index: number) => (
-        <p key={index} className={styles.multilineText}>
-          {toFixedWithDollarSign(getTotalCost(el), 2) || '-'}
-        </p>
-      ))}
-    </div>
-  )
+  const renderItem = () => {
+    return (
+      <>
+        {rowMemo.items.map((el: any, index: number) => (
+          <p key={index} className={styles.multilineText}>
+            {toFixedWithDollarSign(getTotalCost(el), 2) || '-'}
+          </p>
+        ))}
+      </>
+    )
+  }
+
+  const renderManyItems = () => {
+    return (
+      <>
+        {rowMemo.items.map((el: any, index: number) => {
+          const actualCostWithDeliveryPerUnit = getActualCostWithDeliveryPerUnit(rowMemo, el)
+
+          const actualCostWithDelivery = actualCostWithDeliveryPerUnit * el.amount
+
+          return (
+            <p key={index} className={styles.multilineText}>
+              {toFixedWithDollarSign(actualCostWithDelivery, 2) || '-'}
+            </p>
+          )
+        })}
+      </>
+    )
+  }
+
+  return <div className={styles.pricesWrapper}>{rowMemo.items?.length === 1 ? renderItem() : renderManyItems()}</div>
 })
