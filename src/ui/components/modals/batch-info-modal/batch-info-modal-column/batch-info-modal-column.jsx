@@ -35,7 +35,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.product?.asin)} />,
+    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.product?.asin)} fixedHeight={false} />,
 
     valueGetter: ({ row }) => row.items?.map(item => item?.product?.asin || t(TranslationKey.Missing)).join(', '),
 
@@ -65,9 +65,9 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey['Quantity in box']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Quantity in box'])} />,
 
-    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.amount)} />,
+    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.amount)} fixedHeight={false} />,
     valueGetter: ({ row }) => row.items?.map(item => item?.amount || t(TranslationKey.Missing)).join(', '),
-    width: 80,
+    width: 90,
   },
 
   {
