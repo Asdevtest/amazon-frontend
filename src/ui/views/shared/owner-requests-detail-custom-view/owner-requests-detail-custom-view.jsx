@@ -12,6 +12,7 @@ import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/reque
 import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { OwnerGeneralRequestInfo } from '@components/requests-and-request-proposals/owner-general-request-info'
 import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
@@ -138,7 +139,17 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                       onClickOpenRequest: viewModel.onClickOpenRequest,
                     }}
                     renderAdditionalButtons={() => (
-                      <>
+                      <div className={styles.buttonsWrapper}>
+                        <div className={styles.additionalButtonsWrapper}>
+                          <Button
+                            onClick={() =>
+                              viewModel.onClickAddMediaFromProduct(viewModel.request?.request?.product?._id)
+                            }
+                          >
+                            {t(TranslationKey['Add from product'])}
+                          </Button>
+                        </div>
+
                         {statusesReworkAndReceiveButtons.includes(statusForCurrentChat) && (
                           <div className={styles.additionalButtonsWrapper}>
                             <Button onClick={() => viewModel.onClickProposalResultToCorrect()}>
@@ -170,7 +181,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                             </Button>
                           </div>
                         )}
-                      </>
+                      </div>
                     )}
                     requestStatus={viewModel.requestStatus}
                     onChangeRequestStatus={viewModel.setRequestStatus}
@@ -300,6 +311,17 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.onSubmitAbortRequest}
           onClickCancelBtn={viewModel.onClickAbortBtn}
+        />
+      ) : null}
+
+      {viewModel.showGalleryModal ? (
+        <GalleryRequestModal
+          buttonText={t(TranslationKey.Send)}
+          data={viewModel.productMedia}
+          openModal={viewModel.showGalleryModal}
+          mediaFiles={[]}
+          onChangeMediaFiles={viewModel.sendFilesToChat}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
         />
       ) : null}
     </>

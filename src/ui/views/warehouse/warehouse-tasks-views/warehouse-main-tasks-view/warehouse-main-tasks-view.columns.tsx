@@ -18,8 +18,8 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { TaskPriority } from '@typings/enums/task-priority'
-import { TaskStatus } from '@typings/enums/task-status'
+import { TaskPriority } from '@typings/enums/task/task-priority'
+import { TaskStatus } from '@typings/enums/task/task-status'
 import { ITask } from '@typings/models/tasks/task'
 import { IGridColumn } from '@typings/shared/grid-column'
 

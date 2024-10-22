@@ -1,4 +1,5 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
@@ -6,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { ChatModel } from '@models/chat-model'
+import { ClientModel } from '@models/client-model'
 import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
@@ -39,7 +41,9 @@ export class OwnerRequestDetailCustomViewModel {
   showRequestDesignerResultClientModal = false
   showReviewModal = false
   showResultToCorrectFormModal = false
+  showGalleryModal = false
   readOnlyRequestDesignerResultClientForm = true
+  productMedia = undefined
   confirmModalSettings = {
     isWarning: false,
     message: '',
@@ -619,5 +623,47 @@ export class OwnerRequestDetailCustomViewModel {
     }
 
     this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async getProductMediaById(id) {
+    try {
+      const response = await ClientModel.getProductMediaById(id)
+
+      runInAction(() => {
+        this.productMedia = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onClickAddMediaFromProduct(id) {
+    if (id) {
+      await this.getProductMediaById(id)
+    } else {
+      toast.warning(t(TranslationKey['Product not selected!']))
+    }
+
+    if (this.productMedia) {
+      this.onTriggerOpenModal('showGalleryModal')
+    }
+  }
+
+  async sendFilesToChat(filesToAdd) {
+    const user = {
+      _id: UserModel.userInfo._id,
+      name: UserModel.userInfo.name,
+    }
+
+    const files = filesToAdd.map(file => file?.fileLink)
+
+    const messageParams = {
+      chatId: this.chatSelectedId,
+      files,
+      user,
+      text: '',
+    }
+
+    ChatModel.sendMessage(messageParams)
   }
 }

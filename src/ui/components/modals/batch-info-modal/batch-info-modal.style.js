@@ -4,7 +4,7 @@ import { display } from '@mui/system'
 
 export const useStyles = makeStyles()(theme => ({
   form: {
-    height: '65vh',
+    height: '82vh',
     display: 'flex',
     flexDirection: 'column',
     width: '1250px',

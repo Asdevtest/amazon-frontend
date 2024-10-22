@@ -82,7 +82,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
         </div>
         {ideaIds ? (
           <>
-            <p className={styles.sectionTitle}>{t(TranslationKey.Idea) + '№'}:</p>
+            <p className={styles.sectionTitle}>{t(TranslationKey.Idea) + ' №'}:</p>
             <p className={styles.lnkTitle} onClick={() => onClickIdeaId(ideaIds._id)}>
               {ideaIds.xid}
             </p>

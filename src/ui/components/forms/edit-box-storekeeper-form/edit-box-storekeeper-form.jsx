@@ -321,9 +321,11 @@ export const EditBoxStorekeeperForm = memo(
       boxFields.variationTariffId,
     )
 
+    const isBarCodeMissing = item => !item.tmpBarCode.length && !item.barCode
+    const isTransparencyFileMissing = item => !item.tmpTransparencyFile.length && !item.transparencyFile
+
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
-
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
@@ -396,7 +398,7 @@ export const EditBoxStorekeeperForm = memo(
                             inputComponent={
                               <ChangeChipCell
                                 isChipOutTable
-                                text={!item.barCode && !item?.tmpBarCode?.length && t(TranslationKey['Set Barcode'])}
+                                text={isBarCodeMissing(item) && t(TranslationKey['Set Barcode'])}
                                 value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
                                 onClickChip={() => onClickBarcode(item)}
                                 onDoubleClickChip={() => onDoubleClickBarcode(item)}
@@ -413,11 +415,7 @@ export const EditBoxStorekeeperForm = memo(
                               <ChangeChipCell
                                 disabled
                                 isChipOutTable
-                                text={
-                                  !item.transparencyFile &&
-                                  !item?.tmpTransparencyFile?.length &&
-                                  t(TranslationKey.Transparency)
-                                }
+                                text={isTransparencyFileMissing(item) && t(TranslationKey.Transparency)}
                                 value={
                                   item?.tmpTransparencyFile?.[0]?.file?.name ||
                                   item?.tmpTransparencyFile?.[0] ||
@@ -447,6 +445,7 @@ export const EditBoxStorekeeperForm = memo(
                               label={t(TranslationKey['The barcode is glued by the supplier'])}
                               inputComponent={
                                 <Checkbox
+                                  disabled={isBarCodeMissing(item)}
                                   checked={item.isBarCodeAlreadyAttachedByTheSupplier}
                                   onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
                                 />
@@ -462,6 +461,7 @@ export const EditBoxStorekeeperForm = memo(
                               label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
                               inputComponent={
                                 <Checkbox
+                                  disabled={isBarCodeMissing(item)}
                                   checked={item.isBarCodeAttachedByTheStorekeeper}
                                   onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
                                 />
@@ -475,6 +475,7 @@ export const EditBoxStorekeeperForm = memo(
                               label={t(TranslationKey['Transparency Codes glued by the supplier'])}
                               inputComponent={
                                 <Checkbox
+                                  disabled={isTransparencyFileMissing(item)}
                                   checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
                                   onChange={e =>
                                     onClickGluedTransparency(
@@ -494,6 +495,7 @@ export const EditBoxStorekeeperForm = memo(
                               label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
                               inputComponent={
                                 <Checkbox
+                                  disabled={isTransparencyFileMissing(item)}
                                   checked={item.isTransparencyFileAttachedByTheStorekeeper}
                                   onChange={e =>
                                     onClickGluedTransparency(

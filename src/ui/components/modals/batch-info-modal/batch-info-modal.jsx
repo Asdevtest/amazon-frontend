@@ -308,6 +308,8 @@ export const BatchInfoModal = observer(
           />
 
           <div className={styles.filesAndButtonWrapper}>
+            <SlideshowGallery slidesToShow={1} files={currentBatch?.attachedDocuments} />
+
             <div className={styles.buttonsWrapper}>
               <Button onClick={uploadTemplateFile}>
                 <DownloadIcon />
