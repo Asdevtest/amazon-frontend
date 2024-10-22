@@ -189,6 +189,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
       >
         <EditMultipleBoxesForm
           showCheckbox
+          userInfo={viewModel.userInfo}
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepersData}
           selectedBoxes={viewModel.currentData.filter(el => viewModel.selectedRows.includes(el._id))}

@@ -5,7 +5,6 @@ import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 import { Checkbox, IconButton } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
@@ -20,11 +19,11 @@ import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { TariffModal } from '@typings/enums/tariff-modal'
+import { isStorekeeper } from '@typings/guards/roles'
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -160,6 +159,7 @@ export const Box: FC<BoxProps> = memo(props => {
   }
   const onDeleteShippingLabel = () => {
     onChangeField({ target: { value: '' } }, 'shippingLabel', box._id)
+    setShippingLabel([])
   }
 
   const onDeleteBarcode = (value: any, index: number) => {
@@ -188,6 +188,7 @@ export const Box: FC<BoxProps> = memo(props => {
   )
 
   const isSameDestination = selectedVariationTariff?.destination?._id === curDestination?._id
+  const isShippingLabelMissing = (item: any) => !item.tmpShippingLabel.length && !item.shippingLabel
 
   useEffect(() => {
     if (box?.variationTariffId) {
@@ -234,6 +235,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     inputComponent={
                       <ChangeChipCell
                         isChipOutTable
+                        disabled={isStorekeeper(userInfo.role)}
                         text={
                           !order?.tmpTransparencyFile?.length && !order?.transparencyFile
                             ? t(TranslationKey.Transparency)
@@ -259,7 +261,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     }
                   />
 
-                  {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+                  {isStorekeeper(userInfo.role) ? (
                     <div>
                       <Field
                         oneLine
@@ -426,17 +428,15 @@ export const Box: FC<BoxProps> = memo(props => {
                 inputComponent={
                   <ChangeChipCell
                     isChipOutTable
-                    text={
-                      !box.shippingLabel && !box.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''
-                    }
+                    text={isShippingLabelMissing(box) ? t(TranslationKey['Set Shipping Label']) : ''}
                     value={box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0] || box.shippingLabel}
                     onClickChip={onClickShippingLabel}
-                    onDeleteChip={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                    onDeleteChip={isShippingLabelMissing(box) ? undefined : () => onDeleteShippingLabel()}
                   />
                 }
               />
 
-              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+              {isStorekeeper(userInfo.role) ? (
                 <Field
                   oneLine
                   labelClasses={styles.label}

@@ -959,7 +959,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           let transparencyFileLink = el.transparencyFile || ''
           const isSameTransparencyFile =
             JSON.stringify(el?.tmpTransparencyFile?.[0]) === JSON.stringify(sharedFields.tmpTransparencyFile[0])
-          if (!isSameTransparencyFile) {
+          if (!isSameTransparencyFile && el?.tmpTransparencyFile?.[0]) {
             transparencyFileLink = await this.uploadImageIfNotUploaded(
               el.tmpTransparencyFile[0],
               uploadedTransparencyFiles,
