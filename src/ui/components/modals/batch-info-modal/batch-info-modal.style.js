@@ -1,10 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
+import { display } from '@mui/system'
+
 export const useStyles = makeStyles()(theme => ({
   form: {
     height: '65vh',
     display: 'flex',
     flexDirection: 'column',
+    width: '1250px',
     gap: 20,
   },
 
@@ -14,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   boxCounterText: {
-    color: theme.palette.text.second,
+    color: theme.palette.primary.main,
   },
 
   boxCounterCount: {
@@ -48,19 +51,57 @@ export const useStyles = makeStyles()(theme => ({
 
   datesWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     gap: '10px',
+  },
+
+  datesTitle: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+    fontSize: 14,
+    lineHeight: '19px',
+    borderRadius: '8px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px',
   },
 
   infoWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
+    gap: '40px',
+  },
+
+  fieldsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    gap: '20px',
+  },
+
+  rowContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '20px',
+    alignItems: 'center',
+  },
+
+  fieldWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  searchWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
   },
 
   storekeeperField: {
@@ -69,6 +110,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex !important',
     justifyContent: 'flex-end !important',
   },
+
   userLinkWrapper: {
     marginLeft: '20px',
     display: 'flex',
@@ -82,7 +124,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: '230px',
+    width: '300px',
   },
 
   fieldLabel: {
@@ -90,55 +132,31 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 18,
     lineHeight: '140%',
   },
+
   subFieldLabel: {
     color: theme.palette.text.second,
     fontWeight: 400,
     fontSize: 12,
     lineHeight: '16px',
-    whiteSpace: 'pre-wrap',
-    marginBottom: '5px !important',
+    whiteSpace: 'nowrap',
+    marginBottom: '5px',
   },
+
   infoField: {
     fontSize: 14,
+    fontWeight: 600,
     lineHeight: '19px',
   },
+
   tableWrapper: {
     display: 'flex',
     height: 350,
     width: '100%',
   },
 
-  disabled: {
-    WebkitTextFillColor: `${theme.palette.text.second} !important`,
-  },
-  batchTitleField: {
-    width: '160px !important',
-    margin: '0 !important',
-  },
-  destinationField: {
-    width: '270px !important',
-    margin: '0 !important',
-  },
-  volumeWeightField: {
-    width: '190px !important',
-    margin: '0 !important',
-  },
-  methodField: {
-    width: '270px !important',
-    margin: '0 !important',
-  },
-  dividerField: {
-    width: '120px !important',
-    margin: '0 !important',
-  },
   filesAndButtonWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-  },
-  shippinCostContainer: {
-    width: '190px !important',
-    margin: '0 !important',
+    justifyContent: 'flex-end',
   },
 
   closeFieldsWrapper: {
