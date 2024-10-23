@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { isMatch } from 'lodash'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdDone } from 'react-icons/md'
@@ -374,6 +375,20 @@ export const EditMultipleBoxesForm = observer(
       sharedFields.variationTariffId,
     )
 
+    function hasTmpFields(newBoxes) {
+      return newBoxes.some(el => {
+        const tmpShippingLabelExists = el.tmpShippingLabel?.length > 0
+
+        const tmpFieldsInItems = el.items?.some(item => {
+          const tmpBarCodeExists = item?.tmpBarCode?.length > 0
+          const tmpTransparencyFileExists = item?.tmpTransparencyFile?.length > 0
+          return tmpBarCodeExists || tmpTransparencyFileExists
+        })
+
+        return tmpShippingLabelExists || tmpFieldsInItems
+      })
+    }
+
     const disabledSubmitBtn =
       newBoxes.some(
         el =>
@@ -382,7 +397,9 @@ export const EditMultipleBoxesForm = observer(
           ((el.shippingLabel || el.tmpShippingLabel?.length) &&
             !el.fbaShipment &&
             !destinations.find(e => e._id === el.destinationId)?.storekeeper),
-      ) || selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
+      ) ||
+      selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK) ||
+      (isMatch(newBoxes, selectedBoxes) && !hasTmpFields(newBoxes))
 
     const disabledApplyBtn = !visibleBoxes.length
     const isShippingLabelMissing = !sharedFields.shippingLabel && !sharedFields.tmpShippingLabel?.length
