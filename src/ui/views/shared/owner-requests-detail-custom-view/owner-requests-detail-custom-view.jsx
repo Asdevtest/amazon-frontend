@@ -22,7 +22,6 @@ import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
 import { toFixedWithDollarSign } from '@utils/text'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
@@ -239,9 +238,8 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
         <ReviewsForm
-          reviews={viewModel.currentReviews}
           user={viewModel.currentReviewModalUser}
-          onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')}
+          onClose={() => viewModel.onTriggerOpenModal('showReviewModal')}
         />
       </Modal>
 
@@ -277,7 +275,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           reviewLabel={t(TranslationKey["Review of the performer's work"])}
           confirmButtonText={t(TranslationKey.Confirm)}
           cancelBtnText={t(TranslationKey.Reject)}
-          onSubmit={throttle(viewModel.acceptProposalResultSetting.onSubmit)}
+          onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}

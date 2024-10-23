@@ -4,12 +4,12 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     marginTop: 20,
     width: '100%',
-    height: '100%',
+    height: 'max-content',
   },
 
   container: {
     margin: '0 !important',
-    height: '100%',
+    height: 'max-content',
   },
 
   editorContainer: {
