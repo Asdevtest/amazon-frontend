@@ -13,6 +13,7 @@ import { formatCamelCaseString, formatSnakeCaseString } from '@utils/text'
 import { IProduct } from '@typings/models/products/product'
 
 import { getColumnKey } from './get-column-key'
+import { getColumnValue } from './get-column-value'
 
 export const getColumn = ({
   table,
@@ -40,24 +41,9 @@ export const getColumn = ({
     headerName,
     renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
     valueGetter: (params: GridRenderCellParams) => {
-      let value: unknown = 0
-
-      if (type === 'date') {
-        value = formatDateWithoutTime(params.row?.reports?.[table]?.[name])
-      } else if (isCounter) {
-        value = params.row?.reports?.[table]
-      } else if (Array?.isArray(params.row?.reports?.[table])) {
-        const dataArray = params.row?.reports?.[table]
-        value = dataArray?.[dataArray?.length - 1]?.[name] || ''
-      } else {
-        value = params.row?.reports?.[table]?.[name]
-      }
-
-      return value
+      return getColumnValue({ params, table, name, type, isCounter: !!isCounter })
     },
     renderCell: (params: GridRenderCellParams) => {
-      console.log('params.value :>> ', params.value)
-
       return (
         <Tooltip title={formatDateWithoutTime(params.row?.reports?.[table]?.updated_at)}>
           <div
