@@ -65,6 +65,7 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
 
       <div className={styles.tableWrapper}>
         <CustomDataGrid
+          checkboxSelection={!!idea}
           rows={viewModel.currentData}
           rowCount={viewModel.rowCount}
           columns={viewModel.columnsModel}
