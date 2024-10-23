@@ -1,7 +1,5 @@
 import { makeStyles } from 'tss-react/mui'
 
-import { display } from '@mui/system'
-
 export const useStyles = makeStyles()(theme => ({
   form: {
     height: '82vh',
