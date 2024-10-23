@@ -515,8 +515,9 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
 
   async onClickProposalResultAcceptForm(proposalId: string, data: any) {
     try {
+      const id = this.curProposal?.proposal?.sub?._id || this.curProposal?.proposal?.createdBy?._id
       await RequestProposalModel.requestProposalResultAccept(proposalId, data)
-      await FeedbackModel.sendFeedback(this.curProposal?.proposal?.createdBy?._id, {
+      await FeedbackModel.sendFeedback(id, {
         rating: data.rating,
         comment: data.review,
       })
