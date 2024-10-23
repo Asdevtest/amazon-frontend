@@ -89,7 +89,7 @@ export const ActualCostWithDeliveryPerUnit: FC<ActualCostWithDeliveryPerUnitProp
 
           return (
             <p key={index} className={styles.multilineText}>
-              {toFixedWithDollarSign(costPerUnitWithDeliveryByProduct, 2)}
+              {costPerUnitWithDeliveryByProduct ? toFixedWithDollarSign(costPerUnitWithDeliveryByProduct, 2) : '-'}
             </p>
           )
         })}

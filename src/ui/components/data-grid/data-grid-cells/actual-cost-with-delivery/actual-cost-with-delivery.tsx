@@ -47,7 +47,7 @@ export const ActualCostWithDelivery: FC<ActualCostWithDeliveryProps> = memo(prop
       <>
         {rowMemo.items.map((el: any, index: number) => (
           <p key={index} className={styles.multilineText}>
-            {toFixedWithDollarSign(getTotalCost(el), 2) || '-'}
+            {actualShippingCost ? toFixedWithDollarSign(getTotalCost(el), 2) : '-'}
           </p>
         ))}
       </>
