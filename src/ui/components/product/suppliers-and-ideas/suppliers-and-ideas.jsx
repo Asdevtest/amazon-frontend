@@ -9,7 +9,7 @@ import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
-import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
+import { LinkRequestForm } from '@components/forms/link-request-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { CommentsModal } from '@components/modals/comments-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -74,7 +74,7 @@ export const SuppliersAndIdeas = observer(props => {
     showRequestDesignerResultModal,
     showMainRequestResultModal,
     showRequestBloggerResultModal,
-    showBindingModal,
+    showLinkRequestModal,
     requestsForProduct,
     showOrderModal,
     platformSettings,
@@ -311,8 +311,12 @@ export const SuppliersAndIdeas = observer(props => {
         />
       ) : null}
 
-      <Modal openModal={showBindingModal} setOpenModal={() => onTriggerOpenModal('showBindingModal')}>
-        <BindIdeaToRequestForm idea={curIdea} requests={requestsForProduct} onClickBindButton={onClickBindButton} />
+      <Modal openModal={showLinkRequestModal} setOpenModal={() => onTriggerOpenModal('showLinkRequestModal')}>
+        <LinkRequestForm
+          idea={curIdea}
+          onClose={() => onTriggerOpenModal('showLinkRequestModal')}
+          onUpdateData={updateData}
+        />
       </Modal>
 
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
