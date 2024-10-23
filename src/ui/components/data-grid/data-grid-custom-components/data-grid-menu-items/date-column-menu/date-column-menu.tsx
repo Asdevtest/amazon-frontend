@@ -1,37 +1,30 @@
 import { FC, memo } from 'react'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { Checkbox } from '@components/shared/checkbox'
-import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRangeDatePicker } from '@components/shared/custom-range-date-picker'
 
-import { t } from '@utils/translations'
+import { formatDateWithoutTime } from '@utils/date-time'
 
 import { useStyles as useSharedStyles } from '../column-menu.style'
+import { useStyles } from './date-column-menu.style'
 
 import { ColumnMenuProps } from '../column-menu.type'
 import { ControlButtonsColumnMenu } from '../control-buttons-column-menu'
 import { DataWrapperColumnMenu } from '../data-wrapper-column-menu'
 
-import { useStringColumnMenu } from './hooks/use-string-column-menu'
+import { useDateColumnMenu } from './hooks/use-date-column-menu'
 
-interface StringColumnMenuProps extends ColumnMenuProps<string> {
-  isShowFullText: boolean
-  transformValueMethod: (value: string) => string
-}
-
-export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
-  const { classes: sharedStyles, cx } = useSharedStyles()
+export const DateColumnMenu: FC<ColumnMenuProps<string>> = memo(props => {
+  const { classes: styles } = useStyles()
+  const { classes: sharedStyles } = useSharedStyles()
 
   const {
     field,
     table,
     filtersData,
     filterRequestStatus,
-    isShowFullText,
     additionalFilterSettings,
     fieldNameFilter,
-    transformValueMethod,
     onClose,
     onClickFilterBtn,
     onChangeFullFieldMenuItem,
@@ -42,31 +35,23 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
     chosenItems,
     setChosenItems,
 
-    searchValue,
-    setSearchValue,
+    onChangeRangeDate,
 
     dataforRender,
 
     onClickItem,
-  } = useStringColumnMenu({
+  } = useDateColumnMenu({
     field,
     table,
     filtersData,
     additionalFilterSettings,
     fieldNameFilter,
-    transformValueMethod,
     onClickFilterBtn,
   })
 
   return (
     <div className={sharedStyles.columnMenuWrapper}>
-      <CustomInputSearch
-        allowClear
-        value={searchValue}
-        wrapperClassName={sharedStyles.searchInput}
-        placeholder="Search"
-        onChange={e => setSearchValue(e.target.value)}
-      />
+      <CustomRangeDatePicker size="middle" className={styles.datePicker} onChange={onChangeRangeDate} />
 
       <DataWrapperColumnMenu
         dataforRender={dataforRender}
@@ -75,23 +60,13 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
         setChosenItems={setChosenItems}
       >
         {dataforRender?.map((el, index) => {
-          const value = transformValueMethod ? transformValueMethod(el) : el
+          const value = formatDateWithoutTime(el)
           const valueChecked = chosenItems?.some(item => item === el)
 
           return (
-            <Checkbox
-              key={index}
-              checked={valueChecked}
-              wrapperClassName={sharedStyles.filterWrapper}
-              onClick={() => onClickItem(el)}
-            >
-              <p
-                title={value}
-                className={cx(sharedStyles.filterTitle, {
-                  [sharedStyles.filterFullTitle]: isShowFullText,
-                })}
-              >
-                {value || t(TranslationKey.Empty)}
+            <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
+              <p title={value} className={sharedStyles.filterTitle}>
+                {value}
               </p>
             </Checkbox>
           )

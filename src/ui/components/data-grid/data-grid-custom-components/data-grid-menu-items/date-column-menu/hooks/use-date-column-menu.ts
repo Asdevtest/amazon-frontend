@@ -1,37 +1,50 @@
+import dayjs, { Dayjs } from 'dayjs'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { IFilter } from '@utils/data-grid-filters'
 
 import { HookParams } from '../../column-menu.type'
 
-interface useStringColumnMenuProps extends HookParams<string> {
-  transformValueMethod: (value: string) => string
-}
-
-export const useStringColumnMenu = ({
+export const useDateColumnMenu = ({
   field,
   table,
   filtersData,
   additionalFilterSettings,
   fieldNameFilter,
-  transformValueMethod,
   onClickFilterBtn,
-}: useStringColumnMenuProps) => {
+}: HookParams<string>) => {
   const [chosenItems, setChosenItems] = useState<string[]>([])
-
-  const [searchValue, setSearchValue] = useState('')
+  const [rangeDate, setRangeDate] = useState<(Dayjs | null)[]>([])
 
   const { filterData, currentFilterData }: IFilter<string> = useMemo(() => {
     return filtersData
   }, [field, filtersData])
 
   const dataforRender: string[] = useMemo(() => {
-    return filterData?.filter(item =>
-      String(transformValueMethod ? transformValueMethod(item) : item)
-        .toLowerCase()
-        .includes(searchValue.toLowerCase()),
-    )
-  }, [filterData, searchValue])
+    const dateFrom = rangeDate[0] ? rangeDate[0]?.startOf('day') : null
+    const dateTo = rangeDate[1] ? rangeDate[1]?.endOf('day') : null
+
+    return filterData?.filter(item => {
+      const currentDate = dayjs(item).startOf('day')
+
+      if (!dateFrom && !dateTo) {
+        return true
+      }
+
+      return (
+        (currentDate.isAfter(dateFrom) || currentDate.isSame(dateFrom)) &&
+        (currentDate.isBefore(dateTo) || currentDate.isSame(dateFrom))
+      )
+    })
+  }, [filterData, rangeDate])
+
+  const onChangeRangeDate = useCallback((dates: null | (Dayjs | null)[]) => {
+    if (dates?.length) {
+      setRangeDate(dates)
+    } else {
+      setRangeDate([])
+    }
+  }, [])
 
   const onClickItem = useCallback((value: string) => {
     setChosenItems(prev => {
@@ -55,8 +68,7 @@ export const useStringColumnMenu = ({
     chosenItems,
     setChosenItems,
 
-    searchValue,
-    setSearchValue,
+    onChangeRangeDate,
 
     dataforRender,
 
