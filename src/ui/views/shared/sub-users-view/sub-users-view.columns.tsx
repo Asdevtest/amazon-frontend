@@ -8,6 +8,7 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  RatingCell,
   UserCell,
   UserRolesCell,
 } from '@components/data-grid/data-grid-cells'
@@ -27,6 +28,15 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
       renderCell: ({ row }) => <UserCell id={row?._id} name={row?.name} email={row?.email} />,
       width: 300,
+    },
+
+    {
+      field: 'rating',
+      headerName: t(TranslationKey.Rating),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rating)} />,
+      renderCell: ({ row }) => <RatingCell disabled rating={row?.rating} id={row?._id} name={row?.name} />,
+      width: 160,
+      disableCustomSort: true,
     },
 
     {
@@ -52,7 +62,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
           onClickSubmit={reason => onClickSaveComment(row._id, reason)}
         />
       ),
-      width: 500,
+      flex: 1,
       disableCustomSort: true,
     },
 

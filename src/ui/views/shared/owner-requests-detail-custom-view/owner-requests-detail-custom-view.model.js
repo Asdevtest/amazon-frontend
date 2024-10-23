@@ -14,7 +14,7 @@ import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { getLocalToUTCDate, sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getLocalToUTCDate } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -30,7 +30,6 @@ export class OwnerRequestDetailCustomViewModel {
   requestProposals = []
   requestAnnouncement = undefined
   curResultMedia = []
-  currentReviews = []
   currentReviewModalUser = undefined
   findRequestProposalForCurChat = undefined
   showConfirmModal = false
@@ -237,8 +236,10 @@ export class OwnerRequestDetailCustomViewModel {
 
   async onClickProposalResultAcceptForm(proposalId, data) {
     try {
+      const id =
+        this.findRequestProposalForCurChat.proposal.sub._id || this.findRequestProposalForCurChat.proposal.createdBy._id
       await RequestProposalModel.requestProposalResultAccept(proposalId, data)
-      await FeedbackModel.sendFeedback(this.findRequestProposalForCurChat.proposal.createdBy._id, {
+      await FeedbackModel.sendFeedback(id, {
         rating: data.rating,
         comment: data.review,
       })
@@ -366,22 +367,8 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  async getReviews(guid) {
-    try {
-      const result = await FeedbackModel.getFeedback(guid)
-      runInAction(() => {
-        this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickReview(user) {
-    await this.getReviews(user._id)
-    runInAction(() => {
-      this.currentReviewModalUser = user
-    })
+  onClickReview(user) {
+    this.currentReviewModalUser = user
     this.onTriggerOpenModal('showReviewModal')
   }
 
