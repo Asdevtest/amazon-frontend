@@ -1076,14 +1076,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onEditBoxSubmit(
-    id: string,
-    boxData: any,
-    sourceData: any,
-
-    priority?: number,
-    priorityReason?: string,
-  ) {
+  async onEditBoxSubmit(id: string, boxData: any, sourceData: any, priority?: number, priorityReason?: string) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
@@ -1190,12 +1183,19 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         updateBoxWhiteList,
       )
 
-      const isBarcodeChanged =
-        sourceData.items[0].barCode !== boxData.items[0].barCode || boxData.items[0].tmpBarCode.length !== 0
-      const isTransparencyFileChanged =
-        !!boxData.items[0].tmpTransparencyFile &&
-        (sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
-          boxData.items[0].tmpTransparencyFile.length !== 0)
+      const isBarcodeChanged = boxData.items.some((item: any, index: number) => {
+        const sourceItem = sourceData.items[index]
+        return sourceItem.barCode !== item.barCode || (item.tmpBarCode && item.tmpBarCode.length !== 0)
+      })
+
+      const isTransparencyFileChanged = boxData.items.some((item: any, index: number) => {
+        const sourceItem = sourceData.items[index]
+        return (
+          !!item.tmpTransparencyFile &&
+          (sourceItem.transparencyFile !== item.transparencyFile || item.tmpTransparencyFile.length !== 0)
+        )
+      })
+
       const isShippingLabelChanged =
         sourceData.shippingLabel !== null &&
         (sourceData.shippingLabel !== boxData.shippingLabel || boxData.shippingLabel === '')
