@@ -100,9 +100,9 @@ export const clientBoxesViewColumns = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
       renderCell: params => {
-        return <StringListCell data={params.row.items?.map(item => item.order?.xid ?? '-')} />
+        return <StringListCell data={params.row.items?.map(item => item.order?.xid)} />
       },
-      valueGetter: ({ row }) => row.items?.map(item => item.order?.xid ?? '-'),
+      valueGetter: ({ row }) => row.items?.map(item => item.order?.xid),
       width: 160,
 
       columnKey: columnnsKeys.shared.NUMBER,

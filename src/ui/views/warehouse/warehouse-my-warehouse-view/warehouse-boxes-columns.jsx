@@ -9,9 +9,9 @@ import {
   DimensionsCell,
   DimensionsHeaderCell,
   MultilineTextHeaderCell,
-  OrdersIdsItemsCell,
   ProductsCell,
   RedFlagsCell,
+  StringListCell,
   UserCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells'
@@ -44,20 +44,13 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
       valueGetter: ({ row }) => {
-        const orderNumbers = row?.items.map(cur => cur.order?.xid ?? '-').join(', ')
-        const itemNumbers = row?.items.map(cur => cur.order?.item ?? '-').join(', ')
-        return `${t(TranslationKey.Order)} ${orderNumbers} | item: ${itemNumbers}`
+        const orderNumbers = row?.items.map(cur => cur.order?.xid).join(', ')
+        const itemNumbers = row?.items.map(cur => cur.order?.item).join(', ')
+        return `${t(TranslationKey.Order)} ${orderNumbers} | Item: ${itemNumbers}`
       },
 
       renderCell: params => {
-        const lines = params.value.split('|')
-        return (
-          <div>
-            {lines.map((line, index) => (
-              <div key={index}>{line}</div>
-            ))}
-          </div>
-        )
+        return <StringListCell data={params.value.split('|')} />
       },
       fields: [
         {
@@ -84,7 +77,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       ],
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 140,
+      width: 150,
     },
 
     {
