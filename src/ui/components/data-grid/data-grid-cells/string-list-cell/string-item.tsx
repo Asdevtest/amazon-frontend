@@ -29,7 +29,13 @@ export const StringItem: FC<StringItemProps> = memo(({ item, asin }) => {
       {item}
     </Link>
   ) : (
-    <AntText {...onMouseFunctions} ellipsis copyable={isHover && !!item} onClick={e => e.stopPropagation()}>
+    <AntText
+      {...onMouseFunctions}
+      ellipsis
+      copyable={isHover && !!item}
+      className={styles.text}
+      onClick={e => e.stopPropagation()}
+    >
       {item}
     </AntText>
   )
