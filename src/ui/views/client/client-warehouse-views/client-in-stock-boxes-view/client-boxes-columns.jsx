@@ -17,6 +17,7 @@ import {
   NormDateCell,
   ProductsCell,
   RedFlagsCell,
+  StringListCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -98,8 +99,10 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey['№ Order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
-      renderCell: params => <Text isCell text={params.row.items?.[0]?.order?.xid} />,
-      valueGetter: ({ row }) => row.items?.[0]?.order?.xid,
+      renderCell: params => {
+        return <StringListCell data={params.row.items?.map(item => item.order?.xid)} />
+      },
+      valueGetter: ({ row }) => row.items?.map(item => item.order?.xid),
       width: 160,
 
       columnKey: columnnsKeys.shared.NUMBER,
