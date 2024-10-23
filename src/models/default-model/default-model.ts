@@ -47,9 +47,11 @@ export class DefaultModel extends ModalsModel {
       console.error(error)
       this.setRequestStatus(loadingStatus.FAILED)
 
-      this.currentData = []
-      this.rowCount = 0
-      this.meta = null
+      runInAction(() => {
+        this.currentData = []
+        this.rowCount = 0
+        this.meta = null
+      })
     }
   }
 

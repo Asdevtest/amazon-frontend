@@ -72,52 +72,27 @@ export const EditBoxStorekeeperForm = memo(
       setShowSetBarcodeModal(false)
     }
 
-    const onClickGluedCheckbox = (field, itemId) => e => {
-      const newFormFields = { ...boxFields }
-
-      if (field === 'isBarCodeAlreadyAttachedByTheSupplier') {
-        newFormFields.items = boxFields.items.map(el =>
-          el._id === itemId
-            ? {
-                ...el,
-                isBarCodeAlreadyAttachedByTheSupplier: e.target.checked,
-                isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper
-                  ? !e.target.checked
-                  : el.isBarCodeAttachedByTheStorekeeper,
-              }
-            : el,
-        )
-      } else if (field === 'isBarCodeAttachedByTheStorekeeper') {
-        newFormFields.items = boxFields.items.map(el =>
-          el._id === itemId
-            ? {
-                ...el,
-                isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier
-                  ? !e.target.checked
-                  : el.isBarCodeAlreadyAttachedByTheSupplier,
-                isBarCodeAttachedByTheStorekeeper: e.target.checked,
-              }
-            : el,
-        )
-      }
-      setBoxFields(newFormFields)
+    const counterpartFields = {
+      isBarCodeAlreadyAttachedByTheSupplier: 'isBarCodeAttachedByTheStorekeeper',
+      isBarCodeAttachedByTheStorekeeper: 'isBarCodeAlreadyAttachedByTheSupplier',
+      isTransparencyFileAlreadyAttachedByTheSupplier: 'isTransparencyFileAttachedByTheStorekeeper',
+      isTransparencyFileAttachedByTheStorekeeper: 'isTransparencyFileAlreadyAttachedByTheSupplier',
     }
 
-    const onClickGluedTransparency = (fieldName, index, value) => {
+    const onClickGluedCheckbox = (field, itemId) => e => {
       const newFormFields = { ...boxFields }
-      if (fieldName === 'isTransparencyFileAlreadyAttachedByTheSupplier') {
-        newFormFields.items[index] = {
-          ...newFormFields.items[index],
-          isTransparencyFileAlreadyAttachedByTheSupplier: value,
-          isTransparencyFileAttachedByTheStorekeeper: false,
-        }
-      } else {
-        newFormFields.items[index] = {
-          ...newFormFields.items[index],
-          isTransparencyFileAlreadyAttachedByTheSupplier: false,
-          isTransparencyFileAttachedByTheStorekeeper: value,
-        }
-      }
+      const counterpartField = counterpartFields[field]
+
+      newFormFields.items = boxFields.items.map(el =>
+        el._id === itemId
+          ? {
+              ...el,
+              [field]: e.target.checked,
+              [counterpartField]: el[counterpartField] ? !e.target.checked : el[counterpartField],
+            }
+          : el,
+      )
+
       setBoxFields(newFormFields)
     }
 
@@ -218,7 +193,15 @@ export const EditBoxStorekeeperForm = memo(
     const onDeleteBarcode = productId => {
       const newFormFields = { ...boxFields }
       newFormFields.items = boxFields.items.map(item =>
-        item.product._id === productId ? { ...item, barCode: '', tmpBarCode: [] } : item,
+        item.product._id === productId
+          ? {
+              ...item,
+              barCode: '',
+              tmpBarCode: [],
+              isBarCodeAlreadyAttachedByTheSupplier: false,
+              isBarCodeAttachedByTheStorekeeper: false,
+            }
+          : item,
       )
       setBoxFields(newFormFields)
     }
@@ -477,13 +460,10 @@ export const EditBoxStorekeeperForm = memo(
                                 <Checkbox
                                   disabled={isTransparencyFileMissing(item)}
                                   checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
-                                  onChange={e =>
-                                    onClickGluedTransparency(
-                                      'isTransparencyFileAlreadyAttachedByTheSupplier',
-                                      index,
-                                      e.target.checked,
-                                    )
-                                  }
+                                  onChange={onClickGluedCheckbox(
+                                    'isTransparencyFileAlreadyAttachedByTheSupplier',
+                                    item._id,
+                                  )}
                                 />
                               }
                             />
@@ -497,13 +477,10 @@ export const EditBoxStorekeeperForm = memo(
                                 <Checkbox
                                   disabled={isTransparencyFileMissing(item)}
                                   checked={item.isTransparencyFileAttachedByTheStorekeeper}
-                                  onChange={e =>
-                                    onClickGluedTransparency(
-                                      'isTransparencyFileAttachedByTheStorekeeper',
-                                      index,
-                                      e.target.checked,
-                                    )
-                                  }
+                                  onChange={onClickGluedCheckbox(
+                                    'isTransparencyFileAttachedByTheStorekeeper',
+                                    item._id,
+                                  )}
                                 />
                               }
                             />
