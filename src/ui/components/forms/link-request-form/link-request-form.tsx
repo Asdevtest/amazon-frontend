@@ -12,6 +12,7 @@ import { RestartIcon } from '@components/shared/svg-icons'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IIdea } from '@typings/models/ideas/idea'
 import { IProduct } from '@typings/models/products/product'
 import { IRequest } from '@typings/models/requests/request'
 
@@ -19,21 +20,29 @@ import { useStyles } from './link-request-form.style'
 
 import { LinkRequestModel } from './link-request-form.model'
 
-interface LinkRequestFormProps {
+export interface LinkRequestFormProps {
   onClose: () => void
   product?: IProduct
+  idea?: IIdea
   onAddRequest?: (request?: IRequest) => void
+  onUpdateData?: () => void
 }
 
 export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
-  const { onClose, product, onAddRequest } = props
+  const { onClose, idea, product, onAddRequest, onUpdateData } = props
 
   const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new LinkRequestModel(product), [])
+  const viewModel = useMemo(() => new LinkRequestModel(product, idea), [])
 
   const handleSave = useCallback(() => {
-    onAddRequest?.(viewModel.selectedRequest)
-    onClose()
+    if (idea) {
+      viewModel.onBindIdeaToRequest()
+      onUpdateData?.()
+    } else {
+      onAddRequest?.(viewModel.selectedRequest)
+    }
+
+    onClose?.()
   }, [])
 
   return (
@@ -62,7 +71,6 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
           getRowHeight={() => 'auto'}
           getRowId={({ _id }: GridRowModel) => _id}
           slots={null}
-          className={styles.dataGridRoot}
           onRowSelectionModelChange={viewModel.onSelectionModel}
         />
       </div>
