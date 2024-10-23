@@ -24,9 +24,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { DatePicker } from '@components/shared/date-picker'
 import { Input } from '@components/shared/input'
-import { SearchInput } from '@components/shared/search-input'
 import { Text } from '@components/shared/text'
 
 import { checkIsPositiveNum, checkIsPositiveOrNegativeDigit } from '@utils/checks'
@@ -350,6 +350,11 @@ export const OrderStatusMenuItem = memo(
         label: t(TranslationKey.Completed),
         checked: isCheckedStatusByFilter.COMPLETED,
       },
+      {
+        name: chosenStatusesByFilter.PENDING,
+        label: t(TranslationKey.Pending),
+        checked: isCheckedStatusByFilter.PENDING,
+      },
     ]
 
     return (
@@ -403,16 +408,12 @@ export const MyRequestsStatusMenuItem = memo(
 
     return (
       <div title="" className={styles.shopsDataWrapper}>
-        <div className={styles.searchInputWrapper}>
-          <SearchInput
-            key={'client_warehouse_search_input'}
-            inputClasses={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
-            onChange={e => {
-              setNameSearchValue(e.target.value)
-            }}
-          />
-        </div>
+        <CustomInputSearch
+          allowClear
+          wrapperClassName={styles.searchInput}
+          placeholder="Search"
+          onChange={e => setNameSearchValue(e.target.value)}
+        />
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
             <>
@@ -499,16 +500,12 @@ export const FreelanceRequestType = memo(
 
     return (
       <div title="" className={styles.shopsDataWrapper}>
-        <div className={styles.searchInputWrapper}>
-          <SearchInput
-            key={'client_warehouse_search_input'}
-            inputClasses={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
-            onChange={e => {
-              setNameSearchValue(e.target.value)
-            }}
-          />
-        </div>
+        <CustomInputSearch
+          allowClear
+          wrapperClassName={styles.searchInput}
+          placeholder="Search"
+          onChange={e => setNameSearchValue(e.target.value)}
+        />
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
             <>
@@ -625,16 +622,12 @@ export const CreatedByMenuItem = memo(
 
       return (
         <div title="" className={styles.shopsDataWrapper}>
-          <div className={styles.searchInputWrapper}>
-            <SearchInput
-              key={'client_warehouse_search_input'}
-              inputClasses={styles.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
-            />
-          </div>
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
+            placeholder="Search"
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
               {filterRequestStatus === loadingStatus.IS_LOADING ? (
@@ -789,14 +782,12 @@ export const ObJectFieldMenuItem = memo(
           title=""
           className={cx({ [styles.shopsDataWrapper]: !asBlock, [styles.shopsDataWrapperBlocked]: asBlock })}
         >
-          <div className={styles.searchInputWrapper}>
-            <SearchInput
-              key={'client_warehouse_search_input'}
-              inputClasses={styles.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => setNameSearchValue(e.target.value)}
-            />
-          </div>
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
+            placeholder="Search"
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
               {filterRequestStatus === loadingStatus.IS_LOADING ? (
@@ -941,16 +932,12 @@ export const IdeaShopsFieldMenuItem = memo(
           title=""
           className={cx({ [styles.shopsDataWrapper]: !asBlock, [styles.shopsDataWrapperBlocked]: asBlock })}
         >
-          <div className={styles.searchInputWrapper}>
-            <SearchInput
-              key={'client_warehouse_search_input'}
-              inputClasses={styles.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
-            />
-          </div>
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
+            placeholder="Search"
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
               {filterRequestStatus === loadingStatus.IS_LOADING ? (
@@ -1182,14 +1169,12 @@ export const NormalFieldMenuItem = memo(
             ),
           })}
         >
-          <div className={styles.universalFilterSearchInputWrapper}>
-            <SearchInput
-              key="client_warehouse_search_input"
-              inputClasses={styles.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => setNameSearchValue(e.target.value)}
-            />
-          </div>
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
+            placeholder="Search"
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
 
           <div className={styles.universalFilterBody}>
             {filterRequestStatus === loadingStatus.IS_LOADING ? (
@@ -1419,13 +1404,13 @@ export const OrderOrItemMenuItem = memo(
 
       onClickAccept,
     }) => {
-      const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'id')
+      const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'xid')
 
       useEffect(() => {
         onClickFilterBtn(currentOption, table)
 
         if (currentOption === 'item') {
-          onChangeFullFieldMenuItem([], 'id')
+          onChangeFullFieldMenuItem([], 'xid')
         } else {
           onChangeFullFieldMenuItem([], 'item')
         }
@@ -1483,7 +1468,7 @@ export const OrderOrItemMenuItem = memo(
                 <FormControlLabel
                   title={t(TranslationKey['№ Order'])}
                   className={styles.radioOption}
-                  value="id"
+                  value="xid"
                   control={<Radio className={styles.radioControl} />}
                   label={t(TranslationKey['№ Order'])}
                 />
@@ -1498,16 +1483,12 @@ export const OrderOrItemMenuItem = memo(
             </FormControl>
           </div>
 
-          <div className={styles.searchInputWrapper}>
-            <SearchInput
-              key={'client_warehouse_search_input'}
-              inputClasses={styles.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
-            />
-          </div>
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
+            placeholder="Search"
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
               {filterRequestStatus === loadingStatus.IS_LOADING ? (
@@ -1670,14 +1651,12 @@ export const DestinationMenuItem = memo(
           </FormControl>
         </div>
 
-        <div className={styles.searchInputWrapper}>
-          <SearchInput
-            key={'client_warehouse_search_input'}
-            inputClasses={styles.searchInput}
-            placeholder={t(TranslationKey.Search)}
-            onChange={e => setNameSearchValue(e.target.value)}
-          />
-        </div>
+        <CustomInputSearch
+          allowClear
+          wrapperClassName={styles.searchInput}
+          placeholder="Search"
+          onChange={e => setNameSearchValue(e.target.value)}
+        />
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
             {filterRequestStatus === loadingStatus.IS_LOADING ? (
@@ -1825,14 +1804,12 @@ export const FromToDateMenuItem = memo(
             </div>
           </div>
 
-          <div className={styles.searchInputWrapper}>
-            <SearchInput
-              key={'client_warehouse_search_input'}
-              inputClasses={styles.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => setNameSearchValue(e.target.value)}
-            />
-          </div>
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
+            placeholder="Search"
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
               {filterRequestStatus === loadingStatus.IS_LOADING ? (
@@ -2117,16 +2094,12 @@ export const NumberFieldMenuItem = memo(
             />
           </div>
 
-          <div className={styles.searchInputWrapper}>
-            <SearchInput
-              key={'client_warehouse_search_input'}
-              inputClasses={styles.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
-            />
-          </div>
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
+            placeholder="Search"
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
               {filterRequestStatus === loadingStatus.IS_LOADING ? (
@@ -2258,16 +2231,13 @@ export const InStockMenuItem = memo(
             />
           </div>
 
-          <div className={styles.searchInputWrapper}>
-            <SearchInput
-              key={'client_warehouse_search_input'}
-              inputClasses={styles.searchInput}
-              placeholder={t(TranslationKey.Search)}
-              onChange={e => {
-                setNameSearchValue(e.target.value)
-              }}
-            />
-          </div>
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
+            placeholder="Search"
+            onChange={e => setNameSearchValue(e.target.value)}
+          />
+
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
               {filterRequestStatus === loadingStatus.IS_LOADING ? (

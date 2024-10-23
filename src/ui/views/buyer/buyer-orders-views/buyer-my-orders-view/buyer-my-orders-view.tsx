@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowClassNameParams } from '@mui/x-data-grid-premium'
 
@@ -31,7 +31,7 @@ export const BuyerMyOrdersView = observer(({ history }: any) => {
 
   const pathname = history.location.pathname
 
-  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ pathname }))
+  const viewModel = useMemo(() => new BuyerMyOrdersViewModel({ pathname }), [])
 
   const getRowClassName = (params: GridRowClassNameParams) =>
     // @ts-ignore

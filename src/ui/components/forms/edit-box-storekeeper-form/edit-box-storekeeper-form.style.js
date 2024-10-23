@@ -28,11 +28,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 130,
     objectFit: 'contain',
     cursor: 'pointer',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   buttonsWrapper: {
@@ -158,7 +153,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   disabledNumInput: {
-    width: 80,
+    width: '120px',
     height: 40,
     marginLeft: 55,
   },

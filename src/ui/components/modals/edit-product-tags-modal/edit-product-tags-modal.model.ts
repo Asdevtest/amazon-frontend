@@ -28,6 +28,7 @@ export class EditProductTagModel {
 
   tags: ITag[] = []
   selectedTags: ITag[] = []
+  selectedTagsBase: ITag[] = []
 
   isCanLoadMore = true
 
@@ -88,6 +89,7 @@ export class EditProductTagModel {
       const result = await ProductModel.getProductTagsByGuid(this.productId)
       runInAction(() => {
         this.selectedTags = result as ITag[]
+        this.selectedTagsBase = result as ITag[]
         this.requestTagsByIdStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
@@ -202,6 +204,10 @@ export class EditProductTagModel {
 
   handleDeleteTag(tagId: string) {
     this.selectedTags = this.selectedTags?.filter(selectedTag => selectedTag?._id !== tagId)
+  }
+
+  handleClearTags() {
+    this.selectedTags = []
   }
 
   async handleBindTagsToProduct(handleUpdateRow: IHandleUpdateRow) {

@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(() => ({
     height: 'auto',
     flexGrow: 1,
 
-    gap: 77,
+    gap: 2,
   },
 
   multilineText: {

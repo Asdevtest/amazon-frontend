@@ -21,6 +21,7 @@ import { onSubmitPostImages } from '@utils/upload-files'
 import { Specs } from '@typings/enums/specs'
 import { IProposal } from '@typings/models/proposals/proposal'
 import { IRequest } from '@typings/models/requests/request'
+import { IFullUser } from '@typings/shared/full-user'
 
 import { additionalFields, executedStatuses, fieldsForSearch, inTheWorkStatuses } from './my-proposals-view.constants'
 import { ProposalsCondition } from './my-proposals-view.types'
@@ -28,22 +29,19 @@ import { observerConfig } from './observer-config'
 import { proposalsColumns } from './proposals-columns'
 
 export class MyProposalsViewModel extends DataGridFilterTableModel {
-  currentProposal: IProposal | null = null
-  currentRequest: IRequest | null = null
-
+  currentProposal?: IProposal
+  currentRequest?: IRequest
   specOption = Specs.DEFAULT
-
   showRequestDetailModal = false
   showConfirmModal = false
   showRequestDesignerResultModal = false
   showRequestDesignerResultClientModal = false
   showMainRequestResultModal = false
   showRequestResultModal = false
-
   switcherCondition = ProposalsCondition.IN_THE_WORK
 
   get userInfo() {
-    return UserModel.userInfo
+    return UserModel.userInfo as unknown as IFullUser
   }
 
   constructor({ allProposals }: { allProposals: boolean }) {
@@ -131,6 +129,7 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
 
   onChangeSpec(value: Specs) {
     this.specOption = value
+    this.onChangeFullFieldMenuItem([], 'spec')
 
     this.getCurrentData()
   }
@@ -216,6 +215,7 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
   onClickChangeCatigory(event: CheckboxChangeEvent) {
     const currentValue = event?.target?.value
     this.switcherCondition = currentValue
+    this.onChangeFullFieldMenuItem([], 'status')
 
     this.getCurrentData()
   }

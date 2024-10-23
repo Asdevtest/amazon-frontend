@@ -35,6 +35,16 @@ import {
 export const clientAllIdeasColumns = rowHandlers => {
   const columns = [
     {
+      field: 'xid',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: params => <Text isCell text={params.row.xid} />,
+      width: 100,
+      type: 'number',
+      columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
       field: 'title',
       headerName: t(TranslationKey['Idea title']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea title'])} />,
@@ -124,7 +134,7 @@ export const clientAllIdeasColumns = rowHandlers => {
     {
       field: 'parentProductShop',
       headerName: t(TranslationKey.Shop),
-      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
@@ -176,7 +186,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => <AllIdeasActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 160,
+      width: 140,
       disableCustomSort: true,
       filterable: false,
     },
@@ -271,7 +281,11 @@ export const clientAllIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: ({ row }) => (
-        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row?.createdBy?._id} />
+        <UserCell
+          name={row.sub?.name || row.createdBy?.name}
+          id={row.sub?._id || row?.createdBy?._id}
+          email={row.sub?.email || row?.createdBy?.email}
+        />
       ),
       width: 130,
 

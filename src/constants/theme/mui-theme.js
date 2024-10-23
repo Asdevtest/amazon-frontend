@@ -93,6 +93,9 @@ export const globalStyles = theme => ({
       },
     },
   },
+  '.MuiDataGrid-columnHeaderTitleContainerContent': {
+    width: '100%',
+  },
 
   // MuiTablePagination
   '.MuiTablePagination-input': {
@@ -181,11 +184,7 @@ export const lightTheme = createTheme({
           right: -2,
           width: '20px !important',
           height: '20px !important',
-
-          '.MuiSvgIcon-root': {
-            width: 14,
-            height: 14,
-          },
+          padding: 0,
         },
 
         iconButtonContainer: {
@@ -205,16 +204,6 @@ export const lightTheme = createTheme({
               content: 'unset',
               display: 'none',
             },
-          },
-        },
-      },
-    },
-
-    MuiNativeSelect: {
-      styleOverrides: {
-        select: {
-          '& > option': {
-            textAlign: 'center',
           },
         },
       },
@@ -259,22 +248,6 @@ export const lightTheme = createTheme({
         root: {
           color: '#001029',
           padding: '5px',
-        },
-      },
-    },
-
-    MuiButton: {
-      defaultProps: {
-        sx: {
-          '&.Mui-disabled': {
-            backgroundColor: '#B3D1FB',
-            color: '#F9FCFF',
-          },
-        },
-      },
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
         },
       },
     },
@@ -339,6 +312,7 @@ export const lightTheme = createTheme({
     },
 
     button: {
+      badge: '#007bff',
       disabledText: '#F9FCFF',
       disabledBackground: '#B3D1FB',
       disabledSuccessText: '#E5FFEF',
@@ -629,6 +603,7 @@ export const darkTheme = createTheme({
         },
 
         cell: {
+          overflow: 'hidden',
           borderBottom: '1px solid rgba(81, 81, 81, 1)',
         },
 
@@ -649,11 +624,7 @@ export const darkTheme = createTheme({
           right: -3,
           width: '20px !important',
           height: '20px !important',
-
-          '.MuiSvgIcon-root': {
-            width: 14,
-            height: 14,
-          },
+          padding: 0,
         },
 
         iconButtonContainer: {
@@ -715,28 +686,6 @@ export const darkTheme = createTheme({
       },
     },
 
-    MuiFormLabel: {
-      styleOverrides: {
-        root: {
-          color: '#fff',
-        },
-      },
-    },
-
-    MuiNativeSelect: {
-      styleOverrides: {
-        select: {
-          '& > option': {
-            backgroundColor: '#2B2B34 !important',
-            textAlign: 'center',
-          },
-        },
-        icon: {
-          color: '#fff',
-        },
-      },
-    },
-
     MuiList: {
       styleOverrides: {
         root: {
@@ -790,15 +739,6 @@ export const darkTheme = createTheme({
       },
     },
 
-    MuiPaper: {
-      styleOverrides: {
-        root: {
-          backgroundColor: '#2B2B34',
-          color: '#fff',
-        },
-      },
-    },
-
     MuiTableCell: {
       styleOverrides: {
         root: {
@@ -808,18 +748,12 @@ export const darkTheme = createTheme({
       },
     },
 
-    MuiButton: {
-      defaultProps: {
-        sx: {
-          '&.Mui-disabled': {
-            backgroundColor: '#2E4760',
-            color: '#8291A0',
-          },
-        },
-      },
+    MuiPaper: {
+      // remove after switch to antd
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          backgroundColor: '#2B2B34',
+          color: '#fff',
         },
       },
     },
@@ -896,6 +830,7 @@ export const darkTheme = createTheme({
     },
 
     button: {
+      badge: '#fff',
       disabledText: '#8291A0',
       disabledBackground: '#2E4760',
       disabledSuccessText: '#41715A',

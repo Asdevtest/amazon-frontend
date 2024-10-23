@@ -1,4 +1,4 @@
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -17,14 +17,12 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { Launches } from '@components/shared/launches'
 import { getLaunchName } from '@components/shared/launches/helpers/get-launch-name'
-import { EditIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { formatShortDateTime } from '@utils/date-time'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IFullUser } from '@typings/shared/full-user'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -46,10 +44,10 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
         renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
         renderCell: ({ row }: GridRowModel) => (
           <ProductCell
-            image={row.product.images[0]}
-            title={row.product.amazonTitle}
-            asin={row.product.asin}
-            sku={row.product.skuByClient}
+            image={row.product?.images?.[0]}
+            title={row.product?.amazonTitle}
+            asin={row.product?.asin}
+            sku={row.product?.skuByClient}
           />
         ),
         valueGetter: (row: GridRowModel) => row?.product?.asin,
@@ -80,26 +78,24 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'action',
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <ActionButtonsCell
-          iconButton
-          fullWidth
           row
-          isFirstButton
-          isSecondButton
-          disabledSecondButton={row.listingLaunches.length > 0}
-          firstButtonElement={<EditIcon />}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<MdOutlineDelete size={18} />}
-          secondButtonStyle={ButtonStyle.DANGER}
-          secondDescriptionText="Are you sure you want to remove the report?"
-          onClickFirstButton={() => onToggleReportModalEditMode(row._id)}
-          onClickSecondButton={() => onClickRemoveReport(row._id)}
+          showFirst
+          showSecond
+          secondDanger
+          firstGhost
+          secondGhost
+          firstIcon={<MdOutlineEdit size={16} />}
+          secondDisabled={row.listingLaunches.length > 0}
+          secondIcon={<MdOutlineDelete size={16} />}
+          secondConfirmText="Are you sure you want to remove the report?"
+          onClickFirst={() => onToggleReportModalEditMode(row._id)}
+          onClickSecond={() => onClickRemoveReport(row._id)}
         />
       ),
       disableExport: true,
       disableCustomSort: true,
-      disableColumnMenu: true,
       filterable: false,
       width: 95,
     },
@@ -111,7 +107,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'createdAt',
       headerName: t(TranslationKey.Created),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.createdAt} />,
       valueGetter: (row: GridRowModel) => formatShortDateTime(row?.createdAt),
       width: 100,
       columnKey: columnnsKeys.shared.DATE,
@@ -121,7 +117,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'launchType',
       headerName: t(TranslationKey['Launch type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Launch type'])} />,
-      renderCell: ({ row }: GridRowModel) => <Launches isCell launches={row.listingLaunches || []} />,
+      renderCell: ({ row }) => <Launches isCell launches={row.listingLaunches || []} />,
       valueGetter: (launch: GridRowModel) =>
         `${getLaunchName(launch?.type, launch?.showShortName ?? true)} - ${launch?.value}%`,
       width: 330,
@@ -132,7 +128,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'newProductPrice',
       headerName: t(TranslationKey['New product price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['New product price'])} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={String(toFixedWithDollarSign(row.newProductPrice))} />,
+      renderCell: ({ row }) => <Text isCell text={String(toFixedWithDollarSign(row.newProductPrice))} />,
       width: 140,
       columnKey: columnnsKeys.shared.QUANTITY,
     },
@@ -142,7 +138,11 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
       renderCell: ({ row }: GridRowModel) => (
-        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row.createdBy?._id} />
+        <UserCell
+          name={row.sub?.name || row.createdBy?.name}
+          id={row.sub?._id || row.createdBy?._id}
+          email={row.sub?.email || row.createdBy?.email}
+        />
       ),
       valueGetter: (row: GridRowModel) => row?.sub?.name || row?.createdBy?.name,
 
@@ -210,7 +210,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'description',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.description} />,
+      renderCell: ({ row }) => <Text isCell text={row.description} />,
       flex: 1,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -219,7 +219,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       valueGetter: (row: GridRowModel) => formatShortDateTime(row?.updatedAt),
       width: 105,
       columnKey: columnnsKeys.shared.DATE,

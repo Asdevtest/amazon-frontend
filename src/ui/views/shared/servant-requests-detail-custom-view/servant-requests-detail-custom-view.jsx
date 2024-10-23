@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -35,11 +35,10 @@ const requestProposalCancelAllowedStatuses = [
 
 export const RequestDetailCustomView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new RequestDetailCustomViewModel({ history }))
+  const viewModel = useMemo(() => new RequestDetailCustomViewModel({ history }), [])
 
   useEffect(() => {
     viewModel.loadData()
-
     viewModel.resetChats()
   }, [])
 
@@ -62,20 +61,16 @@ export const RequestDetailCustomView = observer(({ history }) => {
     <>
       <div>
         {viewModel.request && viewModel.requestProposals ? (
-          <div className={styles.requestInfoWrapper}>
-            <ServantGeneralRequestInfo
-              requestProposals={viewModel.requestProposals}
-              request={viewModel.request}
-              onSubmit={viewModel.onSubmitOfferDeal}
-              onJoinChat={viewModel.onJoinChat}
-            />
-          </div>
+          <ServantGeneralRequestInfo
+            requestProposals={viewModel.requestProposals}
+            request={viewModel.request}
+            onSubmit={viewModel.onSubmitOfferDeal}
+            onJoinChat={viewModel.onJoinChat}
+          />
         ) : null}
 
         {viewModel.request ? (
-          <div className={styles.detailsWrapper}>
-            <CustomSearchRequestDetails request={viewModel.request} isOpen={!viewModel.chatSelectedId} />
-          </div>
+          <CustomSearchRequestDetails request={viewModel.request} isOpen={!viewModel.chatSelectedId} />
         ) : null}
 
         {viewModel.chatIsConnected && viewModel.chats?.length ? (
@@ -97,6 +92,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
                 mesSearchValue={viewModel.mesSearchValue}
                 curFoundedMessage={viewModel.curFoundedMessage}
                 chatSelectedId={viewModel.chatSelectedId}
+                currentOpponent={viewModel.request?.request?.createdBy}
                 chatMessageHandlers={{
                   onClickOpenRequest: viewModel.onClickOpenRequest,
                 }}

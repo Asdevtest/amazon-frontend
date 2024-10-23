@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -20,7 +20,7 @@ import { IBox } from '@typings/models/boxes/box'
 import { ClientBoxesTariffsNotificationsViewModel } from './client-boxes-tariffs-notifications-view.model'
 
 export const ClientBoxesTariffsNotificationsView = observer(() => {
-  const [viewModel] = useState(() => new ClientBoxesTariffsNotificationsViewModel())
+  const viewModel = useMemo(() => new ClientBoxesTariffsNotificationsViewModel(), [])
 
   return (
     <div className="viewWrapper">

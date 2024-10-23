@@ -1,9 +1,10 @@
 import { cx } from '@emotion/css'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowClassNameParams, GridRowParams } from '@mui/x-data-grid-premium'
 
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
@@ -23,7 +24,7 @@ import { BuyerMyProductsViewModel } from './buyer-my-products-view.model'
 export const BuyerMyProductsView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new BuyerMyProductsViewModel())
+  const viewModel = useMemo(() => new BuyerMyProductsViewModel(), [])
 
   const ideasSheldStyle = (params: GridRowClassNameParams) =>
     (!params.row.ideasOnCheck && !!params.row.ideasVerified && styles.ideaRowGreen) ||
@@ -81,6 +82,15 @@ export const BuyerMyProductsView = observer(() => {
               columnsModel: viewModel.columnsModel,
               onSortModelChange: viewModel.onChangeSortingModel,
             },
+
+            tagSearchSettings: {
+              tagList: viewModel.columnMenuSettings?.tags?.filterData,
+              activeTags: viewModel.columnMenuSettings?.tags?.currentFilterData,
+              isLoading: viewModel.columnMenuSettings?.filterRequestStatus === loadingStatus.IS_LOADING,
+              getTags: () => viewModel.columnMenuSettings?.onClickFilterBtn('tags', DataGridFilterTables.PRODUCTS),
+              setActiveProductsTag: viewModel.setActiveProductsTag,
+            },
+
             tablePresets: {
               showPresetsSelect: viewModel.showPresetsSelect,
               presetsTableData: viewModel.presetsTableData,

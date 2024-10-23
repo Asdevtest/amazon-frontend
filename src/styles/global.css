@@ -39,6 +39,22 @@
   max-height: 300px;
   overflow-y: auto;
 }
+.ant-cascader-menu-item-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ant-cascader-checkbox-inner {
+  border-radius: 4px !important;
+}
+.ant-select-dropdown {
+  z-index: 8;
+}
+.ant-cascader-dropdown {
+  z-index: 7;
+}
+.ant-rate {
+  font-size: 16px;
+}
 
 * {
   padding: 0px;

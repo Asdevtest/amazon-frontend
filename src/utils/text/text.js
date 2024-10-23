@@ -140,7 +140,7 @@ export const timeToDeadlineInHoursAndMins = ({ date, withSeconds, now }) => {
   }${withSeconds ? seconds + t(TranslationKey['s.']) : ''}`
 }
 
-export const timeToDeadlineInDaysAndHours = ({ date, now }) => {
+export const timeToDeadlineInDaysAndHours = ({ date, now = new Date() }) => {
   const secondsToDeadline = getDistanceBetweenDatesInSeconds(date, now)
 
   const isExpired = secondsToDeadline < 0
@@ -159,7 +159,7 @@ export const objectToUrlQs = obj => decodeURI(QueryString.stringify(obj).replace
 export const getTableByColumn = (column, hint) => {
   if (
     [
-      'humanFriendlyId',
+      'xid',
       'amount',
       'destination',
       'logicsTariff',
@@ -192,9 +192,7 @@ export const getTableByColumn = (column, hint) => {
     ].includes(column)
   ) {
     if (
-      ['humanFriendlyId', 'boxesCount', 'trackingNumber', 'arrivalDate', 'quantityBoxes', 'updatedAt'].includes(
-        column,
-      ) &&
+      ['xid', 'boxesCount', 'trackingNumber', 'arrivalDate', 'quantityBoxes', 'updatedAt'].includes(column) &&
       hint === 'batches'
     ) {
       return 'batches'

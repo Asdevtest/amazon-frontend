@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -17,7 +17,7 @@ import { IProduct } from '@typings/models/products/product'
 import { AdminInventoryViewModel } from './admin-inventory-view.model'
 
 export const AdminInventoryView = observer(() => {
-  const [viewModel] = useState(() => new AdminInventoryViewModel())
+  const viewModel = useMemo(() => new AdminInventoryViewModel(), [])
 
   return (
     <div className="viewWrapper">

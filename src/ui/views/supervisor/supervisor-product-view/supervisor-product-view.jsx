@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,7 +12,7 @@ import { t } from '@utils/translations'
 import { SupervisorProductViewModel } from './supervisor-product-view.model'
 
 export const SupervisorProductView = observer(({ history }) => {
-  const [viewModel] = useState(() => new SupervisorProductViewModel({ history }))
+  const viewModel = useMemo(() => new SupervisorProductViewModel({ history }), [])
 
   return (
     <>

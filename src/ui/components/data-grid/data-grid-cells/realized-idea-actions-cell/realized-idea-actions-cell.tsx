@@ -3,11 +3,9 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 interface RealizedIdeaActionsCellProps {
   row: any
@@ -17,18 +15,18 @@ interface RealizedIdeaActionsCellProps {
 }
 
 export const RealizedIdeaActionsCell: FC<RealizedIdeaActionsCellProps> = memo(({ rowHandlers, row }) => (
-  <>
+  <div style={{ width: '100%' }}>
     {(row.variation ? !row.childProduct?.order : !row.parentProduct.order) ? (
-      <Button
-        isTableButton
-        fullWidth
-        styleType={ButtonStyle.SUCCESS}
+      <CustomButton
+        block
+        type="primary"
+        size="small"
         onClick={() => rowHandlers.onClickToOrder(row.childProduct?._id || row.parentProduct?._id)}
       >
         {t(TranslationKey['To order'])}
-      </Button>
+      </CustomButton>
     ) : (
       <p>{t(TranslationKey.Ordered)}</p>
     )}
-  </>
+  </div>
 ))

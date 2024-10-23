@@ -19,7 +19,6 @@ export const exchangeСreatedColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    // type: 'date',
   },
   {
     field: 'updatedAt',
@@ -28,7 +27,6 @@ export const exchangeСreatedColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    // type: 'date',
   },
 
   {
@@ -75,7 +73,13 @@ export const exchangeСreatedColumns = () => [
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.createdBy?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.originalData.createdBy?.name}
+        id={params.row.originalData.createdBy?._id}
+        email={params.row.originalData.createdBy?.email}
+      />
+    ),
     width: 200,
   },
 

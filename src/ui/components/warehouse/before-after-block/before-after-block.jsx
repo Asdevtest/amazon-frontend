@@ -1,8 +1,7 @@
 import { memo, useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Checkbox, Divider, Paper, Tooltip, Typography } from '@mui/material'
+import { Checkbox, Divider, Tooltip, Typography } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -134,7 +133,7 @@ const Box = memo(props => {
       </div>
 
       {(!showFullCard && isEdit) || (!showFullCard && taskType === TaskOperationType.MERGE) ? (
-        <Paper
+        <div
           className={cx(styles.boxWrapper, {
             [styles.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
           })}
@@ -145,15 +144,15 @@ const Box = memo(props => {
                 readOnly={readOnly}
                 taskType={taskType}
                 item={item}
-                boxId={box.humanFriendlyId}
+                boxId={box.xid}
                 superCount={box.amount}
                 onChangeBarCode={onChangeBarCode}
               />
             </div>
           ))}
-        </Paper>
+        </div>
       ) : (
-        <Paper
+        <div
           className={cx(styles.boxWrapper, {
             [styles.boxWrapperWithShadow]: SettingsModel.uiTheme === UiTheme.light,
           })}
@@ -169,7 +168,7 @@ const Box = memo(props => {
                   readOnly={readOnly}
                   referenceEditingBox={referenceEditingBox}
                   item={item}
-                  boxId={box.humanFriendlyId}
+                  boxId={box.xid}
                   index={index}
                   superCount={box.amount}
                   isNewBox={isNewBox}
@@ -212,7 +211,7 @@ const Box = memo(props => {
             >
               <LabelWithCopy
                 labelTitleFontWeight={'bold'}
-                labelTitle={t(TranslationKey['Shipping label'])}
+                labelTitle="Shipping label"
                 labelValue={box.shippingLabel}
                 lableLinkTitle={t(TranslationKey.View)}
               />
@@ -261,7 +260,7 @@ const Box = memo(props => {
               </div>
             </div>
           </div>
-        </Paper>
+        </div>
       )}
 
       {isNewBox && (
@@ -297,7 +296,11 @@ const Box = memo(props => {
                 {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
               </Typography>
 
-              {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+              {!showFullCard ? (
+                <MdArrowDropDown size={22} className={styles.icon} />
+              ) : (
+                <MdArrowDropUp size={22} className={styles.icon} />
+              )}
             </div>
           </div>
         </div>
@@ -310,7 +313,11 @@ const Box = memo(props => {
                 {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
               </Typography>
 
-              {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+              {!showFullCard ? (
+                <MdArrowDropDown size={22} className={styles.icon} />
+              ) : (
+                <MdArrowDropUp size={22} className={styles.icon} />
+              )}
             </div>
           </div>
         </div>

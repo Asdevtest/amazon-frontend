@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ import { MemberSelect } from './member-select'
 export const ManagementTabView: FC = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ManagementTabViewModel())
+  const viewModel = useMemo(() => new ManagementTabViewModel(), [])
 
   return (
     <div className={styles.mainWrapper}>

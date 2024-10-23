@@ -23,15 +23,6 @@ export const useStyles = makeStyles()(theme => ({
     top: 20,
     right: 30,
     zIndex: 7,
-    width: 40,
-    height: 40,
-    border: '1px solid #E0E0E0',
-    backgroundColor: theme.palette.background.general,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '50%',
-    cursor: 'pointer',
 
     [theme.breakpoints.down(768)]: {
       top: 20,
@@ -137,12 +128,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '38px !important',
     height: '38px !important',
     color: theme.palette.text.second,
-    transition: '0.3s ease',
     cursor: 'pointer',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
 
     [theme.breakpoints.down(1024)]: {
       width: '24px !important',
@@ -213,22 +199,13 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.primary.main,
   },
 
-  hideArrow: {
-    width: '15px !important',
-    height: '15px !important',
-  },
-
   collapseText: {
     color: theme.palette.primary.main,
     marginRight: 5,
   },
 
   pencilEditIcon: {
-    transition: '.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   messageToReplyWrapper: {
@@ -252,12 +229,7 @@ export const useStyles = makeStyles()(theme => ({
     top: 20,
     marginLeft: 'auto',
     marginRight: 10,
-
     cursor: 'pointer',
-    transition: '.3s ease',
-    '&: hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   hideElement: {

@@ -3,8 +3,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderBoxesCell,
   OrdersIdsItemsCell,
+  ProductsCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -14,7 +14,7 @@ import { t } from '@utils/translations'
 
 export const addOrEditBatchFormColumns = isClient => [
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <Text isCell text={params.value} />,
@@ -32,30 +32,9 @@ export const addOrEditBatchFormColumns = isClient => [
   {
     field: 'boxes',
     headerName: t(TranslationKey.Boxes),
-    width: 295,
+    width: 200,
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
-    renderCell: params =>
-      params.row.originalData.items.length > 1 ? (
-        <div>
-          <OrderBoxesCell
-            superbox
-            withQuantity
-            qty={params.row.qty}
-            superboxQty={params.row.originalData.amount}
-            box={params.row.originalData}
-          />
-        </div>
-      ) : (
-        <div>
-          <OrderBoxesCell
-            withQuantity
-            qty={params.row.qty}
-            superboxQty={params.row.originalData.amount > 1 && params.row.originalData.amount}
-            box={params.row.originalData}
-            product={params.row.originalData.items[0].product}
-          />
-        </div>
-      ),
+    renderCell: params => <ProductsCell box={params.row.originalData} />,
     filterable: false,
     sortable: false,
   },
@@ -86,6 +65,7 @@ export const addOrEditBatchFormColumns = isClient => [
       <UserCell
         name={isClient ? params.row.originalData?.storekeeper?.name : params.row.originalData?.client?.name}
         id={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
+        email={isClient ? params.row.originalData?.storekeeper?.email : params.row.originalData?.client?.email}
       />
     ),
     width: 130,

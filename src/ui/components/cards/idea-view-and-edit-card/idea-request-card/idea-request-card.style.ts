@@ -8,7 +8,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     height: '100%',
     width: '200px',
-    padding: '0 10px',
   },
 
   categoryContainer: {
@@ -64,13 +63,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   clearIcon: {
-    width: '20px !important',
-    height: '20px !important',
-    transition: '.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
     color: theme.palette.text.second,
   },
 }))

@@ -1,7 +1,5 @@
 import { FC, memo } from 'react'
-
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
-import { Typography } from '@mui/material'
+import { MdClose } from 'react-icons/md'
 
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
@@ -24,11 +22,7 @@ export const ChatCurrentReplyMessage: FC<ChatCurrentReplyMessageProps> = memo(
     return (
       <div className={styles.body}>
         <div className={styles.content}>
-          {message.text && (
-            <div>
-              <Typography className={styles.message}>{message.text}</Typography>
-            </div>
-          )}
+          {message.text ? <p className={styles.message}>{message.text}</p> : null}
 
           {(!!message.files?.length || !!message.images?.length || !!message.video?.length) && (
             <div className={styles.fileList}>
@@ -38,7 +32,7 @@ export const ChatCurrentReplyMessage: FC<ChatCurrentReplyMessageProps> = memo(
         </div>
         <div className={styles.controls}>
           <ReplyIcon className={cx(styles.icon, styles.replyIcon)} onClick={scrollToMessage} />
-          <CloseOutlinedIcon className={styles.icon} onClick={() => setMessageToReply(null)} />
+          <MdClose size={22} className={styles.icon} onClick={() => setMessageToReply(null)} />
         </div>
       </div>
     )

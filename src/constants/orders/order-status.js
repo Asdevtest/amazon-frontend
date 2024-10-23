@@ -51,7 +51,7 @@ export const OrderStatusByCode = {
   50: OrderStatus.SHIPPED, // Отправлен
 }
 
-export const OrderStatusTranslate = (status, isClient) => {
+export const OrderStatusTranslate = status => {
   switch (status) {
     case OrderStatus.FORMED:
       return t(TranslationKey.Formed)

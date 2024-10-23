@@ -8,6 +8,6 @@ export enum SwitcherSetting {
 }
 
 export const switcherConfig = [
-  { label: () => t(TranslationKey.Standardized), value: SwitcherSetting.STANDARD },
-  { label: () => t(TranslationKey.Additional), value: SwitcherSetting.ADDITIONAL },
+  { label: t(TranslationKey.Standardized), value: SwitcherSetting.STANDARD },
+  { label: t(TranslationKey.Additional), value: SwitcherSetting.ADDITIONAL },
 ]

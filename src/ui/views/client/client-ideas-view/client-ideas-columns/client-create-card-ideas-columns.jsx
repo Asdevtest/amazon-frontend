@@ -3,7 +3,7 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  CreateCardIdeaActionsCell,
+  ActionButtonsCell,
   IdeaProductCell,
   ManyUserLinkCell,
   MediaContentCell,
@@ -34,6 +34,16 @@ import {
 export const clientCreateCardIdeasColumns = rowHandlers => {
   const columns = [
     {
+      field: 'xid',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: params => <Text isCell text={params.row.xid} />,
+      width: 100,
+      type: 'number',
+      columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
       field: 'parentProduct',
       headerName: t(TranslationKey['Parent product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
@@ -60,7 +70,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
     {
       field: 'parentProductShop',
       headerName: t(TranslationKey.Shop),
-      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
@@ -130,8 +140,15 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
       headerName: t(TranslationKey.Action),
 
-      renderCell: params => <CreateCardIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 160,
+      renderCell: params => (
+        <ActionButtonsCell
+          showFirst
+          firstContent={t(TranslationKey.Accept)}
+          firstDisabled={!params.row.childProduct && params.row.variation}
+          onClickFirst={() => rowHandlers.onClickAcceptOnCreatingProduct(params.row._id)}
+        />
+      ),
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },
@@ -142,7 +159,11 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: ({ row }) => (
-        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row?.createdBy?._id} />
+        <UserCell
+          name={row.sub?.name || row.createdBy?.name}
+          id={row.sub?._id || row?.createdBy?._id}
+          email={row.sub?.email || row?.createdBy?.email}
+        />
       ),
       width: 130,
 

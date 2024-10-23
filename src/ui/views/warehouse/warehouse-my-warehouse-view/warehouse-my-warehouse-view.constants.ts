@@ -22,25 +22,33 @@ export const updateBoxWhiteList = [
   'storage',
 ]
 
-export const filtersFields = [
-  'humanFriendlyId',
-  'orderIdsItems',
-  'orders',
-  'amount',
-  'warehouse',
-  'client',
-  'batchHumanFriendlyId',
-  'dimansions',
-  'action',
-  'prepId',
-  'id',
-  'item',
-  'asin',
-  'skuByClient',
-  'amazonTitle',
-  'destinationId',
+export const updateManyBoxesWhiteList = [
+  '_id',
   'logicsTariffId',
-  'redFlags',
-  'storage',
-  'clientComment',
+  'fbaShipment',
+  'fbaNumber',
+  'destinationId',
+  'variationTariffId',
+  'isShippingLabelAttachedByStorekeeper',
+  'items',
 ]
+
+export const sharedFieldsWhiteList = [
+  'barCode',
+  'logicsTariffId',
+  'shippingLabel',
+  'fbaShipment',
+  'fbaNumber',
+  'destinationId',
+  'transparencyFile',
+  'variationTariffId',
+  'isShippingLabelAttachedByStorekeeper',
+  'isTransparencyFileAttachedByTheStorekeeper',
+  'isTransparencyFileAlreadyAttachedByTheSupplier',
+  'isBarCodeAlreadyAttachedByTheSupplier',
+  'isBarCodeAttachedByTheStorekeeper',
+]
+
+export const additionalFilterFields = ['orderXid', 'item', 'skuByClient', 'amazonTitle', 'destination', 'logicsTariff']
+
+export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'item', 'orderXid', 'xid', 'prepId']

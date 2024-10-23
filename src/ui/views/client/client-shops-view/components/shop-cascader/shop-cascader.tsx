@@ -1,7 +1,7 @@
 import { Cascader, Divider } from 'antd'
 import Paragraph from 'antd/es/typography/Paragraph'
 import { observer } from 'mobx-react'
-import { FC, ReactElement, useCallback, useState } from 'react'
+import { FC, ReactElement, useCallback, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,7 +17,7 @@ import { ShopsCascaderModel } from './shop-cascader.model'
 
 export const ShopCascader: FC = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ShopsCascaderModel())
+  const viewModel = useMemo(() => new ShopsCascaderModel(), [])
 
   const dropdownRender = useCallback(
     (menu: ReactElement) => (
@@ -82,7 +82,7 @@ export const ShopCascader: FC = observer(() => {
       rootClassName={styles.cascader}
       expandTrigger="hover"
       optionRender={option => (
-        <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0, width: 220 }}>
+        <Paragraph ellipsis={{ rows: 1 }} style={{ margin: 0, width: 250 }}>
           {option.label}
         </Paragraph>
       )}

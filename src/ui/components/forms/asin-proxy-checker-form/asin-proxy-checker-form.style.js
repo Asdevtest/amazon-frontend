@@ -62,7 +62,6 @@ export const useStyles = makeStyles()(theme => ({
 
   searchInput: {
     width: '300px',
-    height: 36,
   },
 
   buttonsWrapper: {

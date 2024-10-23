@@ -4,7 +4,6 @@ export const observerConfig = {
   curBatch: observable,
   currentStorekeeperId: observable,
   storekeepersData: observable,
-  productViewMode: observable,
   uploadedFiles: observable,
 
   isArchive: observable,
@@ -19,7 +18,6 @@ export const observerConfig = {
   onSubmitChangeBoxFields: action.bound,
   setCurrentOpenedBatch: action.bound,
   patchActualShippingCostBatch: action.bound,
-  changeViewModeHandler: action.bound,
   onClickSaveArrivalDate: action.bound,
   onClickSaveTrackingNumber: action.bound,
 }

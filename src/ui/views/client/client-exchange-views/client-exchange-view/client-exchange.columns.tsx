@@ -2,6 +2,7 @@ import { productStrategyStatusesEnum } from '@constants/product/product-strategy
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -9,13 +10,11 @@ import {
   TagsCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/button'
 import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IProduct } from '@typings/models/products/product'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -106,7 +105,13 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Researcher),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Researcher)} />,
 
-      renderCell: params => <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.createdBy?.name}
+          id={params.row.createdBy?._id}
+          email={params.row.createdBy?.email}
+        />
+      ),
       width: 160,
       disableCustomSort: true,
     },
@@ -116,7 +121,9 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-      renderCell: params => <UserCell name={params.row.buyer?.name} id={params.row.buyer?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.buyer?.name} id={params.row.buyer?._id} email={params.row.buyer?.email} />
+      ),
       width: 150,
       disableCustomSort: true,
     },
@@ -136,14 +143,13 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 190,
+      width: 150,
       renderCell: params => (
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          onClick={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row as IProduct)}
-        >
-          {t(TranslationKey['Buy for'])} {toFixedWithDollarSign(params.row.priceForClient, 2)}
-        </Button>
+        <ActionButtonsCell
+          showFirst
+          firstContent={`${t(TranslationKey['Buy for'])} ${toFixedWithDollarSign(params.row.priceForClient, 2)}`}
+          onClickFirst={() => rowHandlers.onClickLaunchPrivateLabelBtn(params.row as IProduct)}
+        />
       ),
     },
 
@@ -175,7 +181,6 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 115,
-      // type: 'date',
     },
   ]
 

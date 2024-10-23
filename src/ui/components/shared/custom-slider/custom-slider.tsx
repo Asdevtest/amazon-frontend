@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, ReactNode, useEffect, useState } from 'react'
+import { MdArrowLeft, MdArrowRight } from 'react-icons/md'
 
-import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import { Typography } from '@mui/material'
 
 import { RIGHT_BLOCK_WIDTH } from '@constants/configs/sizes-settings'
@@ -108,11 +107,8 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
         <div className={styles.headerCarouselDocumentsWrapper}>
           <div className={cx(styles.buttonDocumentsWrapper, { [styles.modal]: isModal })}>
             {alignButtons === 'center' && (
-              <ArrowLeftIcon
-                style={{
-                  width: arrowSize,
-                  height: arrowSize,
-                }}
+              <MdArrowLeft
+                size={arrowSize}
                 className={cx(styles.arrowIcon, { [styles.arrowDisabledIcon]: isFirstSlide })}
                 onClick={handleLeftArrowClick}
               />
@@ -124,11 +120,8 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
               </div>
             </div>
             {alignButtons === 'center' && (
-              <ArrowRightIcon
-                style={{
-                  width: arrowSize,
-                  height: arrowSize,
-                }}
+              <MdArrowRight
+                size={arrowSize}
                 className={cx(styles.arrowIcon, {
                   [styles.arrowDisabledIcon]: isLastSlide,
                 })}
@@ -142,17 +135,14 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
             </div>
           ) : (
             <div className={styles.numberOfFilesFlex}>
-              <ArrowLeftIcon
-                style={{ width: arrowSize, height: arrowSize }}
+              <MdArrowLeft
+                size={arrowSize}
                 className={cx(styles.arrowIcon, { [styles.arrowDisabledIcon]: isFirstSlide })}
                 onClick={handleLeftArrowClick}
               />
               <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
-              <ArrowRightIcon
-                style={{
-                  width: arrowSize,
-                  height: arrowSize,
-                }}
+              <MdArrowRight
+                size={arrowSize}
                 className={cx(styles.arrowIcon, {
                   [styles.arrowDisabledIcon]: isLastSlide,
                 })}
@@ -166,15 +156,15 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
         <div>
           <div className={styles.headerCarouselWrapper}>
             <div className={styles.buttonWrapper}>
-              <ArrowLeftIcon
-                style={{ width: arrowSize, height: arrowSize }}
+              <MdArrowLeft
+                size={arrowSize}
                 className={cx(styles.arrowIcon, { [styles.arrowDisabledIcon]: isFirstSlide })}
                 onClick={handleLeftArrowClick}
               />
               <Typography className={styles.proposalCount}>{`${title} №${slideCount}`}</Typography>
 
-              <ArrowRightIcon
-                style={{ width: arrowSize, height: arrowSize }}
+              <MdArrowRight
+                size={arrowSize}
                 className={cx(styles.arrowIcon, {
                   [styles.arrowDisabledIcon]: isLastSlide,
                 })}

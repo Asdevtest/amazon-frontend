@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -18,7 +18,7 @@ import { getSwitcherConfig } from './admin-exchange-views.config'
 import { AdminExchangeViewModel } from './admin-exchange-views.model'
 
 export const AdminExchangeViews = observer(() => {
-  const [viewModel] = useState(() => new AdminExchangeViewModel())
+  const viewModel = useMemo(() => new AdminExchangeViewModel(), [])
 
   return (
     <div className="viewWrapper">

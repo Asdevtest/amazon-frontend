@@ -12,7 +12,6 @@ import {
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { ITask } from '@typings/models/tasks/task'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -49,7 +48,7 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
 
       width: 180,
       align: 'center',
-      renderCell: params => <UserCell name={params.value.name} id={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value.name} id={params.value?._id} email={params.value?.email} />,
     },
 
     {
@@ -57,14 +56,13 @@ export const adminWarehouseTasksColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 190,
+      width: 140,
       align: 'center',
       renderCell: params => (
         <ActionButtonsCell
-          isFirstButton
-          firstButtonElement={t(TranslationKey.Details)}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => handlers.setCurrentOpenedTask(params.row as ITask)}
+          showFirst
+          firstContent={t(TranslationKey.Details)}
+          onClickFirst={() => handlers.setCurrentOpenedTask(params.row as ITask)}
         />
       ),
       disableCustomSort: true,

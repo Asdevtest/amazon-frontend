@@ -17,7 +17,7 @@ export const adminBatchesViewColumns = () => [
     field: 'orders',
     headerName: t(TranslationKey.Product),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-    width: 550,
+    width: 200,
     renderCell: params => <BatchBoxesCell boxes={params.row.boxes} />,
     filterable: false,
     sortable: false,
@@ -29,14 +29,19 @@ export const adminBatchesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    // type: 'date',
   },
 
   {
     field: 'storekeeper',
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-    renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.storekeeper?.name}
+        id={params.row.storekeeper?._id}
+        email={params.row.storekeeper?.email}
+      />
+    ),
     width: 170,
   },
 
@@ -49,7 +54,7 @@ export const adminBatchesViewColumns = () => [
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <Text isCell text={params.value} />,

@@ -8,11 +8,11 @@ import {
   ActualCostWithDelivery,
   ActualCostWithDeliveryPerUnit,
   FinalPricePerUnitCell,
-  ManyItemsPriceCell,
   MultilineTextHeaderCell,
   NormDateCell,
   OrdersIdsItemsCell,
   PricePerUnitCell,
+  ProductCell,
   StringListCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
@@ -37,11 +37,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: ({ row }) => (
-      <StringListCell
-        sourceString={row.items?.map(item => item?.product?.asin || t(TranslationKey.Missing)).join(', ')}
-      />
-    ),
+    renderCell: ({ row }) => <StringListCell asin data={row.items?.map(item => item?.product?.asin)} />,
 
     valueGetter: ({ row }) => row.items?.map(item => item?.product?.asin || t(TranslationKey.Missing)).join(', '),
 
@@ -53,9 +49,17 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Boxes),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
 
-    renderCell: params => <ManyItemsPriceCell withoutSku withoutAsin params={params.row} />,
+    renderCell: params => (
+      <ProductCell
+        image={params.row.items?.[0]?.product?.images?.[0]}
+        title={params.row.items?.[0]?.product?.amazonTitle}
+        asin={params.row.items?.[0]?.product?.asin}
+        sku={params.row.items?.[0]?.product?.skuByClient}
+        superbox={params.row.amount}
+      />
+    ),
     valueGetter: ({ row }) => row?.amount,
-    width: 280,
+    width: 170,
   },
 
   {
@@ -63,20 +67,18 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey['Quantity in box']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Quantity in box'])} />,
 
-    renderCell: ({ row }) => (
-      <StringListCell sourceString={row.items?.map(item => item?.amount || t(TranslationKey.Missing)).join(', ')} />
-    ),
+    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.amount)} />,
     valueGetter: ({ row }) => row.items?.map(item => item?.amount || t(TranslationKey.Missing)).join(', '),
-    width: 80,
+    width: 90,
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
     renderCell: params => <Text isCell text={params.value} />,
-    valueGetter: ({ row }) => row?.humanFriendlyId,
+    valueGetter: ({ row }) => row?.xid,
     type: 'number',
     width: 80,
   },
@@ -97,7 +99,9 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-    renderCell: params => <UserCell name={params.row?.client?.name} id={params.row?.client?._id} />,
+    renderCell: params => (
+      <UserCell name={params.row?.client?.name} id={params.row?.client?._id} email={params.row?.client?.email} />
+    ),
     valueGetter: ({ row }) => row?.client?.name || t(TranslationKey.Missing),
     width: 180,
   },
@@ -129,7 +133,6 @@ export const batchInfoModalColumn = (
     renderCell: params => <NormDateCell value={params.value} />,
     valueGetter: ({ row }) => row.updatedAt || t(TranslationKey.Missing),
     width: 100,
-    // type: 'date',
   },
 
   {
@@ -279,11 +282,7 @@ export const batchInfoModalColumn = (
     field: 'Account',
     headerName: 'Account',
     renderHeader: () => <MultilineTextHeaderCell text="Account" />,
-    renderCell: ({ row }) => (
-      <StringListCell
-        sourceString={row.items?.map(item => item?.product?.shop?.name || t(TranslationKey.Missing)).join(', ')}
-      />
-    ),
+    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.product?.shop?.name)} />,
     valueGetter: ({ row }) => row.items?.map(item => item?.product?.shop?.name || t(TranslationKey.Missing)).join(', '),
     width: 100,
   },
@@ -292,9 +291,7 @@ export const batchInfoModalColumn = (
     field: 'fbaShipment',
     headerName: 'FBA Shipment',
     renderHeader: () => <MultilineTextHeaderCell text="FBA Shipment" />,
-    renderCell: ({ row }) => (
-      <StringListCell withCopy maxItemsDisplay={4} maxLettersInItem={15} sourceString={row.fbaShipment} />
-    ),
+    renderCell: ({ row }) => <Text isCell text={row.fbaShipment || '-'} />,
     valueGetter: ({ row }) => row.fbaShipment,
     width: 165,
   },

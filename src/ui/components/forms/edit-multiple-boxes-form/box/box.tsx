@@ -1,20 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useEffect, useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { Checkbox, IconButton } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
+import { SetFileForm } from '@components/forms/set-file-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
-import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
@@ -22,11 +19,11 @@ import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { checkIsStorekeeper } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { TariffModal } from '@typings/enums/tariff-modal'
+import { isStorekeeper } from '@typings/guards/roles'
 import { IDestination, IDestinationStorekeeper } from '@typings/shared/destinations'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -157,11 +154,12 @@ export const Box: FC<BoxProps> = memo(props => {
   const onClickShippingLabel = () => {
     setShowSetShippingLabelModal(!showSetShippingLabelModal)
   }
-  const setShippingLabel = () => (value: any) => {
+  const setShippingLabel = (value: any) => {
     onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
   }
   const onDeleteShippingLabel = () => {
     onChangeField({ target: { value: '' } }, 'shippingLabel', box._id)
+    setShippingLabel([])
   }
 
   const onDeleteBarcode = (value: any, index: number) => {
@@ -190,6 +188,7 @@ export const Box: FC<BoxProps> = memo(props => {
   )
 
   const isSameDestination = selectedVariationTariff?.destination?._id === curDestination?._id
+  const isShippingLabelMissing = (item: any) => !item.tmpShippingLabel.length && !item.shippingLabel
 
   useEffect(() => {
     if (box?.variationTariffId) {
@@ -208,7 +207,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 <div>
                   <div className={styles.asinWrapper}>
                     <p className={styles.asinTitle}>{t(TranslationKey.Box)}</p>
-                    <p className={styles.asinValue}>{box.humanFriendlyId}</p>
+                    <p className={styles.asinValue}>{box.xid}</p>
                   </div>
 
                   <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={order.product.asin} />
@@ -232,10 +231,11 @@ export const Box: FC<BoxProps> = memo(props => {
 
                   <Field
                     labelClasses={styles.label}
-                    label={t(TranslationKey['Transparency Codes'])}
+                    label="Transparency Codes"
                     inputComponent={
                       <ChangeChipCell
                         isChipOutTable
+                        disabled={isStorekeeper(userInfo.role)}
                         text={
                           !order?.tmpTransparencyFile?.length && !order?.transparencyFile
                             ? t(TranslationKey.Transparency)
@@ -261,7 +261,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     }
                   />
 
-                  {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+                  {isStorekeeper(userInfo.role) ? (
                     <div>
                       <Field
                         oneLine
@@ -415,30 +415,28 @@ export const Box: FC<BoxProps> = memo(props => {
                     !box.fbaShipment &&
                     !curDestination?.storekeeper,
                 })}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={box.fbaShipment}
                 // @ts-ignore
                 onChange={e => onChangeField(e, 'fbaShipment', box._id)}
               />
 
               <Field
-                label={t(TranslationKey['Shipping label']) + ':'}
+                label="Shipping label:"
                 tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                 labelClasses={styles.label}
                 inputComponent={
                   <ChangeChipCell
                     isChipOutTable
-                    text={
-                      !box.shippingLabel && !box.tmpShippingLabel?.length ? t(TranslationKey['Set Shipping Label']) : ''
-                    }
+                    text={isShippingLabelMissing(box) ? t(TranslationKey['Set Shipping Label']) : ''}
                     value={box?.tmpShippingLabel?.[0]?.file?.name || box?.tmpShippingLabel?.[0] || box.shippingLabel}
                     onClickChip={onClickShippingLabel}
-                    onDeleteChip={!box.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                    onDeleteChip={isShippingLabelMissing(box) ? undefined : () => onDeleteShippingLabel()}
                   />
                 }
               />
 
-              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+              {isStorekeeper(userInfo.role) ? (
                 <Field
                   oneLine
                   labelClasses={styles.label}
@@ -457,7 +455,7 @@ export const Box: FC<BoxProps> = memo(props => {
 
           <div className={styles.bottomBlockWrapper}>
             <IconButton classes={{ root: styles.icon }} onClick={() => onRemoveBox(box._id)}>
-              <DeleteOutlineOutlinedIcon className={styles.deleteBtn} />
+              <MdDeleteOutline size={24} className={styles.deleteBtn} />
             </IconButton>
             <div className={styles.incomingBtnWrapper}>
               <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
@@ -465,7 +463,11 @@ export const Box: FC<BoxProps> = memo(props => {
                   {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
                 </p>
 
-                {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+                {!showFullCard ? (
+                  <MdArrowDropDown size={22} className={styles.blue} />
+                ) : (
+                  <MdArrowDropUp size={22} className={styles.blue} />
+                )}
               </div>
             </div>
           </div>
@@ -476,14 +478,10 @@ export const Box: FC<BoxProps> = memo(props => {
         openModal={showSetShippingLabelModal}
         setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
       >
-        <SetShippingLabelModal
-          tmpShippingLabel={box.tmpShippingLabel}
-          item={box}
-          onClickSaveShippingLabel={(shippingLabel: any) => {
-            setShippingLabel()(shippingLabel)
-            setShowSetShippingLabelModal(!showSetShippingLabelModal)
-          }}
-          onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+        <SetFileForm
+          data={box?.shippingLabel}
+          onSubmit={setShippingLabel}
+          onClose={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         />
       </Modal>
 
@@ -511,7 +509,7 @@ export const Box: FC<BoxProps> = memo(props => {
       <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
         <SetFilesModal
           modalTitle={t(TranslationKey.Transparency)}
-          LabelTitle={t(TranslationKey['Transparency Codes'])}
+          LabelTitle="Transparency Codes"
           currentFiles={filesConditions.currentFiles}
           tmpFiles={filesConditions.tmpFiles}
           onClickSave={value => {

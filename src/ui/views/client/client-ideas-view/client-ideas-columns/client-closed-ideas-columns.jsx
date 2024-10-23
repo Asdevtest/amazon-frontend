@@ -1,12 +1,18 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
-import { colorByIdeaStatus, ideaStatusByCode, ideaStatusTranslate } from '@constants/statuses/idea-status.ts'
+import {
+  colorByIdeaStatus,
+  ideaStatus,
+  ideaStatusByCode,
+  ideaStatusByKey,
+  ideaStatusTranslate,
+} from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import {
-  ClosedIdeaActionsCell,
+  ActionButtonsCell,
   ManyUserLinkCell,
   MediaContentCell,
   MultilineTextHeaderCell,
@@ -39,6 +45,16 @@ import {
 export const clientClosedIdeasColumns = rowHandlers => {
   const columns = [
     {
+      field: 'xid',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: params => <Text isCell text={params.row.xid} />,
+      width: 100,
+      type: 'number',
+      columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
       field: 'parentProduct',
       headerName: t(TranslationKey['Parent product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parent product'])} />,
@@ -65,7 +81,7 @@ export const clientClosedIdeasColumns = rowHandlers => {
     {
       field: 'parentProductShop',
       headerName: t(TranslationKey.Shop),
-      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
@@ -204,7 +220,11 @@ export const clientClosedIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: ({ row }) => (
-        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row?.createdBy?._id} />
+        <UserCell
+          name={row.sub?.name || row.createdBy?.name}
+          id={row.sub?._id || row?.createdBy?._id}
+          email={row.sub?.email || row?.createdBy?.email}
+        />
       ),
 
       fields: createdByFields,
@@ -246,8 +266,20 @@ export const clientClosedIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-      renderCell: params => <ClosedIdeaActionsCell row={params.row} rowHandlers={rowHandlers} />,
-      width: 160,
+      renderCell: params => (
+        <ActionButtonsCell
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey.Restore)}
+          firstDisabled={ideaStatusByKey[ideaStatus.CLOSED] === params.row.status}
+          secondContent={t(TranslationKey.Close)}
+          secondDisabled={ideaStatusByKey[ideaStatus.CLOSED] === params.row.status}
+          onClickFirst={() => rowHandlers.onClickRestore(params.row._id)}
+          onClickSecond={() => rowHandlers.onClickClose(params.row._id)}
+        />
+      ),
+      width: 140,
       filterable: false,
       disableCustomSort: true,
     },

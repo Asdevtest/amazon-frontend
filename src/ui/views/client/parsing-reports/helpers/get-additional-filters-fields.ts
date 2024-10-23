@@ -3,7 +3,9 @@ import { ParsingReportsType } from '../parsing-reports.type'
 export const getAdditionalFiltersFields = (activeTable: ParsingReportsType) => {
   switch (activeTable) {
     case ParsingReportsType.VOICE:
-      return ['productName', 'sku']
+    case ParsingReportsType.FBA_INVENTORY:
+    case ParsingReportsType.RETURNS:
+      return ['productName', 'sku', 'productId']
 
     case ParsingReportsType.INVENTORY:
       return ['title', 'sku']
@@ -12,8 +14,7 @@ export const getAdditionalFiltersFields = (activeTable: ParsingReportsType) => {
       return ['fbaCapacityLimitsMonth', 'fbaCapacityLimitsValue']
 
     case ParsingReportsType.ORDERS:
-    case ParsingReportsType.RETURNS:
     case ParsingReportsType.PPC_ORGANIC:
-      return ['sku']
+      return ['sku', 'productId']
   }
 }

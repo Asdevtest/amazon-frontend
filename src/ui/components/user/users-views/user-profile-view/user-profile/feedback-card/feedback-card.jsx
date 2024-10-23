@@ -1,5 +1,6 @@
-import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
-import { Paper, Typography } from '@mui/material'
+import { MdOutlineThumbUpAlt } from 'react-icons/md'
+
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,7 +11,7 @@ import { useStyles } from './feedback-card.style'
 export const FeedbackCard = ({ isPositive, counter }) => {
   const { classes: styles, cx } = useStyles()
   return (
-    <Paper
+    <div
       className={cx(styles.paper, {
         [styles.selected]: isPositive === true,
       })}
@@ -28,12 +29,13 @@ export const FeedbackCard = ({ isPositive, counter }) => {
           {isPositive ? '+' + counter : '-' + counter}
         </Typography>
 
-        <ThumbUpAltOutlinedIcon
+        <MdOutlineThumbUpAlt
+          size={24}
           className={cx(styles.thumbUpAltOutlinedIcon, {
             [styles.selectedThumbUpAlt]: isPositive === true,
           })}
         />
       </div>
-    </Paper>
+    </div>
   )
 }

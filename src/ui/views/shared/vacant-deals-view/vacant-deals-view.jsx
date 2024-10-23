@@ -1,9 +1,8 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { withStyles } from 'tss-react/mui'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Typography } from '@mui/material'
 
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
@@ -20,7 +19,7 @@ import { styles } from './vacant-deals-view.style'
 import { VacantDealsViewModel } from './vacant-deals-view.model'
 
 export const VacantDealsViewRaw = props => {
-  const [viewModel] = useState(() => new VacantDealsViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new VacantDealsViewModel({ history: props.history }), [])
   const { classes: styles } = props
 
   useEffect(() => {
@@ -45,9 +44,9 @@ export const VacantDealsViewRaw = props => {
             <Typography className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
             {viewModel.sortMode === tableSortMode.DESK ? (
-              <ArrowDropDownIcon color="primary" />
+              <MdArrowDropDown size={22} className={styles.icon} />
             ) : (
-              <ArrowDropUpIcon color="primary" />
+              <MdArrowDropUp size={22} className={styles.icon} />
             )}
           </div>
         </div>

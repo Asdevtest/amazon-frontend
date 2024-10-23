@@ -13,8 +13,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const sourceFilesColumns = rowHandlers => [
   {
     field: 'title',
@@ -25,7 +23,7 @@ export const sourceFilesColumns = rowHandlers => [
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <Text isCell text={params.value || '-'} />,
@@ -50,7 +48,7 @@ export const sourceFilesColumns = rowHandlers => [
     renderCell: params => {
       const user = params.row.sub ? params.row.sub : params.row.performer
 
-      return <UserCell name={user?.name} id={user?._id} />
+      return <UserCell name={user?.name} id={user?._id} email={user?.email} />
     },
   },
 
@@ -59,7 +57,9 @@ export const sourceFilesColumns = rowHandlers => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 180,
-    renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
+    renderCell: params => (
+      <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+    ),
   },
 
   {
@@ -79,6 +79,7 @@ export const sourceFilesColumns = rowHandlers => [
       <Text
         isCell
         editMode
+        textRows={2}
         text={params.row.originalData.sourceFile}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'sourceFile', value)}
       />
@@ -94,6 +95,7 @@ export const sourceFilesColumns = rowHandlers => [
       <Text
         isCell
         editMode
+        textRows={2}
         text={params.row.originalData.comments}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'comments', value)}
       />
@@ -106,12 +108,12 @@ export const sourceFilesColumns = rowHandlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     renderCell: params => (
       <ActionButtonsCell
-        isFirstButton
-        iconButton
-        firstButtonElement={<MdOutlineDelete />}
-        firstButtonStyle={ButtonStyle.DANGER}
-        firstDescriptionText="Do you want to delete the source file?"
-        onClickFirstButton={() => rowHandlers.onClickRemoveBtn(params.row._id)}
+        showFirst
+        firstDanger
+        firstGhost
+        firstIcon={<MdOutlineDelete />}
+        firstConfirmText="Do you want to delete the source file?"
+        onClickFirst={() => rowHandlers.onClickRemoveBtn(params.row._id)}
       />
     ),
     width: 100,

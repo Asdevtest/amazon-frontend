@@ -46,8 +46,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  searchInput: {
-    width: '290px',
-    height: '40px',
+  icon: {
+    color: theme.palette.text.main,
   },
 }))

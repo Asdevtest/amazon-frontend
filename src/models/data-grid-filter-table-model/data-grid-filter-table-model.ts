@@ -4,12 +4,14 @@ import { makeObservable, runInAction } from 'mobx'
 import { GridFilterModel, GridPaginationModel, GridSortModel } from '@mui/x-data-grid-premium'
 
 import { DataGridTableModel } from '@models/data-grid-table-model'
+import { defaultPinnedColumns, paginationModelInitialValue } from '@models/data-grid-table-model/model-config'
 import { GeneralModel } from '@models/general-model'
 
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IGridColumn } from '@typings/shared/grid-column'
 
 import { DataGridFilterTableModelParams } from './data-grid-filter-table-model.type'
 import { observerConfig } from './observer-config'
@@ -65,8 +67,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
 
   setColumnMenuSettings(filtersFields: string[], additionalProperties?: any) {
     this.columnMenuSettings = {
-      onClickFilterBtn: (field: string, table: string, searchValue?: string) =>
-        this.onClickFilterBtn(field, table, searchValue),
+      onClickFilterBtn: (field: string, table: string, searchValue?: string, fieldNameFilter?: string) =>
+        this.onClickFilterBtn(field, table, searchValue, fieldNameFilter),
       onChangeFullFieldMenuItem: (value: any, field: string) => this.onChangeFullFieldMenuItem(value, field),
       onClickAccept: () => this.getCurrentData(),
 
@@ -78,15 +80,20 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     }
   }
 
-  async onClickFilterBtn(column: string, table: string, searchValue?: string) {
+  async onClickFilterBtn(
+    column: string,
+    table: string,
+    additionalFilterSettings: string = '',
+    fieldNameFilter?: string,
+  ) {
     try {
       this.setFilterRequestStatus(loadingStatus.IS_LOADING)
 
       const data = await GeneralModel.getDataForColumn(
         table,
-        column,
+        fieldNameFilter || column,
         // "?" не нужен, т.к. он должен быть в mainMethodURL, на случай если url должна содержать больше свойств
-        `${this.mainMethodURL}filters=${this.getFilters(column)}${searchValue || ''}`,
+        `${this.mainMethodURL}filters=${this.getFilters(fieldNameFilter || column)}${additionalFilterSettings}`,
       )
 
       if (this.columnMenuSettings[column as keyof typeof this.columnMenuSettings]) {
@@ -122,12 +129,39 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     )
   }
 
-  onSearchSubmit(value: string) {
-    this.currentSearchValue = value
-    this.getCurrentData()
+  onSearchSubmit(
+    value: string,
+    _event?:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.MouseEvent<HTMLElement>
+      | React.KeyboardEvent<HTMLInputElement>,
+    info?: {
+      source?: 'clear' | 'input'
+    },
+  ) {
+    const wasFilterApplied = this.getFilters().includes(this.fieldsForSearch?.[0]) // stores information about the previous filter (when there was a value and it was cleared)
+
+    this.currentSearchValue = value.trim() // remove spaces
+
+    if (!this.currentSearchValue && info?.source !== 'clear') {
+      // request with an empty value
+      this.getCurrentData()
+      return
+    }
+
+    const isFilterApplied = this.getFilters().includes(this.fieldsForSearch?.[0]) // stores information about the current filter (when there is a value)
+
+    if (wasFilterApplied || isFilterApplied) {
+      // the re-request is triggered only if the value exists, or it was before clearing, otherwise the two conditions are 'false' (the case when we entered a value and it was deleted - without a request)
+      this.getCurrentData()
+    }
   }
 
   onChangeFullFieldMenuItem(value: any, field: string) {
+    if (!this.columnMenuSettings[field]) {
+      return
+    }
+
     this.columnMenuSettings[field].currentFilterData = value
   }
 
@@ -198,5 +232,115 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this.paginationModel = model
     this.getCurrentData()
     this.setDataGridState()
+  }
+
+  getPresetSettingForSave(colomns: IGridColumn[]) {
+    const filters = this.getFilters()
+
+    const fields = colomns?.map(column => ({
+      field: column.field,
+      width: column.width,
+    }))
+
+    return {
+      sortModel: this?.sortModel,
+      paginationModel: this?.paginationModel,
+      pinnedColumns: this?.pinnedColumns,
+      columnVisibilityModel: this?.columnVisibilityModel,
+      filters,
+      fields,
+    }
+  }
+
+  async setSettingsFromActivePreset() {
+    const activePreset = this.getActivePreset()
+
+    if (activePreset) {
+      // @ts-ignore
+      const savedColumns: IGridColumn[] = []
+
+      for await (const field of activePreset.settings.fields) {
+        const foundColumn = await this.columnsModel?.find(column => column?.field === field?.field)
+
+        if (foundColumn) {
+          foundColumn.width = field?.width
+        } else {
+          continue
+        }
+
+        savedColumns.push(foundColumn)
+      }
+
+      const parsedValue = this.parseQueryString(activePreset?.settings?.filters)
+
+      this.setFilterFromPreset(parsedValue)
+
+      runInAction(() => {
+        this.columnsModel = savedColumns
+        this.sortModel = activePreset?.settings?.sortModel
+        this.pinnedColumns = activePreset?.settings?.pinnedColumns
+        this.paginationModel = activePreset?.settings?.paginationModel
+        this.columnVisibilityModel = activePreset?.settings?.columnVisibilityModel
+      })
+    } else {
+      this.handlePinColumn(defaultPinnedColumns)
+
+      const savedColumns: IGridColumn[] = await this.defaultColumnsModel?.map(column => ({
+        ...column,
+      }))
+
+      this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
+
+      runInAction(() => {
+        this.columnsModel = savedColumns
+        this.sortModel = this.defaultSortModel
+        this.paginationModel = paginationModelInitialValue
+        this.columnVisibilityModel = this.defaultColumnVisibilityModel || {}
+      })
+    }
+
+    this.getCurrentData()
+  }
+
+  parseQueryString(queryString?: string): Record<string, string | string[]> {
+    if (!queryString) {
+      return {}
+    }
+
+    const params = queryString.split(';')
+    const result: Record<string, string | string[]> = {}
+
+    params.forEach(param => {
+      const [key, value] = param.split('=')
+
+      if (key?.includes('or') && !result.currentSearchValue) {
+        result.currentSearchValue = value
+      } else {
+        const decodedKey = decodeURIComponent(key).replace(/\[.*?\]/, '')
+        const decodedValue = decodeURIComponent(value)
+
+        let valueArray: string[] = []
+
+        if (decodedValue) {
+          valueArray = decodedValue.split(',').map(item => item.replace(/"/g, ''))
+        }
+
+        result[decodedKey] = valueArray
+      }
+    })
+
+    return result
+  }
+
+  setFilterFromPreset(presetFilters: Record<string, string | string[]>) {
+    const keys = Object.keys(presetFilters)
+
+    for (const key of keys) {
+      if (key === 'currentSearchValue' && typeof presetFilters[key] === 'string') {
+        this.currentSearchValue = presetFilters[key]
+      } else {
+        this.onChangeFullFieldMenuItem(presetFilters[key], key)
+      }
+    }
   }
 }

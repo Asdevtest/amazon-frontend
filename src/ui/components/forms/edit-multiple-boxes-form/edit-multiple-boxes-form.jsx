@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-vars */
+import { isMatch } from 'lodash'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import { MdDone } from 'react-icons/md'
 
-import DoneIcon from '@mui/icons-material/Done'
 import { Checkbox, Typography } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
+import { SetFileForm } from '@components/forms/set-file-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
-import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
@@ -22,11 +22,11 @@ import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { checkIsStorekeeper } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { TariffModal } from '@typings/enums/tariff-modal'
+import { isStorekeeper } from '@typings/guards/roles'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
@@ -161,6 +161,7 @@ export const EditMultipleBoxesForm = observer(
 
     const onDeleteShippingLabel = () => {
       onChangeSharedFields({ target: { value: '' } }, 'shippingLabel')
+      setShippingLabel([])
     }
 
     const [newBoxes, setNewBoxes] = useState(
@@ -232,44 +233,74 @@ export const EditMultipleBoxesForm = observer(
       let updatedNewBoxes
 
       if (field === 'tmpBarCode') {
-        updatedNewBoxes = newBoxes.map(newBox =>
-          visibleBoxesIds.includes(newBox._id)
-            ? {
-                ...newBox,
-                items: newBox?.items
-                  ? newBox.items.map(el => ({
-                      ...el,
-                      changeBarCodInInventory: false,
-                      tmpBarCode: sharedFields.tmpBarCode,
-                    }))
-                  : [],
+        updatedNewBoxes = newBoxes.map(newBox => {
+          if (visibleBoxesIds.includes(newBox._id)) {
+            const updatedItems = newBox.items.map(item => {
+              if (!sharedFields.tmpBarCode.length) {
+                return {
+                  ...item,
+                  barCode: '',
+                  tmpBarCode: [],
+                }
+              } else {
+                return {
+                  ...item,
+                  tmpBarCode: sharedFields.tmpBarCode,
+                }
               }
-            : newBox,
-        )
+            })
+            return {
+              ...newBox,
+              items: updatedItems,
+            }
+          } else {
+            return newBox
+          }
+        })
       } else if (field === 'tmpTransparencyFile') {
-        updatedNewBoxes = newBoxes.map(newBox =>
-          visibleBoxesIds.includes(newBox._id)
-            ? {
-                ...newBox,
-                items: newBox?.items
-                  ? newBox.items.map(el => ({
-                      ...el,
-                      changeBarCodInInventory: false,
-                      tmpTransparencyFile: sharedFields.tmpTransparencyFile,
-                    }))
-                  : [],
+        updatedNewBoxes = newBoxes.map(newBox => {
+          if (visibleBoxesIds.includes(newBox._id)) {
+            const updatedItems = newBox.items.map(item => {
+              if (!sharedFields.tmpTransparencyFile.length) {
+                return {
+                  ...item,
+                  transparencyFile: '',
+                  tmpTransparencyFile: [],
+                }
+              } else {
+                return {
+                  ...item,
+                  tmpTransparencyFile: sharedFields.tmpTransparencyFile,
+                }
               }
-            : newBox,
-        )
+            })
+            return {
+              ...newBox,
+              items: updatedItems,
+            }
+          } else {
+            return newBox
+          }
+        })
       } else if (field === 'tmpShippingLabel') {
-        updatedNewBoxes = newBoxes.map(newBox =>
-          visibleBoxesIds.includes(newBox._id)
-            ? {
+        updatedNewBoxes = newBoxes.map(newBox => {
+          if (visibleBoxesIds.includes(newBox._id)) {
+            if (!sharedFields.tmpShippingLabel.length) {
+              return {
+                ...newBox,
+                shippingLabel: '',
+                tmpShippingLabel: [],
+              }
+            } else {
+              return {
                 ...newBox,
                 tmpShippingLabel: sharedFields.tmpShippingLabel,
               }
-            : newBox,
-        )
+            }
+          } else {
+            return newBox
+          }
+        })
       } else if (field === 'isBarcodeLabelAttached') {
         updatedNewBoxes = newBoxes.map(newBox =>
           visibleBoxesIds.includes(newBox._id)
@@ -332,7 +363,7 @@ export const EditMultipleBoxesForm = observer(
     }
 
     const onClickSubmit = () => {
-      onSubmit(newBoxes, selectedBoxes)
+      onSubmit(newBoxes, selectedBoxes, sharedFields)
     }
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
@@ -344,6 +375,20 @@ export const EditMultipleBoxesForm = observer(
       sharedFields.variationTariffId,
     )
 
+    function hasTmpFields(newBoxes) {
+      return newBoxes.some(el => {
+        const tmpShippingLabelExists = el.tmpShippingLabel?.length > 0
+
+        const tmpFieldsInItems = el.items?.some(item => {
+          const tmpBarCodeExists = item?.tmpBarCode?.length > 0
+          const tmpTransparencyFileExists = item?.tmpTransparencyFile?.length > 0
+          return tmpBarCodeExists || tmpTransparencyFileExists
+        })
+
+        return tmpShippingLabelExists || tmpFieldsInItems
+      })
+    }
+
     const disabledSubmitBtn =
       newBoxes.some(
         el =>
@@ -352,9 +397,12 @@ export const EditMultipleBoxesForm = observer(
           ((el.shippingLabel || el.tmpShippingLabel?.length) &&
             !el.fbaShipment &&
             !destinations.find(e => e._id === el.destinationId)?.storekeeper),
-      ) || selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
+      ) ||
+      selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK) ||
+      (isMatch(newBoxes, selectedBoxes) && !hasTmpFields(newBoxes))
 
     const disabledApplyBtn = !visibleBoxes.length
+    const isShippingLabelMissing = !sharedFields.shippingLabel && !sharedFields.tmpShippingLabel?.length
 
     return (
       <div className={styles.root}>
@@ -399,7 +447,7 @@ export const EditMultipleBoxesForm = observer(
                 />
 
                 <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('destinationId')}>
-                  {applyBtnsClicked.destinationId ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.destinationId ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -425,7 +473,7 @@ export const EditMultipleBoxesForm = observer(
                 />
 
                 <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('logicsTariffId')}>
-                  {applyBtnsClicked.logicsTariffId ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.logicsTariffId ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -436,19 +484,19 @@ export const EditMultipleBoxesForm = observer(
                   containerClasses={styles.field}
                   labelClasses={styles.label}
                   className={styles.fieldInput}
-                  label={t(TranslationKey['FBA Shipment'])}
+                  label="FBA Shipment"
                   value={sharedFields.fbaShipment}
                   onChange={e => onChangeSharedFields(e, 'fbaShipment')}
                 />
 
                 <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('fbaShipment')}>
-                  {applyBtnsClicked.fbaShipment ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.fbaShipment ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
               <div>
                 <Field
-                  label={t(TranslationKey['Shipping label']) + ':'}
+                  label="Shipping label:"
                   tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                   labelClasses={styles.label}
                   inputComponent={
@@ -457,12 +505,12 @@ export const EditMultipleBoxesForm = observer(
                       text={!sharedFields.tmpShippingLabel?.length && t(TranslationKey['Set Shipping Label'])}
                       value={sharedFields?.tmpShippingLabel?.[0]?.file?.name || sharedFields?.tmpShippingLabel?.[0]}
                       onClickChip={onClickShippingLabel}
-                      onDeleteChip={!sharedFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                      onDeleteChip={isShippingLabelMissing ? undefined : () => onDeleteShippingLabel()}
                     />
                   }
                 />
                 <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('tmpShippingLabel')}>
-                  {applyBtnsClicked.tmpShippingLabel ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.tmpShippingLabel ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
@@ -481,17 +529,18 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
                 <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('tmpBarCode')}>
-                  {applyBtnsClicked.tmpBarCode ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.tmpBarCode ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
               <div>
                 <Field
                   labelClasses={styles.label}
-                  label={t(TranslationKey['Transparency Codes'])}
+                  label="Transparency Codes"
                   inputComponent={
                     <ChangeChipCell
                       isChipOutTable
+                      disabled={isStorekeeper(userInfo.role)}
                       text={!sharedFields?.tmpTransparencyFile?.length && t(TranslationKey.Transparency)}
                       value={
                         sharedFields?.tmpTransparencyFile?.[0]?.file?.name || sharedFields?.tmpTransparencyFile?.[0]
@@ -505,14 +554,14 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
                 <Button
-                  disabled={disabledApplyBtn}
+                  disabled={disabledApplyBtn || isStorekeeper(userInfo.role)}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
                 >
-                  {applyBtnsClicked.tmpTransparencyFile ? <DoneIcon /> : t(TranslationKey.Apply)}
+                  {applyBtnsClicked.tmpTransparencyFile ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
-              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+              {isStorekeeper(userInfo.role) ? (
                 <div>
                   <Field
                     oneLine
@@ -533,12 +582,16 @@ export const EditMultipleBoxesForm = observer(
                     disabled={disabledApplyBtn}
                     onClick={() => onApplySharedValuesToAllBoxes('isShippingLabelAttachedByStorekeeper')}
                   >
-                    {applyBtnsClicked.isShippingLabelAttachedByStorekeeper ? <DoneIcon /> : t(TranslationKey.Apply)}
+                    {applyBtnsClicked.isShippingLabelAttachedByStorekeeper ? (
+                      <MdDone size={18} />
+                    ) : (
+                      t(TranslationKey.Apply)
+                    )}
                   </Button>
                 </div>
               ) : null}
 
-              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) && (
+              {isStorekeeper(userInfo.role) && (
                 <div>
                   <Field
                     oneLine
@@ -599,7 +652,7 @@ export const EditMultipleBoxesForm = observer(
                     disabled={disabledApplyBtn}
                     onClick={() => onApplySharedValuesToAllBoxes('isBarcodeLabelAttached')}
                   >
-                    {applyBtnsClicked.isBarcodeLabelAttached ? <DoneIcon /> : t(TranslationKey.Apply)}
+                    {applyBtnsClicked.isBarcodeLabelAttached ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                   </Button>
                 </div>
               )}
@@ -640,14 +693,10 @@ export const EditMultipleBoxesForm = observer(
           openModal={showSetShippingLabelModal}
           setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         >
-          <SetShippingLabelModal
-            tmpShippingLabel={sharedFields.tmpShippingLabel}
-            item={sharedFields}
-            onClickSaveShippingLabel={shippingLabel => {
-              setShippingLabel(shippingLabel)
-              setShowSetShippingLabelModal(!showSetShippingLabelModal)
-            }}
-            onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+          <SetFileForm
+            data={sharedFields.shippingLabel}
+            onSubmit={setShippingLabel}
+            onClose={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
           />
         </Modal>
 
@@ -674,7 +723,7 @@ export const EditMultipleBoxesForm = observer(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency Codes'])}
+            LabelTitle="Transparency Codes"
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => {

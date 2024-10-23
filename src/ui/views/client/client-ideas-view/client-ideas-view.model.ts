@@ -28,7 +28,6 @@ import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -38,7 +37,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { IIdea } from '@typings/models/ideas/idea'
 import { IProduct } from '@typings/models/products/product'
 import { IProposal } from '@typings/models/proposals/proposal'
-import { IRequest } from '@typings/models/requests/request'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { IDestination } from '@typings/shared/destinations'
@@ -61,7 +59,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   showSetBarcodeModal = false
   productCardModal = false
   showIdeaModal = false
-  showBindingModal = false
+  showLinkRequestModal = false
   showConfirmModal = false
   showProductLaunch = false
   showRequestDesignerResultModal = false
@@ -77,7 +75,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   readyImages = []
   ideaList = []
 
-  selectedProduct: IProduct | undefined = undefined
+  selectedProduct?: IProduct
   currentBarcode: string = ''
   currentHscode = undefined
   storekeepers: IStorekeeper[] = []
@@ -86,14 +84,14 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
 
   // * Modal data
 
-  selectedIdea: IIdea | undefined = undefined
+  selectedIdea?: IIdea
   selectedIdeaId: string = ''
-  currentProduct: IProduct | undefined = undefined
-  requestsForProduct = []
+  currentProduct?: IProduct
   productsToLaunch: IProduct[] = []
   productId: string = ''
   currentIdeaId: string = ''
-  currentProposal: IProposal | undefined = undefined
+  ideaIdFromParam: string | null
+  currentProposal?: IProposal
   currentRequest = undefined
   paymentMethods: IPaymentMethod[] = []
 
@@ -168,12 +166,27 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
 
     makeObservable(this, observerConfig)
 
+    const url = new URL(window.location.href)
+    this.ideaIdFromParam = url.searchParams.get('ideaId')
+    if (this.ideaIdFromParam) {
+      this.getIdea(this.ideaIdFromParam)
+    }
+
     this.history = history
 
     this.getTableSettingsPreset()
   }
 
-  async getDataForIdeaModal(idea: IIdea) {
+  async getIdea(ideaId: string) {
+    try {
+      const response = await IdeaModel.getIdeaById(ideaId)
+      await this.getDataForIdeaModal(response)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getDataForIdeaModal(idea: IIdea | any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -451,29 +464,6 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickBindButton(requests: IRequest[]) {
-    this.setRequestStatus(loadingStatus.IS_LOADING)
-    const methodBody =
-      this.selectedIdea?.status === ideaStatusByKey[ideaStatus.NEW] ||
-      this.selectedIdea?.status === ideaStatusByKey[ideaStatus.ON_CHECK]
-        ? { onCheckedIdeaId: this.selectedIdea?._id }
-        : { onFinishedIdeaId: this.selectedIdea?._id }
-
-    for (const request of requests) {
-      try {
-        await RequestModel.bindIdeaToRequest(request, methodBody)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    this.getCurrentData()
-
-    this.setRequestStatus(loadingStatus.SUCCESS)
-
-    this.onTriggerOpenModal('showBindingModal')
-  }
-
   async onSubmitCreateProduct(ideaData: any) {
     try {
       const createData: any = getObjectFilteredByKeyArrayWhiteList(
@@ -631,33 +621,9 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       ?.focus()
   }
 
-  async onClickLinkRequestButton(idea: IIdea) {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      const isChildProcuct =
-        idea.childProduct && (idea.status === ideaStatusByKey.ADDING_ASIN || idea.status === ideaStatusByKey.VERIFIED)
-      const currentProductId = isChildProcuct ? idea.childProduct._id : idea.parentProduct._id
-
-      const result = await RequestModel.getRequestsByProductLight({
-        guid: currentProductId,
-        status: 'DRAFT, PUBLISHED, IN_PROCESS',
-        excludeIdeaId: idea._id,
-      })
-
-      runInAction(() => {
-        this.requestsForProduct = addIdDataConverter(result)
-        this.selectedIdea = idea
-      })
-
-      this.onTriggerOpenModal('showBindingModal')
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      console.error(error)
-
-      this.setRequestStatus(loadingStatus.FAILED)
-    }
+  onClickLinkRequestButton(idea: IIdea) {
+    this.selectedIdea = idea
+    this.onTriggerOpenModal('showLinkRequestModal')
   }
 
   onClickCreateProduct(ideaData: IIdea) {

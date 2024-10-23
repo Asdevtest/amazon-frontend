@@ -3,12 +3,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-import { ChangeEvent, FC, KeyboardEvent, ReactElement, memo, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FC, KeyboardEvent, ReactElement, memo, useCallback, useEffect, useRef, useState } from 'react'
+import { FaArrowLeft } from 'react-icons/fa'
+import { MdKeyboardArrowDown } from 'react-icons/md'
 import 'react-mde/lib/styles/css/react-mde-all.css'
 import { VirtuosoHandle } from 'react-virtuoso'
 
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined'
 import { ClickAwayListener, InputAdornment } from '@mui/material'
 import TextField from '@mui/material/TextField'
 
@@ -22,7 +22,8 @@ import { SettingsModel } from '@models/settings-model'
 
 import { Button } from '@components/shared/button'
 import { CircleSpinner } from '@components/shared/circle-spinner'
-import { EmojiIcon, FileIcon, HideArrowIcon, SendIcon } from '@components/shared/svg-icons'
+import { CustomButton } from '@components/shared/custom-button'
+import { EmojiIcon, FileIcon, SendIcon } from '@components/shared/svg-icons'
 
 import { checkIsExternalVideoLink } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -38,6 +39,7 @@ import { useStyles } from './chat.style'
 import { CurrentOpponent } from '../multiple-chats'
 
 import { ChatMessageRequestProposalDesignerResultEditedHandlers } from './components/chat-messages-list/components/chat-messages/chat-message-designer-proposal-edited-result'
+import { ForwardMessages } from './components/forward-messages'
 import { ChatCurrentReplyMessage, ChatFilesInput, ChatInfo, ChatMessagesList } from './components/index'
 import { OnEmojiSelectEvent, RenderAdditionalButtonsParams } from './helpers/chat.interface'
 import { getLanguageTag } from './helpers/get-language-tag'
@@ -59,11 +61,19 @@ interface ChatProps {
   headerChatComponent?: (...args: { [key: string]: any }[]) => ReactElement
   onChangeRequestStatus: (status: loadingStatus) => void
   renderAdditionalButtons?: (params: RenderAdditionalButtonsParams, resetAllInputs: () => void) => ReactElement
-  onSubmitMessage: (message: string, files: UploadFileType[], replyMessageId: string | null) => void
+  onSubmitMessage: (
+    message: string,
+    files: UploadFileType[],
+    replyMessageId: string | null,
+    messagesToForward?: ChatMessageContract[],
+  ) => void
   onTypingMessage: (chatId: string) => void
-  onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
+  selectedMessages?: string[]
+  onSelectMessage?: (message: ChatMessageContract) => void
+  onClickForwardMessages?: () => void
+  onClickClearForwardMessages?: (chat: ChatContract) => void
 }
 
 export const Chat: FC<ChatProps> = memo(
@@ -80,13 +90,16 @@ export const Chat: FC<ChatProps> = memo(
     onSubmitMessage,
     renderAdditionalButtons,
     onTypingMessage,
-    onClickAddUsersToGroupChat,
     onRemoveUsersFromGroupChat,
     onClickEditGroupChatInfo,
     isFreelanceOwner,
     classNamesWrapper,
     requestStatus,
     onChangeRequestStatus,
+    selectedMessages,
+    onSelectMessage,
+    onClickForwardMessages,
+    onClickClearForwardMessages,
   }) => {
     const { classes: styles, cx } = useStyles()
     const { isTabletResolution } = useCreateBreakpointResolutions()
@@ -118,7 +131,7 @@ export const Chat: FC<ChatProps> = memo(
       changeMessageAndState,
       resetAllInputs,
       changeFilesAndState,
-    } = useChatInputControl(messageInitialState)
+    } = useChatInputControl(messageInitialState, chat?._id)
 
     const START_INDEX = Math.max(chat?.messagesCount || 0, 1000000000)
     const prevChatId = usePrevious(chat?._id)
@@ -198,7 +211,8 @@ export const Chat: FC<ChatProps> = memo(
       setMessageToReply(null)
       resetAllInputs()
       await onClickScrollToBottom()
-      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null)
+      onSubmitMessage(message.trim(), files, messageToReply ? messageToReply._id : null, chat?.messagesToForward)
+      sessionStorage.removeItem(chat?._id)
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLElement>) => {
@@ -224,6 +238,9 @@ export const Chat: FC<ChatProps> = memo(
       }
     }
 
+    const onClickOpenChatInfo = useCallback(() => setIsShowChatInfo(true), [])
+    const onClickCloseChatInfo = useCallback(() => setIsShowChatInfo(false), [])
+
     useEffect(() => {
       if (isSendTypingPossible && message) {
         onTypingMessage(chat?._id)
@@ -241,7 +258,9 @@ export const Chat: FC<ChatProps> = memo(
     useEffect(() => {
       ChatModel.getChatMessages?.(chat?._id, PaginationDirection.START)
 
-      setMessage(messageInitialState.message)
+      const chatMessageText = sessionStorage?.getItem?.(chat?._id)
+
+      setMessage(chatMessageText || messageInitialState.message)
       setFiles(messageInitialState.files)
       setIsShowChatInfo(false)
 
@@ -287,15 +306,30 @@ export const Chat: FC<ChatProps> = memo(
             firstItemIndex={firstItemIndex}
             handleLoadMoreMessages={handleLoadMoreMessages}
             handleScrollToBottomButtonVisibility={handleScrollToBottomButtonVisibility}
+            selectedMessages={selectedMessages}
+            onSelectMessage={onSelectMessage}
+            onClickClearForwardMessages={onClickClearForwardMessages}
+            onClickForwardMessages={onClickForwardMessages}
           />
 
-          <div className={styles.hideAndShowIconWrapper} onClick={() => setIsShowChatInfo(!isShowChatInfo)}>
-            {isShowChatInfo ? (
-              <HideArrowIcon className={cx(styles.arrowIcon, styles.hideArrow)} />
-            ) : (
-              <MoreVertOutlinedIcon className={styles.arrowIcon} />
-            )}
-          </div>
+          {isShowChatInfo && (
+            <ChatInfo
+              chat={chat}
+              currentOpponent={currentOpponent}
+              isGroupChat={isGroupChat}
+              userId={userId}
+              onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
+              onClickEditGroupChatInfo={onClickEditGroupChatInfo}
+              onClickCloseChatInfo={onClickCloseChatInfo}
+            />
+          )}
+
+          {isShowChatInfo ? null : (
+            <div className={styles.hideAndShowIconWrapper}>
+              <CustomButton icon={<FaArrowLeft />} onClick={onClickOpenChatInfo} />
+              {/* {isShowChatInfo ? <HideArrowIcon className={cx(styles.arrowIcon, styles.hideArrow)} /> : null} */}
+            </div>
+          )}
 
           {isShowScrollToBottomBtn && (
             <div
@@ -305,20 +339,8 @@ export const Chat: FC<ChatProps> = memo(
               })}
               onClick={onClickScrollToBottom}
             >
-              <KeyboardArrowDownIcon />
+              <MdKeyboardArrowDown size={22} />
             </div>
-          )}
-
-          {isShowChatInfo && (
-            <ChatInfo
-              chat={chat}
-              currentOpponent={currentOpponent}
-              isGroupChat={isGroupChat}
-              userId={userId}
-              onClickAddUsersToGroupChat={onClickAddUsersToGroupChat}
-              onRemoveUsersFromGroupChat={onRemoveUsersFromGroupChat}
-              onClickEditGroupChatInfo={onClickEditGroupChatInfo}
-            />
           )}
         </div>
 
@@ -327,6 +349,13 @@ export const Chat: FC<ChatProps> = memo(
             message={messageToReply}
             setMessageToReply={setMessageToReply}
             scrollToMessage={() => scrollToMessage(messages.findIndex(el => el._id === messageToReply?._id))}
+          />
+        ) : null}
+
+        {chat?.messagesToForward?.length ? (
+          <ForwardMessages
+            messages={chat?.messagesToForward}
+            onClickClearForwardMessages={() => onClickClearForwardMessages?.(chat)}
           />
         ) : null}
 
@@ -404,7 +433,7 @@ export const Chat: FC<ChatProps> = memo(
               onPaste={evt => onPasteFiles(evt)}
             />
 
-            <Button disabled={disabledSubmit} onClick={() => onSubmitMessageInternal()}>
+            <Button disabled={disabledSubmit && !chat?.messagesToForward?.length} onClick={onSubmitMessageInternal}>
               {t(TranslationKey.Send)}
               <SendIcon />
             </Button>

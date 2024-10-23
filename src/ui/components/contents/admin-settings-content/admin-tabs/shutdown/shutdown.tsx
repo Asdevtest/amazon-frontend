@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 import { PiAlarmDuotone } from 'react-icons/pi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,7 +12,6 @@ import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSwitch } from '@components/shared/custom-switch'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ITechPause } from '@typings/models/administrators/tech-pause'
@@ -28,8 +27,7 @@ interface ShutdownProps {
 
 export const Shutdown: FC<ShutdownProps> = observer(({ techPause }) => {
   const { classes: styles, cx } = useStyles()
-
-  const [viewModel] = useState(() => new ShutdownModel(techPause))
+  const viewModel = useMemo(() => new ShutdownModel(techPause), [])
 
   const selectAfter = (
     <CustomSelect
@@ -94,11 +92,7 @@ export const Shutdown: FC<ShutdownProps> = observer(({ techPause }) => {
           />
 
           <div className={cx(styles.flexRowContainer, styles.flexEnd)}>
-            <CustomButton
-              type="primary"
-              disabled={viewModel.disabledSendButton}
-              onClick={throttle(viewModel.onToggleServer)}
-            >
+            <CustomButton type="primary" disabled={viewModel.disabledSendButton} onClick={viewModel.onToggleServer}>
               {t(TranslationKey.Send)}
             </CustomButton>
           </div>

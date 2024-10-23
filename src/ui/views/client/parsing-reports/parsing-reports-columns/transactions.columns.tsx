@@ -66,8 +66,8 @@ export const transactionsColumns = () => {
 
     {
       field: 'amzOrderId',
-      headerName: 'Amz order id',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz order id" />,
+      headerName: 'AMZ order ID',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ order ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
@@ -76,8 +76,8 @@ export const transactionsColumns = () => {
 
     {
       field: 'productId',
-      headerName: 'Product id',
-      renderHeader: () => <MultilineTextHeaderCell text="Product id" />,
+      headerName: ' Product ID',
+      renderHeader: () => <MultilineTextHeaderCell text=" Product ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
@@ -127,8 +127,8 @@ export const transactionsColumns = () => {
 
     {
       field: 'totalUsd',
-      headerName: 'Total usd',
-      renderHeader: () => <MultilineTextHeaderCell text="Total usd" />,
+      headerName: 'Total USD',
+      renderHeader: () => <MultilineTextHeaderCell text="Total USD" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -181,7 +181,9 @@ export const transactionsColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+      ),
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

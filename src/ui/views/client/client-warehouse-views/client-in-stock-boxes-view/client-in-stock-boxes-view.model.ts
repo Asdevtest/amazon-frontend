@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RadioChangeEvent } from 'antd'
 import { makeObservable, reaction, runInAction } from 'mobx'
@@ -42,7 +44,13 @@ import { ILogicTariff } from '@typings/shared/logic-tariff'
 import { IUploadFile } from '@typings/shared/upload-file'
 
 import { clientBoxesViewColumns } from './client-boxes-columns'
-import { fieldsForSearch, filtersFields, updateBoxWhiteList } from './client-in-stock-boxes-view.constants'
+import {
+  fieldsForSearch,
+  filtersFields,
+  sharedFieldsWhiteList,
+  updateBoxWhiteList,
+  updateManyBoxesWhiteList,
+} from './client-in-stock-boxes-view.constants'
 import { observerConfig } from './observer-config'
 
 export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
@@ -148,11 +156,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   constructor(history: any) {
     const rowHandlers = {
       onClickFbaShipment: (item: IBox) => this.onClickFbaShipment(item),
-      onDoubleClickFbaShipment: (item: IBox) => this.onDoubleClickFbaShipment(item),
       onDeleteFbaShipment: (item: IBox) => this.onDeleteFbaShipment(item),
 
       onClickShippingLabel: (item: IBox) => this.onClickShippingLabel(item),
-      onDoubleClickShippingLabel: (item: IBox) => this.onDoubleClickShippingLabel(item),
       onDeleteShippingLabel: (item: IBox) => this.onDeleteShippingLabel(item),
       onChangeIsFormedInBox: (item: IBox) => this.onChangeIsFormedInBox(item),
 
@@ -241,7 +247,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const boxId = url.searchParams.get('box-id')
 
     if (boxId) {
-      this.columnMenuSettings?.humanFriendlyId.currentFilterData.push(boxId)
+      this.columnMenuSettings?.xid.currentFilterData.push(boxId)
     }
 
     this.currentSearchValue = url.searchParams.get('search-text') || ''
@@ -297,6 +303,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const currentValue = event.target.value
     this.selectedRows = []
     this.currentStorekeeperId = currentValue
+    this.onChangeFullFieldMenuItem([], 'storekeeper')
     this.getCurrentData()
   }
 
@@ -352,12 +359,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onDoubleClickShippingLabel = (item: IBox) => {
-    this.setSelectedBox(item)
-
-    this.onTriggerOpenModal('showSetShippingLabelModal')
-  }
-
   onChangeIsFormed(value: boolean) {
     this.columnMenuSettings = {
       ...this.columnMenuSettings,
@@ -406,17 +407,17 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSaveShippingLabel(tmpShippingLabel: IUploadFile[]) {
-    if (tmpShippingLabel.length) {
+  async onClickSaveShippingLabel(data: IUploadFile[]) {
+    if (data.length) {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       // @ts-ignore
-      await onSubmitPostImages.call(this, { images: tmpShippingLabel, type: 'uploadedFiles' })
+      await onSubmitPostImages.call(this, { images: data, type: 'uploadedFiles' })
       this.setRequestStatus(loadingStatus.SUCCESS)
     }
 
     if (this.selectedBox?.shippingLabel === null) {
       await ClientModel.editShippingLabelFirstTime(this.selectedBox._id, {
-        shippingLabel: this.uploadedFiles?.[0] || tmpShippingLabel?.[0],
+        shippingLabel: this.uploadedFiles?.[0],
       })
 
       this.checkAndOpenFbaShipmentEdit()
@@ -480,13 +481,13 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         // @ts-ignore
         idsBeforeData: [this.selectedBox?._id],
         type: TaskOperationType.EDIT,
-        clientComment: boxData.clientComment,
+        clientComment: boxData.clientComment || '',
       })
 
       toast.success(
         `${t(TranslationKey['Formed a task for storekeeper'])} ${this.selectedBox?.storekeeper?.name} ${t(
           TranslationKey['to change the Box'],
-        )} № ${this.selectedBox?.humanFriendlyId}`,
+        )} № ${this.selectedBox?.xid}`,
       )
 
       this.onTriggerOpenModal('showConfirmModal')
@@ -514,7 +515,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       title: '',
       message: `${t(TranslationKey['The task for the warehouse will be formed'])} ${sourceBox?.storekeeper?.name} ${t(
         TranslationKey['to redistribute the Box'],
-      )} № ${sourceBox?.humanFriendlyId}`,
+      )} № ${sourceBox?.xid}`,
       onSubmit: () => this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -528,7 +529,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     priorityReason: string,
   ) {
     this.onTriggerOpenModal('showConfirmModal')
-
     this.confirmModalSettings = {
       isWarning: false,
       title: '',
@@ -537,11 +537,11 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         boxData.items.every((item: any) => !item.tmpBarCode.length) &&
         boxData.items.every((item: any) => !item.tmpTransparencyFile.length) &&
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
-          ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
+          ? `${t(TranslationKey['Change the box'])}: № ${boxData?.xid}`
           : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
               TranslationKey['to change the Box'],
-            )} № ${boxData?.humanFriendlyId}`,
-      onSubmit: () => this.onEditBoxSubmit(id, boxData, sourceData, false, priority, priorityReason),
+            )} № ${boxData?.xid}`,
+      onSubmit: () => this.onEditBoxSubmit(id, boxData, sourceData, priority, priorityReason),
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
   }
@@ -561,11 +561,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
   }
 
   onClickFbaShipment(item: IBox) {
-    this.setSelectedBox(item)
-    this.onTriggerOpenModal('showSetChipValueModal')
-  }
-
-  onDoubleClickFbaShipment = (item: IBox) => {
     this.setSelectedBox(item)
     this.onTriggerOpenModal('showSetChipValueModal')
   }
@@ -622,6 +617,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     this.curDestinationId = value
 
     this.requestStatus = loadingStatus.IS_LOADING
+    this.onChangeFullFieldMenuItem([], 'destination')
+
     this.getCurrentData().then(() => {
       this.requestStatus = loadingStatus.SUCCESS
     })
@@ -738,7 +735,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           toast.success(
             `${t(TranslationKey['Formed a task for storekeeper'])} ${
               this.storekeepersData.find(el => el._id === sourceBox.storekeeper?._id)?.name
-            } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox.humanFriendlyId}`,
+            } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox.xid}`,
           )
         } else {
           toast.warning(t(TranslationKey['The box is not split!']))
@@ -842,114 +839,161 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSubmitEditMultipleBoxes(newBoxes: any, selectedRows: IBox[]) {
+  async uploadImageIfNotUploaded(image: any, cache: any[]) {
+    const imageKey = JSON.stringify(image)
+    const cachedImage = cache.find(el => el.strKey === imageKey)
+
+    if (cachedImage) {
+      return cachedImage.link
+    } else {
+      // @ts-ignore
+      await onSubmitPostImages.call(this, {
+        images: [image],
+        type: 'uploadedFiles',
+        withoutShowProgress: true,
+      })
+
+      const link = this.uploadedFiles[0] || image
+      cache.push({ strKey: imageKey, link })
+      return link
+    }
+  }
+
+  async uploadSharedFieldFile(sharedFields: any, fieldName: string, uploadedFieldName: string) {
+    const fieldValue = sharedFields[fieldName]
+
+    if (Array.isArray(fieldValue) && fieldValue.length) {
+      // @ts-ignore
+      await onSubmitPostImages.call(this, {
+        images: fieldValue,
+        type: 'uploadedFiles',
+        withoutShowProgress: true,
+      })
+      sharedFields[uploadedFieldName] = this.uploadedFiles[0]
+    }
+  }
+
+  async onClickSubmitEditMultipleBoxes(newBoxes: any, selectedBoxes: any, sharedFields: any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
 
-      const uploadedShippingLabeles: { strKey: string; link: string }[] = []
-
+      const uploadedShippingLabels: { strKey: string; link: string }[] = []
       const uploadedBarcodes: { strKey: string; link: string }[] = []
+      const uploadedTransparencyFiles: { strKey: string; link: string }[] = []
+      const updatedBoxes = []
 
-      runInAction(() => {
-        this.boxesIdsToTask = []
-      })
+      // Upload sharedFields files
+      await this.uploadSharedFieldFile(sharedFields, 'tmpShippingLabel', 'shippingLabel')
+      await this.uploadSharedFieldFile(sharedFields, 'tmpBarCode', 'barCode')
+      await this.uploadSharedFieldFile(sharedFields, 'tmpTransparencyFile', 'transparencyFile')
 
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = { ...newBoxes[i] }
-        const sourceBox = selectedRows[i]
-        const isMultipleEdit = true
+        const selectedBox = { ...selectedBoxes[i] }
 
-        if (newBox.tmpShippingLabel?.length) {
-          const findUploadedShippingLabel = uploadedShippingLabeles.find(
-            el => el.strKey === JSON.stringify(newBox.tmpShippingLabel[0]),
-          )
-
-          if (!findUploadedShippingLabel) {
-            // @ts-ignore
-            await onSubmitPostImages.call(this, {
-              images: newBox.tmpShippingLabel,
-              type: 'uploadedFiles',
-              withoutShowProgress: true,
-            })
-
-            uploadedShippingLabeles.push({
-              strKey: JSON.stringify(newBox.tmpShippingLabel[0]),
-              link: this.uploadedFiles[0],
-            })
-          }
-
-          newBox.shippingLabel = findUploadedShippingLabel
-            ? findUploadedShippingLabel.link
-            : this.uploadedFiles?.[0] || newBox.tmpShippingLabel?.[0]
+        let linkToShippingLabel = newBox.shippingLabel || ''
+        // Upload shipping label if needed
+        const isSameShippingLabel =
+          JSON.stringify(newBox?.tmpShippingLabel?.[0]) === JSON.stringify(sharedFields?.tmpShippingLabel?.[0])
+        if (!isSameShippingLabel) {
+          linkToShippingLabel = await this.uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
         }
 
         const dataToBarCodeChange = newBox.items
-          .map((el: any) =>
-            el.tmpBarCode?.length
-              ? {
-                  changeBarCodInInventory: el.changeBarCodInInventory,
-                  productId: el.product._id,
-                  tmpBarCode: el.tmpBarCode,
-                  newData: [],
-                }
-              : null,
-          )
+          .map((el: any) => {
+            if (el.tmpBarCode?.length) {
+              const isSameBarCode =
+                JSON.stringify(el?.tmpBarCode?.[0]) === JSON.stringify(sharedFields?.tmpBarCode?.[0])
+
+              return {
+                changeBarCodInInventory: el.changeBarCodInInventory,
+                productId: el.product._id || el.productId,
+                tmpBarCode: el.tmpBarCode,
+                newData: [],
+                isSameBarCode,
+              }
+            }
+            return null
+          })
           .filter((el: any) => el !== null)
 
+        // Upload bar code if needed
         if (dataToBarCodeChange?.length) {
-          for (let j = 0; j < dataToBarCodeChange.length; j++) {
+          for (const barcodeChange of dataToBarCodeChange) {
+            if (barcodeChange.isSameBarCode) {
+              // If barcode is same as shared, skip uploading
+              continue
+            }
             const findUploadedBarcode = uploadedBarcodes.find(
-              el => el.strKey === JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
+              el => el.strKey === JSON.stringify(barcodeChange.tmpBarCode[0]),
             )
 
             if (!findUploadedBarcode) {
               // @ts-ignore
               await onSubmitPostImages.call(this, {
-                images: dataToBarCodeChange[j].tmpBarCode,
+                images: barcodeChange.tmpBarCode,
                 type: 'uploadedFiles',
                 withoutShowProgress: true,
               })
 
               uploadedBarcodes.push({
-                strKey: JSON.stringify(dataToBarCodeChange[j].tmpBarCode[0]),
-                link: this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0],
+                strKey: JSON.stringify(barcodeChange.tmpBarCode[0]),
+                link: this.uploadedFiles[0] || barcodeChange.tmpBarCode[0],
               })
             }
 
-            dataToBarCodeChange[j].newData = findUploadedBarcode
+            barcodeChange.newData = findUploadedBarcode
               ? [findUploadedBarcode.link]
-              : [this.uploadedFiles[0] || dataToBarCodeChange[j].tmpBarCode[0]]
+              : [this.uploadedFiles[0] || barcodeChange.tmpBarCode[0]]
           }
         }
 
-        newBox.items = newBox.items.map((el: any) => {
+        const currentBoxItems = []
+
+        for (const el of newBox.items) {
           const prodInDataToUpdateBarCode = dataToBarCodeChange.find(
-            (item: any) => item.productId === el?.product?._id || el?.productId,
+            (item: any) => item.productId === (el?.product?._id || el?.productId),
           )
 
-          return {
-            ...getObjectFilteredByKeyArrayBlackList(el, [
-              'order',
-              'product',
-              /* 'tmpBarCode',*/ 'changeBarCodInInventory',
-            ]),
-            amount: el.amount,
+          let transparencyFileLink = el.transparencyFile || ''
+          const isSameTransparencyFile =
+            JSON.stringify(el?.tmpTransparencyFile?.[0]) === JSON.stringify(sharedFields.tmpTransparencyFile[0])
+          if (!isSameTransparencyFile && el?.tmpTransparencyFile?.[0]) {
+            transparencyFileLink = await this.uploadImageIfNotUploaded(
+              el.tmpTransparencyFile[0],
+              uploadedTransparencyFiles,
+            )
+          }
+          const barcodeValue = prodInDataToUpdateBarCode?.newData?.[0] || el.barCode
+
+          const validItem = {
             orderId: el?.order?._id || el?.orderId,
             productId: el?.product?._id || el?.productId,
-
-            barCode: prodInDataToUpdateBarCode?.newData?.length ? prodInDataToUpdateBarCode?.newData[0] : el.barCode,
-            isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
-              ? false
-              : el.isBarCodeAlreadyAttachedByTheSupplier,
-            isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
-              ? false
-              : el.isBarCodeAttachedByTheStorekeeper,
+            ...(barcodeValue !== selectedBox.items[0].barCode && { barCode: barcodeValue }),
+            ...(transparencyFileLink !== selectedBox.items[0].transparencyFile && {
+              transparencyFile: transparencyFileLink,
+            }),
           }
-        })
 
-        await this.onEditBoxSubmit(sourceBox._id, newBox, sourceBox, isMultipleEdit)
+          currentBoxItems.push(validItem)
+        }
+
+        newBox.items = currentBoxItems
+
+        updatedBoxes.push({
+          ...getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList),
+          ...(linkToShippingLabel !== selectedBox.shippingLabel && { shippingLabel: linkToShippingLabel }),
+        })
       }
+
+      const boxesToSend = {
+        ...getObjectFilteredByKeyArrayWhiteList(sharedFields, sharedFieldsWhiteList),
+        ...(sharedFields.shippingLabel && { shippingLabel: sharedFields.shippingLabel }),
+        boxes: updatedBoxes,
+      }
+
+      await BoxesModel.editManyBoxes(boxesToSend)
 
       toast.success(
         this.boxesIdsToTask.length
@@ -1032,21 +1076,14 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onEditBoxSubmit(
-    id: string,
-    boxData: any,
-    sourceData: any,
-    isMultipleEdit: boolean,
-    priority?: number,
-    priorityReason?: string,
-  ) {
+  async onEditBoxSubmit(id: string, boxData: any, sourceData: any, priority?: number, priorityReason?: string) {
     try {
-      !isMultipleEdit && this.setRequestStatus(loadingStatus.IS_LOADING)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
         this.selectedRows = []
       })
 
-      if (!isMultipleEdit && boxData.tmpShippingLabel?.length) {
+      if (boxData.tmpShippingLabel?.length) {
         // @ts-ignore
         await onSubmitPostImages.call(this, {
           images: boxData.tmpShippingLabel,
@@ -1070,7 +1107,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         )
         .filter((el: any) => el !== null)
 
-      if (!isMultipleEdit && dataToBarCodeChange?.length) {
+      if (dataToBarCodeChange?.length) {
         dataToBarCodeChange = await onSubmitPostFilesInData({
           dataWithFiles: dataToBarCodeChange,
           nameOfField: 'tmpBarCode',
@@ -1141,16 +1178,24 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             : boxData.shippingLabel === null
             ? null
             : '',
+          clientComment: boxData.clientComment,
         },
         updateBoxWhiteList,
       )
 
-      const isBarcodeChanged =
-        sourceData.items[0].barCode !== boxData.items[0].barCode || boxData.items[0].tmpBarCode.length !== 0
-      const isTransparencyFileChanged =
-        !!boxData.items[0].tmpTransparencyFile &&
-        (sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
-          boxData.items[0].tmpTransparencyFile.length !== 0)
+      const isBarcodeChanged = boxData.items.some((item: any, index: number) => {
+        const sourceItem = sourceData.items[index]
+        return sourceItem.barCode !== item.barCode || (item.tmpBarCode && item.tmpBarCode.length !== 0)
+      })
+
+      const isTransparencyFileChanged = boxData.items.some((item: any, index: number) => {
+        const sourceItem = sourceData.items[index]
+        return (
+          !!item.tmpTransparencyFile &&
+          (sourceItem.transparencyFile !== item.transparencyFile || item.tmpTransparencyFile.length !== 0)
+        )
+      })
+
       const isShippingLabelChanged =
         sourceData.shippingLabel !== null &&
         (sourceData.shippingLabel !== boxData.shippingLabel || boxData.shippingLabel === '')
@@ -1172,7 +1217,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         toast.success(
           `${t(TranslationKey['Formed a task for storekeeper'])} ${sourceData.storekeeper?.name} ${t(
             TranslationKey['to change the Box'],
-          )} № ${sourceData.humanFriendlyId}`,
+          )} № ${sourceData.xid}`,
         )
       }
 
@@ -1207,22 +1252,20 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
 
-      isMultipleEdit && (this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId))
+      this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.xid)
 
-      !isMultipleEdit && this.loadData()
-      !isMultipleEdit && this.onTriggerOpenModal('showEditBoxModal')
-      !isMultipleEdit && this.onTriggerOpenModal('showConfirmModal')
+      this.loadData()
+      this.onTriggerOpenModal('showEditBoxModal')
+      this.onTriggerOpenModal('showConfirmModal')
 
-      !isMultipleEdit && this.setRequestStatus(loadingStatus.SUCCESS)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      !isMultipleEdit && this.setRequestStatus(loadingStatus.FAILED)
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
 
-      if (!isMultipleEdit) {
-        this.loadData()
+      this.loadData()
 
-        this.onTriggerOpenModal('showEditBoxModal')
-      }
+      this.onTriggerOpenModal('showEditBoxModal')
 
       toast.warning(t(TranslationKey['The box is unchanged']))
     } finally {
@@ -1251,7 +1294,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         [
           'tmpShippingLabel',
           'storekeeperId',
-          'humanFriendlyId',
+          'xid',
           'storekeeper',
           'destination',
           'logicsTariff',
@@ -1469,7 +1512,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
           )}: ${boxesWithoutTariffOrDestinationIds
             // @ts-ignore
-            .map(el => this.currentData?.find(box => box?._id === el)?.humanFriendlyId)
+            .map(el => this.currentData?.find(box => box?._id === el)?.xid)
             .join(', ')} `,
         )
 
@@ -1582,6 +1625,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         this.selectedWarehouseOrderProduct = { ...result, _id: selectedBoxProductId } as unknown as IProduct
       })
 
+      this.getBatches()
+
       this.onTriggerOpenModal('showProductModal')
 
       if (this.showProductModal) {
@@ -1598,10 +1643,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   onClickChangeProductAndBatchModalCondition(value: ProductAndBatchModalSwitcherConditions) {
     this.productAndBatchModalSwitcherCondition = value
-
-    if (value === ProductAndBatchModalSwitcherConditions.BATCH_DATA) {
-      this.getBatches()
-    }
   }
 
   async getCurrBatch(guid: string) {

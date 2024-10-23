@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { GridExceljsProcessInput, GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -22,7 +22,7 @@ import { ReportsViewModel } from './reports-view.model'
 export const ReportsView: FC<ReportsViewProps> = observer(props => {
   const { productId, subView = false } = props
 
-  const [viewModel] = useState(() => new ReportsViewModel({ productId, subView }))
+  const viewModel = useMemo(() => new ReportsViewModel({ productId, subView }), [])
 
   const exceljsPostProcess = (excelParams: GridExceljsProcessInput) =>
     editExcelReport(excelParams, viewModel?.columnsModel, viewModel?.currentData)

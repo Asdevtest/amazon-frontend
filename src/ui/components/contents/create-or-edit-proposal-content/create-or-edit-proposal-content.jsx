@@ -1,7 +1,7 @@
 import isEqual from 'lodash.isequal'
 import { memo, useEffect, useState } from 'react'
+import { FaCircle } from 'react-icons/fa'
 
-import CircleIcon from '@mui/icons-material/Circle'
 import { Avatar, Link, List, ListItem, ListItemText, Rating } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -96,21 +96,21 @@ export const CreateOrEditProposalContent = memo(props => {
 
         <List>
           <ListItem className={styles.adviceListItem}>
-            <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
+            <FaCircle size={8} className={styles.listItemDot} />
 
             <ListItemText className={styles.adviceListItemText}>
               {t(TranslationKey['Specify exactly how you are going to perform this task. Describe the key points.'])}
             </ListItemText>
           </ListItem>
           <ListItem className={styles.adviceListItem}>
-            <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
+            <FaCircle size={8} className={styles.listItemDot} />
 
             <ListItemText className={styles.adviceListItemText}>
               {t(TranslationKey['Compose unique feedback that shows your competence and interest in the project.'])}
             </ListItemText>
           </ListItem>
           <ListItem className={styles.adviceListItem}>
-            <CircleIcon color="primary" classes={{ root: styles.listItemDot }} />
+            <FaCircle size={8} className={styles.listItemDot} />
 
             <ListItemText className={styles.adviceListItemText}>
               {t(
@@ -164,7 +164,7 @@ export const CreateOrEditProposalContent = memo(props => {
 
           <div className={styles.infoCellWrapper}>
             <p className={styles.requestTitleName}>{t(TranslationKey.ID)}</p>
-            <p>{request?.request?.humanFriendlyId}</p>
+            <p>{request?.request?.xid}</p>
           </div>
 
           <div className={cx(styles.infoCellWrapper, styles.lastInfoCellWrapper)}>

@@ -9,11 +9,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
   pencilEditIcon: {
-    transition: '.3s ease',
     cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   membersWrapper: {

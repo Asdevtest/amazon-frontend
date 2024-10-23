@@ -56,10 +56,6 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '4px',
     color: '#fff',
     cursor: 'pointer',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   disabledActionButton: {
@@ -194,18 +190,10 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '18px',
     color: '#00B746',
     cursor: 'pointer',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   chartIcon: {
     cursor: 'pointer',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   totalsPercentsWrapper: {

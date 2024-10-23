@@ -5,8 +5,6 @@ import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@compo
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const supervisorReadyToCheckColumns = ({ onPickUp }) => {
   const columns = [
     {
@@ -15,14 +13,12 @@ export const supervisorReadyToCheckColumns = ({ onPickUp }) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
       renderCell: ({ row }) => (
         <ActionButtonsCell
-          isFirstButton
-          firstButtonTooltipText={t(TranslationKey['Assign a product card to a supervisor'])}
-          firstButtonElement={t(TranslationKey['Get to work'])}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          onClickFirstButton={() => throttle(onPickUp(row._id))}
+          showFirst
+          firstContent={t(TranslationKey['Get to work'])}
+          onClickFirst={() => onPickUp(row._id)}
         />
       ),
-      width: 200,
+      width: 150,
       disableCustomSort: true,
     },
 

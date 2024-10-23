@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,14 +19,15 @@ import { AdminSettingsDestinationsModel } from './tab-destinations.model'
 
 export const TabDestinations = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AdminSettingsDestinationsModel())
+  const viewModel = useMemo(() => new AdminSettingsDestinationsModel(), [])
 
   return (
     <div className="viewWrapper">
-      <CustomButton type="primary" size="large" onClick={viewModel.onClickAddBtn}>
-        {t(TranslationKey['Add a destination'])}
-      </CustomButton>
-
+      <div>
+        <CustomButton type="primary" size="large" onClick={viewModel.onClickAddBtn}>
+          {t(TranslationKey['Add a destination'])}
+        </CustomButton>
+      </div>
       <CustomDataGrid
         sortModel={viewModel.sortModel}
         sortingMode="client"

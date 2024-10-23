@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { MdAdd } from 'react-icons/md'
 import { toast } from 'react-toastify'
 
-import AddIcon from '@mui/icons-material/Add'
 import { Divider } from '@mui/material'
 
 import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
@@ -216,7 +216,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
             onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
           >
             {t(TranslationKey['New box'])}
-            <AddIcon fontSize="small" className={styles.icon} />
+            <MdAdd size={18} className={styles.icon} />
           </Button>
         )}
       </div>

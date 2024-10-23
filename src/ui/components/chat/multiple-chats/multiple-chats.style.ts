@@ -18,6 +18,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 auto',
+    gap: 15,
   },
 
   chatWrapper: {
@@ -41,13 +42,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 20,
-  },
-
-  searchInput: {
-    fontSize: 14,
-    lineHeight: '19px',
-    width: 305,
-    height: 30,
   },
 
   searchResult: {

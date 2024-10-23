@@ -1,6 +1,6 @@
 import { History } from 'history'
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { NotificationTypes } from '@constants/notifications/notification-type'
@@ -15,7 +15,6 @@ import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 
 import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -31,7 +30,7 @@ interface GeneralNotificationsViewProps {
 export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = observer(({ history }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new GeneralNotificationsViewModel({ history }))
+  const viewModel = useMemo(() => new GeneralNotificationsViewModel({ history }), [])
 
   const currentUserRole = viewModel?.userInfo?.role || -1
   const isCurrentUserClient = checkIsClient(UserRoleCodeMap[currentUserRole])
@@ -62,7 +61,6 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
         {!isCurrentUserFreelancer ? (
           <CustomRadioButton
             size="large"
-            buttonStyle="solid"
             options={currentSwitcherSettings}
             defaultValue={viewModel.curNotificationType}
             onChange={viewModel.onClickToChangeNotificationType}
@@ -89,7 +87,7 @@ export const GeneralNotificationsView: FC<GeneralNotificationsViewProps> = obser
               type="primary"
               size="large"
               disabled={!viewModel.selectedRows.length}
-              onClick={throttle(() => viewModel.onClickReadButton())}
+              onClick={viewModel.onClickReadButton}
             >
               {t(TranslationKey.Read)}
             </CustomButton>

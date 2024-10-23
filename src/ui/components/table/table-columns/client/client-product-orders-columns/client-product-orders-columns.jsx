@@ -1,6 +1,5 @@
 import { t } from 'i18n-js'
-
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
+import { MdOutlineFilterAlt } from 'react-icons/md'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import {
@@ -19,22 +18,20 @@ import {
   LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
   {
-    field: 'id',
+    field: 'xid',
     headerName: t(TranslationKey.ID) + ' / item',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-    renderCell: params => <Text isCell text={params.row.idItem} />,
+    renderCell: params => <Text isCell text={params.row.xid} />,
     width: 100,
     type: 'number',
   },
@@ -46,9 +43,9 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     width: 90,
     renderCell: params => (
       <PriorityAndChinaDeliverCell
-        priority={params.row.originalData.priority}
-        chinaDelivery={params.row.originalData.expressChinaDelivery}
-        status={params.row.originalData.status}
+        priority={params.row.priority}
+        chinaDelivery={params.row.expressChinaDelivery}
+        status={params.row.status}
       />
     ),
     sortable: false,
@@ -59,9 +56,15 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     field: 'asin',
     headerName: 'ASIN',
     renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
-
-    width: 300,
-    renderCell: params => <OrderCell product={params.row.originalData.product} />,
+    width: 200,
+    renderCell: params => (
+      <ProductCell
+        asin={params.row.product?.asin}
+        image={params.row.product?.images?.[0]}
+        sku={params.row.product?.skuByClient}
+        title={params.row.product?.amazonTitle}
+      />
+    ),
     sortable: false,
   },
 
@@ -75,7 +78,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
         <MultilineTextHeaderCell
           isFilterActive={isActiveFilter}
           text={t(TranslationKey.Status)}
-          Icon={FilterAltOutlinedIcon}
+          Icon={<MdOutlineFilterAlt size={20} />}
         />
       )
     },
@@ -84,8 +87,8 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderCell: params => (
       <Text
         isCell
-        text={OrderStatusTranslate(OrderStatusByCode[params.row.originalData.status], 'client')}
-        color={orderColorByStatus(OrderStatusByCode[params.row.originalData.status])}
+        text={OrderStatusTranslate(OrderStatusByCode[params.row.status])}
+        color={orderColorByStatus(OrderStatusByCode[params.row.status])}
       />
     ),
 
@@ -98,17 +101,14 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     width: 240,
     renderCell: params => {
-      const isRepeatOrder =
-        Number(params.row.originalData.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
-      const currentStyle = isRepeatOrder ? ButtonStyle.PRIMARY : ButtonStyle.SUCCESS
+      const isRepeatOrder = Number(params.row.status) > Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])
       const currentText = isRepeatOrder ? t(TranslationKey['Repeat order']) : t(TranslationKey['To order'])
 
       return (
         <ActionButtonsCell
-          isFirstButton
-          firstButtonElement={currentText}
-          firstButtonStyle={currentStyle}
-          onClickFirstButton={() => handlers.onClickReorder(params.row.originalData, !isRepeatOrder)}
+          showFirst
+          firstContent={currentText}
+          onClickFirst={() => handlers.onClickReorder(params.row, !isRepeatOrder)}
         />
       )
     },
@@ -121,8 +121,8 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.BarCode),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-    width: 100,
-    renderCell: params => <LinkCell value={params.value} />,
+    width: 70,
+    renderCell: params => <LinkCell value={params.row.barCode} />,
     sortable: false,
     align: 'center',
   },
@@ -132,7 +132,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.Quantity),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
 
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row.amount} />,
 
     type: 'number',
     width: 90,
@@ -144,7 +144,13 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Int warehouse']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.storekeeper?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.storekeeper?.name}
+        id={params.row.storekeeper?._id}
+        email={params.row.storekeeper?.email}
+      />
+    ),
     width: 130,
     sortable: false,
   },
@@ -154,18 +160,18 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Where to']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Where to'])} />,
 
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row.destination?.name} />,
     width: 120,
     sortable: false,
   },
 
   {
     field: 'productionTerm',
-    headerName: t(TranslationKey['Production time']),
+    headerName: t(TranslationKey['Production time, days']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
     renderCell: params => {
-      const orderSupplier = params.row.originalData?.orderSupplier
+      const orderSupplier = params.row.orderSupplier
 
       return orderSupplier ? (
         <Text isCell text={`${orderSupplier?.minProductionTerm} - ${orderSupplier?.maxProductionTerm}`} />
@@ -180,11 +186,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey.Deadline),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params =>
-      params.row.originalData.status < 20 ? (
-        <DeadlineCell deadline={params.row.deadline} />
-      ) : (
-        <Text isCell text={'-'} />
-      ),
+      params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <Text isCell text={'-'} />,
     width: 100,
   },
 
@@ -194,7 +196,9 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Re-search supplier'])} />,
 
     width: 140,
-    renderCell: params => <Text isCell text={params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)} />,
+    renderCell: params => (
+      <Text isCell text={params.row.needsResearch ? t(TranslationKey.Yes) : t(TranslationKey.No)} />
+    ),
   },
 
   {
@@ -204,7 +208,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
     type: 'number',
     width: 140,
-    renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
+    renderCell: params => <Text isCell text={toFixedWithDollarSign(params.row.totalPrice, 2)} />,
   },
 
   {
@@ -214,7 +218,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
 
     type: 'number',
     width: 110,
-    renderCell: params => <Text isCell text={toFixedWithKg(params.value)} />,
+    renderCell: params => <Text isCell text={toFixedWithKg(params.row.product?.weight * params.row.amount)} />,
     sortable: false,
   },
   {
@@ -223,7 +227,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
     width: 160,
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row.trackingNumberChina} />,
   },
 
   {
@@ -231,7 +235,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Buyer comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Buyer comment'])} />,
 
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row.buyerComment} />,
     width: 120,
     sortable: false,
   },
@@ -241,7 +245,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     headerName: t(TranslationKey['Client comment']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Client comment'])} />,
 
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row.clientComment} />,
     width: 120,
     sortable: false,
   },
@@ -252,8 +256,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
     width: 115,
-    renderCell: params => <NormDateCell value={params.value} />,
-    // type: 'date',
+    renderCell: params => <NormDateCell value={params.row.createdAt} />,
   },
 
   {
@@ -262,7 +265,6 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
     width: 115,
-    renderCell: params => <NormDateCell value={params.value} />,
-    // type: 'date',
+    renderCell: params => <NormDateCell value={params.row.updatedAt} />,
   },
 ]

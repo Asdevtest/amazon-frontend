@@ -12,7 +12,7 @@ import { IBox } from '@typings/models/boxes/box'
 import { useStyles } from './header.style'
 
 interface HeaderProps {
-  formFields: IBox
+  formFields?: IBox
   disabledPrepId: boolean
   onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
 }
@@ -22,7 +22,7 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${formFields?.humanFriendlyId}/ prep id:`
+  const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${formFields?.xid}/ prep id:`
 
   return (
     <div className={styles.wrapper}>

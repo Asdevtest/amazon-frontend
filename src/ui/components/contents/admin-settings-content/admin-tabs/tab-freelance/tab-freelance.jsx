@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,7 +10,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -25,7 +24,7 @@ export const TabFreelance = observer(props => {
   const { formFields, isFormFieldsChanged, onSubmit, onChangeField } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AdminSettingsFreelanceModel())
+  const viewModel = useMemo(() => new AdminSettingsFreelanceModel(), [])
 
   const disabledSubmit =
     !isFormFieldsChanged ||
@@ -80,7 +79,7 @@ export const TabFreelance = observer(props => {
             onChange={e => onChangeField(fieldNameObject.requestTimeLimitInHourForCheckingProposalBySuper, e)}
           />
 
-          <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={throttle(onSubmit)}>
+          <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={onSubmit}>
             {t(TranslationKey.Save)}
           </CustomButton>
         </div>

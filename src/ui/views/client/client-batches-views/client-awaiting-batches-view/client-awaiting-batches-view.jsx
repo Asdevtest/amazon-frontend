@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,7 +17,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
 
 export const ClientAwaitingBatchesView = observer(() => {
-  const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel())
+  const viewModel = useMemo(() => new ClientAwaitingBatchesViewModel(), [])
 
   return (
     <div className="viewWrapper">

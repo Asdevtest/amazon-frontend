@@ -3,8 +3,7 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  AddAsinIdeaActionsCell,
-  ChangeChipCell,
+  ActionButtonsCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
   MultilineTextHeaderCell,
@@ -32,6 +31,16 @@ import {
 
 export const clientAddAsinIdeasColumns = rowHandlers => {
   const columns = [
+    {
+      field: 'xid',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: params => <Text isCell text={params.row.xid} />,
+      width: 100,
+      type: 'number',
+      columnKey: columnnsKeys.shared.NUMBER,
+    },
+
     {
       field: 'title',
       headerName: t(TranslationKey['Idea title']),
@@ -72,7 +81,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
     {
       field: 'parentProductShop',
       headerName: t(TranslationKey.Shop),
-      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
@@ -118,17 +127,17 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
         const product = params.row.variation ? params.row?.childProduct : params.row?.parentProduct
 
         return (
-          <ChangeChipCell
-            disabled={params.row.variation && !params.row.childProduct}
-            text={t(TranslationKey.BarCode)}
-            value={product?.barCode}
-            onClickChip={() => rowHandlers.barCodeHandlers.onClickBarcode(product)}
-            onDoubleClickChip={() => rowHandlers.barCodeHandlers.onDoubleClickBarcode(product)}
-            onDeleteChip={!product?.barCode ? undefined : () => rowHandlers.barCodeHandlers.onDeleteBarcode(product)}
+          <ActionButtonsCell
+            showFirst
+            firstDropdown={!!product?.barCode}
+            firstContent={t(TranslationKey.BarCode)}
+            firstDisabled={params.row.variation && !params.row.childProduct}
+            onClickFirst={() => rowHandlers.barCodeHandlers.onClickBarcode(product)}
+            onClickRemoveFirst={() => rowHandlers.barCodeHandlers.onDeleteBarcode(product)}
           />
         )
       },
-      width: 200,
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },
@@ -138,8 +147,15 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
-      renderCell: params => <AddAsinIdeaActionsCell rowHandlers={rowHandlers} row={params.row} />,
-      width: 160,
+      renderCell: params => (
+        <ActionButtonsCell
+          showFirst
+          firstContent={t(TranslationKey.Accept)}
+          firstDisabled={params.row?.variation ? !params.row.childProduct?.barCode : !params.row.parentProduct?.barCode}
+          onClickFirst={() => rowHandlers.onClickAcceptOnAddingAsin(params.row._id)}
+        />
+      ),
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },
@@ -160,7 +176,11 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: ({ row }) => (
-        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row?.createdBy?._id} />
+        <UserCell
+          name={row.sub?.name || row.createdBy?.name}
+          id={row.sub?._id || row?.createdBy?._id}
+          email={row.sub?.email || row?.createdBy?.email}
+        />
       ),
       width: 130,
 

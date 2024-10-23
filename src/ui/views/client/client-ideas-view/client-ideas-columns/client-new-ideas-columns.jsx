@@ -3,7 +3,7 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  IdeaActionsCell,
+  ActionButtonsCell,
   IdeaRequestsCell,
   ManyUserLinkCell,
   MediaContentCell,
@@ -33,6 +33,16 @@ import {
 
 export const clientNewIdeasColumns = rowHandlers => {
   const columns = [
+    {
+      field: 'xid',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: params => <Text isCell text={params.row.xid} />,
+      width: 100,
+      type: 'number',
+      columnKey: columnnsKeys.shared.NUMBER,
+    },
+
     {
       field: 'title',
       headerName: t(TranslationKey['Idea title']),
@@ -73,7 +83,7 @@ export const clientNewIdeasColumns = rowHandlers => {
     {
       field: 'parentProductShop',
       headerName: t(TranslationKey.Shop),
-      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
@@ -125,13 +135,18 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => (
-        <IdeaActionsCell
-          onClickToCheck={() => rowHandlers.onClickToCheck(params.row._id)}
-          onClickReject={() => rowHandlers.onClickReject(params.row._id)}
+        <ActionButtonsCell
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey['To check'])}
+          secondContent={t(TranslationKey.Reject)}
+          onClickFirst={() => rowHandlers.onClickToCheck(params.row._id)}
+          onClickSecond={() => rowHandlers.onClickReject(params.row._id)}
         />
       ),
 
-      width: 160,
+      width: 140,
       disableCustomSort: true,
       filterable: false,
     },
@@ -162,7 +177,11 @@ export const clientNewIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: ({ row }) => (
-        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row?.createdBy?._id} />
+        <UserCell
+          name={row.sub?.name || row.createdBy?.name}
+          id={row.sub?._id || row?.createdBy?._id}
+          email={row.sub?.email || row?.createdBy?.email}
+        />
       ),
       width: 130,
 

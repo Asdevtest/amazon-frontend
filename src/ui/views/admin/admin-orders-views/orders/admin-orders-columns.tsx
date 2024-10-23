@@ -24,7 +24,7 @@ import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/da
 export const adminOrdersViewColumns = () => {
   const columns: IGridColumn[] = [
     {
-      field: 'id',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <Text isCell text={params.value} />,
@@ -97,7 +97,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 100,
+      width: 70,
       renderCell: params => <LinkCell value={params.row.product.barCode} />,
       align: 'center',
       filterable: false,
@@ -120,7 +120,13 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-      renderCell: params => <UserCell name={params.row.product.client?.name} id={params.row.product.client?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.product.client?.name}
+          id={params.row.product.client?._id}
+          email={params.row.product.client?.email}
+        />
+      ),
       width: 200,
       disableCustomSort: true,
       table: DataGridFilterTables.PRODUCTS,
@@ -132,7 +138,7 @@ export const adminOrdersViewColumns = () => {
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
 
-      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} email={params.value?.email} />,
       width: 200,
       disableCustomSort: true,
 
@@ -145,7 +151,7 @@ export const adminOrdersViewColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
       width: 200,
-      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} email={params.value?.email} />,
       disableCustomSort: true,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

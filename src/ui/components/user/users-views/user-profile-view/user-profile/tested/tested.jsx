@@ -1,5 +1,6 @@
-import CheckIcon from '@mui/icons-material/Check'
-import { Box, Paper, Typography } from '@mui/material'
+import { FaCheck } from 'react-icons/fa6'
+
+import { Box, Typography } from '@mui/material'
 
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,14 +15,14 @@ export const Tested = ({ user }) => {
   const CheckedStrategyRow = ({ label, icon }) => (
     <>
       <Box className={styles.checkedStrategyRow} mb={1}>
-        {icon ? icon : <CheckIcon className={styles.acUnitIcon} />}
+        {icon ? icon : <FaCheck className={styles.acUnitIcon} />}
         <Typography className={styles.text}>{label}</Typography>
       </Box>
     </>
   )
 
   return (
-    <Paper elevation={0} className={styles.paper}>
+    <div elevation={0} className={styles.paper}>
       <Typography className={styles.title}>{t(TranslationKey['Passed the strategy test'])}</Typography>
 
       {user.allowedStrategies.length ? (
@@ -31,6 +32,6 @@ export const Tested = ({ user }) => {
       ) : (
         <Typography className={styles.miss}>{t(TranslationKey['No passed strategies'])}</Typography>
       )}
-    </Paper>
+    </div>
   )
 }

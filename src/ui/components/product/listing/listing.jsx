@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { Divider, Paper, Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -52,7 +52,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
   return (
     <div className={styles.mainWrapper}>
-      <Paper className={styles.productBlockWrapper}>
+      <div className={styles.productBlockWrapper}>
         <Typography className={styles.title}>{t(TranslationKey['Details about the product:'])}</Typography>
 
         <div className={styles.productSubBlockWrapper}>
@@ -176,7 +176,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
             )}
           </div>
         </div>
-      </Paper>
+      </div>
 
       <UserBalanceHistory historyData={payments} title={t(TranslationKey.Transactions)} />
 

@@ -1,5 +1,4 @@
-import { BsPersonFillGear } from 'react-icons/bs'
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -9,6 +8,7 @@ import {
   ActionButtonsCell,
   MultilineTextHeaderCell,
   NormDateCell,
+  RatingCell,
   UserCell,
   UserRolesCell,
 } from '@components/data-grid/data-grid-cells'
@@ -16,7 +16,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { IColumnProps } from './sub-users-view.config'
@@ -27,8 +26,17 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       field: 'name',
       headerName: t(TranslationKey.User),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-      renderCell: ({ row }) => <UserCell id={row?._id} name={row?.name} />,
+      renderCell: ({ row }) => <UserCell id={row?._id} name={row?.name} email={row?.email} />,
       width: 300,
+    },
+
+    {
+      field: 'rating',
+      headerName: t(TranslationKey.Rating),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rating)} />,
+      renderCell: ({ row }) => <RatingCell disabled rating={row?.rating} id={row?._id} name={row?.name} />,
+      width: 160,
+      disableCustomSort: true,
     },
 
     {
@@ -54,7 +62,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
           onClickSubmit={reason => onClickSaveComment(row._id, reason)}
         />
       ),
-      width: 500,
+      flex: 1,
       disableCustomSort: true,
     },
 
@@ -73,16 +81,16 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       renderCell: ({ row }: GridRowModel) => (
         <ActionButtonsCell
           row
-          isFirstButton
-          isSecondButton
-          iconButton
-          firstButtonElement={<BsPersonFillGear style={{ fill: 'currentColor' }} />}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<MdOutlineDelete size={18} />}
-          secondButtonStyle={ButtonStyle.DANGER}
-          secondDescriptionText="Are you sure you want to unbind the sub-user?"
-          onClickFirstButton={() => onClickEdit(row)}
-          onClickSecondButton={() => onClickRemove(row._id)}
+          showFirst
+          showSecond
+          secondDanger
+          firstGhost
+          secondGhost
+          firstIcon={<MdOutlineEdit size={16} />}
+          secondIcon={<MdOutlineDelete size={16} />}
+          secondConfirmText="Are you sure you want to unbind the sub-user?"
+          onClickFirst={() => onClickEdit(row)}
+          onClickSecond={() => onClickRemove(row._id)}
         />
       ),
       width: 100,

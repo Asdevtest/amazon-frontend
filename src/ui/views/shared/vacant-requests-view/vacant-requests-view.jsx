@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import { useEffect, useMemo } from 'react'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
@@ -28,7 +26,7 @@ import { VacantRequestsViewModel } from './vacant-requests-view.model'
 
 export const VacantRequestsView = observer(({ history }) => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new VacantRequestsViewModel({ history }))
+  const viewModel = useMemo(() => new VacantRequestsViewModel({ history }), [])
 
   useEffect(() => {
     viewModel.loadData()
@@ -77,9 +75,9 @@ export const VacantRequestsView = observer(({ history }) => {
               <p className={styles.tablePanelViewText}>{t(TranslationKey['By date'])}</p>
 
               {viewModel.sortMode === tableSortMode.DESK ? (
-                <ArrowDropDownIcon color="primary" />
+                <MdArrowDropDown size={22} className={styles.icon} />
               ) : (
-                <ArrowDropUpIcon color="primary" />
+                <MdArrowDropUp size={22} className={styles.icon} />
               )}
             </div>
           </>

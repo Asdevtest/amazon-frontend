@@ -7,7 +7,6 @@ export const useStyles = makeStyles()(() => ({
     '&:hover': {
       borderRadius: 10,
       boxShadow: 'inset 0 0 10px rgba(247, 179, 7, .8)',
-      transform: 'scale(0.98)',
     },
   },
 }))

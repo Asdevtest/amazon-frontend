@@ -163,11 +163,6 @@ export const useStyles = makeStyles()(theme => ({
 
   downloadLink: {
     color: theme.palette.primary.main,
-    transition: '0.3s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   linkWrapper: {

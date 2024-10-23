@@ -1,17 +1,14 @@
 import { FC, memo, useEffect, useState } from 'react'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Divider } from '@mui/material'
 import { GridRowModel } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { DataGridCustomColumnMenuComponent } from '@components/data-grid/data-grid-custom-components/data-grid-custom-column-component'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { SeparatorIcon } from '@components/shared/svg-icons'
 
 import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -26,7 +23,7 @@ import { BatchInfoModal } from '../batch-info-modal'
 
 import { aboutProductsColumns } from './about-product-columns/about-products-columns'
 import { batchDataColumns } from './batch-data-columns/batch-data-columns'
-import { infoModalConfig, switcherSettings } from './product-and-batch-modal.config'
+import { generateSwitcherSettings, infoModalConfig } from './product-and-batch-modal.config'
 import { ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
 
 export interface ProductAndBatchModalProps {
@@ -36,7 +33,7 @@ export interface ProductAndBatchModalProps {
   batches: IBatch[]
   currentBatch?: IBatch
   getCurrentBatch: (id: string) => void
-  onChangeSwitcher: () => void
+  onChangeSwitcher: (value: string) => void
   onClickMyOrderModal: (id: string) => void
   onOpenProductDataModal: (onAmazon: boolean) => void
   patchActualShippingCostBatch: (id: string, value: number) => void
@@ -126,12 +123,10 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
           ))}
         </div>
 
-        <CustomSwitcher
-          fullWidth
-          switcherSettings={switcherSettings}
-          condition={currentSwitch}
-          switchMode="medium"
-          changeConditionHandler={onChangeSwitcher}
+        <CustomRadioButton
+          options={generateSwitcherSettings()}
+          value={currentSwitch}
+          onChange={e => onChangeSwitcher(e.target.value)}
         />
 
         <div className={styles.tableWrapper}>
@@ -142,11 +137,6 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
             columns={columns}
             getRowId={({ _id }: GridRowModel) => _id}
             getRowHeight={() => 'auto'}
-            slots={{
-              columnMenuIcon: FilterAltOutlinedIcon,
-              columnMenu: DataGridCustomColumnMenuComponent,
-              columnResizeIcon: SeparatorIcon,
-            }}
             slotProps={{
               baseTooltip: {
                 title: t(TranslationKey.Filter),

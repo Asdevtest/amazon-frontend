@@ -1,13 +1,24 @@
 import { isPast, isToday, isTomorrow } from 'date-fns'
 import { memo, useEffect, useState } from 'react'
 
-import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import {
+  Checkbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Typography,
+} from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
+import { TooltipAttentionIcon } from '@components/shared/svg-icons'
 import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
@@ -22,7 +33,7 @@ import { useStyles } from './order-product-modal.style'
 import { SetFilesModal } from '../set-files-modal'
 
 export const OrderProductModal = memo(props => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const {
     platformSettings,
@@ -110,7 +121,7 @@ export const OrderProductModal = memo(props => {
         })
       : selectedProductsData.map(product => ({
           ...product,
-          amount: 1,
+          amount: product?.pendingOrderQuantity || 1,
           clientComment: isPendingOrdering ? product?.clientComment : '',
           expressChinaDelivery: false,
           priority: '30',
@@ -186,7 +197,7 @@ export const OrderProductModal = memo(props => {
           }
         })
       : selectedProductsData.map(product => ({
-          amount: 1,
+          amount: product?.pendingOrderQuantity || 1,
           clientComment: isPendingOrdering ? product?.clientComment : '',
           barCode: product?.barCode || '',
           productId: product?._id,
@@ -380,9 +391,7 @@ export const OrderProductModal = memo(props => {
                 <p className={styles.totalCellBtn}>{t(TranslationKey['Price variations'])}</p>
               </TableCell>
               <TableCell className={styles.barCodeCell}>
-                <p className={styles.barCodeCellBtn}>
-                  {`${t(TranslationKey.BarCode)} / ${t(TranslationKey['Transparency Codes'])}`}
-                </p>
+                <p className={styles.barCodeCellBtn}>{`${t(TranslationKey.BarCode)} / Transparency Codes`}</p>
               </TableCell>
               <TableCell className={styles.tariffCell}>
                 <p
@@ -429,6 +438,7 @@ export const OrderProductModal = memo(props => {
                 destinationsFavourites={destinationsFavourites}
                 setOrderStateFiled={setOrderStateFiled(index)}
                 itemIndex={index}
+                isPendingOrder={isPendingOrder}
                 onClickPriority={() => {
                   setOrderStateFiled(index)('priority')(product.priority === '30' ? '40' : '30')
                 }}
@@ -474,8 +484,17 @@ export const OrderProductModal = memo(props => {
 
         {!isPendingOrdering ? (
           <div className={styles.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
+            <div className={styles.tooltipPositionStyle}>
+              <Tooltip arrow title={t(TranslationKey['Specify a deadline'])}>
+                <div>
+                  {isPendingOrder && !orderState[0].deadline && (
+                    <TooltipAttentionIcon className={styles.attentionTooltip} />
+                  )}
+                </div>
+              </Tooltip>
+            </div>
             <Checkbox
-              checked={isPendingOrder}
+              checked={productsForRender?.[0]?.isPending || isPendingOrder}
               color="primary"
               classes={{
                 root: styles.checkbox,
@@ -506,7 +525,6 @@ export const OrderProductModal = memo(props => {
 
         <Button
           styleType={ButtonStyle.CASUAL}
-          tooltipInfoContent={t(TranslationKey['Close the checkout window without saving'])}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
         >
           {t(TranslationKey.Close)}
@@ -526,7 +544,7 @@ export const OrderProductModal = memo(props => {
       <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
         <SetFilesModal
           modalTitle={t(TranslationKey.Transparency)}
-          LabelTitle={t(TranslationKey['Transparency Codes'])}
+          LabelTitle="Transparency Codes"
           currentFiles={filesConditions.currentFiles}
           tmpFiles={filesConditions.tmpFiles}
           onClickSave={value => {

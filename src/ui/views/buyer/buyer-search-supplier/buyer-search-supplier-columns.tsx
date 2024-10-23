@@ -3,10 +3,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { IProduct } from '@typings/models/products/product'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -24,16 +22,13 @@ export const buyerSearchSuppliersViewColumns = (handlers: IHandlers) => {
       renderCell: params => {
         return (
           <ActionButtonsCell
-            isFirstButton
-            isFirstRow={params.api.getSortedRowIds()?.[0] === params.row.id}
-            firstButtonTooltipText={t(TranslationKey['Assign the task of finding a supplier to the Buyer'])}
-            firstButtonElement={t(TranslationKey['Get to work'])}
-            firstButtonStyle={ButtonStyle.PRIMARY}
-            onClickFirstButton={throttle(() => handlers.onPickUp(params.row as IProduct))}
+            showFirst
+            firstContent={t(TranslationKey['Get to work'])}
+            onClickFirst={() => handlers.onPickUp(params.row as IProduct)}
           />
         )
       },
-      width: 180,
+      width: 150,
       filterable: false,
       disableCustomSort: true,
     },

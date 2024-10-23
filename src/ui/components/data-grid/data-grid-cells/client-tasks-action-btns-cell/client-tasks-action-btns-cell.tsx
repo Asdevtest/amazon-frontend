@@ -5,11 +5,9 @@ import { TaskOperationType, mapTaskOperationTypeKeyToEnum } from '@constants/tas
 import { TaskStatus, mapTaskStatusEmumToKey } from '@constants/task/task-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './client-tasks-action-btns-cell.style'
 
@@ -33,9 +31,9 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
   }
 
   const renderTaskInfoBtn = () => (
-    <Button isSmallButton onClick={() => handlers.onClickTaskInfo(row)}>
+    <CustomButton block type="primary" size="small" onClick={() => handlers.onClickTaskInfo(row)}>
       {t(TranslationKey.Details)}
-    </Button>
+    </CustomButton>
   )
 
   const renderHistoryItem = () => {
@@ -46,13 +44,15 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
           <>
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
-              <Button
-                isSmallButton
-                styleType={ButtonStyle.DANGER}
+              <CustomButton
+                block
+                danger
+                type="primary"
+                size="small"
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'merge')}
               >
                 {t(TranslationKey.Cancel)}
-              </Button>
+              </CustomButton>
             )}
           </>
         )
@@ -61,13 +61,15 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
           <>
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
-              <Button
-                isSmallButton
-                styleType={ButtonStyle.DANGER}
+              <CustomButton
+                block
+                danger
+                type="primary"
+                size="small"
                 onClick={() => handlers.onClickCancelBtn(row.boxes[0]?._id, row._id, 'split')}
               >
                 {t(TranslationKey.Cancel)}
-              </Button>
+              </CustomButton>
             )}
           </>
         )
@@ -79,20 +81,22 @@ export const ClientTasksActionBtnsCell: FC<ClientTasksActionBtnsCellProps> = mem
           <>
             {renderTaskInfoBtn()}
             {checkIfTaskCouldBeCanceled(row.status) && (
-              <Button
-                isSmallButton
-                styleType={ButtonStyle.DANGER}
+              <CustomButton
+                block
+                danger
+                type="primary"
+                size="small"
                 onClick={() =>
                   handlers.onClickCancelBtn(row.boxes?.at(0)?._id || row.boxesBefore?.at(0)?._id, row._id, 'edit')
                 }
               >
                 {t(TranslationKey.Cancel)}
-              </Button>
+              </CustomButton>
             )}
           </>
         )
     }
   }
 
-  return <div className={styles.clientTasksActionBtnsWrapper}>{renderHistoryItem()}</div>
+  return <div className={styles.root}>{renderHistoryItem()}</div>
 })

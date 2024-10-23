@@ -7,10 +7,10 @@ import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/t
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
+import { PriorityForm } from '@components/forms/priority-form/priority-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
-import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
@@ -20,7 +20,6 @@ import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
-import { PriorityForm } from '@components/shared/priority-form/priority-form'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -38,6 +37,8 @@ import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-i
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './edit-box-form.style'
+
+import { SetFileForm } from '../set-file-form'
 
 export const EditBoxForm = memo(
   ({
@@ -141,12 +142,13 @@ export const EditBoxForm = memo(
       setBoxFields(newFormFields)
     }
 
-    const setShippingLabel = () => value => {
+    const setShippingLabel = value => {
       const newFormFields = { ...boxFields }
       newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = value
 
       setBoxFields(newFormFields)
+      setShowSetShippingLabelModal(!showSetShippingLabelModal)
     }
 
     const onClickShippingLabel = () => {
@@ -238,9 +240,7 @@ export const EditBoxForm = memo(
                       label={`${t(TranslationKey.Box)} №`}
                       inputComponent={
                         <div className={styles.boxTitleWrapper}>
-                          <Typography className={styles.tableTitle}>{`${
-                            formItem && formItem.humanFriendlyId
-                          }`}</Typography>
+                          <Typography className={styles.tableTitle}>{`${formItem && formItem.xid}`}</Typography>
                         </div>
                       }
                     />
@@ -331,7 +331,7 @@ export const EditBoxForm = memo(
                               <Field
                                 containerClasses={styles.field}
                                 labelClasses={styles.standartLabel}
-                                label={t(TranslationKey['Transparency Codes'])}
+                                label="Transparency Codes"
                                 inputComponent={
                                   <ChangeChipCell
                                     isChipOutTable
@@ -484,7 +484,7 @@ export const EditBoxForm = memo(
                       })}
                       inputProps={{ maxLength: 255 }}
                       tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-                      label={t(TranslationKey['FBA Shipment'])}
+                      label="FBA Shipment"
                       value={boxFields.fbaShipment}
                       onChange={setFormField('fbaShipment')}
                     />
@@ -496,7 +496,7 @@ export const EditBoxForm = memo(
                       tooltipAttentionContent={t(
                         TranslationKey['When re-sticking will create a task for the prep center'],
                       )}
-                      label={t(TranslationKey['Shipping label'])}
+                      label="Shipping label"
                       inputComponent={
                         <ChangeChipCell
                           isChipOutTable
@@ -648,15 +648,10 @@ export const EditBoxForm = memo(
           openModal={showSetShippingLabelModal}
           setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         >
-          <SetShippingLabelModal
-            tmpShippingLabel={boxFields.tmpShippingLabel}
-            item={boxFields}
-            requestStatus={requestStatus}
-            onClickSaveShippingLabel={shippingLabel => {
-              setShippingLabel()(shippingLabel)
-              setShowSetShippingLabelModal(!showSetShippingLabelModal)
-            }}
-            onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+          <SetFileForm
+            data={boxFields?.shippingLabel}
+            onSubmit={setShippingLabel}
+            onClose={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
           />
         </Modal>
 
@@ -683,7 +678,7 @@ export const EditBoxForm = memo(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency Codes'])}
+            LabelTitle="Transparency Codes"
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => onClickSaveTransparencyFile(value, filesConditions.index)}

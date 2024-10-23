@@ -1,9 +1,8 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Typography } from '@mui/material'
 
 import {
@@ -15,7 +14,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -60,9 +59,9 @@ export const ClientSellShopsDeals = observer(() => {
           <div className={styles.tablePanelWrapper}>
             <div></div>
 
-            <SearchInput
-              placeholder={t(TranslationKey.search)}
-              inputClasses={styles.searchInput}
+            <CustomInputSearch
+              allowClear
+              placeholder="Search"
               value={nameSearchValue}
               onChange={onChangeNameSearchValue}
             />
@@ -71,9 +70,9 @@ export const ClientSellShopsDeals = observer(() => {
               <Typography className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
 
               {sortMode === tableSortMode.DESK ? (
-                <ArrowDropDownIcon color="primary" />
+                <MdArrowDropDown size={22} className={styles.icon} />
               ) : (
-                <ArrowDropUpIcon color="primary" />
+                <MdArrowDropUp size={22} className={styles.icon} />
               )}
             </div>
           </div>

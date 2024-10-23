@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ import { useStyles } from './source-files-view.style.js'
 
 export const SourceFilesView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new SourceFilesViewModel())
+  const viewModel = useMemo(() => new SourceFilesViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -24,7 +24,7 @@ export const SourceFilesView = observer(() => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by SKU, ASIN, Title"
+          placeholder="Search by SKU, ASIN, Title, ID"
           onSearch={viewModel.onChangeNameSearchValue}
         />
       </div>

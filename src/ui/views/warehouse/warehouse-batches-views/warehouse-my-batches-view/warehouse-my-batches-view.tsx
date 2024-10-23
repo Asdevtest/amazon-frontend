@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
@@ -28,13 +28,13 @@ interface WarehouseMyBatchesViewProps {
 
 export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(({ isSentBatches }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new WarehouseAwaitingBatchesViewModel(isSentBatches))
+  const viewModel = useMemo(() => new WarehouseAwaitingBatchesViewModel(isSentBatches), [])
 
   const selectedRowsString =
     '№ ' +
     viewModel.currentData
       .filter(batch => viewModel.selectedRows.includes(batch._id))
-      .map(batch => batch.humanFriendlyId)
+      .map(batch => batch.xid)
       .join(', ')
   const disabledConfirmSendButton =
     !viewModel.selectedRows.length || viewModel.isInvalidTariffBoxSelected || viewModel.isNeedConfirmPriceBoxSelected

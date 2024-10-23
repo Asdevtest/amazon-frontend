@@ -18,10 +18,10 @@ import { useStyles } from './orders.style'
 import { statusesForChecking } from './orders.constant'
 import { OrdersModel } from './orders.model'
 
-export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
+export const Orders = observer(({ productId, filterStatus, modal }) => {
   const { classes: styles, cx } = useStyles()
 
-  const model = useRef(new OrdersModel({ productId, showAtProcessOrders }))
+  const model = useRef(new OrdersModel({ productId, filterStatus }))
 
   const {
     orderStatusData,
@@ -65,6 +65,7 @@ export const Orders = observer(({ productId, showAtProcessOrders, modal }) => {
         sortingMode="client"
         paginationMode="client"
         getRowHeight={() => 'auto'}
+        getRowId={row => row._id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

@@ -7,6 +7,7 @@ export const useStyles = makeStyles()(theme => ({
 
   error: {
     color: theme.palette.text.red,
+    borderColor: 'red',
   },
 
   openPickerIcon: {

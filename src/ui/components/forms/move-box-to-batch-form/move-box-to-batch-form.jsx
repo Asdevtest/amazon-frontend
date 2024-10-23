@@ -44,11 +44,11 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
 
             <div className={styles.titleSubWrapper}>
               <Typography variant="h6" className={styles.standartText}>{`${t(TranslationKey.Box)}: ${
-                box.humanFriendlyId
+                box.xid
               }`}</Typography>
 
               <Typography variant="h6" className={styles.standartText}>{`${t(TranslationKey.Batch)}: ${
-                box.batch?.humanFriendlyId || t(TranslationKey['Not chosen'])
+                box.batch?.xid || t(TranslationKey['Not chosen'])
               }`}</Typography>
             </div>
           </div>
@@ -90,7 +90,7 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
             </Typography>
             <Typography className={styles.standartText}>{`${t(TranslationKey.For)} ${
               box.batchId ? t(TranslationKey.move) : t(TranslationKey.sending)
-            } ${t(TranslationKey.Box)} №${box.humanFriendlyId} ${t(TranslationKey['Create new batch'])}.`}</Typography>
+            } ${t(TranslationKey.Box)} №${box.xid} ${t(TranslationKey['Create new batch'])}.`}</Typography>
           </div>
 
           <div className={styles.btnsSecondWrapper}>

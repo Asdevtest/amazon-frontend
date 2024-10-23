@@ -21,7 +21,7 @@ import { IBox } from '@typings/models/boxes/box'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { warehouseMyBatchesViewColumns } from './warehouse-my-batches-view.columns'
-import { IColumnsProps, fieldsForSearch, warehouseMyBatchesConfig } from './warehouse-my-batches-view.config'
+import { ColumnsProps, fieldsForSearch, warehouseMyBatchesConfig } from './warehouse-my-batches-view.config'
 
 export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel {
   boxesData: IBox[] = []
@@ -54,13 +54,13 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
   }
 
   constructor(isSentBatches: boolean) {
-    const columnsProps: IColumnsProps = {
+    const columnsProps: ColumnsProps = {
       onClickSaveTrackingNumber: (id, trackingNumber) => this.onClickSaveTrackingNumber(id, trackingNumber),
       onClickSaveArrivalDate: (id, date) => this.onClickSaveArrivalDate(id, date),
       isSentBatches,
     }
     const columnsModel = warehouseMyBatchesViewColumns(columnsProps)
-    const filtersFields = getFilterFields(columnsModel, ['amazonTitle', 'arrivalDate'])
+    const filtersFields = getFilterFields(columnsModel, ['amazonTitle', 'arrivalDate', 'etd', 'eta'])
 
     const additionalPropertiesGetFilters = () => ({
       status: {

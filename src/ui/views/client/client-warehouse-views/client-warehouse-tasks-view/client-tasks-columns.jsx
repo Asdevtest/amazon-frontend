@@ -24,7 +24,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 160,
+      width: 130,
 
       renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row} />,
       filterable: false,
@@ -95,13 +95,8 @@ export const clientTasksViewColumns = handlers => {
 
       renderCell: params => (
         <StringListCell
-          withCopy
-          maxItemsDisplay={4}
-          maxLettersInItem={10}
-          sourceString={params.row?.boxesBefore?.reduce(
-            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.product?.asin], [])],
-            [],
-          )}
+          asin
+          data={params.row?.boxesBefore.flatMap(box => box.items?.map(item => item.product?.asin))}
         />
       ),
 
@@ -114,9 +109,24 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.storekeeper?.name}
+          id={params.row.storekeeper?._id}
+          email={params.row.storekeeper?.email}
+        />
+      ),
       width: 170,
       disableCustomSort: true,
+    },
+
+    {
+      field: 'xid',
+      headerName: t(TranslationKey.ID) + ' / item',
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
+      renderCell: params => <Text isCell text={params.row.xid} />,
+      width: 100,
+      type: 'number',
     },
 
     {
@@ -125,14 +135,7 @@ export const clientTasksViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
 
       renderCell: params => (
-        <StringListCell
-          maxItemsDisplay={4}
-          maxLettersInItem={10}
-          sourceString={params.row?.boxesBefore.reduce(
-            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.order?.id], [])],
-            [],
-          )}
-        />
+        <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.xid))} />
       ),
       type: 'number',
       disableCustomSort: true,
@@ -155,14 +158,7 @@ export const clientTasksViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text="item" />,
 
       renderCell: params => (
-        <StringListCell
-          maxItemsDisplay={4}
-          maxLettersInItem={10}
-          sourceString={params.row?.boxesBefore.reduce(
-            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur.order.item && cur.order.item], [])],
-            [],
-          )}
-        />
+        <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.item))} />
       ),
       disableCustomSort: true,
       width: window.innerWidth < 1282 ? 54 : 160,
@@ -184,7 +180,6 @@ export const clientTasksViewColumns = handlers => {
 
       width: 130,
       renderCell: params => <NormDateFromUnixCell value={params.value} />,
-      // type: 'date',
     },
   ]
 

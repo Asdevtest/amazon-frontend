@@ -28,7 +28,7 @@ export class CreateOrEditProposalViewModel {
     return UserModel.userInfo
   }
 
-  constructor({ history }) {
+  constructor(history) {
     this.history = history
 
     const url = new URL(window.location.href)

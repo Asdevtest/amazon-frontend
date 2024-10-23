@@ -16,7 +16,8 @@ export class SourceFilesViewModel {
       return this.sourceFiles.filter(
         el =>
           el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          String(el?.xid)?.includes(this.nameSearchValue),
       )
     } else {
       return this.sourceFiles

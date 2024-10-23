@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -131,11 +131,13 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           </Button>
         </div>
 
-        <SearchInput
+        <CustomInputSearch
+          allowClear
+          size="large"
           disabled={chipConfig === chipConfigSettings.RECOMMENDED}
           value={searchInputValue}
-          placeholder={t(TranslationKey.Search)}
-          onSubmit={setSearchInputValue}
+          placeholder="Search"
+          onChange={e => setSearchInputValue(e.target.value)}
         />
       </div>
 

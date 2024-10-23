@@ -1,4 +1,4 @@
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid'
 
@@ -10,13 +10,11 @@ import {
   NormDateCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { EditIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { parseTextString } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { Roles } from '@typings/enums/roles'
 import { IPatchNote } from '@typings/shared/patch-notes'
 
@@ -35,7 +33,7 @@ export const moderatorUpdatedColumns = ({
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.title} />,
     filterable: false,
     sortable: false,
-    width: 300,
+    width: 290,
   },
 
   {
@@ -70,7 +68,9 @@ export const moderatorUpdatedColumns = ({
     field: 'createdBy',
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
-    renderCell: ({ row }: GridRowModel) => <UserCell name={row.author?.name} id={row.author?._id} />,
+    renderCell: ({ row }: GridRowModel) => (
+      <UserCell name={row.author?.name} id={row.author?._id} email={row.author?.email} />
+    ),
     filterable: false,
     sortable: false,
     width: 160,
@@ -103,20 +103,20 @@ export const moderatorUpdatedColumns = ({
     renderCell: ({ row }: GridRowModel) => (
       <ActionButtonsCell
         row
-        iconButton
-        isFirstButton
-        isSecondButton
-        firstButtonElement={<EditIcon />}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonElement={<MdOutlineDelete size={18} />}
-        secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={() => onToggleEditPatchNote(row)}
-        onClickSecondButton={() => onClickRemovePatchNote(row._id)}
+        showFirst
+        showSecond
+        secondDanger
+        firstGhost
+        secondGhost
+        firstIcon={<MdOutlineEdit size={16} />}
+        secondIcon={<MdOutlineDelete size={16} />}
+        onClickFirst={() => onToggleEditPatchNote(row)}
+        onClickSecond={() => onClickRemovePatchNote(row._id)}
       />
     ),
     filterable: false,
     sortable: false,
-    width: 90,
+    width: 100,
     align: 'center',
   },
 ]

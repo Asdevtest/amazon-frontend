@@ -1,9 +1,13 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   wrapper: {
     position: 'relative',
     width: '100%',
+
+    '& > div': {
+      minHeight: '16px',
+    },
   },
 
   cell: {
@@ -32,5 +36,13 @@ export const useStyles = makeStyles()(() => ({
     top: '5px',
     left: '-10px',
     fontSize: '14px',
+  },
+
+  error: {
+    color: theme.palette.text.red,
+  },
+
+  link: {
+    color: theme.palette.primary.main,
   },
 }))

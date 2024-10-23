@@ -2,6 +2,7 @@ import { action, computed, observable } from 'mobx'
 
 export const linkRequestFormConfig = {
   product: observable,
+  idea: observable,
 
   userInfo: computed,
   selectedRequest: computed,

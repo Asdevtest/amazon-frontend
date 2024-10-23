@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -14,20 +14,21 @@ import { IProduct } from '@typings/models/products/product'
 import { BuyerSearchSupplierBySupervisorModel } from './buyer-search-supplier-view.model'
 
 export const BuyerSearchSupplierBySupervisorView = observer(() => {
-  const [viewModel] = useState(() => new BuyerSearchSupplierBySupervisorModel())
+  const viewModel = useMemo(() => new BuyerSearchSupplierBySupervisorModel(), [])
 
   return (
     <div className="viewWrapper">
-      <CustomButton
-        size="large"
-        type="primary"
-        disabled={viewModel.selectedRows.length === 0}
-        title={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
-        onClick={viewModel.onPickupSomeItems}
-      >
-        {t(TranslationKey['Take on the work of the selected'])}
-      </CustomButton>
-
+      <div>
+        <CustomButton
+          size="large"
+          type="primary"
+          disabled={viewModel.selectedRows.length === 0}
+          title={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
+          onClick={viewModel.onPickupSomeItems}
+        >
+          {t(TranslationKey['Take on the work of the selected'])}
+        </CustomButton>
+      </div>
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick

@@ -79,11 +79,15 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
   return (
     <div ref={selectWrapperRef} id="presets" onClick={() => handleChangeSelectState(!showPresetsSelect)}>
       <CustomSelect
+        showSearch
         className={styles.presetsSelect}
         getPopupContainer={() => document.getElementById('presets') as HTMLElement}
         open={showPresetsSelect}
         options={convertedPresets}
         value={convertedPresets?.find(preset => preset?.activeSetting) || convertedPresets[0]}
+        filterOption={(inputValue, option) =>
+          (option?.label as string)?.toLowerCase?.()?.includes(inputValue?.toLowerCase())
+        }
         optionRender={preset => (
           <PresetItem
             preset={preset}

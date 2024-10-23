@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridCellParams, GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -30,7 +30,7 @@ import { MyProposalsViewModel } from './my-proposals-view.model'
 export const MyProposalsView = observer(({ allProposals }: { allProposals: boolean }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new MyProposalsViewModel({ allProposals }))
+  const viewModel = useMemo(() => new MyProposalsViewModel({ allProposals }), [])
 
   const getRowClassName = (params: GridRowParams) => {
     if (params?.row?.request?.freelanceNotices > 0) {
@@ -49,8 +49,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
       <div className={styles.tablePanelWrapper}>
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
-          options={customSwitcherSettings}
+          options={customSwitcherSettings()}
           defaultValue={viewModel.switcherCondition}
           onChange={viewModel.onClickChangeCatigory}
         />
@@ -64,7 +63,6 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
         />
 
         <FreelanceTypeTaskSelect
-          // @ts-ignore
           specs={viewModel.userInfo?.allowedSpec}
           selectedSpec={viewModel.specOption}
           onChangeSpec={viewModel.onChangeSpec}

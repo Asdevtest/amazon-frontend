@@ -24,7 +24,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   image: {
-    width: 'max-content',
     borderRadius: '16px',
   },
 
@@ -72,5 +71,10 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
+  },
+
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }))

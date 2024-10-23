@@ -43,7 +43,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
@@ -67,7 +67,6 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 100,
-    // type: 'date',
   },
 
   {

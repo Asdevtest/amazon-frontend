@@ -7,8 +7,7 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'center',
     height: 'auto',
     flexGrow: 1,
-
-    gap: 77,
+    gap: 2,
   },
 
   multilineText: {

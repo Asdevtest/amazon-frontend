@@ -7,7 +7,7 @@ import { productStrategyStatusesEnum } from '@constants/product/product-strategy
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
-  ChangeChipCell,
+  ActionButtonsCell,
   ChangeInputCell,
   CommentOfSbCell,
   FourMonthesStockCell,
@@ -30,10 +30,8 @@ import { t } from '@utils/translations'
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 import { productionTimeColumnMenuItems } from '@config/data-grid-column-menu/production-time'
 
-import { complexCells } from './cell-types'
 import { productionTimeColumnMenuValue } from './client-inventory-view.config'
-import { inventoryAdditionalFilterFields } from './client-inventory-view.constants'
-import { getCellType } from './helpers/get-cell-type'
+import { getColumn } from './helpers/get-column'
 
 export const clientInventoryColumns = ({
   barCodeHandlers,
@@ -42,6 +40,7 @@ export const clientInventoryColumns = ({
   stockUsHandlers,
   otherHandlers,
   storekeepers,
+  integrationTables,
 }) => {
   const defaultColumns = [
     {
@@ -84,7 +83,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
       renderCell: ({ row }) => (
-        <ProductCell image={row?.images?.[0]} title={row?.amazonTitle} asin={row?.asin} sku={row?.skuByClient} />
+        <ProductCell image={row.images?.[0]} title={row.amazonTitle} asin={row.asin} sku={row.skuByClient} />
       ),
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
@@ -137,17 +136,13 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Inbound),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
       renderCell: params => (
-        <div
-          type="submit"
-          onClick={e => {
-            if (Number(params.value) > 0) {
-              e.stopPropagation()
-              otherHandlers.onOpenProductDataModal(params.row, true)
-            }
+        <OrderIdAndAmountCountCell
+          orderId={params.value}
+          onClickOrderId={e => {
+            e.stopPropagation()
+            otherHandlers.onOpenProductDataModal(params.row, true)
           }}
-        >
-          <Text isCell text={String(params.value)} />
-        </div>
+        />
       ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -160,15 +155,31 @@ export const clientInventoryColumns = ({
       renderCell: params => (
         <OrderIdAndAmountCountCell
           orderId={params.value}
-          amount={params.row?.amountInPendingOrders}
           onClickOrderId={e => {
             e.stopPropagation()
-            otherHandlers.onClickOrderCell(params.row?._id)
+            otherHandlers.onClickOrderCell(params.row?._id, 'atProcess')
           }}
         />
       ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
+    },
+
+    {
+      field: 'amountInPendingOrders',
+      headerName: t(TranslationKey['Pending order']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pending order'])} />,
+      renderCell: params => (
+        <OrderIdAndAmountCountCell
+          amount={params.row?.amountInPendingOrders}
+          onClickOrderId={e => {
+            e.stopPropagation()
+            otherHandlers.onClickOrderCell(params.row?._id, 'pending')
+          }}
+        />
+      ),
+      width: 85,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -192,7 +203,7 @@ export const clientInventoryColumns = ({
     {
       field: 'inTransfer',
       headerName: 'In Transfer',
-      renderHeader: () => <MultilineTextHeaderCell text={'In Transfer'} />,
+      renderHeader: () => <MultilineTextHeaderCell text="In Transfer" />,
       renderCell: params => (
         <div
           type="submit"
@@ -207,7 +218,7 @@ export const clientInventoryColumns = ({
         </div>
       ),
       width: 85,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -264,7 +275,10 @@ export const clientInventoryColumns = ({
           rowId={params.row?._id}
           value={params.value}
           fourMonthesStockValue={params.row.fourMonthesStock}
+          minValue={100}
+          maxValue={99999}
           onClick={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
+          onClickRepurchase={fourMonthesStockHandlers.onClickRepurchase}
         />
       ),
 
@@ -302,7 +316,7 @@ export const clientInventoryColumns = ({
 
     {
       field: 'currentSupplierMaxProductionTerm',
-      headerName: t(TranslationKey['Production time']),
+      headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
         const currentSupplier = params.row.currentSupplier
@@ -354,6 +368,15 @@ export const clientInventoryColumns = ({
     },
 
     {
+      field: 'requestsInWork',
+      headerName: t(TranslationKey['Requests in progress']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Requests in progress'])} />,
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 120,
+      columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
       field: 'transparency',
       headerName: 'Transparency Codes',
       renderHeader: () => <MultilineTextHeaderCell text={'Transparency Codes'} />,
@@ -367,16 +390,16 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: ({ row }) => (
-        <ChangeChipCell
-          text={t(TranslationKey.BarCode)}
-          value={row?.barCode}
-          onClickChip={() => barCodeHandlers.onClickBarcode(row)}
-          onDoubleClickChip={() => barCodeHandlers.onDoubleClickBarcode(row)}
-          onDeleteChip={!row?.barCode ? undefined : () => barCodeHandlers.onDeleteBarcode(row)}
+        <ActionButtonsCell
+          showFirst
+          firstDropdown={!!row?.barCode}
+          firstContent={t(TranslationKey.BarCode)}
+          onClickFirst={() => barCodeHandlers.onClickBarcode(row)}
+          onClickRemoveFirst={() => barCodeHandlers.onDeleteBarcode(row)}
         />
       ),
 
-      width: 210,
+      width: 130,
       columnKey: columnnsKeys.client.INVENTORY_BARCODE,
     },
 
@@ -385,16 +408,16 @@ export const clientInventoryColumns = ({
       headerName: 'HS code',
       renderHeader: () => <MultilineTextHeaderCell text={'HS code'} />,
       renderCell: ({ row }) => (
-        <ChangeChipCell
-          text={t(TranslationKey['HS code'])}
-          value={row?.hsCode}
-          onClickChip={() => hsCodeHandlers.onClickHsCode(row)}
-          onDeleteChip={!row?.hsCode ? undefined : () => hsCodeHandlers.onDeleteHsCode(row)}
+        <ActionButtonsCell
+          showFirst
+          firstDropdown={!row?.hsCode}
+          firstContent={t(TranslationKey['HS code'])}
+          onClickFirst={() => hsCodeHandlers.onClickHsCode(row)}
+          onClickRemoveFirst={() => hsCodeHandlers.onDeleteHsCode(row)}
         />
       ),
 
       width: 150,
-      disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
     },
@@ -489,7 +512,6 @@ export const clientInventoryColumns = ({
       renderCell: params => <CommentOfSbCell productsInWarehouse={params.row?.productsInWarehouse} />,
       valueGetter: ({ row }) => row?.productsInWarehouse?.map(el => el?.comment || '').join(', '),
       width: 400,
-      disableColumnMenu: true,
       filterable: false,
       disableCustomSort: true,
     },
@@ -552,7 +574,7 @@ export const clientInventoryColumns = ({
           return (
             <FourMonthesStockCell
               isNotPepurchase
-              title={'For shipping'}
+              title="For shipping"
               rowId={storekeeper?._id}
               value={currentBoxAmounts?.toRefill || 0}
               fourMonthesStockValue={currentBoxAmounts?.recommendedValue || 0}
@@ -581,52 +603,38 @@ export const clientInventoryColumns = ({
       storekeeperCells.push(purchaseQuantityCell)
     }
 
-    defaultColumns.splice(11, 1, ...storekeeperCells)
+    defaultColumns.splice(11, 0, ...storekeeperCells)
   }
 
-  for (const table in inventoryAdditionalFilterFields) {
-    if (inventoryAdditionalFilterFields[table]) {
-      const columns = inventoryAdditionalFilterFields[table]
+  if (integrationTables) {
+    for (const table in integrationTables) {
+      if (integrationTables[table]) {
+        const currentTableColumns = integrationTables[table]
 
-      if (columns?.some(column => complexCells?.includes(column))) {
-        const formedTableName = formatCamelCaseString(table)
+        if (Array?.isArray(currentTableColumns)) {
+          for (const column of currentTableColumns) {
+            const currentColumn = getColumn({ table, column })
 
-        const complexCell = {
-          field: table,
-          headerName: `${formedTableName} product`,
-          renderHeader: () => <MultilineTextHeaderCell text={`${formedTableName} product`} />,
-          valueGetter: ({ row }) => row?.[table]?.asin,
-          renderCell: ({ row }) => {
-            const product = row?.[table]
-
-            return <ProductCell image={product?.image} asin={product?.asin} sku={product?.sku} />
-          },
-
-          fields: getProductColumnMenuItems({ withoutTitle: true }),
-          columnMenuConfig: getProductColumnMenuValue(),
-          columnKey: columnnsKeys.shared.MULTIPLE,
-          width: 170,
-        }
-
-        defaultColumns.push(complexCell)
-      }
-
-      for (const column of columns) {
-        const cell = getCellType(column, table)
-
-        if (cell) {
-          defaultColumns.push(cell)
+            defaultColumns.push(currentColumn)
+          }
+        } else {
+          const currentColumn = getColumn({
+            table,
+            column: currentTableColumns,
+            isCounter: true,
+            onClickParsingReportCell: otherHandlers.onClickParsingReportCell,
+          })
+          defaultColumns.push(currentColumn)
         }
       }
     }
   }
 
   for (const column of defaultColumns) {
-    if (column.table) {
-      continue
+    if (!column.table) {
+      column.table = DataGridFilterTables.PRODUCTS
     }
 
-    column.table = DataGridFilterTables.PRODUCTS
     column.sortable = false
   }
 

@@ -16,7 +16,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { ProfileRequestStatus } from '@typings/enums/request/profile-request-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -33,7 +32,7 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.updatedAt} />,
+      renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 115,
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -41,7 +40,7 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'name',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
+      renderCell: ({ row }) => <Text isCell text={row.name} />,
       width: 240,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -49,10 +48,8 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'profileEmail',
       headerName: t(TranslationKey['Parsing profile']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing profile'])} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />
-      ),
-      valueGetter: ({ row }: GridRowModel) => row.profile?.email || '',
+      renderCell: ({ row }) => <ParsingProfileCell profile={row.profile} onConfirm={() => onParsingProfile(row._id)} />,
+      valueGetter: ({ row }) => row.profile?.email || '',
       width: 320,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -64,15 +61,15 @@ export const shopsColumns = (props: IColumnProps) => {
           text={`${t(TranslationKey.Access)} ${t(TranslationKey.and)} ${t(TranslationKey.invitation)}`}
         />
       ),
-      renderCell: ({ row }: GridRowModel) => (
+      renderCell: ({ row }) => (
         <ParsingAccessCell
           profile={row.profile}
           onAccess={() => onParsingAccess(row.profile?.email)}
           onParsingProfileInvited={() => onParsingProfileInvited(row.profile?._id)}
         />
       ),
-      valueGetter: ({ row }: GridRowModel) => row.profile?.access,
-      width: 170,
+      valueGetter: ({ row }) => row.profile?.access,
+      width: 200,
       disableCustomSort: true,
       filterable: false,
     },
@@ -80,8 +77,8 @@ export const shopsColumns = (props: IColumnProps) => {
       field: 'status',
       headerName: t(TranslationKey['Parsing status']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Parsing status'])} />,
-      valueGetter: ({ row }: GridRowModel) => row.profile?.status || '',
-      renderCell: ({ row }: GridRowModel) => {
+      valueGetter: ({ row }) => row.profile?.status || '',
+      renderCell: ({ row }) => {
         const disabled =
           !row.profile ||
           [ProfileRequestStatus.PENDING, ProfileRequestStatus.REJECTED].includes(row.profile?.requestStatus) ||
@@ -106,16 +103,16 @@ export const shopsColumns = (props: IColumnProps) => {
       renderCell: ({ row }: GridRowModel) => (
         <ActionButtonsCell
           row
-          iconButton
-          isFirstButton
-          isSecondButton
-          firstButtonElement={<MdOutlineEdit style={{ fill: 'currentcolor' }} />}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={<MdOutlineDelete />}
-          secondButtonStyle={ButtonStyle.DANGER}
-          secondDescriptionText="Are you sure you want to delete the store?"
-          onClickFirstButton={() => onEditShop(row)}
-          onClickSecondButton={() => onRemoveShop(row._id)}
+          showFirst
+          showSecond
+          secondDanger
+          firstGhost
+          secondGhost
+          firstIcon={<MdOutlineEdit size={16} />}
+          secondIcon={<MdOutlineDelete size={16} />}
+          secondConfirmText="Are you sure you want to delete the store?"
+          onClickFirst={() => onEditShop(row)}
+          onClickSecond={() => onRemoveShop(row._id)}
         />
       ),
       minWidth: 90,

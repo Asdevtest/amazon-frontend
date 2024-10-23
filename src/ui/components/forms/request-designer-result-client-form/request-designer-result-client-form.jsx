@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
+import { MdOutlineDownload } from 'react-icons/md'
 
-import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined'
 import { Checkbox, Link, Typography } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
@@ -49,6 +49,8 @@ export const RequestDesignerResultClientForm = memo(props => {
   ].includes(proposal?.proposal?.status)
 
   const noShowActions = isNotClient || proposalIsAccepted || onlyRead
+
+  const selectedSourceFile = proposal?.proposal?.sourceFiles?.[proposal.proposal.sourceFiles.length - 1]?.sourceFile
 
   const [showImageModal, setShowImageModal] = useState(false)
   const [curImageIndex, setCurImageIndex] = useState(0)
@@ -133,7 +135,7 @@ export const RequestDesignerResultClientForm = memo(props => {
       <div className={styles.modalMainWrapper}>
         <div className={styles.headerWrapper}>
           <Typography className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
-            proposal?.request?.humanFriendlyId
+            proposal?.request?.xid
           }`}</Typography>
           <div className={styles.headerRightSubWrapper}>
             <Field
@@ -143,13 +145,10 @@ export const RequestDesignerResultClientForm = memo(props => {
               inputComponent={
                 proposal?.proposal?.sourceFiles?.[0]?.sourceFile ? (
                   <div className={styles.viewLinkWrapper}>
-                    <Link
-                      href={checkAndMakeAbsoluteUrl(proposal.proposal.sourceFiles?.[0]?.sourceFile)}
-                      target="_blank"
-                    >
+                    <Link href={checkAndMakeAbsoluteUrl(selectedSourceFile)} target="_blank">
                       {t(TranslationKey.View)}
                     </Link>
-                    <CopyValue text={proposal.proposal.sourceFiles?.[0]?.sourceFile} />
+                    <CopyValue text={selectedSourceFile} />
                   </div>
                 ) : (
                   <div className={styles.shippingLabelWrapper}>
@@ -238,7 +237,7 @@ export const RequestDesignerResultClientForm = memo(props => {
             </div>
 
             <Button disabled={!imagesForDownload.length} onClick={onClickAllDownload}>
-              <DownloadOutlinedIcon />
+              <MdOutlineDownload size={24} />
             </Button>
 
             <Button

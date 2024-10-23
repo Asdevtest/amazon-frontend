@@ -11,12 +11,7 @@ import api from '@services/axios/api'
 
 import { t } from '@utils/translations'
 
-interface IPostAccessToken {
-  refreshToken: string
-}
-interface IGetAccessToken {
-  data: { accessToken: string }
-}
+import { IGetAccessToken, IPostAccessToken } from './axios.types'
 
 export const resetTokens = async (originalRequest?: AxiosRequestConfig) => {
   const storage = localStorage.getItem('UserModel')

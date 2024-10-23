@@ -10,13 +10,13 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   FilesCell,
   IdeaSupplierCell,
   ManyUserLinkCell,
   MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OnCheckingIdeaActionsCell,
   ProductCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
@@ -47,6 +47,16 @@ import {
 
 export const clientSearchSuppliersIdeasColumns = rowHandlers => {
   const columns = [
+    {
+      field: 'xid',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: params => <Text isCell text={params.row.xid} />,
+      width: 100,
+      type: 'number',
+      columnKey: columnnsKeys.shared.NUMBER,
+    },
+
     {
       field: 'parentProduct',
       headerName: t(TranslationKey['Parent product']),
@@ -94,13 +104,18 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => (
-        <OnCheckingIdeaActionsCell
-          isAcceptDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
-          onClickAccept={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row)}
-          onClickReject={() => rowHandlers.onClickReject(params.row._id)}
+        <ActionButtonsCell
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey.Accept)}
+          firstDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
+          secondContent={t(TranslationKey.Reject)}
+          onClickFirst={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row)}
+          onClickSecond={() => rowHandlers.onClickReject(params.row._id)}
         />
       ),
-      width: 160,
+      width: 130,
       disableCustomSort: true,
       filterable: false,
     },
@@ -108,7 +123,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
     {
       field: 'parentProductShop',
       headerName: t(TranslationKey.Shop),
-      renderHeader: () => <MultilineTextHeaderCell textCenter text={t(TranslationKey.Shop)} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
 
       renderCell: params => <Text isCell text={params?.row?.parentProduct?.shop?.name} />,
       width: 100,
@@ -269,7 +284,11 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: ({ row }) => (
-        <UserCell name={row.sub?.name || row.createdBy?.name} id={row.sub?._id || row?.createdBy?._id} />
+        <UserCell
+          name={row.sub?.name || row.createdBy?.name}
+          id={row.sub?._id || row?.createdBy?._id}
+          email={row.sub?.email || row?.createdBy?.email}
+        />
       ),
       width: 130,
 

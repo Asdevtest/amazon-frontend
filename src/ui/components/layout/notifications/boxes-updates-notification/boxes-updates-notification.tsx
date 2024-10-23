@@ -32,7 +32,7 @@ export interface BoxItems {
 
 export interface NotificationItem {
   _id: string
-  humanFriendlyId: number
+  xid: number
   clientId: string
   items: BoxItems[]
 }
@@ -76,8 +76,7 @@ export const BoxesUpdatesNotification: FC<BoxesUpdatesNotificationProps> = props
               <li key={el._id}>
                 <div className={styles.listItem}>
                   <p>
-                    {t(TranslationKey['Box number:'])}{' '}
-                    <Link onClick={() => goToBox(el.humanFriendlyId)}>{el.humanFriendlyId}</Link> <br />
+                    {t(TranslationKey['Box number:'])} <Link onClick={() => goToBox(el.xid)}>{el.xid}</Link> <br />
                     {t(TranslationKey['Is accepted for processing']).toLowerCase()}
                   </p>
                   <div>

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -22,8 +22,7 @@ import { ShopForm } from './components/shop-form'
 
 export const ClientShopsView = observer(() => {
   const { classes: styles } = useStyles()
-
-  const [viewModel] = useState(() => new ShopsViewModel())
+  const viewModel = useMemo(() => new ShopsViewModel(), [])
 
   return (
     <div className="viewWrapper">

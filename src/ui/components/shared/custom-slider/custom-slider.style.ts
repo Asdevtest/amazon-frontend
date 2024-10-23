@@ -22,8 +22,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   arrowIcon: {
-    width: '40px !important',
-    height: '40px !important',
+    fontSize: '40px',
     cursor: 'pointer',
     color: theme.palette.primary.main,
   },

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -17,7 +17,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { AdminFeedbackViewModel } from './admin-feedback-view.model'
 
 export const AdminFeedbackView = observer(() => {
-  const [viewModel] = useState(() => new AdminFeedbackViewModel())
+  const viewModel = useMemo(() => new AdminFeedbackViewModel(), [])
 
   return (
     <div className="viewWrapper">

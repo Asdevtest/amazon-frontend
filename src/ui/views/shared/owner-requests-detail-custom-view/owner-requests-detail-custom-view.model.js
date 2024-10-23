@@ -1,4 +1,5 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
@@ -6,13 +7,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { ChatModel } from '@models/chat-model'
+import { ClientModel } from '@models/client-model'
 import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
-import { getLocalToUTCDate, sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
+import { getLocalToUTCDate } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
@@ -22,18 +24,14 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class OwnerRequestDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
-
   uploadedFiles = []
   requestId = undefined
   request = undefined
   requestProposals = []
   requestAnnouncement = undefined
   curResultMedia = []
-  currentReviews = []
   currentReviewModalUser = undefined
-
   findRequestProposalForCurChat = undefined
-
   showConfirmModal = false
   showRequestForm = false
   showConfirmWithCommentModal = false
@@ -42,8 +40,9 @@ export class OwnerRequestDetailCustomViewModel {
   showRequestDesignerResultClientModal = false
   showReviewModal = false
   showResultToCorrectFormModal = false
+  showGalleryModal = false
   readOnlyRequestDesignerResultClientForm = true
-
+  productMedia = undefined
   confirmModalSettings = {
     isWarning: false,
     message: '',
@@ -53,16 +52,13 @@ export class OwnerRequestDetailCustomViewModel {
       this.showConfirmWithCommentModal = false
     },
   }
-
   acceptProposalResultSetting = {
     onSubmit: () => {},
   }
-
   chatSelectedId = undefined
   chatIsConnected = false
   scrollToChat = undefined
   showMainRequestResultModal = false
-
   mesSearchValue = ''
   messagesFound = []
   curFoundedMessage = undefined
@@ -70,23 +66,18 @@ export class OwnerRequestDetailCustomViewModel {
   get isMuteChats() {
     return SettingsModel.isMuteChats
   }
-
   get mutedChats() {
     return SettingsModel.mutedChats
   }
-
   get userInfo() {
     return UserModel.userInfo
   }
-
   get typingUsers() {
     return ChatModel.typingUsers
   }
-
   get chats() {
     return ChatModel.chats
   }
-
   get platformSettings() {
     return UserModel.platformSettings
   }
@@ -161,14 +152,10 @@ export class OwnerRequestDetailCustomViewModel {
     ChatModel.typingMessage({ chatId })
   }
 
-  async loadData() {
-    try {
-      await this.getCustomRequestCur()
-      await this.getCustomProposalsForRequestCur()
-      await this.getAnnouncementsByGuid(this.request?.request?.announcementId)
-    } catch (error) {
-      console.error(error)
-    }
+  loadData() {
+    this.getCustomRequestCur()
+    this.getCustomProposalsForRequestCur()
+    this.getAnnouncementsByGuid(this.request?.request?.announcementId)
   }
 
   onChangeCurFoundedMessage(index) {
@@ -249,8 +236,10 @@ export class OwnerRequestDetailCustomViewModel {
 
   async onClickProposalResultAcceptForm(proposalId, data) {
     try {
+      const id =
+        this.findRequestProposalForCurChat.proposal.sub._id || this.findRequestProposalForCurChat.proposal.createdBy._id
       await RequestProposalModel.requestProposalResultAccept(proposalId, data)
-      await FeedbackModel.sendFeedback(this.findRequestProposalForCurChat.proposal.createdBy._id, {
+      await FeedbackModel.sendFeedback(id, {
         rating: data.rating,
         comment: data.review,
       })
@@ -328,7 +317,7 @@ export class OwnerRequestDetailCustomViewModel {
   async getAnnouncementsByGuid(guid) {
     try {
       if (guid) {
-        const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
+        const result = await AnnouncementsModel.getAnnouncementsByGuid({ guid })
 
         runInAction(() => {
           this.requestAnnouncement = result
@@ -378,22 +367,8 @@ export class OwnerRequestDetailCustomViewModel {
     }
   }
 
-  async getReviews(guid) {
-    try {
-      const result = await FeedbackModel.getFeedback(guid)
-      runInAction(() => {
-        this.currentReviews = result.sort(sortObjectsArrayByFiledDateWithParseISO('createdAt'))
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickReview(user) {
-    await this.getReviews(user._id)
-    runInAction(() => {
-      this.currentReviewModalUser = user
-    })
+  onClickReview(user) {
+    this.currentReviewModalUser = user
     this.onTriggerOpenModal('showReviewModal')
   }
 
@@ -472,8 +447,11 @@ export class OwnerRequestDetailCustomViewModel {
   onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request/edit-request`,
-      { requestId: this.requestId },
     )
+  }
+
+  onClickIdeaId(ideaId) {
+    this.history.push(`/${UserRoleCodeMapForRoutes[this.userInfo.role]}/ideas/all?ideaId=${ideaId}`)
   }
 
   async onSubmitAbortRequest(comment) {
@@ -632,5 +610,47 @@ export class OwnerRequestDetailCustomViewModel {
     }
 
     this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  async getProductMediaById(id) {
+    try {
+      const response = await ClientModel.getProductMediaById(id)
+
+      runInAction(() => {
+        this.productMedia = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async onClickAddMediaFromProduct(id) {
+    if (id) {
+      await this.getProductMediaById(id)
+    } else {
+      toast.warning(t(TranslationKey['Product not selected!']))
+    }
+
+    if (this.productMedia) {
+      this.onTriggerOpenModal('showGalleryModal')
+    }
+  }
+
+  async sendFilesToChat(filesToAdd) {
+    const user = {
+      _id: UserModel.userInfo._id,
+      name: UserModel.userInfo.name,
+    }
+
+    const files = filesToAdd.map(file => file?.fileLink)
+
+    const messageParams = {
+      chatId: this.chatSelectedId,
+      files,
+      user,
+      text: '',
+    }
+
+    ChatModel.sendMessage(messageParams)
   }
 }

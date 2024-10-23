@@ -3,6 +3,7 @@ import { makeObservable } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
+import { DataGridTagsFilter } from '@models/data-grid-tags-filter'
 import { SupervisorModel } from '@models/supervisor-model'
 import { UserModel } from '@models/user-model'
 
@@ -11,7 +12,7 @@ import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-f
 import { supervisorProductsViewColumns } from './supervisor-products-view.columns'
 import { additionalFields, supervisorProductsConfig } from './supervisor-products-view.config'
 
-export class SupervisorProductsViewModel extends DataGridFilterTableModel {
+export class SupervisorProductsViewModel extends DataGridTagsFilter {
   switcherFilterStatuses = null
   showProductModal = false
 
@@ -57,6 +58,7 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
     })
     const rowHandlers = {
       onClickTableRow: id => this.onClickTableRow(id),
+      onClickTag: tag => this.setActiveProductsTagFromTable(tag),
     }
     const columns = supervisorProductsViewColumns(rowHandlers)
     const filtersFields = getFilterFields(columns, additionalFields)
@@ -86,6 +88,7 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
 
   onClickStatusFilterButton(value) {
     this.switcherFilterStatuses = value
+    this.onChangeFullFieldMenuItem([], 'status')
 
     this.getCurrentData()
   }
@@ -103,9 +106,5 @@ export class SupervisorProductsViewModel extends DataGridFilterTableModel {
     }
 
     this.onTriggerOpenModal('showProductModal')
-  }
-
-  onToggleModal(modal) {
-    this[modal] = !this[modal]
   }
 }

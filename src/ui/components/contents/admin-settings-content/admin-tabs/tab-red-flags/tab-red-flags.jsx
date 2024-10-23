@@ -1,10 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { MdAutorenew, MdDeleteOutline, MdOutlineHighlightOff, MdOutlineModeEditOutline } from 'react-icons/md'
 
-import AutorenewIcon from '@mui/icons-material/Autorenew'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -16,7 +13,6 @@ import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from './tab-red-flags.style'
@@ -25,7 +21,7 @@ import { AdminSettingsRedFlagsModel } from './tab-red-flags.model'
 
 export const TabRedFlags = observer(() => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new AdminSettingsRedFlagsModel())
+  const viewModel = useMemo(() => new AdminSettingsRedFlagsModel(), [])
   const [isDisableButton, setIsDisableButton] = useState(true)
 
   useEffect(() => {
@@ -62,10 +58,10 @@ export const TabRedFlags = observer(() => {
               <div className={styles.actionIconWrapper}>
                 <div className={styles.actionIcon}>
                   <input type="file" accept="image/*" className={styles.input} onChange={viewModel.onImageUpload} />
-                  <AutorenewIcon fontSize="small" />
+                  <MdAutorenew size={18} />
                 </div>
 
-                <HighlightOffIcon fontSize="small" onClick={viewModel.onRemoveImg} />
+                <MdOutlineHighlightOff size={18} onClick={viewModel.onRemoveImg} />
               </div>
             </div>
           </div>
@@ -94,12 +90,14 @@ export const TabRedFlags = observer(() => {
                 <div className={styles.iconsWrapper}>
                   <CopyValue text={flag.title} />
 
-                  <EditOutlinedIcon
+                  <MdOutlineModeEditOutline
+                    size={24}
                     className={styles.iconAction}
                     onClick={() => viewModel.onClickEditRedFlag(flag._id)}
                   />
 
-                  <DeleteOutlineOutlinedIcon
+                  <MdDeleteOutline
+                    size={24}
                     className={styles.iconAction}
                     onClick={() => viewModel.onClickRemoveRedFlag(flag._id)}
                   />
@@ -108,12 +106,7 @@ export const TabRedFlags = observer(() => {
             ))}
         </div>
 
-        <CustomButton
-          type="primary"
-          size="large"
-          disabled={!isDisableButton}
-          onClick={throttle(viewModel.onSubmitRedFlag)}
-        >
+        <CustomButton type="primary" size="large" disabled={!isDisableButton} onClick={viewModel.onSubmitRedFlag}>
           {t(TranslationKey.Save)}
         </CustomButton>
       </div>

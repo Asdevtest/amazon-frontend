@@ -1,7 +1,7 @@
 import isEqual from 'lodash.isequal'
 import { memo, useEffect, useState } from 'react'
+import { MdDeleteOutline } from 'react-icons/md'
 
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -12,7 +12,6 @@ import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from './tab-main.style'
@@ -107,7 +106,8 @@ export const TabMain = memo(props => {
 
                     <div className={styles.iconsWrapper}>
                       <CopyValue text={proxy} />
-                      <DeleteOutlineOutlinedIcon
+                      <MdDeleteOutline
+                        size={24}
                         className={styles.deleteProxy}
                         onClick={() => handleDeleteProxy(proxy)}
                       />
@@ -121,7 +121,7 @@ export const TabMain = memo(props => {
             type="primary"
             size="large"
             disabled={disabledSubmitFields}
-            onClick={throttle(() => onSubmit(updatedProxy))}
+            onClick={() => onSubmit(updatedProxy)}
           >
             {t(TranslationKey.Save)}
           </CustomButton>

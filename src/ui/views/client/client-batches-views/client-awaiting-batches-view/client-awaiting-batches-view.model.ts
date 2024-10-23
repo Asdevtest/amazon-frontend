@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RadioChangeEvent } from 'antd'
-import { makeObservable, reaction, runInAction } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -17,7 +17,6 @@ import { UserModel } from '@models/user-model'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { tableProductViewMode } from '@typings/enums/table-product-view'
 import { IBatch } from '@typings/models/batches/batch'
 import { IBox } from '@typings/models/boxes/box'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
@@ -49,19 +48,12 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
 
   progressValue = 0
 
-  productViewMode = tableProductViewMode.EXTENDED
-
   get userInfo() {
     return UserModel.userInfo
   }
 
   constructor(isModalModel = false) {
-    const rowHandlers = {
-      changeViewModeHandler: (value: tableProductViewMode) => this.changeViewModeHandler(value),
-    }
-
-    const columnsModel = clientBatchesViewColumns(rowHandlers, () => this.productViewMode)
-
+    const columnsModel = clientBatchesViewColumns()
     const defaultGetCurrentDataOptions = () => ({
       status: BatchStatus.IS_BEING_COLLECTED,
       ...(this.currentStorekeeperId && { storekeeperId: this.currentStorekeeperId }),
@@ -83,11 +75,6 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
       this.getStorekeepers()
       this.getTableSettingsPreset()
     }
-
-    reaction(
-      () => this.productViewMode,
-      () => (this.columnsModel = columnsModel),
-    )
   }
 
   async getStorekeepers() {
@@ -136,6 +123,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
     this.onSelectionModel([])
 
     this.currentStorekeeperId = currentValue
+    this.onChangeFullFieldMenuItem([], 'storekeeper')
 
     this.getCurrentData()
   }
@@ -272,10 +260,6 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
     } catch (error) {
       console.error(error)
     }
-  }
-
-  changeViewModeHandler(value: tableProductViewMode) {
-    this.productViewMode = value
   }
 
   setCurrentOpenedBox(row: IBox) {

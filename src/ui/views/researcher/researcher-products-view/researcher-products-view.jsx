@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { ResearcherProductsViewModel } from './researcher-products-view.model'
 
 export const ResearcherProductsView = observer(() => {
-  const [viewModel] = useState(() => new ResearcherProductsViewModel())
+  const viewModel = useMemo(() => new ResearcherProductsViewModel(), [])
 
   return (
     <div className="viewWrapper">

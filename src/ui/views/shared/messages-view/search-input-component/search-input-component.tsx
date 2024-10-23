@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { SearchResult } from '@components/chat/search-result'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -17,7 +17,7 @@ interface SearchInputComponentProps {
   foundMessages: ChatMessageContract[]
   curFoundedMessageIndex: number
   isTabletResolution: boolean
-  onChangeMesSearchValue: (value: string, chatId: string) => void
+  onChangeMesSearchValue: (value: any, chatId: string) => void
   onChangeCurFoundedMessage: (index: number, messageId: string) => void
 }
 
@@ -38,13 +38,13 @@ export const SearchInputComponent: FC<SearchInputComponentProps> = memo(props =>
 
   return (
     <div className={styles.searchMessageContainer}>
-      <SearchInput
-        tab={currentChatId}
+      <CustomInputSearch
+        allowClear
+        placeholder={'Message Search'}
         value={searchInputValue}
-        inputClasses={cx(styles.searchInput, {
+        wrapperClassName={cx(styles.searchInput, {
           [styles.searchInputShort]: isShortInput,
         })}
-        placeholder={t(TranslationKey['Message Search'])}
         onSubmit={value => onChangeMesSearchValue(value, currentChatId)}
       />
 

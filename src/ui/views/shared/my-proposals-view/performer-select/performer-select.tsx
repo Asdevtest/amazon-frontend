@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, UIEvent, useCallback, useMemo, useState } from 'react'
+import { FC, UIEvent, useCallback, useMemo } from 'react'
 
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
@@ -20,7 +20,7 @@ interface PerformerSelectProps extends Omit<CustomSelectProps, 'options'> {
 export const PerformerSelect: FC<PerformerSelectProps> = observer(props => {
   const { onChangeData, spec, defaultPerformer, ...restProps } = props
 
-  const [viewModel] = useState(() => new PerformerSelectModel())
+  const viewModel = useMemo(() => new PerformerSelectModel(), [])
 
   const handlePopupScroll = useCallback(
     (e: UIEvent<HTMLElement>) => {

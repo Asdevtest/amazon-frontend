@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,7 +15,7 @@ import { useStyles } from './edit-hs-code-modal.style'
 import { EditHSCodeModalModel } from './edit-hs-code-modal.model'
 
 interface EditHSCodeModalProps {
-  productId: string
+  productId?: string
   onCloseModal: () => void
   onUpdateData?: () => void
 }
@@ -25,7 +25,7 @@ export const EditHSCodeModal: FC<EditHSCodeModalProps> = observer(props => {
 
   const { productId, onUpdateData, onCloseModal } = props
 
-  const [viewModel] = useState(() => new EditHSCodeModalModel({ productId, onCloseModal, onUpdateData }))
+  const viewModel = useMemo(() => new EditHSCodeModalModel({ productId, onCloseModal, onUpdateData }), [])
 
   return (
     <div className={styles.wrapper}>

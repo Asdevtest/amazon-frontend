@@ -1,4 +1,4 @@
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdArrowDropDown, MdArrowDropUp, MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -11,12 +11,10 @@ import {
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
 import { DestinationVariationsSpanningCell } from '@components/data-grid/data-grid-spanning-cells/data-grid-spanning-cells'
-import { ArrowDownOutlineIcon, ArrowUpOutlineIcon, EditIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
 
 interface ILogisticsTariffsColumns {
@@ -39,7 +37,6 @@ export const logisticsTariffsColumns = ({
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.name} />,
     width: 150,
   },
-
   {
     field: 'description',
     headerName: t(TranslationKey.Description),
@@ -47,7 +44,6 @@ export const logisticsTariffsColumns = ({
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.description} />,
     width: 200,
   },
-
   {
     field: 'destination',
     headerName: t(TranslationKey.Destination),
@@ -72,7 +68,6 @@ export const logisticsTariffsColumns = ({
     hideable: false,
     disableCustomSort: true,
   },
-
   {
     field: 'inYuansRates',
     headerName: t(TranslationKey.Rate) + ', ¥',
@@ -92,7 +87,6 @@ export const logisticsTariffsColumns = ({
     sortable: false,
     disableCustomSort: true,
   },
-
   {
     field: 'dates',
     headerName: t(TranslationKey.Dates),
@@ -103,7 +97,6 @@ export const logisticsTariffsColumns = ({
     sortable: false,
     disableCustomSort: true,
   },
-
   {
     field: 'deliveryTimeInDay',
     headerName: t(TranslationKey['Time on the road, days']),
@@ -113,7 +106,6 @@ export const logisticsTariffsColumns = ({
     filterable: false,
     sortable: false,
   },
-
   {
     field: 'action',
     headerName: t(TranslationKey.Action),
@@ -121,28 +113,26 @@ export const logisticsTariffsColumns = ({
     renderCell: ({ row }: GridRowModel) => (
       <ActionButtonsCell
         row
-        iconButton
-        isFirstButton
-        isSecondButton
-        isThirdButton={isArchive()}
-        firstButtonTooltipText={t(TranslationKey.Edit)}
-        firstButtonElement={<EditIcon />}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonTooltipText={isArchive() ? t(TranslationKey.Restore) : t(TranslationKey['Move to archive'])}
-        secondButtonElement={isArchive() ? <ArrowUpOutlineIcon /> : <ArrowDownOutlineIcon />}
-        secondButtonStyle={isArchive() ? ButtonStyle.SUCCESS : ButtonStyle.DANGER}
-        thirdButtonTooltipText={t(TranslationKey.Remove)}
-        thirdButtonElement={<MdOutlineDelete size={18} />}
-        thirdButtonStyle={ButtonStyle.DANGER}
-        secondDescriptionText={
+        showFirst
+        showSecond
+        thirdDanger
+        firstGhost
+        secondGhost
+        thirdGhost
+        firstIcon={<MdOutlineEdit size={16} />}
+        secondIcon={isArchive() ? <MdArrowDropUp size={16} /> : <MdArrowDropDown size={16} />}
+        secondDanger={!isArchive()}
+        secondConfirmText={
           isArchive()
             ? 'Are you sure you want to restore the tariff?'
             : 'Are you sure you want to move the tariff to the archive?'
         }
-        thirdDescriptionText="Are you sure you want to delete the tariff?"
-        onClickFirstButton={() => onClickEditTariff(row)}
-        onClickSecondButton={() => onTriggerArchive(row)}
-        onClickThirdButton={() => onRemoveLogisticTariff(row._id)}
+        showThird={isArchive()}
+        thirdIcon={<MdOutlineDelete size={16} />}
+        thirdConfirmText="Are you sure you want to delete the tariff?"
+        onClickFirst={() => onClickEditTariff(row)}
+        onClickSecond={() => onTriggerArchive(row)}
+        onClickThird={() => onRemoveLogisticTariff(row._id)}
       />
     ),
     width: 140,
@@ -150,7 +140,6 @@ export const logisticsTariffsColumns = ({
     sortable: false,
     disableCustomSort: true,
   },
-
   {
     field: 'createdAt',
     headerName: t(TranslationKey.Created),
@@ -160,7 +149,6 @@ export const logisticsTariffsColumns = ({
     filterable: false,
     sortable: false,
   },
-
   {
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),

@@ -1,11 +1,13 @@
 import { memo, useEffect, useState } from 'react'
+import { FcIdea } from 'react-icons/fc'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
+import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { TabPanel } from '@components/shared/tab-panel'
 
 import { ReportsView } from '@views/shared/reports-view'
@@ -46,9 +48,21 @@ export const getTab = tabKey => {
   }
 }
 
+export const getOrderStatus = status => {
+  switch (status) {
+    case 'atProcess':
+      return chosenStatusesByFilter.AT_PROCESS
+    case 'pending':
+      return chosenStatusesByFilter.PENDING
+    default:
+      return chosenStatusesByFilter.ALL
+  }
+}
+
 export const ProductWrapper = memo(
   ({
     showTab,
+    filterStatus,
     user,
     imagesForLoad,
     showProgress,
@@ -107,50 +121,44 @@ export const ProductWrapper = memo(
 
     return (
       <div className={styles.mainWrapper}>
-        <CustomSwitcher
-          fullWidth
-          switchMode="medium"
-          condition={tabIndex}
-          className={styles.customSwitcher}
-          switcherSettings={[
+        <CustomRadioButton
+          size="large"
+          options={[
             {
-              label: () => t(TranslationKey['Basic information']),
+              label: t(TranslationKey['Basic information']),
               value: tabsValues.MAIN_INFO,
             },
-
             isClientOrAdmin && {
-              label: () => t(TranslationKey.Orders),
+              label: t(TranslationKey.Orders),
               value: tabsValues.ORDERS,
             },
-
             checkIsClient(curUserRole) && {
-              label: () => t(TranslationKey.Reports),
+              label: t(TranslationKey.Reports),
               value: tabsValues.REPORTS,
             },
-
             isClientOrAdmin && {
-              label: () => t(TranslationKey.Integrations),
+              label: t(TranslationKey.Integrations),
               value: tabsValues.INTEGRATIONS,
             },
             isClientOrAdmin && {
-              label: () => t(TranslationKey.Freelance),
+              label: t(TranslationKey.Freelance),
               value: tabsValues.FREELANCE,
             },
-
             !checkIsResearcher(curUserRole) && {
-              icon: product?.ideasOnCheck > 0,
-              label: () => t(TranslationKey['Suppliers and Ideas']),
+              badge: product?.ideasOnCheck && <FcIdea size={16} />,
+              label: t(TranslationKey['Suppliers and Ideas']),
               value: tabsValues.SUPPLIERS_AND_IDEAS,
             },
-
             checkIsAdmin(curUserRole) && {
-              label: () => t(TranslationKey.Management),
+              label: t(TranslationKey.Management),
               value: tabsValues.MANAGEMENT,
             },
           ].filter(item => item)}
-          changeConditionHandler={value => {
-            setTabIndex(value)
-            setCurrentTab && setCurrentTab(value)
+          className={styles.customSwitcher}
+          value={tabIndex}
+          onChange={e => {
+            setTabIndex(e?.target?.value)
+            setCurrentTab && setCurrentTab(e?.target?.value)
           }}
         />
 
@@ -200,7 +208,7 @@ export const ProductWrapper = memo(
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.ORDERS}>
-          <Orders modal={modal} productId={product?._id} showAtProcessOrders={getTab(showTab) === tabsValues.ORDERS} />
+          <Orders modal={modal} productId={product?._id} filterStatus={getOrderStatus(filterStatus)} />
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.REPORTS}>

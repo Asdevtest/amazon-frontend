@@ -149,7 +149,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 100,
+      width: 70,
       renderCell: params => <LinkCell value={params.value} />,
       align: 'center',
       disableCustomSort: true,
@@ -161,7 +161,9 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
-      renderCell: params => <UserCell name={params?.value?.name} id={params?.value?._id} />,
+      renderCell: params => (
+        <UserCell name={params?.value?.name} id={params?.value?._id} email={params?.value?.email} />
+      ),
       width: 150,
 
       hideEmptyObject: true,
@@ -174,7 +176,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} email={params.value?.email} />,
 
       hideEmptyObject: true,
       width: 150,
@@ -187,7 +189,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Supervisor),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
-      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} email={params.value?.email} />,
       width: 150,
 
       hideEmptyObject: true,
@@ -200,7 +202,7 @@ export const adminInventoryColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} email={params.value?.email} />,
       width: 150,
       hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

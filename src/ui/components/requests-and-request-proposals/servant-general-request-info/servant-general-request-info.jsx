@@ -6,11 +6,10 @@ import { RequestProposalStatus } from '@constants/requests/request-proposal-stat
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { OrderCell } from '@components/data-grid/data-grid-cells'
+import { ProductCell } from '@components/data-grid/data-grid-cells'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
-import { ProposalsSlider } from '@components/shared/proposals-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -20,6 +19,7 @@ import { RequestPriority } from '@typings/enums/request/request-priority'
 
 import { useStyles } from './servant-general-request-info.style'
 
+import { ProposalsSlider } from './proposals-slider'
 import { RequestDetailsItem } from './request-details-item/request-details-item'
 
 export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestProposals, onJoinChat }) => {
@@ -70,9 +70,7 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
               </div>
             )}
             <p className={styles.idText}>{t(TranslationKey.ID) + ':'}</p>
-            <p className={cx(styles.idText, styles.idTextDark)}>
-              {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
-            </p>
+            <p className={cx(styles.idText, styles.idTextDark)}>{request?.request?.xid || t(TranslationKey.Missing)}</p>
           </div>
         </div>
       )}
@@ -122,9 +120,12 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
             <div className={styles.titleAndIdWrapper}>
               <RequestDetailsItem showAllDetails request={request.request} />
 
-              <div>
-                <OrderCell withoutSku imageSize={'small'} product={request.request.product} />
-              </div>
+              <ProductCell
+                asin={request.request?.product?.asin}
+                image={request.request?.product?.images?.[0]}
+                sku={request.request?.product?.skuByClient}
+                title={request.request?.product?.amazonTitle}
+              />
             </div>
 
             <div>

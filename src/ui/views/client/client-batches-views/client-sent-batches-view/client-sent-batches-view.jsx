@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -21,7 +21,7 @@ import { ClientSentBatchesViewModel } from './client-sent-batches-view.model'
 
 export const ClientSentBatchesView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ClientSentBatchesViewModel({ history }))
+  const viewModel = useMemo(() => new ClientSentBatchesViewModel({ history }), [])
 
   return (
     <div className="viewWrapper">
@@ -33,7 +33,6 @@ export const ClientSentBatchesView = observer(({ history }) => {
 
           <CustomRadioButton
             size="large"
-            buttonStyle="solid"
             options={[
               { label: t(TranslationKey['All warehouses']), value: '' },
               ...viewModel.storekeepersData
@@ -50,7 +49,7 @@ export const ClientSentBatchesView = observer(({ history }) => {
           allowClear
           wrapperClassName={styles.searchInput}
           size="large"
-          placeholder="Search by ASIN, Title, Batch ID, Order ID"
+          placeholder="Search by ASIN, Title, Batch ID"
           onSearch={viewModel.onSearchSubmit}
         />
 

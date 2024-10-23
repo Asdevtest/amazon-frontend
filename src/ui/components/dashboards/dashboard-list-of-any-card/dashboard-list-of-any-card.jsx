@@ -1,4 +1,5 @@
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { MdArrowForwardIos } from 'react-icons/md'
+
 import { Typography } from '@mui/material'
 
 import { useStyles } from '@components/dashboards/dashboard-list-of-any-card/dashboard-list-of-any-card.style'
@@ -14,7 +15,7 @@ export const DashboardListOfAnyCard = ({ config, configSubTitle, valuesData, onC
           {valuesData[item.dataKey] && valuesData[item.dataKey]}
         </Typography>
 
-        <ArrowForwardIosIcon fontSize="small" />
+        <MdArrowForwardIos size={18} />
       </div>
     </div>
   )

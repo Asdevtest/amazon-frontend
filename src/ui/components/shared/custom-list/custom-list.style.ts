@@ -17,7 +17,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   dot: {
-    width: '10px',
     color: theme.palette.primary.main,
   },
 }))

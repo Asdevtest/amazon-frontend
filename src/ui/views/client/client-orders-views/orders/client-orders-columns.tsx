@@ -30,7 +30,6 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { IOrder } from '@typings/models/orders/order'
 import { IGridColumn } from '@typings/shared/grid-column'
 
@@ -61,11 +60,11 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
     },
 
     {
-      field: 'id',
+      field: 'xid',
       headerName: t(TranslationKey.ID) + ' / item',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-      valueGetter: params => params.row.idItem,
-      renderCell: params => <Text isCell text={`${params.row.id || '-'} / ${params.row.item || '-'}`} />,
+      valueGetter: params => params.row.xid,
+      renderCell: params => <Text isCell text={`${params.row.xid || '-'} / ${params.row.item || '-'}`} />,
       width: 100,
 
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
@@ -153,19 +152,16 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
 
         return (
           <ActionButtonsCell
-            isFirstButton
-            isSecondButton
-            firstButtonStyle={firstButtonCondition ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
-            secondButtonStyle={ButtonStyle.PRIMARY}
-            secondButtonVariant={ButtonVariant.OUTLINED}
-            firstButtonElement={firstButtonText}
-            secondButtonElement={t(TranslationKey.Stocks)}
-            onClickFirstButton={() => rowHandlers.onClickReorder(params.row as IOrder, firstButtonCondition)}
-            onClickSecondButton={() => rowHandlers.onClickWarehouseOrderButton(params.row.product._id)}
+            showFirst
+            showSecond
+            firstContent={firstButtonText}
+            secondContent={t(TranslationKey.Stocks)}
+            onClickFirst={() => rowHandlers.onClickReorder(params.row as IOrder, firstButtonCondition)}
+            onClickSecond={() => rowHandlers.onClickWarehouseOrderButton(params.row.product._id)}
           />
         )
       },
-      width: 230,
+      width: 160,
       filterable: false,
       disableCustomSort: true,
     },
@@ -174,7 +170,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'barCode',
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
-      width: 100,
+      width: 70,
       renderCell: params => <LinkCell value={params.row?.product?.barCode} />,
       // @ts-ignore
       valueFormatter: ({ row }) =>
@@ -223,7 +219,13 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       field: 'storekeeper',
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.storekeeper?.name}
+          id={params.row.storekeeper?._id}
+          email={params.row.storekeeper?.email}
+        />
+      ),
       width: 160,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT,
@@ -251,7 +253,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
 
     {
       field: 'minProductionTerm',
-      headerName: t(TranslationKey['Production time']),
+      headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
         const supplier = params.row.orderSupplier

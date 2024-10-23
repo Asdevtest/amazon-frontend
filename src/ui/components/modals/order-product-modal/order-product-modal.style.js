@@ -14,6 +14,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   pendingOrderWrapper: {
+    position: 'relative',
     display: 'flex',
     alignItems: 'center',
     gap: 7,
@@ -270,5 +271,14 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     color: theme.palette.text.general,
+  },
+  tooltipPositionStyle: {
+    position: 'absolute',
+    right: '-10px',
+    bottom: '10px',
+  },
+  attentionTooltip: {
+    width: '18px !important',
+    height: '18px !important',
   },
 }))

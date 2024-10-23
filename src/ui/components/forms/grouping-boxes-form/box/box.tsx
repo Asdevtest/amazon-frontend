@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useEffect, useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Radio } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -47,7 +45,7 @@ export const Box: FC<BoxProps> = memo(props => {
     onClickBasicBoxRadio,
   } = props
 
-  const [showFullCard, setShowFullCard] = useState(isNewBox ? false : true)
+  const [showFullCard, setShowFullCard] = useState(false)
 
   useEffect(() => {
     if (isActiveOneBox) {
@@ -84,7 +82,7 @@ export const Box: FC<BoxProps> = memo(props => {
               </div>
             )}
 
-            <p className={styles.boxNum}>{`№ ${box.humanFriendlyId || '-'}`}</p>
+            <p className={styles.boxNum}>{`№ ${box.xid || '-'}`}</p>
           </div>
 
           <Field
@@ -126,10 +124,27 @@ export const Box: FC<BoxProps> = memo(props => {
 
               <LabelWithCopy
                 labelTitleColor="gray"
-                labelTitle={t(TranslationKey['Transparency Codes'])}
+                labelTitle="Transparency Codes"
                 labelValue={order.transparencyFile}
                 lableLinkTitle={t(TranslationKey.View)}
               />
+              {!isNewBox && (
+                <Field
+                  // @ts-ignore
+                  inputProps={{ maxLength: 255 }}
+                  containerClasses={styles.prepIdContainer}
+                  labelClasses={styles.prepIdLabel}
+                  className={styles.fieldInput}
+                  label={'Prep ID:'}
+                  value={box.fbaShipment}
+                  inputComponent={
+                    <div className={styles.prepIdWrapper}>
+                      <p className={styles.prepIdText}>{box.prepId || t(TranslationKey.Missing)}</p>
+                      {box.prepId && <CopyValue text={box.prepId} />}
+                    </div>
+                  }
+                />
+              )}
             </div>
 
             <div>
@@ -191,7 +206,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 containerClasses={styles.field}
                 labelClasses={styles.label}
                 className={styles.fieldInput}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={box.fbaShipment}
                 inputComponent={<p className={styles.standartText}>{box.fbaShipment || t(TranslationKey.Missing)}</p>}
               />
@@ -199,35 +214,17 @@ export const Box: FC<BoxProps> = memo(props => {
               <LabelWithCopy
                 direction="column"
                 labelTitleColor="gray"
-                labelTitle={t(TranslationKey['Shipping label'])}
+                labelTitle="Shipping label"
                 labelValue={box.shippingLabel}
                 lableLinkTitle={t(TranslationKey.View)}
               />
-
-              {!isNewBox && (
-                <Field
-                  // @ts-ignore
-                  inputProps={{ maxLength: 255 }}
-                  containerClasses={styles.field}
-                  labelClasses={styles.label}
-                  className={styles.fieldInput}
-                  label={'Prep ID'}
-                  value={box.fbaShipment}
-                  inputComponent={
-                    <div className={styles.prepIdWrapper}>
-                      <p className={styles.standartText}>{box.prepId || t(TranslationKey.Missing)}</p>
-                      {box.prepId && <CopyValue text={box.prepId} />}
-                    </div>
-                  }
-                />
-              )}
             </div>
           </div>
         ) : null}
 
         <div className={styles.bottomBlockWrapper}>
           <IconButton classes={{ root: styles.icon }} onClick={() => onRemoveBox(isNewBox ? index : box._id)}>
-            <DeleteOutlineOutlinedIcon className={styles.deleteBtn} />
+            <MdDeleteOutline size={24} className={styles.deleteBtn} />
           </IconButton>
           {isNewBox && (
             <div className={styles.prepId}>
@@ -241,7 +238,11 @@ export const Box: FC<BoxProps> = memo(props => {
                 {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
               </p>
 
-              {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+              {!showFullCard ? (
+                <MdArrowDropDown size={22} className={styles.blue} />
+              ) : (
+                <MdArrowDropUp size={22} className={styles.blue} />
+              )}
             </div>
           </div>
         </div>

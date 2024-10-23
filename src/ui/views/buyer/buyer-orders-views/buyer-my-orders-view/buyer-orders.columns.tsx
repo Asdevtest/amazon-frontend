@@ -55,7 +55,7 @@ export const buyerOrdersColumns = ({
 }: buyerOrdersColumnsParams) => {
   const columns: IGridColumn[] = [
     {
-      field: 'id',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <Text isCell text={params.value} />,
@@ -63,7 +63,7 @@ export const buyerOrdersColumns = ({
       sortable: true,
       width: 100,
 
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -208,7 +208,7 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: params => <LinkCell value={params.row.product.barCode} />,
-      minWidth: 100,
+      width: 70,
       sortable: false,
       filterable: false,
       disableCustomSort: true,
@@ -219,7 +219,13 @@ export const buyerOrdersColumns = ({
       field: 'storekeeper',
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
-      renderCell: params => <UserCell name={params.row.storekeeper?.name} id={params.row.storekeeper?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.storekeeper?.name}
+          id={params.row.storekeeper?._id}
+          email={params.row.storekeeper?.email}
+        />
+      ),
       width: 120,
       sortable: false,
 
@@ -229,7 +235,7 @@ export const buyerOrdersColumns = ({
 
     {
       field: 'minProductionTerm',
-      headerName: t(TranslationKey['Production time']),
+      headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
       renderCell: params => {
@@ -301,7 +307,13 @@ export const buyerOrdersColumns = ({
       field: 'client',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: params => <UserCell name={params.row.product.client?.name} id={params.row.product.client?._id} />,
+      renderCell: params => (
+        <UserCell
+          name={params.row.product.client?.name}
+          id={params.row.product.client?._id}
+          email={params.row.product.client?.email}
+        />
+      ),
 
       width: 180,
       sortable: false,
@@ -375,7 +387,6 @@ export const buyerOrdersColumns = ({
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      // type: 'date',
 
       columnKey: columnnsKeys.shared.DATE,
     },
@@ -387,7 +398,6 @@ export const buyerOrdersColumns = ({
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      // type: 'date',
 
       columnKey: columnnsKeys.shared.DATE,
     },

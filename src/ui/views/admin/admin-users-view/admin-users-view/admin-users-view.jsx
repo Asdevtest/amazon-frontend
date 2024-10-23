@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,12 +13,12 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './admin-users-view.style'
 
-import { switcherConfig } from './admin-users-view.config'
+import { getSwitcherConfig } from './admin-users-view.config'
 import { AdminUsersViewModel } from './admin-users-view.model'
 
 export const AdminUsersView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AdminUsersViewModel())
+  const viewModel = useMemo(() => new AdminUsersViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -29,8 +29,7 @@ export const AdminUsersView = observer(() => {
 
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
-          options={switcherConfig}
+          options={getSwitcherConfig()}
           defaultValue={viewModel.switcherCondition}
           onChange={viewModel.onClickChangeRole}
         />

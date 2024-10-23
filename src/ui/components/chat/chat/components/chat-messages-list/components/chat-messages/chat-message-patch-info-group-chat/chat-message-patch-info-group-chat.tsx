@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
-
-import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined'
+import { MdArrowRightAlt } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -46,7 +45,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
 
             <p className={styles.groupTitle}>{`"${message.data.prevData?.title}"`}</p>
 
-            <ArrowRightAltOutlinedIcon className={styles.changeIcon} />
+            <MdArrowRightAlt size={22} className={styles.changeIcon} />
 
             <p className={styles.groupTitle}>{`"${message.data.updatedData?.title}"`}</p>
           </div>
@@ -58,7 +57,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
 
             <img
               className={styles.groupImage}
-              src={getAmazonImageUrl(message.data.prevData?.image) || '/assets/img/no-photo.jpg'}
+              src={getAmazonImageUrl(message.data.prevData?.image) || '/assets/img/defaultImage.png'}
               onClick={() => {
                 setShowPhotosModal(!showPhotosModal)
 
@@ -69,7 +68,7 @@ export const ChatMessagePatchInfoGroupChat: FC<Props> = ({ message }) => {
               }}
             />
 
-            <ArrowRightAltOutlinedIcon className={styles.changeIcon} />
+            <MdArrowRightAlt size={22} className={styles.changeIcon} />
 
             <img
               className={styles.groupImage}

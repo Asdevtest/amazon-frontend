@@ -8,8 +8,6 @@ import { SettingsModel } from '@models/settings-model'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 const persistProperties = ['accessToken', 'userInfo', 'masterUserId', 'userId', 'refreshToken', 'platformSettings']
 
 class UserModelStatic {
@@ -206,7 +204,7 @@ class UserModelStatic {
   }
 
   async getUsersNotificationsPagMy(data) {
-    const response = await restApiService.userApi.apiV1UsersNotificationsPagMyGet(filterNullValues(data))
+    const response = await restApiService.userApi.apiV1UsersNotificationsPagMyGet(data)
     return response.data
   }
 
@@ -215,8 +213,8 @@ class UserModelStatic {
     return response.data
   }
 
-  async changeSubUserSpec(guid, body) {
-    const response = await restApiService.userApi.apiV1UsersShareSpecSubGuidPost({ guid, body })
+  async changeSubUserSpec(body) {
+    const response = await restApiService.userApi.apiV1UsersShareSpecSubPost({ body })
     return response.data
   }
 
@@ -302,6 +300,11 @@ class UserModelStatic {
 
   async getTableSettingsPreset(filters) {
     const response = await restApiService.userApi.apiV1UsersPresetsSettingsMyGet({ filters })
+    return response.data
+  }
+
+  onEditMySubUser = async body => {
+    const response = await restApiService.userApi.apiV1UsersEditMySubUsersPatch({ body })
     return response.data
   }
 }

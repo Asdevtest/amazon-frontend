@@ -1,7 +1,7 @@
 import { t } from 'i18n-js'
 import { memo } from 'react'
+import { MdOutlineFilterAltOff } from 'react-icons/md'
 
-import FilterAltOffOutlinedIcon from '@mui/icons-material/FilterAltOffOutlined'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -27,7 +27,7 @@ export const DataGridResetFilterButton = memo(props => {
         {...restProps}
       >
         <div className={cx(className, styles.mainFilterBtnInsert)}>
-          <FilterAltOffOutlinedIcon fontSize="small" />
+          <MdOutlineFilterAltOff size={20} />
 
           <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey['Reset filters'])}</Typography>
         </div>

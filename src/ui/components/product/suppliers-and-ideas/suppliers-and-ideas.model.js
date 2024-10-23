@@ -25,7 +25,6 @@ import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { toFixed } from '@utils/text'
@@ -46,7 +45,6 @@ export class SuppliersAndIdeasModel {
   currentProposal = undefined
   currentRequest = undefined
   requestTypeTask = undefined
-  requestsForProduct = []
 
   productId = undefined
   updateData = undefined
@@ -72,7 +70,7 @@ export class SuppliersAndIdeasModel {
   showRequestDesignerResultModal = false
   showMainRequestResultModal = false
   showRequestBloggerResultModal = false
-  showBindingModal = false
+  showLinkRequestModal = false
   showOrderModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
@@ -125,11 +123,14 @@ export class SuppliersAndIdeasModel {
     try {
       if (this.isModalView && this.currentIdeaId) {
         await this.getIdea(this.currentIdeaId)
+
         if (this.updateData) {
           this.updateData?.()
         }
       } else {
-        await this.getIdeas()
+        if (this.productId) {
+          await this.getIdeas()
+        }
       }
 
       this.getStorekeepers()
@@ -303,6 +304,8 @@ export class SuppliersAndIdeasModel {
       this.loadData()
     } catch (error) {
       console.error(error)
+    } finally {
+      this.readyFiles = undefined
     }
   }
 
@@ -393,27 +396,6 @@ export class SuppliersAndIdeasModel {
     win.focus()
   }
 
-  async onClickBindButton(requests, idea) {
-    const currentIdeaStatus = this.curIdea?.status || idea?.status
-    const currentIdeaId = this.curIdea?._id || idea?._id
-    const methodBody = [ideaStatusByKey[ideaStatus.NEW], ideaStatusByKey[ideaStatus.ON_CHECK]].includes(
-      currentIdeaStatus,
-    )
-      ? { onCheckedIdeaId: currentIdeaId }
-      : { onFinishedIdeaId: currentIdeaId }
-    for (const request of requests) {
-      try {
-        await RequestModel.bindIdeaToRequest(request, methodBody)
-      } catch (error) {
-        console.error('error', error)
-      }
-    }
-
-    this.getIdea(currentIdeaId)
-    this.onTriggerOpenModal('showBindingModal')
-    this.loadData()
-  }
-
   async unbindRequest(requestId) {
     try {
       await RequestModel.bindIdeaToRequest(requestId, { onCheckedIdeaId: null, onFinishedIdeaId: null })
@@ -434,26 +416,6 @@ export class SuppliersAndIdeasModel {
     }
 
     this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  async onClickLinkRequestButton(idea) {
-    try {
-      const result = await RequestModel.getRequestsByProductLight({
-        guid: this.productId,
-        status: 'DRAFT, PUBLISHED, IN_PROCESS',
-        excludeIdeaId: idea._id,
-      })
-
-      runInAction(() => {
-        this.requestsForProduct = addIdDataConverter(result)
-      })
-
-      this.onTriggerOpenModal('showBindingModal')
-
-      this.loadData()
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async changeIdeaStatus(ideaData, chesenStatus) {

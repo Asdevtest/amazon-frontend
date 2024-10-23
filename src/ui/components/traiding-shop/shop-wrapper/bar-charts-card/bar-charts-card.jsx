@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import { MdFiberManualRecord } from 'react-icons/md'
 
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
-import { Paper, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -49,18 +49,18 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
 
   return (
     <div className={styles.mainWrapper}>
-      <Paper className={styles.cardWrapper}>
+      <div className={styles.cardWrapper}>
         <div className={styles.cardHeaderWrapper}>
           <Typography>{isRevenue ? t(TranslationKey.Revenue) : t(TranslationKey['Website traffic'])}</Typography>
           <div className={styles.barStatusesWrapper}>
             <div className={styles.barStatusWrapper}>
-              <FiberManualRecordRoundedIcon color="primary" />
+              <MdFiberManualRecord size={18} className={styles.icon} />
               <Typography className={styles.cardTitle}>
                 {isRevenue ? t(TranslationKey['gross profit']) : t(TranslationKey['page view'])}
               </Typography>
             </div>
             <div className={styles.barStatusWrapper}>
-              <FiberManualRecordRoundedIcon classes={{ root: styles.indicator }} />
+              <MdFiberManualRecord size={18} classes={{ root: styles.indicator }} />
               <Typography className={styles.cardTitle}>
                 {isRevenue ? t(TranslationKey['net income']) : t(TranslationKey['unique users'])}
               </Typography>
@@ -86,7 +86,7 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
             {t(TranslationKey['All time'])}
           </Button>
         </div>
-      </Paper>
+      </div>
     </div>
   )
 })

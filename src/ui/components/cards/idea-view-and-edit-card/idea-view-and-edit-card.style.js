@@ -59,6 +59,16 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
   },
 
+  ideaID: {
+    color: theme.palette.text.second,
+    fontSize: '14px',
+  },
+
+  idText: {
+    color: theme.palette.text.main,
+    fontWeight: 700,
+  },
+
   mediaBlock: {
     width: '100%',
 
@@ -280,8 +290,6 @@ export const useStyles = makeStyles()(theme => ({
 
   deleteBtn: {
     color: theme.palette.text.second,
-    width: '20px',
-    height: '20px',
   },
 
   ideaTitle: {
@@ -318,6 +326,9 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '10px',
     alignItems: 'center',
+  },
+  icon: {
+    color: theme.palette.primary.main,
   },
   iconBtn: {
     maxHeight: 40,
