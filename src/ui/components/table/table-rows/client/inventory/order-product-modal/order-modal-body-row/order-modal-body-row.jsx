@@ -89,9 +89,8 @@ export const OrderModalBodyRow = ({
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
       let value
-      const isValidValue = isValid(event)
 
-      if (isValidValue) {
+      if (isValid(event)) {
         value = new Date(convertLocalDateToUTC(new Date(event)))
       } else {
         value = null
