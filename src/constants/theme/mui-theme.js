@@ -312,6 +312,7 @@ export const lightTheme = createTheme({
     },
 
     button: {
+      badge: '#007bff',
       disabledText: '#F9FCFF',
       disabledBackground: '#B3D1FB',
       disabledSuccessText: '#E5FFEF',
@@ -685,14 +686,6 @@ export const darkTheme = createTheme({
       },
     },
 
-    MuiFormLabel: {
-      styleOverrides: {
-        root: {
-          color: '#fff',
-        },
-      },
-    },
-
     MuiList: {
       styleOverrides: {
         root: {
@@ -837,6 +830,7 @@ export const darkTheme = createTheme({
     },
 
     button: {
+      badge: '#fff',
       disabledText: '#8291A0',
       disabledBackground: '#2E4760',
       disabledSuccessText: '#41715A',

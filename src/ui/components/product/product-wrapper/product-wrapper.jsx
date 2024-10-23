@@ -1,4 +1,5 @@
 import { memo, useEffect, useState } from 'react'
+import { FcIdea } from 'react-icons/fc'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
@@ -144,7 +145,7 @@ export const ProductWrapper = memo(
               value: tabsValues.FREELANCE,
             },
             !checkIsResearcher(curUserRole) && {
-              icon: product?.ideasOnCheck > 0,
+              badge: product?.ideasOnCheck && <FcIdea size={16} />,
               label: t(TranslationKey['Suppliers and Ideas']),
               value: tabsValues.SUPPLIERS_AND_IDEAS,
             },
