@@ -46,25 +46,32 @@ export const getColumn = ({
         value = formatDateWithoutTime(params.row?.reports?.[table]?.[name])
       } else if (isCounter) {
         value = params.row?.reports?.[table]
+      } else if (Array?.isArray(params.row?.reports?.[table])) {
+        const dataArray = params.row?.reports?.[table]
+        value = dataArray?.[dataArray?.length - 1]?.[name] || ''
       } else {
         value = params.row?.reports?.[table]?.[name]
       }
 
       return value
     },
-    renderCell: (params: GridRenderCellParams) => (
-      <Tooltip title={formatDateWithoutTime(params.row?.reports?.[table]?.updated_at)}>
-        <div
-          style={{ width: '100%', height: '100%' }}
-          onClick={(event: MouseEvent<HTMLDivElement>) => {
-            event.stopPropagation()
-            onClickParsingReportCell?.(params.row, table)
-          }}
-        >
-          <Text isCell text={params.value} />
-        </div>
-      </Tooltip>
-    ),
+    renderCell: (params: GridRenderCellParams) => {
+      console.log('params.value :>> ', params.value)
+
+      return (
+        <Tooltip title={formatDateWithoutTime(params.row?.reports?.[table]?.updated_at)}>
+          <div
+            style={{ width: '100%', height: '100%' }}
+            onClick={(event: MouseEvent<HTMLDivElement>) => {
+              event.stopPropagation()
+              onClickParsingReportCell?.(params.row, table)
+            }}
+          >
+            <Text isCell text={params.value} />
+          </div>
+        </Tooltip>
+      )
+    },
     width: 150,
     fieldNameFilter: name,
     columnKey,
