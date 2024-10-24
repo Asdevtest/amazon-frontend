@@ -4,7 +4,7 @@ import { KeyboardEvent, MouseEvent, MouseEventHandler } from 'react'
 
 import { GridRenderCellParams } from '@mui/x-data-grid-premium'
 
-import { MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
+import { CheckboxCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { formatDateWithoutTime } from '@utils/date-time'
@@ -53,7 +53,11 @@ export const getColumn = ({
               onClickParsingReportCell?.(params.row, table)
             }}
           >
-            <Text isCell text={params.value} />
+            {type === 'boolean' ? (
+              <CheckboxCell disabled checked={params.value} />
+            ) : (
+              <Text isCell text={params.value} />
+            )}
           </div>
         </Tooltip>
       )

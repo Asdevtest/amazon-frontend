@@ -195,12 +195,15 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
         const newBox = { ...newBoxes[i] }
         const selectedBox = { ...selectedBoxes[i] }
 
-        let linkToShippingLabel = newBox.shippingLabel || ''
+        let linkToShippingLabel = newBox.shippingLabel
         // Upload shipping label if needed
         const isSameShippingLabel =
           JSON.stringify(newBox?.tmpShippingLabel?.[0]) === JSON.stringify(sharedFields?.tmpShippingLabel?.[0])
-        if (!isSameShippingLabel) {
+        if (!isSameShippingLabel && newBox?.tmpShippingLabel?.[0]) {
           linkToShippingLabel = await this.uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
+        }
+        if (linkToShippingLabel === '' && selectedBox.shippingLabel === null) {
+          linkToShippingLabel = null
         }
 
         const dataToBarCodeChange = newBox.items
@@ -260,15 +263,34 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
           )
 
           let transparencyFileLink = el.transparencyFile || ''
-          const isSameTransparencyFile =
-            JSON.stringify(el?.tmpTransparencyFile?.[0]) === JSON.stringify(sharedFields.tmpTransparencyFile[0])
-          if (!isSameTransparencyFile) {
-            transparencyFileLink = await this.uploadImageIfNotUploaded(
-              el.tmpTransparencyFile[0],
-              uploadedTransparencyFiles,
-            )
+          let barcodeValue = prodInDataToUpdateBarCode?.newData?.[0] || el.barCode
+          if (el.tmpTransparencyFile?.length === 0) {
+            transparencyFileLink = ''
+          } else {
+            const isSameTransparencyFile =
+              JSON.stringify(el?.tmpTransparencyFile?.[0]) === JSON.stringify(sharedFields.tmpTransparencyFile[0])
+            if (!isSameTransparencyFile) {
+              transparencyFileLink = await this.uploadImageIfNotUploaded(
+                el.tmpTransparencyFile[0],
+                uploadedTransparencyFiles,
+              )
+            }
           }
-          const barcodeValue = prodInDataToUpdateBarCode?.newData?.[0] || el.barCode
+
+          if (el.tmpBarCode?.length === 0) {
+            barcodeValue = ''
+          }
+
+          // Determine if barCode has changed
+          const isBarCodeChanged =
+            barcodeValue !== selectedBox.items[0].barCode ||
+            (JSON.stringify(sharedFields.tmpBarCode?.[0]) !== JSON.stringify(el.tmpBarCode?.[0]) && barcodeValue === '')
+
+          // Determine if transparencyFile has changed
+          const isTransparencyFileChanged =
+            transparencyFileLink !== selectedBox.items[0].transparencyFile ||
+            (JSON.stringify(sharedFields.tmpTransparencyFile?.[0]) !== JSON.stringify(el.tmpTransparencyFile?.[0]) &&
+              transparencyFileLink === '')
 
           const validItem = {
             orderId: el?.order?._id || el?.orderId,
@@ -277,8 +299,8 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
             isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper,
             isTransparencyFileAttachedByTheStorekeeper: el.isTransparencyFileAttachedByTheStorekeeper,
             isTransparencyFileAlreadyAttachedByTheSupplier: el.isTransparencyFileAlreadyAttachedByTheSupplier,
-            ...(barcodeValue !== selectedBox.items[0].barCode && { barCode: barcodeValue }),
-            ...(transparencyFileLink !== selectedBox.items[0].transparencyFile && {
+            ...(isBarCodeChanged && { barCode: barcodeValue }),
+            ...(isTransparencyFileChanged && {
               transparencyFile: transparencyFileLink,
             }),
           }
@@ -290,7 +312,9 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
 
         updatedBoxes.push({
           ...getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList),
-          ...(linkToShippingLabel !== selectedBox.shippingLabel && { shippingLabel: linkToShippingLabel }),
+          ...(!isSameShippingLabel && {
+            shippingLabel: linkToShippingLabel,
+          }),
         })
       }
 
