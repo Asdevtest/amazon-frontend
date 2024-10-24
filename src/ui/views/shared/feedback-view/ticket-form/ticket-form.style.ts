@@ -19,7 +19,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '60px',
+    gap: '20px',
+  },
+
+  flexEnd: {
+    justifyContent: 'flex-end',
   },
 
   user: {
@@ -29,5 +33,9 @@ export const useStyles = makeStyles()(theme => ({
 
   response: {
     borderLeft: `2px solid ${theme.palette.primary.main}`,
+  },
+
+  select: {
+    width: '120px',
   },
 }))

@@ -31,11 +31,12 @@ export const feedbackViewConfig = {
 export const fieldsForSearch = ['title', 'text']
 
 export interface ColumnProps {
-  onSelectFeedback: (ticket: IFeedback) => void
+  onSelectFeedback: (feedback?: IFeedback, viewMode?: boolean) => void
   onRemoveFeedback: (id: string) => void
+  creator: () => boolean
 }
 
-export const getStatusText = (status: FeedbackStatus) => {
+export const getStatusText = (status?: FeedbackStatus) => {
   switch (status) {
     case FeedbackStatus.CREATED:
       return t(TranslationKey.New)
@@ -50,7 +51,7 @@ export const getStatusText = (status: FeedbackStatus) => {
   }
 }
 
-export const getStatusColor = (status: FeedbackStatus) => {
+export const getStatusColor = (status?: FeedbackStatus) => {
   const blueColor = SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
 
   switch (status) {

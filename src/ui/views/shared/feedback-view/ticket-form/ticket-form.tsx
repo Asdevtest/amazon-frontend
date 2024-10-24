@@ -5,37 +5,61 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomPreviewGroup } from '@components/shared/custom-preview-group'
+import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 import { Text } from '@components/shared/text'
+import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { formatNormDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
+
+import { FeedbackStatus } from '@typings/enums/feedback-status'
 
 import { useStyles } from './ticket-form.style'
 
-import { getStatusText } from '../feedback-view.config'
+import { getStatusColor, getStatusText } from '../feedback-view.config'
 
 import { TicketFormModel } from './ticket-form.model'
 
-interface TicketFormProps {
+export interface TicketFormProps {
   onClose: () => void
+  creator: boolean
   feedbackId?: string
+  onUdateData?: () => void
 }
 
 export const TicketForm: FC<TicketFormProps> = observer(props => {
-  const { onClose, feedbackId } = props
+  const { onClose, creator } = props
 
   const { classes: styles, cx } = useStyles()
-  const viewModel = useMemo(() => new TicketFormModel(feedbackId), [])
+  const viewModel = useMemo(() => new TicketFormModel(props), [])
 
   return (
     <div className={styles.root}>
       <div className={cx(styles.block, styles.user)}>
         <div className={styles.flexRow}>
-          <div>{getStatusText(viewModel.feedback?.status || 0)}</div>
+          {creator && viewModel.feedback ? (
+            <CustomSelect
+              className={styles.select}
+              options={viewModel.statusOptions}
+              defaultValue={viewModel.feedback?.status}
+              optionRender={option => (
+                <span style={{ color: getStatusColor(option.value as FeedbackStatus) }}>{option.label}</span>
+              )}
+              labelRender={option => (
+                <span style={{ color: getStatusColor(option.value as FeedbackStatus) }}>{option.label}</span>
+              )}
+              onChange={viewModel.onChangeStatus}
+            />
+          ) : (
+            <p style={{ color: getStatusColor(viewModel.feedback?.status) }}>
+              {getStatusText(viewModel.feedback?.status)}
+            </p>
+          )}
 
           <div className={styles.flexRow}>
-            <p>{`Updated ${viewModel.feedback?.updatedAt}`}</p>
-            <p>{`ID ${viewModel.feedback?.xid}`}</p>
+            <p>{`Updated: ${formatNormDateTime(viewModel.feedback?.updatedAt)}`}</p>
+            <p>{`ID: ${viewModel.feedback?.xid}`}</p>
           </div>
         </div>
 
@@ -44,17 +68,27 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
         <CustomPreviewGroup width={50} data={viewModel.feedback?.media || []} />
       </div>
 
-      {viewModel.showResponseBlock ? (
-        <div className={cx(styles.block, styles.response)}>
-          <CustomTextarea readOnly rows={6} value={viewModel.feedback?.responseText || ''} />
-          <CustomPreviewGroup width={50} data={viewModel.feedback?.responseMedia || []} />
-        </div>
-      ) : null}
+      <div className={cx(styles.block, { [styles.response]: viewModel.showResponseBlock })}>
+        <CustomTextarea
+          readOnly={viewModel.showResponseBlock}
+          rows={6}
+          placeholder="Response"
+          value={viewModel.responseText}
+          onChange={viewModel.onChangeResponseText}
+        />
+        {viewModel.showResponseBlock ? (
+          <CustomPreviewGroup width={50} data={viewModel.responseMedia} />
+        ) : (
+          <UploadFilesInput minimized images={viewModel.responseMedia} setImages={viewModel.onChangeResponseMedia} />
+        )}
+      </div>
 
-      <div className={styles.flexRow}>
-        <CustomButton type="primary" size="large">
-          {t(TranslationKey.Save)}
-        </CustomButton>
+      <div className={cx(styles.flexRow, styles.flexEnd)}>
+        {creator && !viewModel.showResponseBlock ? (
+          <CustomButton type="primary" size="large" onClick={viewModel.onSendReplyToFeedback}>
+            {t(TranslationKey.Send)}
+          </CustomButton>
+        ) : null}
         <CustomButton size="large" onClick={onClose}>
           {t(TranslationKey.Close)}
         </CustomButton>

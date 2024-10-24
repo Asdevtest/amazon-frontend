@@ -22,7 +22,9 @@ import { IGridColumn } from '@typings/shared/grid-column'
 
 import { ColumnProps, getStatusColor, getStatusText } from './feedback-view.config'
 
-export const feedbackViewColumns = ({ onSelectFeedback, onRemoveFeedback }: ColumnProps) => {
+export const feedbackViewColumns = (props: ColumnProps) => {
+  const { onSelectFeedback, onRemoveFeedback, creator } = props
+
   const columns: IGridColumn[] = [
     {
       field: 'createdAt',
@@ -100,15 +102,15 @@ export const feedbackViewColumns = ({ onSelectFeedback, onRemoveFeedback }: Colu
       renderCell: ({ row }: GridRowModel) => (
         <ActionButtonsCell
           row
-          showFirst
           secondDanger
           firstGhost
           secondGhost
-          showSecond={row.status === FeedbackStatus.CREATED}
+          showFirst={row.status === FeedbackStatus.CREATED}
+          showSecond={row.status === FeedbackStatus.CREATED && !creator()}
           secondConfirmText="Are you sure you want to delete this ticket?"
           firstIcon={<MdOutlineEdit size={16} />}
           secondIcon={<MdOutlineDelete size={16} />}
-          onClickFirst={() => onSelectFeedback(row)}
+          onClickFirst={() => onSelectFeedback(row, creator())}
           onClickSecond={() => onRemoveFeedback(row._id)}
         />
       ),

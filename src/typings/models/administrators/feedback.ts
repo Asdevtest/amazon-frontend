@@ -13,4 +13,10 @@ export interface IFeedback {
   moderator: ICreatedBy
   createdAt: string
   updatedAt: string
+
+  sub: ICreatedBy
+  createdBy: ICreatedBy
+  rating: number
+  comment: string
+  role: number
 }

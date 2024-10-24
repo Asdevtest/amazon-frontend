@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { FeedbackModel } from '@models/feedback-model'
 
-import { IFeedback } from '@typings/models/feedbacks/feedback'
+import { IFeedback } from '@typings/models/administrators/feedback'
 
 export class ReviewsFormModel {
   reviews: IFeedback[] = []

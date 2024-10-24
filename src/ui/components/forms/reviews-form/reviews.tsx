@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { IFeedback } from '@typings/models/feedbacks/feedback'
+import { IFeedback } from '@typings/models/administrators/feedback'
 
 import { useStyles } from './reviews-form.style'
 

@@ -77,7 +77,7 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
 
       {showMediaBlock ? (
         <Form.Item<EditorFormFieldData> name="media">
-          <UploadFilesInput images={images} setImages={handleSetImages} />
+          <UploadFilesInput minimized images={images} setImages={handleSetImages} />
         </Form.Item>
       ) : null}
 

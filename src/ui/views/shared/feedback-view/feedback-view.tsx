@@ -35,7 +35,7 @@ export const FeedbackView = observer(() => {
           onSearch={viewModel.onSearchSubmit}
         />
         {!viewModel.creator ? (
-          <CustomButton type="primary" size="large" onClick={viewModel.onToggleContentEditorForm}>
+          <CustomButton type="primary" size="large" onClick={() => viewModel.onSelectFeedback()}>
             {t(TranslationKey['Create ticket'])}
           </CustomButton>
         ) : null}
@@ -111,7 +111,12 @@ export const FeedbackView = observer(() => {
       </Modal>
 
       <Modal openModal={viewModel.showTicketForm} setOpenModal={viewModel.onToggleTicketForm}>
-        <TicketForm feedbackId={viewModel.feedback?._id} onClose={viewModel.onToggleTicketForm} />
+        <TicketForm
+          creator={viewModel.creator}
+          feedbackId={viewModel.feedback?._id}
+          onClose={viewModel.onToggleTicketForm}
+          onUdateData={viewModel.getCurrentData}
+        />
       </Modal>
     </div>
   )

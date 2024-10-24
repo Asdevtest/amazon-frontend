@@ -10,7 +10,7 @@ import { UserLink } from '@components/user/user-link'
 import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { IFeedback } from '@typings/models/feedbacks/feedback'
+import { IFeedback } from '@typings/models/administrators/feedback'
 
 import { useStyles } from './reviews-form.style'
 
@@ -44,7 +44,7 @@ export const ReviewCard: FC<ReviewCardProps> = memo(({ review }) => {
         <p>{formatShortDateTime(review.createdAt)}</p>
       </div>
 
-      <CustomTextEditor readOnly value={review.comment} editorClassName={styles.editor} />
+      <CustomTextEditor readOnly value={review.comment || ''} editorClassName={styles.editor} />
     </div>
   )
 })

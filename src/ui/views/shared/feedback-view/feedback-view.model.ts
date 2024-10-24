@@ -38,13 +38,14 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
 
   constructor() {
     const columnsProps: ColumnProps = {
-      onSelectFeedback: feedback => this.onSelectFeedback(feedback),
+      onSelectFeedback: (feedback, viewMode) => this.onSelectFeedback(feedback, viewMode),
       onRemoveFeedback: id => this.onRemoveFeedback(id),
+      creator: () => this.creator,
     }
     const columnsModel = feedbackViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
     const getMainDataMethod = (body: any) =>
-      this.creator ? AdministratorModel.getFeedback(body) : OtherModel.getFeedbacks(body)
+      this.creator ? AdministratorModel.getFeedbacks(body) : OtherModel.getFeedbacks(body)
     const getMainMethodURL = () => (this.creator ? 'admins/feedback?' : 'other/feedback/my?')
 
     super({
@@ -61,18 +62,17 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
     this.getTableSettingsPreset()
   }
 
-  onToggleContentEditorForm() {
-    this.showContentEditorForm = !this.showContentEditorForm
-  }
-
-  onSelectFeedback = (feedback: IFeedback, isTable?: boolean) => {
+  onSelectFeedback = (feedback?: IFeedback, viewMode?: boolean) => {
     this.feedback = feedback
-
-    isTable ? this.onToggleTicketForm() : this.onToggleContentEditorForm()
+    viewMode ? this.onToggleTicketForm() : this.onToggleContentEditorForm()
   }
 
   onToggleTicketForm() {
     this.showTicketForm = !this.showTicketForm
+  }
+
+  onToggleContentEditorForm() {
+    this.showContentEditorForm = !this.showContentEditorForm
   }
 
   async onRemoveFeedback(id: string) {
