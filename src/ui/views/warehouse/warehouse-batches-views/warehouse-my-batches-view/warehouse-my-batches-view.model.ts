@@ -212,8 +212,6 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
 
   async patchActualShippingCostBatch(id: string, cost: string) {
     await BatchesModel.changeBatch(id, { actualShippingCost: cost || '0' })
-
-    this.setCurrentOpenedBatch(id)
   }
 
   async confirmSendToBatch(batchId: string) {
