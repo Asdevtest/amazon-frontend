@@ -99,7 +99,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey['№ Order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
-      renderCell: params => params.row.items?.map(item => item.order?.xid).join(', '),
+      renderCell: params => <Text text={params.value} textRows={3} />,
       valueGetter: ({ row }) => row.items?.map(item => item.order?.xid).join(', '),
       width: 160,
 
