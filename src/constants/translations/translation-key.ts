@@ -762,8 +762,6 @@ export enum TranslationKey {
   'Allows you to use the box parameters specified when creating a supplier' = 'Allows you to use the box parameters specified when creating a supplier',
   'Allows you to create the required number of boxes to the order' = 'Allows you to create the required number of boxes to the order',
   'Save box parameters to the current supplier' = 'Save box parameters to the current supplier',
-  'Save changes to the order' = 'Save changes to the order',
-  'Close the "Edit order" window without saving' = 'Close the "Edit order" window without saving',
   'Amazon ID number' = 'Amazon ID number',
   'Choose a product strategy' = 'Choose a product strategy',
   'H' = 'H',
@@ -859,7 +857,6 @@ export enum TranslationKey {
   'Comments on the order for the Buyer and the Prep Center' = 'Comments on the order for the Buyer and the Prep Center',
   'Specify a deadline' = 'Specify a deadline',
   'Complete the order (freezes the required amount of the order from the balance)' = 'Complete the order (freezes the required amount of the order from the balance)',
-  'Close the checkout window without saving' = 'Close the checkout window without saving',
   'Bind the selected product from the inventory to an item from the store' = 'Bind the selected product from the inventory to an item from the store',
   'Bind the selected product from the store to the item in the inventory' = 'Bind the selected product from the store to the item in the inventory',
   'Supplier Addition Services' = 'Supplier Addition Services',
@@ -2080,4 +2077,5 @@ export enum TranslationKey {
   'Response' = 'Response',
   'Response files' = 'Response files',
   'Are you sure you want to delete this ticket?' = 'Are you sure you want to delete this ticket?',
+  'No reviews' = 'No reviews',
 }

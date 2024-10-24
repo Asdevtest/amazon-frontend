@@ -1,46 +1,42 @@
-import { FC, memo } from 'react'
+import { observer } from 'mobx-react'
+import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ReviewCard } from '@components/cards/review-card'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-import { IFeedback } from '@typings/models/administrators/feedback'
 import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './reviews-form.style'
 
+import { Reviews } from './reviews'
+import { ReviewsFormModel } from './reviews-form.model'
+
 interface ReviewsFormProps {
-  reviews: IFeedback[]
-  onClickCloseButton: () => void
+  onClose: () => void
   user?: ICreatedBy
 }
 
-export const ReviewsForm: FC<ReviewsFormProps> = memo(({ onClickCloseButton, reviews, user }) => {
+export const ReviewsForm: FC<ReviewsFormProps> = observer(({ onClose, user }) => {
   const { classes: styles } = useStyles()
+  const viewModel = useMemo(() => new ReviewsFormModel(user?._id), [])
 
   return (
     <div className={styles.root}>
-      <div className={styles.modalHeader}>
-        <p className={styles.userReviewTitle}>{`${t(TranslationKey['User reviews'])}:`}</p>
-        <div className={styles.modalHeader}>
-          <UserLink customClassNames={styles.userLink} name={user?.name} userId={user?._id} />
-        </div>
-      </div>
-      <div className={styles.reviewsList}>
-        {reviews?.map((review, index) => (
-          <ReviewCard key={index} review={review} />
-        ))}
+      <div className={styles.flexRow}>
+        <p className={styles.title}>{`${t(TranslationKey['User reviews'])}:`}</p>
+        <UserLink customClassNames={styles.title} name={user?.name} userId={user?._id} />
       </div>
 
-      <div className={styles.footerWrapper}>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCloseButton}>
+      <Reviews reviews={viewModel.reviews} />
+
+      <div className={styles.footer}>
+        <CustomButton size="large" onClick={onClose}>
           {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

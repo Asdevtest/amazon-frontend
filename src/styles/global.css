@@ -52,6 +52,9 @@
 .ant-cascader-dropdown {
   z-index: 7;
 }
+.ant-rate {
+  font-size: 16px;
+}
 
 * {
   padding: 0px;

@@ -67,9 +67,8 @@ export const ServiceDetailsView = observer(({ history }: { history: HistoryType 
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
         <ReviewsForm
-          reviews={viewModel.currentReviews}
           user={viewModel.currentReviewModalUser}
-          onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')}
+          onClose={() => viewModel.onTriggerOpenModal('showReviewModal')}
         />
       </Modal>
     </div>

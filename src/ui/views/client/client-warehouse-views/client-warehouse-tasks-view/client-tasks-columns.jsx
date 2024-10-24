@@ -94,7 +94,10 @@ export const clientTasksViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={'ASIN'} />,
 
       renderCell: params => (
-        <StringListCell data={params.row?.boxesBefore.flatMap(box => box.items?.map(item => item.product?.asin))} />
+        <StringListCell
+          asin
+          data={params.row?.boxesBefore.flatMap(box => box.items?.map(item => item.product?.asin))}
+        />
       ),
 
       disableCustomSort: true,

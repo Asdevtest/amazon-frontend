@@ -3,15 +3,11 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   root: {
     padding: '0 5px 0 0',
+    maxHeight: '48px',
     overflowY: 'auto',
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-  },
-
-  fixedHeight: {
-    height: '48px',
   },
 
   text: {

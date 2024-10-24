@@ -22,6 +22,8 @@ import { getTariffRateForBoxOrOrder } from '@utils/calculation'
 import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { getPricePerUnit } from '../helpers/get-price-per-unit'
+
 export const batchInfoModalColumn = (
   volumeWeightCoefficient,
   calculationMethod,
@@ -35,7 +37,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
 
-    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.product?.asin)} fixedHeight={false} />,
+    renderCell: ({ row }) => <StringListCell asin data={row.items?.map(item => item?.product?.asin)} />,
 
     valueGetter: ({ row }) => row.items?.map(item => item?.product?.asin || t(TranslationKey.Missing)).join(', '),
 
@@ -65,7 +67,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey['Quantity in box']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Quantity in box'])} />,
 
-    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.amount)} fixedHeight={false} />,
+    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.amount)} />,
     valueGetter: ({ row }) => row.items?.map(item => item?.amount || t(TranslationKey.Missing)).join(', '),
     width: 90,
   },
@@ -125,15 +127,6 @@ export const batchInfoModalColumn = (
   },
 
   {
-    field: 'updatedAt',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    headerName: t(TranslationKey.Updated),
-    renderCell: params => <NormDateCell value={params.value} />,
-    valueGetter: ({ row }) => row.updatedAt || t(TranslationKey.Missing),
-    width: 100,
-  },
-
-  {
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
@@ -166,8 +159,7 @@ export const batchInfoModalColumn = (
     headerName: t(TranslationKey['Price per unit']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
     renderCell: params => <PricePerUnitCell item={params.row} />,
-    valueGetter: ({ row }) =>
-      row.items.map(el => toFixedWithDollarSign(el.order?.totalPrice / el.order?.amount, 2)).join(', '),
+    valueGetter: ({ row }) => row.items.map(el => toFixedWithDollarSign(getPricePerUnit(el), 2)).join(', '),
     type: 'number',
     width: 90,
   },

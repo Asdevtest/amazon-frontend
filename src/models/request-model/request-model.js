@@ -78,7 +78,10 @@ class RequestModelStatic {
   }
 
   getRequestsByProductLight = async body => {
-    const response = await restApiService.SearchRequestApi.apiV1RequestsByProductLightGuidGet(body)
+    const response = await restApiService.SearchRequestApi.apiV1RequestsByProductLightGuidGet({
+      ...body,
+      noCache: true,
+    })
     return response.data
   }
 

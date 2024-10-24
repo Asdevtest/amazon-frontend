@@ -18,6 +18,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { TruckIcon } from '@components/shared/svg-icons'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
+import { convertLocalDateToUTC } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -87,8 +88,16 @@ export const OrderModalBodyRow = ({
 
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
-      setOrderStateFiled(nameInput)(isValid(event) ? event : null)
-      setDeadline(isValid(event) ? event : null)
+      let value
+
+      if (isValid(event)) {
+        value = new Date(convertLocalDateToUTC(new Date(event)))
+      } else {
+        value = null
+      }
+
+      setOrderStateFiled(nameInput)(value)
+      setDeadline(value)
     } else if (nameInput === 'tariff') {
       setOrderStateFiled(nameInput)(event)
     } else {
