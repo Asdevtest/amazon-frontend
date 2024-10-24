@@ -20,11 +20,13 @@ import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
+import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { toFixed } from '@utils/text'
@@ -75,6 +77,7 @@ export class SuppliersAndIdeasModel {
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
   showCommentsModal = false
+  showSelectShopsModal = false
 
   selectedProduct = undefined
   storekeepers = []
@@ -123,10 +126,6 @@ export class SuppliersAndIdeasModel {
     try {
       if (this.isModalView && this.currentIdeaId) {
         await this.getIdea(this.currentIdeaId)
-
-        if (this.updateData) {
-          this.updateData?.()
-        }
       } else {
         if (this.productId) {
           await this.getIdeas()
@@ -185,12 +184,6 @@ export class SuppliersAndIdeasModel {
       const res = await IdeaModel.createIdea({ ...data, price: data.price || 0, quantity: data.quantity || 0 })
 
       if (!isForceUpdate) {
-        if (this.isModalView) {
-          this.closeModalHandler()
-        }
-
-        this.updateData?.()
-
         toast.success(t(TranslationKey['Idea created']))
       }
 
@@ -209,9 +202,9 @@ export class SuppliersAndIdeasModel {
           this.closeModalHandler()
         }
 
-        this.updateData?.()
-
         toast.success(t(TranslationKey['Idea edited']))
+
+        this.updateData?.()
       }
     } catch (error) {
       console.error(error)
@@ -280,32 +273,41 @@ export class SuppliersAndIdeasModel {
           getObjectFilteredByKeyArrayWhiteList({ ...submitData, parentProductId: this.productId }, IdeaCreate),
           isForceUpdate,
         )
-
         await this.getIdea(createdIdeaId)
+        await this.getShops()
+        this.onTriggerOpenModal('showSelectShopsModal')
       }
-
-      /* if (isForceUpdate) {
-        runInAction(() => {
-          this.inCreate = false
-          this.inEdit = true
-        })
-      } else {
-        runInAction(() => {
-          this.inCreate = false
-          this.inEdit = false
-        })
-      } */
 
       runInAction(() => {
         this.inCreate = false
         this.inEdit = false
       })
-
-      this.loadData()
     } catch (error) {
       console.error(error)
     } finally {
-      this.readyFiles = undefined
+      this.readyFiles = []
+    }
+  }
+
+  async onSaveProductData(shop) {
+    try {
+      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: shop.id })
+      this.closeModalHandler()
+      this.updateData?.()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
+    } catch (error) {
+      console.error(error)
     }
   }
 
