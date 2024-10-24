@@ -23,7 +23,7 @@ export const CustomRadioButton: FC<CustomRadioButtonProps> = memo(props => {
       {options.map((option, index) => (
         <Radio.Button key={index} value={option.value}>
           {option.label}
-          {option.badge ? <span className={styles.badge}>{option.badge}</span> : null}
+          {option.badge ? <span className={styles.text}>{option.badge}</span> : null}
         </Radio.Button>
       ))}
     </Radio.Group>

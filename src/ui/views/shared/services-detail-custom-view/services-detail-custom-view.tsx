@@ -46,11 +46,7 @@ export const ServicesDetailCustomView = observer(({ history }: { history: Histor
       )}
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={viewModel.onTriggerReviewModal}>
-        <ReviewsForm
-          reviews={viewModel.currentReviews}
-          user={viewModel.currentReviewModalUser}
-          onClickCloseButton={viewModel.onTriggerReviewModal}
-        />
+        <ReviewsForm user={viewModel.currentReviewModalUser} onClose={viewModel.onTriggerReviewModal} />
       </Modal>
     </>
   )

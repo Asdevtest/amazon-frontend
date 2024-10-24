@@ -892,12 +892,15 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         const newBox = { ...newBoxes[i] }
         const selectedBox = { ...selectedBoxes[i] }
 
-        let linkToShippingLabel = newBox.shippingLabel || ''
+        let linkToShippingLabel = newBox.shippingLabel
         // Upload shipping label if needed
         const isSameShippingLabel =
           JSON.stringify(newBox?.tmpShippingLabel?.[0]) === JSON.stringify(sharedFields?.tmpShippingLabel?.[0])
-        if (!isSameShippingLabel) {
+        if (!isSameShippingLabel && newBox?.tmpShippingLabel?.[0]) {
           linkToShippingLabel = await this.uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
+        }
+        if (linkToShippingLabel === '' && selectedBox.shippingLabel === null) {
+          linkToShippingLabel = null
         }
 
         const dataToBarCodeChange = newBox.items
@@ -957,21 +960,40 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           )
 
           let transparencyFileLink = el.transparencyFile || ''
-          const isSameTransparencyFile =
-            JSON.stringify(el?.tmpTransparencyFile?.[0]) === JSON.stringify(sharedFields.tmpTransparencyFile[0])
-          if (!isSameTransparencyFile) {
-            transparencyFileLink = await this.uploadImageIfNotUploaded(
-              el.tmpTransparencyFile[0],
-              uploadedTransparencyFiles,
-            )
+          let barcodeValue = prodInDataToUpdateBarCode?.newData?.[0] || el.barCode
+          if (el.tmpTransparencyFile?.length === 0) {
+            transparencyFileLink = ''
+          } else {
+            const isSameTransparencyFile =
+              JSON.stringify(el?.tmpTransparencyFile?.[0]) === JSON.stringify(sharedFields.tmpTransparencyFile[0])
+            if (!isSameTransparencyFile) {
+              transparencyFileLink = await this.uploadImageIfNotUploaded(
+                el.tmpTransparencyFile[0],
+                uploadedTransparencyFiles,
+              )
+            }
           }
-          const barcodeValue = prodInDataToUpdateBarCode?.newData?.[0] || el.barCode
+
+          if (el.tmpBarCode?.length === 0) {
+            barcodeValue = ''
+          }
+
+          // Determine if barCode has changed
+          const isBarCodeChanged =
+            barcodeValue !== selectedBox.items[0].barCode ||
+            (JSON.stringify(sharedFields.tmpBarCode?.[0]) !== JSON.stringify(el.tmpBarCode?.[0]) && barcodeValue === '')
+
+          // Determine if transparencyFile has changed
+          const isTransparencyFileChanged =
+            transparencyFileLink !== selectedBox.items[0].transparencyFile ||
+            (JSON.stringify(sharedFields.tmpTransparencyFile?.[0]) !== JSON.stringify(el.tmpTransparencyFile?.[0]) &&
+              transparencyFileLink === '')
 
           const validItem = {
             orderId: el?.order?._id || el?.orderId,
             productId: el?.product?._id || el?.productId,
-            ...(barcodeValue !== selectedBox.items[0].barCode && { barCode: barcodeValue }),
-            ...(transparencyFileLink !== selectedBox.items[0].transparencyFile && {
+            ...(isBarCodeChanged && { barCode: barcodeValue }),
+            ...(isTransparencyFileChanged && {
               transparencyFile: transparencyFileLink,
             }),
           }
@@ -983,7 +1005,9 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
         updatedBoxes.push({
           ...getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList),
-          ...(linkToShippingLabel !== selectedBox.shippingLabel && { shippingLabel: linkToShippingLabel }),
+          ...(!isSameShippingLabel && {
+            shippingLabel: linkToShippingLabel,
+          }),
         })
       }
 
@@ -1076,14 +1100,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onEditBoxSubmit(
-    id: string,
-    boxData: any,
-    sourceData: any,
-
-    priority?: number,
-    priorityReason?: string,
-  ) {
+  async onEditBoxSubmit(id: string, boxData: any, sourceData: any, priority?: number, priorityReason?: string) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
@@ -1190,12 +1207,19 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         updateBoxWhiteList,
       )
 
-      const isBarcodeChanged =
-        sourceData.items[0].barCode !== boxData.items[0].barCode || boxData.items[0].tmpBarCode.length !== 0
-      const isTransparencyFileChanged =
-        !!boxData.items[0].tmpTransparencyFile &&
-        (sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
-          boxData.items[0].tmpTransparencyFile.length !== 0)
+      const isBarcodeChanged = boxData.items.some((item: any, index: number) => {
+        const sourceItem = sourceData.items[index]
+        return sourceItem.barCode !== item.barCode || (item.tmpBarCode && item.tmpBarCode.length !== 0)
+      })
+
+      const isTransparencyFileChanged = boxData.items.some((item: any, index: number) => {
+        const sourceItem = sourceData.items[index]
+        return (
+          !!item.tmpTransparencyFile &&
+          (sourceItem.transparencyFile !== item.transparencyFile || item.tmpTransparencyFile.length !== 0)
+        )
+      })
+
       const isShippingLabelChanged =
         sourceData.shippingLabel !== null &&
         (sourceData.shippingLabel !== boxData.shippingLabel || boxData.shippingLabel === '')

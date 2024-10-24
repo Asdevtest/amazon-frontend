@@ -6,8 +6,8 @@ class IdeaModelStatic {
     return response.data
   }
 
-  getIdeaList = async data => {
-    const response = await restApiService.ideaApi.apiV1IdeasPagMyGet(data)
+  getIdeaList = async body => {
+    const response = await restApiService.ideaApi.apiV1IdeasPagMyGet({ ...body, noCache: true })
     return response.data
   }
 

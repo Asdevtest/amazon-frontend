@@ -11,6 +11,7 @@ import {
   MultilineTextHeaderCell,
   ProductsCell,
   RedFlagsCell,
+  StringListCell,
   UserCell,
   WarehouseBoxesBtnsCell,
 } from '@components/data-grid/data-grid-cells'
@@ -42,13 +43,15 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       headerName: t(TranslationKey['№ Order/ № Item']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
 
-      renderCell: params => (
-        <div>
-          <Text text={params.row.items?.[0].order?.xid} />
-          <Text text={params.row.items?.[0].order?.item} />
-        </div>
-      ),
+      valueGetter: ({ row }) => {
+        const orderNumbers = row?.items.map(cur => cur.order?.xid).join(', ')
+        const itemNumbers = row?.items.map(cur => cur.order?.item).join(', ')
+        return `${t(TranslationKey.Order)} ${orderNumbers} | Item: ${itemNumbers}`
+      },
 
+      renderCell: params => {
+        return <StringListCell data={params.value.split('|')} />
+      },
       fields: [
         {
           label: '№ Order',
@@ -74,7 +77,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       ],
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 140,
+      width: 150,
     },
 
     {
@@ -139,7 +142,12 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       field: 'amount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-      renderCell: params => <Text isCell text={params.value * params.row.amount} />,
+      renderCell: params => {
+        const sumItemsAmount = params.row.items.reduce((acc, item) => acc + item.amount, 0)
+        const result = params.row.amount * sumItemsAmount
+
+        return <Text isCell text={result} />
+      },
       width: 110,
       type: 'number',
       sortable: false,

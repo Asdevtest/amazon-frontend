@@ -525,7 +525,6 @@ export const OrderProductModal = memo(props => {
 
         <Button
           styleType={ButtonStyle.CASUAL}
-          tooltipInfoContent={t(TranslationKey['Close the checkout window without saving'])}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
         >
           {t(TranslationKey.Close)}

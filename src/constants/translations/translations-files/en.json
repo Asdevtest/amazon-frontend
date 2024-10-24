@@ -762,8 +762,6 @@
   "Allows you to use the box parameters specified when creating a supplier": "Allows you to use the box parameters specified when creating a supplier",
   "Allows you to create the required number of boxes to the order": "Allows you to create the required number of boxes to the order",
   "Save box parameters to the current supplier": "Save box parameters to the current supplier",
-  "Save changes to the order": "Save changes to the order",
-  "Close the \"Edit order\" window without saving": "Close the \"Edit order\" window without saving",
   "Amazon ID number": "Amazon ID number",
   "Choose a product strategy": "Choose a product strategy",
   "H": "H",
@@ -859,7 +857,6 @@
   "Comments on the order for the Buyer and the Prep Center": "Comments on the order for the Buyer and the Prep Center",
   "Complete the order (freezes the required amount of the order from the balance)": "Complete the order (freezes the required amount of the order from the balance)",
   "Specify a deadline": "Specify a deadline",
-  "Close the checkout window without saving": "Close the checkout window without saving",
   "Bind the selected product from the inventory to an item from the store": "Bind the selected product from the inventory to an item from the store",
   "Bind the selected product from the store to the item in the inventory": "Bind the selected product from the store to the item in the inventory",
   "Supplier Addition Services": "Supplier Addition Services",
@@ -2076,5 +2073,6 @@
   "Failed": "Failed",
   "typing": "typing",
   "Select at least 2 users": "Select at least 2 users",
-  "Requested in batch": "Requested in batch"
+  "Requested in batch": "Requested in batch",
+  "No reviews": "No reviews"
 }

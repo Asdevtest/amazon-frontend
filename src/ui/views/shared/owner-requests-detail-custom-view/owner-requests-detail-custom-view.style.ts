@@ -5,6 +5,12 @@ export const useStyles = makeStyles()(() => ({
     marginTop: '20px',
   },
 
+  buttonsWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: 20,
+  },
+
   chatWrapper: {
     width: '100%',
     height: '778px',

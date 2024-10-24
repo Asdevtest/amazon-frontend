@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useMemo } from 'react'
+import { FC, useMemo } from 'react'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -18,13 +18,20 @@ import { useStyles } from './parsing-reports.style'
 import { LinkCascader } from './link-cascader'
 import { getSelectConfig } from './parsing-reports.config'
 import { ParsingReportsModel } from './parsing-reports.model'
+import { ParsingReportsType } from './parsing-reports.type'
 
-export const ParsingReports = observer(() => {
-  const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new ParsingReportsModel(), [])
+interface ParsingReportsProps {
+  productId?: string
+  table?: ParsingReportsType
+  className?: string
+}
+
+export const ParsingReports: FC<ParsingReportsProps> = observer(({ table, productId, className }) => {
+  const { classes: styles, cx } = useStyles()
+  const viewModel = useMemo(() => new ParsingReportsModel({ table, productId }), [])
 
   return (
-    <div className="viewWrapper">
+    <div className={cx('viewWrapper', className)}>
       <div className={styles.flexRow}>
         <div className={styles.flexRow}>
           <CustomSelect
