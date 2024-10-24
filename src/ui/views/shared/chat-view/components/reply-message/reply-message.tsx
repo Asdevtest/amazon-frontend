@@ -8,10 +8,12 @@ import { ChatMessage } from '@models/chat-model-new/types/message.type'
 
 import { CustomButton } from '@components/shared/custom-button'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useStyles } from './reply-message.style'
+
+import { getReplyMessageText } from '../../helpers/get-reply-message-text'
+import { AttachedFile } from '../attached-file'
 
 interface ReplyMessageProps {
   message: ChatMessage
@@ -23,20 +25,33 @@ export const ReplyMessage: FC<ReplyMessageProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  const firstImage = message?.images?.[0]
-  const firstVideo = message?.video?.[0]
-  const firstFile = message?.files?.[0]
+  const relpyMessages = getReplyMessageText({
+    images: message?.images,
+    video: message?.video,
+    files: message?.files,
+    text: message?.text,
+  })
+
+  const renderRepleMessage = () => {
+    if (relpyMessages?.messageText) {
+      return <p className={styles.replyMessageText}>{message?.text}</p>
+    } else if (relpyMessages?.includesFiles?.length) {
+      const text = relpyMessages?.includesFiles?.join(', ')
+
+      return <p className={styles.replyMessageText}>{text}</p>
+    }
+  }
 
   return (
     <div className={styles.replyMessageWrapper}>
       <MdOutlineReply size={22} className={styles.icon} />
 
       <div className={styles.replyMessageContent}>
-        {firstImage ? <img src={getAmazonImageUrl(firstImage)} className={styles.img} alt="image" /> : null}
+        <AttachedFile images={message?.images} videos={message?.video} files={message?.files} />
 
         <div>
           <p className={styles.replyText}>{t(TranslationKey.Reply)}</p>
-          <p className={styles.replyMessageText}>{message?.text}</p>
+          {renderRepleMessage()}
         </div>
       </div>
 

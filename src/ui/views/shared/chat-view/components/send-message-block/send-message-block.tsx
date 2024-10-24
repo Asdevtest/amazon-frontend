@@ -44,7 +44,7 @@ export const SendMessageBlock: FC = observer(() => {
   const replyMessage = currentChat?.replyMessage
 
   const onClickClearForwardMessages = useCallback(() => {
-    chatModel.clearSelectedMessage(currentChatId)
+    chatModel.clearForwarderMessages(currentChatId)
   }, [currentChat])
 
   const onClickClearReplyMessage = useCallback(() => {

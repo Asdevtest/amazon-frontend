@@ -15,12 +15,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
-  img: {
-    width: '40px',
-    height: '40px',
-    borderRadius: '10px',
-  },
-
   icon: {
     color: theme.palette.primary.main,
   },

@@ -276,7 +276,10 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
     this.setForwarderMessages(chat?._id, messagesToForward)
     this.onTriggerOpenModal('showForwardMessagesModal', false)
     this.clearSelectedMessage(this.currentChat?._id as string)
-    this.onClickChat(chat)
+
+    if (this.currentChat?._id !== chat?._id) {
+      this.onClickChat(chat)
+    }
   }
 }
 

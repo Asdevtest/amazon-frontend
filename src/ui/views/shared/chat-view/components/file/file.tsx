@@ -12,9 +12,10 @@ import { FileInfo } from '../file-info'
 interface FileProps {
   src: string
   size: string
+  withoutInfo?: boolean
 }
 
-export const File: FC<FileProps> = memo(({ src, size }) => {
+export const File: FC<FileProps> = memo(({ src, size, withoutInfo }) => {
   const { classes: styles } = useStyles()
 
   const [fileSize, setFileSize] = useState('0 byte')
@@ -35,7 +36,7 @@ export const File: FC<FileProps> = memo(({ src, size }) => {
     <div className={styles.fileWrapper} onClick={() => downloadFileByLink(src, recreatedFile?.name)}>
       <CustomFileIcon fileExtension={fileType} height={size} />
 
-      <FileInfo name={recreatedFile?.name as string} type={fileType} fileSize={fileSize} />
+      {withoutInfo ? null : <FileInfo name={recreatedFile?.name as string} type={fileType} fileSize={fileSize} />}
     </div>
   )
 })
