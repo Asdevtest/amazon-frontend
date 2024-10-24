@@ -127,15 +127,6 @@ export const batchInfoModalColumn = (
   },
 
   {
-    field: 'updatedAt',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    headerName: t(TranslationKey.Updated),
-    renderCell: params => <NormDateCell value={params.value} />,
-    valueGetter: ({ row }) => row.updatedAt || t(TranslationKey.Missing),
-    width: 100,
-  },
-
-  {
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
