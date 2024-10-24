@@ -28,6 +28,7 @@ export const IdeaProductCell: FC<IdeaProductCellProps> = memo(({ onClickCreateCa
 
       {!!rowData.childProduct && (
         <ProductCell
+          image={rowData.childProduct.images?.[0]}
           title={rowData.childProduct?.amazonTitle}
           asin={rowData.childProduct?.asin}
           sku={rowData.childProduct?.skuByClient}
