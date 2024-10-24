@@ -1,7 +1,6 @@
-import { useCallback, useState } from 'react'
+import { ChangeEvent, KeyboardEvent, useCallback, useState } from 'react'
 
 import { chatModel } from '@models/chat-model-new/chat-model'
-import { UserModel } from '@models/user-model'
 
 import { UploadFileType } from '@typings/shared/upload-file'
 
@@ -17,8 +16,8 @@ export const useSendMessageBlock = () => {
     setFiles(value)
   }, [])
 
-  const onChangeMessage = useCallback((value: string) => {
-    setMessage(value)
+  const onChangeMessage = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
+    setMessage(event?.target?.value)
     chatModel.onTypingMessage()
   }, [])
 
@@ -46,17 +45,32 @@ export const useSendMessageBlock = () => {
       forwardedMessageId: null,
     })
 
-    onChangeMessage('')
+    setMessage('')
     onChangeFiles([])
     setShowFilesLoader(false)
   }
+
+  const onClickEnter = useCallback(
+    (e: KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.shiftKey) {
+        e.preventDefault()
+        onNewLine()
+      } else {
+        e.preventDefault()
+        if (disabledSubmit) {
+          return
+        }
+        onClickSendMessage()
+      }
+    },
+    [disabledSubmit, onNewLine, onClickSendMessage],
+  )
 
   return {
     disabledSubmit,
 
     message,
     onChangeMessage,
-    onNewLine,
 
     showFilesLoader,
     onClickShowFilesLoader,
@@ -67,5 +81,6 @@ export const useSendMessageBlock = () => {
     onClickEmoji,
 
     onClickSendMessage,
+    onClickEnter,
   }
 }

@@ -1,4 +1,4 @@
-import { FC, memo, useMemo, useState } from 'react'
+import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,10 +9,11 @@ import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { ChatItem } from '@views/shared/chat-view/components/chat-item'
 
-import { getChatTitle } from '@utils/chat/get-chat-title'
 import { t } from '@utils/translations'
 
 import { useStyles } from './forward-messages-form.style'
+
+import { useChatsSearch } from '../../hooks/use-chats-search'
 
 interface ForwardMessagesFormProps {
   chats: Chat[]
@@ -24,19 +25,7 @@ export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
   const { chats, onClickChat, onCloseModal } = props
   const { classes: styles } = useStyles()
 
-  const [nameSearchValue, setNameSearchValue] = useState<string>('')
-
-  const renderData = useMemo(() => {
-    return chats.filter(el => {
-      if (!nameSearchValue) {
-        return true
-      }
-
-      const title = getChatTitle(el)
-
-      return title.toLocaleLowerCase().includes(nameSearchValue.toLocaleLowerCase())
-    })
-  }, [chats, nameSearchValue])
+  const { nameSearchValue, renderData, onChangeSeachValue } = useChatsSearch(chats)
 
   return (
     <div className={styles.wrapper}>
@@ -46,7 +35,7 @@ export const ForwardMessagesForm: FC<ForwardMessagesFormProps> = memo(props => {
         wrapperClassName={styles.inputSearch}
         value={nameSearchValue}
         placeholder="Title"
-        onChange={event => setNameSearchValue(event.target.value)}
+        onChange={onChangeSeachValue}
       />
 
       <div className={styles.chatList}>

@@ -4,9 +4,10 @@ import { useCallback } from 'react'
 import { chatModel } from '@models/chat-model-new/chat-model'
 import { Chat } from '@models/chat-model-new/types/chat.type'
 
-import { ForwardMessagesForm } from '@components/forms/forward-messages-form'
 import { CreateNewChatModal } from '@components/modals/create-new-chat-modal'
 import { Modal } from '@components/shared/modal'
+
+import { ForwardMessagesForm } from '@views/shared/chat-view/components/forward-messages-form'
 
 import { useStyles } from './chat-view.style'
 

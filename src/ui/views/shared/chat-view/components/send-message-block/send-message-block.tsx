@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useCallback, useEffect } from 'react'
+import { FC, useCallback } from 'react'
 import { ImAttachment } from 'react-icons/im'
 import { IoSend } from 'react-icons/io5'
 
@@ -25,7 +25,6 @@ export const SendMessageBlock: FC = observer(() => {
 
     message,
     onChangeMessage,
-    onNewLine,
 
     showFilesLoader,
     onClickShowFilesLoader,
@@ -36,6 +35,7 @@ export const SendMessageBlock: FC = observer(() => {
     onClickEmoji,
 
     onClickSendMessage,
+    onClickEnter,
   } = useSendMessageBlock()
 
   const currentChat = chatModel.currentChat
@@ -45,11 +45,11 @@ export const SendMessageBlock: FC = observer(() => {
 
   const onClickClearForwardMessages = useCallback(() => {
     chatModel.clearForwarderMessages(currentChatId)
-  }, [currentChat])
+  }, [currentChatId])
 
   const onClickClearReplyMessage = useCallback(() => {
     chatModel.clearReplyMessage(currentChatId)
-  }, [currentChat])
+  }, [currentChatId])
 
   return (
     <div className={styles.sendMessageBlock}>
@@ -79,19 +79,8 @@ export const SendMessageBlock: FC = observer(() => {
           placeholder="Write a message"
           className={styles.messageTextarea}
           autoSize={{ minRows: 1, maxRows: 8 }}
-          onPressEnter={e => {
-            if (e.shiftKey) {
-              e.preventDefault()
-              onNewLine()
-            } else {
-              e.preventDefault()
-              if (disabledSubmit) {
-                return
-              }
-              onClickSendMessage()
-            }
-          }}
-          onChange={event => onChangeMessage(event.target.value)}
+          onPressEnter={onClickEnter}
+          onChange={onChangeMessage}
         />
 
         <EmojiPickerBlock onClickEmoji={onClickEmoji} />
