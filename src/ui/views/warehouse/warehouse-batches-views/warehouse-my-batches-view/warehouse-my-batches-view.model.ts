@@ -199,11 +199,9 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
   async setCurrentOpenedBatch(id?: string) {
     try {
       const batch = (await BatchesModel.getBatchesByGuid(id)) as unknown as IBatch
-
       runInAction(() => {
         this.curBatch = batch
       })
-
       this.onTriggerOpenModal('showBatchInfoModal')
     } catch (error) {
       console.error(error)
@@ -212,8 +210,6 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
 
   async patchActualShippingCostBatch(id: string, cost: string) {
     await BatchesModel.changeBatch(id, { actualShippingCost: cost || '0' })
-
-    this.setCurrentOpenedBatch(id)
   }
 
   async confirmSendToBatch(batchId: string) {
