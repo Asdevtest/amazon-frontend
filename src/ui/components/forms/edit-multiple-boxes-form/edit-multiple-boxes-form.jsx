@@ -153,6 +153,7 @@ export const EditMultipleBoxesForm = observer(
 
     const setShippingLabel = value => {
       onChangeSharedFields({ target: { value } }, 'tmpShippingLabel')
+      setShowSetShippingLabelModal(!showSetShippingLabelModal)
     }
 
     const onClickShippingLabel = () => {
@@ -161,7 +162,7 @@ export const EditMultipleBoxesForm = observer(
 
     const onDeleteShippingLabel = () => {
       onChangeSharedFields({ target: { value: '' } }, 'shippingLabel')
-      setShippingLabel([])
+      onChangeSharedFields({ target: { value: [] } }, 'tmpShippingLabel')
     }
 
     const [newBoxes, setNewBoxes] = useState(
@@ -389,6 +390,14 @@ export const EditMultipleBoxesForm = observer(
       })
     }
 
+    const isAnyBoxMissingShippingLabel = newBoxes.some(box => !box.tmpShippingLabel?.length && !box.shippingLabel)
+    const isAnyBoxMissingBarCode = newBoxes.some(box =>
+      box.items.some(item => !item.tmpBarCode?.length && !item.barCode),
+    )
+    const isAnyBoxMissingTransparencyFile = newBoxes.some(box =>
+      box.items.some(item => !item?.tmpTransparencyFile?.length && !item?.transparencyFile),
+    )
+
     const disabledSubmitBtn =
       newBoxes.some(
         el =>
@@ -570,6 +579,7 @@ export const EditMultipleBoxesForm = observer(
                     inputComponent={
                       <div className={styles.checkboxWrapper}>
                         <Checkbox
+                          disabled={isAnyBoxMissingShippingLabel}
                           color="primary"
                           checked={sharedFields.isShippingLabelAttachedByStorekeeper}
                           onChange={e => onChangeSharedFields(e, 'isShippingLabelAttachedByStorekeeper')}
@@ -601,6 +611,7 @@ export const EditMultipleBoxesForm = observer(
                     label={t(TranslationKey['The barcode is glued by the supplier'])}
                     inputComponent={
                       <Checkbox
+                        disabled={isAnyBoxMissingBarCode}
                         checked={sharedFields.isBarCodeAlreadyAttachedByTheSupplier}
                         onChange={e => onChangeSharedFields(e, 'isBarCodeAlreadyAttachedByTheSupplier')}
                       />
@@ -616,6 +627,7 @@ export const EditMultipleBoxesForm = observer(
                     label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
                     inputComponent={
                       <Checkbox
+                        disabled={isAnyBoxMissingBarCode}
                         checked={sharedFields.isBarCodeAttachedByTheStorekeeper}
                         onChange={e => onChangeSharedFields(e, 'isBarCodeAttachedByTheStorekeeper')}
                       />
@@ -629,6 +641,7 @@ export const EditMultipleBoxesForm = observer(
                     label={t(TranslationKey['Transparency Codes glued by the supplier'])}
                     inputComponent={
                       <Checkbox
+                        disabled={isAnyBoxMissingTransparencyFile}
                         checked={sharedFields.isTransparencyFileAlreadyAttachedByTheSupplier}
                         onChange={e => onChangeSharedFields(e, 'isTransparencyFileAlreadyAttachedByTheSupplier')}
                       />
@@ -642,6 +655,7 @@ export const EditMultipleBoxesForm = observer(
                     label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
                     inputComponent={
                       <Checkbox
+                        disabled={isAnyBoxMissingTransparencyFile}
                         checked={sharedFields.isTransparencyFileAttachedByTheStorekeeper}
                         onChange={e => onChangeSharedFields(e, 'isTransparencyFileAttachedByTheStorekeeper')}
                       />

@@ -156,10 +156,11 @@ export const Box: FC<BoxProps> = memo(props => {
   }
   const setShippingLabel = (value: any) => {
     onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
+    setShowSetShippingLabelModal(!showSetShippingLabelModal)
   }
   const onDeleteShippingLabel = () => {
     onChangeField({ target: { value: '' } }, 'shippingLabel', box._id)
-    setShippingLabel([])
+    onChangeField({ target: { value: [] } }, 'tmpShippingLabel', box._id)
   }
 
   const onDeleteBarcode = (value: any, index: number) => {
@@ -189,6 +190,8 @@ export const Box: FC<BoxProps> = memo(props => {
 
   const isSameDestination = selectedVariationTariff?.destination?._id === curDestination?._id
   const isShippingLabelMissing = (item: any) => !item.tmpShippingLabel.length && !item.shippingLabel
+  const isBarCodeMissing = (item: any) => !item.tmpBarCode.length && !item.barCode
+  const isTransparencyFileMissing = (item: any) => !item?.tmpTransparencyFile?.length && !item?.transparencyFile
 
   useEffect(() => {
     if (box?.variationTariffId) {
@@ -271,6 +274,7 @@ export const Box: FC<BoxProps> = memo(props => {
                         label={t(TranslationKey['The barcode is glued by the supplier'])}
                         inputComponent={
                           <Checkbox
+                            disabled={isBarCodeMissing(order)}
                             checked={order.isBarCodeAlreadyAttachedByTheSupplier}
                             onClick={() =>
                               onChangeBarcodeGlued(
@@ -292,6 +296,7 @@ export const Box: FC<BoxProps> = memo(props => {
                         label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
                         inputComponent={
                           <Checkbox
+                            disabled={isBarCodeMissing(order)}
                             checked={order.isBarCodeAttachedByTheStorekeeper}
                             onClick={() =>
                               onChangeBarcodeGlued(
@@ -310,6 +315,7 @@ export const Box: FC<BoxProps> = memo(props => {
                         label={t(TranslationKey['Transparency Codes glued by the supplier'])}
                         inputComponent={
                           <Checkbox
+                            disabled={isTransparencyFileMissing(order)}
                             checked={order.isTransparencyFileAlreadyAttachedByTheSupplier}
                             onChange={e =>
                               onChangeBarcodeGlued(
@@ -328,6 +334,7 @@ export const Box: FC<BoxProps> = memo(props => {
                         label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
                         inputComponent={
                           <Checkbox
+                            disabled={isTransparencyFileMissing(order)}
                             checked={order.isTransparencyFileAttachedByTheStorekeeper}
                             onChange={e =>
                               onChangeBarcodeGlued(
@@ -443,6 +450,7 @@ export const Box: FC<BoxProps> = memo(props => {
                   label={t(TranslationKey['Shipping label was glued to the warehouse'])}
                   inputComponent={
                     <Checkbox
+                      disabled={isShippingLabelMissing(box)}
                       color="primary"
                       checked={box.isShippingLabelAttachedByStorekeeper}
                       onChange={e => onChangeField(e, 'isShippingLabelAttachedByStorekeeper', box._id)}
