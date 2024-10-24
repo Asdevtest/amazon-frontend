@@ -16,6 +16,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
+import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/button'
@@ -87,6 +88,8 @@ export const SuppliersAndIdeas = observer(props => {
     currentData,
     languageTag,
     showCommentsModal,
+    showSelectShopsModal,
+    shopsData,
     setRejectStatusHandler,
     onClickToOrder,
     onClickSaveBarcode,
@@ -114,6 +117,7 @@ export const SuppliersAndIdeas = observer(props => {
     onConfirmSubmitOrderProductModal,
     onSubmitCalculateSeekSupplier,
     onRemoveSupplier,
+    onSaveProductData,
   } = model.current
 
   useEffect(() => {
@@ -175,7 +179,7 @@ export const SuppliersAndIdeas = observer(props => {
         />
       )}
 
-      {isModalView && !isCreate && (
+      {((isModalView && !isCreate) || !inCreate) && (
         <>
           {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
@@ -362,6 +366,17 @@ export const SuppliersAndIdeas = observer(props => {
           onChangeField={setRejectStatusHandler}
         />
       ) : null}
+
+      <Modal openModal={showSelectShopsModal} setOpenModal={() => onTriggerOpenModal('showSelectShopsModal')}>
+        <SelectShopsModal
+          // @ts-ignore
+          isNotDisabled
+          title="TEST"
+          shops={shopsData}
+          onClickSuccessBtn={onSaveProductData}
+          onClickCancelBtn={() => onTriggerOpenModal('showSelectShopsModal')}
+        />
+      </Modal>
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>
