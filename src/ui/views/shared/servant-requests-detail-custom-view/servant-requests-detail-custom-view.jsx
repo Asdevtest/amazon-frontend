@@ -62,6 +62,7 @@ export const RequestDetailCustomView = observer(({ history }) => {
       <div>
         {viewModel.request && viewModel.requestProposals ? (
           <ServantGeneralRequestInfo
+            userRole={viewModel.userInfo.role}
             requestProposals={viewModel.requestProposals}
             request={viewModel.request}
             onSubmit={viewModel.onSubmitOfferDeal}
