@@ -31,24 +31,24 @@ export class TicketFormModel {
     }))
   }
 
-  constructor({ creator, feedbackId, onUdateData, onClose }: TicketFormProps) {
+  constructor({ feedbackId, onUdateData, onClose }: TicketFormProps) {
     this.onUdateData = onUdateData
     this.onClose = onClose
-    this.getFeedback(feedbackId, creator)
+    this.getFeedback(feedbackId)
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async getFeedback(id?: string, creator?: boolean) {
+  async getFeedback(id?: string) {
     try {
       runInAction(() => (this.loading = true))
-      const method = creator ? AdministratorModel.getFeedback : OtherModel.getFeedback
-      const response = (await method(id)) as unknown as IFeedback
+
+      const response = (await OtherModel.getFeedback(id)) as unknown as IFeedback
 
       runInAction(() => {
         this.feedback = response
         this.responseMedia = response.responseMedia || []
-        this.responseText = response.responseText
+        this.responseText = response.responseText || ''
       })
     } catch (error) {
       console.error(error)

@@ -4,10 +4,10 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     position: 'relative',
     width: '100%',
+  },
 
-    '& > div': {
-      minHeight: '16px',
-    },
+  maxContent: {
+    width: 'max-content',
   },
 
   cell: {

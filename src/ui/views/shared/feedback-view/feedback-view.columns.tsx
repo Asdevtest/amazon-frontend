@@ -1,3 +1,4 @@
+import { FaEye } from 'react-icons/fa'
 import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
@@ -99,21 +100,28 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       field: 'action',
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <ActionButtonsCell
-          row
-          secondDanger
-          firstGhost
-          secondGhost
-          showFirst={row.status === FeedbackStatus.CREATED}
-          showSecond={row.status === FeedbackStatus.CREATED && !creator()}
-          secondConfirmText="Are you sure you want to delete this ticket?"
-          firstIcon={<MdOutlineEdit size={16} />}
-          secondIcon={<MdOutlineDelete size={16} />}
-          onClickFirst={() => onSelectFeedback(row, creator())}
-          onClickSecond={() => onRemoveFeedback(row._id)}
-        />
-      ),
+      renderCell: ({ row }: GridRowModel) => {
+        const showFirst = row.status === FeedbackStatus.CREATED || creator()
+        const showSecond = row.status === FeedbackStatus.CREATED && !creator()
+        const firstIcon =
+          row.status !== FeedbackStatus.CREATED && creator() ? <FaEye size={16} /> : <MdOutlineEdit size={16} />
+
+        return (
+          <ActionButtonsCell
+            row
+            secondDanger
+            firstGhost
+            secondGhost
+            showFirst={showFirst}
+            showSecond={showSecond}
+            secondConfirmText="Are you sure you want to delete this ticket?"
+            firstIcon={firstIcon}
+            secondIcon={<MdOutlineDelete size={16} />}
+            onClickFirst={() => onSelectFeedback(row, creator())}
+            onClickSecond={() => onRemoveFeedback(row._id)}
+          />
+        )
+      },
       disableCustomSort: true,
       filterable: false,
       width: 90,

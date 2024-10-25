@@ -205,7 +205,7 @@ class OtherModelStatic {
   }
 
   getFeedbacks = async body => {
-    const response = await restApiService.otherApi.apiV1OtherFeedbackMyGet({ ...body, noCache: true })
+    const response = await restApiService.otherApi.apiV1OtherFeedbackGet({ ...body, noCache: true })
     return response.data
   }
 

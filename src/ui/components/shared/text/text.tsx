@@ -34,6 +34,7 @@ interface TextCellProps extends TextAreaProps {
   type?: 'secondary' | 'success' | 'warning' | 'danger'
   error?: boolean
   bold?: boolean
+  maxContent?: boolean
   onClickSubmit?: (id: string, comment?: string) => void
 }
 
@@ -53,6 +54,7 @@ export const Text: FC<TextCellProps> = memo(props => {
     type,
     error,
     bold,
+    maxContent,
     onClickSubmit,
     ...restProps
   } = props
@@ -112,7 +114,10 @@ export const Text: FC<TextCellProps> = memo(props => {
   )
 
   return (
-    <div {...onMouseFunctions} className={cx(styles.wrapper, { [styles.cell]: isCell })}>
+    <div
+      {...onMouseFunctions}
+      className={cx(styles.wrapper, { [styles.cell]: isCell, [styles.maxContent]: maxContent })}
+    >
       {editMode ? (
         <Popconfirm
           title=""

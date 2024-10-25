@@ -2,7 +2,6 @@ import { makeObservable } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
-import { AdministratorModel } from '@models/administrator-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { OtherModel } from '@models/other-model'
 import { UserModel } from '@models/user-model'
@@ -44,15 +43,11 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
     }
     const columnsModel = feedbackViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
-    const getMainDataMethod = (body: any) =>
-      this.creator ? AdministratorModel.getFeedbacks(body) : OtherModel.getFeedbacks(body)
-    const getMainMethodURL = () => (this.creator ? 'admins/feedback?' : 'other/feedback/my?')
-
     super({
-      getMainDataMethod,
+      getMainDataMethod: OtherModel.getFeedbacks,
       columnsModel,
       filtersFields,
-      mainMethodURL: 'other/feedback/my?',
+      mainMethodURL: 'other/feedback?',
       fieldsForSearch,
       tableKey: DataGridTablesKeys.FEEDBACK,
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],

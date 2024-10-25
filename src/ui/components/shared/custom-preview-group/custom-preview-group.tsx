@@ -7,13 +7,13 @@ import { useStyles } from './custom-preview-group.style'
 
 interface CustomPreviewGroupProps {
   data: UploadFileType[]
-  width?: number
+  size?: number
   gap?: number
   center?: boolean
 }
 
 export const CustomPreviewGroup: FC<CustomPreviewGroupProps> = memo(props => {
-  const { data, width = 40, gap = 10, center } = props
+  const { data, size = 40, gap = 10, center } = props
 
   if (!data.length) {
     return null
@@ -21,13 +21,19 @@ export const CustomPreviewGroup: FC<CustomPreviewGroupProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const scrollableHeight = width * 2 + gap
+  const scrollableHeight = size * 2 + gap
 
   return (
     <div className={cx(styles.root, { [styles.center]: center })} style={{ maxHeight: scrollableHeight, gap }}>
       <Image.PreviewGroup>
         {data.map((url, index) => (
-          <Image key={index} width={width} src={url as string} />
+          <Image
+            key={index}
+            width={size}
+            height={size}
+            src={url as string}
+            preview={!!url && { maskClassName: styles.mask }}
+          />
         ))}
       </Image.PreviewGroup>
     </div>

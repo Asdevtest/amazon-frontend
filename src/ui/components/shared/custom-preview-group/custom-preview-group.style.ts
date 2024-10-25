@@ -10,4 +10,10 @@ export const useStyles = makeStyles()(() => ({
   center: {
     justifyContent: 'center',
   },
+
+  mask: {
+    padding: '0 14px',
+    display: 'flex',
+    gap: '20px',
+  },
 }))

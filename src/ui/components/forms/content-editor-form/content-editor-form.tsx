@@ -57,7 +57,6 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
     },
     [onSubmit],
   )
-
   const handleSetImages = useCallback((values: UploadFileType[]) => {
     setImages(values)
     form.setFieldValue('media', values)
@@ -67,11 +66,43 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
     <Form name="ticket-form" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
       <p className={styles.title}>{t(TranslationKey[title as TranslationKey])}</p>
 
-      <Form.Item<EditorFormFieldData> name="title" validateTrigger="onBlur" rules={[{ required: true, message: '' }]}>
+      <Form.Item<EditorFormFieldData>
+        name="title"
+        validateTrigger="onBlur"
+        rules={[
+          { required: true, message: '' },
+          { max: 512, message: '' },
+          () => ({
+            validator(_, value) {
+              if (!value?.trim()) {
+                return Promise.reject()
+              }
+
+              return Promise.resolve()
+            },
+          }),
+        ]}
+      >
         <CustomInput fullWidth placeholder="Title" />
       </Form.Item>
 
-      <Form.Item<EditorFormFieldData> name="text" validateTrigger="onBlur" rules={[{ required: true, message: '' }]}>
+      <Form.Item<EditorFormFieldData>
+        name="text"
+        validateTrigger="onBlur"
+        rules={[
+          { required: true, message: '' },
+          { max: 2048, message: '' },
+          () => ({
+            validator(_, value) {
+              if (!value?.trim()) {
+                return Promise.reject()
+              }
+
+              return Promise.resolve()
+            },
+          }),
+        ]}
+      >
         <CustomTextarea rows={6} placeholder="Description" />
       </Form.Item>
 
