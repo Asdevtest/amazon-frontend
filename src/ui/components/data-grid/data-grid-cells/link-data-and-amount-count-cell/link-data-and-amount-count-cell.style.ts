@@ -1,7 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  orderIdAndAmountCount: {
+  wrapper: {
     width: 'fit-content',
     margin: '0 auto',
     display: 'flex',
@@ -26,21 +26,6 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': {
       opacity: '.7',
       textDecoration: 'underline',
-    },
-  },
-
-  amountWithClocks: {
-    display: 'flex',
-    gap: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 14,
-    lineHeight: '19px',
-
-    svg: {
-      fontSize: 16,
-      color: theme.palette.primary.main,
-      stroke: '#fff',
     },
   },
 }))
