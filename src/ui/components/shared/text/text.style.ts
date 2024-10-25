@@ -23,6 +23,17 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
+  multilineLink: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+    margin: '0 auto !important',
+    transition: '.3s ease',
+    '&:hover': {
+      opacity: '.7',
+      textDecoration: 'underline',
+    },
+  },
+
   container: {
     display: 'flex',
     alignItems: 'center',

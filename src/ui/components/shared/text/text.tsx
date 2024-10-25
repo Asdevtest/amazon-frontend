@@ -23,6 +23,7 @@ import { useStyles } from './text.style'
 interface TextCellProps extends TextAreaProps {
   text: string
   isCell?: boolean
+  isLink?: boolean
   icon?: ReactNode
   color?: string
   center?: boolean
@@ -35,12 +36,14 @@ interface TextCellProps extends TextAreaProps {
   error?: boolean
   bold?: boolean
   onClickSubmit?: (id: string, comment?: string) => void
+  onClickLink?: () => void
 }
 
 export const Text: FC<TextCellProps> = memo(props => {
   const {
     text,
     isCell,
+    isLink,
     icon = null,
     color,
     center,
@@ -54,6 +57,7 @@ export const Text: FC<TextCellProps> = memo(props => {
     error,
     bold,
     onClickSubmit,
+    onClickLink,
     ...restProps
   } = props
 
@@ -83,6 +87,13 @@ export const Text: FC<TextCellProps> = memo(props => {
     setValue('')
   }
 
+  const handleClickLink = (e: MouseEvent) => {
+    if (onClickLink) {
+      e.stopPropagation()
+      onClickLink()
+    }
+  }
+
   const isCopyable = !!text?.length && isHover && copyable
 
   const paragraph = (
@@ -103,7 +114,8 @@ export const Text: FC<TextCellProps> = memo(props => {
           fontWeight: bold ? 'bold' : 'normal',
           ...textStyle,
         }}
-        className={className}
+        className={cx(className, { [styles.multilineLink]: isLink })}
+        onClick={handleClickLink}
       >
         {text}
       </Paragraph>

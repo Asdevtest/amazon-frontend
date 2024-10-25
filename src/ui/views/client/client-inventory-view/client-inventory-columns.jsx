@@ -12,7 +12,6 @@ import {
   CommentOfSbCell,
   FourMonthesStockCell,
   InStockCell,
-  LinkDataAndAmountCountCell,
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -136,13 +135,7 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Inbound),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
       renderCell: params => (
-        <LinkDataAndAmountCountCell
-          data={params.value}
-          onClickLink={e => {
-            e.stopPropagation()
-            otherHandlers.onOpenProductDataModal(params.row, true)
-          }}
-        />
+        <Text isLink text={params.value} onClickLink={() => otherHandlers.onOpenProductDataModal(params.row, true)} />
       ),
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -153,12 +146,10 @@ export const clientInventoryColumns = ({
       headerName: 'Order',
       renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
       renderCell: params => (
-        <LinkDataAndAmountCountCell
-          data={params.value}
-          onClickLink={e => {
-            e.stopPropagation()
-            otherHandlers.onClickOrderCell(params.row?._id, 'atProcess')
-          }}
+        <Text
+          isLink
+          text={params.value}
+          onClickLink={() => otherHandlers.onClickOrderCell(params.row?._id, 'atProcess')}
         />
       ),
       width: 85,
@@ -170,12 +161,10 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey['Pending order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pending order'])} />,
       renderCell: params => (
-        <LinkDataAndAmountCountCell
-          data={params.value}
-          onClickLink={e => {
-            e.stopPropagation()
-            otherHandlers.onClickOrderCell(params.row?._id, 'pending')
-          }}
+        <Text
+          isLink
+          text={params.value}
+          onClickLink={() => otherHandlers.onClickOrderCell(params.row?._id, 'pending')}
         />
       ),
       width: 85,
@@ -205,15 +194,7 @@ export const clientInventoryColumns = ({
       headerName: 'In Transfer',
       renderHeader: () => <MultilineTextHeaderCell text="In Transfer" />,
       renderCell: params => (
-        <LinkDataAndAmountCountCell
-          data={params.value}
-          onClickLink={e => {
-            if (Number(params.value) > 0) {
-              e.stopPropagation()
-              otherHandlers.onOpenProductDataModal(params.row, false)
-            }
-          }}
-        />
+        <Text isLink text={params.value} onClickLink={() => otherHandlers.onOpenProductDataModal(params.row, false)} />
       ),
       width: 85,
       columnKey: columnnsKeys.shared.NUMBER,
