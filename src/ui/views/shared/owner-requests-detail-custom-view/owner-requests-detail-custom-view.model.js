@@ -237,7 +237,8 @@ export class OwnerRequestDetailCustomViewModel {
   async onClickProposalResultAcceptForm(proposalId, data) {
     try {
       const id =
-        this.findRequestProposalForCurChat.proposal.sub._id || this.findRequestProposalForCurChat.proposal.createdBy._id
+        this.findRequestProposalForCurChat?.proposal?.sub?._id ||
+        this.findRequestProposalForCurChat?.proposal?.createdBy?._id
       await RequestProposalModel.requestProposalResultAccept(proposalId, data)
       await FeedbackModel.sendFeedback(id, {
         rating: data.rating,
