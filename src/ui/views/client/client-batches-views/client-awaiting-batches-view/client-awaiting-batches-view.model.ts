@@ -202,8 +202,6 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
       await BatchesModel.changeBatch(id, {
         actualShippingCost: cost || '0',
       })
-
-      this.setCurrentOpenedBatch(id, true)
     } catch (error) {
       console.error(error)
     }
