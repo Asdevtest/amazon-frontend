@@ -7,7 +7,7 @@ import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/mate
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell, ProductCell } from '@components/data-grid/data-grid-cells'
+import { ChangeChipCell, ProductCell, StringListCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { Button } from '@components/shared/button'
@@ -223,13 +223,15 @@ export const OrderModalBodyRow = ({
         <TableCell className={styles.cell}>
           <div className={styles.priceVariationsCell}>
             {priceVariations?.length > 0 ? (
-              priceVariations?.map((el, index) => (
-                <div key={index}>
-                  {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
-                  {toFixedWithDollarSign(el?.price / platformSettings?.yuanToDollarRate, 2)}{' '}
-                  {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
-                </div>
-              ))
+              <StringListCell
+                data={priceVariations?.map(
+                  el =>
+                    `${el.quantity} ${t(TranslationKey['pcs.'])}. / ${toFixedWithDollarSign(
+                      el?.price / platformSettings?.yuanToDollarRate,
+                      2,
+                    )} ${t(TranslationKey.Per).toLowerCase()} ${t(TranslationKey['pcs.'])}`,
+                )}
+              />
             ) : (
               <span>—</span>
             )}
