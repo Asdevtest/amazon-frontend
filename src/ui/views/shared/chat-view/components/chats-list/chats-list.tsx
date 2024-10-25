@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { memo, useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 import { TbLayoutSidebarRightCollapse } from 'react-icons/tb'
 
 import { chatModel } from '@models/chat-model-new/chat-model'

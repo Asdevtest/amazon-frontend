@@ -26,6 +26,8 @@ export class ChatModel extends ChatsManager<ChatListenEventsHandlers> {
 
   typing: boolean = false
 
+  showChatInfo: boolean = false
+
   get chats() {
     return getSortChats(Array.from(this.chatsManager?.values?.() || []))
   }

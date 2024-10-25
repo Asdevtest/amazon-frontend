@@ -1,4 +1,4 @@
-import { ReplyMessageType } from '../types/reply-message-type'
+import { ReplyMessageType } from '../types/reply-message.type'
 
 export const getReplyMessageType = ({ image, file, video }: { image?: string; file?: string; video?: string }) => {
   switch (true) {

@@ -7,7 +7,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { useStyles } from './attached-file.style'
 
 import { getReplyMessageType } from '../../helpers/get-reply-message-type'
-import { ReplyMessageType } from '../../types/reply-message-type'
+import { ReplyMessageType } from '../../types/reply-message.type'
 import { File } from '../file'
 
 interface AttachedFileProps {

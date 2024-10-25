@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { TabValue } from './chat-into.type'
+import { TabValue } from '../../types/chat-into.type'
 
 export const getCustomSwitcherConfig = (isGroupChat?: boolean) => {
   const config = [

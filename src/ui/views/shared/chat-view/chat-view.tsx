@@ -20,6 +20,8 @@ import { SendMessageBlock } from './components/send-message-block'
 export const ChatView = observer(() => {
   const { classes: styles, cx } = useStyles()
 
+  const isOpenChatInfo = chatModel.currentChat && chatModel.showChatInfo
+
   const onCloseCreateNewChat = useCallback(() => {
     chatModel.onTriggerOpenModal('showCreateNewChatModal', false)
   }, [])
@@ -40,7 +42,7 @@ export const ChatView = observer(() => {
         {chatModel.currentChat ? <SendMessageBlock /> : null}
       </div>
 
-      {chatModel.currentChat ? <ChatInfo /> : null}
+      {isOpenChatInfo ? <ChatInfo /> : null}
 
       <Modal unsetHidden openModal={chatModel.showCreateNewChatModal} setOpenModal={onCloseCreateNewChat}>
         <CreateNewChatModal chatToEdit={chatModel.currentChat as Chat} closeModal={onCloseCreateNewChat} />

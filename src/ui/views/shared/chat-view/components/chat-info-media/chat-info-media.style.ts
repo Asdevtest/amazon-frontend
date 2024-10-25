@@ -1,6 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
+  chatInfoHeader: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
   chatInfoTitle: {
     display: 'flex',
     alignItems: 'center',
@@ -15,12 +20,13 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
-    flex: 1,
+    overflow: 'hidden',
   },
 
   chatEditWrapper: {
     flex: 1,
     display: 'flex',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
 }))

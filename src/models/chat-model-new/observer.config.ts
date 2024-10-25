@@ -4,6 +4,7 @@ export const observerConfig = {
   selectedChatId: observable,
   showCreateNewChatModal: observable,
   showForwardMessagesModal: observable,
+  showChatInfo: observable,
   typing: observable,
 
   chats: computed,

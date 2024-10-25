@@ -13,6 +13,7 @@ interface IMedia {
   allMedia?: Array<string>
 }
 
+
 export const useChatMediaFiles = (chat: ChatContract, isGroupChat: boolean) => {
   const [currentTab, setCurrentTab] = useState<TabValue>(isGroupChat ? TabValue.GROUP_CHAT_USERS : TabValue.PHOTOS)
   const [files, setFiles] = useState<string[]>([])
