@@ -263,7 +263,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
           )
 
           let transparencyFileLink = el.transparencyFile || ''
-          let barcodeValue = prodInDataToUpdateBarCode?.newData?.[0] || el.barCode
+          const barcodeValue = prodInDataToUpdateBarCode?.newData?.[0] || el.barCode
           if (el.tmpTransparencyFile?.length === 0) {
             transparencyFileLink = ''
           } else {
@@ -275,10 +275,6 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
                 uploadedTransparencyFiles,
               )
             }
-          }
-
-          if (el.tmpBarCode?.length === 0) {
-            barcodeValue = ''
           }
 
           // Determine if barCode has changed
@@ -312,7 +308,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
 
         updatedBoxes.push({
           ...getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList),
-          ...(!isSameShippingLabel && {
+          ...((!isSameShippingLabel || newBox.shippingLabel !== selectedBox.shippingLabel) && {
             shippingLabel: linkToShippingLabel,
           }),
         })
