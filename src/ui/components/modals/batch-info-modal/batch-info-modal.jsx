@@ -107,25 +107,49 @@ export const BatchInfoModal = observer(
         <div className={styles.form}>
           <div className={styles.titleWrapper}>
             <p className={styles.modalTitle}>{t(TranslationKey['Viewing the batch'])}</p>
-            <div className={styles.searchWrapper}>
+            <div className={styles.userDataWrapper}>
               <div className={styles.userLinkWrapper}>
                 <p className={styles.fieldLabel}>{t(TranslationKey['Int warehouse']) + ':'}</p>
                 <UserCell name={currentBatch?.storekeeper?.name} id={currentBatch?.storekeeper?._id} />
               </div>
-              <Tooltip
-                title={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(TranslationKey.Order)}, ${t(
-                  TranslationKey['Box ID'],
-                )}, FBA Shipment, Prep Id`}
-              >
-                <CustomInputSearch
-                  allowClear
-                  wrapperClassName={styles.searchInput}
-                  value={nameSearchValue}
-                  size="large"
-                  placeholder="Search"
-                  onChange={e => setNameSearchValue(e.target.value)}
-                />
-              </Tooltip>
+
+              <div className={styles.datesWrapper}>
+                <div className={styles.dateContainer}>
+                  <div className={styles.datesTitle}>
+                    CLS
+                    <Tooltip title={t(TranslationKey['CLS (batch closing date)'])}>
+                      <CiCircleQuestion size={18} />
+                    </Tooltip>
+                  </div>
+                  <p className={styles.infoField}>
+                    {formatDateWithoutTime(currentBatch?.boxes?.[0].logicsTariff?.cls)}
+                  </p>
+                </div>
+
+                <div className={styles.dateContainer}>
+                  <div className={styles.datesTitle}>
+                    ETD
+                    <Tooltip title={t(TranslationKey['ETD (date of shipment)'])}>
+                      <CiCircleQuestion size={18} />
+                    </Tooltip>
+                  </div>
+                  <p className={styles.infoField}>
+                    {formatDateWithoutTime(currentBatch?.boxes?.[0].logicsTariff?.etd)}
+                  </p>
+                </div>
+                <div className={styles.dateContainer}>
+                  <div className={styles.datesTitle}>
+                    ETA
+                    <Tooltip title={t(TranslationKey['ETA (arrival date)'])}>
+                      <CiCircleQuestion size={18} />
+                    </Tooltip>
+                  </div>
+
+                  <p className={styles.infoField}>
+                    {formatDateWithoutTime(currentBatch?.boxes?.[0].logicsTariff?.eta)}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -171,43 +195,20 @@ export const BatchInfoModal = observer(
                 </div>
               </div>
               <div className={styles.rowContainer}>
-                <div className={styles.datesField}>
-                  <p className={styles.subFieldLabel}>{t(TranslationKey.Dates)}</p>
-                  <div className={styles.datesWrapper}>
-                    <div className={styles.datesTitle}>
-                      CLS
-                      <Tooltip title={t(TranslationKey['CLS (batch closing date)'])}>
-                        <CiCircleQuestion size={18} />
-                      </Tooltip>
-                    </div>
-
-                    <p className={styles.infoField}>
-                      {formatDateWithoutTime(currentBatch?.boxes?.[0].logicsTariff?.cls)}
-                    </p>
-
-                    <div className={styles.datesTitle}>
-                      ETD
-                      <Tooltip title={t(TranslationKey['ETD (date of shipment)'])}>
-                        <CiCircleQuestion size={18} />
-                      </Tooltip>
-                    </div>
-
-                    <p className={styles.infoField}>
-                      {formatDateWithoutTime(currentBatch?.boxes?.[0].logicsTariff?.etd)}
-                    </p>
-
-                    <div className={styles.datesTitle}>
-                      ETA
-                      <Tooltip title={t(TranslationKey['ETA (arrival date)'])}>
-                        <CiCircleQuestion size={18} />
-                      </Tooltip>
-                    </div>
-
-                    <p className={styles.infoField}>
-                      {formatDateWithoutTime(currentBatch?.boxes?.[0].logicsTariff?.eta)}
-                    </p>
-                  </div>
-                </div>
+                <Tooltip
+                  title={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(TranslationKey.Order)}, ${t(
+                    TranslationKey['Box ID'],
+                  )}, FBA Shipment, Prep Id`}
+                >
+                  <CustomInputSearch
+                    allowClear
+                    wrapperClassName={styles.searchInput}
+                    value={nameSearchValue}
+                    size="large"
+                    placeholder="Search"
+                    onChange={e => setNameSearchValue(e.target.value)}
+                  />
+                </Tooltip>
 
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Calculated shipping cost'])}</p>
