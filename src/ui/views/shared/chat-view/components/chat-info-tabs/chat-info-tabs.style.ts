@@ -9,6 +9,8 @@ export const useStyles = makeStyles()(() => ({
     overflowY: 'scroll',
     paddingRight: '5px',
     scrollbarGutter: 'stable',
+    alignItems: 'flex-start',
+    alignContent: 'flex-start',
 
     '::-webkit-scrollbar': {
       display: 'none',
@@ -22,5 +24,20 @@ export const useStyles = makeStyles()(() => ({
         display: 'block',
       },
     },
+  },
+
+  infoWrapperColumns: {
+    flexWrap: 'wrap',
+    gap: '5px',
+    flexDirection: 'row',
+  },
+
+  spinnerContainer: {
+    width: '100%',
+    height: '50px',
+    marginTop: '5px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 }))
