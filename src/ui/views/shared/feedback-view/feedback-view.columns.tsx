@@ -62,6 +62,14 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
+      field: 'responseText',
+      headerName: t(TranslationKey.Response),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Response)} />,
+      renderCell: ({ row }: GridRowModel) => <CustomTextarea isCell readOnly value={row.responseText} />,
+      flex: 1,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+    {
       field: 'media',
       headerName: t(TranslationKey['User files']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['User files'])} />,
@@ -69,14 +77,6 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       width: 90,
       filterable: false,
       disableCustomSort: true,
-    },
-    {
-      field: 'responseText',
-      headerName: t(TranslationKey.Response),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Response)} />,
-      renderCell: ({ row }: GridRowModel) => <CustomTextarea isCell readOnly value={row.responseText} />,
-      flex: 1,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
       field: 'responseMedia',
