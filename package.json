@@ -14,7 +14,8 @@
     "generate-rest-api-service": "openapi-generator-cli generate -i ./schema.json -g typescript-axios -c ./src/services/rest-api-service/options-openapi.json -o ./src/services/rest-api-service/codegen/ --skip-validate-spec",
     "lint:fix": "eslint --fix --ext .js,.jsx .",
     "typecheck": "tsc",
-    "translations:filter": "node scripts/filter-unused-translations.js"
+    "translations:filter": "node scripts/filter-unused-translations.js",
+    "build:vercel": "yarn fetch-rest-api-schema && yarn generate-rest-api-service && yarn build"
   },
   "dependencies": {
     "@emoji-mart/data": "^1.0.6",
