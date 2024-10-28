@@ -2,6 +2,7 @@ import { Tooltip } from 'antd'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useMemo, useState } from 'react'
+import { BsDownload } from 'react-icons/bs'
 import { CiCircleQuestion } from 'react-icons/ci'
 
 import { Typography } from '@mui/material'
@@ -19,7 +20,6 @@ import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { DownloadIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-views/client-awaiting-batches-view/client-awaiting-batches-view.model'
@@ -318,7 +318,7 @@ export const BatchInfoModal = observer(
           <div className={styles.filesAndButtonWrapper}>
             <div className={styles.buttonsWrapper}>
               <Button onClick={uploadTemplateFile}>
-                <DownloadIcon />
+                <BsDownload size={16} />
                 {t(TranslationKey['Download the batch file'])}
               </Button>
 

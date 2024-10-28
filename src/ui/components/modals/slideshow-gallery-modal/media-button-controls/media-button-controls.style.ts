@@ -26,4 +26,8 @@ export const useStyles = makeStyles()(() => ({
     opacity: 0,
     borderRadius: 16,
   },
+
+  icon: {
+    height: '20px',
+  },
 }))
