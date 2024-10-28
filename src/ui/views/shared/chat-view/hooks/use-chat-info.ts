@@ -6,12 +6,6 @@ import { chatModel } from '@models/chat-model-new/chat-model'
 import { TabValue } from '../types/chat-into.type'
 
 export const useChatInfo = () => {
-  const [currentTab, setCurrentTab] = useState<TabValue>(TabValue.GROUP_CHAT_USERS)
-
-  const onClickTab = useCallback((event: RadioChangeEvent) => {
-    setCurrentTab(event?.target?.value)
-  }, [])
-
   const onOpenEditChat = useCallback(() => {
     chatModel.onTriggerOpenModal('showCreateNewChatModal', true)
   }, [])
@@ -20,11 +14,11 @@ export const useChatInfo = () => {
     chatModel.onTriggerOpenModal('showChatInfo', false)
   }, [])
 
-  return {
-    currentTab,
-    onClickTab,
+  const onClickDeleteUserForGroupChat = useCallback(() => {}, [])
 
+  return {
     onOpenEditChat,
     onClickCloseChatInfo,
+    onClickDeleteUserForGroupChat,
   }
 }

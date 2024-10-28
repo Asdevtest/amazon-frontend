@@ -7,6 +7,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: '15px',
     height: '100%',
     minWidth: '320px',
+    maxWidth: '320px',
     borderLeft: `1px solid ${theme.palette.background.second}`,
     padding: '10px',
   },

@@ -1,18 +1,10 @@
-import { FC, memo, useMemo } from 'react'
+import { FC, memo } from 'react'
 
-import { ChatsType } from '@constants/keys/chats'
-import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Chat } from '@models/chat-model-new/types/chat.type'
 
-import { getChatOponent } from '@utils/chat/get-chat-oponent'
-import { checkOnline } from '@utils/checks/check-online/check-online'
-import { getDistanceBetweenDatesSeconds } from '@utils/checks/get-distance-between-dates-seconds/get-distance-between-dates-seconds'
-import { formatDateTimeHourAndMinutesLocal, formatDateWithoutTimeLocal } from '@utils/date-time'
 import { t } from '@utils/translations'
-
-import { IFullUser } from '@typings/shared/full-user'
 
 import { useStyles } from './chat-info-user.style'
 
