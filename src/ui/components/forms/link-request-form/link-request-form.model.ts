@@ -56,11 +56,14 @@ export class LinkRequestModel extends DataGridTableModel {
   }
 
   async onClickCreateRequest() {
+    const productId = this.idea ? this.idea?.parentProduct?._id : this.product?._id
+    const asin = this.idea ? this.idea?.parentProduct?.asin : this.product?.asin
+
     window
       ?.open(
-        `/${UserRoleCodeMapForRoutes[this.userInfo?.role]}/freelance/my-requests/create-request?parentProduct=${
-          this.product?._id
-        }&asin=${this.product?.asin}`,
+        `/${
+          UserRoleCodeMapForRoutes[this.userInfo?.role]
+        }/freelance/my-requests/create-request?parentProduct=${productId}&asin=${asin}`,
         '_blank',
       )
       ?.focus()
