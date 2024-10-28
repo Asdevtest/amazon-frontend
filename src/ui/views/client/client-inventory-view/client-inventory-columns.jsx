@@ -12,7 +12,6 @@ import {
   CommentOfSbCell,
   FourMonthesStockCell,
   InStockCell,
-  LinkDataAndAmountCountCell,
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
@@ -24,7 +23,7 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
-import { formatCamelCaseString, toFixed } from '@utils/text'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
@@ -136,11 +135,14 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey.Inbound),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
       renderCell: params => (
-        <LinkDataAndAmountCountCell
-          data={params.value}
-          onClickLink={e => {
-            e.stopPropagation()
-            otherHandlers.onOpenProductDataModal(params.row, true)
+        <Text
+          isCell
+          text={params.value}
+          link={Number(params.value) > 0}
+          onClick={e => {
+            if (Number(params.value) > 0) {
+              otherHandlers.onOpenProductDataModal(params.row, true)
+            }
           }}
         />
       ),
@@ -153,12 +155,11 @@ export const clientInventoryColumns = ({
       headerName: 'Order',
       renderHeader: () => <MultilineTextHeaderCell text={'Order'} />,
       renderCell: params => (
-        <LinkDataAndAmountCountCell
-          data={params.value}
-          onClickLink={e => {
-            e.stopPropagation()
-            otherHandlers.onClickOrderCell(params.row?._id, 'atProcess')
-          }}
+        <Text
+          isCell
+          link
+          text={params.value}
+          onClick={() => otherHandlers.onClickOrderCell(params.row?._id, 'atProcess')}
         />
       ),
       width: 85,
@@ -170,12 +171,11 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey['Pending order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Pending order'])} />,
       renderCell: params => (
-        <LinkDataAndAmountCountCell
-          data={params.value}
-          onClickLink={e => {
-            e.stopPropagation()
-            otherHandlers.onClickOrderCell(params.row?._id, 'pending')
-          }}
+        <Text
+          isCell
+          link
+          text={params.value}
+          onClick={() => otherHandlers.onClickOrderCell(params.row?._id, 'pending')}
         />
       ),
       width: 85,
@@ -205,11 +205,12 @@ export const clientInventoryColumns = ({
       headerName: 'In Transfer',
       renderHeader: () => <MultilineTextHeaderCell text="In Transfer" />,
       renderCell: params => (
-        <LinkDataAndAmountCountCell
-          data={params.value}
-          onClickLink={e => {
+        <Text
+          isCell
+          link={Number(params.value) > 0}
+          text={params.value}
+          onClick={e => {
             if (Number(params.value) > 0) {
-              e.stopPropagation()
               otherHandlers.onOpenProductDataModal(params.row, false)
             }
           }}

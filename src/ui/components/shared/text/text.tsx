@@ -1,6 +1,6 @@
 import { Popconfirm } from 'antd'
-import { TextAreaProps } from 'antd/es/input'
-import Paragraph from 'antd/es/typography/Paragraph'
+import Link from 'antd/es/typography/Link'
+import Paragraph, { ParagraphProps } from 'antd/es/typography/Paragraph'
 import { ChangeEvent, FC, MouseEvent, ReactNode, memo, useEffect, useState } from 'react'
 import { MdOutlineEdit } from 'react-icons/md'
 
@@ -14,26 +14,15 @@ import { useHover } from '@hooks/use-hover'
 
 import { useStyles } from './text.style'
 
-/**
- * The emphasis is on the "Textarea" component, additional props for the "Text" component must be added.
- *
- * @returns {HTMLElement} Returns a custom Text component.
- */
-
-interface TextCellProps extends TextAreaProps {
+interface TextCellProps extends ParagraphProps {
   text: string
   isCell?: boolean
   icon?: ReactNode
-  color?: string
-  center?: boolean
-  copyable?: boolean
   editMode?: boolean
-  textRows?: number
-  className?: string
-  textStyle?: React.CSSProperties
-  type?: 'secondary' | 'success' | 'warning' | 'danger'
-  error?: boolean
-  bold?: boolean
+  rows?: number
+  link?: boolean
+  maxTextareaLength?: number
+  url?: string
   onClickSubmit?: (id: string, comment?: string) => void
 }
 
@@ -42,17 +31,15 @@ export const Text: FC<TextCellProps> = memo(props => {
     text,
     isCell,
     icon = null,
-    color,
-    center,
     copyable = true,
-    rows = 3, // rows for Textarea compoent
     editMode,
-    textRows = 3, // rows for Text component
-    className,
-    textStyle,
-    type,
-    error,
-    bold,
+    rows = 3,
+    style,
+    link,
+    color,
+    maxTextareaLength = 255,
+    url,
+    onClick,
     onClickSubmit,
     ...restProps
   } = props
@@ -88,26 +75,39 @@ export const Text: FC<TextCellProps> = memo(props => {
   const paragraph = (
     <div className={styles.container}>
       {icon}
-      <Paragraph
-        type={type}
-        copyable={isCopyable}
-        ellipsis={{
-          tooltip: { destroyTooltipOnHide: true, arrow: false },
-          rows: textRows,
-          onExpand: handleExpand,
-        }}
-        style={{
-          margin: 0,
-          color,
-          textAlign: center ? 'center' : 'left',
-          fontWeight: bold ? 'bold' : 'normal',
-          ...textStyle,
-        }}
-        className={className}
-      >
-        {text}
-      </Paragraph>
-      {editMode ? <MdOutlineEdit className={styles.icon} /> : null}
+      {link ? (
+        <Link
+          {...restProps}
+          ellipsis
+          href={url}
+          target="_blank"
+          onClick={e => {
+            e.stopPropagation()
+            onClick?.(e)
+          }}
+        >
+          {text}
+        </Link>
+      ) : (
+        <Paragraph
+          {...restProps}
+          copyable={isCopyable}
+          ellipsis={{
+            rows,
+            tooltip: { destroyTooltipOnHide: true, arrow: false },
+            onExpand: handleExpand,
+          }}
+          style={{
+            color,
+            margin: 0,
+            ...style,
+          }}
+          onClick={onClick}
+        >
+          {text}
+        </Paragraph>
+      )}
+      {editMode && isCell ? <MdOutlineEdit className={styles.icon} /> : null}
     </div>
   )
 
@@ -119,7 +119,14 @@ export const Text: FC<TextCellProps> = memo(props => {
           icon={null}
           placement="bottomLeft"
           description={
-            <CustomTextarea {...restProps} allowClear rows={rows} value={value} onChange={handleChangeValue} />
+            <CustomTextarea
+              {...restProps}
+              allowClear
+              rows={rows}
+              value={value}
+              maxLength={maxTextareaLength}
+              onChange={handleChangeValue}
+            />
           }
           okText={t(TranslationKey.Save)}
           cancelText={t(TranslationKey.Cancel)}

@@ -17,7 +17,6 @@ import {
   NormDateCell,
   ProductsCell,
   RedFlagsCell,
-  StringListCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -99,7 +98,7 @@ export const clientBoxesViewColumns = (
       headerName: t(TranslationKey['№ Order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
-      renderCell: params => <Text text={params.value} textRows={3} />,
+      renderCell: params => <Text text={params.value} />,
       valueGetter: ({ row }) => row.items?.map(item => item.order?.xid).join(', '),
       width: 160,
 

@@ -35,12 +35,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
   const hoverSku = useHover()
 
   const renderTextCell = (text: string, rows: number) => (
-    <Text
-      copyable={false}
-      textRows={rows}
-      text={text}
-      className={cx(styles.text, { [styles.fixWidth]: isErrorText })}
-    />
+    <Text copyable={false} rows={rows} text={text} className={cx(styles.text, { [styles.fixWidth]: isErrorText })} />
   )
 
   const notAsinAndSku = !asin && !sku
