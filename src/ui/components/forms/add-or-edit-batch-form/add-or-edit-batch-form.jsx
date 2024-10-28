@@ -87,7 +87,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
 
   useEffect(() => {
     if (batchToEdit) {
-      setfilesToAdd(batchToEdit?.attachedDocuments)
+      setfilesToAdd(batchToEdit?.attachedDocuments || [])
     }
   }, [batchToEdit])
 

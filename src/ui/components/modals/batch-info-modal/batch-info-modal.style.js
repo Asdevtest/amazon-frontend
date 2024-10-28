@@ -39,10 +39,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 30,
   },
 
-  datesField: {
-    marginRight: '10px',
-  },
-
   datesWrapper: {
     display: 'flex',
     alignItems: 'center',
@@ -58,6 +54,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '4px',
+    marginBottom: '4px',
   },
 
   infoWrapper: {
@@ -92,7 +89,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  searchWrapper: {
+  userDataWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: '20px',
@@ -112,7 +109,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: '300px',
+    width: '267px',
   },
 
   fieldLabel: {
@@ -126,8 +123,9 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.second,
     fontWeight: 400,
     fontSize: 12,
-    lineHeight: '16px',
+    lineHeight: '14px',
     marginBottom: '5px',
+    height: '24px',
   },
 
   infoField: {
@@ -138,6 +136,7 @@ export const useStyles = makeStyles()(theme => ({
 
   shippinCostContainer: {
     width: '130px !important',
+    height: '51px',
     margin: '0 !important',
   },
 
