@@ -1,4 +1,3 @@
-import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
@@ -55,22 +54,14 @@ export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
       <div className={styles.buttons}>
         <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
 
-        {viewModel.isAlreadyProfile ? (
-          <Popconfirm
-            title={t(TranslationKey['This profile has already been used! Do you want to continue?'])}
-            okText={t(TranslationKey.Yes)}
-            cancelText={t(TranslationKey.No)}
-            onConfirm={handleSubmit}
-          >
-            <CustomButton disabled={!requestId && !viewModel.value} type="primary">
-              {t(TranslationKey.Approve)}
-            </CustomButton>
-          </Popconfirm>
-        ) : (
-          <CustomButton disabled={!requestId && !viewModel.value} type="primary" onClick={handleSubmit}>
-            {t(TranslationKey.Approve)}
-          </CustomButton>
-        )}
+        <CustomButton
+          disabled={!requestId && !viewModel.value}
+          type="primary"
+          confirmText={viewModel.isAlreadyProfile ? 'This profile has already been used! Do you want to continue?' : ''}
+          onClick={handleSubmit}
+        >
+          {t(TranslationKey.Approve)}
+        </CustomButton>
       </div>
     </div>
   )
