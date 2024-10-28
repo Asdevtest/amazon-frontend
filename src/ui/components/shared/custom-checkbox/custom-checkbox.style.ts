@@ -1,14 +1,26 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  checkboxContainer: {
+  root: {
+    width: '100%',
     display: 'flex',
-    gap: '8px',
-    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'start',
+    gap: 5,
   },
 
   cell: {
     padding: '10px 0',
+  },
+
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
+  rowRight: {
+    flexDirection: 'row-reverse',
   },
 
   checkbox: {
@@ -19,15 +31,5 @@ export const useStyles = makeStyles()(theme => ({
       width: 18,
       height: 18,
     },
-  },
-  labelWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '5px',
-  },
-
-  tooltipIcon: {
-    color: theme.palette.primary.main,
-    height: '20px',
   },
 }))

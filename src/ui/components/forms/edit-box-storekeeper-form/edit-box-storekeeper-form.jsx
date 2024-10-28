@@ -158,9 +158,11 @@ export const EditBoxStorekeeperForm = memo(
     } = useTariffVariation(boxFields.destinationId, setBoxFields)
 
     const setFormField = fieldName => e => {
+      const { type, value, checked } = e.target
       const newFormFields = { ...boxFields }
-      const currentValue = e.target.value
-      newFormFields[fieldName] = currentValue
+
+      newFormFields[fieldName] = type === 'checkbox' ? checked : value
+
       setBoxFields(newFormFields)
     }
 
@@ -421,38 +423,34 @@ export const EditBoxStorekeeperForm = memo(
 
                           <div>
                             <CustomCheckbox
+                              isRow
                               disabled={isBarCodeMissing(item)}
-                              label={t(TranslationKey['The barcode is glued by the supplier'])}
+                              label="The barcode is glued by the supplier"
                               labelClassName={styles.standartLabel}
-                              labelPlacement="left"
                               wrapperClassName={styles.checkboxContainer}
-                              tooltipInfoContent={t(
-                                TranslationKey['The supplier has glued the barcode before shipment'],
-                              )}
-                              value={boxFields.isBarCodeAlreadyAttachedByTheSupplier}
+                              tooltipLabel="The supplier has glued the barcode before shipment"
+                              checked={item.isBarCodeAlreadyAttachedByTheSupplier}
                               onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
                             />
 
                             <CustomCheckbox
+                              isRow
                               disabled={isBarCodeMissing(item)}
-                              label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
+                              label="The barcode is glued by the Storekeeper"
                               labelClassName={styles.standartLabel}
-                              labelPlacement="left"
                               wrapperClassName={styles.checkboxContainer}
-                              tooltipInfoContent={t(
-                                TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
-                              )}
-                              value={boxFields.isBarCodeAttachedByTheStorekeeper}
+                              tooltipLabel="The barcode was glued on when the box was accepted at the prep center"
+                              checked={item.isBarCodeAttachedByTheStorekeeper}
                               onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
                             />
 
                             <CustomCheckbox
+                              isRow
                               disabled={isTransparencyFileMissing(item)}
-                              label={t(TranslationKey['Transparency Codes glued by the supplier'])}
+                              label="Transparency Codes glued by the supplier"
                               labelClassName={styles.standartLabel}
-                              labelPlacement="left"
                               wrapperClassName={styles.checkboxContainer}
-                              value={boxFields.isTransparencyFileAlreadyAttachedByTheSupplier}
+                              checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
                               onChange={onClickGluedCheckbox(
                                 'isTransparencyFileAlreadyAttachedByTheSupplier',
                                 item._id,
@@ -460,12 +458,12 @@ export const EditBoxStorekeeperForm = memo(
                             />
 
                             <CustomCheckbox
+                              isRow
                               disabled={isTransparencyFileMissing(item)}
-                              label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
+                              label="Transparency Codes are glued by storekeeper"
                               labelClassName={styles.standartLabel}
-                              labelPlacement="left"
                               wrapperClassName={styles.checkboxContainer}
-                              value={boxFields.isTransparencyFileAttachedByTheStorekeeper}
+                              checked={item.isTransparencyFileAttachedByTheStorekeeper}
                               onChange={onClickGluedCheckbox('isTransparencyFileAttachedByTheStorekeeper', item._id)}
                             />
                           </div>
@@ -617,12 +615,15 @@ export const EditBoxStorekeeperForm = memo(
                       value={boxFields.fbaShipment}
                       onChange={setFormField('fbaShipment')}
                     />
+
                     <CustomCheckbox
+                      isRow
+                      rowRight
                       disabled={isShippingLabelMissing}
-                      label={t(TranslationKey['Shipping label was glued to the warehouse'])}
+                      label="Shipping label was glued to the warehouse"
                       labelClassName={styles.standartLabel}
                       wrapperClassName={styles.checkboxWrapper}
-                      value={boxFields.isShippingLabelAttachedByStorekeeper}
+                      checked={boxFields.isShippingLabelAttachedByStorekeeper}
                       onChange={setFormField('isShippingLabelAttachedByStorekeeper')}
                     />
                   </div>
