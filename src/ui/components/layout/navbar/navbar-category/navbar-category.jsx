@@ -36,6 +36,8 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
     switch (route) {
       case '/buyer/pending-orders':
         return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo.pendingOrdersByDeadline}</div>
+      case '/buyer/ideas':
+        return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo.ideas?.supplierSearch}</div>
       case '/client/my-orders/orders':
         return (
           <div className={cx(styles.bigBadge, styles.redBadge)}>

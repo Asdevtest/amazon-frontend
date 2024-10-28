@@ -3,6 +3,8 @@ import { lazy } from 'react'
 import { UserRole } from '@constants/keys/user-roles'
 import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 
+import { BuyerIdeas } from '@views/buyer/buyer-ideas'
+
 import { t } from '@utils/translations'
 
 import { TaskStatus } from '@typings/enums/task/task-status'
@@ -700,6 +702,22 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
       title: () => t(TranslationKey['My products']),
+    },
+  },
+
+  {
+    routePath: '/buyer/ideas',
+    component: BuyerIdeas,
+    exact: true,
+    permission: [UserRole.BUYER],
+    permissionKey: permissionsKeys.buyer.SHOW_PRODUCTS_BUYER,
+
+    crumbNameKey: TranslationKey.Ideas,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Ideas),
     },
   },
 
