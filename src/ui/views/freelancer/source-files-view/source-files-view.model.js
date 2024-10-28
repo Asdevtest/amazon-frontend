@@ -4,8 +4,6 @@ import { RequestProposalModel } from '@models/request-proposal'
 
 import { sourceFilesColumns } from '@components/table/table-columns/freelancer/source-files-columns/source-files-columns'
 
-import { SourceFilesDataConverter } from '@utils/data-grid-data-converters'
-
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class SourceFilesViewModel {
@@ -100,7 +98,7 @@ export class SourceFilesViewModel {
       const result = await RequestProposalModel.getFreelanceSourceFiles()
 
       runInAction(() => {
-        this.sourceFiles = SourceFilesDataConverter(result)
+        this.sourceFiles = result
         this.rowCount = this.sourceFiles.length
       })
 

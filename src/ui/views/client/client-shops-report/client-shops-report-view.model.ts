@@ -10,7 +10,6 @@ import { filterModelInitialValue, paginationModelInitialValue } from '@models/da
 import { SellerBoardModel } from '@models/seller-board-model'
 import { ShopModel } from '@models/shop-model'
 
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -187,7 +186,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
       const result = await ClientModel.getProductPermissionsData({ filters })
 
       runInAction(() => {
-        this.inventoryProducts = addIdDataConverter(result.rows)
+        this.inventoryProducts = result.rows
       })
 
       if (!this.inventoryProducts.length && isRecCall) {
