@@ -4,7 +4,6 @@ import { MdNavigateNext } from 'react-icons/md'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Typography from '@mui/material/Typography'
 
 import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'

@@ -3,8 +3,6 @@ import { useEffect, useRef } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
 
-import { Typography } from '@mui/material'
-
 import { tableSortMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 

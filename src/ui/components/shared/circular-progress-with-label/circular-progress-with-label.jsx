@@ -1,7 +1,6 @@
 import { memo } from 'react'
 
 import CircularProgress from '@mui/material/CircularProgress'
-import Typography from '@mui/material/Typography'
 
 import { useStyles } from './circular-progress-with-label.style'
 

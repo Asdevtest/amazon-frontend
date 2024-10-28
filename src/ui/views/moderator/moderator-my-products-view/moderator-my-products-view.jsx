@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { withStyles } from 'tss-react/mui'
 
-import { Typography } from '@mui/material'
-
 import { styles } from './moderator-my-products-view.style'
 
 export const ModeratorMyProductsViewRaw = props => {
@@ -12,7 +10,7 @@ export const ModeratorMyProductsViewRaw = props => {
   return (
     <>
       <div>
-        <Typography className={styles.inProcess}>{'В разработке...'}</Typography>
+        <p className={styles.inProcess}>{'В разработке...'}</p>
         {/* <CustomDataGrid
                 getRowClassName={getRowClassName}
                 sortModel={sortModel}

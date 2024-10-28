@@ -1,6 +1,6 @@
 import { Avatar } from 'antd'
 
-import { Grid, Rating, Typography } from '@mui/material'
+import { Grid, Rating } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

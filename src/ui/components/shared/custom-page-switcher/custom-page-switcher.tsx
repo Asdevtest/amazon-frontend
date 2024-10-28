@@ -4,7 +4,6 @@ import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md'
 
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
-import Typography from '@mui/material/Typography'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
