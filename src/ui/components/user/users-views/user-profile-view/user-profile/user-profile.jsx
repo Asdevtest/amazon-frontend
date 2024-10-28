@@ -5,10 +5,10 @@ import { Rating } from '@mui/material'
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Reviews } from '@components/forms/reviews-form'
 import { Button } from '@components/shared/button'
 import { CustomAvatar } from '@components/shared/custom-avatar'
 import { PurchaseHistory } from '@components/user/users-views/user-profile-view/purchase-history'
-import { Reviews } from '@components/user/users-views/user-profile-view/reviews'
 
 import { checkIsAdmin } from '@utils/checks'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -108,6 +108,8 @@ export const UserProfile = memo(props => {
       </div>
 
       <div className={styles.rightSideWrapper}>
+        <p className={styles.title}>{t(TranslationKey.Reviews)}</p>
+
         <Reviews reviews={reviews} />
 
         {isAnotherUser && (

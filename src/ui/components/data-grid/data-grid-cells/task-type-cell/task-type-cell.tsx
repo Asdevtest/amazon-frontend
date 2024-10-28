@@ -3,16 +3,15 @@ import { FC, memo } from 'react'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { t } from '@utils/translations'
+import { Text } from '@components/shared/text'
 
-import { useStyles } from './task-type-cell.style'
+import { t } from '@utils/translations'
 
 interface TaskTypeCellProps {
   operationType: string
 }
 
 export const TaskTypeCell: FC<TaskTypeCellProps> = memo(({ operationType }) => {
-  const { classes: styles } = useStyles()
   const renderTaskDescription = (type: string) => {
     switch (type) {
       case TaskOperationType.MERGE:
@@ -25,12 +24,10 @@ export const TaskTypeCell: FC<TaskTypeCellProps> = memo(({ operationType }) => {
         return t(TranslationKey.Edit)
       case TaskOperationType.EDIT_BY_STOREKEEPER:
         return t(TranslationKey['Storekeeper edit'])
+      default:
+        return t(TranslationKey.Missing)
     }
   }
 
-  return (
-    <div className={styles.taskDescriptionScrollWrapper}>
-      <p className={styles.operationTypeText}>{renderTaskDescription(operationType)}</p>
-    </div>
-  )
+  return <Text isCell text={renderTaskDescription(operationType)} />
 })

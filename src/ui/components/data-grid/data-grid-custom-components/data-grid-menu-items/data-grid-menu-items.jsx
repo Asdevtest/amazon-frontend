@@ -348,6 +348,11 @@ export const OrderStatusMenuItem = memo(
         label: t(TranslationKey.Completed),
         checked: isCheckedStatusByFilter.COMPLETED,
       },
+      {
+        name: chosenStatusesByFilter.PENDING,
+        label: t(TranslationKey.Pending),
+        checked: isCheckedStatusByFilter.PENDING,
+      },
     ]
 
     return (
@@ -1397,13 +1402,13 @@ export const OrderOrItemMenuItem = memo(
 
       onClickAccept,
     }) => {
-      const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'id')
+      const [currentOption, setCurrentOption] = useState(data.item.currentFilterData.length ? 'item' : 'xid')
 
       useEffect(() => {
         onClickFilterBtn(currentOption, table)
 
         if (currentOption === 'item') {
-          onChangeFullFieldMenuItem([], 'id')
+          onChangeFullFieldMenuItem([], 'xid')
         } else {
           onChangeFullFieldMenuItem([], 'item')
         }
@@ -1461,7 +1466,7 @@ export const OrderOrItemMenuItem = memo(
                 <FormControlLabel
                   title={t(TranslationKey['№ Order'])}
                   className={styles.radioOption}
-                  value="id"
+                  value="xid"
                   control={<Radio className={styles.radioControl} />}
                   label={t(TranslationKey['№ Order'])}
                 />

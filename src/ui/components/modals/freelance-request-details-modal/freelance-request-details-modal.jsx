@@ -57,7 +57,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
         <div className={styles.header}>
           <div className={styles.headerDetails}>
             <p>
-              {t(TranslationKey.ID)}: {request?.humanFriendlyId}
+              {t(TranslationKey.ID)}: {request?.xid}
             </p>
             <p className={cx(styles.textBold, styles.headerTitle)}>{request?.title}</p>
           </div>

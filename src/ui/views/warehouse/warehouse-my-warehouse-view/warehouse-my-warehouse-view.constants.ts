@@ -25,7 +25,6 @@ export const updateBoxWhiteList = [
 export const updateManyBoxesWhiteList = [
   '_id',
   'logicsTariffId',
-  'shippingLabel',
   'fbaShipment',
   'fbaNumber',
   'destinationId',
@@ -50,25 +49,6 @@ export const sharedFieldsWhiteList = [
   'isBarCodeAttachedByTheStorekeeper',
 ]
 
-export const filtersFields = [
-  'humanFriendlyId',
-  'orderIdsItems',
-  'orders',
-  'amount',
-  'warehouse',
-  'client',
-  'batchHumanFriendlyId',
-  'dimansions',
-  'action',
-  'prepId',
-  'id',
-  'item',
-  'asin',
-  'skuByClient',
-  'amazonTitle',
-  'destinationId',
-  'logicsTariffId',
-  'redFlags',
-  'storage',
-  'clientComment',
-]
+export const additionalFilterFields = ['orderXid', 'item', 'skuByClient', 'amazonTitle', 'destination', 'logicsTariff']
+
+export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'item', 'orderXid', 'xid', 'prepId']

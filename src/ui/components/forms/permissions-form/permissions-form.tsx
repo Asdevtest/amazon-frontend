@@ -40,7 +40,6 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
         sku={option.sku}
         image={option.image}
         subOption={option.subOption}
-        onFocus={() => viewModel.onChangeSearchFocus(true)}
       />
     )
   }
@@ -48,7 +47,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        {viewModel.isFreelancer ? (
+        {viewModel.hasExpiredRoles ? (
           <p className={styles.title}>{t(TranslationKey['Assign permissions'])}</p>
         ) : (
           <CustomRadioButton
@@ -61,12 +60,13 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           />
         )}
         <UsersSelect
-          disabled={!!viewModel.subUser}
+          disabled={!!viewModel.subUser || viewModel.mainLoading}
           size="large"
           suffixIcon={viewModel.subUser && null}
           mode={viewModel.subUser ? undefined : 'multiple'}
           maxTagCount="responsive"
           defaultUser={viewModel.subUser}
+          placeholder={props.subUser ? 'Select user' : 'Select at least 2 users'}
           onChange={viewModel.onChangeUsersData}
         />
       </div>
@@ -82,15 +82,15 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
               size="large"
               maxTagCount="responsive"
               disabled={viewModel.mainLoading}
-              showSearch={{ filter: viewModel.searchfilter }}
+              showSearch={{ filter: viewModel.searchFilter }}
               options={viewModel.mainOptions}
               rootClassName={styles.cascader}
               popupClassName={styles.cascaderPopup}
               optionRender={optionRender}
               value={viewModel.currentMainOptions}
-              onFocus={() => viewModel.onChangeSearchFocus(true)}
-              onBlur={() => viewModel.onChangeSearchFocus(false)}
               onInputKeyDown={viewModel.onInputKeyDown}
+              onSearch={viewModel.onSeacrh}
+              onBlur={() => viewModel.onChangeSearchFocus(false)}
               // @ts-ignore
               onChange={viewModel.mainChangeMethod}
             />
@@ -107,12 +107,12 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
             <Skeleton.Button active block size="large" />
           ) : (
             <CustomSelect
-              allowClear
               isRow
               label="Available request types"
               mode="multiple"
               size="large"
               maxTagCount="responsive"
+              optionFilterProp="label"
               defaultValue={viewModel.selectedSpecs}
               options={viewModel.specsOptions}
               wrapperClassName={styles.specCascader}
@@ -121,12 +121,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           )
         ) : null}
 
-        <CustomButton
-          type="primary"
-          size="large"
-          disabled={viewModel.mainLoading || !viewModel.userIds.length}
-          onClick={viewModel.onEditSubUser}
-        >
+        <CustomButton type="primary" size="large" disabled={viewModel.disableSubmit} onClick={viewModel.onEditSubUser}>
           {t(TranslationKey.Save)}
         </CustomButton>
         <CustomButton size="large" onClick={props.onCloseModal}>

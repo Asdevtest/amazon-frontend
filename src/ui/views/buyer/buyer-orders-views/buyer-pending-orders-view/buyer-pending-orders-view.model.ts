@@ -33,14 +33,11 @@ import { pendingOrdersColumns } from './pending-orders.columns'
 
 export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
   selectedOrder: IOrder | null = null
-
   showOrderModal = false
   showConfirmModal = false
   showProgress = false
-
   paymentMethods: IPaymentMethod[] = []
   hsCodeData: IHSCode | null = null
-
   progressValue = 0
   readyImages = []
 
@@ -186,7 +183,6 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       ) {
         await OrderModel.orderReadyForBoyout(order._id)
         await OrderModel.changeOrderComments(order._id, { buyerComment: orderFields.buyerComment })
-        await OrderModel.orderReadyForBoyout(order._id)
       } else {
         await this.onSaveOrder(order, orderFieldsToSave)
       }

@@ -5,39 +5,48 @@ import { paginationModelInitialValue } from '@models/data-grid-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 
 import { getParsingReportsModelSettings } from './helpers/get-parsing-reports-model-settings'
-import { observerConfig } from './observer-config'
-import { ParsingReportsType } from './parsing-reports.type'
+import { parsingReportsModelConfig } from './parsing-reports.config'
+import { ParsingReportsModelParams, ParsingReportsType } from './parsing-reports.type'
 
 export class ParsingReportsModel extends DataGridFilterTableModel {
   table: ParsingReportsType = ParsingReportsType.BUSINESS_REPORTS
 
-  constructor() {
-    const { columnsModel, filtersFields, mainMethodURL, sortModel } = getParsingReportsModelSettings(
-      ParsingReportsType.BUSINESS_REPORTS,
-    )
+  constructor({ table = ParsingReportsType.BUSINESS_REPORTS, productId }: ParsingReportsModelParams) {
+    const { columnsModel, filtersFields, mainMethodURL, sortModel, fieldsForSearch } =
+      getParsingReportsModelSettings(table)
 
     const defaultGetCurrentDataOptions = () => ({
       table: this.table,
     })
+
+    const defaultFilterParams = () => {
+      return {
+        product: { $eq: productId },
+      }
+    }
 
     super({
       getMainDataMethod: SellerBoardModel.getIntegrationsReports,
       columnsModel,
       filtersFields,
       mainMethodURL,
-      fieldsForSearch: [],
-      tableKey: ParsingReportsType.BUSINESS_REPORTS,
+      fieldsForSearch,
+      tableKey: table,
       defaultGetCurrentDataOptions,
       defaultSortModel: sortModel,
       defaultColumnVisibilityModel: { client: false },
+      defaultFilterParams,
     })
-    makeObservable(this, observerConfig)
+    makeObservable(this, parsingReportsModelConfig)
+
+    this.table = table
 
     this.getTableSettingsPreset()
   }
 
   onChangeActiveTable(value: ParsingReportsType) {
-    const { columnsModel, filtersFields, mainMethodURL, sortModel } = getParsingReportsModelSettings(value)
+    const { columnsModel, filtersFields, mainMethodURL, sortModel, fieldsForSearch } =
+      getParsingReportsModelSettings(value)
 
     this.table = value
     this.tableKey = value
@@ -45,12 +54,11 @@ export class ParsingReportsModel extends DataGridFilterTableModel {
     this.defaultColumnsModel = columnsModel
     this.filtersFields = filtersFields
     this.mainMethodURL = mainMethodURL
+    this.fieldsForSearch = fieldsForSearch
     this.setColumnMenuSettings(filtersFields)
-
     this.sortModel = sortModel
     this.paginationModel = paginationModelInitialValue
     this.setDefaultPinnedColumns()
-
     this.getTableSettingsPreset()
   }
 }

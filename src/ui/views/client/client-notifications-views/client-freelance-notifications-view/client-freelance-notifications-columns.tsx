@@ -52,10 +52,10 @@ export const clientFreelanceNotificationsColumns = (handlers: IRowHandlers) => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: `ID ${t(TranslationKey.Requests)}`,
       renderHeader: () => <MultilineTextHeaderCell text={`ID ${t(TranslationKey.Requests)}`} />,
-      renderCell: ({ row }) => <Text isCell text={row?.request?.humanFriendlyId} />,
+      renderCell: ({ row }) => <Text isCell text={row?.request?.xid} />,
       disableCustomSort: true,
     },
 

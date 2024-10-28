@@ -25,6 +25,7 @@ import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -39,7 +40,6 @@ import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { clearEverythingExceptNumbers, timeToDeadlineInHoursAndMins, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './edit-order-modal.style'
@@ -430,7 +430,7 @@ export const EditOrderModal = memo(
           <div>
             <div className={styles.idItemWrapper}>
               <p className={styles.modalText}>
-                {`${t(TranslationKey.Order)} № ${order.id} / `} <span className={styles.modalSpanText}>{'item'}</span>
+                {`${t(TranslationKey.Order)} № ${order.xid} / `} <span className={styles.modalSpanText}>{'item'}</span>
               </p>
 
               <Input
@@ -677,10 +677,10 @@ export const EditOrderModal = memo(
         </div>
 
         <div className={styles.buttonsBox}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            size="large"
+            type="primary"
             disabled={disableSubmit}
-            tooltipInfoContent={t(TranslationKey['Save changes to the order'])}
             onClick={() => {
               if (boxesForCreation.length > 0) {
                 setConfirmModalMode(confirmModalModes.SUBMIT)
@@ -691,14 +691,10 @@ export const EditOrderModal = memo(
             }}
           >
             {t(TranslationKey.Save)}
-          </Button>
-          <Button
-            styleType={ButtonStyle.CASUAL}
-            tooltipInfoContent={t(TranslationKey['Close the "Edit order" window without saving'])}
-            onClick={() => onTriggerOpenModal('showOrderModal')}
-          >
+          </CustomButton>
+          <CustomButton size="large" onClick={() => onTriggerOpenModal('showOrderModal')}>
             {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
         </div>
 
         <div className={styles.addBoxButtonAndCommentsWrapper}>

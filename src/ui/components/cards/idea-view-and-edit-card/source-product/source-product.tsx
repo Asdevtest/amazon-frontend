@@ -35,7 +35,7 @@ export const SourceProduct: FC<SourceProductProps> = props => {
           className={styles.sourceProductImg}
           src={getAmazonImageUrl(img)}
           alt={''}
-          onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
+          onError={e => ((e.target as HTMLImageElement).src = '/assets/img/defaultImage.png')}
         />
 
         <div className={styles.attributesProductWrapper}>

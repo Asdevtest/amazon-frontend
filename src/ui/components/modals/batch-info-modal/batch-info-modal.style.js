@@ -2,24 +2,21 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   form: {
-    height: '65vh',
+    height: '82vh',
     display: 'flex',
     flexDirection: 'column',
+    width: '1280px',
     gap: 20,
   },
 
   boxCounterWrapper: {
     display: 'flex',
     alignItems: 'center',
+    gap: '3px',
   },
 
   boxCounterText: {
-    color: theme.palette.text.second,
-  },
-
-  boxCounterCount: {
-    fontWeight: 600,
-    marginLeft: 5,
+    color: theme.palette.primary.main,
   },
 
   modalTitle: {
@@ -35,10 +32,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 40,
   },
 
-  amount: {
-    marginLeft: '5px',
-  },
-
   headerSubWrapper: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -48,31 +41,65 @@ export const useStyles = makeStyles()(theme => ({
 
   datesWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     gap: '10px',
+  },
+
+  datesTitle: {
+    color: theme.palette.primary.main,
+    cursor: 'pointer',
+    fontSize: 14,
+    lineHeight: '19px',
+    borderRadius: '8px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px',
+    marginBottom: '4px',
   },
 
   infoWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  fieldsWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    gap: '20px',
+  },
+
+  rowContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
+  },
+
+  fieldWrapper: {
+    width: '130px',
+  },
+
+  tariffWrapper: {
+    width: '268px',
   },
 
   titleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
-  storekeeperField: {
-    maxWidth: '270px',
-    margin: '0 !important',
-    display: 'flex !important',
-    justifyContent: 'flex-end !important',
+  userDataWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
   },
+
   userLinkWrapper: {
     marginLeft: '20px',
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    gap: '10px',
   },
 
   files: {
@@ -82,63 +109,46 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   searchInput: {
-    width: '230px',
+    width: '267px',
   },
 
   fieldLabel: {
-    fontWeight: 600,
-    fontSize: 18,
+    fontWeight: '600',
+    fontSize: '18px',
+    whiteSpace: 'nowrap',
     lineHeight: '140%',
   },
+
   subFieldLabel: {
     color: theme.palette.text.second,
     fontWeight: 400,
     fontSize: 12,
-    lineHeight: '16px',
-    whiteSpace: 'pre-wrap',
-    marginBottom: '5px !important',
+    lineHeight: '14px',
+    marginBottom: '5px',
+    height: '24px',
   },
+
   infoField: {
     fontSize: 14,
+    fontWeight: 600,
     lineHeight: '19px',
   },
+
+  shippinCostContainer: {
+    width: '130px !important',
+    height: '51px',
+    margin: '0 !important',
+  },
+
   tableWrapper: {
     display: 'flex',
     height: 350,
     width: '100%',
   },
 
-  disabled: {
-    WebkitTextFillColor: `${theme.palette.text.second} !important`,
-  },
-  batchTitleField: {
-    width: '160px !important',
-    margin: '0 !important',
-  },
-  destinationField: {
-    width: '270px !important',
-    margin: '0 !important',
-  },
-  volumeWeightField: {
-    width: '190px !important',
-    margin: '0 !important',
-  },
-  methodField: {
-    width: '270px !important',
-    margin: '0 !important',
-  },
-  dividerField: {
-    width: '120px !important',
-    margin: '0 !important',
-  },
   filesAndButtonWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-  },
-  shippinCostContainer: {
-    width: '190px !important',
-    margin: '0 !important',
+    justifyContent: 'flex-end',
   },
 
   closeFieldsWrapper: {

@@ -32,6 +32,8 @@ interface RequestTermsProps {
   updatedAt: string
   status: string
   taskComplexity: number
+  ideaIds: { xid: string; _id: string }
+  onClickIdeaId: (ideaId: string) => void
 }
 
 export const RequestTerms: FC<RequestTermsProps> = memo(props => {
@@ -48,8 +50,9 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
     updatedAt,
     status,
     taskComplexity,
+    ideaIds,
+    onClickIdeaId,
   } = props
-
   return (
     <div className={styles.requestInformationWrapper}>
       <div className={styles.requestInformationTitleWrapper}>
@@ -77,6 +80,14 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
             {difficultyLevelTranslate(difficultyLevelByCode[taskComplexity])}
           </p>
         </div>
+        {ideaIds ? (
+          <>
+            <p className={styles.sectionTitle}>{t(TranslationKey.Idea) + ' №'}:</p>
+            <p className={styles.lnkTitle} onClick={() => onClickIdeaId(ideaIds._id)}>
+              {ideaIds.xid}
+            </p>
+          </>
+        ) : null}
       </div>
 
       <div className={styles.requestInfoWrapper}>

@@ -121,7 +121,7 @@ export const OrderProductModal = memo(props => {
         })
       : selectedProductsData.map(product => ({
           ...product,
-          amount: 1,
+          amount: product?.pendingOrderQuantity || 1,
           clientComment: isPendingOrdering ? product?.clientComment : '',
           expressChinaDelivery: false,
           priority: '30',
@@ -197,7 +197,7 @@ export const OrderProductModal = memo(props => {
           }
         })
       : selectedProductsData.map(product => ({
-          amount: 1,
+          amount: product?.pendingOrderQuantity || 1,
           clientComment: isPendingOrdering ? product?.clientComment : '',
           barCode: product?.barCode || '',
           productId: product?._id,
@@ -494,7 +494,7 @@ export const OrderProductModal = memo(props => {
               </Tooltip>
             </div>
             <Checkbox
-              checked={isPendingOrder}
+              checked={productsForRender?.[0]?.isPending || isPendingOrder}
               color="primary"
               classes={{
                 root: styles.checkbox,
@@ -525,7 +525,6 @@ export const OrderProductModal = memo(props => {
 
         <Button
           styleType={ButtonStyle.CASUAL}
-          tooltipInfoContent={t(TranslationKey['Close the checkout window without saving'])}
           onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
         >
           {t(TranslationKey.Close)}

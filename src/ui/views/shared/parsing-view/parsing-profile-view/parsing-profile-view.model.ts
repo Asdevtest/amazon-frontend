@@ -12,7 +12,7 @@ import { IParsingProfile } from '@typings/models/parser/parsing-profile'
 import { parsingProfileViewColumns } from './parsing-profile-view.columns'
 import { ColumnsProps, fieldsForSearch, parsingProfileViewConfig } from './parsing-profile-view.config'
 
-export class ParsingProdileViewModel extends DataGridFilterTableModel {
+export class ParsingProfileViewModel extends DataGridFilterTableModel {
   selectedProfile?: IParsingProfile
   showToggleProfileModal = false
 
@@ -64,7 +64,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
 
   async onForceStart(ids?: string[]) {
     try {
-      await ParserModel.onForceStart(ids || this.selectedRows)
+      await ParserModel.forceStart(ids || this.selectedRows)
       this.getCurrentData()
     } catch (error) {
       console.error(error)
@@ -73,7 +73,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
 
   async onForceStop(ids?: string[]) {
     try {
-      await ParserModel.onForceStop(ids || this.selectedRows)
+      await ParserModel.forceStop(ids || this.selectedRows)
       this.getCurrentData()
     } catch (error) {
       console.error(error)
@@ -82,7 +82,7 @@ export class ParsingProdileViewModel extends DataGridFilterTableModel {
 
   async onParsingProfileRegistred(id: string) {
     try {
-      await ParserModel.onParsingProfileRegistred(id)
+      await ParserModel.parsingProfileRegistred(id)
       this.getCurrentData()
     } catch (error) {
       console.error(error)

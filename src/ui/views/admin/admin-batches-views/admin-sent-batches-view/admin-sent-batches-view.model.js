@@ -54,7 +54,7 @@ export class AdminSentBatchesViewModel {
 
   onSearchSubmit(searchValue) {
     runInAction(() => {
-      this.nameSearchValue = searchValue
+      this.nameSearchValue = searchValue.trim()
     })
 
     if (this.nameSearchValue) {

@@ -41,19 +41,20 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
             </h5>
 
             <div className={styles.titleSubWrapper}>
-              <h6 className={styles.standartText}>{`${t(TranslationKey.Box)}: ${box.humanFriendlyId}`}</h6>
+              <h6 className={styles.standartText}>{`${t(TranslationKey.Box)}: ${box.xid}`}</h6>
 
               <h6 className={styles.standartText}>{`${t(TranslationKey.Batch)}: ${
-                box.batch?.humanFriendlyId || t(TranslationKey['Not chosen'])
+                box.batch?.xid || t(TranslationKey['Not chosen'])
               }`}</h6>
             </div>
           </div>
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
+              rowCount={filteredBatches?.length}
               rows={toJS(filteredBatches)}
               columns={moveBoxToBatchFormColumns({ onClickRowRadioBtn }, selectedBatch)}
-              rowHeight={80}
+              getRowHeight={() => 'auto'}
               onRowClick={e => setSelectedBatch(e.row)}
             />
           </div>
@@ -82,7 +83,7 @@ export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, b
             <p className={styles.standartText}>{t(TranslationKey['No batch with the parameters of the box.'])}</p>
             <p className={styles.standartText}>{`${t(TranslationKey.For)} ${
               box.batchId ? t(TranslationKey.move) : t(TranslationKey.sending)
-            } ${t(TranslationKey.Box)} №${box.humanFriendlyId} ${t(TranslationKey['Create new batch'])}.`}</p>
+            } ${t(TranslationKey.Box)} №${box.xid} ${t(TranslationKey['Create new batch'])}.`}</p>
           </div>
 
           <div className={styles.btnsSecondWrapper}>

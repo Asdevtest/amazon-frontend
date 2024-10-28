@@ -25,7 +25,7 @@ interface IHandlers {
 export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
@@ -108,7 +108,9 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
-      renderCell: ({ row }) => <UserCell name={row.storekeeper?.name} id={row.storekeeper?._id} />,
+      renderCell: ({ row }) => (
+        <UserCell name={row.storekeeper?.name} id={row.storekeeper?._id} email={row.storekeeper?.email} />
+      ),
       width: 160,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

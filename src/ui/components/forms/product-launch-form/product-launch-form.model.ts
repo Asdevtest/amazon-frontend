@@ -5,7 +5,7 @@ import { UIEvent } from 'react'
 
 import { ClientModel } from '@models/client-model'
 
-import { getAsinOptions } from '@components/modals/report-modal/report-modal.config'
+import { getAsinOptions, getDefaultAsinOption } from '@components/modals/report-modal/report-modal.config'
 
 import { IProduct } from '@typings/models/products/product'
 
@@ -23,17 +23,20 @@ export class ProductLaunchFormModel extends UseProductsPermissions {
   get asinOptions() {
     return getAsinOptions(this.currentPermissionsData)
   }
+  get defaultAsinOption() {
+    return getDefaultAsinOption(this.selectedProduct)
+  }
 
   constructor(selectedProduct?: IProduct) {
     super(ClientModel.getProductPermissionsData)
     this.setOptions({ isChild: false })
+    this.radioValue = selectedProduct ? RadioValue.VARIATION : RadioValue.NEW
     this.selectedProduct = selectedProduct
     makeObservable(this, productLaunchConfig)
   }
 
   onChangeRadioValue(e: RadioChangeEvent) {
     this.radioValue = e.target.value
-    this.selectedProduct = undefined
   }
 
   onChangeProduct = (value: string, option: BaseOptionType) => {

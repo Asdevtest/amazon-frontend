@@ -44,7 +44,7 @@ export const CheckPendingOrderForm = ({
                 className={cx(styles.text, styles.orderInfo)}
                 onClick={() => onClickPandingOrder(order?._id)}
               >
-                {`№${order?.id}${orderIndex + 1 !== product.orders.length ? ', ' : ''}`}
+                {`№${order?.xid}${orderIndex + 1 !== product.orders.length ? ', ' : ''}`}
               </Link>
             ))}
           </p>

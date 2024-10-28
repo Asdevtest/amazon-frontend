@@ -255,7 +255,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
           <div className={styles.headerLeftSubWrapper}>
             <p className={cx(styles.headerLabel, styles.mainTitleMargin)}>{`${t(
               TranslationKey['Request result'],
-            )} / ID ${proposal?.request?.humanFriendlyId}`}</p>
+            )} / ID ${proposal?.request?.xid}`}</p>
 
             <p className={cx(styles.headerLabel, styles.labelMargin)}>
               {t(TranslationKey['Your image recommendations'])}

@@ -14,11 +14,10 @@ import { IGridColumn } from '@typings/shared/grid-column'
 export const linkRequestColumns = () => {
   const columns: IGridColumn[] = [
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: (params: GridCellParams) => <Text isCell text={params.row.humanFriendlyId} />,
-
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row.xid} />,
       width: 80,
     },
 
@@ -37,7 +36,7 @@ export const linkRequestColumns = () => {
       headerName: t(TranslationKey.Title),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
       renderCell: (params: GridCellParams) => <Text isCell text={params.row.title} />,
-      width: 260,
+      flex: 1,
     },
 
     {
@@ -45,7 +44,7 @@ export const linkRequestColumns = () => {
       headerName: t(TranslationKey['Request type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
       renderCell: (params: GridCellParams) => <Text isCell text={params.row.spec?.title} />,
-      width: 110,
+      width: 120,
     },
   ]
 

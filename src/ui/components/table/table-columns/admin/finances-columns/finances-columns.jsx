@@ -13,7 +13,6 @@ export const financesViewColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    // type: 'date',
   },
 
   {
@@ -41,7 +40,13 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Initiator)} />,
 
     width: 170,
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.createdBy?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.originalData.createdBy?.name}
+        id={params.row.originalData.createdBy?._id}
+        email={params.row.originalData.createdBy?.email}
+      />
+    ),
   },
 
   {
@@ -50,7 +55,13 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Recipient)} />,
 
     width: 170,
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.recipient?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.originalData.recipient?.name}
+        id={params.row.originalData.recipient?._id}
+        email={params.row.originalData.recipient?.email}
+      />
+    ),
   },
 
   {

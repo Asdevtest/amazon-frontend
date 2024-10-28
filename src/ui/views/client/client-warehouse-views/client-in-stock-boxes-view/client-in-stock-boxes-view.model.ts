@@ -247,7 +247,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const boxId = url.searchParams.get('box-id')
 
     if (boxId) {
-      this.columnMenuSettings?.humanFriendlyId.currentFilterData.push(boxId)
+      this.columnMenuSettings?.xid.currentFilterData.push(boxId)
     }
 
     this.currentSearchValue = url.searchParams.get('search-text') || ''
@@ -481,13 +481,13 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         // @ts-ignore
         idsBeforeData: [this.selectedBox?._id],
         type: TaskOperationType.EDIT,
-        clientComment: boxData.clientComment,
+        clientComment: boxData.clientComment || '',
       })
 
       toast.success(
         `${t(TranslationKey['Formed a task for storekeeper'])} ${this.selectedBox?.storekeeper?.name} ${t(
           TranslationKey['to change the Box'],
-        )} № ${this.selectedBox?.humanFriendlyId}`,
+        )} № ${this.selectedBox?.xid}`,
       )
 
       this.onTriggerOpenModal('showConfirmModal')
@@ -515,7 +515,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       title: '',
       message: `${t(TranslationKey['The task for the warehouse will be formed'])} ${sourceBox?.storekeeper?.name} ${t(
         TranslationKey['to redistribute the Box'],
-      )} № ${sourceBox?.humanFriendlyId}`,
+      )} № ${sourceBox?.xid}`,
       onSubmit: () => this.onRedistribute(id, updatedBoxes, type, isMasterBox, comment, sourceBox, priority, reason),
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -537,10 +537,10 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         boxData.items.every((item: any) => !item.tmpBarCode.length) &&
         boxData.items.every((item: any) => !item.tmpTransparencyFile.length) &&
         (sourceData.shippingLabel === null || !boxData.tmpShippingLabel.length)
-          ? `${t(TranslationKey['Change the box'])}: № ${boxData?.humanFriendlyId}`
+          ? `${t(TranslationKey['Change the box'])}: № ${boxData?.xid}`
           : `${t(TranslationKey['The task for the warehouse will be formed'])} ${boxData?.storekeeper?.name} ${t(
               TranslationKey['to change the Box'],
-            )} № ${boxData?.humanFriendlyId}`,
+            )} № ${boxData?.xid}`,
       onSubmit: () => this.onEditBoxSubmit(id, boxData, sourceData, priority, priorityReason),
       onCancel: () => this.onTriggerOpenModal('showConfirmModal'),
     }
@@ -735,7 +735,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           toast.success(
             `${t(TranslationKey['Formed a task for storekeeper'])} ${
               this.storekeepersData.find(el => el._id === sourceBox.storekeeper?._id)?.name
-            } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox.humanFriendlyId}`,
+            } ${t(TranslationKey['to redistribute the Box'])} № ${sourceBox.xid}`,
           )
         } else {
           toast.warning(t(TranslationKey['The box is not split!']))
@@ -873,7 +873,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSubmitEditMultipleBoxes(newBoxes: any, sharedFields: any) {
+  async onClickSubmitEditMultipleBoxes(newBoxes: any, selectedBoxes: any, sharedFields: any) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       this.onTriggerOpenModal('showEditMultipleBoxesModal')
@@ -881,11 +881,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       const uploadedShippingLabels: { strKey: string; link: string }[] = []
       const uploadedBarcodes: { strKey: string; link: string }[] = []
       const uploadedTransparencyFiles: { strKey: string; link: string }[] = []
-      const updatedBoxes: any[] = []
-
-      runInAction(() => {
-        this.boxesIdsToTask = []
-      })
+      const updatedBoxes = []
 
       // Upload sharedFields files
       await this.uploadSharedFieldFile(sharedFields, 'tmpShippingLabel', 'shippingLabel')
@@ -894,30 +890,44 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       for (let i = 0; i < newBoxes.length; i++) {
         const newBox = { ...newBoxes[i] }
+        const selectedBox = { ...selectedBoxes[i] }
 
+        let linkToShippingLabel = newBox.shippingLabel
         // Upload shipping label if needed
-        if (newBox.tmpShippingLabel?.length) {
-          newBox.shippingLabel = await this.uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
-        } else if (sharedFields.shippingLabel) {
-          newBox.shippingLabel = sharedFields.shippingLabel
+        const isSameShippingLabel =
+          JSON.stringify(newBox?.tmpShippingLabel?.[0]) === JSON.stringify(sharedFields?.tmpShippingLabel?.[0])
+        if (!isSameShippingLabel && newBox?.tmpShippingLabel?.[0]) {
+          linkToShippingLabel = await this.uploadImageIfNotUploaded(newBox.tmpShippingLabel[0], uploadedShippingLabels)
+        }
+        if (linkToShippingLabel === '' && selectedBox.shippingLabel === null) {
+          linkToShippingLabel = null
         }
 
         const dataToBarCodeChange = newBox.items
-          .map((el: any) =>
-            el.tmpBarCode?.length || sharedFields.barCode
-              ? {
-                  changeBarCodInInventory: el.changeBarCodInInventory,
-                  productId: el.product._id || el.productId,
-                  tmpBarCode: el.tmpBarCode || [sharedFields.barCode],
-                  newData: [],
-                }
-              : null,
-          )
+          .map((el: any) => {
+            if (el.tmpBarCode?.length) {
+              const isSameBarCode =
+                JSON.stringify(el?.tmpBarCode?.[0]) === JSON.stringify(sharedFields?.tmpBarCode?.[0])
+
+              return {
+                changeBarCodInInventory: el.changeBarCodInInventory,
+                productId: el.product._id || el.productId,
+                tmpBarCode: el.tmpBarCode,
+                newData: [],
+                isSameBarCode,
+              }
+            }
+            return null
+          })
           .filter((el: any) => el !== null)
 
         // Upload bar code if needed
         if (dataToBarCodeChange?.length) {
           for (const barcodeChange of dataToBarCodeChange) {
+            if (barcodeChange.isSameBarCode) {
+              // If barcode is same as shared, skip uploading
+              continue
+            }
             const findUploadedBarcode = uploadedBarcodes.find(
               el => el.strKey === JSON.stringify(barcodeChange.tmpBarCode[0]),
             )
@@ -950,37 +960,38 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           )
 
           let transparencyFileLink = el.transparencyFile || ''
-
-          if (el.tmpTransparencyFile?.length) {
-            transparencyFileLink = await this.uploadImageIfNotUploaded(
-              el.tmpTransparencyFile[0],
-              uploadedTransparencyFiles,
-            )
-          } else if (sharedFields.transparencyFile) {
-            transparencyFileLink = sharedFields.transparencyFile
+          const barcodeValue = prodInDataToUpdateBarCode?.newData?.[0] || el.barCode
+          if (el.tmpTransparencyFile?.length === 0) {
+            transparencyFileLink = ''
+          } else {
+            const isSameTransparencyFile =
+              JSON.stringify(el?.tmpTransparencyFile?.[0]) === JSON.stringify(sharedFields.tmpTransparencyFile[0])
+            if (!isSameTransparencyFile) {
+              transparencyFileLink = await this.uploadImageIfNotUploaded(
+                el.tmpTransparencyFile[0],
+                uploadedTransparencyFiles,
+              )
+            }
           }
 
+          // Determine if barCode has changed
+          const isBarCodeChanged =
+            barcodeValue !== selectedBox.items[0].barCode ||
+            (JSON.stringify(sharedFields.tmpBarCode?.[0]) !== JSON.stringify(el.tmpBarCode?.[0]) && barcodeValue === '')
+
+          // Determine if transparencyFile has changed
+          const isTransparencyFileChanged =
+            transparencyFileLink !== selectedBox.items[0].transparencyFile ||
+            (JSON.stringify(sharedFields.tmpTransparencyFile?.[0]) !== JSON.stringify(el.tmpTransparencyFile?.[0]) &&
+              transparencyFileLink === '')
+
           const validItem = {
-            ...getObjectFilteredByKeyArrayBlackList(el, [
-              '_id',
-              'order',
-              'product',
-              'tmpBarCode',
-              'changeBarCodInInventory',
-              'tmpTransparencyFile',
-              'amount',
-            ]),
-            shippingLabel: newBox.shippingLabel,
             orderId: el?.order?._id || el?.orderId,
             productId: el?.product?._id || el?.productId,
-            barCode: prodInDataToUpdateBarCode?.newData?.[0] || el.barCode || sharedFields.barCode,
-            transparencyFile: transparencyFileLink,
-            isBarCodeAlreadyAttachedByTheSupplier: prodInDataToUpdateBarCode?.newData?.length
-              ? false
-              : el.isBarCodeAlreadyAttachedByTheSupplier,
-            isBarCodeAttachedByTheStorekeeper: prodInDataToUpdateBarCode?.newData?.length
-              ? false
-              : el.isBarCodeAttachedByTheStorekeeper,
+            ...(isBarCodeChanged && { barCode: barcodeValue }),
+            ...(isTransparencyFileChanged && {
+              transparencyFile: transparencyFileLink,
+            }),
           }
 
           currentBoxItems.push(validItem)
@@ -988,11 +999,17 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
         newBox.items = currentBoxItems
 
-        updatedBoxes.push(getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList))
+        updatedBoxes.push({
+          ...getObjectFilteredByKeyArrayWhiteList(newBox, updateManyBoxesWhiteList),
+          ...((!isSameShippingLabel || newBox.shippingLabel !== selectedBox.shippingLabel) && {
+            shippingLabel: linkToShippingLabel,
+          }),
+        })
       }
 
       const boxesToSend = {
         ...getObjectFilteredByKeyArrayWhiteList(sharedFields, sharedFieldsWhiteList),
+        ...(sharedFields.shippingLabel && { shippingLabel: sharedFields.shippingLabel }),
         boxes: updatedBoxes,
       }
 
@@ -1079,14 +1096,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onEditBoxSubmit(
-    id: string,
-    boxData: any,
-    sourceData: any,
-
-    priority?: number,
-    priorityReason?: string,
-  ) {
+  async onEditBoxSubmit(id: string, boxData: any, sourceData: any, priority?: number, priorityReason?: string) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       runInAction(() => {
@@ -1193,12 +1203,19 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         updateBoxWhiteList,
       )
 
-      const isBarcodeChanged =
-        sourceData.items[0].barCode !== boxData.items[0].barCode || boxData.items[0].tmpBarCode.length !== 0
-      const isTransparencyFileChanged =
-        !!boxData.items[0].tmpTransparencyFile &&
-        (sourceData.items[0].transparencyFile !== boxData.items[0].transparencyFile ||
-          boxData.items[0].tmpTransparencyFile.length !== 0)
+      const isBarcodeChanged = boxData.items.some((item: any, index: number) => {
+        const sourceItem = sourceData.items[index]
+        return sourceItem.barCode !== item.barCode || (item.tmpBarCode && item.tmpBarCode.length !== 0)
+      })
+
+      const isTransparencyFileChanged = boxData.items.some((item: any, index: number) => {
+        const sourceItem = sourceData.items[index]
+        return (
+          !!item.tmpTransparencyFile &&
+          (sourceItem.transparencyFile !== item.transparencyFile || item.tmpTransparencyFile.length !== 0)
+        )
+      })
+
       const isShippingLabelChanged =
         sourceData.shippingLabel !== null &&
         (sourceData.shippingLabel !== boxData.shippingLabel || boxData.shippingLabel === '')
@@ -1220,7 +1237,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         toast.success(
           `${t(TranslationKey['Formed a task for storekeeper'])} ${sourceData.storekeeper?.name} ${t(
             TranslationKey['to change the Box'],
-          )} № ${sourceData.humanFriendlyId}`,
+          )} № ${sourceData.xid}`,
         )
       }
 
@@ -1255,7 +1272,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       await this.updateBarCodesInInventory(dataToBarCodeChange)
 
-      this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.humanFriendlyId)
+      this.boxesIdsToTask = this.boxesIdsToTask.concat(sourceData.xid)
 
       this.loadData()
       this.onTriggerOpenModal('showEditBoxModal')
@@ -1297,7 +1314,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         [
           'tmpShippingLabel',
           'storekeeperId',
-          'humanFriendlyId',
+          'xid',
           'storekeeper',
           'destination',
           'logicsTariff',
@@ -1515,7 +1532,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
             TranslationKey['Boxes do not have enough fare or destination. The following boxes will not be counted'],
           )}: ${boxesWithoutTariffOrDestinationIds
             // @ts-ignore
-            .map(el => this.currentData?.find(box => box?._id === el)?.humanFriendlyId)
+            .map(el => this.currentData?.find(box => box?._id === el)?.xid)
             .join(', ')} `,
         )
 
@@ -1628,6 +1645,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
         this.selectedWarehouseOrderProduct = { ...result, _id: selectedBoxProductId } as unknown as IProduct
       })
 
+      this.getBatches()
+
       this.onTriggerOpenModal('showProductModal')
 
       if (this.showProductModal) {
@@ -1644,10 +1663,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
   onClickChangeProductAndBatchModalCondition(value: ProductAndBatchModalSwitcherConditions) {
     this.productAndBatchModalSwitcherCondition = value
-
-    if (value === ProductAndBatchModalSwitcherConditions.BATCH_DATA) {
-      this.getBatches()
-    }
   }
 
   async getCurrBatch(guid: string) {

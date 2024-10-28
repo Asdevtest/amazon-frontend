@@ -20,7 +20,6 @@ export const exchangeCanceledColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    // type: 'date',
   },
   {
     field: 'updatedAt',
@@ -29,7 +28,6 @@ export const exchangeCanceledColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    // type: 'date',
   },
 
   {
@@ -74,7 +72,13 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey['Created by']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.createdBy?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.originalData.createdBy?.name}
+        id={params.row.originalData.createdBy?._id}
+        email={params.row.originalData.createdBy?.email}
+      />
+    ),
     width: 200,
   },
   {
@@ -82,7 +86,13 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey.Supervisor),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.checkedBy?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.originalData.checkedBy?.name}
+        id={params.row.originalData.checkedBy?._id}
+        email={params.row.originalData.checkedBy?.email}
+      />
+    ),
     width: 200,
   },
 
@@ -91,7 +101,13 @@ export const exchangeCanceledColumns = () => [
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserCell name={params.value} id={params.row.originalData.buyer?._id} />,
+    renderCell: params => (
+      <UserCell
+        name={params.row.originalData.buyer?.name}
+        id={params.row.originalData.buyer?._id}
+        email={params.row.originalData.buyer?.email}
+      />
+    ),
     width: 200,
   },
   {

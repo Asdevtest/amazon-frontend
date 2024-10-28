@@ -29,7 +29,9 @@ export const feedbackColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+      ),
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -77,13 +79,13 @@ export const feedbackColumns = () => {
     },
 
     {
-      field: 'orderId',
-      headerName: 'Order id',
-      renderHeader: () => <MultilineTextHeaderCell text="Order id" />,
+      field: 'amzOrderId',
+      headerName: 'AMZ Order ID',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ Order ID" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {

@@ -240,7 +240,7 @@ export const EditBoxForm = memo(
                       label={`${t(TranslationKey.Box)} №`}
                       inputComponent={
                         <div className={styles.boxTitleWrapper}>
-                          <p className={styles.tableTitle}>{`${formItem && formItem.humanFriendlyId}`}</p>
+                          <p className={styles.tableTitle}>{`${formItem && formItem.xid}`}</p>
                         </div>
                       }
                     />

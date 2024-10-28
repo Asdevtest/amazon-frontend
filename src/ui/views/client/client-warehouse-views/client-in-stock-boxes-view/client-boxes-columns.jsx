@@ -17,6 +17,7 @@ import {
   NormDateCell,
   ProductsCell,
   RedFlagsCell,
+  StringListCell,
   WarehouseDestinationAndTariffCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -82,10 +83,9 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-
       renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
       width: 80,
@@ -94,15 +94,16 @@ export const clientBoxesViewColumns = (
     },
 
     {
-      field: 'id',
+      field: 'orderXid',
+
       headerName: t(TranslationKey['№ Order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
-      renderCell: params => <Text isCell text={params.row.items?.[0]?.order?.id} />,
-      valueGetter: ({ row }) => row.items?.[0]?.order?.id,
+      renderCell: params => <Text text={params.value} textRows={3} />,
+      valueGetter: ({ row }) => row.items?.map(item => item.order?.xid).join(', '),
       width: 160,
 
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
       table: DataGridFilterTables.ORDERS,
       disableCustomSort: true,
     },

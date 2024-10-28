@@ -1,7 +1,5 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 class StorekeeperModelStatic {
   getTasksVacant = async () => {
     const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksVacGet()
@@ -14,12 +12,12 @@ class StorekeeperModelStatic {
   }
 
   getLightTasksVacantPag = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagVacGet(filterNullValues(data))
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagVacGet(data)
     return response.data
   }
 
-  getLightTasksWithPag = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagMyGet(filterNullValues(data))
+  getLightTasksWithPag = async body => {
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersTasksLightPagMyGet({ ...body, noCache: true })
     return response.data
   }
 
@@ -39,7 +37,7 @@ class StorekeeperModelStatic {
   }
 
   getBoxesMyPag = async data => {
-    const response = await restApiService.storkeepersApi.apiV1StorekeepersPagBoxesGet(filterNullValues(data))
+    const response = await restApiService.storkeepersApi.apiV1StorekeepersPagBoxesGet(data)
     return response.data
   }
 

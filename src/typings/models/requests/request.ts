@@ -7,7 +7,7 @@ import { IRequestMedia } from './request-media'
 
 export interface IRequest {
   _id: string
-  humanFriendlyId: number
+  xid: number
   type: string
   priority: number
   withoutConfirmation: boolean

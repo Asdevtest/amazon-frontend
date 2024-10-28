@@ -1,7 +1,7 @@
-import { Image, Typography } from 'antd'
+import { Typography } from 'antd'
 import { FC, memo } from 'react'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { CustomImage } from '@components/shared/custom-image'
 
 import { useHover } from '@hooks/use-hover'
 
@@ -15,11 +15,10 @@ interface ProductOptionProps {
   label?: string
   sku?: string
   subOption?: boolean
-  onFocus: () => void
 }
 
 export const ProductOption: FC<ProductOptionProps> = memo(props => {
-  const { image, label, asin, sku, subOption, onFocus } = props
+  const { image, label, asin, sku, subOption } = props
 
   const { classes: styles } = useStyles()
   const hoverAsin = useHover()
@@ -28,14 +27,9 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
   return (
     <div className={styles.flexRow}>
       {subOption ? (
-        <Image
-          preview={false}
-          width={40}
-          height={40}
-          src={getAmazonImageUrl(image, false)}
-          wrapperClassName={styles.image}
-          onClick={e => e.stopPropagation()}
-        />
+        <div onClick={e => e.stopPropagation()}>
+          <CustomImage width={40} height={40} src={image} maskClassName={styles.mask} />
+        </div>
       ) : null}
 
       <div className={styles.flexColumn}>
@@ -47,7 +41,7 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
               {...hoverAsin[1]}
               ellipsis
               target="_blank"
-              copyable={hoverAsin[0] && !!asin && { onCopy: onFocus }}
+              copyable={hoverAsin[0] && !!asin}
               href={`https://www.amazon.com/dp/${asin}`}
               className={styles.text}
               onClick={e => e.stopPropagation()}
@@ -56,13 +50,7 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
             </Link>
           ) : null}
           {sku && subOption ? (
-            <AntText
-              {...hoverSku[1]}
-              ellipsis
-              copyable={hoverSku[0] && !!sku && { onCopy: onFocus }}
-              type="secondary"
-              className={styles.text}
-            >
+            <AntText {...hoverSku[1]} ellipsis copyable={hoverSku[0] && !!sku} type="secondary" className={styles.text}>
               {sku}
             </AntText>
           ) : null}

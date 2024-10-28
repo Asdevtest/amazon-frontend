@@ -23,7 +23,7 @@ export const sourceFilesColumns = rowHandlers => [
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <Text isCell text={params.value || '-'} />,
@@ -48,7 +48,7 @@ export const sourceFilesColumns = rowHandlers => [
     renderCell: params => {
       const user = params.row.sub ? params.row.sub : params.row.performer
 
-      return <UserCell name={user?.name} id={user?._id} />
+      return <UserCell name={user?.name} id={user?._id} email={user?.email} />
     },
   },
 
@@ -57,7 +57,9 @@ export const sourceFilesColumns = rowHandlers => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 180,
-    renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
+    renderCell: params => (
+      <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+    ),
   },
 
   {

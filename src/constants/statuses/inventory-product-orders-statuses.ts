@@ -3,4 +3,5 @@ export enum chosenStatusesByFilter {
   AT_PROCESS = 'AT_PROCESS',
   CANCELED = 'CANCELED',
   COMPLETED = 'COMPLETED',
+  PENDING = 'PENDING',
 }

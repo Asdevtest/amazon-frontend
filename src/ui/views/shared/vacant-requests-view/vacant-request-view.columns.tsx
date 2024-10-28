@@ -89,10 +89,10 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: ({ row }) => <Text isCell text={row.humanFriendlyId} />,
+      renderCell: ({ row }) => <Text isCell text={row.xid} />,
       width: 70,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -101,7 +101,9 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       field: 'createdBy',
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
-      renderCell: ({ row }) => <UserCell name={row.createdBy?.name} id={row.createdBy?._id} />,
+      renderCell: ({ row }) => (
+        <UserCell name={row.createdBy?.name} id={row.createdBy?._id} email={row.createdBy?.email} />
+      ),
 
       width: 145,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -182,6 +184,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
         <UserCell
           name={row.proposals?.[0]?.sub?.name || row.announcement?.createdBy?.name}
           id={row.proposals?.[0]?.sub?._id || row.announcement?.createdBy?._id}
+          email={row.proposals?.[0]?.sub?.email || row.announcement?.createdBy?.email}
         />
       ),
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

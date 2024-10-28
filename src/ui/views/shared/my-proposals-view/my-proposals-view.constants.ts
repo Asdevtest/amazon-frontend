@@ -10,7 +10,7 @@ export const filtersFields = [
   'createdBy',
   'sub',
   'updatedAt',
-  'humanFriendlyId',
+  'requestXid',
   'priority',
   'title',
   'maxAmountOfProposals',
@@ -29,8 +29,7 @@ export const filtersFields = [
 
 export const additionalFields = ['skuByClient', 'amazonTitle']
 
-export const fieldsForSearch = ['asin', 'title', 'humanFriendlyId', 'skuByClient']
-
+export const fieldsForSearch = ['asin', 'title', 'requestXid', 'skuByClient']
 export const customSwitcherSettings = () => [
   { label: t(TranslationKey['In the work']), value: ProposalsCondition.IN_THE_WORK },
   { label: t(TranslationKey.Executed), value: ProposalsCondition.EXECUTED },

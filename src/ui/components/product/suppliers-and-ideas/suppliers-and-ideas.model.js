@@ -20,6 +20,7 @@ import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
@@ -46,7 +47,6 @@ export class SuppliersAndIdeasModel {
   currentProposal = undefined
   currentRequest = undefined
   requestTypeTask = undefined
-  requestsForProduct = []
 
   productId = undefined
   updateData = undefined
@@ -72,11 +72,12 @@ export class SuppliersAndIdeasModel {
   showRequestDesignerResultModal = false
   showMainRequestResultModal = false
   showRequestBloggerResultModal = false
-  showBindingModal = false
+  showLinkRequestModal = false
   showOrderModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
   showCommentsModal = false
+  showSelectShopsModal = false
 
   selectedProduct = undefined
   storekeepers = []
@@ -125,11 +126,10 @@ export class SuppliersAndIdeasModel {
     try {
       if (this.isModalView && this.currentIdeaId) {
         await this.getIdea(this.currentIdeaId)
-        if (this.updateData) {
-          this.updateData?.()
-        }
       } else {
-        await this.getIdeas()
+        if (this.productId) {
+          await this.getIdeas()
+        }
       }
 
       this.getStorekeepers()
@@ -184,12 +184,6 @@ export class SuppliersAndIdeasModel {
       const res = await IdeaModel.createIdea({ ...data, price: data.price || 0, quantity: data.quantity || 0 })
 
       if (!isForceUpdate) {
-        if (this.isModalView) {
-          this.closeModalHandler()
-        }
-
-        this.updateData?.()
-
         toast.success(t(TranslationKey['Idea created']))
       }
 
@@ -208,9 +202,9 @@ export class SuppliersAndIdeasModel {
           this.closeModalHandler()
         }
 
-        this.updateData?.()
-
         toast.success(t(TranslationKey['Idea edited']))
+
+        this.updateData?.()
       }
     } catch (error) {
       console.error(error)
@@ -279,28 +273,39 @@ export class SuppliersAndIdeasModel {
           getObjectFilteredByKeyArrayWhiteList({ ...submitData, parentProductId: this.productId }, IdeaCreate),
           isForceUpdate,
         )
-
         await this.getIdea(createdIdeaId)
+        await this.getShops()
+        this.onTriggerOpenModal('showSelectShopsModal')
       }
-
-      /* if (isForceUpdate) {
-        runInAction(() => {
-          this.inCreate = false
-          this.inEdit = true
-        })
-      } else {
-        runInAction(() => {
-          this.inCreate = false
-          this.inEdit = false
-        })
-      } */
 
       runInAction(() => {
         this.inCreate = false
         this.inEdit = false
       })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.readyFiles = []
+    }
+  }
 
-      this.loadData()
+  async onSaveProductData(shop) {
+    try {
+      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: shop.id })
+      this.closeModalHandler()
+      this.updateData?.()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+
+      runInAction(() => {
+        this.shopsData = addIdDataConverter(result)
+      })
     } catch (error) {
       console.error(error)
     }
@@ -393,27 +398,6 @@ export class SuppliersAndIdeasModel {
     win.focus()
   }
 
-  async onClickBindButton(requests, idea) {
-    const currentIdeaStatus = this.curIdea?.status || idea?.status
-    const currentIdeaId = this.curIdea?._id || idea?._id
-    const methodBody = [ideaStatusByKey[ideaStatus.NEW], ideaStatusByKey[ideaStatus.ON_CHECK]].includes(
-      currentIdeaStatus,
-    )
-      ? { onCheckedIdeaId: currentIdeaId }
-      : { onFinishedIdeaId: currentIdeaId }
-    for (const request of requests) {
-      try {
-        await RequestModel.bindIdeaToRequest(request, methodBody)
-      } catch (error) {
-        console.error('error', error)
-      }
-    }
-
-    this.getIdea(currentIdeaId)
-    this.onTriggerOpenModal('showBindingModal')
-    this.loadData()
-  }
-
   async unbindRequest(requestId) {
     try {
       await RequestModel.bindIdeaToRequest(requestId, { onCheckedIdeaId: null, onFinishedIdeaId: null })
@@ -434,26 +418,6 @@ export class SuppliersAndIdeasModel {
     }
 
     this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  async onClickLinkRequestButton(idea) {
-    try {
-      const result = await RequestModel.getRequestsByProductLight({
-        guid: this.productId,
-        status: 'DRAFT, PUBLISHED, IN_PROCESS',
-        excludeIdeaId: idea._id,
-      })
-
-      runInAction(() => {
-        this.requestsForProduct = addIdDataConverter(result)
-      })
-
-      this.onTriggerOpenModal('showBindingModal')
-
-      this.loadData()
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async changeIdeaStatus(ideaData, chesenStatus) {

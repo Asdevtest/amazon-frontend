@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserModel } from '@models/user-model'
 
-import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
+import { LinkRequestForm } from '@components/forms/link-request-form'
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { CommentsModal } from '@components/modals/comments-modal'
@@ -54,7 +54,7 @@ export const ClientIdeasView = observer(({ history }) => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by SKU, ASIN, Title"
+          placeholder="Search by SKU, ASIN, Title, ID"
           onSearch={viewModel.onSearchSubmit}
         />
 
@@ -193,12 +193,13 @@ export const ClientIdeasView = observer(({ history }) => {
       )}
 
       <Modal
-        openModal={viewModel.showBindingModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showBindingModal')}
+        openModal={viewModel.showLinkRequestModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showLinkRequestModal')}
       >
-        <BindIdeaToRequestForm
-          requests={viewModel.requestsForProduct}
-          onClickBindButton={viewModel.onClickBindButton}
+        <LinkRequestForm
+          idea={viewModel.selectedIdea}
+          onClose={() => viewModel.onTriggerOpenModal('showLinkRequestModal')}
+          onUpdateData={viewModel.getCurrentData}
         />
       </Modal>
 

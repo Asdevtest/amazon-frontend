@@ -30,7 +30,9 @@ export const inventoryPlanningColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+      ),
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -59,8 +61,8 @@ export const inventoryPlanningColumns = () => {
 
     {
       field: 'fbaCapacityLimitsValue',
-      headerName: 'Fba capacity limits',
-      renderHeader: () => <MultilineTextHeaderCell text="Fba capacity limits" />,
+      headerName: 'FBA capacity limits',
+      renderHeader: () => <MultilineTextHeaderCell text="FBA capacity limits" />,
       renderCell: params => (
         <div>
           {params.row?.fbaCapacityLimits?.map((item: IFbaCapacityLimits) => (
@@ -97,8 +99,8 @@ export const inventoryPlanningColumns = () => {
 
     {
       field: 'ipi',
-      headerName: 'Ipi',
-      renderHeader: () => <MultilineTextHeaderCell text="Ipi" />,
+      headerName: 'IPI',
+      renderHeader: () => <MultilineTextHeaderCell text="IPI" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,

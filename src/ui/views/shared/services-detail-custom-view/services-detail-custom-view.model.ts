@@ -1,11 +1,9 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 
 import { AnnouncementsModel } from '@models/announcements-model'
-import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
 
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
-import { IFeedback } from '@typings/models/feedbacks/feedback'
 import { ICustomRequest } from '@typings/models/requests/custom-request'
 import { ICreatedBy } from '@typings/shared/created-by'
 import { HistoryType } from '@typings/types/history'
@@ -17,7 +15,6 @@ export class ServicesDetailCustomViewModel {
   request?: ICustomRequest
   announcementData?: IAnnoucement
   showReviewModal = false
-  currentReviews: IFeedback[] = []
   currentReviewModalUser?: ICreatedBy
 
   constructor(history: HistoryType) {
@@ -72,20 +69,7 @@ export class ServicesDetailCustomViewModel {
     )
   }
 
-  async getReviews(id: string) {
-    try {
-      const response = (await FeedbackModel.getFeedback(id)) as unknown as IFeedback[]
-
-      runInAction(() => {
-        this.currentReviews = response
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   async onClickReview(user: ICreatedBy) {
-    await this.getReviews(user._id)
     this.currentReviewModalUser = user
     this.onTriggerReviewModal()
   }

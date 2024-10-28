@@ -82,7 +82,7 @@ export const Box: FC<BoxProps> = memo(props => {
               </div>
             )}
 
-            <p className={styles.boxNum}>{`№ ${box.humanFriendlyId || '-'}`}</p>
+            <p className={styles.boxNum}>{`№ ${box.xid || '-'}`}</p>
           </div>
 
           <Field

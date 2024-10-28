@@ -415,7 +415,7 @@ export const IdeaViewAndEditCard = observer(
                         <IdeaRequestCard
                           key={requestIndex}
                           requestTitle={request?.spec?.title}
-                          requestId={request.humanFriendlyId}
+                          requestId={request.xid}
                           requestStatus={request.status}
                           executor={request.executor}
                           proposals={request.proposals}
@@ -436,6 +436,13 @@ export const IdeaViewAndEditCard = observer(
             </div>
 
             <div className={styles.commentsWrapper}>
+              {idea ? (
+                <p className={styles.ideaID}>
+                  {t(TranslationKey['Idea ID'])}
+                  <span className={styles.idText}>{`: ${idea?.xid}`}</span>
+                </p>
+              ) : null}
+
               <Field
                 multiline
                 disabled={disableFields || currentUserIsBuyer}

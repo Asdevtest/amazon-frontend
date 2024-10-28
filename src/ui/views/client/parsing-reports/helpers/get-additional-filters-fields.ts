@@ -5,7 +5,7 @@ export const getAdditionalFiltersFields = (activeTable: ParsingReportsType) => {
     case ParsingReportsType.VOICE:
     case ParsingReportsType.FBA_INVENTORY:
     case ParsingReportsType.RETURNS:
-      return ['productName', 'sku']
+      return ['productName', 'sku', 'productId']
 
     case ParsingReportsType.INVENTORY:
       return ['title', 'sku']
@@ -14,11 +14,7 @@ export const getAdditionalFiltersFields = (activeTable: ParsingReportsType) => {
       return ['fbaCapacityLimitsMonth', 'fbaCapacityLimitsValue']
 
     case ParsingReportsType.ORDERS:
-    // case ParsingReportsType.PPC_SALES_WEEKS:
-    //   case ParsingReportsType.FYP_SEARCH_SUPPRESSED:
-
-    case ParsingReportsType.FYP_OUT_OF_STOCK:
     case ParsingReportsType.PPC_ORGANIC:
-      return ['sku']
+      return ['sku', 'productId']
   }
 }

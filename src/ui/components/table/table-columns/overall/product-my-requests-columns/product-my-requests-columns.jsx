@@ -31,7 +31,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: 'ID',
     renderHeader: params => (
       <MultilineTextHeaderCell
@@ -111,7 +111,9 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     field: 'executor',
     headerName: t(TranslationKey.Executor),
     renderHeader: params => <MultilineTextHeaderCell text={t(TranslationKey.Executor)} />,
-    renderCell: params => <UserCell name={params.row.executor?.name} id={params.row.executor?._id} />,
+    renderCell: params => (
+      <UserCell name={params.row.executor?.name} id={params.row.executor?._id} email={params.row.executor?.email} />
+    ),
     width: 160,
     columnKey: columnnsKeys.shared.OBJECT_VALUE,
   },

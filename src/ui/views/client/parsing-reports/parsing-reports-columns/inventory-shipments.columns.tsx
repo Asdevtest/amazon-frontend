@@ -29,7 +29,9 @@ export const inventoryShipmentsColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+      ),
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -58,8 +60,8 @@ export const inventoryShipmentsColumns = () => {
 
     {
       field: 'sku',
-      headerName: 'Sku',
-      renderHeader: () => <MultilineTextHeaderCell text="Sku" />,
+      headerName: 'SKU',
+      renderHeader: () => <MultilineTextHeaderCell text="SKU" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
@@ -68,8 +70,8 @@ export const inventoryShipmentsColumns = () => {
 
     {
       field: 'shipmentId',
-      headerName: 'Shipment id',
-      renderHeader: () => <MultilineTextHeaderCell text="Shipment id" />,
+      headerName: 'Shipment ID',
+      renderHeader: () => <MultilineTextHeaderCell text="Shipment ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
@@ -78,8 +80,8 @@ export const inventoryShipmentsColumns = () => {
 
     {
       field: 'referenceId',
-      headerName: 'Reference id',
-      renderHeader: () => <MultilineTextHeaderCell text="Reference id" />,
+      headerName: 'Reference ID',
+      renderHeader: () => <MultilineTextHeaderCell text="Reference ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,
@@ -88,8 +90,8 @@ export const inventoryShipmentsColumns = () => {
 
     {
       field: 'amzDateCreated',
-      headerName: 'Amz date created',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz date created" />,
+      headerName: 'AMZ date created',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ date created" />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 

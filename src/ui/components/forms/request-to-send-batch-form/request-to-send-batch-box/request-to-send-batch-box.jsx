@@ -55,7 +55,7 @@ export const RequestToSendBatchBox = memo(
         }}
       >
         <div className={cx(tableCellClsx, styles.indexCell)}>
-          <p>{`№ ${box.humanFriendlyId}`}</p>
+          <p>{`№ ${box.xid}`}</p>
         </div>
 
         <div className={cx(tableCellClsx, styles.productCell)}>
@@ -268,9 +268,7 @@ export const RequestToSendBatchBox = memo(
 
         <td>
           <div className={styles.shippingLabelWrapper}>
-            <p className={cx(styles.spanText, { [styles.alertSpan]: !box.shippingLabel })}>
-              Shipping label
-            </p>
+            <p className={cx(styles.spanText, { [styles.alertSpan]: !box.shippingLabel })}>Shipping label</p>
 
             {box.shippingLabel ? (
               <div className={styles.linkWrapper}>

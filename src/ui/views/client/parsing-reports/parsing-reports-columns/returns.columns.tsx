@@ -30,7 +30,9 @@ export const returnsColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+      ),
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -59,8 +61,8 @@ export const returnsColumns = () => {
 
     {
       field: 'amzOrderId',
-      headerName: 'Amz order id',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz order id" />,
+      headerName: 'AMZ order ID',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ order ID" />,
       renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 
@@ -95,8 +97,8 @@ export const returnsColumns = () => {
 
     {
       field: 'fnsku',
-      headerName: 'Fnsku',
-      renderHeader: () => <MultilineTextHeaderCell text="Fnsku" />,
+      headerName: 'FNSKU',
+      renderHeader: () => <MultilineTextHeaderCell text="FNSKU" />,
       renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 
@@ -136,8 +138,8 @@ export const returnsColumns = () => {
 
     {
       field: 'fulfillmentCenterId',
-      headerName: 'Fulfillment Center Id',
-      renderHeader: () => <MultilineTextHeaderCell text="Fulfillment Center Id" />,
+      headerName: 'Fulfillment Center ID',
+      renderHeader: () => <MultilineTextHeaderCell text="Fulfillment Center ID" />,
       renderCell: params => <Text isCell text={params.value} />,
       width: 120,
 

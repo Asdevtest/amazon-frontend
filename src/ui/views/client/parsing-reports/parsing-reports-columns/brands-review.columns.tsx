@@ -29,7 +29,9 @@ export const brandsReviewColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserCell name={params.row.client?.name} id={params.row.client?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+      ),
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -118,8 +120,8 @@ export const brandsReviewColumns = () => {
 
     {
       field: 'amzId',
-      headerName: 'Amz id',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz id" />,
+      headerName: 'AMZ ID',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       width: 115,

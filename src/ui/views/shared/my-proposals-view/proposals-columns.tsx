@@ -129,10 +129,10 @@ export const proposalsColumns = (handlers: IHandlers) => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'requestXid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.request.humanFriendlyId} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.request.xid} />,
       width: 80,
 
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -173,7 +173,11 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
       width: 180,
       renderCell: (params: GridCellParams) => (
-        <UserCell name={params?.row?.request?.createdBy?.name} id={params?.row?.request?.createdBy?._id} />
+        <UserCell
+          name={params?.row?.request?.createdBy?.name}
+          id={params?.row?.request?.createdBy?._id}
+          email={params?.row?.request?.createdBy?.email}
+        />
       ),
       columnKey: columnnsKeys.shared.OBJECT,
     },

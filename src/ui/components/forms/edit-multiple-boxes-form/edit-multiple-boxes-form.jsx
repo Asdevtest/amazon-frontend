@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { isMatch } from 'lodash'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdDone } from 'react-icons/md'
@@ -6,7 +7,6 @@ import { MdDone } from 'react-icons/md'
 import { Checkbox } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,11 +22,11 @@ import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
-import { checkIsStorekeeper } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { TariffModal } from '@typings/enums/tariff-modal'
+import { isStorekeeper } from '@typings/guards/roles'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
@@ -153,6 +153,7 @@ export const EditMultipleBoxesForm = observer(
 
     const setShippingLabel = value => {
       onChangeSharedFields({ target: { value } }, 'tmpShippingLabel')
+      setShowSetShippingLabelModal(!showSetShippingLabelModal)
     }
 
     const onClickShippingLabel = () => {
@@ -161,6 +162,7 @@ export const EditMultipleBoxesForm = observer(
 
     const onDeleteShippingLabel = () => {
       onChangeSharedFields({ target: { value: '' } }, 'shippingLabel')
+      onChangeSharedFields({ target: { value: [] } }, 'tmpShippingLabel')
     }
 
     const [newBoxes, setNewBoxes] = useState(
@@ -232,44 +234,74 @@ export const EditMultipleBoxesForm = observer(
       let updatedNewBoxes
 
       if (field === 'tmpBarCode') {
-        updatedNewBoxes = newBoxes.map(newBox =>
-          visibleBoxesIds.includes(newBox._id)
-            ? {
-                ...newBox,
-                items: newBox?.items
-                  ? newBox.items.map(el => ({
-                      ...el,
-                      changeBarCodInInventory: false,
-                      tmpBarCode: sharedFields.tmpBarCode,
-                    }))
-                  : [],
+        updatedNewBoxes = newBoxes.map(newBox => {
+          if (visibleBoxesIds.includes(newBox._id)) {
+            const updatedItems = newBox.items.map(item => {
+              if (!sharedFields.tmpBarCode.length) {
+                return {
+                  ...item,
+                  barCode: '',
+                  tmpBarCode: [],
+                }
+              } else {
+                return {
+                  ...item,
+                  tmpBarCode: sharedFields.tmpBarCode,
+                }
               }
-            : newBox,
-        )
+            })
+            return {
+              ...newBox,
+              items: updatedItems,
+            }
+          } else {
+            return newBox
+          }
+        })
       } else if (field === 'tmpTransparencyFile') {
-        updatedNewBoxes = newBoxes.map(newBox =>
-          visibleBoxesIds.includes(newBox._id)
-            ? {
-                ...newBox,
-                items: newBox?.items
-                  ? newBox.items.map(el => ({
-                      ...el,
-                      changeBarCodInInventory: false,
-                      tmpTransparencyFile: sharedFields.tmpTransparencyFile,
-                    }))
-                  : [],
+        updatedNewBoxes = newBoxes.map(newBox => {
+          if (visibleBoxesIds.includes(newBox._id)) {
+            const updatedItems = newBox.items.map(item => {
+              if (!sharedFields.tmpTransparencyFile.length) {
+                return {
+                  ...item,
+                  transparencyFile: '',
+                  tmpTransparencyFile: [],
+                }
+              } else {
+                return {
+                  ...item,
+                  tmpTransparencyFile: sharedFields.tmpTransparencyFile,
+                }
               }
-            : newBox,
-        )
+            })
+            return {
+              ...newBox,
+              items: updatedItems,
+            }
+          } else {
+            return newBox
+          }
+        })
       } else if (field === 'tmpShippingLabel') {
-        updatedNewBoxes = newBoxes.map(newBox =>
-          visibleBoxesIds.includes(newBox._id)
-            ? {
+        updatedNewBoxes = newBoxes.map(newBox => {
+          if (visibleBoxesIds.includes(newBox._id)) {
+            if (!sharedFields.tmpShippingLabel.length) {
+              return {
+                ...newBox,
+                shippingLabel: '',
+                tmpShippingLabel: [],
+              }
+            } else {
+              return {
                 ...newBox,
                 tmpShippingLabel: sharedFields.tmpShippingLabel,
               }
-            : newBox,
-        )
+            }
+          } else {
+            return newBox
+          }
+        })
       } else if (field === 'isBarcodeLabelAttached') {
         updatedNewBoxes = newBoxes.map(newBox =>
           visibleBoxesIds.includes(newBox._id)
@@ -332,7 +364,7 @@ export const EditMultipleBoxesForm = observer(
     }
 
     const onClickSubmit = () => {
-      onSubmit(newBoxes, sharedFields)
+      onSubmit(newBoxes, selectedBoxes, sharedFields)
     }
 
     const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
@@ -344,6 +376,28 @@ export const EditMultipleBoxesForm = observer(
       sharedFields.variationTariffId,
     )
 
+    function hasTmpFields(newBoxes) {
+      return newBoxes.some(el => {
+        const tmpShippingLabelExists = el.tmpShippingLabel?.length > 0
+
+        const tmpFieldsInItems = el.items?.some(item => {
+          const tmpBarCodeExists = item?.tmpBarCode?.length > 0
+          const tmpTransparencyFileExists = item?.tmpTransparencyFile?.length > 0
+          return tmpBarCodeExists || tmpTransparencyFileExists
+        })
+
+        return tmpShippingLabelExists || tmpFieldsInItems
+      })
+    }
+
+    const isAnyBoxMissingShippingLabel = newBoxes.some(box => !box.tmpShippingLabel?.length && !box.shippingLabel)
+    const isAnyBoxMissingBarCode = newBoxes.some(box =>
+      box.items.some(item => !item.tmpBarCode?.length && !item.barCode),
+    )
+    const isAnyBoxMissingTransparencyFile = newBoxes.some(box =>
+      box.items.some(item => !item?.tmpTransparencyFile?.length && !item?.transparencyFile),
+    )
+
     const disabledSubmitBtn =
       newBoxes.some(
         el =>
@@ -352,9 +406,12 @@ export const EditMultipleBoxesForm = observer(
           ((el.shippingLabel || el.tmpShippingLabel?.length) &&
             !el.fbaShipment &&
             !destinations.find(e => e._id === el.destinationId)?.storekeeper),
-      ) || selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK)
+      ) ||
+      selectedBoxes.some(box => box?.status !== BoxStatus.IN_STOCK) ||
+      (isMatch(newBoxes, selectedBoxes) && !hasTmpFields(newBoxes))
 
     const disabledApplyBtn = !visibleBoxes.length
+    const isShippingLabelMissing = !sharedFields.shippingLabel && !sharedFields.tmpShippingLabel?.length
 
     return (
       <div className={styles.root}>
@@ -457,7 +514,7 @@ export const EditMultipleBoxesForm = observer(
                       text={!sharedFields.tmpShippingLabel?.length && t(TranslationKey['Set Shipping Label'])}
                       value={sharedFields?.tmpShippingLabel?.[0]?.file?.name || sharedFields?.tmpShippingLabel?.[0]}
                       onClickChip={onClickShippingLabel}
-                      onDeleteChip={!sharedFields.shippingLabel ? undefined : () => onDeleteShippingLabel()}
+                      onDeleteChip={isShippingLabelMissing ? undefined : () => onDeleteShippingLabel()}
                     />
                   }
                 />
@@ -492,6 +549,7 @@ export const EditMultipleBoxesForm = observer(
                   inputComponent={
                     <ChangeChipCell
                       isChipOutTable
+                      disabled={isStorekeeper(userInfo.role)}
                       text={!sharedFields?.tmpTransparencyFile?.length && t(TranslationKey.Transparency)}
                       value={
                         sharedFields?.tmpTransparencyFile?.[0]?.file?.name || sharedFields?.tmpTransparencyFile?.[0]
@@ -505,14 +563,14 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
                 <Button
-                  disabled={disabledApplyBtn}
+                  disabled={disabledApplyBtn || isStorekeeper(userInfo.role)}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
                 >
                   {applyBtnsClicked.tmpTransparencyFile ? <MdDone size={18} /> : t(TranslationKey.Apply)}
                 </Button>
               </div>
 
-              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) ? (
+              {isStorekeeper(userInfo.role) ? (
                 <div>
                   <Field
                     oneLine
@@ -521,6 +579,7 @@ export const EditMultipleBoxesForm = observer(
                     inputComponent={
                       <div className={styles.checkboxWrapper}>
                         <Checkbox
+                          disabled={isAnyBoxMissingShippingLabel}
                           color="primary"
                           checked={sharedFields.isShippingLabelAttachedByStorekeeper}
                           onChange={e => onChangeSharedFields(e, 'isShippingLabelAttachedByStorekeeper')}
@@ -542,7 +601,7 @@ export const EditMultipleBoxesForm = observer(
                 </div>
               ) : null}
 
-              {checkIsStorekeeper(UserRoleCodeMap[userInfo?.role]) && (
+              {isStorekeeper(userInfo.role) && (
                 <div>
                   <Field
                     oneLine
@@ -552,6 +611,7 @@ export const EditMultipleBoxesForm = observer(
                     label={t(TranslationKey['The barcode is glued by the supplier'])}
                     inputComponent={
                       <Checkbox
+                        disabled={isAnyBoxMissingBarCode}
                         checked={sharedFields.isBarCodeAlreadyAttachedByTheSupplier}
                         onChange={e => onChangeSharedFields(e, 'isBarCodeAlreadyAttachedByTheSupplier')}
                       />
@@ -567,6 +627,7 @@ export const EditMultipleBoxesForm = observer(
                     label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
                     inputComponent={
                       <Checkbox
+                        disabled={isAnyBoxMissingBarCode}
                         checked={sharedFields.isBarCodeAttachedByTheStorekeeper}
                         onChange={e => onChangeSharedFields(e, 'isBarCodeAttachedByTheStorekeeper')}
                       />
@@ -580,6 +641,7 @@ export const EditMultipleBoxesForm = observer(
                     label={t(TranslationKey['Transparency Codes glued by the supplier'])}
                     inputComponent={
                       <Checkbox
+                        disabled={isAnyBoxMissingTransparencyFile}
                         checked={sharedFields.isTransparencyFileAlreadyAttachedByTheSupplier}
                         onChange={e => onChangeSharedFields(e, 'isTransparencyFileAlreadyAttachedByTheSupplier')}
                       />
@@ -593,6 +655,7 @@ export const EditMultipleBoxesForm = observer(
                     label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
                     inputComponent={
                       <Checkbox
+                        disabled={isAnyBoxMissingTransparencyFile}
                         checked={sharedFields.isTransparencyFileAttachedByTheStorekeeper}
                         onChange={e => onChangeSharedFields(e, 'isTransparencyFileAttachedByTheStorekeeper')}
                       />

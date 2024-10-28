@@ -144,7 +144,7 @@ const Box = memo(props => {
                 readOnly={readOnly}
                 taskType={taskType}
                 item={item}
-                boxId={box.humanFriendlyId}
+                boxId={box.xid}
                 superCount={box.amount}
                 onChangeBarCode={onChangeBarCode}
               />
@@ -168,7 +168,7 @@ const Box = memo(props => {
                   readOnly={readOnly}
                   referenceEditingBox={referenceEditingBox}
                   item={item}
-                  boxId={box.humanFriendlyId}
+                  boxId={box.xid}
                   index={index}
                   superCount={box.amount}
                   isNewBox={isNewBox}

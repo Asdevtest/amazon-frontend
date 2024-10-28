@@ -1,18 +1,20 @@
-import { Avatar } from 'antd'
-import Link from 'antd/es/typography/Link'
+import { Avatar, Typography } from 'antd'
 import { FC, memo } from 'react'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 
 import { useStyles } from './user-cell.style'
 
+const { Text: AntText, Link } = Typography
+
 interface UserCellProps {
   id?: string
   name?: string
+  email?: string
 }
 
 export const UserCell: FC<UserCellProps> = memo(props => {
-  const { id, name } = props
+  const { id, name, email } = props
 
   const { classes: styles } = useStyles()
 
@@ -20,14 +22,21 @@ export const UserCell: FC<UserCellProps> = memo(props => {
     <div className={styles.root}>
       {id ? (
         <div>
-          <Avatar size={36} src={getUserAvatarSrc(id)} />
+          <Avatar size={38} src={getUserAvatarSrc(id)} />
         </div>
       ) : null}
-      {name ? (
-        <Link href={`${window.location.origin}/another-user?${id}`} target="_blank" className={styles.text}>
-          {name}
-        </Link>
-      ) : null}
+      <div className={styles.vertical}>
+        {name ? (
+          <Link ellipsis href={`${window.location.origin}/another-user?${id}`} target="_blank" className={styles.text}>
+            {name}
+          </Link>
+        ) : null}
+        {email ? (
+          <AntText ellipsis className={styles.text}>
+            {email}
+          </AntText>
+        ) : null}
+      </div>
     </div>
   )
 })

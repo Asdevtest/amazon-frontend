@@ -45,7 +45,6 @@ import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
 export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batchToEdit, sourceBox }) => {
   const viewModel = useMemo(() => new ClientAwaitingBatchesViewModel(true), [])
-
   const { classes: styles, cx } = useStyles()
 
   const isClient = checkIsClient(UserRoleCodeMap[UserModel.platformSettings?.role])
@@ -88,7 +87,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
 
   useEffect(() => {
     if (batchToEdit) {
-      setfilesToAdd(batchToEdit?.attachedDocuments)
+      setfilesToAdd(batchToEdit?.attachedDocuments || [])
     }
   }, [batchToEdit])
 
@@ -176,7 +175,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             String(item.order.id)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
         ) ||
-        String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+        String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
         String(el.originalData.prepId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
     )
 
@@ -190,7 +189,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             String(item.order.id)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
         ) ||
-        String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+        String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
         String(el.originalData.prepId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
     )
 
@@ -445,7 +444,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
           <CustomInputSearch
             allowClear
             value={nameSearchValueBoxesToAddData}
-            placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
+            placeholder="Search by ASIN, Title, Order, item, ID Box"
             onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
           />
         </div>
@@ -499,7 +498,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             columnVisibilityModel={viewModel.columnVisibilityModel}
             rows={boxesToAddData}
             columns={columnsModel}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             rowSelectionModel={boxesToAddIds}
             onRowSelectionModelChange={onSelectionAwaitingBoxes}
             onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
@@ -554,7 +553,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
           <CustomInputSearch
             allowClear
             value={nameSearchValueChosenBoxes}
-            placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
+            placeholder="Search by ASIN, Title, Order, item, ID Box"
             onChange={e => setNameSearchValueChosenBoxes(e.target.value)}
           />
         </div>
@@ -589,7 +588,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             }}
             rows={chosenBoxes || []}
             columns={columnsModel}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             onRowSelectionModelChange={onSelectionChoosenBoxes}
             onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -660,7 +659,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
           </Button>
         </div>
 
-        <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} />
+        {filesToAdd ? <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} /> : null}
 
         <div className={styles.btnsWrapper}>
           <Button

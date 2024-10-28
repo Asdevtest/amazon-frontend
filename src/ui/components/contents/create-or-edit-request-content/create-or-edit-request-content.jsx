@@ -33,7 +33,7 @@ import { RequestSelect } from '@views/shared/create-or-edit-request-view/request
 
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
-import { formatDateForShowWithoutParseISO } from '@utils/date-time'
+import { convertLocalDateToUTC, formatDateForShowWithoutParseISO } from '@utils/date-time'
 import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -280,7 +280,9 @@ export const CreateOrEditRequestContent = memo(props => {
       if (['maxAmountOfProposals', 'timeLimitInMinutes'].includes(fieldName)) {
         newFormFields[section][fieldName] = parseInt(event.target.value) || ''
       } else if (['timeoutAt'].includes(fieldName)) {
-        newFormFields[section][fieldName] = event
+        const arrivalDate = convertLocalDateToUTC(new Date(event))
+
+        newFormFields[section][fieldName] = new Date(arrivalDate)
         setDeadlineError(false)
       } else if (
         ['needCheckBySupervisor', 'restrictMoreThanOneProposalFromOneAssignee', 'withoutConfirmation'].includes(
@@ -398,7 +400,7 @@ export const CreateOrEditRequestContent = memo(props => {
     const createdDefaultRequestTemplateSelectValue = {
       ...request,
       value: request?._id,
-      label: `${t(TranslationKey['Request ID'])}: ${request?.humanFriendlyId || t(TranslationKey.Missing)}`,
+      label: `${t(TranslationKey['Request ID'])}: ${request?.xid || t(TranslationKey.Missing)}`,
     }
     setDefaultRequestTemplateSelectValue(createdDefaultRequestTemplateSelectValue)
 

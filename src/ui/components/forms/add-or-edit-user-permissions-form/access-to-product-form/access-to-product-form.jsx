@@ -230,7 +230,7 @@ export const AccessToProductForm = memo(props => {
                 allowClear
                 wrapperClassName={styles.searchInput}
                 value={searchInputValue}
-                placeholder={t(TranslationKey.Search)}
+                placeholder="Search"
                 onChange={e => setSearchInputValue(e.target.value)}
               />
             </div>
@@ -247,7 +247,7 @@ export const AccessToProductForm = memo(props => {
                   isRowSelectable={() => selectedAccess !== accessProductSettings.ALL_PRODUCTS}
                   rows={curProdutsData || []}
                   columns={sourceColumns(isResearcher)}
-                  rowHeight={65}
+                  getRowHeight={() => 'auto'}
                   rowSelectionModel={selectionModel}
                   onRowSelectionModelChange={model => handleSelectionModel(model)}
                   onPaginationModelChange={setPaginationModel}

@@ -1,5 +1,3 @@
-import { UploadFileType } from '@typings/shared/upload-file'
-
 import { ICreatedBy } from '../../shared/created-by'
 import { ISpec } from '../../shared/spec'
 
@@ -7,7 +5,7 @@ export interface IAnnoucement {
   _id: string
   spec: ISpec
   requests: Array<IAnnoucementRequest>
-  linksToMediaFiles: Array<UploadFileType>
+  linksToMediaFiles: Array<string>
   title: string
   description: string
   createdBy: ICreatedBy
@@ -18,7 +16,7 @@ export interface IAnnoucement {
 export interface IAnnoucementRequest {
   _id: string
   title: string
-  humanFriendlyId: number
+  xid: number
   price: number
   status: string
   timeoutAt: string

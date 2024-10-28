@@ -89,7 +89,7 @@ interface IRequest {
   _id: string
   title: string
   asin: string
-  humanFriendlyId: number
+  xid: number
   spec: ISpec
 }
 

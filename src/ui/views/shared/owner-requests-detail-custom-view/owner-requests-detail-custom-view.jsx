@@ -12,6 +12,7 @@ import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/reque
 import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { OwnerGeneralRequestInfo } from '@components/requests-and-request-proposals/owner-general-request-info'
 import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
@@ -21,7 +22,6 @@ import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
 
 import { toFixedWithDollarSign } from '@utils/text'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
@@ -85,6 +85,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
             onClickAbortBtn={viewModel.onClickAbortBtn}
             onRecoverRequest={viewModel.onRecoverRequest}
             onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
+            onClickIdeaId={viewModel.onClickIdeaId}
           />
         ) : null}
 
@@ -137,7 +138,17 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                       onClickOpenRequest: viewModel.onClickOpenRequest,
                     }}
                     renderAdditionalButtons={() => (
-                      <>
+                      <div className={styles.buttonsWrapper}>
+                        <div className={styles.additionalButtonsWrapper}>
+                          <Button
+                            onClick={() =>
+                              viewModel.onClickAddMediaFromProduct(viewModel.request?.request?.product?._id)
+                            }
+                          >
+                            {t(TranslationKey['Add from product'])}
+                          </Button>
+                        </div>
+
                         {statusesReworkAndReceiveButtons.includes(statusForCurrentChat) && (
                           <div className={styles.additionalButtonsWrapper}>
                             <Button onClick={() => viewModel.onClickProposalResultToCorrect()}>
@@ -169,7 +180,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                             </Button>
                           </div>
                         )}
-                      </>
+                      </div>
                     )}
                     requestStatus={viewModel.requestStatus}
                     onChangeRequestStatus={viewModel.setRequestStatus}
@@ -227,9 +238,8 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
         <ReviewsForm
-          reviews={viewModel.currentReviews}
           user={viewModel.currentReviewModalUser}
-          onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')}
+          onClose={() => viewModel.onTriggerOpenModal('showReviewModal')}
         />
       </Modal>
 
@@ -265,7 +275,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           reviewLabel={t(TranslationKey["Review of the performer's work"])}
           confirmButtonText={t(TranslationKey.Confirm)}
           cancelBtnText={t(TranslationKey.Reject)}
-          onSubmit={throttle(viewModel.acceptProposalResultSetting.onSubmit)}
+          onSubmit={viewModel.acceptProposalResultSetting.onSubmit}
           onClose={() => viewModel.onTriggerOpenModal('showConfirmWorkResultFormModal')}
         />
       ) : null}
@@ -299,6 +309,17 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.onSubmitAbortRequest}
           onClickCancelBtn={viewModel.onClickAbortBtn}
+        />
+      ) : null}
+
+      {viewModel.showGalleryModal ? (
+        <GalleryRequestModal
+          buttonText={t(TranslationKey.Send)}
+          data={viewModel.productMedia}
+          openModal={viewModel.showGalleryModal}
+          mediaFiles={[]}
+          onChangeMediaFiles={viewModel.sendFilesToChat}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
         />
       ) : null}
     </>

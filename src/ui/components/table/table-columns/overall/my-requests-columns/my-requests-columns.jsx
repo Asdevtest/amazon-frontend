@@ -115,7 +115,7 @@ export const myRequestsViewColumns = rowHandlers => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
@@ -173,6 +173,7 @@ export const myRequestsViewColumns = rowHandlers => {
         <UserCell
           name={params.row.sub?.name || params.row.createdBy?.name}
           id={params.row.sub?._id || params.row.createdBy?._id}
+          email={params.row.sub?.email || params.row.createdBy?.email}
         />
       ),
       width: 110,
@@ -226,34 +227,9 @@ export const myRequestsViewColumns = rowHandlers => {
 
       width: 187,
       filterable: false,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+
       disableCustomSort: true,
-
-      fields: [
-        {
-          label: 'Sub user',
-          value: 0,
-        },
-        {
-          label: 'Sub user by shop',
-          value: 1,
-        },
-      ],
-      columnMenuConfig: [
-        {
-          field: 'subUsers',
-          table: DataGridFilterTables.REQUESTS,
-          columnKey: ColumnMenuKeys.OBJECT,
-          sortOptions: 'asc',
-        },
-
-        {
-          field: 'subUsersByShop',
-          table: DataGridFilterTables.REQUESTS,
-          columnKey: ColumnMenuKeys.OBJECT,
-          sortOptions: 'asc',
-        },
-      ],
-      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
@@ -262,7 +238,11 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service representative'])} />,
 
       renderCell: params => (
-        <UserCell name={params.row.announcement?.createdBy.name} id={params.row.announcement?.createdBy._id} />
+        <UserCell
+          name={params.row.announcement?.createdBy.name}
+          id={params.row.announcement?.createdBy._id}
+          email={params.row.announcement?.createdBy.email}
+        />
       ),
       width: 160,
 
@@ -323,7 +303,7 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      // type: 'date',
+
       columnKey: columnnsKeys.shared.DATE,
     },
 

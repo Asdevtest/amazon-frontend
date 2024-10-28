@@ -1,12 +1,12 @@
-import { Image, Tooltip, Typography } from 'antd'
+import { Tooltip, Typography } from 'antd'
 import { FC, memo } from 'react'
 import { IoWarningOutline } from 'react-icons/io5'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomImage } from '@components/shared/custom-image'
 import { Text } from '@components/shared/text'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { useHover } from '@hooks/use-hover'
@@ -24,38 +24,38 @@ interface ProductCellProps {
   superbox?: number
   errorMessage?: string
   errorDescription?: string
+  isCell?: boolean
 }
 
 export const ProductCell: FC<ProductCellProps> = memo(props => {
-  const { image, title, asin, sku, quantity, superbox, errorMessage, errorDescription } = props
+  const { image, title, asin, sku, quantity, superbox, errorMessage, errorDescription, isCell = true } = props
 
   const { classes: styles, cx, theme } = useStyles()
   const hoverAsin = useHover()
   const hoverSku = useHover()
 
-  const renderTextCell = (text: string, rows: number, fixWidth?: boolean) => (
-    <Text copyable={false} textRows={rows} text={text} className={cx(styles.text, { [styles.fixWidth]: fixWidth })} />
+  const renderTextCell = (text: string, rows: number) => (
+    <Text
+      copyable={false}
+      textRows={rows}
+      text={text}
+      className={cx(styles.text, { [styles.fixWidth]: isErrorText })}
+    />
   )
 
   const notAsinAndSku = !asin && !sku
   const isErrorText = !!errorMessage || !!errorDescription
 
   return (
-    <div className={styles.root}>
+    <div className={cx(styles.root, { [styles.cell]: isCell })}>
       {title && !notAsinAndSku ? renderTextCell(title, 1) : null}
 
       <div className={styles.flexRow}>
-        <Image
-          preview={false}
-          width={32}
-          height={32}
-          src={getAmazonImageUrl(image, false)}
-          wrapperClassName={styles.image}
-        />
+        <CustomImage width={32} height={32} src={image} maskClassName={styles.mask} />
 
         <div className={styles.flexColumn}>
           {notAsinAndSku && title ? (
-            renderTextCell(title, 2, true)
+            renderTextCell(title, 2)
           ) : (
             <>
               {asin ? (
@@ -65,7 +65,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   target="_blank"
                   copyable={hoverAsin[0] && !!asin}
                   href={`https://www.amazon.com/dp/${asin}`}
-                  className={cx(styles.text, styles.fixWidth)}
+                  className={cx(styles.text, { [styles.fixWidth]: isErrorText })}
                   onClick={e => e.stopPropagation()}
                 >
                   {asin}
@@ -78,7 +78,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
                   ellipsis
                   copyable={hoverSku[0] && !!sku}
                   type="secondary"
-                  className={cx(styles.text, styles.fixWidth)}
+                  className={cx(styles.text, { [styles.fixWidth]: isErrorText })}
                 >
                   {sku}
                 </AntText>

@@ -23,10 +23,10 @@ export const getRequestTemplateOptions = (requests: IPermissionsData[]) =>
   requests?.map(request => ({
     ...request,
     value: request?._id,
-    label: `${t(TranslationKey['Request ID'])}: ${request?.humanFriendlyId || t(TranslationKey.Missing)}`,
+    label: `${t(TranslationKey['Request ID'])}: ${request?.xid || t(TranslationKey.Missing)}`,
   }))
 
 export type IChangeData = (data: IRequest) => void
 
 export const options = { kind: RequestSubType.MY }
-export const searchFields = ['asin', 'title', 'humanFriendlyId']
+export const searchFields = ['asin', 'title', 'xid']

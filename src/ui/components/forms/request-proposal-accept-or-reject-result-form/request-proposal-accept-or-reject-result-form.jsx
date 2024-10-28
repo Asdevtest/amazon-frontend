@@ -77,7 +77,7 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
             <Button
               disabled={!formFields.rating}
               styleType={isReject ? ButtonStyle.DANGER : ButtonStyle.SUCCESS}
-              onClick={throttle(onSubmit(formFields))}
+              onClick={throttle(() => onSubmit(formFields))}
             >
               {isReject ? rejectButtonText : confirmButtonText}
             </Button>

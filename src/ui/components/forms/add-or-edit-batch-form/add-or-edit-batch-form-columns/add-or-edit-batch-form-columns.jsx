@@ -14,7 +14,7 @@ import { t } from '@utils/translations'
 
 export const addOrEditBatchFormColumns = isClient => [
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <Text isCell text={params.value} />,
@@ -65,6 +65,7 @@ export const addOrEditBatchFormColumns = isClient => [
       <UserCell
         name={isClient ? params.row.originalData?.storekeeper?.name : params.row.originalData?.client?.name}
         id={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
+        email={isClient ? params.row.originalData?.storekeeper?.email : params.row.originalData?.client?.email}
       />
     ),
     width: 130,

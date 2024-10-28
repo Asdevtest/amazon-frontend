@@ -38,12 +38,10 @@ export const updateBoxWhiteList = [
 export const updateManyBoxesWhiteList = [
   '_id',
   'logicsTariffId',
-  'shippingLabel',
   'fbaShipment',
   'fbaNumber',
   'destinationId',
   'variationTariffId',
-  'isShippingLabelAttachedByStorekeeper',
   'items',
 ]
 
@@ -56,17 +54,12 @@ export const sharedFieldsWhiteList = [
   'destinationId',
   'transparencyFile',
   'variationTariffId',
-  'isShippingLabelAttachedByStorekeeper',
-  'isTransparencyFileAttachedByTheStorekeeper',
-  'isTransparencyFileAlreadyAttachedByTheSupplier',
-  'isBarCodeAlreadyAttachedByTheSupplier',
-  'isBarCodeAttachedByTheStorekeeper',
 ]
 
 export const filtersFields = [
   'shopId',
-  'humanFriendlyId',
-  'id',
+  'xid',
+  'orderXid',
   'item',
   'asin',
   'skuByClient',
@@ -86,15 +79,6 @@ export const filtersFields = [
   'clientComment',
 ]
 
-export const fieldsForSearch = [
-  'asin',
-  'amazonTitle',
-  'skuByClient',
-  'id',
-  'item',
-  'productId',
-  'humanFriendlyId',
-  'prepId',
-]
+export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'orderXid', 'item', 'productId', 'xid', 'prepId']
 
 export const disableSelectionCells = ['prepId']

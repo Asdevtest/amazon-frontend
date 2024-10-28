@@ -57,7 +57,7 @@ export class ClientProductViewModel {
   showBindProductModal = false
 
   showTab = undefined
-
+  filterStatus = undefined
   setOpenModal = undefined
 
   weightParserAmazon = 0
@@ -95,7 +95,7 @@ export class ClientProductViewModel {
     const url = new URL(window.location.href)
     this.productId = url.searchParams.get('product-id')
     this.showTab = url.searchParams.get('show-tab')
-
+    this.filterStatus = url.searchParams.get('status')
     if (setOpenModal) {
       this.setOpenModal = setOpenModal
     }
