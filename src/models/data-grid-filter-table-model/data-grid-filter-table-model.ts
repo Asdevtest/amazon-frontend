@@ -253,6 +253,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   async setSettingsFromActivePreset() {
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     const activePreset = this.getActivePreset()
 
     if (activePreset) {
@@ -289,6 +290,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         ...column,
       }))
 
+      this.currentSearchValue = ''
       this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
 
       runInAction(() => {
@@ -300,6 +302,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     }
 
     this.getCurrentData()
+    this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
   parseQueryString(queryString?: string): Record<string, string | string[]> {
@@ -335,9 +338,17 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   setFilterFromPreset(presetFilters: Record<string, string | string[]>) {
     const keys = Object.keys(presetFilters)
 
+    if (!presetFilters?.currentSearchValue) {
+      this.currentSearchValue = ''
+    } else {
+      this.currentSearchValue = presetFilters.currentSearchValue as string
+    }
+
+    this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
+
     for (const key of keys) {
-      if (key === 'currentSearchValue' && typeof presetFilters[key] === 'string') {
-        this.currentSearchValue = presetFilters[key]
+      if (key === 'currentSearchValue') {
+        continue
       } else {
         this.onChangeFullFieldMenuItem(presetFilters[key], key)
       }

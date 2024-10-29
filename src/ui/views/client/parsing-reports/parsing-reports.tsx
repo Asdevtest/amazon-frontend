@@ -46,7 +46,7 @@ export const ParsingReports: FC<ParsingReportsProps> = observer(({ table, produc
             onChange={viewModel.onChangeActiveTable}
           />
 
-          <LinkCascader />
+          {productId ? null : <LinkCascader />}
         </div>
 
         <CustomInputSearch
