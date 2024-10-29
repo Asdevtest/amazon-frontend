@@ -36,6 +36,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={boxStatusTranslateKey(row?.status) || '-'} />,
       table: DataGridFilterTables.BOXES,
+      transformValueMethod: boxStatusTranslateKey,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       width: 180,
     },
