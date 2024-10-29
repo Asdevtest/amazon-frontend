@@ -554,7 +554,7 @@ export const clientInventoryColumns = ({
 
           return Number(boxAmounts) || 0
         },
-        width: 145,
+        width: 160,
         columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
       }
 
