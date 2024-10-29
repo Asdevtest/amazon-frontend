@@ -34,7 +34,6 @@ import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { useStyles } from './client-in-stock-boxes-view.style'
 
-import { disableSelectionCells } from './client-in-stock-boxes-view.constants'
 import { ClientInStockBoxesViewModel } from './client-in-stock-boxes-view.model'
 import { ViewHeader } from './view-header/view-header'
 
@@ -136,9 +135,7 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         onFilterModelChange={viewModel.onChangeFilterModel}
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
-        onCellDoubleClick={params =>
-          !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
-        }
+        onRowDoubleClick={params => !viewModel.setCurrentOpenedBox(params.row)}
         onPinnedColumnsChange={viewModel.handlePinColumn}
       />
 
