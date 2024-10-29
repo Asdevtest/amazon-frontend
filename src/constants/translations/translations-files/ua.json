@@ -2071,5 +2071,8 @@
   "Select at least 2 users": "Виберіть щонайменше 2 користувача",
   "Requested in batch": "Запрошено в партію",
   "No reviews": "Немає відгуків",
-  "Link a store to a product": "Прив'язати магазин до продукту"
+  "Link a store to a product": "Прив'язати магазин до продукту",
+  "Add product": "Додати продукт",
+  "Create a supplier": "Створити постачальника",
+  "Suppliers": "Постачальники"
 }

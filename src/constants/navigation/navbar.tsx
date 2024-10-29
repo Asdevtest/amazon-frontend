@@ -735,6 +735,17 @@ export const navbarConfig = {
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PENDING_ORDERS_BUYER),
     },
     {
+      icon: ClockIcon,
+      title: () => t(TranslationKey.Suppliers),
+      route: '/buyer/suppliers',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_SUPPLIERS,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_SUPPLIERS) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_SUPPLIERS),
+    },
+    {
       icon: MyOrdersIcon,
       title: () => t(TranslationKey['My orders']),
       route: '/buyer/my-orders',

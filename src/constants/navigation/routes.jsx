@@ -117,6 +117,11 @@ const BuyerPendingOrdersView = lazy(() =>
     default: module.BuyerPendingOrdersView,
   })),
 )
+
+const SuppliersView = lazy(() =>
+  import('@views/buyer/suppliers-view').then(module => ({ default: module.SuppliersView })),
+)
+
 const BuyerMyOrdersView = lazy(() =>
   import('@views/buyer/buyer-orders-views/buyer-my-orders-view').then(module => ({
     default: module.BuyerMyOrdersView,
@@ -714,6 +719,22 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_PENDING_ORDERS,
+      activeSubCategory: '',
+      title: () => t(TranslationKey['Pending orders']),
+    },
+  },
+
+  {
+    routePath: '/buyer/suppliers',
+    component: SuppliersView,
+    exact: false,
+    permission: [UserRole.BUYER],
+    permissionKey: permissionsKeys.buyer.SHOW_SUPPLIERS,
+
+    crumbNameKey: TranslationKey.Suppliers,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_SUPPLIERS,
       activeSubCategory: '',
       title: () => t(TranslationKey['Pending orders']),
     },

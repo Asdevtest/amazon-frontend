@@ -2073,4 +2073,7 @@ export enum TranslationKey {
   'Requested in batch' = 'Requested in batch',
   'No reviews' = 'No reviews',
   'Link a store to a product' = 'Link a store to a product',
+  'Add product' = 'Add product',
+  'Create a supplier' = 'Create a supplier',
+  'Suppliers' = 'Suppliers',
 }

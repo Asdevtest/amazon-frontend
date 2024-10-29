@@ -2072,5 +2072,8 @@
   "Select at least 2 users": "Выберите минимум 2 пользователя",
   "Requested in batch": "Запрошено в партию",
   "No reviews": "Нет отзывов",
-  "Link a store to a product": "Привязать магазин к продукту"
+  "Link a store to a product": "Привязать магазин к продукту",
+  "Add product": "Добавить продукт",
+  "Create a supplier": "Создать поставщика",
+  "Suppliers": "Поставщики"
 }
