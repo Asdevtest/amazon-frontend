@@ -275,7 +275,10 @@ export class SuppliersAndIdeasModel {
         )
         await this.getIdea(createdIdeaId)
         await this.getShops()
-        this.onTriggerOpenModal('showSelectShopsModal')
+
+        if (!this.currentProduct) {
+          this.onTriggerOpenModal('showSelectShopsModal')
+        }
       }
 
       runInAction(() => {
