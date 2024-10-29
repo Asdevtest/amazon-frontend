@@ -677,6 +677,10 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
         this.currentProduct = result as unknown as IProduct
         this.productId = chosenProduct?._id
       })
+    } else {
+      runInAction(() => {
+        this.currentProduct = undefined
+      })
     }
 
     if (!!chosenProduct && !chosenProduct?.buyerId && !chosenProduct?.buyer?._id) {
