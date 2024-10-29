@@ -22,7 +22,7 @@ export const RequestProposalsDetailsCustom = observer(({ requestProposals }) => 
             </div>
           ))
         ) : (
-          <p variant="p">Предложений пока нет</p>
+          <p>Предложений пока нет</p>
         )}
       </div>
     </div>

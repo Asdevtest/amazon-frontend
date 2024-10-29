@@ -19,7 +19,7 @@ export const Info = ({ headerInfoData }) => {
 
   return (
     <div elevation={0} className={styles.paper}>
-      <parent className={styles.title}>{t(TranslationKey.Info)}</parent>
+      <p className={styles.title}>{t(TranslationKey.Info)}</p>
 
       <Divider orientation={'horizontal'} className={styles.divider} />
 
