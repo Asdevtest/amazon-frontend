@@ -838,8 +838,8 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_IDEAS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        checkGroupPermissions(permissionsKeys.buyer.SHOW_PRODUCTS_BUYER) ||
-        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_IDEAS_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_IDEAS_BUYER),
     },
 
     {
