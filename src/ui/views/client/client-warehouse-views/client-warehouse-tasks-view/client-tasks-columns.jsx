@@ -37,7 +37,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Priority),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
-      width: window.innerWidth < 1282 ? 140 : 170,
+      width: 170,
       renderCell: params => (
         <TaskPriorityCell
           disabled={
@@ -101,7 +101,7 @@ export const clientTasksViewColumns = handlers => {
       ),
 
       disableCustomSort: true,
-      width: window.innerWidth < 1282 ? 100 : 160,
+      width: 160,
     },
 
     {
@@ -139,7 +139,7 @@ export const clientTasksViewColumns = handlers => {
       ),
       type: 'number',
       disableCustomSort: true,
-      width: window.innerWidth < 1282 ? 73 : 160,
+      width: 160,
     },
 
     {
@@ -148,7 +148,7 @@ export const clientTasksViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
       renderCell: params => <CheckboxCell disabled checked={params.value} />,
-      width: window.innerWidth < 1282 ? 65 : 160,
+      width: 160,
       type: 'boolean',
     },
 
@@ -161,7 +161,7 @@ export const clientTasksViewColumns = handlers => {
         <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.item))} />
       ),
       disableCustomSort: true,
-      width: window.innerWidth < 1282 ? 54 : 160,
+      width: 160,
     },
 
     {

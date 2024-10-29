@@ -89,7 +89,7 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
       columnsModel,
       filtersFields: [],
       mainMethodURL: 'client/tasks/by_boxes?',
-      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient', 'item', 'xid'],
+      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient', 'item', 'orderXid'],
       tableKey: DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS,
       defaultGetCurrentDataOptions,
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
