@@ -85,7 +85,7 @@ export const ppcOrganicColumns = () => {
       headerName: 'Week',
       renderHeader: () => <MultilineTextHeaderCell text="Week" />,
 
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
