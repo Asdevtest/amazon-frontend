@@ -365,7 +365,7 @@ export const SuppliersAndIdeas = observer(props => {
         <SelectShopsModal
           // @ts-ignore
           isNotDisabled
-          title="TEST"
+          title={t(TranslationKey['Link a store to a product'])}
           shops={shopsData}
           onClickSuccessBtn={onSaveProductData}
           onClickCancelBtn={() => onTriggerOpenModal('showSelectShopsModal')}

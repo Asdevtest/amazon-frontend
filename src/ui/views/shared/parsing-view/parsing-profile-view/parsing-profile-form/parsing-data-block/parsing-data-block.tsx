@@ -44,7 +44,7 @@ export const ParsingDataBlock: FC<ParsingDataBlockProps> = memo(props => {
       <div className={styles.info}>
         <div className={styles.shop}>
           <AiTwotoneShop size="24" />
-          <Text textRows={1} copyable={false} text={shop?.name || ''} className={styles.shopName} />
+          <Text rows={1} copyable={false} text={shop?.name || ''} className={styles.shopName} />
         </div>
 
         <UserCell name={client?.name} id={client?._id} />

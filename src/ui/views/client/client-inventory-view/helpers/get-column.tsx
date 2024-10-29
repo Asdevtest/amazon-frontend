@@ -32,7 +32,7 @@ export const getColumn = ({
 
   if (isCounter) {
     const tableName = formatSnakeCaseString(table)
-    headerName = `${tableName} ${headerName}`
+    headerName = tableName
   }
   const columnKey = getColumnKey(type)
 

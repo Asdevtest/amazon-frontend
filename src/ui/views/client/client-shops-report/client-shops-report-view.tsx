@@ -12,7 +12,6 @@ import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -102,9 +101,7 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindStockGoodsToInventoryModal')}
       >
         <BindStockGoodsToInventoryForm
-          goodsToSelect={addIdDataConverter(
-            viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id)),
-          )}
+          goodsToSelect={viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id))}
           inventoryData={viewModel.inventoryProducts}
           updateInventoryData={viewModel.getProductsMy}
           onSubmit={viewModel.submitBindStockGoodsHandler}

@@ -10,4 +10,4 @@ export const productDataFormConfig = {
   patchActualShippingCostBatch: action.bound,
 }
 
-export const searchFields: string[] = ['xid', 'fbaShipment']
+export const searchFields: string[] = ['batchXid', 'fbaShipment']

@@ -2072,4 +2072,5 @@ export enum TranslationKey {
   'Select at least 2 users' = 'Select at least 2 users',
   'Requested in batch' = 'Requested in batch',
   'No reviews' = 'No reviews',
+  'Link a store to a product' = 'Link a store to a product',
 }

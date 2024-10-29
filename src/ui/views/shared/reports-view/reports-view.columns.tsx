@@ -211,7 +211,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       renderCell: ({ row }) => <Text isCell text={row.description} />,
-      flex: 1,
+      width: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 

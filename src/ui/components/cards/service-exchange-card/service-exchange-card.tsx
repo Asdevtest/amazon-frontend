@@ -65,9 +65,9 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         </div>
 
         <div className={styles.descriptionWrapper} onClick={handleToggleModal}>
-          <Text bold textRows={2} copyable={false} text={service.title} />
+          <Text strong rows={2} copyable={false} text={service.title} />
 
-          <Text copyable={false} textRows={3} text={service.description} />
+          <Text copyable={false} text={service.description} />
 
           {freelancer ? (
             <p className={styles.detailsText}>
