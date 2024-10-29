@@ -1,110 +1,74 @@
-import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './move-box-to-batch-form.style'
 
 import { moveBoxToBatchFormColumns } from './move-box-to-batch-form-columns'
 
-export const MoveBoxToBatchForm = observer(({ batches, setOpenModal, onSubmit, box, onSubmitCreateBatch }) => {
-  const { classes: styles, cx } = useStyles()
+export const MoveBoxToBatchForm = observer(props => {
+  const { batches, setOpenModal, onSubmit, box, onSubmitCreateBatch } = props
 
+  const { classes: styles, cx } = useStyles()
   const [selectedBatch, setSelectedBatch] = useState(null)
 
-  const filteredBatches = batches.filter(
+  const filteredBatches = batches?.filter(
     batch =>
-      batch.originalData.boxes[0].destination?.name === box.destination?.name &&
-      batch.originalData.boxes[0].logicsTariff?.name === box.logicsTariff.name &&
-      batch.originalData._id !== box.batchId,
+      batch?.boxes?.[0]?.destination?.name === box.destination?.name &&
+      batch?.boxes?.[0]?.logicsTariff?.name === box.logicsTariff.name &&
+      batch?._id !== box.batchId,
   )
 
-  const onClickRowRadioBtn = row => {
-    setSelectedBatch(row)
-  }
-
   return (
-    <div>
-      {filteredBatches.length ? (
-        <div className={styles.batchesExistBlock}>
-          <div className={styles.titleWrapper}>
-            <Typography variant="h5" className={styles.standartText}>
-              {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey['Add to batch'])}
-            </Typography>
+    <div className={styles.root}>
+      <div className={styles.flexRow}>
+        <p className={styles.title}>
+          {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey['Add to batch'])}
+        </p>
 
-            <div className={styles.titleSubWrapper}>
-              <Typography variant="h6" className={styles.standartText}>{`${t(TranslationKey.Box)}: ${
-                box.xid
-              }`}</Typography>
-
-              <Typography variant="h6" className={styles.standartText}>{`${t(TranslationKey.Batch)}: ${
-                box.batch?.xid || t(TranslationKey['Not chosen'])
-              }`}</Typography>
-            </div>
-          </div>
-
-          <div className={styles.tableWrapper}>
-            <CustomDataGrid
-              rowCount={filteredBatches?.length}
-              rows={toJS(filteredBatches)}
-              columns={moveBoxToBatchFormColumns({ onClickRowRadioBtn }, selectedBatch)}
-              getRowHeight={() => 'auto'}
-              onRowClick={e => setSelectedBatch(e.row)}
-            />
-          </div>
-
-          <div className={styles.btnsWrapper}>
-            <Button styleType={ButtonStyle.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
-              {t(TranslationKey['Create new batch'])}
-            </Button>
-
-            <div className={styles.btnsSubWrapper}>
-              <Button disabled={!selectedBatch} onClick={() => onSubmit(box, selectedBatch)}>
-                {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey.Add)}
-              </Button>
-
-              <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
-                {t(TranslationKey.Close)}
-              </Button>
-            </div>
-          </div>
+        <div className={styles.flexRow}>
+          <p>{`${t(TranslationKey.Box)}: ${box.xid}`}</p>
+          <p>{`${t(TranslationKey.Batch)}: ${box.batch?.xid || t(TranslationKey['Not chosen'])}`}</p>
         </div>
-      ) : (
-        <div className={styles.batchesNotExistBlock}>
-          <Typography variant="h5" className={styles.title}>
-            {t(TranslationKey['Add to batch'])}
-          </Typography>
+      </div>
 
-          <div className={styles.messageWrapper}>
-            <Typography className={styles.standartText}>
-              {t(TranslationKey['No batch with the parameters of the box.'])}
-            </Typography>
-            <Typography className={styles.standartText}>{`${t(TranslationKey.For)} ${
-              box.batchId ? t(TranslationKey.move) : t(TranslationKey.sending)
-            } ${t(TranslationKey.Box)} №${box.xid} ${t(TranslationKey['Create new batch'])}.`}</Typography>
-          </div>
+      <div className={styles.dataGridWrapper}>
+        <CustomDataGrid
+          rowCount={filteredBatches?.length}
+          rows={filteredBatches}
+          columns={moveBoxToBatchFormColumns({ setSelectedBatch }, selectedBatch)}
+          getRowHeight={() => 'auto'}
+          getRowId={({ _id }) => _id}
+          onRowClick={e => setSelectedBatch(e.row)}
+        />
+      </div>
 
-          <div className={styles.btnsSecondWrapper}>
-            <Button styleType={ButtonStyle.SUCCESS} onClick={() => onSubmitCreateBatch(box)}>
-              {t(TranslationKey['Create new batch'])}
-            </Button>
+      <div className={styles.flexRow}>
+        <CustomButton type="primary" size="large" onClick={() => onSubmitCreateBatch(box)}>
+          {t(TranslationKey['Create new batch'])}
+        </CustomButton>
 
-            <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
-              {t(TranslationKey.Close)}
-            </Button>
-          </div>
+        <div className={styles.flexRow}>
+          <CustomButton
+            type="primary"
+            size="large"
+            disabled={!selectedBatch}
+            onClick={() => onSubmit(box, selectedBatch)}
+          >
+            {box.batchId ? t(TranslationKey['Move box']) : t(TranslationKey.Add)}
+          </CustomButton>
+
+          <CustomButton size="large" onClick={setOpenModal}>
+            {t(TranslationKey.Close)}
+          </CustomButton>
         </div>
-      )}
+      </div>
     </div>
   )
 })

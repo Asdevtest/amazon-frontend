@@ -79,7 +79,6 @@ export const sourceFilesColumns = rowHandlers => [
       <Text
         isCell
         editMode
-        textRows={2}
         text={params.row.originalData.sourceFile}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'sourceFile', value)}
       />
@@ -95,7 +94,6 @@ export const sourceFilesColumns = rowHandlers => [
       <Text
         isCell
         editMode
-        textRows={2}
         text={params.row.originalData.comments}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'comments', value)}
       />

@@ -2078,4 +2078,5 @@ export enum TranslationKey {
   'Response files' = 'Response files',
   'Are you sure you want to delete this ticket?' = 'Are you sure you want to delete this ticket?',
   'No reviews' = 'No reviews',
+  'Link a store to a product' = 'Link a store to a product',
 }

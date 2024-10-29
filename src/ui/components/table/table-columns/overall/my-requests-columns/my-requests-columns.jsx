@@ -316,7 +316,7 @@ export const myRequestsViewColumns = rowHandlers => {
         <Text
           isCell
           editMode
-          maxLength={MIDDLE_COMMENT_VALUE}
+          maxTextareaLength={MIDDLE_COMMENT_VALUE}
           text={row?.detailsCustom?.comment}
           onClickSubmit={comment => rowHandlers.onClickSaveComment(row?._id, comment)}
         />
