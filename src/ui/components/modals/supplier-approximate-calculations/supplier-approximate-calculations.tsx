@@ -5,8 +5,8 @@ import { DataGridPremiumProps, GridCellParams, GridRowClassNameParams, GridRowMo
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
@@ -14,7 +14,6 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { TariffModal } from '@typings/enums/tariff-modal'
 import { IBox } from '@typings/models/boxes/box'
@@ -222,17 +221,13 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
 
         {isTariffsSelect ? (
           <div className={styles.buttonsWrapper}>
-            <Button disabled={isDisableButton} onClick={viewModel?.handleCheckVariation}>
+            <CustomButton disabled={isDisableButton} onClick={viewModel?.handleCheckVariation}>
               {t(TranslationKey.Choose)}
-            </Button>
+            </CustomButton>
 
-            <Button
-              styleType={ButtonStyle.DANGER}
-              variant={ButtonVariant.OUTLINED}
-              onClick={viewModel?.handleResetVariationTariff}
-            >
+            <CustomButton danger type="primary" variant="outlined" onClick={viewModel?.handleResetVariationTariff}>
               {t(TranslationKey.Reset)}
-            </Button>
+            </CustomButton>
           </div>
         ) : null}
 

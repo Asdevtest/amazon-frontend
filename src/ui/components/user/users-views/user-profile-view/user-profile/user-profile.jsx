@@ -5,8 +5,8 @@ import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Reviews } from '@components/forms/reviews-form'
-import { Button } from '@components/shared/button'
 import { CustomAvatar } from '@components/shared/custom-avatar'
+import { CustomButton } from '@components/shared/custom-button'
 import { PurchaseHistory } from '@components/user/users-views/user-profile-view/purchase-history'
 
 import { checkIsAdmin } from '@utils/checks'
@@ -62,10 +62,12 @@ export const UserProfile = memo(props => {
             </div>
 
             <div className={styles.userInfoButtons}>
-              {isAnotherUser && <Button onClick={() => onClickWriteBtn(user._id)}>{t(TranslationKey.Write)}</Button>}
+              {isAnotherUser && (
+                <CustomButton onClick={() => onClickWriteBtn(user._id)}>{t(TranslationKey.Write)}</CustomButton>
+              )}
 
               {!isAnotherUser && !checkIsAdmin(UserRoleCodeMap[user?.role]) && (
-                <Button onClick={onClickChangeUserInfo}>{t(TranslationKey.Edit)}</Button>
+                <CustomButton onClick={onClickChangeUserInfo}>{t(TranslationKey.Edit)}</CustomButton>
               )}
             </div>
           </div>
@@ -113,7 +115,7 @@ export const UserProfile = memo(props => {
 
         {isAnotherUser && (
           <div className={styles.leaveReviewBtnWrapper}>
-            <Button onClick={onClickReview}>{t(TranslationKey['Leave a review'])}</Button>
+            <CustomButton onClick={onClickReview}>{t(TranslationKey['Leave a review'])}</CustomButton>
           </div>
         )}
 

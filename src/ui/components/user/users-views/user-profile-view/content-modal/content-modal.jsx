@@ -2,7 +2,7 @@ import { Container, Divider, Table, TableBody, TableCell, TableContainer, TableH
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { ModalTableBodyRow } from '@components/table/table-rows/user-profile-view/modal-table-body-row'
 
 import { t } from '@utils/translations'
@@ -42,9 +42,9 @@ export const ContentModal = props => {
         </Table>
       </TableContainer>
       <div className={styles.buttonsWrapper}>
-        <Button onClick={() => props.setOpenModal(false)}>{'Заказать сразу'}</Button>
+        <CustomButton onClick={() => props.setOpenModal(false)}>{'Заказать сразу'}</CustomButton>
 
-        <Button onClick={() => props.setOpenModal(false)}>{'Отменить'}</Button>
+        <CustomButton onClick={() => props.setOpenModal(false)}>{'Отменить'}</CustomButton>
       </div>
     </Container>
   )

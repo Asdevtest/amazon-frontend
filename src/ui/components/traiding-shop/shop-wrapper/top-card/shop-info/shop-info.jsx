@@ -5,15 +5,15 @@ import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { LinesChart } from '@components/shared/charts/lines-chart/lines-chart'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './shop-info.style'
 
@@ -80,10 +80,10 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
           <div className={styles.buttonsWrapper}>
             {userInfo._id === data.ownerId ? (
               <>
-                <Button onClick={onClickEditBtn}>{t(TranslationKey.Edit)}</Button>
-                <Button disabled styleType={ButtonStyle.DANGER}>
+                <CustomButton onClick={onClickEditBtn}>{t(TranslationKey.Edit)}</CustomButton>
+                <CustomButton disabled danger type="primary">
                   {t(TranslationKey['Delete ad'])}
-                </Button>
+                </CustomButton>
               </>
             ) : null}
           </div>

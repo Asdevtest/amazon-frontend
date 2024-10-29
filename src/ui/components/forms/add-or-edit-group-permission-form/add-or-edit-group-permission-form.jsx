@@ -10,7 +10,6 @@ import ListSubheader from '@mui/material/ListSubheader'
 import { UserRole, UserRoleCodeMap, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomSelect } from '@components/shared/custom-select'
 import { Field } from '@components/shared/field/field'
@@ -19,7 +18,7 @@ import { Modal } from '@components/shared/modal'
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-group-permission-form.style'
 
@@ -284,12 +283,12 @@ export const AddOrEditGroupPermissionForm = observer(
                     </Tooltip>
                   ))}
 
-                  <Button
+                  <CustomButton
                     disableElevation
                     onClick={() => setShowAddOrEditSinglePermissionModal(!showAddOrEditSinglePermissionModal)}
                   >
                     {t(TranslationKey['Create New'])}
-                  </Button>
+                  </CustomButton>
                 </div>
               </div>
             }
@@ -297,16 +296,14 @@ export const AddOrEditGroupPermissionForm = observer(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             disabled={disableSubmitBtn}
             onClick={() => onSubmit(formFields, permissionToEdit._id, newSinglePermission)}
           >
             {isEdit ? t(TranslationKey['Edit a group']) : t(TranslationKey['Create a group'])}
-          </Button>
+          </CustomButton>
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
 
         <Modal

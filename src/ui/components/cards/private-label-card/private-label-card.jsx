@@ -2,13 +2,13 @@ import { Divider, InputBase } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { toFixedWithDollarSign, toFixedWithKg, withAmount } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './private-label-card.style'
 
@@ -60,13 +60,13 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
         />
 
         <div className={styles.buttonsWrapper}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            type="primary"
             tooltipInfoContent={index === 0 && t(TranslationKey['Purchase a product card by Private Label strategy'])}
             onClick={() => setProductToPay(item)}
           >
             {t(TranslationKey.Start) + ' Private Label'}
-          </Button>
+          </CustomButton>
         </div>
       </div>
     </div>

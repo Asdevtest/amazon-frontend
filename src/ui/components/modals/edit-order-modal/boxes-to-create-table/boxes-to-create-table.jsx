@@ -4,8 +4,8 @@ import { TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { SizeSwitcher } from '@components/shared/size-switcher'
@@ -15,7 +15,7 @@ import { Table } from '@components/shared/table'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 
 import { Entities, useShowDimensions } from '@hooks/dimensions/use-show-dimensions'
@@ -160,13 +160,13 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
 
       <TableCell>
         <div className={styles.buttonCell}>
-          <Button iconButton styleType={ButtonStyle.DANGER} onClick={() => handlers.onRemoveBox(itemIndex)}>
+          <CustomButton iconButton danger type="primary" onClick={() => handlers.onRemoveBox(itemIndex)}>
             <CrossIcon />
-          </Button>
+          </CustomButton>
 
-          <Button iconButton onClick={() => handlers.onEditBox()}>
+          <CustomButton iconButton onClick={() => handlers.onEditBox()}>
             <EditIcon />
-          </Button>
+          </CustomButton>
         </div>
       </TableCell>
     </TableRow>

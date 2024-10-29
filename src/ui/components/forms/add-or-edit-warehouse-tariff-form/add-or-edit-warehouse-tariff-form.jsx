@@ -10,7 +10,7 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/check
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-warehouse-tariff-form.style'
 
@@ -101,7 +101,7 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
       </div>
 
       <div className={styles.btnsWrapper}>
-        <CustomButton type={ButtonStyle.PRIMARY} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
+        <CustomButton type="primary" disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
           {t(TranslationKey.Add)}
         </CustomButton>
 

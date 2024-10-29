@@ -5,7 +5,7 @@ import { IconButton } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Input } from '@components/shared/input'
 import { Table } from '@components/shared/table'
 import { TableHeadRow } from '@components/table/table-rows/batches-view/table-head-row'
@@ -186,11 +186,11 @@ export const NewBoxes = memo(
             </div>
 
             <div className={styles.footerBtnsWrapper}>
-              <Button onClick={() => addDouble(item._id)}>
+              <CustomButton onClick={() => addDouble(item._id)}>
                 <img src="/assets/icons/plus.svg" />
-              </Button>
+              </CustomButton>
 
-              <Button onClick={() => onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
+              <CustomButton onClick={() => onAddImages(item._id)}>{t(TranslationKey.Photos)}</CustomButton>
             </div>
           </div>
         ))}

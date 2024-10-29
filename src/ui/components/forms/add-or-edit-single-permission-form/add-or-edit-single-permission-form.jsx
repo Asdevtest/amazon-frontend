@@ -9,7 +9,7 @@ import { MenuItem, Select } from '@mui/material'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 
@@ -17,7 +17,7 @@ import { checkIsPositiveNum } from '@utils/checks'
 import { clearSpecialCharacters } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { HttpMethods } from '@typings/enums/http'
 
 import { useStyles } from './add-or-edit-single-permission-form.style'
@@ -207,32 +207,30 @@ export const AddOrEditSinglePermissionForm = observer(
                       ))}
                     </Select>
 
-                    <Button iconButton styleType={ButtonStyle.DANGER} onClick={() => onRemovePermission(index)}>
+                    <CustomButton iconButton danger type="primary" onClick={() => onRemovePermission(index)}>
                       <MdDeleteOutline size={24} />
-                    </Button>
+                    </CustomButton>
                   </div>
                 ))}
               </div>
               <div className={styles.buttonContainer}>
-                <Button iconButton onClick={addAllowUrl}>
+                <CustomButton iconButton onClick={addAllowUrl}>
                   <FiPlus style={{ width: 16, height: 16 }} />
-                </Button>
+                </CustomButton>
               </div>
             </>
           }
         />
 
         <div className={styles.buttons}>
-          <Button
+          <CustomButton
             disabled={disableSubmitBtn}
             onClick={() => onSubmit(formFields, permissionToEdit && permissionToEdit._id)}
           >
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey['Create a permission'])}
-          </Button>
+          </CustomButton>
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )

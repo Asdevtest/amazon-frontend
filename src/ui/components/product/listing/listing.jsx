@@ -7,8 +7,8 @@ import { Divider } from '@mui/material'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -17,7 +17,7 @@ import { UserBalanceHistory } from '@components/user/user-balance-history'
 import { checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './listing.style'
 
@@ -159,17 +159,15 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
             {userCanEdit ? (
               <div className={styles.buttonsWrapper}>
-                <Button onClick={onSaveSubmit}>{t(TranslationKey.Save)}</Button>
+                <CustomButton onClick={onSaveSubmit}>{t(TranslationKey.Save)}</CustomButton>
 
-                <Button styleType={ButtonStyle.CASUAL} onClick={onCancel}>
-                  {t(TranslationKey.Close)}
-                </Button>
+                <CustomButton onClick={onCancel}>{t(TranslationKey.Close)}</CustomButton>
 
-                <Button onClick={onClickBack}>{t(TranslationKey.Back)}</Button>
+                <CustomButton onClick={onClickBack}>{t(TranslationKey.Back)}</CustomButton>
               </div>
             ) : (
               <div className={styles.buttonsWrapper}>
-                <Button onClick={onClickBack ? onClickBack : onCancel}>{t(TranslationKey.Back)}</Button>
+                <CustomButton onClick={onClickBack ? onClickBack : onCancel}>{t(TranslationKey.Back)}</CustomButton>
               </div>
             )}
           </div>

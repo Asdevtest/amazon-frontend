@@ -4,12 +4,12 @@ import { MdOutlineRotateLeft, MdOutlineRotateRight } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './image-edit-form.style'
 
@@ -80,21 +80,19 @@ export const ImageEditForm = observer(({ item, onSave, setOpenModal }) => {
 
       <div className={styles.btnsWrapper}>
         <div className={styles.btnsSubWrapper}>
-          <Button onClick={handleRotateLeft}>
+          <CustomButton onClick={handleRotateLeft}>
             <MdOutlineRotateLeft size={22} />
-          </Button>
-          <Button onClick={handleRotateRight}>
+          </CustomButton>
+          <CustomButton onClick={handleRotateRight}>
             <MdOutlineRotateRight size={22} />
-          </Button>
+          </CustomButton>
         </div>
 
         <div className={styles.btnsSubWrapper}>
-          <Button disabled={!rotation} onClick={handleSave}>
+          <CustomButton disabled={!rotation} onClick={handleSave}>
             {t(TranslationKey.Save)}
-          </Button>
-          <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
-            {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
+          <CustomButton onClick={setOpenModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     </div>

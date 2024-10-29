@@ -35,7 +35,6 @@ import { objectDeepCompare } from '@utils/object'
 import { checkAndMakeAbsoluteUrl, clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { RequestSwitherType } from '@typings/enums/request/request-type'
 
 import { useStyles } from './idea-view-and-edit-card.style'
@@ -720,7 +719,7 @@ export const IdeaViewAndEditCard = observer(
                     />
 
                     <CustomButton
-                      type={ButtonStyle.PRIMARY}
+                      type="primary"
                       disabled={!supplierFound}
                       onClick={() => onClickAcceptButton(formFields, supplierFound)}
                     >
@@ -737,7 +736,7 @@ export const IdeaViewAndEditCard = observer(
 
                 {currentUserIsClient && isCurrentIdea && isCardCreating && (
                   <CustomButton
-                    type={ButtonStyle.PRIMARY}
+                    type="primary"
                     tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                     disabled={idea.childProduct}
                     onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
@@ -747,7 +746,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && showCreateRequestButton && (
-                  <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickCreateRequestButton(formFields)}>
+                  <CustomButton type="primary" onClick={() => onClickCreateRequestButton(formFields)}>
                     <FiPlus style={{ width: 16, height: 16 }} />
                     {t(TranslationKey['Create request'])}
                   </CustomButton>
@@ -755,7 +754,7 @@ export const IdeaViewAndEditCard = observer(
 
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
                   <CustomButton
-                    type={ButtonStyle.PRIMARY}
+                    type="primary"
                     disabled={disableAcceptButton}
                     onClick={() => onClickAcceptButton(formFields)}
                   >
@@ -764,7 +763,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isVerified && (
-                  <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickToOrder(formFields)}>
+                  <CustomButton type="primary" onClick={() => onClickToOrder(formFields)}>
                     {t(TranslationKey['To order'])}
                   </CustomButton>
                 )}
@@ -776,13 +775,13 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <CustomButton type={ButtonStyle.DANGER} onClick={() => onClickCloseIdea(formFields?._id)}>
+                  <CustomButton danger type="primary" onClick={() => onClickCloseIdea(formFields?._id)}>
                     {t(TranslationKey['Close idea'])}
                   </CustomButton>
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickReoperButton(formFields?._id)}>
+                  <CustomButton type="primary" onClick={() => onClickReoperButton(formFields?._id)}>
                     {t(TranslationKey.Restore)}
                   </CustomButton>
                 )}
@@ -792,13 +791,13 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && showRejectButton && (
-                  <CustomButton type={ButtonStyle.DANGER} onClick={() => onClickRejectButton(formFields?._id)}>
+                  <CustomButton danger type="primary" onClick={() => onClickRejectButton(formFields?._id)}>
                     {t(TranslationKey.Reject)}
                   </CustomButton>
                 )}
 
                 {isModalView && (
-                  <CustomButton variant={ButtonVariant.OUTLINED} onClick={() => onClickCancelBtn()}>
+                  <CustomButton variant="outlined" onClick={() => onClickCancelBtn()}>
                     {t(TranslationKey.Close)}
                   </CustomButton>
                 )}
@@ -808,14 +807,14 @@ export const IdeaViewAndEditCard = observer(
         ) : (
           <div className={styles.addOrEditBtnsWrapper}>
             <CustomButton
-              type={ButtonStyle.PRIMARY}
+              type="primary"
               disabled={disabledSubmit}
               onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
             >
               {t(TranslationKey.Save)}
             </CustomButton>
 
-            <CustomButton variant={ButtonVariant.OUTLINED} onClick={() => onClickCancelBtn()}>
+            <CustomButton variant="outlined" onClick={() => onClickCancelBtn()}>
               {t(TranslationKey.Close)}
             </CustomButton>
           </div>

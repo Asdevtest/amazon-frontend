@@ -16,7 +16,7 @@ import { CheckRequestByTypeExists } from '@components/forms/check-request-by-typ
 import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-modal'
 import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
@@ -37,7 +37,7 @@ import { convertLocalDateToUTC, formatDateForShowWithoutParseISO } from '@utils/
 import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { Specs } from '@typings/enums/specs'
 
 import { useStyles } from './create-or-edit-request-content.style'
@@ -628,13 +628,13 @@ export const CreateOrEditRequestContent = memo(props => {
                 ) : null}
 
                 <div className={styles.defaultMarginTop}>
-                  <Button
+                  <CustomButton
                     disabled={!formFields.request?.productId}
                     onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
                   >
                     <FiPlus style={{ width: 16, height: 16 }} />
                     {t(TranslationKey['Add from product'])}
-                  </Button>
+                  </CustomButton>
                 </div>
 
                 <CustomTextEditor
@@ -786,7 +786,7 @@ export const CreateOrEditRequestContent = memo(props => {
                             rating={chosenExecutor?.rating}
                           />
 
-                          <Button
+                          <CustomButton
                             disabled={!formFields.request.specId}
                             className={styles.buttonSelect}
                             onClick={async () => {
@@ -795,7 +795,7 @@ export const CreateOrEditRequestContent = memo(props => {
                             }}
                           >
                             {t(TranslationKey['Change announcement'])}
-                          </Button>
+                          </CustomButton>
                         </div>
                       ) : (
                         <WithSearchSelect
@@ -845,7 +845,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         )}
 
                         {!announcement?._id && (
-                          <Button
+                          <CustomButton
                             disabled={!formFields?.request?.specId}
                             onClick={async () => {
                               await onClickChoosePerformer(currentSpec?.type)
@@ -853,7 +853,7 @@ export const CreateOrEditRequestContent = memo(props => {
                             }}
                           >
                             {t(TranslationKey['Select announcement'])}
-                          </Button>
+                          </CustomButton>
                         )}
                       </div>
                     }
@@ -1113,19 +1113,18 @@ export const CreateOrEditRequestContent = memo(props => {
           )}
 
           <div className={styles.buttons}>
-            <Button
+            <CustomButton
               tooltipInfoContent={
                 isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
               }
-              styleType={ButtonStyle.CASUAL}
               onClick={onClickBackBtn}
             >
               {isSecondStep ? t(TranslationKey.Back) : t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
 
             {requestToEdit ? (
-              <Button
-                styleType={ButtonStyle.SUCCESS}
+              <CustomButton
+                type="primary"
                 tooltipInfoContent={
                   isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                 }
@@ -1140,11 +1139,11 @@ export const CreateOrEditRequestContent = memo(props => {
                     <img src="/assets/icons/right-arrow.svg" className={cx({ [styles.arrowIcon]: disableSubmit })} />
                   </>
                 )}
-              </Button>
+              </CustomButton>
             ) : (
               <>
-                <Button
-                  styleType={ButtonStyle.SUCCESS}
+                <CustomButton
+                  type="primary"
                   tooltipInfoContent={
                     isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                   }
@@ -1159,16 +1158,16 @@ export const CreateOrEditRequestContent = memo(props => {
                       <img src="/assets/icons/right-arrow.svg" className={cx({ [styles.arrowIcon]: disableSubmit })} />
                     </>
                   )}
-                </Button>
+                </CustomButton>
 
                 {isSecondStep ? (
-                  <Button
-                    styleType={ButtonStyle.SUCCESS}
+                  <CustomButton
+                    type="primary"
                     disabled={disableSubmit}
                     onClick={() => onClickCreate({ withPublish: true })}
                   >
                     {t(TranslationKey['Create and publish a request'])}
-                  </Button>
+                  </CustomButton>
                 ) : null}
               </>
             )}

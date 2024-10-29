@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { BoxesToOrder } from '@components/shared/tables/boxes-to-order'
@@ -21,7 +21,7 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './order-content.style'
 
@@ -193,8 +193,9 @@ export const OrderContent = ({
       <div className={styles.btnsWrapper}>
         {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isOrderEditable)) &&
           onClickCancelOrder && (
-            <Button
-              styleType={ButtonStyle.DANGER}
+            <CustomButton
+              danger
+              type="primary"
               tooltipInfoContent={
                 updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
                 t(TranslationKey['Cancel order, refund of frozen funds'])
@@ -202,22 +203,17 @@ export const OrderContent = ({
               onClick={onClickCancelOrder}
             >
               {t(TranslationKey['Cancel order'])}
-            </Button>
+            </CustomButton>
           )}
         {isClient && isOrderEditable ? (
           <div className={styles.btnsSubWrapper}>
             {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
-              <Button
-                disabled={isNotMultiple}
-                styleType={ButtonStyle.SUCCESS}
-                className={styles.button}
-                onClick={onClickReorder}
-              >
+              <CustomButton disabled={isNotMultiple} type="primary" className={styles.button} onClick={onClickReorder}>
                 {t(TranslationKey['To order'])}
-              </Button>
+              </CustomButton>
             )}
 
-            <Button
+            <CustomButton
               disabled={disabledSaveSubmit}
               onClick={() => {
                 onSubmitSaveOrder(
@@ -233,7 +229,7 @@ export const OrderContent = ({
               }}
             >
               {t(TranslationKey.Save)}
-            </Button>
+            </CustomButton>
           </div>
         ) : null}
       </div>

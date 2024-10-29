@@ -12,7 +12,7 @@ import { objectDeepCompare } from '@utils/object'
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-services-content.style'
 
@@ -120,7 +120,7 @@ export const CreateOrEditServiceContent = memo(props => {
       <div className={styles.buttonsWrapper}>
         <CustomButton onClick={throttle(onClickBackBtn)}>{t(TranslationKey.Close)}</CustomButton>
 
-        <CustomButton type={ButtonStyle.PRIMARY} disabled={disabledSubmitButton} onClick={throttle(handleSubmit)}>
+        <CustomButton type="primary" disabled={disabledSubmitButton} onClick={throttle(handleSubmit)}>
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </CustomButton>
       </div>

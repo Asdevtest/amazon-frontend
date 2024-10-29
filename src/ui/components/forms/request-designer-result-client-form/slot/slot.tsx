@@ -7,7 +7,7 @@ import Menu from '@mui/material/Menu'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
 import { PencilIcon } from '@components/shared/svg-icons'
@@ -92,7 +92,7 @@ export const Slot: FC<SlotProps> = memo(props => {
 
       {!noShowActions && (
         <div>
-          <Button className={styles.commentBtn} onClick={handleClick}>
+          <CustomButton className={styles.commentBtn} onClick={handleClick}>
             {t(TranslationKey.Comment)}
 
             {item.commentByClient ? (
@@ -100,7 +100,7 @@ export const Slot: FC<SlotProps> = memo(props => {
             ) : (
               <FiPlus style={{ width: 16, height: 16 }} />
             )}
-          </Button>
+          </CustomButton>
 
           {open && (
             <Menu open anchorEl={anchorEl} autoFocus={false} classes={{ list: styles.list }} onClose={handleClose}>

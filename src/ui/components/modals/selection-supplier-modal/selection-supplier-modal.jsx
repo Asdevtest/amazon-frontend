@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 
 import '@utils/text'
@@ -55,18 +55,18 @@ export const SelectionSupplierModal = ({
 
         <div className={styles.buttons}>
           {onSubmitSeekSupplier ? (
-            <Button
+            <CustomButton
               fullWidth
               tooltipAttentionContent={t(TranslationKey['Paid service'])}
               disabled={product && !clientToEditStatuses.includes(product?.status)}
               onClick={() => onSubmitSeekSupplier(comment)}
             >
               {t(TranslationKey['Send request for supplier search'])}
-            </Button>
+            </CustomButton>
           ) : null}
 
           {onClickFinalAddSupplierButton ? (
-            <Button
+            <CustomButton
               fullWidth
               tooltipAttentionContent={t(TranslationKey['Free service'])}
               disabled={product && !clientToEditStatuses.includes(product?.status)}
@@ -76,7 +76,7 @@ export const SelectionSupplierModal = ({
               }}
             >
               {t(TranslationKey['Add a new supplier'])}
-            </Button>
+            </CustomButton>
           ) : null}
         </div>
       </div>

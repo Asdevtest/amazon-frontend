@@ -5,14 +5,12 @@ import { Rating } from '@material-ui/lab'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './request-proposal-accept-or-reject-result-form.style'
 
@@ -74,16 +72,17 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
           />
 
           <div className={styles.btnsWrapper}>
-            <Button
+            <CustomButton
+              {...(isReject ? { danger: true } : {})}
               disabled={!formFields.rating}
-              styleType={isReject ? ButtonStyle.DANGER : ButtonStyle.SUCCESS}
+              type="primary"
               onClick={throttle(() => onSubmit(formFields))}
             >
               {isReject ? rejectButtonText : confirmButtonText}
-            </Button>
-            <Button variant={ButtonVariant.OUTLINED} onClick={() => setIsShowConfirmationModal(true)}>
+            </CustomButton>
+            <CustomButton variant="outlined" onClick={() => setIsShowConfirmationModal(true)}>
               {cancelBtnText}
-            </Button>
+            </CustomButton>
           </div>
 
           {isShowConfirmationModal ? (

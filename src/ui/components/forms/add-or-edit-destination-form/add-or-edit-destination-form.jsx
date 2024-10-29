@@ -10,7 +10,7 @@ import { UserLink } from '@components/user/user-link'
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-destination-form.style'
 
@@ -144,7 +144,7 @@ export const AddOrEditDestinationForm = observer(
         <div className={styles.footerWrapper}>
           {onClickAddBtn ? (
             <CustomButton
-              type={ButtonStyle.PRIMARY}
+              type="primary"
               tooltipInfoContent={t(TranslationKey['Add a new rate'])}
               onClick={throttle(onClickAddBtn)}
             >
@@ -153,7 +153,7 @@ export const AddOrEditDestinationForm = observer(
           ) : null}
 
           <div className={styles.btnsWrapper}>
-            <CustomButton type={ButtonStyle.PRIMARY} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
+            <CustomButton type="primary" disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
               {t(TranslationKey.Save)}
             </CustomButton>
 

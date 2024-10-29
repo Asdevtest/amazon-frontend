@@ -6,7 +6,7 @@ import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { IPayment } from '@typings/shared/payment'
 
 import { useStyles } from './payment-methods-form.style'
@@ -74,7 +74,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
 
       <div className={styles.buttonsWrapper}>
         {!readOnly && (
-          <CustomButton type={ButtonStyle.PRIMARY} onClick={handleSaveButton}>
+          <CustomButton type="primary" onClick={handleSaveButton}>
             {t(TranslationKey.Save)}
           </CustomButton>
         )}

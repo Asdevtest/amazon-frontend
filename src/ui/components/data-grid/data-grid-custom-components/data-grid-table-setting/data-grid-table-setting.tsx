@@ -6,13 +6,13 @@ import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './data-grid-table-setting.style'
 
@@ -42,15 +42,11 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
 
   return (
     <>
-      <Button
-        iconButton
-        defaultButtonTooltip={t(TranslationKey.Parameters)}
-        styleType={ButtonStyle.DEFAULT}
+      <CustomButton
+        icon={<IoSettingsOutline size={26} />}
         className={styles.parametersButton}
         onClick={(event: any) => setMenuAnchor(event.currentTarget)}
-      >
-        <IoSettingsOutline size={26} />
-      </Button>
+      />
 
       {Boolean(menuAnchor) && (
         <Menu

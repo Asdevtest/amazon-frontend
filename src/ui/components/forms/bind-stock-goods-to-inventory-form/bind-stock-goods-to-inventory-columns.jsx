@@ -3,7 +3,7 @@ import { Radio } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MediaContentCell } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { DeleteIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
@@ -110,9 +110,9 @@ export const chosenGoodsColumns = handlers => [
     field: ' ',
     headerName: '',
     renderCell: params => (
-      <Button iconButton onClick={() => handlers.onClickTrash(params.row.asin)}>
+      <CustomButton iconButton onClick={() => handlers.onClickTrash(params.row.asin)}>
         <DeleteIcon />
-      </Button>
+      </CustomButton>
     ),
     width: 60,
     filterable: false,

@@ -5,8 +5,8 @@ import { Checkbox } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox, calculateDeliveryCostPerPcs } from '@utils/calculation'
@@ -14,7 +14,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './request-to-send-batch-box.style'
 
@@ -348,9 +348,9 @@ export const RequestToSendBatchBox = memo(
         )}
 
         <td className={styles.tableCellCrossBtn}>
-          <Button styleType={ButtonStyle.DANGER} className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
+          <CustomButton danger type="primary" className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
             X
-          </Button>
+          </CustomButton>
         </td>
 
         {isWeightMismatch ? (

@@ -4,8 +4,8 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserCell } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
@@ -22,8 +22,6 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed, toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './select-fields.style'
 
@@ -321,9 +319,9 @@ export const SelectFields = ({
                 </div>
               }
             />
-            <Button disabled={checkIsPlanningPrice} onClick={onClickUpdateButton}>
+            <CustomButton disabled={checkIsPlanningPrice} onClick={onClickUpdateButton}>
               {t(TranslationKey.Update)}
-            </Button>
+            </CustomButton>
           </div>
 
           {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]) && (
@@ -397,14 +395,14 @@ export const SelectFields = ({
             </Box>
           </Box>
           <div className={styles.supplierPaymentButtonWrapper}>
-            <Button
+            <CustomButton
               disabled={isOrderInactive}
-              variant={editPaymentDetailsPhotos.length ? ButtonVariant.CONTAINED : ButtonVariant.OUTLINED}
+              variant={editPaymentDetailsPhotos.length ? 'filled' : 'outlined'}
               onClick={onClickSupplierPaymentButton}
             >
               {t(TranslationKey[`${editPaymentDetailsPhotos.length ? 'Document added' : 'Add payment document'}`])}
               {editPaymentDetailsPhotos.length ? ` (${editPaymentDetailsPhotos.length})` : ''}
-            </Button>
+            </CustomButton>
           </div>
         </Box>
 

@@ -2,7 +2,7 @@ import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
@@ -20,7 +20,7 @@ export const GetFilesForm = ({ receivedFiles, onClose }) => {
         {t(TranslationKey.download)}
       </Link>
 
-      <Button onClick={onClose}>{t(TranslationKey.Ok)}</Button>
+      <CustomButton onClick={onClose}>{t(TranslationKey.Ok)}</CustomButton>
     </div>
   )
 }

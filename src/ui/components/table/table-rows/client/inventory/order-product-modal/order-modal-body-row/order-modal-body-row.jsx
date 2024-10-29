@@ -10,7 +10,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChangeChipCell, ProductCell, StringListCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
@@ -22,7 +22,7 @@ import { convertLocalDateToUTC } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
@@ -275,10 +275,10 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={styles.cell}>
-          <Button
+          <CustomButton
             fullWidth
             className={styles.button}
-            styleType={item.logicsTariffId ? ButtonStyle.DEFAULT : ButtonStyle.PRIMARY}
+            type={item.logicsTariffId ? 'default' : 'primary'}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {item.logicsTariffId ? (
@@ -289,7 +289,7 @@ export const OrderModalBodyRow = ({
             ) : (
               t(TranslationKey.Select)
             )}
-          </Button>
+          </CustomButton>
         </TableCell>
 
         <TableCell className={styles.cell}>

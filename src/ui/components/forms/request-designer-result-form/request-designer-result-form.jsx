@@ -11,7 +11,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
@@ -20,8 +20,6 @@ import { CrossInRectangleIcon, PhotoCameraWithPlusIcon } from '@components/share
 import { createUploadFile } from '@utils/create-upload-file'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useScrollToFile } from '@hooks/use-scroll-to-file'
 
@@ -379,11 +377,11 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
               onChange={e => setSourceLink(e.target.value)}
             />
 
-            <Button variant={ButtonVariant.OUTLINED} onClick={setOpenModal}>
+            <CustomButton variant="outlined" onClick={setOpenModal}>
               {t(TranslationKey.Back)}
-            </Button>
+            </CustomButton>
 
-            <Button
+            <CustomButton
               disabled={disableSubmit}
               onClick={() => {
                 onClickSendAsResult({ message: comment, files: imagesData.filter(el => el.fileLink), sourceLink })
@@ -391,7 +389,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
               }}
             >
               {t(TranslationKey.Send)}
-            </Button>
+            </CustomButton>
           </div>
         </div>
       </div>

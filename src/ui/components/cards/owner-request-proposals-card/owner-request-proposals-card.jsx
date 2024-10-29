@@ -13,7 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
@@ -22,7 +22,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './owner-request-proposals-card.style'
 
@@ -125,16 +125,20 @@ export const OwnerRequestProposalsCard = ({
             <p className={styles.standartText}>{RequestProposalStatusTranslate(item.proposal.status)}</p>
           </div>
 
-          <Button disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)} onClick={onClickOpenResult}>
+          <CustomButton
+            disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
+            onClick={onClickOpenResult}
+          >
             {t(TranslationKey.Result)}
-          </Button>
+          </CustomButton>
 
           <div className={styles.actionButtonWrapper}>
             {(item.proposal.status === RequestProposalStatus.CREATED ||
               item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
               <>
-                <Button
-                  styleType={ButtonStyle.DANGER}
+                <CustomButton
+                  danger
+                  type="primary"
                   tooltipInfoContent={t(
                     TranslationKey[
                       'The terms of the proposal do not fit, the contractor will be able to edit them and do it again'
@@ -143,7 +147,7 @@ export const OwnerRequestProposalsCard = ({
                   onClick={() => onClickRejectProposal(item.proposal._id)}
                 >
                   {t(TranslationKey.Reject)}
-                </Button>
+                </CustomButton>
               </>
             )}
 
@@ -162,20 +166,20 @@ export const OwnerRequestProposalsCard = ({
                 RequestStatus.CANCELED_BY_EXECUTOR,
                 RequestStatus.OFFER_CONDITIONS_REJECTED,
               ].includes(request.request.status) && (
-                <Button
-                  styleType={ButtonStyle.SUCCESS}
+                <CustomButton
+                  type="primary"
                   tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
                   onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
                 >
                   {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
-                </Button>
+                </CustomButton>
               )}
-            <Button
+            <CustomButton
               tooltipInfoContent={t(TranslationKey['Open a chat with the performer'])}
               onClick={() => onClickContactWithExecutor(item.proposal)}
             >
               {t(TranslationKey['Contact the performer'])}
-            </Button>
+            </CustomButton>
           </div>
         </div>
       </div>

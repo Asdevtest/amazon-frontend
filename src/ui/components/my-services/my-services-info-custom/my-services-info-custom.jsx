@@ -7,7 +7,7 @@ import { RequestStatus, colorByStatus } from '@constants/requests/request-status
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Text } from '@components/shared/text'
 
 import { calcNumberMinusPercent } from '@utils/calculation'
@@ -47,9 +47,9 @@ export const MyServicesInfoCustom = ({ request, announcementData, onClickSuggest
             </p>
           </div>
 
-          <Button disabled={disableProposeDealButton} onClick={onClickSuggestDealBtn}>
+          <CustomButton disabled={disableProposeDealButton} onClick={onClickSuggestDealBtn}>
             {t(TranslationKey['Suggest a deal'])}
-          </Button>
+          </CustomButton>
         </div>
 
         <div className={styles.requestTitleAndInfo}>

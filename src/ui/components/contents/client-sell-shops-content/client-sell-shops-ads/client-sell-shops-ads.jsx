@@ -10,8 +10,6 @@ import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
-
 import { useStyles } from './client-sell-shops-ads.style'
 
 import { ClientSellShopsAdsModel } from './client-sell-shops-ads.model'
@@ -45,7 +43,7 @@ export const ClientSellShopsAds = observer(() => {
             className={cx(styles.button, {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
             })}
-            variant={ButtonVariant.OUTLINED}
+            variant="outlined"
             onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
           >
             {t(TranslationKey['All Ads'])}
@@ -56,21 +54,21 @@ export const ClientSellShopsAds = observer(() => {
             className={cx(styles.button, {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.SOLD_ADS,
             })}
-            variant={ButtonVariant.OUTLINED}
+            variant="outlined"
             onClick={() => onClickFilterBtn(filtersSettings.SOLD_ADS)}
           >
             {t(TranslationKey['Sold Ads'])}
           </CustomButton>
           <CustomButton
             disabled={curFilter === filtersSettings.PURCHASED_ADS}
-            variant={ButtonVariant.OUTLINED}
+            variant="outlined"
             onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
           >
             {t(TranslationKey['Removed Ads'])}
           </CustomButton>
         </div>
 
-        <CustomButton type={ButtonStyle.PRIMARY} onClick={onClickAddBtn}>
+        <CustomButton type="primary" onClick={onClickAddBtn}>
           {t(TranslationKey['Add shop'])}
         </CustomButton>
       </div>

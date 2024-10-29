@@ -22,8 +22,8 @@ import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-or
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { DatePicker } from '@components/shared/date-picker'
 import { Input } from '@components/shared/input'
@@ -35,7 +35,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getStatusByColumnKeyAndStatusKey, minsToTime, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { styles } from './data-grid-menu-items.style'
@@ -446,7 +446,7 @@ export const MyRequestsStatusMenuItem = memo(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -455,10 +455,8 @@ export const MyRequestsStatusMenuItem = memo(
             }}
           >
             {t(TranslationKey.Accept)}
-          </Button>
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
+          <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )
@@ -544,7 +542,7 @@ export const FreelanceRequestType = memo(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -553,10 +551,8 @@ export const FreelanceRequestType = memo(
             }}
           >
             {t(TranslationKey.Accept)}
-          </Button>
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
+          <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )
@@ -664,7 +660,7 @@ export const CreatedByMenuItem = memo(
           </div>
 
           <div className={styles.buttonsWrapper}>
-            <Button
+            <CustomButton
               onClick={e => {
                 onClose(e)
 
@@ -686,10 +682,8 @@ export const CreatedByMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       )
@@ -829,7 +823,7 @@ export const ObJectFieldMenuItem = memo(
             </div>
           </div>
           <div className={styles.buttonsWrapper}>
-            <Button
+            <CustomButton
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -838,10 +832,8 @@ export const ObJectFieldMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       )
@@ -979,7 +971,7 @@ export const IdeaShopsFieldMenuItem = memo(
             </div>
           </div>
           <div className={styles.buttonsWrapper}>
-            <Button
+            <CustomButton
               onClick={e => {
                 onClose(e)
 
@@ -1002,10 +994,8 @@ export const IdeaShopsFieldMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       )
@@ -1068,7 +1058,7 @@ export const BoxestatusMenuItem = memo(
           ))}
         </div>
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -1077,10 +1067,8 @@ export const BoxestatusMenuItem = memo(
             }}
           >
             {t(TranslationKey.Accept)}
-          </Button>
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
+          <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )
@@ -1208,7 +1196,7 @@ export const NormalFieldMenuItem = memo(
           </div>
 
           <div className={styles.buttonsWrapper}>
-            <Button
+            <CustomButton
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -1217,10 +1205,8 @@ export const NormalFieldMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       )
@@ -1299,7 +1285,7 @@ export const PriorityMenuItem = memo(
           </div>
 
           <div className={styles.buttonsWrapper}>
-            <Button
+            <CustomButton
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -1308,10 +1294,8 @@ export const PriorityMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       )
@@ -1368,7 +1352,7 @@ export const FreelancerToWorkConfirmationMenuItem = memo(
           </div>
 
           <div className={styles.buttonsWrapper}>
-            <Button
+            <CustomButton
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -1377,10 +1361,8 @@ export const FreelancerToWorkConfirmationMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       )
@@ -1524,7 +1506,7 @@ export const OrderOrItemMenuItem = memo(
             </div>
           </div>
           <div className={styles.buttonsWrapper}>
-            <Button
+            <CustomButton
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, currentOption)
@@ -1533,10 +1515,8 @@ export const OrderOrItemMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       )
@@ -1692,10 +1672,8 @@ export const DestinationMenuItem = memo(
           </div>
         </div>
         <div className={styles.buttonsWrapper}>
-          <Button onClick={applyFilters}>{t(TranslationKey.Accept)}</Button>
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={applyFilters}>{t(TranslationKey.Accept)}</CustomButton>
+          <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )
@@ -1844,7 +1822,7 @@ export const FromToDateMenuItem = memo(
             </div>
           </div>
           <div className={styles.buttonsWrapper}>
-            <Button
+            <CustomButton
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -1853,10 +1831,8 @@ export const FromToDateMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       )
@@ -1969,10 +1945,8 @@ export const DateDetailsMenuItem = memo(
           </div>
 
           <div className={styles.buttonsWrapper}>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
-            <Button
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
+            <CustomButton
               disabled={disableButton}
               onClick={e => {
                 onClose(e)
@@ -1981,7 +1955,7 @@ export const DateDetailsMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
+            </CustomButton>
           </div>
         </div>
       )
@@ -2135,7 +2109,7 @@ export const NumberFieldMenuItem = memo(
             </div>
           </div>
           <div className={styles.buttonsWrapper}>
-            <Button
+            <CustomButton
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, field)
@@ -2143,10 +2117,8 @@ export const NumberFieldMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       )
@@ -2272,7 +2244,7 @@ export const InStockMenuItem = memo(
             </div>
           </div>
           <div className={styles.buttonsWrapper}>
-            <Button
+            <CustomButton
               onClick={e => {
                 onClose(e)
                 onChangeFullFieldMenuItem(choosenItems, 'amountInBoxes')
@@ -2280,10 +2252,8 @@ export const InStockMenuItem = memo(
               }}
             >
               {t(TranslationKey.Accept)}
-            </Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-              {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       )
@@ -2373,7 +2343,7 @@ export const OnListingCellMenuItem = memo(
           </div>
         </div>
         <div className={styles.buttonsWrapper}>
-          <Button onClick={e => onClose(e)}>{t(TranslationKey.Accept)}</Button>
+          <CustomButton onClick={e => onClose(e)}>{t(TranslationKey.Accept)}</CustomButton>
         </div>
       </div>
     )
@@ -2438,14 +2408,14 @@ export const YesNoCellMenuItem = memo(
           </div>
         </div>
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             onClick={e => {
               filterData.handleFilters(condition.yes, condition.no)
               onClose(e)
             }}
           >
             {t(TranslationKey.Accept)}
-          </Button>
+          </CustomButton>
         </div>
       </div>
     )
@@ -2744,7 +2714,7 @@ export const SecondsCellMenuItem = memo(
           </div>
         </div>
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             onClick={e => {
               onClose(e)
               onChangeFullFieldMenuItem(choosenItems, field)
@@ -2752,10 +2722,8 @@ export const SecondsCellMenuItem = memo(
             }}
           >
             {t(TranslationKey.Accept)}
-          </Button>
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
+          <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )

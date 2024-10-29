@@ -5,7 +5,7 @@ import { Container, MenuItem, Select } from '@mui/material'
 import { EntityType } from '@constants/finances/entity-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -13,7 +13,7 @@ import { Modal } from '@components/shared/modal'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './admin-balance-modal.style'
@@ -128,9 +128,9 @@ export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw
         {isWithdraw ? renderNegativeMessage : renderPositiveMessage}
 
         <div className={styles.buttonWrapper}>
-          <Button disabled={disableButtonExecute} onClick={onTriggerConfirmModal}>
+          <CustomButton disabled={disableButtonExecute} onClick={onTriggerConfirmModal}>
             {t(TranslationKey.Execute)}
-          </Button>
+          </CustomButton>
         </div>
       </Container>
 
@@ -138,10 +138,8 @@ export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw
         <div className={styles.confirmModal}>
           <p>{confirmMsg()}</p>
           <div className={styles.buttonWrapper}>
-            <Button onClick={onConfirm}>{t(TranslationKey.Yes)}</Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onDecline}>
-              {t(TranslationKey.Close)}
-            </Button>
+            <CustomButton onClick={onConfirm}>{t(TranslationKey.Yes)}</CustomButton>
+            <CustomButton onClick={onDecline}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       </Modal>

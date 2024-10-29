@@ -6,12 +6,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/button'
 import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-chart'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './bar-charts-card.style'
 
@@ -74,15 +72,15 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
         />
 
         <div className={styles.buttonsWrapper}>
-          <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
+          <CustomButton onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
             {`6 ${t(TranslationKey.months)}`}
-          </Button>
-          <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
+          </CustomButton>
+          <CustomButton variant="outlined" onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
             {`12 ${t(TranslationKey.months)}`}
-          </Button>
-          <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
+          </CustomButton>
+          <CustomButton variant="outlined" onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
             {t(TranslationKey['All time'])}
-          </Button>
+          </CustomButton>
         </div>
       </div>
     </div>

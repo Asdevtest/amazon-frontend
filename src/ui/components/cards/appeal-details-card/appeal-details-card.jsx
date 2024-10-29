@@ -11,7 +11,7 @@ import { UserLink } from '@components/user/user-link'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './appeal-details-card.style'
 
@@ -96,7 +96,7 @@ export const AppealDetailsCard = () => {
 
           <div className={styles.footerWrapper}>
             <p className={styles.timeOnReviewTitle}>{'Время на рассмотрение с момента принятия 48 часов'}</p>
-            <CustomButton type={ButtonStyle.PRIMARY}>{'Принять к рассмотрению'}</CustomButton>
+            <CustomButton type="primary">{'Принять к рассмотрению'}</CustomButton>
           </div>
         </div>
       </div>

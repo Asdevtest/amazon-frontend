@@ -7,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditGroupPermissionForm } from '@components/forms/add-or-edit-group-permission-form'
 import { AddOrEditSinglePermissionForm } from '@components/forms/add-or-edit-single-permission-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -16,7 +15,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IPermission } from '@typings/models/permissions/permission'
 
@@ -49,9 +48,13 @@ export const UserPermissions = observer(() => {
         />
 
         <div className={styles.buttons}>
-          <Button onClick={viewModel.onClickExportPermissions}>{t(TranslationKey['Export to file'])}</Button>
-          <Button onClick={viewModel.onClickImportPermissions}>{t(TranslationKey['Import permissions'])}</Button>
-          <CustomButton type={ButtonStyle.PRIMARY} onClick={viewModel.onClickAddBtn}>
+          <CustomButton onClick={viewModel.onClickExportPermissions}>
+            {t(TranslationKey['Export to file'])}
+          </CustomButton>
+          <CustomButton onClick={viewModel.onClickImportPermissions}>
+            {t(TranslationKey['Import permissions'])}
+          </CustomButton>
+          <CustomButton type="primary" onClick={viewModel.onClickAddBtn}>
             {t(TranslationKey.Add)}
           </CustomButton>
         </div>

@@ -6,7 +6,6 @@ import { IconButton, TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomButton } from '@components/shared/custom-button'
 import { Input } from '@components/shared/input'
@@ -172,15 +171,15 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
         />
       </TableCell>
       <TableCell>
-        <Button className={styles.imagesBtn} onClick={() => handlers.onAddImages(item._id)}>
+        <CustomButton className={styles.imagesBtn} onClick={() => handlers.onAddImages(item._id)}>
           {buttonTextWithCounter}
-        </Button>
+        </CustomButton>
       </TableCell>
 
       <TableCell>
-        <Button onClick={() => handlers.addDouble(item._id)}>
+        <CustomButton onClick={() => handlers.addDouble(item._id)}>
           <FiPlus style={{ width: 16, height: 16 }} />
-        </Button>
+        </CustomButton>
       </TableCell>
 
       <TableCell>

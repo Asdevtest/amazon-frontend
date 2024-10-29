@@ -20,7 +20,6 @@ import { ChatContract } from '@models/chat-model/contracts'
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/button'
 import { CircleSpinner } from '@components/shared/circle-spinner'
 import { CustomButton } from '@components/shared/custom-button'
 import { EmojiIcon, FileIcon, SendIcon } from '@components/shared/svg-icons'
@@ -433,10 +432,13 @@ export const Chat: FC<ChatProps> = memo(
               onPaste={evt => onPasteFiles(evt)}
             />
 
-            <Button disabled={disabledSubmit && !chat?.messagesToForward?.length} onClick={onSubmitMessageInternal}>
+            <CustomButton
+              disabled={disabledSubmit && !chat?.messagesToForward?.length}
+              onClick={onSubmitMessageInternal}
+            >
               {t(TranslationKey.Send)}
               <SendIcon />
-            </Button>
+            </CustomButton>
           </div>
 
           {renderAdditionalButtons

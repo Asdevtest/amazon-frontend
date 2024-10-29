@@ -5,15 +5,13 @@ import { Checkbox } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './create-box-form.style'
 
@@ -158,9 +156,9 @@ export const OrderBox = memo(props => {
       </div>
 
       <div>
-        <Button iconButton variant={ButtonVariant.OUTLINED} onClick={() => onRemoveBox(orderBoxIndex)}>
+        <CustomButton iconButton variant="outlined" onClick={() => onRemoveBox(orderBoxIndex)}>
           <MdDeleteOutline size={24} />
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

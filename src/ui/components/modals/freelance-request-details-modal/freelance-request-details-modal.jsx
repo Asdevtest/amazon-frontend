@@ -4,8 +4,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -13,8 +13,6 @@ import { UserLink } from '@components/user/user-link'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './freelance-request-details-modal.style'
 
@@ -124,18 +122,18 @@ export const FreelanceRequestDetailsModal = memo(props => {
 
             {isRequestOwner && (
               <div className={styles.buttonsWrapper}>
-                <Button disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
+                <CustomButton disabled={!requestProposals} onClick={() => onClickResultBtn(request)}>
                   {t(TranslationKey.Result)}
-                </Button>
+                </CustomButton>
 
-                <Button
-                  variant={ButtonVariant.OUTLINED}
+                <CustomButton
+                  variant="outlined"
                   onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
                 >
                   <Checkbox checked={request?.uploadedToListing} className={styles.listingButton} />
 
                   <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
-                </Button>
+                </CustomButton>
               </div>
             )}
           </div>

@@ -10,7 +10,7 @@ import { Modal } from '@components/shared/modal'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './user-money-transfer-modal.style'
 
@@ -32,7 +32,7 @@ export const UserMoneyTransferModal = memo(({ openModal, setOpenModal, isWithdra
           <p className={styles.link}>{t(TranslationKey['Money transfer link'])}</p>
         </Link>
 
-        <CustomButton type={ButtonStyle.PRIMARY} onClick={setOpenModal}>
+        <CustomButton type="primary" onClick={setOpenModal}>
           {t(TranslationKey.Ok)}
         </CustomButton>
       </div>

@@ -5,14 +5,12 @@ import { Rating } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './my-services.style'
 
@@ -55,9 +53,9 @@ export const MyServicesInfo = ({
                 userId={announcementData?.createdBy?._id}
               />
               <div className={styles.userRatingWrapper}>
-                <Button variant={ButtonVariant.OUTLINED} onClick={() => onClickReview(announcementData?.createdBy)}>
+                <CustomButton variant="outlined" onClick={() => onClickReview(announcementData?.createdBy)}>
                   {t(TranslationKey.Reviews)}
-                </Button>
+                </CustomButton>
                 <Rating readOnly value={Number(announcementData?.createdBy?.rating)} size="small" />
               </div>
             </div>
@@ -88,21 +86,19 @@ export const MyServicesInfo = ({
 
       <div className={styles.footerWrapper}>
         {shopFullDescriptionButton ? (
-          <Button styleType={ButtonStyle.CASUAL} onClick={() => setShowFullDescription(prev => !prev)}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={() => setShowFullDescription(prev => !prev)}>{t(TranslationKey.Close)}</CustomButton>
         ) : (
           <div />
         )}
 
         <div className={styles.buttonsWrapper}>
-          <Button styleType={ButtonStyle.DANGER} onClick={onClickCloseAnnouncementBtn}>
+          <CustomButton danger type="primary" onClick={onClickCloseAnnouncementBtn}>
             {t(TranslationKey['Delete ad'])}
-          </Button>
+          </CustomButton>
 
-          <Button onClick={onClickEditBtn}>{t(TranslationKey.Edit)}</Button>
+          <CustomButton onClick={onClickEditBtn}>{t(TranslationKey.Edit)}</CustomButton>
 
-          <Button onClick={onClickBackBtn}>{t(TranslationKey.Back)}</Button>
+          <CustomButton onClick={onClickBackBtn}>{t(TranslationKey.Back)}</CustomButton>
         </div>
       </div>
     </div>

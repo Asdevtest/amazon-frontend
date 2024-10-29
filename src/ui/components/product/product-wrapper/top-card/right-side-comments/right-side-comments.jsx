@@ -4,7 +4,7 @@ import { ProductStatus, ProductStatusByKey } from '@constants/product/product-st
 import { productStatusButtonsConfigs } from '@constants/product/product-status-buttons-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
@@ -17,7 +17,7 @@ import {
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './right-side-comments.style'
 
@@ -131,29 +131,30 @@ export const RightSideComments = memo(
               {showActionBtns ? (
                 <>
                   {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product?.archive) ? (
-                    <Button
-                      styleType={ButtonStyle.DANGER}
+                    <CustomButton
+                      danger
+                      type={'primary'}
                       tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
                       onClick={() => handleProductActionButtons('delete')}
                     >
                       {t(TranslationKey.Delete)}
-                    </Button>
+                    </CustomButton>
                   ) : null}
 
                   {product?.status ===
                     ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
                   checkIsBuyer(curUserRole) ? null : (
-                    <Button
-                      styleType={ButtonStyle.SUCCESS}
+                    <CustomButton
+                      type={'primary'}
                       tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
                       onClick={() => handleProductActionButtons('accept', false)}
                     >
                       {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
-                    </Button>
+                    </CustomButton>
                   )}
 
                   {checkIsResearcher(curUserRole) && (
-                    <Button
+                    <CustomButton
                       tooltipInfoContent={translateTooltipMessageByRole(
                         t(TranslationKey['Save without status']),
                         curUserRole,
@@ -166,29 +167,29 @@ export const RightSideComments = memo(
                       }
                     >
                       {t(TranslationKey['Save without status'])}
-                    </Button>
+                    </CustomButton>
                   )}
 
-                  <Button
-                    styleType={ButtonStyle.CASUAL}
+                  <CustomButton
                     tooltipInfoContent={translateTooltipCloseBtnMessage(curUserRole)}
                     onClick={() => handleProductActionButtons('cancel')}
                   >
                     {t(TranslationKey.Close)}
-                  </Button>
+                  </CustomButton>
 
                   {checkIsClient(curUserRole) && product?.archive && (
-                    <Button onClick={() => handleProductActionButtons('restore')}>{t(TranslationKey.Restore)}</Button>
+                    <CustomButton onClick={() => handleProductActionButtons('restore')}>
+                      {t(TranslationKey.Restore)}
+                    </CustomButton>
                   )}
                 </>
               ) : (
-                <Button
-                  styleType={ButtonStyle.CASUAL}
+                <CustomButton
                   tooltipInfoContent={t(TranslationKey['Close product card'])}
                   onClick={() => handleProductActionButtons('cancel')}
                 >
                   {t(TranslationKey.Close)}
-                </Button>
+                </CustomButton>
               )}
             </div>
           </>

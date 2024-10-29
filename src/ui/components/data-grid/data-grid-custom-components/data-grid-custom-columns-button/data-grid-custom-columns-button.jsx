@@ -5,12 +5,10 @@ import { Checkbox, Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './data-grid-custom-columns-button.style'
 
@@ -60,13 +58,13 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
 
   return (
     <div>
-      <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
+      <CustomButton variant="outlined" className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
         <div className={cx(className, styles.mainFilterBtnInsert)}>
           <IoSettingsOutline size={20} />
 
           <p className={styles.mainFilterBtnInsertText}>{t(TranslationKey.Parameters)}</p>
         </div>
-      </Button>
+      </CustomButton>
 
       {Boolean(menuAnchor) && (
         <Menu

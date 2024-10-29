@@ -1,10 +1,10 @@
 import { memo, useEffect, useState } from 'react'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './confirmation-modal.style'
 
@@ -123,17 +123,18 @@ export const ConfirmationModal = memo(props => {
             [styles.buttonsWrapper]: !isShowComment,
           })}
         >
-          <Button
-            styleType={isWarning ? ButtonStyle.DANGER : ButtonStyle.SUCCESS}
+          <CustomButton
+            {...(isWarning ? { danger: true } : {})}
+            type="primary"
             disabled={submitIsClicked}
             onClick={onSubmit}
           >
             {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
-          </Button>
+          </CustomButton>
 
-          <Button disabled={submitIsClicked} styleType={ButtonStyle.CASUAL} onClick={() => handleClose()}>
+          <CustomButton disabled={submitIsClicked} onClick={() => handleClose()}>
             {isShowComment ? commentCancelBtnText || cancelBtnText : cancelBtnText}
-          </Button>
+          </CustomButton>
         </div>
       </div>
     </Modal>

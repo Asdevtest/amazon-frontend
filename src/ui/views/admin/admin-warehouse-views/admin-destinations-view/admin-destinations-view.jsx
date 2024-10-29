@@ -11,7 +11,7 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { AdminDestinationsViewModel } from './admin-destinations-view.model'
@@ -25,7 +25,7 @@ export const AdminDestinationsView = observer(props => {
 
   return (
     <div className="viewWrapper">
-      <CustomButton type={ButtonStyle.PRIMARY} onClick={() => viewModel.onClickAddBtn()}>
+      <CustomButton type="primary" onClick={() => viewModel.onClickAddBtn()}>
         {t(TranslationKey['Add a destination'])}
       </CustomButton>
 

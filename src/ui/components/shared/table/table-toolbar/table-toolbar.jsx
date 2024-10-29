@@ -5,6 +5,7 @@ import { Button, IconButton, InputAdornment, MenuItem, Select, Toolbar } from '@
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomButton } from '@components/shared/custom-button'
 import { Input } from '@components/shared/input'
 
 import { t } from '@utils/translations'
@@ -29,9 +30,9 @@ export const TableToolbar = ({ rowsPerPage, handlerRowsPerPage }) => {
       />
 
       <div className={styles.filter}>
-        <Button classes={{ iconSizeMedium: styles.icon }} startIcon={<MdFormatAlignLeft />}>
+        <CustomButton classes={{ iconSizeMedium: styles.icon }} startIcon={<MdFormatAlignLeft />}>
           <p className={styles.filterTitle}>{t(TranslationKey.Filter)}</p>
-        </Button>
+        </CustomButton>
       </div>
 
       <p className={styles.selectTitle}>{t(TranslationKey['Rows per page'])}</p>

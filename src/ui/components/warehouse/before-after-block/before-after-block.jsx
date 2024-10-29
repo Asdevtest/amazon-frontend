@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Dimensions } from '@components/shared/dimensions'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
@@ -264,17 +264,16 @@ const Box = memo(props => {
           <div className={cx(styles.editBtnWrapper, { [styles.noEditBtnWrapper]: readOnly })}>
             {isEdit && !readOnly && (
               <div className={styles.btnsWrapper}>
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
+                <CustomButton
                   onClick={() => {
                     setCurBox(box)
                     onClickEditBox(box)
                   }}
                 >
                   {t(TranslationKey.Edit)}
-                </Button>
+                </CustomButton>
 
-                <Button
+                <CustomButton
                   disabled={
                     !box.widthCmWarehouse ||
                     !box.weighGrossKgWarehouse ||
@@ -284,7 +283,7 @@ const Box = memo(props => {
                   onClick={() => onClickApplyAllBtn(box)}
                 >
                   {t(TranslationKey['Apply to all'])}
-                </Button>
+                </CustomButton>
               </div>
             )}
             <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
@@ -335,7 +334,7 @@ const ReceiveBoxes = memo(({ taskType, onClickOpenModal }) => {
       <p className={styles.receiveBoxTitle}>{t(TranslationKey['Add boxes that have arrived in stock'])}</p>
 
       {taskType === TaskOperationType.RECEIVE && (
-        <Button onClick={onClickOpenModal}>{t(TranslationKey.Receive)}</Button>
+        <CustomButton onClick={onClickOpenModal}>{t(TranslationKey.Receive)}</CustomButton>
       )}
     </div>
   )

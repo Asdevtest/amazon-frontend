@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { useStyles } from './dashboard-single-card-with-button.style'
 
@@ -23,7 +23,7 @@ export const DashboardSingleCardWithButton = observer(
             </div>
           ))}
           <div className={styles.buttonWrapper}>
-            <Button onClick={() => onClickViewMore(config.route)}>{buttonText}</Button>
+            <CustomButton onClick={() => onClickViewMore(config.route)}>{buttonText}</CustomButton>
           </div>
         </div>
       </div>

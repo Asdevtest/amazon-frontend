@@ -6,7 +6,7 @@ import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, Table
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 import { TooltipAttentionIcon } from '@components/shared/svg-icons'
 import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
@@ -16,7 +16,7 @@ import { checkIsPositiveNum, isNotUndefined } from '@utils/checks'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './order-product-modal.style'
 
@@ -494,7 +494,7 @@ export const OrderProductModal = memo(props => {
           </div>
         ) : null}
 
-        <Button
+        <CustomButton
           tooltipInfoContent={
             !disabledSubmit &&
             t(TranslationKey['Complete the order (freezes the required amount of the order from the balance)'])
@@ -511,14 +511,11 @@ export const OrderProductModal = memo(props => {
           onClick={onClickSubmit}
         >
           {t(TranslationKey['Order a batch of products'])}
-        </Button>
+        </CustomButton>
 
-        <Button
-          styleType={ButtonStyle.CASUAL}
-          onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
-        >
+        <CustomButton onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}>
           {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
       </div>
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
         <SetBarcodeModal

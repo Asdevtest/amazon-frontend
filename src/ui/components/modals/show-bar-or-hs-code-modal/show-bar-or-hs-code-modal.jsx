@@ -2,13 +2,13 @@ import { Container, Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './show-bar-or-hs-code-modal.style'
 
@@ -42,9 +42,7 @@ export const ShowBarOrHscodeModal = ({ barcode, hscode, onCloseModal }) => {
       <div className={styles.modalWrapper}>
         {renderText()}
         <div className={styles.modalBtnWrapper}>
-          <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     </Container>

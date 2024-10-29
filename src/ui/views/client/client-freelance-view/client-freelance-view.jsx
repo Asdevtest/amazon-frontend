@@ -4,11 +4,9 @@ import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { styles } from './client-freelance-view.style'
 
@@ -24,13 +22,13 @@ export const ClientFreelanceViewRaw = props => {
       <p className={styles.title}>{t(TranslationKey['Choose a section in Freelance'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickServiceExchange}>
+        <CustomButton variant="outlined" onClick={viewModel.onClickServiceExchange}>
           {t(TranslationKey['Service exchange'])}
-        </Button>
+        </CustomButton>
 
-        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickMyRequests}>
+        <CustomButton variant="outlined" onClick={viewModel.onClickMyRequests}>
           {t(TranslationKey['My requests'])}
-        </Button>
+        </CustomButton>
       </div>
     </>
   )

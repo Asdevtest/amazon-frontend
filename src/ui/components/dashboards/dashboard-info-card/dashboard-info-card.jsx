@@ -4,7 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -25,14 +25,14 @@ export const DashboardInfoCard = observer(
           </div>
           {route ? (
             <div className={styles.subTitleWrapper}>
-              <Button
+              <CustomButton
                 tooltipInfoContent={
                   sectionIndex === 0 && sectionSubIndex === 0 && t(TranslationKey['Open the appropriate section'])
                 }
                 onClick={() => onClickViewMore(route, dataGridFilter)}
               >
                 {t(TranslationKey['View more'])}
-              </Button>
+              </CustomButton>
             </div>
           ) : null}
         </div>

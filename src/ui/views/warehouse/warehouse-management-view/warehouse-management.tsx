@@ -16,7 +16,6 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-management.style'
@@ -58,7 +57,7 @@ export const WarehouseManagementView = observer(() => {
         />
 
         {viewModel.tabIndex === WarehouseTabs.WAREHOUSE_SERVICES ? (
-          <CustomButton type={ButtonStyle.PRIMARY} onClick={viewModel.onClickAddWarehouseTariff}>
+          <CustomButton type="primary" onClick={viewModel.onClickAddWarehouseTariff}>
             {t(TranslationKey['Create a tariff'])}
           </CustomButton>
         ) : (

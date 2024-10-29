@@ -9,7 +9,7 @@ import {
 } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { PrioritySelect } from '@components/shared/priority-select/priority-select'
@@ -17,7 +17,7 @@ import { useEditTaskPriorityModalStyles } from '@components/warehouse/edit-task-
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 interface EditTaskPriorityModalProps {
   data: {
@@ -79,8 +79,8 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
       />
 
       <div className={styles.controls}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
+        <CustomButton
+          type="primary"
           disabled={
             Number(curPriority) ===
               mapTaskPriorityStatusEnumToKey[
@@ -93,10 +93,8 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
           }}
         >
           {t(TranslationKey.Save)}
-        </Button>
-        <Button styleType={ButtonStyle.CASUAL} onClick={handleClose}>
-          {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
+        <CustomButton onClick={handleClose}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

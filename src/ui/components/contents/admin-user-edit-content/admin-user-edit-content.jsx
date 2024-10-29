@@ -12,7 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { PermissionsForm } from '@components/forms/permissions-form'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { Field } from '@components/shared/field'
@@ -24,7 +24,7 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } fro
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './admin-user-edit-content.style'
 
@@ -598,9 +598,9 @@ export const AdminUserEditContent = observer(
             <Field
               label={t(TranslationKey['Security/Sharing options'])}
               inputComponent={
-                <Button onClick={() => setShowPermissionModal(!showPermissionModal)}>
+                <CustomButton onClick={() => setShowPermissionModal(!showPermissionModal)}>
                   {t(TranslationKey['Manage permissions'])}
-                </Button>
+                </CustomButton>
               }
             />
 
@@ -658,17 +658,15 @@ export const AdminUserEditContent = observer(
         </div>
 
         <div className={styles.buttonWrapper}>
-          <Button
-            type={ButtonStyle.SUCCESS}
+          <CustomButton
+            type="primary"
             disabled={isWrongPermissionsSelect || disabledSubmitButton}
             onClick={onClickSubmit}
           >
             {buttonLabel}
-          </Button>
+          </CustomButton>
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelBtn}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onClickCancelBtn}>{t(TranslationKey.Close)}</CustomButton>
         </div>
 
         <Modal

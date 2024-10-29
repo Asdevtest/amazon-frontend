@@ -7,8 +7,8 @@ import { Link, List, ListItem, ListItemText, Rating } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration'
@@ -23,7 +23,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-proposal-content.style'
 
@@ -271,15 +271,15 @@ export const CreateOrEditProposalContent = memo(props => {
         <UploadFilesInput minimized withoutTitles images={images} setImages={setImages} />
 
         <div className={styles.footerWrapper}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            type="primary"
             disabled={disableSubmit}
             onClick={proposalToEdit ? onClickEditSubmit : onClickCreateSubmit}
           >
             {proposalToEdit ? t(TranslationKey.Edit) : t(TranslationKey.Suggest)}
-          </Button>
+          </CustomButton>
 
-          <Button onClick={onClickBackBtn}>{t(TranslationKey.Back)}</Button>
+          <CustomButton onClick={onClickBackBtn}>{t(TranslationKey.Back)}</CustomButton>
         </div>
       </div>
 

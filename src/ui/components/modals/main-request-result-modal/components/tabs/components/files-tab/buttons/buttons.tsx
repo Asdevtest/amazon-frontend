@@ -2,13 +2,11 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 import { DownloadArchiveIcon, DownloadRoundIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './buttons.style'
 
@@ -60,23 +58,27 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
       </div>
 
       <div className={styles.buttons}>
-        <Button iconButton disabled={disabledFilesButton} onClick={onDownloadAllFiles}>
-          <DownloadRoundIcon className={styles.icon} />
-        </Button>
+        <CustomButton
+          icon={<DownloadRoundIcon className={styles.icon} />}
+          disabled={disabledFilesButton}
+          onClick={onDownloadAllFiles}
+        />
 
-        <Button iconButton disabled={disabledArchiveButton} onClick={onDownloadArchive}>
-          <DownloadArchiveIcon className={styles.icon} />
-        </Button>
+        <CustomButton
+          icon={<DownloadArchiveIcon className={styles.icon} />}
+          disabled={disabledArchiveButton}
+          onClick={onDownloadArchive}
+        />
 
         {showUpdateSeoFilesInProductButton ? (
-          <Button
+          <CustomButton
             disabled={disabledUpdateSeoFilesInProductButton}
-            variant={ButtonVariant.OUTLINED}
-            styleType={errorUpdateSeoFilesInProduct ? ButtonStyle.DANGER : ButtonStyle.PRIMARY}
+            {...(errorUpdateSeoFilesInProduct ? { danger: true } : {})}
+            type="primary"
             onClick={onUpdateSeoIFilesInProduct}
           >
             {seoButtonText}
-          </Button>
+          </CustomButton>
         ) : null}
       </div>
     </div>

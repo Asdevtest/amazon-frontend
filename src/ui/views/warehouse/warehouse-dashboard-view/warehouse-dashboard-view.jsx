@@ -8,7 +8,7 @@ import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardOneLineCardsList } from '@components/dashboards/dashboard-one-line-cards-list'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
@@ -36,9 +36,9 @@ export const WarehouseDashboardView = observer(({ history }) => {
             {viewModel.storekeeperDestination ? <Text text={viewModel.adress} /> : null}
 
             <div>
-              <Button onClick={viewModel.onClickAddressBtn}>
+              <CustomButton onClick={viewModel.onClickAddressBtn}>
                 {viewModel.storekeeperDestination ? t(TranslationKey.Edit) : t(TranslationKey['Add address'])}
-              </Button>
+              </CustomButton>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { UserModel } from '@models/user-model'
 
 import { BoxModal } from '@components/modals/box-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
@@ -37,7 +37,7 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-batch-form.style'
 
@@ -536,7 +536,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             </RadioGroup>
           </div>
 
-          <Button
+          <CustomButton
             tooltipAttentionContent={
               !chosenBoxesBase.length && !batchToEdit && t(TranslationKey['First select one box'])
             }
@@ -544,7 +544,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             onClick={onClickAdd}
           >
             {t(TranslationKey.Add)}
-          </Button>
+          </CustomButton>
         </div>
 
         <div className={styles.searchWrapper}>
@@ -650,29 +650,28 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
               placeholder={'0'}
             />
           </div>
-          <Button
-            styleType={ButtonStyle.DANGER}
+          <CustomButton
+            danger
+            type="primary"
             disabled={!boxesToDeliteIds.length || !chosenBoxes.length}
             onClick={onClickTrash}
           >
             {t(TranslationKey.Remove)}
-          </Button>
+          </CustomButton>
         </div>
 
         {filesToAdd ? <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} /> : null}
 
         <div className={styles.btnsWrapper}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            type="primary"
             disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
             onClick={onClickSubmit}
           >
             {t(TranslationKey.Save)}
-          </Button>
+          </CustomButton>
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
 

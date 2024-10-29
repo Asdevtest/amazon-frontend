@@ -6,9 +6,7 @@ import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
-
-import { ButtonVariant } from '@typings/enums/button-style'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { useStyles } from './data-grid-custom-filter-button.style'
 
@@ -28,13 +26,13 @@ export const DataGridCustomFilterButton = props => {
 
   return (
     <div>
-      <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
+      <CustomButton variant="outlined" className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
         <div className={cx(className, styles.mainFilterBtnInsert)}>
           <MdOutlineFilterAlt size={18} />
 
           <p className={styles.mainFilterBtnInsertText}>{t(TranslationKey['My filter'])}</p>
         </div>
-      </Button>
+      </CustomButton>
 
       {Boolean(menuAnchor) && (
         <Menu keepMounted anchorEl={menuAnchor} autoFocus={false} open={Boolean(menuAnchor)} onClose={handleClose}>

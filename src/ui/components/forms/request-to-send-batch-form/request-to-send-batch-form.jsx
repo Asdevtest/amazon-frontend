@@ -3,12 +3,12 @@ import { useEffect } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './request-to-send-batch-form.style'
 
@@ -153,7 +153,7 @@ export const RequestToSendBatchForm = observer(
             </p>
           ) : null}
 
-          <Button
+          <CustomButton
             disabled={disabledSubmit}
             tooltipAttentionContent={t(
               TranslationKey['Create a request to send to the batch, freeze funds, then see "My batches"'],
@@ -161,14 +161,10 @@ export const RequestToSendBatchForm = observer(
             onClick={onClickSubmit}
           >
             {t(TranslationKey.Send)}
-          </Button>
-          <Button
-            styleType={ButtonStyle.CASUAL}
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            onClick={closeModal}
-          >
+          </CustomButton>
+          <CustomButton tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={closeModal}>
             {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
         </div>
       </div>
     )

@@ -5,8 +5,8 @@ import { Tooltip } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { FireIcon, ShareIcon, TruckIcon } from '@components/shared/svg-icons'
@@ -131,9 +131,9 @@ export const Item: FC<ItemProps> = memo(props => {
               />
             </div>
 
-            <Button className={styles.button} onClick={() => onClickHsCode?.(item.product._id)}>
+            <CustomButton className={styles.button} onClick={() => onClickHsCode?.(item.product._id)}>
               {t(TranslationKey['HS code'])}
-            </Button>
+            </CustomButton>
 
             <div className={styles.checkboxWrapper}>
               {barcodeText ? (

@@ -7,7 +7,7 @@ import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './edit-asin-checker-modal.style'
 
@@ -56,7 +56,7 @@ export const EditAsinCheckerModal = memo(props => {
       />
 
       <div className={styles.buttons}>
-        <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onSubmit(asinsToEdit?._id, formFields)}>
+        <CustomButton type="primary" onClick={() => onSubmit(asinsToEdit?._id, formFields)}>
           {t(TranslationKey.Save)}
         </CustomButton>
 

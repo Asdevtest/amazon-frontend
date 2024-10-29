@@ -3,7 +3,7 @@ import { memo, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { FileIcon } from '@components/shared/svg-icons'
@@ -12,7 +12,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './feedback-modal.style'
 
@@ -61,12 +61,10 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
         {showFiles ? <UploadFilesInput images={images} setImages={setImages} /> : null}
 
         <div className={styles.buttons}>
-          <Button disabled={disabledSubmitButton} onClick={throttle(handleClickSendButton)}>
+          <CustomButton disabled={disabledSubmitButton} onClick={throttle(handleClickSendButton)}>
             {t(TranslationKey.Send)}
-          </Button>
-          <Button styleType={ButtonStyle.CASUAL} onClick={() => setIsShowConfirmationModal(true)}>
-            {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
+          <CustomButton onClick={() => setIsShowConfirmationModal(true)}>{t(TranslationKey.Close)}</CustomButton>
         </div>
 
         {isShowConfirmationModal ? (

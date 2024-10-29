@@ -23,7 +23,6 @@ import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
@@ -702,18 +701,16 @@ export const EditOrderModal = memo(
             <div className={styles.addBoxButtonWrapper}>
               <p className={styles.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</p>
 
-              <Button tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])} onClick={addBoxHandler}>
-                {t(TranslationKey['Add a box'])}
-              </Button>
+              <CustomButton onClick={addBoxHandler}>{t(TranslationKey['Add a box'])}</CustomButton>
             </div>
           ) : (
             <div />
           )}
 
-          <Button onClick={() => setCommentModalModal(!commentModal)}>
+          <CustomButton onClick={() => setCommentModalModal(!commentModal)}>
             {t(TranslationKey['See comments'])}
             <MdOutlineVisibility size={24} className={styles.seeCommentsIcon} />
-          </Button>
+          </CustomButton>
         </div>
 
         {boxesForCreation.length > 0 && (
@@ -747,9 +744,9 @@ export const EditOrderModal = memo(
                     onChange={e => setTrackNumber({ ...trackNumber, text: e.target.value })}
                   />
 
-                  <Button onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+                  <CustomButton onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
                     {trackNumber.files[0] ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
-                  </Button>
+                  </CustomButton>
                 </div>
 
                 <div className={styles.trackNumberPhotoWrapper}>

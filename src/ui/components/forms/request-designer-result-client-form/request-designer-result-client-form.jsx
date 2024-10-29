@@ -8,8 +8,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
 import { DownloadArchiveIcon } from '@components/shared/svg-icons'
@@ -19,7 +19,7 @@ import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { isString } from '@typings/guards'
 
 import { useStyles } from './request-designer-result-client-form.style'
@@ -236,21 +236,21 @@ export const RequestDesignerResultClientForm = memo(props => {
               <p>{t(TranslationKey['Select all'])}</p>
             </div>
 
-            <Button disabled={!imagesForDownload.length} onClick={onClickAllDownload}>
+            <CustomButton disabled={!imagesForDownload.length} onClick={onClickAllDownload}>
               <MdOutlineDownload size={24} />
-            </Button>
+            </CustomButton>
 
-            <Button
+            <CustomButton
               disabled={!imagesForDownload.length || archiveButtonInactiveBeforeDownloading}
               onClick={onClickDownloadArchive}
             >
               <DownloadArchiveIcon />
-            </Button>
+            </CustomButton>
           </div>
 
           {!noShowActions && (
             <>
-              <Button
+              <CustomButton
                 onClick={() =>
                   onPressSubmitDesignerResultToCorrect({
                     reason: comment,
@@ -260,22 +260,20 @@ export const RequestDesignerResultClientForm = memo(props => {
                 }
               >
                 {t(TranslationKey['Send in for rework'])}
-              </Button>
-              <Button
-                styleType={ButtonStyle.SUCCESS}
+              </CustomButton>
+              <CustomButton
+                type="primary"
                 onClick={() => {
                   onClickProposalResultAccept(proposal.proposal._id)
                   setOpenModal()
                 }}
               >
                 {t(TranslationKey.Accept)}
-              </Button>
+              </CustomButton>
             </>
           )}
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={setOpenModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
 

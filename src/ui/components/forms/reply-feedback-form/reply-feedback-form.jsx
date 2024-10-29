@@ -9,7 +9,7 @@ import { formatNormDateTime } from '@utils/date-time'
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './reply-feedback-form.style'
 
@@ -36,7 +36,7 @@ export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <CustomButton type={ButtonStyle.PRIMARY} onClick={throttle(() => onSubmit(feedback.user._id))}>
+        <CustomButton type="primary" onClick={throttle(() => onSubmit(feedback.user._id))}>
           {t(TranslationKey.Reply)}
         </CustomButton>
 

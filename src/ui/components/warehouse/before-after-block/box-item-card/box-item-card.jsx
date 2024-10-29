@@ -3,8 +3,8 @@ import { Checkbox } from '@mui/material'
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Text } from '@components/shared/text'
@@ -241,7 +241,7 @@ export const BoxItemCard = ({
                         label={t(TranslationKey['Apply to all boxes'])}
                         tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
                         inputComponent={
-                          <Button
+                          <CustomButton
                             disabled={disableBarCodeCheckbox}
                             onClick={() =>
                               onApplyGluedBarcodeToAllBoxes(
@@ -253,7 +253,7 @@ export const BoxItemCard = ({
                             }
                           >
                             {t(TranslationKey.Apply)}
-                          </Button>
+                          </CustomButton>
                         }
                       />
                     )}
@@ -395,7 +395,7 @@ export const BoxItemCard = ({
                       label={t(TranslationKey['Apply to all boxes'])}
                       tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
                       inputComponent={
-                        <Button
+                        <CustomButton
                           disabled={disableBarCodeCheckbox}
                           onClick={() =>
                             onApplyGluedBarcodeToAllBoxes(
@@ -405,7 +405,7 @@ export const BoxItemCard = ({
                           }
                         >
                           {t(TranslationKey.Apply)}
-                        </Button>
+                        </CustomButton>
                       }
                     />
                   )}

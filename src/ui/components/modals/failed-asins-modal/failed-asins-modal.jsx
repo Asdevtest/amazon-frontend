@@ -5,7 +5,7 @@ import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './failed-asins-modal.style'
 
@@ -23,7 +23,7 @@ export const FailedAsinsModal = ({ failedData, onClickSuccessBtn }) => {
           <p>{humanFriendlyStategyStatus(productStrategyStatusesEnum[el.strategy]).toUpperCase()}</p>
         </div>
       ))}
-      <CustomButton type={ButtonStyle.PRIMARY} onClick={onClickSuccessBtn}>
+      <CustomButton type="primary" onClick={onClickSuccessBtn}>
         {t(TranslationKey.Ok)}
       </CustomButton>
     </div>

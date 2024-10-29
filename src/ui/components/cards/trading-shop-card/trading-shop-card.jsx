@@ -4,7 +4,7 @@ import { Grid } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 
@@ -147,12 +147,12 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
             </div>
 
             <div className={styles.buttonWrapper}>
-              <Button
+              <CustomButton
                 tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
                 onClick={() => onClickViewMore(item._id)}
               >
                 {t(TranslationKey.Details)}
-              </Button>
+              </CustomButton>
             </div>
           </div>
         </div>

@@ -8,7 +8,7 @@ import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './check-request-by-type-exists.style'
 
@@ -60,7 +60,7 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
         </div>
       </div>
       <div className={styles.buttonsWrapper}>
-        <CustomButton type={ButtonStyle.PRIMARY} onClick={onClickContinue}>
+        <CustomButton type="primary" onClick={onClickContinue}>
           {t(TranslationKey.Continue)}
         </CustomButton>
         <CustomButton onClick={onClickCancel}>{t(TranslationKey.Close)}</CustomButton>

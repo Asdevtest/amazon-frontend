@@ -4,9 +4,9 @@ import { MdOutlineFilterAltOff } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './data-grid-reset-filter-button.style'
 
@@ -17,10 +17,9 @@ export const DataGridResetFilterButton = memo(props => {
 
   return (
     <div>
-      <Button
+      <CustomButton
         isTableButton
         className={cx(className, styles.button)}
-        styleType={ButtonStyle.DEFAULT}
         onClick={resetFiltersBtnSettings.onClickResetFilters}
         {...restProps}
       >
@@ -29,7 +28,7 @@ export const DataGridResetFilterButton = memo(props => {
 
           <p className={styles.mainFilterBtnInsertText}>{t(TranslationKey['Reset filters'])}</p>
         </div>
-      </Button>
+      </CustomButton>
     </div>
   )
 })

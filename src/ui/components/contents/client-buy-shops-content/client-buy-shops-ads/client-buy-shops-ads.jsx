@@ -9,13 +9,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './client-buy-shops-ads.style'
 
@@ -57,21 +55,21 @@ export const ClientBuyShopsAds = observer(() => {
       {SettingsModel.languageTag && (
         <>
           <div className={styles.boxesFiltersWrapper}>
-            <Button
+            <CustomButton
               disabled={curFilter === filtersSettings.ALL_ADS}
-              variant={ButtonVariant.OUTLINED}
+              variant="outlined"
               onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
             >
               {t(TranslationKey['All Ads'])}
-            </Button>
+            </CustomButton>
 
-            <Button
+            <CustomButton
               disabled={curFilter === filtersSettings.PURCHASED_ADS}
-              variant={ButtonVariant.OUTLINED}
+              variant="outlined"
               onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
             >
               {t(TranslationKey['Purchased Ads'])}
-            </Button>
+            </CustomButton>
           </div>
 
           <div className={styles.tablePanelWrapper}>

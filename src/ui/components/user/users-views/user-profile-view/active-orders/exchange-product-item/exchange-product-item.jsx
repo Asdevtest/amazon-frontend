@@ -6,7 +6,7 @@ import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './exchange-product-item.style'
 
@@ -48,7 +48,7 @@ export const ExchangeProductItem = ({ product, handlerPrivateLabel, index }) => 
         <p className={(styles.text, styles.standartPrice)}>{'$ 499'}</p>
       </TableCell>
       <TableCell>
-        <CustomButton type={ButtonStyle.PRIMARY} onClick={() => handlerPrivateLabel(index)}>
+        <CustomButton type="primary" onClick={() => handlerPrivateLabel(index)}>
           {t(TranslationKey.Start)}
         </CustomButton>
       </TableCell>

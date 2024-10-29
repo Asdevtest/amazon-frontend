@@ -5,14 +5,14 @@ import { components } from 'react-select'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { CustomReactSelect } from '@components/shared/selects/custom-react-select'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './add-users-to-group-chat-form.style'
 
@@ -75,8 +75,8 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
       </div>
 
       <div className={styles.buttonWrapper}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
+        <CustomButton
+          type="primary"
           disabled={disableSubmit}
           onClick={() => {
             setSubmitIsClicked
@@ -84,11 +84,9 @@ export const AddUsersToGroupChatForm = ({ closeModal, onSubmit, usersData }) => 
           }}
         >
           {t(TranslationKey.Add)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} onClick={closeModal}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={closeModal}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

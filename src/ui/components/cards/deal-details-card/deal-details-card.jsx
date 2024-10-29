@@ -17,7 +17,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './deal-details-card.style'
 
@@ -157,24 +157,18 @@ export const DealDetailsCard = ({
               RequestStatus.VERIFYING_BY_SUPERVISOR,
             ].includes(curProposal?.proposal.status) && (
               <div className={styles.buttonsWrapper}>
-                <CustomButton
-                  type={ButtonStyle.DANGER}
-                  onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}
-                >
+                <CustomButton danger type="primary" onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}>
                   {t(TranslationKey['Reject the deal'])}
                 </CustomButton>
 
-                <CustomButton
-                  type={ButtonStyle.PRIMARY}
-                  onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}
-                >
+                <CustomButton type="primary" onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}>
                   {t(TranslationKey['Accept the deal'])}
                 </CustomButton>
               </div>
             )}
           {dealsOnReview ? (
             <div className={styles.buttonWrapper}>
-              <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}>
+              <CustomButton type="primary" onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}>
                 {t(TranslationKey['Get to work'])}
               </CustomButton>
             </div>

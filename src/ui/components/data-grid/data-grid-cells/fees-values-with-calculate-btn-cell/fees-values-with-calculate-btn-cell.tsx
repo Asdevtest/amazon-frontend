@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -32,12 +32,12 @@ export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellPr
         <span className={styles.typoSpan}>{toFixedWithDollarSign(reffee, 2)}</span>
       </p>
       {!noCalculate && (
-        <Button
-          startIcon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
+        <CustomButton
+          icon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
           onClick={() => onClickCalculate?.(productId)}
         >
           {'Calculate fees'}
-        </Button>
+        </CustomButton>
       )}
     </div>
   )

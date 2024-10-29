@@ -16,7 +16,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './vacant-deals-list-card.style'
 
@@ -90,7 +90,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           </div>
           <div className={!showDetails ? styles.buttonsWrapper : styles.buttonWrapper}>
             {!showDetails && (
-              <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickGetToWorkModal(item._id, item.requestId)}>
+              <CustomButton type="primary" onClick={() => onClickGetToWorkModal(item._id, item.requestId)}>
                 {t(TranslationKey['Get to work'])}
               </CustomButton>
             )}

@@ -4,12 +4,10 @@ import { MdFiberManualRecord } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-chart'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './charts-form.style'
 
@@ -48,12 +46,12 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
     <div className={styles.cardWrapper}>
       <div className={styles.cardHeaderWrapper}>
         <div className={styles.buttonsWrapper}>
-          <Button variant={ButtonVariant.OUTLINED} onClick={() => setIsRevenue(true)}>
+          <CustomButton variant="outlined" onClick={() => setIsRevenue(true)}>
             {t(TranslationKey.Revenue)}
-          </Button>
-          <Button variant={ButtonVariant.OUTLINED} onClick={() => setIsRevenue(false)}>
+          </CustomButton>
+          <CustomButton variant="outlined" onClick={() => setIsRevenue(false)}>
             {t(TranslationKey['Website traffic'])}
-          </Button>
+          </CustomButton>
         </div>
 
         <div className={styles.buttonsWrapper}>
@@ -85,15 +83,15 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
+        <CustomButton variant="outlined" onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
           {`6 ${t(TranslationKey.months)}`}
-        </Button>
-        <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
+        </CustomButton>
+        <CustomButton variant="outlined" onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
           {`12 ${t(TranslationKey.months)}`}
-        </Button>
-        <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
+        </CustomButton>
+        <CustomButton variant="outlined" onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
           {t(TranslationKey['All time'])}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

@@ -3,12 +3,10 @@ import { FC, memo } from 'react'
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './action-buttons.style'
 
@@ -49,48 +47,49 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
 
   return (
     <div className={styles.btnsBlockWrapper}>
-      <Button variant={ButtonVariant.OUTLINED} onClick={() => onToggleUploadedToListing(id, uploadedToListing)}>
+      <CustomButton variant="outlined" onClick={() => onToggleUploadedToListing(id, uploadedToListing)}>
         <Checkbox color="primary" checked={uploadedToListing} className={styles.listingCheckbox} />
         <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
-      </Button>
+      </CustomButton>
       {isDisplayingMarkAsCompletedButton && (
-        <Button
-          fullWidth
+        <CustomButton
+          // fullWidth
           disabled={disableMarkAsCompletedButton}
-          styleType={ButtonStyle.SUCCESS}
+          type="primary"
           onClick={onClickMarkAsCompletedBtn}
         >
           {t(TranslationKey['Mark as completed'])}
-        </Button>
+        </CustomButton>
       )}
       {status === RequestStatus.DRAFT && (
         <div className={styles.btnsWrapper}>
           <div className={styles.btnsRow}>
-            <Button
-              fullWidth
-              styleType={ButtonStyle.DANGER}
+            <CustomButton
+              // fullWidth
+              danger
+              type="primary"
               title={t(TranslationKey['Delete the selected request'])}
               onClick={onClickCancelBtn}
             >
               {t(TranslationKey.Delete)}
-            </Button>
+            </CustomButton>
 
-            <Button
-              fullWidth
+            <CustomButton
+              // fullWidth
               title={t(TranslationKey['Allows you to change the selected request'])}
               onClick={onClickEditBtn}
             >
               {t(TranslationKey.Edit)}
-            </Button>
+            </CustomButton>
           </div>
-          <Button
-            fullWidth
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            // fullWidth
+            type="primary"
             title={t(TranslationKey['Publish the selected request on the exchange'])}
             onClick={onClickPublishBtn}
           >
             {t(TranslationKey.Publish)}
-          </Button>
+          </CustomButton>
         </div>
       )}
       {status !== RequestStatus.DRAFT && (
@@ -99,24 +98,25 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
             <div className={styles.btnsWrapper}>
               <div className={styles.btnsRow}>
                 {requestIsNotDraftAndPublished && (
-                  <Button
-                    fullWidth
-                    styleType={ButtonStyle.DANGER}
+                  <CustomButton
+                    // fullWidth
+                    danger
+                    type="primary"
                     title={t(TranslationKey['Delete the selected request'])}
                     onClick={onClickCancelBtn}
                   >
                     {t(TranslationKey.Delete)}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {status === RequestStatus.PUBLISHED && (
-                  <Button
-                    fullWidth
+                  <CustomButton
+                    // fullWidth
                     title={t(TranslationKey['Allows you to change the selected request'])}
                     onClick={onClickEditBtn}
                   >
                     {t(TranslationKey.Edit)}
-                  </Button>
+                  </CustomButton>
                 )}
               </div>
             </div>
@@ -125,15 +125,17 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
           {(status === RequestStatus.IN_PROCESS ||
             status === RequestStatus.EXPIRED ||
             status === RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED) && (
-            <Button fullWidth onClick={() => setIsRestoreModalOpen(true)}>
+            <CustomButton
+              // fullWidth
+              onClick={() => setIsRestoreModalOpen(true)}
+            >
               {t(TranslationKey['Change request terms'])}
-            </Button>
+            </CustomButton>
           )}
 
           {status !== RequestStatus.COMPLETE_PROPOSALS_AMOUNT_ACHIEVED /* && status !== RequestStatus.EXPIRED */ && (
             <div className={cx(styles.btnsRow, styles.btnsRowIsLast)}>
-              <Button
-                fullWidth
+              <CustomButton
                 title={
                   status !== RequestStatus.FORBID_NEW_PROPOSALS
                     ? t(TranslationKey['Removes the visibility of the request on the exchange'])
@@ -147,7 +149,7 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
                 {status === RequestStatus.FORBID_NEW_PROPOSALS
                   ? t(TranslationKey['Resume accepting proposals'])
                   : t(TranslationKey['Stop accepting proposals'])}
-              </Button>
+              </CustomButton>
             </div>
           )}
         </>

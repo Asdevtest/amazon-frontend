@@ -18,7 +18,7 @@ import { OwnerGeneralRequestInfo } from '@components/requests-and-request-propos
 import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
 import { CustomSearchRequestForm } from '@components/requests-and-request-proposals/requests/create-or-edit-forms/custom-search-request-form'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -26,7 +26,7 @@ import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './owner-requests-detail-custom-view.style'
 
@@ -140,44 +140,45 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                     renderAdditionalButtons={() => (
                       <div className={styles.buttonsWrapper}>
                         <div className={styles.additionalButtonsWrapper}>
-                          <Button
+                          <CustomButton
                             onClick={() =>
                               viewModel.onClickAddMediaFromProduct(viewModel.request?.request?.product?._id)
                             }
                           >
                             {t(TranslationKey['Add from product'])}
-                          </Button>
+                          </CustomButton>
                         </div>
 
                         {statusesReworkAndReceiveButtons.includes(statusForCurrentChat) && (
                           <div className={styles.additionalButtonsWrapper}>
-                            <Button onClick={() => viewModel.onClickProposalResultToCorrect()}>
+                            <CustomButton onClick={() => viewModel.onClickProposalResultToCorrect()}>
                               {t(TranslationKey.Result)}
-                            </Button>
-                            <Button
-                              styleType={ButtonStyle.SUCCESS}
+                            </CustomButton>
+                            <CustomButton
+                              type="primary"
                               onClick={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
                             >
                               {t(TranslationKey.Receive)}
-                            </Button>
+                            </CustomButton>
                           </div>
                         )}
 
                         {statusesOrderAndRejectButtons.includes(statusForCurrentChat) && (
                           <div className={styles.additionalButtonsWrapper}>
-                            <Button
-                              styleType={ButtonStyle.DANGER}
+                            <CustomButton
+                              danger
+                              type="primary"
                               onClick={() => viewModel.onClickRejectProposal(idForCurrentChat)}
                             >
                               {t(TranslationKey.Reject)}
-                            </Button>
+                            </CustomButton>
 
-                            <Button
-                              styleType={ButtonStyle.SUCCESS}
+                            <CustomButton
+                              type="primary"
                               onClick={() => viewModel.onClickOrderProposal(idForCurrentChat, priceForCurrentChat)}
                             >
                               {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(priceForCurrentChat, 2)}`}
-                            </Button>
+                            </CustomButton>
                           </div>
                         )}
                       </div>
@@ -200,7 +201,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
         {viewModel.showChat && (
           <div className={styles.hideChatButtonWrapper}>
-            <Button onClick={viewModel.onClickHideChat}>{t(TranslationKey['Hide chat'])}</Button>
+            <CustomButton onClick={viewModel.onClickHideChat}>{t(TranslationKey['Hide chat'])}</CustomButton>
           </div>
         )}
       </div>

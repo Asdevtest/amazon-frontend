@@ -3,15 +3,15 @@ import { useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { EstimateCreateTradingShopForm } from '@components/forms/estimate-create-trading-shop-form'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-trading-shop-content.style'
 
@@ -178,20 +178,19 @@ export const CreateOrEditTradingShopContent = ({
     <div className={styles.footerWrapper}>
       <div className={styles.footerRightWrapper}>
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             tooltipInfoContent={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Back to Step 1'])
                 : t(TranslationKey['Cancel request creation'])
             }
-            styleType={ButtonStyle.CASUAL}
             onClick={onClickBackBtn}
           >
             {curStep === stepVariant.STEP_ONE ? t(TranslationKey.Close) : t(TranslationKey.Back)}
-          </Button>
+          </CustomButton>
 
-          <Button
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            type="primary"
             tooltipInfoContent={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Creates a completed request'])
@@ -213,7 +212,7 @@ export const CreateOrEditTradingShopContent = ({
                 />
               </div>
             )}
-          </Button>
+          </CustomButton>
         </div>
       </div>
     </div>

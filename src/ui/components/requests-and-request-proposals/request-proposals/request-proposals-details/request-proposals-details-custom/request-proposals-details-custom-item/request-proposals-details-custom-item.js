@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { formatDateTime } from '@utils/date-time'
 
@@ -26,7 +26,7 @@ export const RequestProposalsDetailsCustomItem = observer(({ requestProposal }) 
         <p className={styles.text}>{comment}</p>
       </div>
 
-      <Button disabled>{'Открыть'}</Button>
+      <CustomButton disabled>{'Открыть'}</CustomButton>
     </div>
   )
 })

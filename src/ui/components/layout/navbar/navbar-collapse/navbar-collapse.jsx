@@ -12,7 +12,7 @@ import { HighPriorityValue } from '@components/shared/high-priority-value'
 import { getSumPropertiesObject } from '@utils/object'
 import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './navbar-collapse.style'
 
@@ -242,13 +242,13 @@ export const NavbarCollapse = ({
       showHighPriorityNotification && getNotificationCountBySubRoute(subCategory.subRoute)
     const subCategoryTitle = subCategory?.subtitle()
     const isTooltipVisible = !shortNavbar && subCategoryTitle !== category?.title()
-
+    // ! replace Button after swich to ant
     return (
       <Button
         key={subIndex}
         tooltipPosition="center"
         className={cx(styles.menuItem, { [styles.selected]: subIndex === activeSubCategory })}
-        styleType={ButtonStyle.TRANSPARENT}
+        styleType="transparent"
         tooltipInfoContent={isTooltipVisible && renderTooltipTitle(subCategoryTitle, userInfo.role)}
         tooltipAttentionContent={isTooltipVisible && renderAttentionTooltipTitle(subCategoryTitle, userInfo.role)}
       >

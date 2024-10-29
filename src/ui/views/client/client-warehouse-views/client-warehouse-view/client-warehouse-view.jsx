@@ -4,11 +4,9 @@ import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { styles } from './client-warehouse-view.style'
 
@@ -23,13 +21,13 @@ export const ClientWarehouseViewRaw = props => {
       <p className={styles.title}>{t(TranslationKey['Choose a section in Warehouse'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickInStock}>
+        <CustomButton variant="outlined" onClick={viewModel.onClickInStock}>
           {t(TranslationKey['Boxes in stock'])}
-        </Button>
+        </CustomButton>
 
-        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onClickTasks}>
+        <CustomButton variant="outlined" onClick={viewModel.onClickTasks}>
           {t(TranslationKey.Tasks)}
-        </Button>
+        </CustomButton>
       </div>
     </>
   )

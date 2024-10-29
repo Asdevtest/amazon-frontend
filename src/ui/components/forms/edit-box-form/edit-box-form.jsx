@@ -14,8 +14,8 @@ import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -27,7 +27,7 @@ import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { TariffModal } from '@typings/enums/tariff-modal'
@@ -458,7 +458,7 @@ export const EditBoxForm = memo(
                         !tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])
                       }
                       inputComponent={
-                        <Button
+                        <CustomButton
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
@@ -466,7 +466,7 @@ export const EditBoxForm = memo(
                           {boxFields.storekeeperId && (tariffName || tariffRate)
                             ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
-                        </Button>
+                        </CustomButton>
                       }
                     />
                   </div>
@@ -625,21 +625,20 @@ export const EditBoxForm = memo(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
             onClick={() => onSubmit(formItem?._id, getBoxDataToSubmit(), formItem, priority, priorityReason)}
           >
             {t(TranslationKey.Save)}
-          </Button>
+          </CustomButton>
 
-          <Button
-            styleType={ButtonStyle.CASUAL}
+          <CustomButton
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             onClick={onTriggerOpenModal}
           >
             {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
         </div>
 
         <Modal

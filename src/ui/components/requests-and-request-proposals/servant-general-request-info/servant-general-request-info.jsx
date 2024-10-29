@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ProductCell } from '@components/data-grid/data-grid-cells'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -107,13 +107,13 @@ export const ServantGeneralRequestInfo = memo(({ userRole, request, onSubmit, re
           {(request.request.status === RequestStatus.PUBLISHED ||
             request.request.status === RequestStatus.IN_PROCESS) && (
             <div className={styles.btnsBlockWrapper}>
-              <Button
+              <CustomButton
                 disabled={buttonDisabled}
                 tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
                 onClick={onSubmit}
               >
                 {t(TranslationKey['Suggest a deal'])}
-              </Button>
+              </CustomButton>
             </div>
           )}
         </div>

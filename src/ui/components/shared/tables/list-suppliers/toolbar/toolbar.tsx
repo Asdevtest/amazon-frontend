@@ -6,13 +6,12 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { DeleteIcon, EditIcon, EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { OrderStatus } from '@typings/enums/order/order-status'
 import { ProductStatus } from '@typings/enums/product/product-status'
 import { ISupplier } from '@typings/models/suppliers/supplier'
@@ -139,81 +138,67 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
       checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
       userInfo?._id !== supplier?.createdBy?._id &&
       userInfo?.masterUser?._id !== supplier?.createdBy?._id)
-  const tooltipAttentionContentEditSupplierButton = isPendingOrderAndNotDefaultSupplier
-    ? t(TranslationKey['Editing is unavailable due to change of current supplier'])
-    : ''
 
   return (
     <div className={styles.toolbar}>
       <p className={styles.tableTitle}>{t(TranslationKey['List of suppliers'])}</p>
 
       <div className={styles.buttons}>
-        <Button
-          variant={ButtonVariant.OUTLINED}
+        <CustomButton
+          variant="outlined"
           disabled={!boxPropertiesIsFullAndMainsValues || !showViewCalculationButton}
           className={styles.buttonWithText}
           onClick={onSupplierApproximateCalculationsModal}
         >
           {t(TranslationKey['View an oriented calculation'])}
-        </Button>
+        </CustomButton>
 
-        <Button
-          iconButton
+        <CustomButton
+          icon={<FiPlus style={{ width: 16, height: 16 }} />}
           className={styles.button}
           disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea || !showAddSupplierButton}
           onClick={() => onSupplierActions(ModalModes.ADD)}
-        >
-          <FiPlus style={{ width: 16, height: 16 }} />
-        </Button>
+        />
 
-        <Button
-          iconButton
-          tooltipAttentionContent={tooltipAttentionContentEditSupplierButton}
+        <CustomButton
+          icon={<EditIcon />}
           className={styles.button}
           disabled={disabledEditSupplierButton || !showEditSupplierButton}
           onClick={() => onSupplierActions(ModalModes.EDIT)}
-        >
-          <EditIcon />
-        </Button>
+        ></CustomButton>
 
-        <Button
-          iconButton
+        <CustomButton
+          icon={<EyeIcon />}
           disabled={!isSupplerSelected}
           className={styles.button}
           onClick={() => onSupplierActions(ModalModes.VIEW)}
-        >
-          <EyeIcon />
-        </Button>
+        />
 
-        <Button
-          iconButton
-          styleType={ButtonStyle.DANGER}
+        <CustomButton
+          danger
+          icon={<IoMdClose size={18} />}
+          type="primary"
           className={styles.button}
           disabled={isAtProcessOrder || !(showToggleCurrentSupplierButton && isCurrentSupplierSelected)}
           onClick={() => onSupplierActions(ModalModes.ACCERT_REVOKE)}
-        >
-          <IoMdClose size={18} />
-        </Button>
+        />
 
-        <Button
-          iconButton
-          styleType={ButtonStyle.SUCCESS}
+        <CustomButton
+          icon={<IoMdCheckmark size={18} />}
+          type="primary"
           className={styles.button}
           disabled={isAtProcessOrder || !(showToggleCurrentSupplierButton && !isCurrentSupplierSelected)}
           onClick={() => onSupplierActions(ModalModes.ACCEPT)}
-        >
-          <IoMdCheckmark size={18} />
-        </Button>
+        />
 
-        <Button
-          iconButton
+        <CustomButton
+          danger
+          icon={<DeleteIcon />}
           disabled={!showRemoveCurrentSupplierButton}
-          styleType={ButtonStyle.DANGER}
+          type="primary"
           className={styles.button}
           onClick={() => onSupplierActions(ModalModes.DELETE)}
-        >
-          <DeleteIcon />
-        </Button>
+        />
       </div>
     </div>
   )

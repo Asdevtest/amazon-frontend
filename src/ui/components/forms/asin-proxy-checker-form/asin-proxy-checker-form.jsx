@@ -7,15 +7,13 @@ import {
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
 import { EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './asin-proxy-checker-form.style'
 
@@ -174,13 +172,13 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button iconButton variant={ButtonVariant.OUTLINED} onClick={onClickPreviewButton}>
+        <CustomButton iconButton variant="outlined" onClick={onClickPreviewButton}>
           <EyeIcon />
-        </Button>
+        </CustomButton>
 
         <div className={styles.actionsButtonsContainer}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            type="primary"
             disabled={
               !updatedAsinsAndReasonsData.length ||
               updatedAsinsAndReasonsData.some(item => item.asin === '') ||
@@ -199,11 +197,9 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
             }}
           >
             {t(TranslationKey.Save)}
-          </Button>
+          </CustomButton>
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     </div>

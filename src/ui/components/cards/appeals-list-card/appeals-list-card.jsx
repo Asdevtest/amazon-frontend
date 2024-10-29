@@ -11,7 +11,7 @@ import { UserLink } from '@components/user/user-link'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './appeals-list-card.style'
 
@@ -82,7 +82,7 @@ export const AppealsListCard = ({ onClickViewMore }) => {
                 </div>
               </div>
             </div>
-            <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickViewMore()}>
+            <CustomButton type="primary" onClick={() => onClickViewMore()}>
               {t(TranslationKey['Open an appeal'])}
             </CustomButton>
           </div>

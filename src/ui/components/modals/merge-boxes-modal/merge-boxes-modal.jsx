@@ -8,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { PriorityForm } from '@components/forms/priority-form/priority-form'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -22,7 +22,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { TariffModal } from '@typings/enums/tariff-modal'
@@ -316,14 +316,14 @@ export const MergeBoxesModal = ({
                 label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
                 labelClasses={styles.label}
                 inputComponent={
-                  <Button
+                  <CustomButton
                     disabled={isDifferentStorekeepers}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId
                       ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                       : t(TranslationKey.Select)}
-                  </Button>
+                  </CustomButton>
                 }
               />
               <Field
@@ -418,21 +418,20 @@ export const MergeBoxesModal = ({
           <div />
         )}
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
             disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
             onClick={handleSubmit}
           >
             {t(TranslationKey.Merge)}
-          </Button>
-          <Button
+          </CustomButton>
+          <CustomButton
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             disabled={requestStatus === loadingStatus.IS_LOADING}
-            styleType={ButtonStyle.CASUAL}
             onClick={onCloseBoxesModal}
           >
             {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
         </div>
       </div>
 

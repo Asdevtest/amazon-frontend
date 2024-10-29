@@ -4,13 +4,13 @@ import { FiPlus } from 'react-icons/fi'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { checkIsPositiveNum, checkIsStringFilesSame } from '@utils/checks'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './grouping-boxes-form.style'
 
@@ -222,7 +222,7 @@ export const GroupingBoxesForm = memo(props => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button
+        <CustomButton
           disabled={disabledSubmitBtn}
           onClick={() => {
             setDisableSubmitBtn(true)
@@ -230,15 +230,11 @@ export const GroupingBoxesForm = memo(props => {
           }}
         >
           {t(TranslationKey.Grouping)}
-        </Button>
+        </CustomButton>
 
-        <Button
-          styleType={ButtonStyle.CASUAL}
-          tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-          onClick={onCloseModal}
-        >
+        <CustomButton tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={onCloseModal}>
           {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

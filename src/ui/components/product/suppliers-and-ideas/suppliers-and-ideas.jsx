@@ -17,14 +17,14 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './suppliers-and-ideas.style'
@@ -135,14 +135,14 @@ export const SuppliersAndIdeas = observer(props => {
     <div className={styles.mainWrapper}>
       {showAddProductIdeaButton && (
         <div className={styles.btnsWrapper}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            type="primary"
             disabled={!!product.parentProductId}
             tooltipInfoContent={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
             onClick={onCreateIdea}
           >
             {t(TranslationKey['Add a product idea'])}
-          </Button>
+          </CustomButton>
         </div>
       )}
 

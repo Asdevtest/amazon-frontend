@@ -14,8 +14,8 @@ import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
@@ -31,7 +31,7 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 import { TariffModal } from '@typings/enums/tariff-modal'
 
@@ -502,9 +502,9 @@ export const EditBoxStorekeeperForm = memo(
                             label={t(TranslationKey['HS code'])}
                             value={item.product.hsCode}
                             inputComponent={
-                              <Button onClick={() => onClickHsCode(item.product._id)}>
+                              <CustomButton onClick={() => onClickHsCode(item.product._id)}>
                                 {t(TranslationKey['HS code'])}
-                              </Button>
+                              </CustomButton>
                             }
                             onChange={setHsCode(index)}
                           />
@@ -553,7 +553,7 @@ export const EditBoxStorekeeperForm = memo(
                       label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
                       tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
                       inputComponent={
-                        <Button
+                        <CustomButton
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
@@ -561,7 +561,7 @@ export const EditBoxStorekeeperForm = memo(
                           {boxFields.storekeeperId && (tariffName || tariffRate)
                             ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
-                        </Button>
+                        </CustomButton>
                       }
                     />
                   </div>
@@ -660,7 +660,7 @@ export const EditBoxStorekeeperForm = memo(
                         onChange={setFormField('trackNumberText')}
                       />
 
-                      <Button
+                      <CustomButton
                         onClick={() => {
                           setBarcodeModalSetting({
                             title: 'Track number',
@@ -680,7 +680,7 @@ export const EditBoxStorekeeperForm = memo(
                         {boxFields.tmpTrackNumberFile[0]
                           ? t(TranslationKey['File added'])
                           : t(TranslationKey['Photo track numbers'])}
-                      </Button>
+                      </CustomButton>
                     </div>
 
                     <div className={styles.field}>
@@ -780,21 +780,20 @@ export const EditBoxStorekeeperForm = memo(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             disabled={disableSubmit}
             tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
             onClick={handleSubmit}
           >
             {t(TranslationKey.Save)}
-          </Button>
+          </CustomButton>
 
-          <Button
-            styleType={ButtonStyle.CASUAL}
+          <CustomButton
             tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
             onClick={onTriggerOpenModal}
           >
             {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
         </div>
 
         <Modal

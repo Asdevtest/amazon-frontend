@@ -17,7 +17,7 @@ import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterD
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { IDestination, IDestinationVariation } from '@typings/shared/destinations'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
 
@@ -522,7 +522,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         />
 
         <div className={styles.btnsWrapper}>
-          <CustomButton type={ButtonStyle.PRIMARY} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
+          <CustomButton type="primary" disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
             {t(TranslationKey.Save)}
           </CustomButton>
           <CustomButton onClick={onClickClose}>{t(TranslationKey.Close)}</CustomButton>

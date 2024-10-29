@@ -6,6 +6,7 @@ import { Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize } fr
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 
+import { CustomButton } from '@components/shared/custom-button'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 
@@ -144,16 +145,16 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
         />
       </div>
 
-      <Button
+      <CustomButton
         disabled={disableSubmitBtn}
         onClick={() =>
           isDeadlineError ? setDeadlineError(!deadlineError) : onSubmit(formFields, requestToEdit?.request?._id)
         }
       >
         {isEdit ? 'editBtn' : 'createBtn'}
-      </Button>
+      </CustomButton>
 
-      <Button onClick={() => setOpenModal()}>{'cancelBtn'}</Button>
+      <CustomButton onClick={() => setOpenModal()}>{'cancelBtn'}</CustomButton>
     </div>
   )
 }

@@ -7,12 +7,12 @@ import { TextareaAutosize } from '@mui/material'
 import { renderSettingsRuLabelByKey } from '@constants/keys/user-settings-labels-to-render'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './user-settings-form.style'
 
@@ -43,13 +43,13 @@ export const UserSettingsForm = observer(() => {
       ))}
 
       <div className={styles.placeAddBtnWrapper}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
+        <CustomButton
+          type="primary"
           disabled={isEqual(viewModel.sourceUserSettings, viewModel.userSettings)}
           onClick={() => (viewModel.sourceUserSettings ? viewModel.editUserSettings() : viewModel.createUserSettings())}
         >
           {viewModel.sourceUserSettings ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

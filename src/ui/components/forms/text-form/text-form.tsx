@@ -6,7 +6,7 @@ import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './text-form.style'
 
@@ -46,7 +46,7 @@ export const TextForm: FC<TextFormProps> = memo(props => {
       />
 
       <div className={styles.buttons}>
-        <CustomButton type={ButtonStyle.PRIMARY} disabled={disabledButton} onClick={handleSubmit}>
+        <CustomButton type="primary" disabled={disabledButton} onClick={handleSubmit}>
           {t(TranslationKey.Save)}
         </CustomButton>
 

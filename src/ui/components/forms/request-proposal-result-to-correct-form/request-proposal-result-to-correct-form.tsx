@@ -3,7 +3,7 @@ import { ChangeEvent, FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -124,12 +124,12 @@ export const RequestProposalResultToCorrectForm: FC<Props> = observer(({ onPress
       <UploadFilesInput images={images} setImages={setImages} />
 
       <div className={styles.btnWrapper}>
-        <Button
+        <CustomButton
           disabled={!formFields.reason || totalTimeInMinute === '0'}
           onClick={() => onPressSubmitForm(formFields, images)}
         >
           {t(TranslationKey['Send in for rework'])}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )
