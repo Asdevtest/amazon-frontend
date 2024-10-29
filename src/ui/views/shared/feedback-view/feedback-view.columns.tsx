@@ -35,7 +35,11 @@ export const feedbackViewColumns = (props: ColumnProps) => {
         const showFirst = row.status === FeedbackStatus.CREATED || creator()
         const showSecond = row.status === FeedbackStatus.CREATED && !creator()
         const firstIcon =
-          row.status !== FeedbackStatus.CREATED && creator() ? <FaEye size={16} /> : <MdOutlineEdit size={16} />
+          [FeedbackStatus.ACCEPTED, FeedbackStatus.REJECTED].includes(row.status) && creator() ? (
+            <FaEye size={16} />
+          ) : (
+            <MdOutlineEdit size={16} />
+          )
 
         return (
           <ActionButtonsCell
@@ -81,6 +85,7 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
       renderCell: ({ row }: GridRowModel) => <CustomTextarea isCell readOnly value={row.text} />,
       flex: 1,
+      minWidth: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
@@ -89,6 +94,7 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Response)} />,
       renderCell: ({ row }: GridRowModel) => <CustomTextarea isCell readOnly value={row.responseText} />,
       flex: 1,
+      minWidth: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
