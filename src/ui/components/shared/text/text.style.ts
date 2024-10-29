@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   wrapper: {
     position: 'relative',
     width: '100%',
@@ -36,13 +36,5 @@ export const useStyles = makeStyles()(theme => ({
     top: '5px',
     left: '-10px',
     fontSize: '14px',
-  },
-
-  error: {
-    color: theme.palette.text.red,
-  },
-
-  link: {
-    color: theme.palette.primary.main,
   },
 }))

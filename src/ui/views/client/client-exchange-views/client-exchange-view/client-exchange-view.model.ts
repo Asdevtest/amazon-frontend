@@ -15,7 +15,6 @@ import { UserModel } from '@models/user-model'
 
 import { IShop } from '@components/data-grid/data-grid-cells/shop-notification-message-cell/shop-notification.type'
 
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -117,7 +116,7 @@ export class ClientExchangeViewModel extends DataGridTableModel {
     try {
       const result = await ShopModel.getMyShops()
       runInAction(() => {
-        this.shopsData = addIdDataConverter(result)
+        this.shopsData = result as unknown as IShop[]
       })
     } catch (error) {
       console.error(error)

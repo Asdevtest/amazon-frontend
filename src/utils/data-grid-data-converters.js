@@ -4,49 +4,11 @@ import { Notification } from '@typings/enums/notification'
 
 import {
   calcPriceForBox,
-  calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
   getTariffRateForBoxOrOrder,
 } from './calculation'
 import { getNewTariffTextForBoxOrOrder } from './text'
 import { t } from './translations'
-
-export const addIdDataConverter = data =>
-  data.map((item, index) => ({ ...item, originalData: item, id: item._id ? item._id : index }))
-
-export const stockReportDataConverter = data =>
-  data.map(item => ({
-    ...item,
-    originalData: item,
-    id: item._id,
-
-    shopName: item.shop.name,
-  }))
-
-export const myRequestsDataConverter = (data, shopsData) =>
-  data.map(item => ({
-    originalData: item,
-    id: item._id,
-    _id: item._id,
-    status: item.status,
-    title: item.title,
-    price: item.price,
-    executor: item?.executor,
-    asin: item.asin,
-    xid: item.xid,
-    updatedAt: item.updatedAt,
-    createdAt: item.createdAt,
-    timeoutAt: item.timeoutAt,
-    acceptedProposals: item?.countProposalsByStatuses?.acceptedProposals,
-    allProposals: item?.countProposalsByStatuses?.allProposals,
-    atWorkProposals: item?.countProposalsByStatuses?.atWorkProposals,
-    verifyingProposals: item?.countProposalsByStatuses?.verifyingProposals,
-    waitedProposals: item?.countProposalsByStatuses?.waitedProposals,
-    spec: item?.spec,
-    uploadedToListing: item?.uploadedToListing,
-    taskComplexity: item?.taskComplexity,
-    shopId: shopsData?.find(el => el._id === item?.product?.shopId)?.name || '',
-  }))
 
 export const addOrEditBatchDataConverter = (
   data,
@@ -107,76 +69,6 @@ export const addOrEditBatchDataConverter = (
       .slice(0, -2)}  item №: ${item.items
       ?.reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
       .slice(0, -2)}`,
-  }))
-
-export const warehouseBatchesDataConverter = (data, volumeWeightCoefficient) =>
-  data.map(item => ({
-    originalData: item,
-    ...item,
-
-    id: item._id,
-
-    tariff: getNewTariffTextForBoxOrOrder(item.boxes[0]),
-
-    volumeWeight: item.boxes.reduce(
-      (prev, box) => (prev = prev + calcVolumeWeightForBox(box, volumeWeightCoefficient)),
-      0,
-    ),
-
-    deliveryTotalPrice: getTariffRateForBoxOrOrder(item.boxes[0]) * item.finalWeight,
-  }))
-
-export const warehouseBoxesDataConverter = (data, volumeWeightCoefficient) =>
-  data?.map(item => ({
-    originalData: item,
-    id: item?._id,
-    _id: item?._id,
-
-    warehouse: item?.destination?.name,
-    logicsTariff: getNewTariffTextForBoxOrOrder(item),
-
-    client: item?.client?.name,
-
-    xid: item?.xid,
-    amount: item?.items?.reduce((acc, cur) => (acc += cur?.amount), 0),
-
-    isDraft: item?.isDraft,
-    createdAt: item?.createdAt,
-    updatedAt: item?.updatedAt,
-    batchId: item?.batch?.xid,
-    volumeWeightCoefficient,
-
-    prepId: item?.prepId,
-
-    orderIdsItems: `${t(TranslationKey.Order)} №: ${item?.items
-      .reduce((acc, cur) => (acc += cur?.order?.id + ', '), '')
-      .slice(0, -2)}  item №: ${item?.items
-      .reduce((acc, cur) => (acc += (cur?.order?.item ? cur.order?.item : '-') + ', '), '')
-      .slice(0, -2)}`,
-  }))
-
-export const SourceFilesDataConverter = data =>
-  data.map(item => ({
-    originalData: item,
-    id: item?._id,
-
-    _id: item?._id,
-    sourceFile: item?.sourceFile,
-    comments: item?.comments,
-    proposal: item?.proposal,
-    spec: item?.spec,
-    productId: item?.productId,
-
-    performer: item?.createdBy,
-    sub: item?.proposal?.sub,
-
-    createdAt: item?.createdAt,
-    updatedAt: item?.updatedAt,
-
-    xid: item?.proposal?.request?.xid,
-    title: item?.proposal?.request?.title,
-    asin: item?.proposal?.request?.asin,
-    client: item?.proposal?.client,
   }))
 
 export const notificationDataConverter = data =>
