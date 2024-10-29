@@ -183,6 +183,7 @@ export class BuyerIdeasViewModel extends DataGridFilterTableModel {
           undefined,
           true,
         )
+
         await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
 
         if (supplier._id === this.currentProduct?.currentSupplierId) {
