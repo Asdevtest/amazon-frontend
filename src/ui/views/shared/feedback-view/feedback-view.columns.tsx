@@ -28,12 +28,34 @@ export const feedbackViewColumns = (props: ColumnProps) => {
 
   const columns: IGridColumn[] = [
     {
-      field: 'createdAt',
-      headerName: t(TranslationKey.Created),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
-      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
-      width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      field: 'action',
+      headerName: t(TranslationKey.Actions),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
+      renderCell: ({ row }: GridRowModel) => {
+        const showFirst = row.status === FeedbackStatus.CREATED || creator()
+        const showSecond = row.status === FeedbackStatus.CREATED && !creator()
+        const firstIcon =
+          row.status !== FeedbackStatus.CREATED && creator() ? <FaEye size={16} /> : <MdOutlineEdit size={16} />
+
+        return (
+          <ActionButtonsCell
+            row
+            secondDanger
+            firstGhost
+            secondGhost
+            showFirst={showFirst}
+            showSecond={showSecond}
+            secondConfirmText="Are you sure you want to delete this ticket?"
+            firstIcon={firstIcon}
+            secondIcon={<MdOutlineDelete size={16} />}
+            onClickFirst={() => onSelectFeedback(row, creator())}
+            onClickSecond={() => onRemoveFeedback(row._id)}
+          />
+        )
+      },
+      disableCustomSort: true,
+      filterable: false,
+      width: 90,
     },
     {
       field: 'status',
@@ -88,43 +110,20 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       disableCustomSort: true,
     },
     {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+      renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
+      width: 100,
+      columnKey: columnnsKeys.shared.DATE,
+    },
+    {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 100,
       columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
-      field: 'action',
-      headerName: t(TranslationKey.Actions),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-      renderCell: ({ row }: GridRowModel) => {
-        const showFirst = row.status === FeedbackStatus.CREATED || creator()
-        const showSecond = row.status === FeedbackStatus.CREATED && !creator()
-        const firstIcon =
-          row.status !== FeedbackStatus.CREATED && creator() ? <FaEye size={16} /> : <MdOutlineEdit size={16} />
-
-        return (
-          <ActionButtonsCell
-            row
-            secondDanger
-            firstGhost
-            secondGhost
-            showFirst={showFirst}
-            showSecond={showSecond}
-            secondConfirmText="Are you sure you want to delete this ticket?"
-            firstIcon={firstIcon}
-            secondIcon={<MdOutlineDelete size={16} />}
-            onClickFirst={() => onSelectFeedback(row, creator())}
-            onClickSecond={() => onRemoveFeedback(row._id)}
-          />
-        )
-      },
-      disableCustomSort: true,
-      filterable: false,
-      width: 90,
     },
   ]
 
