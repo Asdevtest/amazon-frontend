@@ -51,12 +51,12 @@ export const getStatusText = (status?: FeedbackStatus) => {
   }
 }
 
-export const getStatusColor = (status?: FeedbackStatus) => {
+export const getStatusColor = (status?: FeedbackStatus, creator?: boolean) => {
   const blueColor = SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
 
   switch (status) {
     case FeedbackStatus.CREATED:
-      return blueColor
+      return creator ? undefined : blueColor
     case FeedbackStatus.IN_PROCESS:
       return '#F3AF00'
     case FeedbackStatus.ACCEPTED:
@@ -64,6 +64,6 @@ export const getStatusColor = (status?: FeedbackStatus) => {
     case FeedbackStatus.REJECTED:
       return '#FF1616'
     default:
-      return blueColor
+      return undefined
   }
 }

@@ -46,7 +46,7 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
                 options={viewModel.statusOptions}
                 defaultValue={viewModel.feedback?.status}
                 optionRender={option => (
-                  <span style={{ color: getStatusColor(option.value as FeedbackStatus) }}>{option.label}</span>
+                  <span style={{ color: getStatusColor(option.value as FeedbackStatus, true) }}>{option.label}</span>
                 )}
                 labelRender={option => (
                   <span style={{ color: getStatusColor(option.value as FeedbackStatus) }}>{option.label}</span>
