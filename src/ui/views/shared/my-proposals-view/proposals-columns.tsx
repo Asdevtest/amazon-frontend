@@ -218,7 +218,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       field: 'freelanceNotices',
       headerName: t(TranslationKey['Unread messages']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Unread messages'])} />,
-      renderCell: params => <Text isCell center text={params.row?.request?.freelanceNotices} />,
+      renderCell: params => <Text isCell text={params.row?.request?.freelanceNotices} />,
       width: 130,
       sortable: false,
     },

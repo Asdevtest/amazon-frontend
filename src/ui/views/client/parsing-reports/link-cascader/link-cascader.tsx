@@ -35,7 +35,7 @@ export const LinkCascader: FC = observer(() => {
           type="secondary"
           isCell={false}
           copyable={false}
-          textRows={1}
+          rows={1}
           text={`${t(TranslationKey.Shops)}*`}
           className={styles.title}
         />
@@ -54,7 +54,7 @@ export const LinkCascader: FC = observer(() => {
           type="secondary"
           isCell={false}
           copyable={false}
-          textRows={1}
+          rows={1}
           text={`${t(TranslationKey.Tables)}*`}
           className={styles.title}
         />

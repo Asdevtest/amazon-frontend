@@ -33,7 +33,7 @@ export const getProfilesOptions = (profiles: IPermissionsData[]) =>
       ) : null
 
     return {
-      label: <Text textRows={1} icon={icon} copyable={false} text={text} textStyle={{ maxWidth: 350 }} />,
+      label: <Text rows={1} icon={icon} copyable={false} text={text} style={{ maxWidth: 350 }} />,
       value: profile._id,
     }
   })

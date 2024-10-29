@@ -53,14 +53,7 @@ export const subUsersColumns = ({ onClickRemove, onClickEdit, onClickSaveComment
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
       renderCell: ({ row }) => (
-        <Text
-          isCell
-          editMode
-          rows={4}
-          maxLength={255}
-          text={row?.note?.comment}
-          onClickSubmit={reason => onClickSaveComment(row._id, reason)}
-        />
+        <Text isCell editMode text={row?.note?.comment} onClickSubmit={reason => onClickSaveComment(row._id, reason)} />
       ),
       flex: 1,
       disableCustomSort: true,
