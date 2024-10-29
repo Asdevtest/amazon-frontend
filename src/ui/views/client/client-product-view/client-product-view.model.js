@@ -17,7 +17,6 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
@@ -300,7 +299,7 @@ export class ClientProductViewModel {
       const result = await ShopModel.getMyShopNames()
 
       runInAction(() => {
-        this.shopsData = addIdDataConverter(result)
+        this.shopsData = result
       })
     } catch (error) {
       console.error(error)

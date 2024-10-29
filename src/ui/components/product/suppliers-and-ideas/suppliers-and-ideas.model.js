@@ -26,7 +26,6 @@ import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { toFixed } from '@utils/text'
@@ -307,7 +306,7 @@ export class SuppliersAndIdeasModel {
       const result = await ShopModel.getMyShops()
 
       runInAction(() => {
-        this.shopsData = addIdDataConverter(result)
+        this.shopsData = result
       })
     } catch (error) {
       console.error(error)

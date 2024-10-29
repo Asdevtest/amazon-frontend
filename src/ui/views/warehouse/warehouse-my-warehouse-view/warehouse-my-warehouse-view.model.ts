@@ -18,7 +18,6 @@ import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
@@ -26,6 +25,7 @@ import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files
 
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { IBatch } from '@typings/models/batches/batch'
 import { IBox } from '@typings/models/boxes/box'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 import { IDestination } from '@typings/shared/destinations'
@@ -42,7 +42,7 @@ import {
 } from './warehouse-my-warehouse-view.constants'
 
 export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
-  batches = []
+  batches: IBatch[] = []
   baseBoxesMy = []
   destinations: IDestination[] = []
   uploadedTrackNumber: any[] = []
@@ -486,10 +486,10 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
 
   async getDataToMoveBatch() {
     try {
-      const batches = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
+      const batches = (await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)) as unknown as IBatch[]
 
       runInAction(() => {
-        this.batches = warehouseBatchesDataConverter(batches, this.platformSettings?.volumeWeightCoefficient)
+        this.batches = batches
       })
     } catch (error) {
       console.error(error)

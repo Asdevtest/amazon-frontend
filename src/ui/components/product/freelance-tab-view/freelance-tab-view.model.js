@@ -13,7 +13,6 @@ import { UserModel } from '@models/user-model'
 
 import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
 
-import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
@@ -137,7 +136,7 @@ export class FreelanceModel {
       })
 
       runInAction(() => {
-        this.searchRequests = myRequestsDataConverter(result.rows)
+        this.searchRequests = result.rows
         this.rowCount = result.count
       })
     } catch (error) {
