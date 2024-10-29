@@ -55,7 +55,6 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
               />
             ) : (
               <Text
-                maxContent
                 copyable={false}
                 color={getStatusColor(viewModel.feedback?.status)}
                 text={getStatusText(viewModel.feedback?.status)}
@@ -63,16 +62,12 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
             )}
 
             <div className={styles.flexRow}>
-              <Text
-                maxContent
-                copyable={false}
-                text={`Updated: ${formatNormDateTime(viewModel.feedback?.updatedAt)}`}
-              />
-              <Text maxContent type="secondary" copyable={false} text={`ID: ${viewModel.feedback?.xid}`} />
+              <Text copyable={false} text={`Updated: ${formatNormDateTime(viewModel.feedback?.updatedAt)}`} />
+              <Text type="secondary" copyable={false} text={`ID: ${viewModel.feedback?.xid}`} />
             </div>
           </div>
 
-          <Text bold textRows={2} copyable={false} text={viewModel.feedback?.title || ''} />
+          <Text strong rows={2} copyable={false} text={viewModel.feedback?.title || ''} />
           <CustomTextarea readOnly rows={6} value={viewModel.feedback?.text || ''} />
           <CustomPreviewGroup size={50} data={viewModel.feedback?.media || []} />
         </div>
