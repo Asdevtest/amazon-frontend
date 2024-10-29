@@ -2,7 +2,7 @@ import { TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -48,12 +48,14 @@ export const ExchangeProductItem = ({ product, handlerPrivateLabel, index }) => 
         <p className={(styles.text, styles.standartPrice)}>{'$ 499'}</p>
       </TableCell>
       <TableCell>
-        <Button styleType={ButtonStyle.SUCCESS} onClick={() => handlerPrivateLabel(index)}>
+        <CustomButton type={ButtonStyle.PRIMARY} onClick={() => handlerPrivateLabel(index)}>
           {t(TranslationKey.Start)}
-        </Button>
+        </CustomButton>
       </TableCell>
       <TableCell>
-        <Button onClick={() => alert('Card button click')}>{t(TranslationKey['Add for $']) + product.price}</Button>
+        <CustomButton onClick={() => alert('Card button click')}>
+          {t(TranslationKey['Add for $']) + product.price}
+        </CustomButton>
       </TableCell>
     </TableRow>
   )

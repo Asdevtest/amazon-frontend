@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
@@ -91,9 +91,9 @@ export const EstimateCreateTradingShopForm = ({
               <div className={styles.estimateCostWrapper}>
                 <p>{toFixed(averagePureIncome * reqMultiplier, 2)}</p>
 
-                <Button variant={ButtonVariant.OUTLINED} onClick={applyReqMultiplier}>
+                <CustomButton variant={ButtonVariant.OUTLINED} onClick={applyReqMultiplier}>
                   {t(TranslationKey.Apply)}
-                </Button>
+                </CustomButton>
               </div>
             }
           />
@@ -147,13 +147,13 @@ export const EstimateCreateTradingShopForm = ({
       </p>
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} disabled={submitIsClicked} onClick={onClickSubmit}>
+        <CustomButton type={ButtonStyle.PRIMARY} disabled={submitIsClicked} onClick={onClickSubmit}>
           {t(TranslationKey.Yes)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} disabled={submitIsClicked} onClick={setOpenModal}>
+        <CustomButton disabled={submitIsClicked} onClick={setOpenModal}>
           {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

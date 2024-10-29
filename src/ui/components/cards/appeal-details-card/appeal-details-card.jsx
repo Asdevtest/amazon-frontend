@@ -1,10 +1,10 @@
-import { Avatar } from 'antd'
+import { Avatar, Rate } from 'antd'
 
-import { Grid, Rating } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
@@ -77,7 +77,7 @@ export const AppealDetailsCard = () => {
 
                 <div className={styles.nameWrapper}>
                   <UserLink blackText name={'Вася'} userId={''} />
-                  <Rating readOnly value={'5'} />
+                  <Rate disabled value={5} />
                 </div>
               </div>
             </div>
@@ -88,7 +88,7 @@ export const AppealDetailsCard = () => {
 
                 <div className={styles.nameWrapper}>
                   <UserLink blackText name={'Исполнитель'} userId={''} />
-                  <Rating readOnly value={'5'} />
+                  <Rate disabled value={5} />
                 </div>
               </div>
             </div>
@@ -96,7 +96,7 @@ export const AppealDetailsCard = () => {
 
           <div className={styles.footerWrapper}>
             <p className={styles.timeOnReviewTitle}>{'Время на рассмотрение с момента принятия 48 часов'}</p>
-            <Button styleType={ButtonStyle.SUCCESS}>{'Принять к рассмотрению'}</Button>
+            <CustomButton type={ButtonStyle.PRIMARY}>{'Принять к рассмотрению'}</CustomButton>
           </div>
         </div>
       </div>

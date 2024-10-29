@@ -5,7 +5,7 @@ import { TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Input } from '@components/shared/input'
 import { Table } from '@components/shared/table'
 import { TableHeadRow } from '@components/table/table-rows/batches-view/table-head-row'
@@ -105,13 +105,13 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} disabled={submitDisabled} onClick={onClickSubmit}>
+        <CustomButton type={ButtonStyle.PRIMARY} disabled={submitDisabled} onClick={onClickSubmit}>
           {t(TranslationKey.Save)}
-        </Button>
+        </CustomButton>
 
-        <Button variant={ButtonVariant.OUTLINED} onClick={() => setOpenModal()}>
+        <CustomButton variant={ButtonVariant.OUTLINED} onClick={() => setOpenModal()}>
           {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

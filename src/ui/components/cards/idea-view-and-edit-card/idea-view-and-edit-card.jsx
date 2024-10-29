@@ -10,8 +10,8 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -403,9 +403,9 @@ export const IdeaViewAndEditCard = observer(
                         />
                       </div>
 
-                      <Button disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
+                      <CustomButton disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
                         {t(TranslationKey['Link request'])}
-                      </Button>
+                      </CustomButton>
                     </div>
                   </div>
 
@@ -532,9 +532,9 @@ export const IdeaViewAndEditCard = observer(
                                 className={styles.input}
                                 onChange={e => setLinkLine(e.target.value)}
                               />
-                              <Button disabled={!linkLine || disableFields} onClick={onClickLinkBtn}>
+                              <CustomButton disabled={!linkLine || disableFields} onClick={onClickLinkBtn}>
                                 {t(TranslationKey.Add)}
-                              </Button>
+                              </CustomButton>
                             </div>
                           )}
                           <div ref={linkListRef} className={styles.linksSubWrapper}>
@@ -719,13 +719,13 @@ export const IdeaViewAndEditCard = observer(
                       onClickRadioButton={selectedStatus => setSupplierFound(selectedStatus)}
                     />
 
-                    <Button
-                      styleType={ButtonStyle.SUCCESS}
+                    <CustomButton
+                      type={ButtonStyle.PRIMARY}
                       disabled={!supplierFound}
                       onClick={() => onClickAcceptButton(formFields, supplierFound)}
                     >
                       {t(TranslationKey.Save)}
-                    </Button>
+                    </CustomButton>
                   </div>
                 )}
 
@@ -736,86 +736,88 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isCurrentIdea && isCardCreating && (
-                  <Button
-                    styleType={ButtonStyle.SUCCESS}
+                  <CustomButton
+                    type={ButtonStyle.PRIMARY}
                     tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                     disabled={idea.childProduct}
                     onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
                   >
                     {t(TranslationKey['Create a product card'])}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {currentUserIsClient && showCreateRequestButton && (
-                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickCreateRequestButton(formFields)}>
+                  <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickCreateRequestButton(formFields)}>
                     <FiPlus style={{ width: 16, height: 16 }} />
                     {t(TranslationKey['Create request'])}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
-                  <Button
-                    styleType={ButtonStyle.SUCCESS}
+                  <CustomButton
+                    type={ButtonStyle.PRIMARY}
                     disabled={disableAcceptButton}
                     onClick={() => onClickAcceptButton(formFields)}
                   >
                     {t(TranslationKey.Accept)}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {currentUserIsClient && isVerified && (
-                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickToOrder(formFields)}>
+                  <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickToOrder(formFields)}>
                     {t(TranslationKey['To order'])}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {currentUserIsClient && isNewIdea && (
-                  <Button onClick={() => onClickAcceptButton(formFields)}>{t(TranslationKey['To check'])}</Button>
+                  <CustomButton onClick={() => onClickAcceptButton(formFields)}>
+                    {t(TranslationKey['To check'])}
+                  </CustomButton>
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button styleType={ButtonStyle.DANGER} onClick={() => onClickCloseIdea(formFields?._id)}>
+                  <CustomButton type={ButtonStyle.DANGER} onClick={() => onClickCloseIdea(formFields?._id)}>
                     {t(TranslationKey['Close idea'])}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickReoperButton(formFields?._id)}>
+                  <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickReoperButton(formFields?._id)}>
                     {t(TranslationKey.Restore)}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {checkIsClientOrBuyer && !isClosed && (
-                  <Button onClick={() => onEditIdea(formFields)}>{t(TranslationKey.Edit)}</Button>
+                  <CustomButton onClick={() => onEditIdea(formFields)}>{t(TranslationKey.Edit)}</CustomButton>
                 )}
 
                 {currentUserIsClient && showRejectButton && (
-                  <Button styleType={ButtonStyle.DANGER} onClick={() => onClickRejectButton(formFields?._id)}>
+                  <CustomButton type={ButtonStyle.DANGER} onClick={() => onClickRejectButton(formFields?._id)}>
                     {t(TranslationKey.Reject)}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {isModalView && (
-                  <Button variant={ButtonVariant.OUTLINED} onClick={() => onClickCancelBtn()}>
+                  <CustomButton variant={ButtonVariant.OUTLINED} onClick={() => onClickCancelBtn()}>
                     {t(TranslationKey.Close)}
-                  </Button>
+                  </CustomButton>
                 )}
               </div>
             )}
           </div>
         ) : (
           <div className={styles.addOrEditBtnsWrapper}>
-            <Button
+            <CustomButton
+              type={ButtonStyle.PRIMARY}
               disabled={disabledSubmit}
-              styleType={ButtonStyle.SUCCESS}
               onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
             >
               {t(TranslationKey.Save)}
-            </Button>
+            </CustomButton>
 
-            <Button variant={ButtonVariant.OUTLINED} onClick={() => onClickCancelBtn()}>
+            <CustomButton variant={ButtonVariant.OUTLINED} onClick={() => onClickCancelBtn()}>
               {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
           </div>
         )}
       </div>

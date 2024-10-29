@@ -4,7 +4,7 @@ import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -60,12 +60,10 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
         </div>
       </div>
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} onClick={onClickContinue}>
+        <CustomButton type={ButtonStyle.PRIMARY} onClick={onClickContinue}>
           {t(TranslationKey.Continue)}
-        </Button>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancel}>
-          {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
+        <CustomButton onClick={onClickCancel}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

@@ -4,7 +4,7 @@ import { MenuItem, Select } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -118,13 +118,11 @@ export const CreateOrEditServiceContent = memo(props => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.CASUAL} onClick={throttle(onClickBackBtn)}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={throttle(onClickBackBtn)}>{t(TranslationKey.Close)}</CustomButton>
 
-        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledSubmitButton} onClick={throttle(handleSubmit)}>
+        <CustomButton type={ButtonStyle.PRIMARY} disabled={disabledSubmitButton} onClick={throttle(handleSubmit)}>
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

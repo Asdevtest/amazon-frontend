@@ -1,6 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
@@ -36,13 +36,11 @@ export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} onClick={throttle(() => onSubmit(feedback.user._id))}>
+        <CustomButton type={ButtonStyle.PRIMARY} onClick={throttle(() => onSubmit(feedback.user._id))}>
           {t(TranslationKey.Reply)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

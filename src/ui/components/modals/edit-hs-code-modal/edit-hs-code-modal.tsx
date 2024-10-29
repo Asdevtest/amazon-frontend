@@ -3,7 +3,7 @@ import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
@@ -85,12 +85,10 @@ export const EditHSCodeModal: FC<EditHSCodeModalProps> = observer(props => {
       />
 
       <div className={styles.buttons}>
-        <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onSaveHSCode}>
+        <CustomButton type={ButtonStyle.PRIMARY} onClick={viewModel.onSaveHSCode}>
           {t(TranslationKey.Save)}
-        </Button>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-          {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
+        <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

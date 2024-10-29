@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
@@ -101,13 +101,11 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
       </div>
 
       <div className={styles.btnsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
+        <CustomButton type={ButtonStyle.PRIMARY} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
           {t(TranslationKey.Add)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

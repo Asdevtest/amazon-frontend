@@ -5,7 +5,7 @@ import { Link } from '@mui/material'
 // import {useState} from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -51,12 +51,10 @@ export const CheckPendingOrderForm = ({
         ))}
       </div>
       <div className={styles.buttonGroup}>
-        <Button styleType={ButtonStyle.SUCCESS} disabled={submitIsClicked} onClick={onSubmit}>
+        <CustomButton type={ButtonStyle.PRIMARY} disabled={submitIsClicked} onClick={onSubmit}>
           {t(TranslationKey.Continue)}
-        </Button>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelBtn}>
-          {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
+        <CustomButton onClick={onClickCancelBtn}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

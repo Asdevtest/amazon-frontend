@@ -2,7 +2,7 @@ import { memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
@@ -53,13 +53,11 @@ export const SelectShopsModal = memo(props => {
       <p className={styles.message}>{message}</p>
 
       <div className={styles.buttons}>
-        <Button styleType={ButtonStyle.SUCCESS} disabled={isDisabled} onClick={() => onClickSuccessBtn(selectedItem)}>
+        <CustomButton type={ButtonStyle.PRIMARY} disabled={isDisabled} onClick={() => onClickSuccessBtn(selectedItem)}>
           {t(TranslationKey.Yes)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelBtn}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={onClickCancelBtn}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

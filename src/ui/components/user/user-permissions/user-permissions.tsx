@@ -8,6 +8,7 @@ import { AddOrEditGroupPermissionForm } from '@components/forms/add-or-edit-grou
 import { AddOrEditSinglePermissionForm } from '@components/forms/add-or-edit-single-permission-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
@@ -50,9 +51,9 @@ export const UserPermissions = observer(() => {
         <div className={styles.buttons}>
           <Button onClick={viewModel.onClickExportPermissions}>{t(TranslationKey['Export to file'])}</Button>
           <Button onClick={viewModel.onClickImportPermissions}>{t(TranslationKey['Import permissions'])}</Button>
-          <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickAddBtn}>
+          <CustomButton type={ButtonStyle.PRIMARY} onClick={viewModel.onClickAddBtn}>
             {t(TranslationKey.Add)}
-          </Button>
+          </CustomButton>
         </div>
       </div>
 

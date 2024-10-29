@@ -4,7 +4,7 @@ import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
@@ -32,9 +32,9 @@ export const UserMoneyTransferModal = memo(({ openModal, setOpenModal, isWithdra
           <p className={styles.link}>{t(TranslationKey['Money transfer link'])}</p>
         </Link>
 
-        <Button styleType={ButtonStyle.SUCCESS} onClick={setOpenModal}>
+        <CustomButton type={ButtonStyle.PRIMARY} onClick={setOpenModal}>
           {t(TranslationKey.Ok)}
-        </Button>
+        </CustomButton>
       </div>
     </Modal>
   )

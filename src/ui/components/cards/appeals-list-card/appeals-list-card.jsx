@@ -1,15 +1,17 @@
-import { Avatar } from 'antd'
+import { Avatar, Rate } from 'antd'
 
-import { Grid, Rating } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './appeals-list-card.style'
 
@@ -76,11 +78,13 @@ export const AppealsListCard = ({ onClickViewMore }) => {
                 <div className={styles.nameWrapper}>
                   <UserLink blackText name={'Клиент'} userId={''} />
 
-                  <Rating readOnly value={'5'} />
+                  <Rate disabled value={5} />
                 </div>
               </div>
             </div>
-            <Button onClick={() => onClickViewMore()}>{t(TranslationKey['Open an appeal'])}</Button>
+            <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickViewMore()}>
+              {t(TranslationKey['Open an appeal'])}
+            </CustomButton>
           </div>
         </div>
       </div>

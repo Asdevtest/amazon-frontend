@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -25,9 +25,9 @@ export const AdminDestinationsView = observer(props => {
 
   return (
     <div className="viewWrapper">
-      <Button styleType={ButtonStyle.SUCCESS} onClick={() => viewModel.onClickAddBtn()}>
+      <CustomButton type={ButtonStyle.PRIMARY} onClick={() => viewModel.onClickAddBtn()}>
         {t(TranslationKey['Add a destination'])}
-      </Button>
+      </CustomButton>
 
       <CustomDataGrid
         sortModel={viewModel.sortModel}

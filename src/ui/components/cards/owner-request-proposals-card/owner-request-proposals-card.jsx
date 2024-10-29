@@ -1,7 +1,5 @@
-import { Avatar } from 'antd'
+import { Avatar, Rate } from 'antd'
 import { useState } from 'react'
-
-import Rating from '@mui/material/Rating'
 
 import {
   RequestProposalStatus,
@@ -87,7 +85,7 @@ export const OwnerRequestProposalsCard = ({
                       {t(TranslationKey.Reviews)}
                     </p>
 
-                    <Rating readOnly className={styles.userRating} value={item.proposal.createdBy?.rating} />
+                    <Rate disabled className={styles.userRating} value={item.proposal.createdBy?.rating} />
                   </div>
                 </div>
               </div>

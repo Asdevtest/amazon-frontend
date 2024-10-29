@@ -6,7 +6,7 @@ import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/key
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
@@ -522,12 +522,10 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         />
 
         <div className={styles.btnsWrapper}>
-          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
+          <CustomButton type={ButtonStyle.PRIMARY} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
             {t(TranslationKey.Save)}
-          </Button>
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClickClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
+          <CustomButton onClick={onClickClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )

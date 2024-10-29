@@ -1,7 +1,7 @@
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -23,9 +23,9 @@ export const FailedAsinsModal = ({ failedData, onClickSuccessBtn }) => {
           <p>{humanFriendlyStategyStatus(productStrategyStatusesEnum[el.strategy]).toUpperCase()}</p>
         </div>
       ))}
-      <Button styleType={ButtonStyle.SUCCESS} onClick={onClickSuccessBtn}>
+      <CustomButton type={ButtonStyle.PRIMARY} onClick={onClickSuccessBtn}>
         {t(TranslationKey.Ok)}
-      </Button>
+      </CustomButton>
     </div>
   )
 }

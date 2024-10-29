@@ -1,6 +1,5 @@
+import { Rate } from 'antd'
 import { memo } from 'react'
-
-import { Rating } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -59,7 +58,7 @@ export const UserProfile = memo(props => {
             <div className={styles.ratingWrapper}>
               <p>{`Rating ${toFixed(user?.rating, 1)}`}</p>
 
-              <Rating readOnly className={styles.userRating} value={user?.rating} />
+              <Rate disabled className={styles.userRating} value={user?.rating} />
             </div>
 
             <div className={styles.userInfoButtons}>

@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { UserLink } from '@components/user/user-link'
 
@@ -143,23 +143,21 @@ export const AddOrEditDestinationForm = observer(
 
         <div className={styles.footerWrapper}>
           {onClickAddBtn ? (
-            <Button
-              styleType={ButtonStyle.SUCCESS}
+            <CustomButton
+              type={ButtonStyle.PRIMARY}
               tooltipInfoContent={t(TranslationKey['Add a new rate'])}
               onClick={throttle(onClickAddBtn)}
             >
               {t(TranslationKey.Add)}
-            </Button>
+            </CustomButton>
           ) : null}
 
           <div className={styles.btnsWrapper}>
-            <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
+            <CustomButton type={ButtonStyle.PRIMARY} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
               {t(TranslationKey.Save)}
-            </Button>
+            </CustomButton>
 
-            <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-              {t(TranslationKey.Close)}
-            </Button>
+            <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       </div>

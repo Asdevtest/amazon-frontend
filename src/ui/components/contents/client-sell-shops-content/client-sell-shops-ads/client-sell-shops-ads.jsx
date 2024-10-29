@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
@@ -40,7 +40,7 @@ export const ClientSellShopsAds = observer(() => {
     <>
       <div className={styles.btnsWrapper}>
         <div className={styles.boxesFiltersWrapper}>
-          <Button
+          <CustomButton
             disabled={curFilter === filtersSettings.ALL_ADS}
             className={cx(styles.button, {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
@@ -49,9 +49,9 @@ export const ClientSellShopsAds = observer(() => {
             onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
           >
             {t(TranslationKey['All Ads'])}
-          </Button>
+          </CustomButton>
 
-          <Button
+          <CustomButton
             disabled={curFilter === filtersSettings.SOLD_ADS}
             className={cx(styles.button, {
               [styles.selectedBoxesBtn]: curFilter === filtersSettings.SOLD_ADS,
@@ -60,19 +60,19 @@ export const ClientSellShopsAds = observer(() => {
             onClick={() => onClickFilterBtn(filtersSettings.SOLD_ADS)}
           >
             {t(TranslationKey['Sold Ads'])}
-          </Button>
-          <Button
+          </CustomButton>
+          <CustomButton
             disabled={curFilter === filtersSettings.PURCHASED_ADS}
             variant={ButtonVariant.OUTLINED}
             onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
           >
             {t(TranslationKey['Removed Ads'])}
-          </Button>
+          </CustomButton>
         </div>
 
-        <Button styleType={ButtonStyle.SUCCESS} onClick={onClickAddBtn}>
+        <CustomButton type={ButtonStyle.PRIMARY} onClick={onClickAddBtn}>
           {t(TranslationKey['Add shop'])}
-        </Button>
+        </CustomButton>
       </div>
 
       <CustomInputSearch allowClear placeholder="Search" value={nameSearchValue} onChange={onChangeNameSearchValue} />

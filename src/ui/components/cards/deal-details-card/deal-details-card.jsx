@@ -1,4 +1,4 @@
-import { Avatar } from 'antd'
+import { Avatar, Rate } from 'antd'
 
 import { Grid } from '@mui/material'
 import Rating from '@mui/material/Rating'
@@ -7,7 +7,7 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
@@ -100,9 +100,9 @@ export const DealDetailsCard = ({
             RequestStatus.VERIFYING_BY_SUPERVISOR,
           ].includes(curProposal?.proposal.status) ? (
             <div>
-              <Button onClick={() => onSubmitSendInForRework(curProposal?.proposal._id)}>
+              <CustomButton onClick={() => onSubmitSendInForRework(curProposal?.proposal._id)}>
                 {t(TranslationKey['Send in for rework'])}
-              </Button>
+              </CustomButton>
             </div>
           ) : null}
         </div>
@@ -157,26 +157,26 @@ export const DealDetailsCard = ({
               RequestStatus.VERIFYING_BY_SUPERVISOR,
             ].includes(curProposal?.proposal.status) && (
               <div className={styles.buttonsWrapper}>
-                <Button
-                  styleType={ButtonStyle.DANGER}
+                <CustomButton
+                  type={ButtonStyle.DANGER}
                   onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}
                 >
                   {t(TranslationKey['Reject the deal'])}
-                </Button>
+                </CustomButton>
 
-                <Button
-                  styleType={ButtonStyle.SUCCESS}
+                <CustomButton
+                  type={ButtonStyle.PRIMARY}
                   onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}
                 >
                   {t(TranslationKey['Accept the deal'])}
-                </Button>
+                </CustomButton>
               </div>
             )}
           {dealsOnReview ? (
             <div className={styles.buttonWrapper}>
-              <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}>
+              <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}>
                 {t(TranslationKey['Get to work'])}
-              </Button>
+              </CustomButton>
             </div>
           ) : null}
         </div>

@@ -7,7 +7,7 @@ import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-s
 import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
@@ -90,14 +90,14 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           </div>
           <div className={!showDetails ? styles.buttonsWrapper : styles.buttonWrapper}>
             {!showDetails && (
-              <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickGetToWorkModal(item._id, item.requestId)}>
+              <CustomButton type={ButtonStyle.PRIMARY} onClick={() => onClickGetToWorkModal(item._id, item.requestId)}>
                 {t(TranslationKey['Get to work'])}
-              </Button>
+              </CustomButton>
             )}
 
-            <Button onClick={() => onClickViewMore(item.requestId, item._id)}>
+            <CustomButton onClick={() => onClickViewMore(item.requestId, item._id)}>
               {t(TranslationKey['Open a deal'])}
-            </Button>
+            </CustomButton>
           </div>
         </div>
       </div>
