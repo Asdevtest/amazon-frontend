@@ -257,11 +257,12 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     const activePreset = this.getActivePreset()
 
     if (activePreset) {
-      // @ts-ignore
       const savedColumns: IGridColumn[] = []
-
-      for await (const field of activePreset.settings.fields) {
-        const foundColumn = await this.columnsModel?.find(column => column?.field === field?.field)
+      const defaultColumnsModel = [...this.defaultColumnsModel]
+      const visibilityModel = activePreset?.settings?.columnVisibilityModel
+      for (const field of activePreset.settings.fields) {
+        const foundColumnIndex = defaultColumnsModel?.findIndex(column => column?.field === field?.field)
+        const foundColumn = defaultColumnsModel?.[foundColumnIndex]
 
         if (foundColumn) {
           foundColumn.width = field?.width
@@ -270,10 +271,18 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         }
 
         savedColumns.push(foundColumn)
+        defaultColumnsModel.splice(foundColumnIndex, 1)
+      }
+
+      if (defaultColumnsModel.length > 0) {
+        savedColumns?.push(...defaultColumnsModel)
+
+        for (const column of defaultColumnsModel) {
+          visibilityModel[column.field] = false
+        }
       }
 
       const parsedValue = this.parseQueryString(activePreset?.settings?.filters)
-
       this.setFilterFromPreset(parsedValue)
 
       runInAction(() => {
@@ -281,7 +290,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         this.sortModel = activePreset?.settings?.sortModel
         this.pinnedColumns = activePreset?.settings?.pinnedColumns
         this.paginationModel = activePreset?.settings?.paginationModel
-        this.columnVisibilityModel = activePreset?.settings?.columnVisibilityModel
+        this.columnVisibilityModel = visibilityModel
       })
     } else {
       this.handlePinColumn(defaultPinnedColumns)

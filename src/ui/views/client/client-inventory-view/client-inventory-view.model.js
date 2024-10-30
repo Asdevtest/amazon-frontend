@@ -299,24 +299,14 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       }
     }
 
-    const columns = clientInventoryColumns({
-      barCodeHandlers,
-      hsCodeHandlers,
-      fourMonthesStockHandlers,
-      stockUsHandlers,
-      otherHandlers,
-    })
-
-    const filtersFields = getFilterFields(columns, additionalFilterFields)
-
     const operatorsSettings = {
       shop: '$any',
     }
 
     super({
       getMainDataMethod: ClientModel.getProductsMyFilteredByShopIdWithPag,
-      columnsModel: columns,
-      filtersFields,
+      columnsModel: [],
+      filtersFields: [],
       mainMethodURL: 'clients/products/my_with_pag_v2?',
       fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
       tableKey: DataGridTablesKeys.CLIENT_INVENTORY,
