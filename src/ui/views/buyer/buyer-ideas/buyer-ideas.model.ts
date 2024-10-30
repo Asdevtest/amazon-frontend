@@ -52,6 +52,9 @@ export class BuyerIdeasViewModel extends DataGridFilterTableModel {
       'parentProductAsin',
       'parentProductSkuByClient',
       'parentProductAmazonTitle',
+      'childProductShop',
+      'maxProductionTerm',
+      'sub',
     ])
 
     const defaultGetCurrentDataOptions = () => ({
