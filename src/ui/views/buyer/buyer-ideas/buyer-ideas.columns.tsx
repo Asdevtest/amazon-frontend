@@ -126,7 +126,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
           />
         )
       },
-      width: 170,
+      width: 220,
       disableCustomSort: true,
       filterable: false,
     },
