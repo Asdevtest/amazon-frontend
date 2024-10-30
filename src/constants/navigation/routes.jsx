@@ -712,7 +712,7 @@ export const privateRoutesConfigs = [
     component: BuyerIdeasView,
     exact: true,
     permission: [UserRole.BUYER],
-    permissionKey: permissionsKeys.buyer.SHOW_PRODUCTS_BUYER,
+    permissionKey: permissionsKeys.buyer.SHOW_IDEAS_BUYER,
 
     crumbNameKey: TranslationKey.Ideas,
 
