@@ -34,15 +34,29 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { TAGS, disableDoubleClickOnCells, disableSelectionCells } from './client-inventory-view.constants'
+import { useStyles } from './client-inventory-view.style'
+
+import {
+  TAGS,
+  clickableCells,
+  disableDoubleClickOnCells,
+  disableSelectionCells,
+} from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
 import { Header } from './header'
 
 export const ClientInventoryView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new ClientInventoryViewModel(), [])
   viewModel.initHistory()
 
   const apiRef = useGridApiRef()
+
+  const getCellClassName = params => {
+    if (clickableCells.includes(params.field) || params.field?.includes('counter')) {
+      return styles.clickableCell
+    }
+  }
 
   return (
     <div className="viewWrapper">
@@ -65,6 +79,7 @@ export const ClientInventoryView = observer(({ history }) => {
         checkboxSelection
         disableRowSelectionOnClick
         apiRef={apiRef}
+        getCellClassName={getCellClassName}
         pinnedColumns={viewModel.pinnedColumns}
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
