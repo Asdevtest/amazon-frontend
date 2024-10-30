@@ -86,9 +86,23 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     field: 'totalPrice',
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
-    renderCell: params => (
-      <Text isCell text={toFixedWithDollarSign(params.row?.boxes?.[0]?.items?.[0]?.order?.totalPrice)} />
-    ),
+    renderCell: ({ row }) => {
+      const calculationTotalPrice = row?.boxes?.reduce(
+        (total, box) =>
+          total +
+          box.items?.reduce((boxTotal, item) => {
+            return (
+              boxTotal +
+              (item?.order?.orderSupplier?.batchTotalCostInDollar / item?.order?.orderSupplier?.amount) *
+                item?.amount *
+                box?.amount
+            )
+          }, 0),
+        0,
+      )
+
+      return <Text isCell text={toFixedWithDollarSign(calculationTotalPrice)} />
+    },
     width: 120,
     type: 'number',
   },
