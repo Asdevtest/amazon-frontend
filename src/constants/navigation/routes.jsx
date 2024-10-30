@@ -108,6 +108,8 @@ const BuyerMyProductsView = lazy(() =>
   import('@views/buyer/buyer-my-products-view').then(module => ({ default: module.BuyerMyProductsView })),
 )
 
+const BuyerIdeasView = lazy(() => import('@views/buyer/buyer-ideas').then(module => ({ default: module.BuyerIdeas })))
+
 const BuyerFreeOrdersView = lazy(() =>
   import('@views/buyer/buyer-orders-views/buyer-free-orders-view').then(module => ({
     default: module.BuyerFreeOrdersView,
@@ -691,7 +693,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/buyer/my-products',
-    component: BuyerMyProductsView,
+    component: BuyerIdeasView,
     exact: true,
     permission: [UserRole.BUYER],
     permissionKey: permissionsKeys.buyer.SHOW_PRODUCTS_BUYER,
