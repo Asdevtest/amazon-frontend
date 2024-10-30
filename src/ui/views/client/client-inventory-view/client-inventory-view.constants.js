@@ -65,5 +65,3 @@ export const additionalFilterFields = [
 export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA', 'tags']
 
 export const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
-
-export const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders', 'amountInPendingOrders', 'sentToFbaSum']

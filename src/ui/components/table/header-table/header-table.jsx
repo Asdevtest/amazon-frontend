@@ -38,9 +38,9 @@ export const HeaderTable = ({ viewModel }) => {
           </CustomButton>
 
           <CustomRadioButton
-            size="large"
             options={switcherSettings}
             defaultValue={viewModel.currentStorekeeperId}
+            style={{ whiteSpace: 'nowrap' }}
             onChange={viewModel.onClickStorekeeperBtn}
           />
         </div>

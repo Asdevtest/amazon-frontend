@@ -161,7 +161,6 @@ export const IdeaViewAndEditCard = observer(
         length: toFixed(idea?.length / multiplier, 2) || 0,
         suppliers: idea?.suppliers || [],
         _id: idea?._id || undefined,
-        parentProduct: idea?.parentProduct || undefined,
         childProduct: idea?.childProduct || undefined,
         requestsOnCheck: idea?.requestsOnCheck || [],
         requestsOnFinished: idea?.requestsOnFinished || [],
@@ -354,14 +353,14 @@ export const IdeaViewAndEditCard = observer(
                 onClickShareIcon={() => onClickOpenProduct(formFields?.childProduct?._id)}
               />
             )}
-            {(currentProduct || formFields?.parentProduct) && (
+            {currentProduct && (
               <SourceProduct
                 showOpenInNewTabIcon
                 title={t(TranslationKey['Parent product'])}
-                img={formFields?.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
-                asin={formFields?.parentProduct?.asin || currentProduct?.asin}
-                sku={formFields?.parentProduct?.skuByClient || currentProduct?.skuByClient}
-                onClickShareIcon={() => onClickOpenProduct(formFields?.parentProduct?._id || currentProduct?._id)}
+                img={currentProduct?.images?.[0]}
+                asin={currentProduct?.asin}
+                sku={currentProduct?.skuByClient}
+                onClickShareIcon={() => onClickOpenProduct(currentProduct?._id)}
               />
             )}
           </div>
@@ -704,11 +703,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
               </div>
             ) : (
-              <OpenInNewTab
-                onClickOpenNewTab={() =>
-                  onClickOpenNewTab(formFields?.parentProduct?._id || currentProduct?._id, formFields?._id)
-                }
-              />
+              <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(currentProduct?._id, formFields?._id)} />
             )}
 
             {!checkIsAdmin(userRole) && (
