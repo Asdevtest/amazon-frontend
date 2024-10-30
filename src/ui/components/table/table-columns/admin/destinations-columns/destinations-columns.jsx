@@ -93,8 +93,8 @@ export const destinationsColumns = handlers => [
         secondGhost
         firstIcon={<MdOutlineEdit size={16} />}
         secondIcon={<MdOutlineDelete size={16} />}
-        onClickFirst={() => handlers.onClickEditBtn(params.row.originalData)}
-        onClickSecond={() => handlers.onClickRemoveBtn(params.row.originalData)}
+        onClickFirst={() => handlers.onClickEditBtn(params.row)}
+        onClickSecond={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
     filterable: false,

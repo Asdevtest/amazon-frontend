@@ -96,11 +96,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Researcher)} />,
 
     renderCell: params => (
-      <UserCell
-        name={params.row.originalData.createdBy?.name}
-        id={params.row.originalData.createdBy?._id}
-        email={params.row.originalData.createdBy?.email}
-      />
+      <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} email={params.row.createdBy?.email} />
     ),
     width: 200,
   },
@@ -111,11 +107,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
     renderCell: params => (
-      <UserCell
-        name={params.row.originalData.buyer?.name}
-        id={params.row.originalData.buyer?._id}
-        email={params.row.originalData.buyer?.email}
-      />
+      <UserCell name={params.row.buyer?.name} id={params.row.buyer?._id} email={params.row.buyer?.email} />
     ),
     width: 200,
   },
@@ -126,11 +118,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
     renderCell: params => (
-      <UserCell
-        name={params.row.originalData.checkedBy?.name}
-        id={params.row.originalData.checkedBy?._id}
-        email={params.row.originalData.checkedBy?.email}
-      />
+      <UserCell name={params.row.checkedBy?.name} id={params.row.checkedBy?._id} email={params.row.checkedBy?.email} />
     ),
     width: 200,
   },

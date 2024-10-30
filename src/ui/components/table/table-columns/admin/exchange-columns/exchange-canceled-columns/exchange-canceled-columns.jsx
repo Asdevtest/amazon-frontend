@@ -36,7 +36,7 @@ export const exchangeCanceledColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     renderCell: params => {
-      const product = params.row.originalData
+      const product = params.row
 
       return (
         <ProductCell
@@ -73,11 +73,7 @@ export const exchangeCanceledColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
     renderCell: params => (
-      <UserCell
-        name={params.row.originalData.createdBy?.name}
-        id={params.row.originalData.createdBy?._id}
-        email={params.row.originalData.createdBy?.email}
-      />
+      <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} email={params.row.createdBy?.email} />
     ),
     width: 200,
   },
@@ -87,11 +83,7 @@ export const exchangeCanceledColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
     renderCell: params => (
-      <UserCell
-        name={params.row.originalData.checkedBy?.name}
-        id={params.row.originalData.checkedBy?._id}
-        email={params.row.originalData.checkedBy?.email}
-      />
+      <UserCell name={params.row.checkedBy?.name} id={params.row.checkedBy?._id} email={params.row.checkedBy?.email} />
     ),
     width: 200,
   },
@@ -102,11 +94,7 @@ export const exchangeCanceledColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
     renderCell: params => (
-      <UserCell
-        name={params.row.originalData.buyer?.name}
-        id={params.row.originalData.buyer?._id}
-        email={params.row.originalData.buyer?.email}
-      />
+      <UserCell name={params.row.buyer?.name} id={params.row.buyer?._id} email={params.row.buyer?.email} />
     ),
     width: 200,
   },
@@ -116,10 +104,7 @@ export const exchangeCanceledColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
 
     renderCell: params => (
-      <SupplierCell
-        supplierName={params.row.originalData.currentSupplier?.name}
-        supplierLink={params.row.originalData.currentSupplier?.link}
-      />
+      <SupplierCell supplierName={params.row.currentSupplier?.name} supplierLink={params.row.currentSupplier?.link} />
     ),
     width: 150,
   },

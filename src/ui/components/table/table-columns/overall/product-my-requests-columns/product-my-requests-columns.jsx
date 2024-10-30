@@ -149,9 +149,9 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
     renderCell: params => {
       const secondDisabled =
-        !params.row.originalData.countProposalsByStatuses.acceptedProposals &&
-        !params.row.originalData.countProposalsByStatuses.atWorkProposals &&
-        !params.row.originalData.countProposalsByStatuses.verifyingProposals
+        !params.row.countProposalsByStatuses.acceptedProposals &&
+        !params.row.countProposalsByStatuses.atWorkProposals &&
+        !params.row.countProposalsByStatuses.verifyingProposals
 
       return (
         <ActionButtonsCell
@@ -160,8 +160,8 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
           firstContent={t(TranslationKey['Open a request'])}
           secondContent={t(TranslationKey['Open result'])}
           secondDisabled={secondDisabled}
-          onClickFirst={() => handlers.onClickOpenRequest(params.row.originalData._id)}
-          onClickSecond={() => handlers.onClickOpenResult(params.row.originalData)}
+          onClickFirst={() => handlers.onClickOpenRequest(params.row._id)}
+          onClickSecond={() => handlers.onClickOpenResult(params.row)}
         />
       )
     },

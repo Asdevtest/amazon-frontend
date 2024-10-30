@@ -84,11 +84,7 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea Status'])} />,
 
     renderCell: params => (
-      <Text
-        isCell
-        text={params?.value}
-        color={colorByIdeaStatus(ideaStatusByCode[params.row.originalData.idea.status])}
-      />
+      <Text isCell text={params?.value} color={colorByIdeaStatus(ideaStatusByCode[params.row.idea.status])} />
     ),
     width: 120,
   },
