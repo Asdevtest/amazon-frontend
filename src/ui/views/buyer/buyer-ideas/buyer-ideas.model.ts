@@ -76,7 +76,6 @@ export class BuyerIdeasViewModel extends DataGridFilterTableModel {
       defaultFilterParams,
       defaultSortModel: [{ field: 'status', sort: 'desc' }],
     })
-
     makeObservable(this, observerConfig)
 
     this.getTableSettingsPreset()
