@@ -22,5 +22,7 @@ export const getSearchPlaceholder = (activeTable: ParsingReportsType) => {
       return 'Author, ASIN, Title, AMZ ID'
     case ParsingReportsType.INVENTORY_SHIPMENTS:
       return 'SKU, Shipment ID, Reference ID, Ship to, Tracking number'
+    default:
+      return 'Search'
   }
 }

@@ -55,7 +55,7 @@ export const ParsingReports: FC<ParsingReportsProps> = observer(({ table, produc
           allowClear
           disabled={!viewModel.fieldsForSearch.length}
           size="large"
-          placeholder={getSearchPlaceholder(viewModel.table) || 'Search'}
+          placeholder={getSearchPlaceholder(viewModel.table)}
           onSearch={viewModel.onSearchSubmit}
         />
       </div>
