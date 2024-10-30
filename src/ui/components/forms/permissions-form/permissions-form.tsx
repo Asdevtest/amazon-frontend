@@ -121,7 +121,13 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           )
         ) : null}
 
-        <CustomButton type="primary" size="large" disabled={viewModel.disableSubmit} onClick={viewModel.onEditSubUser}>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={viewModel.disableSubmit}
+          loading={viewModel.buttonLoading}
+          onClick={viewModel.onEditSubUser}
+        >
           {t(TranslationKey.Save)}
         </CustomButton>
         <CustomButton size="large" onClick={props.onCloseModal}>
