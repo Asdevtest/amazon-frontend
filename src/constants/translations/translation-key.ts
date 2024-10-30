@@ -2076,4 +2076,5 @@ export enum TranslationKey {
   'Add product' = 'Add product',
   'Create a supplier' = 'Create a supplier',
   'Suppliers' = 'Suppliers',
+  'Add a supplier' = 'Add a supplier',
 }
