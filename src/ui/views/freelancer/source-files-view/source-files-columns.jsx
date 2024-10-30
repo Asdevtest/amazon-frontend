@@ -18,7 +18,7 @@ export const sourceFilesColumns = rowHandlers => [
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
     renderCell: params => <Text isCell text={params.row.proposal?.request?.title} />,
-    width: 205,
+    width: 240,
   },
 
   {
@@ -26,7 +26,7 @@ export const sourceFilesColumns = rowHandlers => [
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
     renderCell: params => <Text isCell text={params.row.proposal?.xid} />,
-    width: 70,
+    width: 90,
     headerAlign: 'center',
     align: 'center',
   },
@@ -36,7 +36,7 @@ export const sourceFilesColumns = rowHandlers => [
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.row.updatedAt} />,
-    width: 100,
+    width: 105,
   },
 
   {
@@ -59,7 +59,7 @@ export const sourceFilesColumns = rowHandlers => [
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-    width: 180,
+    width: 160,
     renderCell: params => (
       <Text
         link
@@ -73,7 +73,7 @@ export const sourceFilesColumns = rowHandlers => [
     field: 'sourceFile',
     headerName: t(TranslationKey.Link),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
-    width: 250,
+    width: 280,
     renderCell: params => (
       <Text
         isCell
@@ -88,7 +88,7 @@ export const sourceFilesColumns = rowHandlers => [
     field: 'comments',
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-    width: 240,
+    width: 280,
     renderCell: params => (
       <Text
         isCell
@@ -113,7 +113,7 @@ export const sourceFilesColumns = rowHandlers => [
         onClickFirst={() => rowHandlers.onClickRemoveBtn(params.row._id)}
       />
     ),
-    width: 100,
+    width: 90,
     filterable: false,
     sortable: false,
   },
