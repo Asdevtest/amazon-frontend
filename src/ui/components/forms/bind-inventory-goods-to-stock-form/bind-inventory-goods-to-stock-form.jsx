@@ -150,6 +150,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           paginationMode="client"
           rows={stockData}
           rowCount={stockData?.length}
+          getRowId={row => row._id}
           columns={sourceColumns()}
           getRowHeight={() => 'auto'}
           rowSelectionModel={selectedGoods}
@@ -174,6 +175,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           columnHeaderHeight={40}
           sortingMode="client"
           paginationMode="client"
+          getRowId={row => row._id}
           rows={chosenGoods || []}
           columns={chosenGoodsColumns({ onClickTrash })}
           getRowHeight={() => 'auto'}
