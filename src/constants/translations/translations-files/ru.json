@@ -2072,5 +2072,13 @@
   "Select at least 2 users": "Выберите минимум 2 пользователя",
   "Requested in batch": "Запрошено в партию",
   "No reviews": "Нет отзывов",
-  "Link a store to a product": "Привязать магазин к продукту"
+  "Link a store to a product": "Привязать магазин к продукту",
+  "AMZ order ID, ASIN, SKU": "AMZ order ID, ASIN, SKU",
+  "AMZ order ID": "AMZ order ID",
+  "ASIN, SKU": "ASIN, SKU",
+  "AMZ ID, Title, Text": "AMZ ID, Title, Text",
+  "ASIN, SKU, FNSKU": "ASIN, SKU, FNSKU",
+  "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments": "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments",
+  "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
+  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number"
 }

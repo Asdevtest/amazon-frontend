@@ -2071,5 +2071,13 @@
   "Select at least 2 users": "Виберіть щонайменше 2 користувача",
   "Requested in batch": "Запрошено в партію",
   "No reviews": "Немає відгуків",
-  "Link a store to a product": "Прив'язати магазин до продукту"
+  "Link a store to a product": "Прив'язати магазин до продукту",
+  "AMZ order ID, ASIN, SKU": "AMZ order ID, ASIN, SKU",
+  "AMZ order ID": "AMZ order ID",
+  "ASIN, SKU": "ASIN, SKU",
+  "AMZ ID, Title, Text": "AMZ ID, Title, Text",
+  "ASIN, SKU, FNSKU": "ASIN, SKU, FNSKU",
+  "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments": "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments",
+  "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
+  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number"
 }

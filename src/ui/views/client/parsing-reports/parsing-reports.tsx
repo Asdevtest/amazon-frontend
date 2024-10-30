@@ -15,6 +15,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './parsing-reports.style'
 
+import { getSearchPlaceholder } from './helpers/get-search-placeholder'
 import { LinkCascader } from './link-cascader'
 import { getSelectConfig } from './parsing-reports.config'
 import { ParsingReportsModel } from './parsing-reports.model'
@@ -54,7 +55,7 @@ export const ParsingReports: FC<ParsingReportsProps> = observer(({ table, produc
           allowClear
           disabled={!viewModel.fieldsForSearch.length}
           size="large"
-          placeholder="Search"
+          placeholder={getSearchPlaceholder(viewModel.table)}
           onSearch={viewModel.onSearchSubmit}
         />
       </div>
