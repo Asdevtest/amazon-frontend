@@ -693,7 +693,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/buyer/my-products',
-    component: BuyerIdeasView,
+    component: BuyerMyProductsView,
     exact: true,
     permission: [UserRole.BUYER],
     permissionKey: permissionsKeys.buyer.SHOW_PRODUCTS_BUYER,
@@ -709,7 +709,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/buyer/ideas',
-    component: BuyerIdeas,
+    component: BuyerIdeasView,
     exact: true,
     permission: [UserRole.BUYER],
     permissionKey: permissionsKeys.buyer.SHOW_PRODUCTS_BUYER,
