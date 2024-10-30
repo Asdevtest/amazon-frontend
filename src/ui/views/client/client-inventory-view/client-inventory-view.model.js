@@ -1506,15 +1506,22 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   }
 
   async initTableColumns() {
-    const [storekeepers, integrationTables] = await Promise.all([this.getStorekeepers(), this.getIntegrationFields()])
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+      const [storekeepers, integrationTables] = await Promise.all([this.getStorekeepers(), this.getIntegrationFields()])
 
-    const filteredStorekeepers = storekeepers?.filter(storekeeper => storekeeper?.boxesCount > 0)
+      const filteredStorekeepers = storekeepers?.filter(storekeeper => storekeeper?.boxesCount > 0)
 
-    this.setAllColumns(filteredStorekeepers, integrationTables)
+      this.setAllColumns(filteredStorekeepers, integrationTables)
 
-    this.setAllColumns = undefined
+      this.setAllColumns = undefined
 
-    this.getTableSettingsPreset()
+      this.getTableSettingsPreset()
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    } catch (error) {
+      this.setRequestStatus(loadingStatus.FAILED)
+      console.error(error)
+    }
   }
 
   hideByDefaultIntegrationColumns(integrationTables) {
