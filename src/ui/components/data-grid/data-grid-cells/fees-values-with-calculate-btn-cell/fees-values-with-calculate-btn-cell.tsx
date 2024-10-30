@@ -1,4 +1,5 @@
 import { FC, memo } from 'react'
+import { MdOutlineCalculate } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -32,10 +33,7 @@ export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellPr
         <span className={styles.typoSpan}>{toFixedWithDollarSign(reffee, 2)}</span>
       </p>
       {!noCalculate && (
-        <CustomButton
-          icon={<img alt="calculate icon" src="/assets/icons/calculate.svg" />}
-          onClick={() => onClickCalculate?.(productId)}
-        >
+        <CustomButton icon={<MdOutlineCalculate />} onClick={() => onClickCalculate?.(productId)}>
           {'Calculate fees'}
         </CustomButton>
       )}

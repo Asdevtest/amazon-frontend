@@ -95,7 +95,6 @@ export const BindInventoryGoodsToStockForm = observer(props => {
       <div className={styles.flexContainer}>
         <div className={styles.flexContainer}>
           <CustomButton
-            variant="outlined"
             type={chipConfig === chipConfigSettings.RECOMMENDED ? 'primary' : 'default'}
             onClick={() => setRecommendChip()}
           >
@@ -105,7 +104,6 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           <p className={styles.text}>{t(TranslationKey['or search by'])}</p>
 
           <CustomButton
-            variant="outlined"
             type={chipConfig === chipConfigSettings.NAME ? 'primary' : 'default'}
             onClick={() => setChipConfig(chipConfigSettings.NAME)}
           >
@@ -113,7 +111,6 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           </CustomButton>
 
           <CustomButton
-            variant="outlined"
             type={chipConfig === chipConfigSettings.ASIN ? 'primary' : 'default'}
             onClick={() => setChipConfig(chipConfigSettings.ASIN)}
           >
@@ -121,7 +118,6 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           </CustomButton>
 
           <CustomButton
-            variant="outlined"
             type={chipConfig === chipConfigSettings.SKU ? 'primary' : 'default'}
             onClick={() => setChipConfig(chipConfigSettings.SKU)}
           >

@@ -80,12 +80,8 @@ export const ImageEditForm = observer(({ item, onSave, setOpenModal }) => {
 
       <div className={styles.btnsWrapper}>
         <div className={styles.btnsSubWrapper}>
-          <CustomButton onClick={handleRotateLeft}>
-            <MdOutlineRotateLeft size={22} />
-          </CustomButton>
-          <CustomButton onClick={handleRotateRight}>
-            <MdOutlineRotateRight size={22} />
-          </CustomButton>
+          <CustomButton icon={<MdOutlineRotateLeft size={22} />} onClick={handleRotateLeft} />
+          <CustomButton icon={<MdOutlineRotateRight size={22} />} onClick={handleRotateRight} />
         </div>
 
         <div className={styles.btnsSubWrapper}>

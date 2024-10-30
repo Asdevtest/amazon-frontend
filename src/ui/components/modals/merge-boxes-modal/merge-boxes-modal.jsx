@@ -419,17 +419,13 @@ export const MergeBoxesModal = ({
         )}
         <div className={styles.buttonsWrapper}>
           <CustomButton
-            tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
+            title={t(TranslationKey['Create a task to merge boxes'])}
             disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
             onClick={handleSubmit}
           >
             {t(TranslationKey.Merge)}
           </CustomButton>
-          <CustomButton
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            disabled={requestStatus === loadingStatus.IS_LOADING}
-            onClick={onCloseBoxesModal}
-          >
+          <CustomButton disabled={requestStatus === loadingStatus.IS_LOADING} onClick={onCloseBoxesModal}>
             {t(TranslationKey.Close)}
           </CustomButton>
         </div>

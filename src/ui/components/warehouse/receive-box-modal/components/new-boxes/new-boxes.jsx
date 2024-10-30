@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 
 import { IconButton } from '@mui/material'
@@ -186,9 +187,7 @@ export const NewBoxes = memo(
             </div>
 
             <div className={styles.footerBtnsWrapper}>
-              <CustomButton onClick={() => addDouble(item._id)}>
-                <img src="/assets/icons/plus.svg" />
-              </CustomButton>
+              <CustomButton icon={<FiPlus size={16} />} onClick={() => addDouble(item._id)}></CustomButton>
 
               <CustomButton onClick={() => onAddImages(item._id)}>{t(TranslationKey.Photos)}</CustomButton>
             </div>

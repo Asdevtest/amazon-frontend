@@ -21,9 +21,7 @@ export const BuyerNotificationsViewRaw = props => {
       <p className={styles.title}>{t(TranslationKey['Choose a section in Notifications'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <CustomButton variant="outlined" onClick={viewModel.onClickIdeasNotifications}>
-          {t(TranslationKey['On ideas'])}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickIdeasNotifications}>{t(TranslationKey['On ideas'])}</CustomButton>
       </div>
     </>
   )

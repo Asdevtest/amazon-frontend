@@ -21,13 +21,9 @@ export const ClientBatchesViewRaw = props => {
       <p className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <CustomButton variant="outlined" onClick={viewModel.onClickAwaitingSend}>
-          {t(TranslationKey['Awaiting send'])}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickAwaitingSend}>{t(TranslationKey['Awaiting send'])}</CustomButton>
 
-        <CustomButton variant="outlined" onClick={viewModel.onClickSentBatches}>
-          {t(TranslationKey['Sent boxes'])}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickSentBatches}>{t(TranslationKey['Sent boxes'])}</CustomButton>
       </div>
     </>
   )

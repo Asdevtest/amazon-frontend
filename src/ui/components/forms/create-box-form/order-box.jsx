@@ -156,9 +156,7 @@ export const OrderBox = memo(props => {
       </div>
 
       <div>
-        <CustomButton iconButton variant="outlined" onClick={() => onRemoveBox(orderBoxIndex)}>
-          <MdDeleteOutline size={24} />
-        </CustomButton>
+        <CustomButton icon={<MdDeleteOutline size={24} />} onClick={() => onRemoveBox(orderBoxIndex)} />
       </div>
     </div>
   )

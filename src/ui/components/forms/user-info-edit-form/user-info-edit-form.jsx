@@ -40,9 +40,7 @@ export const UserInfoEditForm = memo(props => {
           </>
         ) : (
           <>
-            <CustomButton iconButton onClick={onToggleUserInfoEditFormFlag}>
-              <ArrowBackIcon />
-            </CustomButton>
+            <CustomButton icon={<ArrowBackIcon />} onClick={onToggleUserInfoEditFormFlag} />
             <p className={styles.title}>{t(TranslationKey['Active sessions'])}</p>
           </>
         )}

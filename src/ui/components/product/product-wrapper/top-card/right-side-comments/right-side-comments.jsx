@@ -134,7 +134,7 @@ export const RightSideComments = memo(
                     <CustomButton
                       danger
                       type={'primary'}
-                      tooltipInfoContent={translateTooltipDeleteBtnMessage(curUserRole)}
+                      title={translateTooltipDeleteBtnMessage(curUserRole)}
                       onClick={() => handleProductActionButtons('delete')}
                     >
                       {t(TranslationKey.Delete)}
@@ -146,7 +146,7 @@ export const RightSideComments = memo(
                   checkIsBuyer(curUserRole) ? null : (
                     <CustomButton
                       type={'primary'}
-                      tooltipInfoContent={translateTooltipSaveBtnMessage(curUserRole)}
+                      title={translateTooltipSaveBtnMessage(curUserRole)}
                       onClick={() => handleProductActionButtons('accept', false)}
                     >
                       {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
@@ -155,10 +155,7 @@ export const RightSideComments = memo(
 
                   {checkIsResearcher(curUserRole) && (
                     <CustomButton
-                      tooltipInfoContent={translateTooltipMessageByRole(
-                        t(TranslationKey['Save without status']),
-                        curUserRole,
-                      )}
+                      title={translateTooltipMessageByRole(t(TranslationKey['Save without status']), curUserRole)}
                       disabled={product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
                       onClick={
                         checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
@@ -171,7 +168,7 @@ export const RightSideComments = memo(
                   )}
 
                   <CustomButton
-                    tooltipInfoContent={translateTooltipCloseBtnMessage(curUserRole)}
+                    title={translateTooltipCloseBtnMessage(curUserRole)}
                     onClick={() => handleProductActionButtons('cancel')}
                   >
                     {t(TranslationKey.Close)}
@@ -184,10 +181,7 @@ export const RightSideComments = memo(
                   )}
                 </>
               ) : (
-                <CustomButton
-                  tooltipInfoContent={t(TranslationKey['Close product card'])}
-                  onClick={() => handleProductActionButtons('cancel')}
-                >
+                <CustomButton onClick={() => handleProductActionButtons('cancel')}>
                   {t(TranslationKey.Close)}
                 </CustomButton>
               )}

@@ -92,7 +92,7 @@ export const Slot: FC<SlotProps> = memo(props => {
 
       {!noShowActions && (
         <div>
-          <CustomButton className={styles.commentBtn} onClick={handleClick}>
+          <CustomButton onClick={handleClick}>
             {t(TranslationKey.Comment)}
 
             {item.commentByClient ? (

@@ -109,11 +109,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: ' ',
     headerName: '',
-    renderCell: params => (
-      <CustomButton iconButton onClick={() => handlers.onClickTrash(params.row.asin)}>
-        <DeleteIcon />
-      </CustomButton>
-    ),
+    renderCell: params => <CustomButton icon={<DeleteIcon />} onClick={() => handlers.onClickTrash(params.row.asin)} />,
     width: 60,
     filterable: false,
     sortable: false,

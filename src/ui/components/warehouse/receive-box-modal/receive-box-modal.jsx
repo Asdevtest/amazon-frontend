@@ -211,10 +211,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         <p className={styles.modalTitle}>{t(TranslationKey['Receive and distribute'])}</p>
 
         {!receiveNotFromBuyer && (
-          <CustomButton
-            tooltipInfoContent={t(TranslationKey['Add a box'])}
-            onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
-          >
+          <CustomButton onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}>
             {t(TranslationKey['New box'])}
             <MdAdd size={18} className={styles.icon} />
           </CustomButton>

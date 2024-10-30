@@ -160,7 +160,6 @@ export const IdeaViewAndEditCard = observer(
         length: toFixed(idea?.length / multiplier, 2) || 0,
         suppliers: idea?.suppliers || [],
         _id: idea?._id || undefined,
-        parentProduct: idea?.parentProduct || undefined,
         childProduct: idea?.childProduct || undefined,
         requestsOnCheck: idea?.requestsOnCheck || [],
         requestsOnFinished: idea?.requestsOnFinished || [],
@@ -353,14 +352,14 @@ export const IdeaViewAndEditCard = observer(
                 onClickShareIcon={() => onClickOpenProduct(formFields?.childProduct?._id)}
               />
             )}
-            {(currentProduct || formFields?.parentProduct) && (
+            {currentProduct && (
               <SourceProduct
                 showOpenInNewTabIcon
                 title={t(TranslationKey['Parent product'])}
-                img={formFields?.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
-                asin={formFields?.parentProduct?.asin || currentProduct?.asin}
-                sku={formFields?.parentProduct?.skuByClient || currentProduct?.skuByClient}
-                onClickShareIcon={() => onClickOpenProduct(formFields?.parentProduct?._id || currentProduct?._id)}
+                img={currentProduct?.images?.[0]}
+                asin={currentProduct?.asin}
+                sku={currentProduct?.skuByClient}
+                onClickShareIcon={() => onClickOpenProduct(currentProduct?._id)}
               />
             )}
           </div>
@@ -701,11 +700,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
               </div>
             ) : (
-              <OpenInNewTab
-                onClickOpenNewTab={() =>
-                  onClickOpenNewTab(formFields?.parentProduct?._id || currentProduct?._id, formFields?._id)
-                }
-              />
+              <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(currentProduct?._id, formFields?._id)} />
             )}
 
             {!checkIsAdmin(userRole) && (
@@ -737,7 +732,6 @@ export const IdeaViewAndEditCard = observer(
                 {currentUserIsClient && isCurrentIdea && isCardCreating && (
                   <CustomButton
                     type="primary"
-                    tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
                     disabled={idea.childProduct}
                     onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
                   >
@@ -746,8 +740,11 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && showCreateRequestButton && (
-                  <CustomButton type="primary" onClick={() => onClickCreateRequestButton(formFields)}>
-                    <FiPlus style={{ width: 16, height: 16 }} />
+                  <CustomButton
+                    type="primary"
+                    icon={<FiPlus size={16} />}
+                    onClick={() => onClickCreateRequestButton(formFields)}
+                  >
                     {t(TranslationKey['Create request'])}
                   </CustomButton>
                 )}
@@ -797,9 +794,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {isModalView && (
-                  <CustomButton variant="outlined" onClick={() => onClickCancelBtn()}>
-                    {t(TranslationKey.Close)}
-                  </CustomButton>
+                  <CustomButton onClick={() => onClickCancelBtn()}>{t(TranslationKey.Close)}</CustomButton>
                 )}
               </div>
             )}
@@ -814,9 +809,7 @@ export const IdeaViewAndEditCard = observer(
               {t(TranslationKey.Save)}
             </CustomButton>
 
-            <CustomButton variant="outlined" onClick={() => onClickCancelBtn()}>
-              {t(TranslationKey.Close)}
-            </CustomButton>
+            <CustomButton onClick={() => onClickCancelBtn()}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         )}
       </div>

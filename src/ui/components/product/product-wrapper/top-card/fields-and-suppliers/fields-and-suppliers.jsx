@@ -125,7 +125,7 @@ export const FieldsAndSuppliers = memo(props => {
 
               {!checkIsBuyer(curUserRole) ? (
                 <CustomButton
-                  tooltipInfoContent={t(TranslationKey['Fills the card with the necessary information'])}
+                  title={t(TranslationKey['Fills the card with the necessary information'])}
                   disabled={curUserRole === UserRole.ADMIN}
                   onClick={() => {
                     // onClickParseProductData(ProductDataParser.AMAZON, product)
@@ -146,7 +146,7 @@ export const FieldsAndSuppliers = memo(props => {
                 clientToEditStatuses.includes(productBase.status) &&
                 (edit ? (
                   <CustomButton
-                    tooltipInfoContent={t(TranslationKey['Open the field to edit the link'])}
+                    title={t(TranslationKey['Open the field to edit the link'])}
                     disabled={!checkIsClient(curUserRole)}
                     onClick={() => setEdit(!edit)}
                   >
@@ -155,7 +155,7 @@ export const FieldsAndSuppliers = memo(props => {
                 ) : (
                   <CustomButton
                     type="primary"
-                    tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
+                    title={t(TranslationKey['Saves a link to an Amazon product'])}
                     disabled={!checkIsClient(curUserRole)}
                     onClick={() => setEdit(!edit)}
                   >
@@ -315,9 +315,7 @@ export const FieldsAndSuppliers = memo(props => {
               <p className={styles.subUsersTitle}>{t(TranslationKey['Product tags'])}</p>
 
               {showActionBtns && !checkIsSupervisor(curUserRole) && !checkIsBuyer(curUserRole) ? (
-                <CustomButton iconButton onClick={() => setShowEditProductTagsModal(true)}>
-                  <EditIcon />
-                </CustomButton>
+                <CustomButton icon={<EditIcon />} onClick={() => setShowEditProductTagsModal(true)} />
               ) : null}
             </div>
 
@@ -463,9 +461,11 @@ export const FieldsAndSuppliers = memo(props => {
               </p>
 
               {checkIsClient(curUserRole) && !product?.parentProductId && (
-                <CustomButton iconButton smallIconButton onClick={() => onTriggerOpenModal('showBindProductModal')}>
-                  <FiPlus style={{ width: 16, height: 16 }} />
-                </CustomButton>
+                <CustomButton
+                  size="small"
+                  icon={<FiPlus style={{ width: 16, height: 16 }} />}
+                  onClick={() => onTriggerOpenModal('showBindProductModal')}
+                />
               )}
             </div>
             <div className={styles.interconnectedProductsBodyWrapper}>
@@ -520,9 +520,10 @@ export const FieldsAndSuppliers = memo(props => {
 
             {product?.latestSeoFiles[0] ? (
               <div className={styles.downloadButtonContainer}>
-                <CustomButton iconButton onClick={() => downloadFileByLink(product?.latestSeoFiles[0])}>
-                  <DownloadRoundIcon className={styles.downloadButtonIcon} />
-                </CustomButton>
+                <CustomButton
+                  icon={<DownloadRoundIcon className={styles.downloadButtonIcon} />}
+                  onClick={() => downloadFileByLink(product?.latestSeoFiles[0])}
+                />
               </div>
             ) : null}
           </div>

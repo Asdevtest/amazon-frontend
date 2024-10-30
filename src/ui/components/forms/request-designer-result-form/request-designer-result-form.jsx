@@ -377,9 +377,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
               onChange={e => setSourceLink(e.target.value)}
             />
 
-            <CustomButton variant="outlined" onClick={setOpenModal}>
-              {t(TranslationKey.Back)}
-            </CustomButton>
+            <CustomButton onClick={setOpenModal}>{t(TranslationKey.Back)}</CustomButton>
 
             <CustomButton
               disabled={disableSubmit}

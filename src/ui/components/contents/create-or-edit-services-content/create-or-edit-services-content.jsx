@@ -118,9 +118,9 @@ export const CreateOrEditServiceContent = memo(props => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <CustomButton onClick={throttle(onClickBackBtn)}>{t(TranslationKey.Close)}</CustomButton>
+        <CustomButton onClick={onClickBackBtn}>{t(TranslationKey.Close)}</CustomButton>
 
-        <CustomButton type="primary" disabled={disabledSubmitButton} onClick={throttle(handleSubmit)}>
+        <CustomButton type="primary" disabled={disabledSubmitButton} onClick={handleSubmit}>
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </CustomButton>
       </div>

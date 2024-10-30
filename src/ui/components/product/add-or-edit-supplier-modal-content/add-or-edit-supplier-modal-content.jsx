@@ -234,7 +234,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <div className={styles.saveBtnWrapperClient}>
             <CustomButton
               type="primary"
-              tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
+              title={t(TranslationKey['Saves the current supplier to the selected product'])}
               disabled={diasabledSubmit}
               onClick={() => {
                 onClickSaveBtn({
@@ -250,7 +250,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
             </CustomButton>
             <CustomButton
               type="primary"
-              tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
+              title={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
               disabled={diasabledSubmit}
               onClick={() => {
                 onClickSaveBtn({
@@ -277,7 +277,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
       return (
         <div className={styles.buttonsWrapper}>
           <CustomButton
-            tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
+            title={t(TranslationKey['Saves data about the supplier'])}
             disabled={diasabledSubmit}
             onClick={() => {
               onClickSaveBtn({
@@ -291,10 +291,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           >
             {t(TranslationKey.Save)}
           </CustomButton>
-          <CustomButton
-            tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
-            onClick={onTriggerShowModal}
-          >
+          <CustomButton title={t(TranslationKey['Cancel supplier creation/change'])} onClick={onTriggerShowModal}>
             {t(TranslationKey.Close)}
           </CustomButton>
         </div>
@@ -907,7 +904,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
       {product && storekeepersData?.length ? (
         <div className={styles.calculationBtnWrapper}>
           <CustomButton
-            tooltipAttentionContent={
+            title={
               !product ||
               !storekeepersData?.length ||
               (!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data']))

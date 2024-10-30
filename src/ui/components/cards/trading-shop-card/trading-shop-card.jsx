@@ -148,7 +148,7 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
 
             <div className={styles.buttonWrapper}>
               <CustomButton
-                tooltipInfoContent={t(TranslationKey['Open detailed information about the request'])}
+                title={t(TranslationKey['Open detailed information about the request'])}
                 onClick={() => onClickViewMore(item._id)}
               >
                 {t(TranslationKey.Details)}

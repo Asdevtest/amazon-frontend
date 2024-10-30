@@ -75,10 +75,10 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
           <CustomButton onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
             {`6 ${t(TranslationKey.months)}`}
           </CustomButton>
-          <CustomButton variant="outlined" onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
+          <CustomButton onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
             {`12 ${t(TranslationKey.months)}`}
           </CustomButton>
-          <CustomButton variant="outlined" onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
+          <CustomButton onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
             {t(TranslationKey['All time'])}
           </CustomButton>
         </div>

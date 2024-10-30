@@ -21,7 +21,7 @@ export const FreelancerFreelanceView = memo(() => {
       <div className={styles.btnsWrapper}>
         {renderData.map(item => (
           <Link key={item.text} to={item.link}>
-            <CustomButton variant="outlined">{t(TranslationKey[item.text])}</CustomButton>
+            <CustomButton>{t(TranslationKey[item.text])}</CustomButton>
           </Link>
         ))}
       </div>

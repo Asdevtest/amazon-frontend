@@ -60,11 +60,7 @@ export const PrivateLabelCard = ({ item, setProductToPay, index }) => {
         />
 
         <div className={styles.buttonsWrapper}>
-          <CustomButton
-            type="primary"
-            tooltipInfoContent={index === 0 && t(TranslationKey['Purchase a product card by Private Label strategy'])}
-            onClick={() => setProductToPay(item)}
-          >
+          <CustomButton type="primary" onClick={() => setProductToPay(item)}>
             {t(TranslationKey.Start) + ' Private Label'}
           </CustomButton>
         </div>

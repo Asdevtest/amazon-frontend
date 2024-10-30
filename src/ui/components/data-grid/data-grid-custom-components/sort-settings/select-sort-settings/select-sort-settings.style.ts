@@ -29,19 +29,6 @@ export const useStyles = makeStyles()(theme => ({
     position: 'relative',
   },
 
-  mainButton: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    height: '100%',
-
-    border: `1px solid ${theme.palette.input.customBorder}`,
-
-    padding: '0 15px',
-    borderRadius: '0px 25px 25px 0px',
-  },
-
   menuContainer: {
     display: 'none',
     position: 'absolute',

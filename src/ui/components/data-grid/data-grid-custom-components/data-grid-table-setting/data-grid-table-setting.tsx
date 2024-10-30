@@ -43,8 +43,7 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
   return (
     <>
       <CustomButton
-        icon={<IoSettingsOutline size={26} />}
-        className={styles.parametersButton}
+        icon={<IoSettingsOutline size={20} />}
         onClick={(event: any) => setMenuAnchor(event.currentTarget)}
       />
 

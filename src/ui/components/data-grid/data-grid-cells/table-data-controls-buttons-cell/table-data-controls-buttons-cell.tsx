@@ -39,9 +39,13 @@ export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps>
       ) : null}
 
       {onClickCancelButton ? (
-        <CustomButton danger icon={<CrossIcon />} type="primary" disabled={disableButton} onClick={onClickCancelButton}>
-          <CrossIcon />
-        </CustomButton>
+        <CustomButton
+          danger
+          icon={<CrossIcon />}
+          type="primary"
+          disabled={disableButton}
+          onClick={onClickCancelButton}
+        />
       ) : null}
 
       {onClickSendButton ? (

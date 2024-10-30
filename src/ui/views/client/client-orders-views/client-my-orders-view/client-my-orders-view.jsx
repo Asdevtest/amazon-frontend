@@ -21,13 +21,9 @@ export const ClientMyOrdersView = observer(({ history }) => {
       <p className={styles.title}>{t(TranslationKey['Choose a section in My orders'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <CustomButton variant="outlined" onClick={viewModel.onClickOrders}>
-          {t(TranslationKey.Orders)}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickOrders}>{t(TranslationKey.Orders)}</CustomButton>
 
-        <CustomButton variant="outlined" onClick={viewModel.onClickPendingOrders}>
-          {t(TranslationKey['Pending orders'])}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickPendingOrders}>{t(TranslationKey['Pending orders'])}</CustomButton>
       </div>
     </>
   )

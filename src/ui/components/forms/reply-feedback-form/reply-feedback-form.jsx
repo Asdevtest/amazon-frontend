@@ -36,7 +36,7 @@ export const ReplyFeedbackForm = ({ feedback, onCloseModal, onSubmit }) => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <CustomButton type="primary" onClick={throttle(() => onSubmit(feedback.user._id))}>
+        <CustomButton type="primary" onClick={() => onSubmit(feedback.user._id)}>
           {t(TranslationKey.Reply)}
         </CustomButton>
 

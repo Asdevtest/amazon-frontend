@@ -703,9 +703,7 @@ export const EditMultipleBoxesForm = observer(
             {t(TranslationKey.Edit)}
           </CustomButton>
 
-          <CustomButton tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={onCloseModal}>
-            {t(TranslationKey.Close)}
-          </CustomButton>
+          <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
 
         <Modal

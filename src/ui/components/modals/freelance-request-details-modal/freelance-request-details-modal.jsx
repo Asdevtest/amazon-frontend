@@ -126,10 +126,7 @@ export const FreelanceRequestDetailsModal = memo(props => {
                   {t(TranslationKey.Result)}
                 </CustomButton>
 
-                <CustomButton
-                  variant="outlined"
-                  onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
-                >
+                <CustomButton onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}>
                   <Checkbox checked={request?.uploadedToListing} className={styles.listingButton} />
 
                   <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>

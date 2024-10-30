@@ -26,12 +26,8 @@ export const DataGridCustomFilterButton = props => {
 
   return (
     <div>
-      <CustomButton variant="outlined" className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
-        <div className={cx(className, styles.mainFilterBtnInsert)}>
-          <MdOutlineFilterAlt size={18} />
-
-          <p className={styles.mainFilterBtnInsertText}>{t(TranslationKey['My filter'])}</p>
-        </div>
+      <CustomButton className={className} icon={<MdOutlineFilterAlt size={18} />} onClick={handleClick}>
+        {t(TranslationKey['My filter'])}
       </CustomButton>
 
       {Boolean(menuAnchor) && (

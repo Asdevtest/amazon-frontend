@@ -107,9 +107,7 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
           {t(TranslationKey.Save)}
         </CustomButton>
 
-        <CustomButton variant="outlined" onClick={() => setOpenModal()}>
-          {t(TranslationKey.Close)}
-        </CustomButton>
+        <CustomButton onClick={() => setOpenModal()}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

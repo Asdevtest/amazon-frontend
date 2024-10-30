@@ -172,9 +172,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <CustomButton iconButton variant="outlined" onClick={onClickPreviewButton}>
-          <EyeIcon />
-        </CustomButton>
+        <CustomButton icon={<EyeIcon />} onClick={onClickPreviewButton} />
 
         <div className={styles.actionsButtonsContainer}>
           <CustomButton

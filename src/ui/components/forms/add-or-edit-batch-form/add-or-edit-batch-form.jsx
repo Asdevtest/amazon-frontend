@@ -537,7 +537,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
           </div>
 
           <CustomButton
-            tooltipAttentionContent={
+            title={
               !chosenBoxesBase.length && !batchToEdit && t(TranslationKey['First select one box'])
             }
             disabled={!boxesToAddIds.length || (!chosenBoxesBase.length && boxesToAddIds.length !== 1 && !batchToEdit)}

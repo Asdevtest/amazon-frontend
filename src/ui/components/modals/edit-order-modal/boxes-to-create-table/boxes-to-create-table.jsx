@@ -160,13 +160,9 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
 
       <TableCell>
         <div className={styles.buttonCell}>
-          <CustomButton iconButton danger type="primary" onClick={() => handlers.onRemoveBox(itemIndex)}>
-            <CrossIcon />
-          </CustomButton>
+          <CustomButton danger type="primary" icon={<CrossIcon />} onClick={() => handlers.onRemoveBox(itemIndex)} />
 
-          <CustomButton iconButton onClick={() => handlers.onEditBox()}>
-            <EditIcon />
-          </CustomButton>
+          <CustomButton icon={<EditIcon />} onClick={() => handlers.onEditBox()}></CustomButton>
         </div>
       </TableCell>
     </TableRow>

@@ -196,7 +196,7 @@ export const OrderContent = ({
             <CustomButton
               danger
               type="primary"
-              tooltipInfoContent={
+              title={
                 updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
                 t(TranslationKey['Cancel order, refund of frozen funds'])
               }

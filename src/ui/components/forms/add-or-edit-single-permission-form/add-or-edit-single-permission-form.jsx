@@ -207,16 +207,17 @@ export const AddOrEditSinglePermissionForm = observer(
                       ))}
                     </Select>
 
-                    <CustomButton iconButton danger type="primary" onClick={() => onRemovePermission(index)}>
-                      <MdDeleteOutline size={24} />
-                    </CustomButton>
+                    <CustomButton
+                      danger
+                      type="primary"
+                      icon={<MdDeleteOutline size={24} />}
+                      onClick={() => onRemovePermission(index)}
+                    />
                   </div>
                 ))}
               </div>
               <div className={styles.buttonContainer}>
-                <CustomButton iconButton onClick={addAllowUrl}>
-                  <FiPlus style={{ width: 16, height: 16 }} />
-                </CustomButton>
+                <CustomButton icon={<FiPlus style={{ width: 16, height: 16 }} />} onClick={addAllowUrl} />
               </div>
             </>
           }

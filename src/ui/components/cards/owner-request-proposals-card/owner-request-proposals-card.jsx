@@ -138,12 +138,12 @@ export const OwnerRequestProposalsCard = ({
               <>
                 <CustomButton
                   danger
-                  type="primary"
-                  tooltipInfoContent={t(
+                  title={t(
                     TranslationKey[
                       'The terms of the proposal do not fit, the contractor will be able to edit them and do it again'
                     ],
                   )}
+                  type="primary"
                   onClick={() => onClickRejectProposal(item.proposal._id)}
                 >
                   {t(TranslationKey.Reject)}
@@ -168,16 +168,12 @@ export const OwnerRequestProposalsCard = ({
               ].includes(request.request.status) && (
                 <CustomButton
                   type="primary"
-                  tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
                   onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
                 >
                   {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
                 </CustomButton>
               )}
-            <CustomButton
-              tooltipInfoContent={t(TranslationKey['Open a chat with the performer'])}
-              onClick={() => onClickContactWithExecutor(item.proposal)}
-            >
+            <CustomButton onClick={() => onClickContactWithExecutor(item.proposal)}>
               {t(TranslationKey['Contact the performer'])}
             </CustomButton>
           </div>

@@ -138,7 +138,7 @@ export const SuppliersAndIdeas = observer(props => {
           <CustomButton
             type="primary"
             disabled={!!product.parentProductId}
-            tooltipInfoContent={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
+            title={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
             onClick={onCreateIdea}
           >
             {t(TranslationKey['Add a product idea'])}
@@ -181,7 +181,7 @@ export const SuppliersAndIdeas = observer(props => {
         <>
           {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
-          ) : curIdea ? (
+          ) : (
             <IdeaViewAndEditCard
               isModalView
               languageTag={languageTag}
@@ -209,11 +209,6 @@ export const SuppliersAndIdeas = observer(props => {
               onClickSaveSupplierBtn={onClickSaveSupplierBtn}
               onRemoveSupplier={onRemoveSupplier}
             />
-          ) : (
-            <div className={styles.emptyTableWrapper}>
-              <img src="/assets/icons/empty-table.svg" />
-              <h5 className={styles.emptyTableText}>{t(TranslationKey['No ideas yet'])}</h5>
-            </div>
           )}
         </>
       )}
@@ -222,7 +217,7 @@ export const SuppliersAndIdeas = observer(props => {
         <>
           {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
-          ) : currentData?.length ? (
+          ) : (
             currentData.map(idea => (
               <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
                 <IdeaViewAndEditCard
@@ -253,14 +248,16 @@ export const SuppliersAndIdeas = observer(props => {
                 />
               </div>
             ))
-          ) : (
-            <div className={styles.emptyTableWrapper}>
-              <img src="/assets/icons/empty-table.svg" />
-              <h5 className={styles.emptyTableText}>{t(TranslationKey['No ideas yet'])}</h5>
-            </div>
           )}
         </>
       )}
+
+      {!currentData?.length || !curIdea ? (
+        <div className={styles.emptyTableWrapper}>
+          <img src="/assets/icons/empty-table.svg" />
+          <h5 className={styles.emptyTableText}>{t(TranslationKey['No ideas yet'])}</h5>
+        </div>
+      ) : null}
 
       {showConfirmModal ? (
         <ConfirmationModal

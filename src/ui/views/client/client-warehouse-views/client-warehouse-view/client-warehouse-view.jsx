@@ -21,13 +21,9 @@ export const ClientWarehouseViewRaw = props => {
       <p className={styles.title}>{t(TranslationKey['Choose a section in Warehouse'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <CustomButton variant="outlined" onClick={viewModel.onClickInStock}>
-          {t(TranslationKey['Boxes in stock'])}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickInStock}>{t(TranslationKey['Boxes in stock'])}</CustomButton>
 
-        <CustomButton variant="outlined" onClick={viewModel.onClickTasks}>
-          {t(TranslationKey.Tasks)}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickTasks}>{t(TranslationKey.Tasks)}</CustomButton>
       </div>
     </>
   )

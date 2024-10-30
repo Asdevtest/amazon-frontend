@@ -43,8 +43,6 @@ export const WarehouseMyWarehouseView = observer(() => {
     )
   }
 
-  const disableSelectionCells = ['prepId']
-
   return (
     <div className="viewWrapper">
       <div className={styles.headerWrapper}>
@@ -123,9 +121,7 @@ export const WarehouseMyWarehouseView = observer(() => {
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
-        onCellDoubleClick={(params: GridRowModel) =>
-          !disableSelectionCells.includes(params.field) && viewModel.setCurrentOpenedBox(params.row)
-        }
+        onRowDoubleClick={(params: GridRowModel) => viewModel.setCurrentOpenedBox(params.row)}
       />
 
       <Modal

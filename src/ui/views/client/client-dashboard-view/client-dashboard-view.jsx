@@ -44,15 +44,14 @@ export const ClientDashboardView = observer(({ history }) => {
 
               <div className={styles.buttonWrapper}>
                 <CustomButton
-                  tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
+                  title={t(TranslationKey['Contact to request a deposit'])}
+                  icon={<FiPlus style={{ width: 16, height: 16 }} />}
                   onClick={viewModel.onClickWithdrawMoney}
                 >
-                  <FiPlus style={{ width: 16, height: 16 }} />
                   {t(TranslationKey.Deposit)}
                 </CustomButton>
                 <CustomButton
-                  tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
-                  variant="outlined"
+                  title={t(TranslationKey['Contact to request a withdrawal'])}
                   onClick={viewModel.onClickAddMoney}
                 >
                   {t(TranslationKey.Withdraw)}

@@ -109,7 +109,7 @@ export const ServantGeneralRequestInfo = memo(({ userRole, request, onSubmit, re
             <div className={styles.btnsBlockWrapper}>
               <CustomButton
                 disabled={buttonDisabled}
-                tooltipInfoContent={t(TranslationKey['Make a proposal for the selected request'])}
+                title={t(TranslationKey['Make a proposal for the selected request'])}
                 onClick={onSubmit}
               >
                 {t(TranslationKey['Suggest a deal'])}

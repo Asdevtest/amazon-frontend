@@ -29,9 +29,7 @@ export const UserBalance = observer(({ userId }) => {
 
       <div className={styles.buttons}>
         <CustomButton onClick={viewModel.onTriggerReplenishModal}>{t(TranslationKey.Deposit)}</CustomButton>
-        <CustomButton variant="outlined" onClick={viewModel.onTriggerWithdrawModal}>
-          {t(TranslationKey.Withdraw)}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onTriggerWithdrawModal}>{t(TranslationKey.Withdraw)}</CustomButton>
       </div>
 
       <div className={styles.tableWrapper}>

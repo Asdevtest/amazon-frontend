@@ -57,7 +57,6 @@ export const ClientBuyShopsAds = observer(() => {
           <div className={styles.boxesFiltersWrapper}>
             <CustomButton
               disabled={curFilter === filtersSettings.ALL_ADS}
-              variant="outlined"
               onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
             >
               {t(TranslationKey['All Ads'])}
@@ -65,7 +64,6 @@ export const ClientBuyShopsAds = observer(() => {
 
             <CustomButton
               disabled={curFilter === filtersSettings.PURCHASED_ADS}
-              variant="outlined"
               onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
             >
               {t(TranslationKey['Purchased Ads'])}

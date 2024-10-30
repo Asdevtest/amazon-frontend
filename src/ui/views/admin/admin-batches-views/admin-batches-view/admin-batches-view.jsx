@@ -21,13 +21,9 @@ export const AdminBatchesViewRaw = props => {
       <p className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <CustomButton variant="outlined" onClick={viewModel.onClickAwaitingBatches}>
-          {t(TranslationKey['Awaiting send'])}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickAwaitingBatches}>{t(TranslationKey['Awaiting send'])}</CustomButton>
 
-        <CustomButton variant="outlined" onClick={viewModel.onClickSentBatches}>
-          {t(TranslationKey.Sent)}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickSentBatches}>{t(TranslationKey.Sent)}</CustomButton>
       </div>
     </>
   )

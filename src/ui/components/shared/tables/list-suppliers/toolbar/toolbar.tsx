@@ -145,7 +145,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
 
       <div className={styles.buttons}>
         <CustomButton
-          variant="outlined"
           disabled={!boxPropertiesIsFullAndMainsValues || !showViewCalculationButton}
           className={styles.buttonWithText}
           onClick={onSupplierApproximateCalculationsModal}

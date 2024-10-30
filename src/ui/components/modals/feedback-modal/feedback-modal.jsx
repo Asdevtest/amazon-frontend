@@ -61,7 +61,7 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
         {showFiles ? <UploadFilesInput images={images} setImages={setImages} /> : null}
 
         <div className={styles.buttons}>
-          <CustomButton disabled={disabledSubmitButton} onClick={throttle(handleClickSendButton)}>
+          <CustomButton disabled={disabledSubmitButton} onClick={handleClickSendButton}>
             {t(TranslationKey.Send)}
           </CustomButton>
           <CustomButton onClick={() => setIsShowConfirmationModal(true)}>{t(TranslationKey.Close)}</CustomButton>

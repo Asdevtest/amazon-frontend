@@ -303,7 +303,7 @@ export const CreateBoxForm = observer(
           {!isEdit ? (
             <div className={styles.buttonsWrapper}>
               <CustomButton
-                tooltipInfoContent={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
+                title={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
                 onClick={() => setFormFieldsArr(formFieldsArr.concat({ ...sourceBox }))}
               >
                 {t(TranslationKey['Add another box'])}

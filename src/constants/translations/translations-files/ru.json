@@ -739,7 +739,6 @@
   "The comment indicated for this supplier": "Комментарий, указываемый к этому поставщику",
   "Saves data about the supplier": "Сохраняет данные о поставщике",
   "Cancel supplier creation/change": "Отменить создание/изменениe поставщика",
-  "Open the appropriate section": "Открыть соответствующий раздел",
   "Hints included": "Подсказки включены",
   "Hints are off": "Подсказки выключены",
   "Product information": "Информация о товаре",
@@ -834,8 +833,6 @@
   "Delete the selected request": "Удалить выбранную заявку",
   "Publish the selected request on the exchange": "Опубликовать выбранную заявку на бирже",
   "Removes the visibility of the request on the exchange": "Убирает видимость заявки на бирже",
-  "Make a deal on these terms": "Заключить сделку по этим условиям",
-  "Open a chat with the performer": "Открыть чат с исполнителем",
   "Actual requests on the exchange": "Актуальные заявки на бирже",
   "Open detailed information about the request": "Открыть подробную информацию по заявке",
   "Make a proposal for the selected request": "Сделать предложение по выбранной заявке",
@@ -868,7 +865,6 @@
   "Return to inventory with a list of items": "Вернуться в инвентарь со списком товаров",
   "Return the selected product to the inventory list": "Вернуть выбранный товар в список инвентаря",
   "Exchange with product cards available for purchase": "Биржа с карточками товара, доступными для приобретения",
-  "Purchase a product card by Private Label strategy": "Приобрести карточку товара по стратегии Private Label",
   "Find a supplier": "Найти поставщика",
   "Send in for rework": "Отправить на доработку",
   "No more than 5 times": "Не более 5 раз",
@@ -964,7 +960,7 @@
   "Back to Users": "Вернуться к Пользователям",
   "Continue working with the user": "Продолжить работу с пользователем",
   "User reviews": "Отзывы о пользователе",
-  "A new product card will appear in the inventory": "В инвентаре появится новая карточка товара",
+
   "Are you sure you want to create a product?": "Вы уверены, что хотите создать продукт?",
   "Idea edited": "Идея изменена",
   "Idea created": "Идея создана",
@@ -2065,5 +2061,13 @@
   "Select at least 2 users": "Выберите минимум 2 пользователя",
   "Requested in batch": "Запрошено в партию",
   "No reviews": "Нет отзывов",
-  "Link a store to a product": "Привязать магазин к продукту"
+  "Link a store to a product": "Привязать магазин к продукту",
+  "AMZ order ID, ASIN, SKU": "AMZ order ID, ASIN, SKU",
+  "AMZ order ID": "AMZ order ID",
+  "ASIN, SKU": "ASIN, SKU",
+  "AMZ ID, Title, Text": "AMZ ID, Title, Text",
+  "ASIN, SKU, FNSKU": "ASIN, SKU, FNSKU",
+  "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments": "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments",
+  "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
+  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number"
 }

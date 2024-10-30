@@ -98,7 +98,6 @@ export const BindStockGoodsToInventoryForm = observer(props => {
       <div className={styles.flexContainer}>
         <div className={styles.flexContainer}>
           <CustomButton
-            variant="outlined"
             type={chipConfig === chipConfigSettings.RECOMMENDED ? 'primary' : 'default'}
             onClick={() => setRecommendChip()}
           >
@@ -108,7 +107,6 @@ export const BindStockGoodsToInventoryForm = observer(props => {
           <p className={styles.text}>{t(TranslationKey['or search by'])}</p>
 
           <CustomButton
-            variant="outlined"
             type={chipConfig === chipConfigSettings.NAME ? 'primary' : 'default'}
             onClick={() => setChipConfig(chipConfigSettings.NAME)}
           >
@@ -116,7 +114,6 @@ export const BindStockGoodsToInventoryForm = observer(props => {
           </CustomButton>
 
           <CustomButton
-            variant="outlined"
             type={chipConfig === chipConfigSettings.ASIN ? 'primary' : 'default'}
             onClick={() => setChipConfig(chipConfigSettings.ASIN)}
           >
@@ -162,7 +159,7 @@ export const BindStockGoodsToInventoryForm = observer(props => {
       <div className={styles.buttons}>
         <CustomButton
           type="primary"
-          tooltipInfoContent={t(TranslationKey['Binds integration to the product card'])}
+          title={t(TranslationKey['Binds integration to the product card'])}
           disabled={!selectedRow || chosenGoods.length < 1}
           onClick={onClickSubmit}
         >

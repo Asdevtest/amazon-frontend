@@ -256,14 +256,14 @@ export const RedistributeBox = observer(
 
         <div className={styles.buttonsWrapper}>
           <CustomButton
-            tooltipInfoContent={t(TranslationKey['Add a new box to the task'])}
+            title={t(TranslationKey['Add a new box to the task'])}
             disabled={totalProductsAmount < 1 && isMasterBox}
             onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
           >
             {t(TranslationKey['Create a new box'])}
           </CustomButton>
           <CustomButton
-            tooltipInfoContent={t(TranslationKey['Create a task to split the box'])}
+            title={t(TranslationKey['Create a task to split the box'])}
             disabled={disabledSubmitBtn}
             onClick={onClickRedistributeBtn}
           >
@@ -271,7 +271,7 @@ export const RedistributeBox = observer(
           </CustomButton>
 
           <CustomButton
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
+            title={t(TranslationKey['Close the form without saving'])}
             onClick={() => onTriggerOpenModal('showRedistributeBoxModal')}
           >
             {t(TranslationKey.Close)}

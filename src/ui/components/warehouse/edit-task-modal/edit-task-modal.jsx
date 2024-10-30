@@ -288,7 +288,7 @@ export const EditTaskModal = memo(
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <div className={styles.hideButton}>
                   <CustomButton
-                    tooltipInfoContent={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
+                    title={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
                     onClick={() => setReceiveBoxModal(!receiveBoxModal)}
                   >
                     {t(TranslationKey.Redistribute)}
@@ -300,7 +300,6 @@ export const EditTaskModal = memo(
                 <CustomButton
                   type="primary"
                   disabled={disableSaveButton}
-                  tooltipInfoContent={t(TranslationKey['Save task data'])}
                   onClick={() => {
                     onClickSolveTask({
                       task,

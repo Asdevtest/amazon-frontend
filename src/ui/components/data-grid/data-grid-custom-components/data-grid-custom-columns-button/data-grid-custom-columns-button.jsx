@@ -58,12 +58,8 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
 
   return (
     <div>
-      <CustomButton variant="outlined" className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
-        <div className={cx(className, styles.mainFilterBtnInsert)}>
-          <IoSettingsOutline size={20} />
-
-          <p className={styles.mainFilterBtnInsertText}>{t(TranslationKey.Parameters)}</p>
-        </div>
+      <CustomButton className={cx(className)} icon={<IoSettingsOutline size={16} />} onClick={handleClick}>
+        {t(TranslationKey.Parameters)}
       </CustomButton>
 
       {Boolean(menuAnchor) && (

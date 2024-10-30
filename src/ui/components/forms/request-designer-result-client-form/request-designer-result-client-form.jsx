@@ -236,16 +236,17 @@ export const RequestDesignerResultClientForm = memo(props => {
               <p>{t(TranslationKey['Select all'])}</p>
             </div>
 
-            <CustomButton disabled={!imagesForDownload.length} onClick={onClickAllDownload}>
-              <MdOutlineDownload size={24} />
-            </CustomButton>
+            <CustomButton
+              disabled={!imagesForDownload.length}
+              icon={<MdOutlineDownload size={24} />}
+              onClick={onClickAllDownload}
+            />
 
             <CustomButton
               disabled={!imagesForDownload.length || archiveButtonInactiveBeforeDownloading}
+              icon={<DownloadArchiveIcon />}
               onClick={onClickDownloadArchive}
-            >
-              <DownloadArchiveIcon />
-            </CustomButton>
+            />
           </div>
 
           {!noShowActions && (

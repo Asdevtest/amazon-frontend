@@ -24,7 +24,7 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
 
   return (
     <div className={styles.buttonsWrapper}>
-      <CustomButton disabled={disabled} variant="outlined" onClick={onShowImages}>
+      <CustomButton disabled={disabled} onClick={onShowImages}>
         {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
       </CustomButton>
 

@@ -143,17 +143,13 @@ export const AddOrEditDestinationForm = observer(
 
         <div className={styles.footerWrapper}>
           {onClickAddBtn ? (
-            <CustomButton
-              type="primary"
-              tooltipInfoContent={t(TranslationKey['Add a new rate'])}
-              onClick={throttle(onClickAddBtn)}
-            >
+            <CustomButton type="primary" title={t(TranslationKey['Add a new rate'])} onClick={onClickAddBtn}>
               {t(TranslationKey.Add)}
             </CustomButton>
           ) : null}
 
           <div className={styles.btnsWrapper}>
-            <CustomButton type="primary" disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
+            <CustomButton type="primary" disabled={disableSubmitBtn} onClick={onSubmit}>
               {t(TranslationKey.Save)}
             </CustomButton>
 

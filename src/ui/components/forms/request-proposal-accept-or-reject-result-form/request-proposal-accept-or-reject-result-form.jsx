@@ -76,13 +76,11 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
               {...(isReject ? { danger: true } : {})}
               disabled={!formFields.rating}
               type="primary"
-              onClick={throttle(() => onSubmit(formFields))}
+              onClick={() => onSubmit(formFields)}
             >
               {isReject ? rejectButtonText : confirmButtonText}
             </CustomButton>
-            <CustomButton variant="outlined" onClick={() => setIsShowConfirmationModal(true)}>
-              {cancelBtnText}
-            </CustomButton>
+            <CustomButton onClick={() => setIsShowConfirmationModal(true)}>{cancelBtnText}</CustomButton>
           </div>
 
           {isShowConfirmationModal ? (

@@ -9,6 +9,7 @@ import {
   DimensionsCell,
   DimensionsHeaderCell,
   MultilineTextHeaderCell,
+  NormDateCell,
   ProductsCell,
   RedFlagsCell,
   StringListCell,
@@ -309,6 +310,16 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       valueGetter: ({ row }) => row?.items?.[0]?.product?.redFlags?.map(el => el?.title).join(', '),
       width: 130,
       columnKey: columnnsKeys.shared.RED_FLAGS,
+    },
+
+    {
+      field: 'createdAt',
+      headerName: t(TranslationKey.Created),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
+
+      renderCell: params => <NormDateCell value={params.value} />,
+      width: 100,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

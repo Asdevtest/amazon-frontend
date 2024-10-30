@@ -25,12 +25,7 @@ export const DashboardInfoCard = observer(
           </div>
           {route ? (
             <div className={styles.subTitleWrapper}>
-              <CustomButton
-                tooltipInfoContent={
-                  sectionIndex === 0 && sectionSubIndex === 0 && t(TranslationKey['Open the appropriate section'])
-                }
-                onClick={() => onClickViewMore(route, dataGridFilter)}
-              >
+              <CustomButton onClick={() => onClickViewMore(route, dataGridFilter)}>
                 {t(TranslationKey['View more'])}
               </CustomButton>
             </div>

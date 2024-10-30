@@ -1,24 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  inStockWrapper: {
+  root: {
     width: '100%',
   },
 
-  inStockSubWrapper: {
-    width: '100%',
+  flexRow: {
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'space-between',
     gap: 10,
-  },
-
-  stockWrapperNoLink: {
-    justifyContent: 'center',
-  },
-
-  linkWrapper: {
-    fontSize: 14,
-    lineHeight: '19px',
-    cursor: 'pointer',
   },
 }))

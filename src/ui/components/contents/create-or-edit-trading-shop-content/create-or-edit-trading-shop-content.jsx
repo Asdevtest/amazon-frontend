@@ -179,7 +179,7 @@ export const CreateOrEditTradingShopContent = ({
       <div className={styles.footerRightWrapper}>
         <div className={styles.buttonsWrapper}>
           <CustomButton
-            tooltipInfoContent={
+            title={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Back to Step 1'])
                 : t(TranslationKey['Cancel request creation'])
@@ -191,7 +191,7 @@ export const CreateOrEditTradingShopContent = ({
 
           <CustomButton
             type="primary"
-            tooltipInfoContent={
+            title={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Creates a completed request'])
                 : t(TranslationKey['Go to Step 2'])

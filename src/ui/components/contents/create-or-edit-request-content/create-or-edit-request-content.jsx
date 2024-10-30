@@ -630,9 +630,9 @@ export const CreateOrEditRequestContent = memo(props => {
                 <div className={styles.defaultMarginTop}>
                   <CustomButton
                     disabled={!formFields.request?.productId}
+                    icon={<FiPlus style={{ width: 16, height: 16 }} />}
                     onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
                   >
-                    <FiPlus style={{ width: 16, height: 16 }} />
                     {t(TranslationKey['Add from product'])}
                   </CustomButton>
                 </div>
@@ -1114,9 +1114,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
           <div className={styles.buttons}>
             <CustomButton
-              tooltipInfoContent={
-                isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])
-              }
+              titlе={isSecondStep ? t(TranslationKey['Back to Step 1']) : t(TranslationKey['Cancel request creation'])}
               onClick={onClickBackBtn}
             >
               {isSecondStep ? t(TranslationKey.Back) : t(TranslationKey.Close)}
@@ -1125,7 +1123,7 @@ export const CreateOrEditRequestContent = memo(props => {
             {requestToEdit ? (
               <CustomButton
                 type="primary"
-                tooltipInfoContent={
+                title={
                   isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                 }
                 disabled={disableSubmit}
@@ -1144,7 +1142,7 @@ export const CreateOrEditRequestContent = memo(props => {
               <>
                 <CustomButton
                   type="primary"
-                  tooltipInfoContent={
+                  title={
                     isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                   }
                   disabled={disableSubmit}

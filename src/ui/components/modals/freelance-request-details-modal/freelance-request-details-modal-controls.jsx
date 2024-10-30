@@ -128,7 +128,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
             {showAcceptingProposalsButton && (
               <CustomButton
                 fullWidth
-                tooltipInfoContent={
+                title={
                   request?.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
                   t(TranslationKey['Removes the visibility of the request on the exchange'])
                 }

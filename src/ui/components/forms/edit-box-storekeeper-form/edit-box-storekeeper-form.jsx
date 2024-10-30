@@ -190,6 +190,7 @@ export const EditBoxStorekeeperForm = memo(
       const newFormFields = { ...boxFields }
       newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = []
+      newFormFields.isShippingLabelAttachedByStorekeeper = false
       setBoxFields(newFormFields)
     }
 
@@ -782,16 +783,13 @@ export const EditBoxStorekeeperForm = memo(
         <div className={styles.buttonsWrapper}>
           <CustomButton
             disabled={disableSubmit}
-            tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
+            title={t(TranslationKey['Save changes to the box'])}
             onClick={handleSubmit}
           >
             {t(TranslationKey.Save)}
           </CustomButton>
 
-          <CustomButton
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            onClick={onTriggerOpenModal}
-          >
+          <CustomButton title={t(TranslationKey['Close the form without saving'])} onClick={onTriggerOpenModal}>
             {t(TranslationKey.Close)}
           </CustomButton>
         </div>

@@ -131,7 +131,7 @@ export const Item: FC<ItemProps> = memo(props => {
               />
             </div>
 
-            <CustomButton className={styles.button} onClick={() => onClickHsCode?.(item.product._id)}>
+            <CustomButton onClick={() => onClickHsCode?.(item.product._id)}>
               {t(TranslationKey['HS code'])}
             </CustomButton>
 

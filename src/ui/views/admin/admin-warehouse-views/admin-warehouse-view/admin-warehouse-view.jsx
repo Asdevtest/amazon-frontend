@@ -21,13 +21,9 @@ export const AdminWarehouseViewRaw = props => {
       <p className={styles.title}>{t(TranslationKey['Choose a section in Warehouse'])}</p>
 
       <div className={styles.btnsWrapper}>
-        <CustomButton variant="outlined" onClick={viewModel.onClickTasks}>
-          {t(TranslationKey.Tasks)}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickTasks}>{t(TranslationKey.Tasks)}</CustomButton>
 
-        <CustomButton variant="outlined" onClick={viewModel.onClickBoxes}>
-          {t(TranslationKey.Boxes)}
-        </CustomButton>
+        <CustomButton onClick={viewModel.onClickBoxes}>{t(TranslationKey.Boxes)}</CustomButton>
       </div>
     </>
   )

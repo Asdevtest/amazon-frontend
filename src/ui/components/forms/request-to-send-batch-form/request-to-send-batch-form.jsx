@@ -155,16 +155,12 @@ export const RequestToSendBatchForm = observer(
 
           <CustomButton
             disabled={disabledSubmit}
-            tooltipAttentionContent={t(
-              TranslationKey['Create a request to send to the batch, freeze funds, then see "My batches"'],
-            )}
+            title={t(TranslationKey['Create a request to send to the batch, freeze funds, then see "My batches"'])}
             onClick={onClickSubmit}
           >
             {t(TranslationKey.Send)}
           </CustomButton>
-          <CustomButton tooltipInfoContent={t(TranslationKey['Close the form without saving'])} onClick={closeModal}>
-            {t(TranslationKey.Close)}
-          </CustomButton>
+          <CustomButton onClick={closeModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )

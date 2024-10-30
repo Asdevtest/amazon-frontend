@@ -89,9 +89,7 @@ export const EstimateCreateTradingShopForm = ({
               <div className={styles.estimateCostWrapper}>
                 <p>{toFixed(averagePureIncome * reqMultiplier, 2)}</p>
 
-                <CustomButton variant="outlined" onClick={applyReqMultiplier}>
-                  {t(TranslationKey.Apply)}
-                </CustomButton>
+                <CustomButton onClick={applyReqMultiplier}>{t(TranslationKey.Apply)}</CustomButton>
               </div>
             }
           />

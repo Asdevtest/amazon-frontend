@@ -46,12 +46,8 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
     <div className={styles.cardWrapper}>
       <div className={styles.cardHeaderWrapper}>
         <div className={styles.buttonsWrapper}>
-          <CustomButton variant="outlined" onClick={() => setIsRevenue(true)}>
-            {t(TranslationKey.Revenue)}
-          </CustomButton>
-          <CustomButton variant="outlined" onClick={() => setIsRevenue(false)}>
-            {t(TranslationKey['Website traffic'])}
-          </CustomButton>
+          <CustomButton onClick={() => setIsRevenue(true)}>{t(TranslationKey.Revenue)}</CustomButton>
+          <CustomButton onClick={() => setIsRevenue(false)}>{t(TranslationKey['Website traffic'])}</CustomButton>
         </div>
 
         <div className={styles.buttonsWrapper}>
@@ -83,13 +79,13 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <CustomButton variant="outlined" onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
+        <CustomButton onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
           {`6 ${t(TranslationKey.months)}`}
         </CustomButton>
-        <CustomButton variant="outlined" onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
+        <CustomButton onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
           {`12 ${t(TranslationKey.months)}`}
         </CustomButton>
-        <CustomButton variant="outlined" onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
+        <CustomButton onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
           {t(TranslationKey['All time'])}
         </CustomButton>
       </div>

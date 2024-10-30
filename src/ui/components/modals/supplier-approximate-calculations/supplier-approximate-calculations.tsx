@@ -225,7 +225,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
               {t(TranslationKey.Choose)}
             </CustomButton>
 
-            <CustomButton danger type="primary" variant="outlined" onClick={viewModel?.handleResetVariationTariff}>
+            <CustomButton danger type="primary" onClick={viewModel?.handleResetVariationTariff}>
               {t(TranslationKey.Reset)}
             </CustomButton>
           </div>
