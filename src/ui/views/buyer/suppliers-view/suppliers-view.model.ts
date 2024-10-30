@@ -14,6 +14,8 @@ import { TableView } from './suppliers-view.type'
 export class SuppliersViewModel extends DataGridFilterTableModel {
   currentTable: TableView = TableView.SUPLLIERS
 
+  showAddSupplierModal: boolean = false
+
   constructor() {
     const columnsModel = suppliersViewColumns()
 
@@ -34,5 +36,9 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
     runInAction(() => {
       this.currentTable = event.target.value
     })
+  }
+
+  onClickCreateSupplier() {
+    this.onTriggerOpenModal('showAddSupplierModal', true)
   }
 }

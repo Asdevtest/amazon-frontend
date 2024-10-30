@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react'
-import { FC, useMemo } from 'react'
+import { FC, useCallback, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AddSupplierModal } from '@components/modals/add-supplier-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -24,6 +25,10 @@ export const SuppliersView: FC = observer(() => {
   const viewModel = useMemo(() => new SuppliersViewModel(), [])
 
   const options = useMemo(() => getRadioButtonOptions(), [])
+
+  const onCloseAddSupplierModal = useCallback(() => {
+    viewModel.onTriggerOpenModal('showAddSupplierModal', false)
+  }, [])
 
   return (
     <div className="viewWrapper">
@@ -48,7 +53,7 @@ export const SuppliersView: FC = observer(() => {
             {t(TranslationKey['Add product'])}
           </CustomButton>
 
-          <CustomButton size="large" type="primary" onClick={() => console.log('Create a supplier')}>
+          <CustomButton size="large" type="primary" onClick={viewModel?.onClickCreateSupplier}>
             {t(TranslationKey['Create a supplier'])}
           </CustomButton>
         </div>
@@ -109,6 +114,8 @@ export const SuppliersView: FC = observer(() => {
         onFilterModelChange={viewModel.onChangeFilterModel}
         onPinnedColumnsChange={viewModel.handlePinColumn}
       />
+
+      <AddSupplierModal openModal={viewModel.showAddSupplierModal} setOpenModal={onCloseAddSupplierModal} />
     </div>
   )
 })
