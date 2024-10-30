@@ -97,7 +97,6 @@ export const TabFreelance = observer(props => {
               rows={viewModel.specs}
               columnHeaderHeight={50}
               getRowHeight={() => 'auto'}
-              getRowId={row => row._id}
               columns={viewModel.columnsModel}
               loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
               slots={{}}

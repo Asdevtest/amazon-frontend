@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -36,7 +34,6 @@ export const ClientExchangeView = observer(() => {
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

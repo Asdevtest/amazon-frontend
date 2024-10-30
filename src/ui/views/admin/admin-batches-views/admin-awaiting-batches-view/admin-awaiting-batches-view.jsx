@@ -58,7 +58,7 @@ export const AdminAwaitingBatchesView = observer(props => {
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
-        onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData._id)}
+        onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row._id)}
       />
 
       {viewModel.showBatchInfoModal ? (

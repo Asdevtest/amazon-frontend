@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
@@ -98,7 +96,6 @@ export const WarehouseManagementView = observer(() => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

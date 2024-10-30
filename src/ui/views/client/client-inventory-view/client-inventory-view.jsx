@@ -125,7 +125,6 @@ export const ClientInventoryView = observer(({ history }) => {
           },
         }}
         rowSelectionModel={viewModel.selectedRows}
-        getRowId={row => row._id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

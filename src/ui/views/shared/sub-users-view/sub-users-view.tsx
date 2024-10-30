@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { LinkSubUserForm } from '@components/forms/link-sub-user-form'
@@ -58,7 +56,6 @@ export const SubUsersView = observer(() => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

@@ -59,7 +59,7 @@ export const AdminSentBatchesView = observer(props => {
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
-        onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
+        onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row)}
       />
 
       {viewModel.showConfirmModal ? (

@@ -89,7 +89,6 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={row => row._id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

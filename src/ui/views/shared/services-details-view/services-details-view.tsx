@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReviewsForm } from '@components/forms/reviews-form'
@@ -38,7 +36,6 @@ export const ServiceDetailsView = observer(({ history }: { history: HistoryType 
         columnVisibilityModel={viewModel.columnVisibilityModel}
         rows={viewModel.rows}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

@@ -60,9 +60,9 @@ export const BindInventoryGoodsToStockForm = observer(props => {
     setSelectedGoods(model)
   }
   const onClickAdd = () => {
-    const curChosenGoodsIds = chosenGoods.map(el => el.id)
+    const curChosenGoodsIds = chosenGoods.map(el => el._id)
     const newRowIds = selectedGoods.filter(el => !curChosenGoodsIds.includes(el))
-    const newSelectedItems = stockData.filter(el => newRowIds.includes(el.id))
+    const newSelectedItems = stockData.filter(el => newRowIds.includes(el._id))
     setChosenGoods([...chosenGoods, ...newSelectedItems])
     setSelectedGoods([])
   }
@@ -150,7 +150,6 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           paginationMode="client"
           rows={stockData}
           rowCount={stockData?.length}
-          getRowId={row => row._id}
           columns={sourceColumns()}
           getRowHeight={() => 'auto'}
           rowSelectionModel={selectedGoods}
@@ -160,7 +159,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
 
       <div className={styles.btnsWrapper}>
         <Button
-          disabled={selectedGoods.every(el => chosenGoods.map(el => el.id).includes(el)) || selectedGoods.length < 1}
+          disabled={selectedGoods.every(el => chosenGoods.map(el => el._id).includes(el)) || selectedGoods.length < 1}
           onClick={onClickAdd}
         >
           {t(TranslationKey.Add)}
@@ -175,7 +174,6 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           columnHeaderHeight={40}
           sortingMode="client"
           paginationMode="client"
-          getRowId={row => row._id}
           rows={chosenGoods || []}
           columns={chosenGoodsColumns({ onClickTrash })}
           getRowHeight={() => 'auto'}
