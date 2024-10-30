@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -40,7 +38,6 @@ export const ParsingRequestsView: FC = observer(() => {
           columnVisibilityModel={viewModel.columnVisibilityModel}
           rows={viewModel.currentData}
           getRowHeight={() => 'auto'}
-          getRowId={({ _id }: GridRowModel) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

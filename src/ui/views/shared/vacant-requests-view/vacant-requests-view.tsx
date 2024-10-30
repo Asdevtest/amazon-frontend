@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { GridRowModel, GridRowParams } from '@mui/x-data-grid-premium'
+import { GridRowParams } from '@mui/x-data-grid-premium'
 
 import { ONE_DAY_IN_SECONDS } from '@constants/time'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -59,7 +59,6 @@ export const VacantRequestsView = observer(() => {
         columnVisibilityModel={viewModel.columnVisibilityModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

@@ -44,7 +44,6 @@ export const MoveBoxToBatchForm = observer(props => {
           rows={filteredBatches}
           columns={moveBoxToBatchFormColumns({ setSelectedBatch }, selectedBatch)}
           getRowHeight={() => 'auto'}
-          getRowId={({ _id }) => _id}
           onRowClick={e => setSelectedBatch(e.row)}
         />
       </div>

@@ -20,7 +20,6 @@ import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-ty
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IProposal } from '@typings/models/proposals/proposal'
 
 import { useStyles } from './my-proposals-view.style'
 
@@ -81,7 +80,6 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }: IProposal) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

@@ -14,7 +14,6 @@ import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './buyer-my-products-view.style'
 
@@ -57,7 +56,6 @@ export const BuyerMyProductsView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={(row: IProduct) => row._id}
         rowSelectionModel={viewModel.selectedRows}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}

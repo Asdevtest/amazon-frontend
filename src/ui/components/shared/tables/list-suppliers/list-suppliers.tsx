@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useEffect, useMemo, useState } from 'react'
 
-import { GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid'
+import { GridRowClassNameParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -89,7 +89,6 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           getRowClassName={getRowClassName}
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
-          getRowId={(row: GridRowModel) => row._id}
           columns={listSuppliersColumns}
           paginationModel={viewModel.paginationModel}
           rowSelectionModel={viewModel.selectionModel}

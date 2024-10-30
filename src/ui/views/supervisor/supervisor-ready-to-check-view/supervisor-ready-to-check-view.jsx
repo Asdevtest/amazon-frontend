@@ -43,7 +43,6 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),
