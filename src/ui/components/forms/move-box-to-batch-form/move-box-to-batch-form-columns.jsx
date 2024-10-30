@@ -68,7 +68,15 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     field: 'volumeWeight',
     headerName: t(TranslationKey['Volume weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Volume weight'])} />,
-    renderCell: params => <Text isCell text={toFixedWithKg(params.row.volumeWeightDivide)} />,
+    renderCell: ({ row }) => {
+      const calculationVolumeWeight =
+        row?.boxes?.reduce(
+          (total, box) => total + box?.heightCmWarehouse * box?.widthCmWarehouse * box?.lengthCmWarehouse,
+          0,
+        ) / row.volumeWeightDivide
+
+      return <Text isCell text={toFixedWithKg(calculationVolumeWeight)} />
+    },
     type: 'number',
     width: 90,
   },
