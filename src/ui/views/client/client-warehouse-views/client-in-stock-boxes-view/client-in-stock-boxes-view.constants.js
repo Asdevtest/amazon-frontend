@@ -1,5 +1,3 @@
-import { BoxStatus } from '@constants/statuses/box-status'
-
 export const updateBoxWhiteList = [
   'amount',
   'weighGrossKg',
@@ -80,5 +78,3 @@ export const filtersFields = [
 ]
 
 export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'orderXid', 'item', 'productId', 'xid', 'prepId']
-
-export const disableSelectionCells = ['prepId']
