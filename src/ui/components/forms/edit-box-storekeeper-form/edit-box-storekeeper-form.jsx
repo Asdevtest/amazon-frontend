@@ -190,6 +190,7 @@ export const EditBoxStorekeeperForm = memo(
       const newFormFields = { ...boxFields }
       newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = []
+      newFormFields.isShippingLabelAttachedByStorekeeper = false
       setBoxFields(newFormFields)
     }
 
