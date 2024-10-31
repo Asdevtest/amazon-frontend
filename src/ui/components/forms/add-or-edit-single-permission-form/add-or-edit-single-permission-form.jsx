@@ -217,7 +217,7 @@ export const AddOrEditSinglePermissionForm = observer(
                 ))}
               </div>
               <div className={styles.buttonContainer}>
-                <CustomButton icon={<FiPlus style={{ width: 16, height: 16 }} />} onClick={addAllowUrl} />
+                <CustomButton icon={<FiPlus size={16} />} onClick={addAllowUrl} />
               </div>
             </>
           }

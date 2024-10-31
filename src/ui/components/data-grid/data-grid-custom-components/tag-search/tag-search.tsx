@@ -62,11 +62,7 @@ export const TagSearch: FC<TagSearchProps> = memo(props => {
           <div className={styles.menuItems}>
             {tagsWithoutActiveTags?.length
               ? tagsWithoutActiveTags.map((item, index) => (
-                  <CustomButton
-                    key={index}
-                    className={styles.button}
-                    onClick={() => setActiveProductsTag([...activeTags, item])}
-                  >
+                  <CustomButton key={index} onClick={() => setActiveProductsTag([...activeTags, item])}>
                     {item.title}
                   </CustomButton>
                 ))

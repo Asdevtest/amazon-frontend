@@ -284,7 +284,6 @@ export const AddOrEditGroupPermissionForm = observer(
                   ))}
 
                   <CustomButton
-                    disableElevation
                     onClick={() => setShowAddOrEditSinglePermissionModal(!showAddOrEditSinglePermissionModal)}
                   >
                     {t(TranslationKey['Create New'])}

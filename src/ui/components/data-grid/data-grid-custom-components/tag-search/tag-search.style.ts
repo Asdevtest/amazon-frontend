@@ -78,19 +78,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 5,
   },
 
-  button: {
-    padding: '0 10px',
-    minHeight: '30px',
-    width: 'calc(100% - 10px)',
-    display: 'block',
-    boxShadow: 'none',
-
-    textAlign: 'left',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-  },
-
   loadingWrapper: {
     padding: '10px',
     display: 'flex',

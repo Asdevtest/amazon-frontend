@@ -434,10 +434,10 @@ export const Chat: FC<ChatProps> = memo(
 
             <CustomButton
               disabled={disabledSubmit && !chat?.messagesToForward?.length}
+              icon={<SendIcon />}
               onClick={onSubmitMessageInternal}
             >
               {t(TranslationKey.Send)}
-              <SendIcon />
             </CustomButton>
           </div>
 
