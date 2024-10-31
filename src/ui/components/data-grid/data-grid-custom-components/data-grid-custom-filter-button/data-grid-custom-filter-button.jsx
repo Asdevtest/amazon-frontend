@@ -10,9 +10,8 @@ import { CustomButton } from '@components/shared/custom-button'
 
 import { useStyles } from './data-grid-custom-filter-button.style'
 
-export const DataGridCustomFilterButton = props => {
+export const DataGridCustomFilterButton = () => {
   const { classes: styles, cx } = useStyles()
-  const { className } = props
 
   const [menuAnchor, setMenuAnchor] = useState(null)
 
@@ -26,7 +25,7 @@ export const DataGridCustomFilterButton = props => {
 
   return (
     <div>
-      <CustomButton className={className} icon={<MdOutlineFilterAlt size={18} />} onClick={handleClick}>
+      <CustomButton icon={<MdOutlineFilterAlt size={18} />} onClick={handleClick}>
         {t(TranslationKey['My filter'])}
       </CustomButton>
 

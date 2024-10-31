@@ -87,7 +87,6 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
 
       <CustomButton
         disabled={disabled}
-        className={styles.tariffButton}
         onClick={() => {
           onClickSetTariff(boxesMy)
           setShowSelectionStorekeeperAndTariffModal()

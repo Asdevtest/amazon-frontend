@@ -185,10 +185,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
-  arrowIcon: {
-    opacity: 0.2,
-  },
-
   steps: {
     width: '100%',
     display: 'flex',
@@ -303,10 +299,6 @@ export const useStyles = makeStyles()(theme => ({
     display: '-webkit-box',
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
-  },
-
-  buttonSelect: {
-    width: 200,
   },
 
   editorWrapper: {

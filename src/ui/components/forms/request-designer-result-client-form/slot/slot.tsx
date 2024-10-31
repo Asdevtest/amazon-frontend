@@ -92,14 +92,17 @@ export const Slot: FC<SlotProps> = memo(props => {
 
       {!noShowActions && (
         <div>
-          <CustomButton onClick={handleClick}>
+          <CustomButton
+            icon={
+              item.commentByClient ? (
+                <PencilIcon className={styles.commentIcon} />
+              ) : (
+                <FiPlus style={{ width: 16, height: 16 }} />
+              )
+            }
+            onClick={handleClick}
+          >
             {t(TranslationKey.Comment)}
-
-            {item.commentByClient ? (
-              <PencilIcon className={styles.commentIcon} />
-            ) : (
-              <FiPlus style={{ width: 16, height: 16 }} />
-            )}
           </CustomButton>
 
           {open && (

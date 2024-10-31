@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { FiArrowRight } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -197,21 +198,10 @@ export const CreateOrEditTradingShopContent = ({
                 : t(TranslationKey['Go to Step 2'])
             }
             disabled={disableSubmit}
+            icon={!curStep === stepVariant.STEP_THREE ? <FiArrowRight size={16} /> : null}
             onClick={onSuccessSubmit}
           >
-            {curStep === stepVariant.STEP_THREE ? (
-              t(TranslationKey.Save)
-            ) : (
-              <div className={styles.successBtnTextWrapper}>
-                <p>{t(TranslationKey.Next)}</p>
-                <img
-                  src="/assets/icons/right-arrow.svg"
-                  className={cx(styles.successBtnArrow, {
-                    [styles.disablesBtnArrow]: disableSubmit,
-                  })}
-                />
-              </div>
-            )}
+            {curStep === stepVariant.STEP_THREE ? t(TranslationKey.Save) : t(TranslationKey.Next)}
           </CustomButton>
         </div>
       </div>

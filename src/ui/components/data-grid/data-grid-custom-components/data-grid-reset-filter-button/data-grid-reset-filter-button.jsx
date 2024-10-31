@@ -18,8 +18,6 @@ export const DataGridResetFilterButton = memo(props => {
   return (
     <div>
       <CustomButton
-        isTableButton
-        className={cx(className, styles.button)}
         icon={<MdOutlineFilterAltOff size={20} />}
         onClick={resetFiltersBtnSettings.onClickResetFilters}
         {...restProps}

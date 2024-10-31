@@ -52,15 +52,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: '0 0 0 20px',
   },
 
-  successBtnTextWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  successBtnArrow: {
-    marginLeft: '15px',
-  },
-
   disablesBtnArrow: {
     opacity: '.2',
   },

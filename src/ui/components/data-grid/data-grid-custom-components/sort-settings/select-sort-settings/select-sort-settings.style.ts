@@ -66,18 +66,4 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: 5,
   },
-
-  button: {
-    width: '100%',
-    padding: '0 10px',
-    minHeight: '30px',
-    justifyContent: 'flex-start',
-    boxShadow: 'none',
-
-    '> p': {
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-    },
-  },
 }))

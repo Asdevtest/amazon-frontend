@@ -18,8 +18,4 @@ export const useStyles = makeStyles()(() => ({
     WebkitLineClamp: 1,
     WebkitBoxOrient: 'vertical',
   },
-
-  tariffButton: {
-    height: 30,
-  },
 }))

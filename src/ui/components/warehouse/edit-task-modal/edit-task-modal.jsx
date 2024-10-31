@@ -203,9 +203,8 @@ export const EditTaskModal = memo(
             </div>
 
             {task.operationType === TaskOperationType.RECEIVE && (
-              <CustomButton onClick={uploadTemplateFile}>
+              <CustomButton icon={<MdFileDownload size={22} />} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download task file'])}
-                <MdFileDownload size={22} />
               </CustomButton>
             )}
           </div>

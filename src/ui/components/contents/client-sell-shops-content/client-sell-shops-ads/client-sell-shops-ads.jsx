@@ -27,7 +27,6 @@ export const ClientSellShopsAds = observer(() => {
     curFilter,
     filtersSettings,
     nameSearchValue,
-
     onClickViewMore,
     onChangeNameSearchValue,
     onClickAddBtn,
@@ -40,9 +39,6 @@ export const ClientSellShopsAds = observer(() => {
         <div className={styles.boxesFiltersWrapper}>
           <CustomButton
             disabled={curFilter === filtersSettings.ALL_ADS}
-            className={cx(styles.button, {
-              [styles.selectedBoxesBtn]: curFilter === filtersSettings.ALL_ADS,
-            })}
             onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
           >
             {t(TranslationKey['All Ads'])}
@@ -50,9 +46,6 @@ export const ClientSellShopsAds = observer(() => {
 
           <CustomButton
             disabled={curFilter === filtersSettings.SOLD_ADS}
-            className={cx(styles.button, {
-              [styles.selectedBoxesBtn]: curFilter === filtersSettings.SOLD_ADS,
-            })}
             onClick={() => onClickFilterBtn(filtersSettings.SOLD_ADS)}
           >
             {t(TranslationKey['Sold Ads'])}

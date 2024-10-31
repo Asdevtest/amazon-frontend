@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { memo, useEffect, useRef, useState } from 'react'
-import { FiPlus } from 'react-icons/fi'
+import { FiArrowRight, FiPlus } from 'react-icons/fi'
 import { useHistory } from 'react-router-dom'
 
 import { Checkbox, Link, MenuItem, Select } from '@mui/material'
@@ -630,7 +630,7 @@ export const CreateOrEditRequestContent = memo(props => {
                 <div className={styles.defaultMarginTop}>
                   <CustomButton
                     disabled={!formFields.request?.productId}
-                    icon={<FiPlus style={{ width: 16, height: 16 }} />}
+                    icon={<FiPlus size={16} />}
                     onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
                   >
                     {t(TranslationKey['Add from product'])}
@@ -788,7 +788,6 @@ export const CreateOrEditRequestContent = memo(props => {
 
                           <CustomButton
                             disabled={!formFields.request.specId}
-                            className={styles.buttonSelect}
                             onClick={async () => {
                               await onClickChoosePerformer(currentSpec?.type)
                               setOpenModal(true)
@@ -1127,16 +1126,10 @@ export const CreateOrEditRequestContent = memo(props => {
                   isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                 }
                 disabled={disableSubmit}
+                icon={!isSecondStep ? <FiArrowRight size={16} /> : null}
                 onClick={() => (isSecondStep ? onEditSubmit(formFields, images, announcement) : onSuccessSubmit())}
               >
-                {isSecondStep ? (
-                  t(TranslationKey.Edit)
-                ) : (
-                  <>
-                    {t(TranslationKey.Next)}
-                    <img src="/assets/icons/right-arrow.svg" className={cx({ [styles.arrowIcon]: disableSubmit })} />
-                  </>
-                )}
+                {isSecondStep ? t(TranslationKey.Edit) : <>{t(TranslationKey.Next)}</>}
               </CustomButton>
             ) : (
               <>
@@ -1146,16 +1139,10 @@ export const CreateOrEditRequestContent = memo(props => {
                     isSecondStep ? t(TranslationKey['Creates a completed request']) : t(TranslationKey['Go to Step 2'])
                   }
                   disabled={disableSubmit}
+                  icon={!isSecondStep ? <FiArrowRight size={16} /> : null}
                   onClick={() => (isSecondStep ? onClickCreate({ withPublish: false }) : onSuccessSubmit())}
                 >
-                  {isSecondStep ? (
-                    t(TranslationKey['Create request'])
-                  ) : (
-                    <>
-                      {t(TranslationKey.Next)}
-                      <img src="/assets/icons/right-arrow.svg" className={cx({ [styles.arrowIcon]: disableSubmit })} />
-                    </>
-                  )}
+                  {isSecondStep ? t(TranslationKey['Create request']) : t(TranslationKey.Next)}
                 </CustomButton>
 
                 {isSecondStep ? (

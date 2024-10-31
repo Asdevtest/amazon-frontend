@@ -43,13 +43,12 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
             <CustomButton
               key={index}
               title={item.name}
-              className={styles.button}
               onClick={() => {
                 onClickField(item._id)
                 onToggleSelect()
               }}
             >
-              <p>{item.name}</p>
+              {item.name}
             </CustomButton>
           ))}
         </div>
