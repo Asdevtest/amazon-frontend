@@ -2,12 +2,12 @@ import { useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './add-files-form.style'
 
@@ -36,9 +36,9 @@ export const AddFilesForm = props => {
       <UploadFilesInput withoutTitles images={editingItem.images} setImages={setImagesOfItem} />
 
       <div className={styles.btnsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} onClick={onSubmith}>
+        <CustomButton type="primary" onClick={onSubmith}>
           {t(TranslationKey.Save)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

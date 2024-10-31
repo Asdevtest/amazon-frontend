@@ -41,6 +41,7 @@ export const HeaderTable = ({ viewModel }) => {
             size="large"
             options={switcherSettings}
             defaultValue={viewModel.currentStorekeeperId}
+            style={{ whiteSpace: 'nowrap' }}
             onChange={viewModel.onClickStorekeeperBtn}
           />
         </div>

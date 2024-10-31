@@ -2,11 +2,11 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './footer.style'
 
@@ -31,15 +31,17 @@ export const Footer: FC<FooterProps> = memo(props => {
 
   return (
     <div className={styles.wrapper}>
-      {isClient ? <Button onClick={onToggleShowConfirmModal}>{t(TranslationKey['Send in for rework'])}</Button> : null}
+      {isClient ? (
+        <CustomButton onClick={onToggleShowConfirmModal}>{t(TranslationKey['Send in for rework'])}</CustomButton>
+      ) : null}
 
-      <Button
-        styleType={ButtonStyle.SUCCESS}
+      <CustomButton
+        type="primary"
         disabled={disabledSendResultButton}
         onClick={() => (isClient ? onReceiveCustomProposal() : onEditCustomProposal())}
       >
         {isClient ? t(TranslationKey.Receive) : t(TranslationKey.Send)}
-      </Button>
+      </CustomButton>
     </div>
   )
 })

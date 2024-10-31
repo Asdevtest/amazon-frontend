@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ReplyFeedbackForm } from '@components/forms/reply-feedback-form'
@@ -42,7 +40,6 @@ export const AdminFeedbackView = observer(() => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

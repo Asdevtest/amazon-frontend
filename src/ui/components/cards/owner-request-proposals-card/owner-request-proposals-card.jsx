@@ -1,7 +1,5 @@
+import { Avatar, Rate } from 'antd'
 import { useState } from 'react'
-
-import { Avatar, Typography } from '@mui/material'
-import Rating from '@mui/material/Rating'
 
 import {
   RequestProposalStatus,
@@ -15,7 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
@@ -24,7 +22,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './owner-request-proposals-card.style'
 
@@ -83,38 +81,36 @@ export const OwnerRequestProposalsCard = ({
                 <div className={styles.userNameWrapper}>
                   <UserLink blackText name={item?.proposal?.createdBy?.name} userId={item.proposal.createdBy?._id} />
                   <div className={styles.reviewWrapper}>
-                    <Typography className={styles.reviews} onClick={() => onClickReview(item.proposal.createdBy)}>
+                    <p className={styles.reviews} onClick={() => onClickReview(item.proposal.createdBy)}>
                       {t(TranslationKey.Reviews)}
-                    </Typography>
+                    </p>
 
-                    <Rating readOnly className={styles.userRating} value={item.proposal.createdBy?.rating} />
+                    <Rate disabled className={styles.userRating} value={item.proposal.createdBy?.rating} />
                   </div>
                 </div>
               </div>
 
-              <Typography className={styles.successDeals}>
+              <p className={styles.successDeals}>
                 {t(TranslationKey['The number of total successful transactions:']) + ' '}
                 {item?.proposal?.createdBy?.proposalsCompleted ?? t(TranslationKey.Missing)}
-              </Typography>
+              </p>
 
               <div className={styles.timeInfoWrapper}>
                 <div className={styles.timeItemInfoWrapper}>
-                  <Typography className={styles.cardTime}>{t(TranslationKey['Time to complete']) + ':'}</Typography>
+                  <p className={styles.cardTime}>{t(TranslationKey['Time to complete']) + ':'}</p>
 
-                  <Typography className={styles.cardTimeValue}>{minsToTime(item?.proposal?.execution_time)}</Typography>
+                  <p className={styles.cardTimeValue}>{minsToTime(item?.proposal?.execution_time)}</p>
                 </div>
 
                 <div className={styles.timeItemInfoWrapper}>
-                  <Typography className={styles.cardPrice}>{t(TranslationKey['Total price']) + ':'}</Typography>
+                  <p className={styles.cardPrice}>{t(TranslationKey['Total price']) + ':'}</p>
 
-                  <Typography className={styles.cardPriceValue}>
-                    {toFixedWithDollarSign(item.proposal.price, 2)}
-                  </Typography>
+                  <p className={styles.cardPriceValue}>{toFixedWithDollarSign(item.proposal.price, 2)}</p>
                 </div>
               </div>
             </div>
-            <Typography className={styles.proposalTitle}>{item.proposal.title}</Typography>
-            <Typography className={styles.proposalDescription}>{item.proposal.comment}</Typography>
+            <p className={styles.proposalTitle}>{item.proposal.title}</p>
+            <p className={styles.proposalDescription}>{item.proposal.comment}</p>
           </div>
 
           <SlideshowGallery slidesToShow={2} files={item.proposal.linksToMediaFiles} />
@@ -126,30 +122,32 @@ export const OwnerRequestProposalsCard = ({
               className={styles.circleIndicator}
               style={{ backgroundColor: RequestProposalStatusColor(item.proposal.status) }}
             />
-            <Typography className={styles.standartText}>
-              {RequestProposalStatusTranslate(item.proposal.status)}
-            </Typography>
+            <p className={styles.standartText}>{RequestProposalStatusTranslate(item.proposal.status)}</p>
           </div>
 
-          <Button disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)} onClick={onClickOpenResult}>
+          <CustomButton
+            disabled={!showDesignerResultBtnStatuses.includes(item.proposal.status)}
+            onClick={onClickOpenResult}
+          >
             {t(TranslationKey.Result)}
-          </Button>
+          </CustomButton>
 
           <div className={styles.actionButtonWrapper}>
             {(item.proposal.status === RequestProposalStatus.CREATED ||
               item.proposal.status === RequestProposalStatus.OFFER_CONDITIONS_CORRECTED) && (
               <>
-                <Button
-                  styleType={ButtonStyle.DANGER}
-                  tooltipInfoContent={t(
+                <CustomButton
+                  danger
+                  title={t(
                     TranslationKey[
                       'The terms of the proposal do not fit, the contractor will be able to edit them and do it again'
                     ],
                   )}
+                  type="primary"
                   onClick={() => onClickRejectProposal(item.proposal._id)}
                 >
                   {t(TranslationKey.Reject)}
-                </Button>
+                </CustomButton>
               </>
             )}
 
@@ -168,20 +166,16 @@ export const OwnerRequestProposalsCard = ({
                 RequestStatus.CANCELED_BY_EXECUTOR,
                 RequestStatus.OFFER_CONDITIONS_REJECTED,
               ].includes(request.request.status) && (
-                <Button
-                  styleType={ButtonStyle.SUCCESS}
-                  tooltipInfoContent={t(TranslationKey['Make a deal on these terms'])}
+                <CustomButton
+                  type="primary"
                   onClick={() => onClickOrderProposal(item.proposal._id, item.proposal.price)}
                 >
                   {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
-                </Button>
+                </CustomButton>
               )}
-            <Button
-              tooltipInfoContent={t(TranslationKey['Open a chat with the performer'])}
-              onClick={() => onClickContactWithExecutor(item.proposal)}
-            >
+            <CustomButton onClick={() => onClickContactWithExecutor(item.proposal)}>
               {t(TranslationKey['Contact the performer'])}
-            </Button>
+            </CustomButton>
           </div>
         </div>
       </div>

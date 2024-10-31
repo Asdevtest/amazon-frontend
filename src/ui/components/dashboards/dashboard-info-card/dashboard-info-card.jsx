@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -20,21 +18,16 @@ export const DashboardInfoCard = observer(
       SettingsModel.languageTag && (
         <div className={styles.root}>
           <div className={styles.circle} style={{ borderColor: color }}>
-            <Typography className={styles.circleTitle}>{value || 0}</Typography>
+            <p className={styles.circleTitle}>{value || 0}</p>
           </div>
           <div className={styles.titleWrapper}>
-            <Typography className={styles.title}>{title}</Typography>
+            <p className={styles.title}>{title}</p>
           </div>
           {route ? (
             <div className={styles.subTitleWrapper}>
-              <Button
-                tooltipInfoContent={
-                  sectionIndex === 0 && sectionSubIndex === 0 && t(TranslationKey['Open the appropriate section'])
-                }
-                onClick={() => onClickViewMore(route, dataGridFilter)}
-              >
+              <CustomButton onClick={() => onClickViewMore(route, dataGridFilter)}>
                 {t(TranslationKey['View more'])}
-              </Button>
+              </CustomButton>
             </div>
           ) : null}
         </div>

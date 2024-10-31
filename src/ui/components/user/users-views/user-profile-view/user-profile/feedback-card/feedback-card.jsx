@@ -1,7 +1,5 @@
 import { MdOutlineThumbUpAlt } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
@@ -17,17 +15,15 @@ export const FeedbackCard = ({ isPositive, counter }) => {
       })}
     >
       <div className={styles.thumbContainer}>
-        <Typography className={styles.text}>
-          {isPositive ? t(TranslationKey.Positives) : t(TranslationKey.Negative)}
-        </Typography>
+        <p className={styles.text}>{isPositive ? t(TranslationKey.Positives) : t(TranslationKey.Negative)}</p>
 
-        <Typography
+        <p
           className={cx(styles.countTypo, {
             [styles.selectedCount]: isPositive === true,
           })}
         >
           {isPositive ? '+' + counter : '-' + counter}
-        </Typography>
+        </p>
 
         <MdOutlineThumbUpAlt
           size={24}

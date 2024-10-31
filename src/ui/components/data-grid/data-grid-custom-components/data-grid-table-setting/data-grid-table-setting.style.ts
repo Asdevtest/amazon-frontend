@@ -1,12 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  parametersButton: {
-    border: `1px solid ${theme.palette.input.customBorder}`,
-    height: '32px',
-    width: '32px',
-  },
-
   parametersButtonTitle: {
     fontSize: '14px',
     fontWeight: 600,

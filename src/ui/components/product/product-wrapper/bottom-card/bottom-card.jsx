@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
 
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import {
   ProductStatus,
@@ -50,7 +50,7 @@ export const BottomCard = observer(
         <Grid container spacing={2}>
           <Grid item sm={12} md={7} xs={12}>
             <div className={styles.cardPadding}>
-              <Typography className={styles.title}>{t(TranslationKey['Product information']).toUpperCase()}</Typography>
+              <p className={styles.title}>{t(TranslationKey['Product information']).toUpperCase()}</p>
 
               <div className={styles.infoWrapper}>
                 <div className={styles.infoSubWrapper}>
@@ -258,7 +258,7 @@ export const BottomCard = observer(
           </Grid>
           <Grid item sm={12} md={5} xs={12}>
             <div className={styles.cardPadding}>
-              <Typography className={styles.title}>{t(TranslationKey['Product description']).toUpperCase()}</Typography>
+              <p className={styles.title}>{t(TranslationKey['Product description']).toUpperCase()}</p>
               <Field
                 // key={'amazonTitle'}
                 disabled={defaultFieldDisable}

@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from 'react'
 import { MdFiberManualRecord, MdOutlineVisibility } from 'react-icons/md'
 
-import { InputAdornment, MenuItem, Select, Typography } from '@mui/material'
+import { InputAdornment, MenuItem, Select } from '@mui/material'
 
 import {
   OrderStatus,
@@ -23,7 +23,6 @@ import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
@@ -429,9 +428,9 @@ export const EditOrderModal = memo(
         <div className={styles.modalHeader}>
           <div>
             <div className={styles.idItemWrapper}>
-              <Typography className={styles.modalText}>
+              <p className={styles.modalText}>
                 {`${t(TranslationKey.Order)} № ${order.xid} / `} <span className={styles.modalSpanText}>{'item'}</span>
-              </Typography>
+              </p>
 
               <Input
                 disabled={Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
@@ -462,17 +461,15 @@ export const EditOrderModal = memo(
                 labelClasses={styles.label}
                 inputComponent={
                   <div className={styles.deadlineWrapper}>
-                    <Typography className={cx(styles.deadlineText)}>
-                      {formatDateWithoutTime(orderFields.deadline)}
-                    </Typography>
+                    <p className={cx(styles.deadlineText)}>{formatDateWithoutTime(orderFields.deadline)}</p>
 
-                    <Typography
+                    <p
                       className={cx(styles.deadlineText, {
                         [styles.alertText]: getDistanceBetweenDatesInSeconds(orderFields.deadline) < ONE_DAY_IN_SECONDS,
                       })}
                     >
                       {`(${timeToDeadlineInHoursAndMins({ date: orderFields.deadline, withSeconds: true })})`}
-                    </Typography>
+                    </p>
                   </div>
                 }
               />
@@ -482,22 +479,22 @@ export const EditOrderModal = memo(
           <p className={styles.amazonTitle}>{order.product.amazonTitle}</p>
 
           <div className={styles.priorityWrapper}>
-            <Typography className={styles.priorityTitle}>{`${t(TranslationKey.Priority)}:`}</Typography>
+            <p className={styles.priorityTitle}>{`${t(TranslationKey.Priority)}:`}</p>
             {order.priority === '40' ? (
               <div className={styles.rushOrderWrapper}>
                 <img className={styles.rushOrderImg} src="/assets/icons/fire.svg" />
-                <Typography className={styles.rushOrder}>{t(TranslationKey['Rush order'])}</Typography>
+                <p className={styles.rushOrder}>{t(TranslationKey['Rush order'])}</p>
               </div>
             ) : null}
             {order.expressChinaDelivery ? (
               <div className={styles.rushOrderWrapper}>
                 <TruckIcon className={styles.rushOrderImg} />
-                <Typography className={styles.rushOrder}>{t(TranslationKey['Express delivery'])}</Typography>
+                <p className={styles.rushOrder}>{t(TranslationKey['Express delivery'])}</p>
               </div>
             ) : null}
             {order.priority !== '40' && !order.expressChinaDelivery ? (
               <div className={styles.rushOrderWrapper}>
-                <Typography className={styles.rushOrder}>{t(TranslationKey['Medium priority'])}</Typography>
+                <p className={styles.rushOrder}>{t(TranslationKey['Medium priority'])}</p>
               </div>
             ) : null}
           </div>
@@ -702,20 +699,18 @@ export const EditOrderModal = memo(
         <div className={styles.addBoxButtonAndCommentsWrapper}>
           {orderStatusesThatTriggersEditBoxBlock.includes(parseInt(orderFields.status)) ? (
             <div className={styles.addBoxButtonWrapper}>
-              <Typography className={styles.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</Typography>
+              <p className={styles.addBoxTitle}>{t(TranslationKey['Add boxes for this order'])}</p>
 
-              <Button tooltipInfoContent={t(TranslationKey['Opens a form to create a box'])} onClick={addBoxHandler}>
-                {t(TranslationKey['Add a box'])}
-              </Button>
+              <CustomButton onClick={addBoxHandler}>{t(TranslationKey['Add a box'])}</CustomButton>
             </div>
           ) : (
             <div />
           )}
 
-          <Button onClick={() => setCommentModalModal(!commentModal)}>
+          <CustomButton onClick={() => setCommentModalModal(!commentModal)}>
             {t(TranslationKey['See comments'])}
             <MdOutlineVisibility size={24} className={styles.seeCommentsIcon} />
-          </Button>
+          </CustomButton>
         </div>
 
         {boxesForCreation.length > 0 && (
@@ -749,16 +744,16 @@ export const EditOrderModal = memo(
                     onChange={e => setTrackNumber({ ...trackNumber, text: e.target.value })}
                   />
 
-                  <Button onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+                  <CustomButton onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
                     {trackNumber.files[0] ? t(TranslationKey['File added']) : t(TranslationKey['Photo track numbers'])}
-                  </Button>
+                  </CustomButton>
                 </div>
 
                 <div className={styles.trackNumberPhotoWrapper}>
                   {trackNumber.files[0] ? (
                     <SlideshowGallery hiddenPreviews slidesToShow={1} files={trackNumber.files} />
                   ) : (
-                    <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
+                    <p>{`${t(TranslationKey['no photo track number'])}...`}</p>
                   )}
                 </div>
               </div>

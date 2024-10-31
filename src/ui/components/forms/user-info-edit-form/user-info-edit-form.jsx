@@ -2,12 +2,12 @@ import { memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './user-info-edit-form.style'
 
@@ -40,9 +40,7 @@ export const UserInfoEditForm = memo(props => {
           </>
         ) : (
           <>
-            <Button iconButton styleType={ButtonStyle.CASUAL} onClick={onToggleUserInfoEditFormFlag}>
-              <ArrowBackIcon />
-            </Button>
+            <CustomButton icon={<ArrowBackIcon />} onClick={onToggleUserInfoEditFormFlag} />
             <p className={styles.title}>{t(TranslationKey['Active sessions'])}</p>
           </>
         )}

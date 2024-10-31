@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo, useState } from 'react'
 
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import {
   inchesCoefficient,
@@ -15,9 +15,9 @@ import { SupplierModel } from '@models/supplier-model'
 
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -28,7 +28,7 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './add-or-edit-supplier-modal-content.style'
@@ -230,11 +230,11 @@ export const AddOrEditSupplierModalContent = memo(props => {
     if (outsideProduct) {
       return (
         <div className={styles.buttonsWrapperClient}>
-          <Button onClick={() => onClickPrevButton()}>{t(TranslationKey.Back)}</Button>
+          <CustomButton onClick={() => onClickPrevButton()}>{t(TranslationKey.Back)}</CustomButton>
           <div className={styles.saveBtnWrapperClient}>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              tooltipInfoContent={t(TranslationKey['Saves the current supplier to the selected product'])}
+            <CustomButton
+              type="primary"
+              title={t(TranslationKey['Saves the current supplier to the selected product'])}
               disabled={diasabledSubmit}
               onClick={() => {
                 onClickSaveBtn({
@@ -247,10 +247,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
               }}
             >
               {t(TranslationKey['Save and bind'])}
-            </Button>
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              tooltipInfoContent={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
+            </CustomButton>
+            <CustomButton
+              type="primary"
+              title={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
               disabled={diasabledSubmit}
               onClick={() => {
                 onClickSaveBtn({
@@ -263,23 +263,21 @@ export const AddOrEditSupplierModalContent = memo(props => {
               }}
             >
               {t(TranslationKey['Save and add more'])}
-            </Button>
+            </CustomButton>
           </div>
         </div>
       )
     } else if (onlyRead) {
       return (
         <div className={styles.buttonsWrapper}>
-          <Button styleType={ButtonStyle.CASUAL} onClick={onTriggerShowModal}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onTriggerShowModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       )
     } else {
       return (
         <div className={styles.buttonsWrapper}>
-          <Button
-            tooltipInfoContent={t(TranslationKey['Saves data about the supplier'])}
+          <CustomButton
+            title={t(TranslationKey['Saves data about the supplier'])}
             disabled={diasabledSubmit}
             onClick={() => {
               onClickSaveBtn({
@@ -292,14 +290,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
             }}
           >
             {t(TranslationKey.Save)}
-          </Button>
-          <Button
-            styleType={ButtonStyle.CASUAL}
-            tooltipInfoContent={t(TranslationKey['Cancel supplier creation/change'])}
-            onClick={onTriggerShowModal}
-          >
+          </CustomButton>
+          <CustomButton title={t(TranslationKey['Cancel supplier creation/change'])} onClick={onTriggerShowModal}>
             {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
         </div>
       )
     }
@@ -485,14 +479,14 @@ export const AddOrEditSupplierModalContent = memo(props => {
   return (
     <div className={styles.modalContainer}>
       {onlyRead ? (
-        <Typography className={styles.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</Typography>
+        <p className={styles.modalTitle}>{t(TranslationKey['Viewing Supplier'])}</p>
       ) : (
-        <Typography className={styles.modalTitle}>{title}</Typography>
+        <p className={styles.modalTitle}>{title}</p>
       )}
       <Divider className={styles.titleDivider} />
 
       <div>
-        <Typography className={styles.modalTitle}>{t(TranslationKey['Basic information'])}</Typography>
+        <p className={styles.modalTitle}>{t(TranslationKey['Basic information'])}</p>
 
         <div className={styles.nameBlock}>
           <Field
@@ -590,7 +584,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
       <div>
         <div className={styles.costBlock}>
-          <Typography className={styles.modalTitle}>{t(TranslationKey['Total price'])}</Typography>
+          <p className={styles.modalTitle}>{t(TranslationKey['Total price'])}</p>
 
           <Field
             oneLine
@@ -620,7 +614,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
         <div className={styles.calculationMainWrapper}>
           <div>
-            <Typography className={styles.modalTitle}>{'¥'}</Typography>
+            <p className={styles.modalTitle}>{'¥'}</p>
 
             <div className={styles.flexContainer}>
               <Field
@@ -692,7 +686,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <Divider flexItem orientation="vertical" className={styles.divider} />
 
           <div>
-            <Typography className={styles.modalTitle}>{'$'}</Typography>
+            <p className={styles.modalTitle}>{'$'}</p>
 
             <div className={styles.flexContainer}>
               <Field
@@ -783,7 +777,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
         </div>
 
         <div className={styles.boxInfoMainWrapper}>
-          <Typography className={styles.modalTitle}>{t(TranslationKey['Box info'])}</Typography>
+          <p className={styles.modalTitle}>{t(TranslationKey['Box info'])}</p>
 
           <div className={styles.boxInfoWrapper}>
             <Dimensions
@@ -909,8 +903,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
       {product && storekeepersData?.length ? (
         <div className={styles.calculationBtnWrapper}>
-          <Button
-            tooltipAttentionContent={
+          <CustomButton
+            title={
               !product ||
               !storekeepersData?.length ||
               (!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data']))
@@ -919,7 +913,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
             onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
           >
             {t(TranslationKey['View an oriented calculation'])}
-          </Button>
+          </CustomButton>
         </div>
       ) : null}
 

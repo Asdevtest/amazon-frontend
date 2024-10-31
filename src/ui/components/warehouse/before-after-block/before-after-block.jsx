@@ -1,14 +1,14 @@
 import { memo, useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import { Checkbox, Divider, Tooltip, Typography } from '@mui/material'
+import { Checkbox, Divider, Tooltip } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Dimensions } from '@components/shared/dimensions'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
@@ -187,17 +187,15 @@ const Box = memo(props => {
 
             <div className={styles.imagesWrapper}>
               <div className={styles.photoWrapper}>
-                <Typography className={styles.photoAndFilesTitle}>{`${t(
+                <p className={styles.photoAndFilesTitle}>{`${t(
                   TranslationKey['Photos and documents of the box'],
-                )}:`}</Typography>
+                )}:`}</p>
 
                 <SlideshowGallery slidesToShow={2} files={box.images} />
               </div>
 
               <div className={styles.photoWrapper}>
-                <Typography className={styles.photoAndFilesTitle}>{`${t(
-                  TranslationKey['Photos and order documents'],
-                )}:`}</Typography>
+                <p className={styles.photoAndFilesTitle}>{`${t(TranslationKey['Photos and order documents'])}:`}</p>
                 <SlideshowGallery slidesToShow={2} files={box.items[0].order.images} />
               </div>
             </div>
@@ -242,9 +240,9 @@ const Box = memo(props => {
                 labelClasses={styles.label}
                 inputComponent={
                   <Tooltip title={box?.trackNumberText?.length > 70 && box?.trackNumberText}>
-                    <Typography className={styles.trackNum}>
+                    <p className={styles.trackNum}>
                       {getShortenStringIfLongerThanCount(box.trackNumberText, 70) || t(TranslationKey['Not available'])}
-                    </Typography>
+                    </p>
                   </Tooltip>
                 }
               />
@@ -253,9 +251,7 @@ const Box = memo(props => {
                 {box.trackNumberFile.length ? (
                   <SlideshowGallery slidesToShow={2} files={box.trackNumberFile} />
                 ) : (
-                  <Typography className={styles.trackNumberNoPhotoText}>
-                    {`${t(TranslationKey['no photo track number'])}...`}
-                  </Typography>
+                  <p className={styles.trackNumberNoPhotoText}>{`${t(TranslationKey['no photo track number'])}...`}</p>
                 )}
               </div>
             </div>
@@ -268,17 +264,16 @@ const Box = memo(props => {
           <div className={cx(styles.editBtnWrapper, { [styles.noEditBtnWrapper]: readOnly })}>
             {isEdit && !readOnly && (
               <div className={styles.btnsWrapper}>
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
+                <CustomButton
                   onClick={() => {
                     setCurBox(box)
                     onClickEditBox(box)
                   }}
                 >
                   {t(TranslationKey.Edit)}
-                </Button>
+                </CustomButton>
 
-                <Button
+                <CustomButton
                   disabled={
                     !box.widthCmWarehouse ||
                     !box.weighGrossKgWarehouse ||
@@ -288,13 +283,13 @@ const Box = memo(props => {
                   onClick={() => onClickApplyAllBtn(box)}
                 >
                   {t(TranslationKey['Apply to all'])}
-                </Button>
+                </CustomButton>
               </div>
             )}
             <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-              <Typography className={styles.tablePanelViewText}>
+              <p className={styles.tablePanelViewText}>
                 {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-              </Typography>
+              </p>
 
               {!showFullCard ? (
                 <MdArrowDropDown size={22} className={styles.icon} />
@@ -309,9 +304,9 @@ const Box = memo(props => {
         <div className={styles.bottomBlockWrapper}>
           <div className={styles.incomingBtnWrapper}>
             <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-              <Typography className={styles.tablePanelViewText}>
+              <p className={styles.tablePanelViewText}>
                 {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-              </Typography>
+              </p>
 
               {!showFullCard ? (
                 <MdArrowDropDown size={22} className={styles.icon} />
@@ -339,7 +334,7 @@ const ReceiveBoxes = memo(({ taskType, onClickOpenModal }) => {
       <p className={styles.receiveBoxTitle}>{t(TranslationKey['Add boxes that have arrived in stock'])}</p>
 
       {taskType === TaskOperationType.RECEIVE && (
-        <Button onClick={onClickOpenModal}>{t(TranslationKey.Receive)}</Button>
+        <CustomButton onClick={onClickOpenModal}>{t(TranslationKey.Receive)}</CustomButton>
       )}
     </div>
   )

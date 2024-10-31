@@ -5,7 +5,6 @@ import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
-import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -82,28 +81,29 @@ export const TabPaymentMethods = observer(() => {
         </div>
 
         <div className={styles.paymentMethods}>
-          {viewModel.paymentMethods.map(method => (
-            <div key={method._id} className={styles.paymentMethodWrapper}>
-              <div className={styles.iconContainer}>
-                <img src={getAmazonImageUrl(method.iconImage)} alt={method.title} className={styles.iconImage} />
-                <Typography className={styles.paymentMethod}>{method.title}</Typography>
+          {viewModel.paymentMethods.length !== 0 &&
+            viewModel.paymentMethods.map(method => (
+              <div key={method._id} className={styles.paymentMethodWrapper}>
+                <div className={styles.iconContainer}>
+                  <img src={getAmazonImageUrl(method.iconImage)} alt={method.title} className={styles.iconImage} />
+                  <p className={styles.paymentMethod}>{method.title}</p>
+                </div>
+
+                <div className={styles.iconsWrapper}>
+                  <CopyValue text={method.title} />
+
+                  <EditOutlinedIcon
+                    className={styles.iconAction}
+                    onClick={() => viewModel.onClickEditPaymentMethod(method._id)}
+                  />
+
+                  <DeleteOutlineOutlinedIcon
+                    className={styles.iconAction}
+                    onClick={() => viewModel.onClickRemovePaymentMethod(method._id)}
+                  />
+                </div>
               </div>
-
-              <div className={styles.iconsWrapper}>
-                <CopyValue text={method.title} />
-
-                <EditOutlinedIcon
-                  className={styles.iconAction}
-                  onClick={() => viewModel.onClickEditPaymentMethod(method._id)}
-                />
-
-                <DeleteOutlineOutlinedIcon
-                  className={styles.iconAction}
-                  onClick={() => viewModel.onClickRemovePaymentMethod(method._id)}
-                />
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
 
         <CustomButton type="primary" size="large" disabled={!isDisableButton} onClick={viewModel.onSubmitPaymentMethod}>

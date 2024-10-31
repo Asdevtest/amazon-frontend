@@ -1,6 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { DeleteIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
@@ -120,11 +120,7 @@ export const chosenGoodsColumns = handlers => [
   {
     field: ' ',
     headerName: '',
-    renderCell: params => (
-      <Button iconButton onClick={() => handlers.onClickTrash(params.row.asin)}>
-        <DeleteIcon />
-      </Button>
-    ),
+    renderCell: params => <CustomButton icon={<DeleteIcon />} onClick={() => handlers.onClickTrash(params.row.asin)} />,
     width: 60,
     filterable: false,
     sortable: false,

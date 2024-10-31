@@ -3,7 +3,7 @@ import { ChangeEvent, FC, memo, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -46,9 +46,9 @@ export const TrackNumber: FC<TrackNumberProps> = memo(props => {
               onChange={onChangeField('trackNumberText')}
             />
 
-            <Button disabled={!isEdit} onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
+            <CustomButton disabled={!isEdit} onClick={() => setShowSetBarcodeModal(!showSetBarcodeModal)}>
               {formFields?.trackNumberFile?.length ? t(TranslationKey['File added']) : t(TranslationKey['Add file'])}
-            </Button>
+            </CustomButton>
           </div>
 
           <div className={styles.trackNumberPhoto}>

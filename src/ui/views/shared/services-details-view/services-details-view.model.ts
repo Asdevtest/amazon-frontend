@@ -1,4 +1,4 @@
-import { makeObservable, toJS } from 'mobx'
+import { makeObservable } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
@@ -62,7 +62,7 @@ export class ServiceDetailsViewModel extends DataGridTableModel {
 
   onClickEditBtn() {
     this.history.push(`/freelancer/freelance/my-services/service-detailds/edit-service`, {
-      requestId: toJS(this.announcementId),
+      requestId: this.announcementId,
     })
   }
 

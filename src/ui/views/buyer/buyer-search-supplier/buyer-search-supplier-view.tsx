@@ -9,7 +9,6 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IProduct } from '@typings/models/products/product'
 
 import { BuyerSearchSupplierBySupervisorModel } from './buyer-search-supplier-view.model'
 
@@ -35,7 +34,6 @@ export const BuyerSearchSupplierBySupervisorView = observer(() => {
         sortingMode="client"
         paginationMode="client"
         getRowHeight={() => 'auto'}
-        getRowId={(row: IProduct) => row._id}
         pinnedColumns={viewModel.pinnedColumns}
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}

@@ -32,6 +32,7 @@ export class PermissionsFormModel {
   groupPermissions: IPermissionGroup[] = []
   mainLoading = false
   productsLoading = false
+  buttonLoading = false
   specs: ISpec[] = []
   selectedSpecs: Specs[] = []
   shops: IShop[] = []
@@ -93,7 +94,6 @@ export class PermissionsFormModel {
   get hasExpiredRoles() {
     return this.isFreelancer || isStorekeeper(this.userInfo?.role)
   }
-
   get productsOptions() {
     const mainOptions = this.shops.map(item => ({
       label: item.name,
@@ -368,6 +368,8 @@ export class PermissionsFormModel {
 
   async onEditSubUser() {
     try {
+      runInAction(() => (this.buttonLoading = true))
+
       await UserModel.onEditMySubUser({ userIds: this.userIds, ...this.editingPermissions })
 
       if (!this.hasExpiredRoles) {
@@ -392,6 +394,7 @@ export class PermissionsFormModel {
     } catch (error) {
       toast.error(t(TranslationKey['User permissions are not changed']))
     } finally {
+      runInAction(() => (this.buttonLoading = false))
       this.onUpdateData?.()
       this.onCloseModal?.()
     }

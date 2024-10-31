@@ -1,5 +1,3 @@
-import { Typography } from '@mui/material'
-
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -39,7 +37,7 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
       </div>
 
       <div className={styles.commentsWrapper}>
-        <Typography className={styles.commentsTitle}>{t(TranslationKey.Comments)}</Typography>
+        <p className={styles.commentsTitle}>{t(TranslationKey.Comments)}</p>
 
         <Field
           disabled

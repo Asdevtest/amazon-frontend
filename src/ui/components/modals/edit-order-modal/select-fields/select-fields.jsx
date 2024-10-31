@@ -1,11 +1,11 @@
-import { Box, Checkbox, Grid, Typography } from '@mui/material'
+import { Box, Checkbox, Grid } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserCell } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
@@ -22,8 +22,6 @@ import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/che
 import { convertDaysToSeconds, formatDateWithoutTime, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed, toFixedWithDollarSign, toFixedWithYuanSign } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './select-fields.style'
 
@@ -87,21 +85,21 @@ export const SelectFields = ({
                     })}
                   >
                     <div className={styles.deliveredGoodsSubWrapper}>
-                      <Typography
+                      <p
                         className={cx(styles.deliveredGoodsLeftText, {
                           [styles.deliveredGoodsSuccessText]: deliveredQuantity >= order.amount,
                         })}
                       >
                         {deliveredQuantity || 0}
-                      </Typography>
-                      <Typography className={styles.deliveredGoodsMiddleText}>{t(TranslationKey['out of'])}</Typography>
-                      <Typography
+                      </p>
+                      <p className={styles.deliveredGoodsMiddleText}>{t(TranslationKey['out of'])}</p>
+                      <p
                         className={cx(styles.deliveredGoodsRightText, {
                           [styles.deliveredGoodsSuccessText]: deliveredQuantity >= order.amount,
                         })}
                       >
                         {order.amount}
-                      </Typography>
+                      </p>
                     </div>
                     {deliveredQuantity < order.amount && <img src="/assets/icons/attention.svg" />}
                   </div>
@@ -321,9 +319,9 @@ export const SelectFields = ({
                 </div>
               }
             />
-            <Button disabled={checkIsPlanningPrice} onClick={onClickUpdateButton}>
+            <CustomButton disabled={checkIsPlanningPrice} onClick={onClickUpdateButton}>
               {t(TranslationKey.Update)}
-            </Button>
+            </CustomButton>
           </div>
 
           {Number(orderFields.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_PAYMENT]) && (
@@ -390,21 +388,21 @@ export const SelectFields = ({
                       checked={orderFields.needsResearch}
                       color="primary"
                     />
-                    <Typography className={styles.researchLabel}>{t(TranslationKey['Re-search supplier'])}</Typography>
+                    <p className={styles.researchLabel}>{t(TranslationKey['Re-search supplier'])}</p>
                   </div>
                 </div>
               </div>
             </Box>
           </Box>
           <div className={styles.supplierPaymentButtonWrapper}>
-            <Button
+            <CustomButton
               disabled={isOrderInactive}
-              variant={editPaymentDetailsPhotos.length ? ButtonVariant.CONTAINED : ButtonVariant.OUTLINED}
+              variant={editPaymentDetailsPhotos.length ? 'filled' : 'outlined'}
               onClick={onClickSupplierPaymentButton}
             >
               {t(TranslationKey[`${editPaymentDetailsPhotos.length ? 'Document added' : 'Add payment document'}`])}
               {editPaymentDetailsPhotos.length ? ` (${editPaymentDetailsPhotos.length})` : ''}
-            </Button>
+            </CustomButton>
           </div>
         </Box>
 
@@ -418,7 +416,7 @@ export const SelectFields = ({
                 color="primary"
                 onChange={() => setOrderField('partialPayment')({ target: { value: !orderFields.partialPayment } })}
               />
-              <Typography className={styles.label}>{t(TranslationKey['Partial payment'])}</Typography>
+              <p className={styles.label}>{t(TranslationKey['Partial payment'])}</p>
             </div>
 
             <div className={styles.partialPaymentFields}>
@@ -524,7 +522,7 @@ export const SelectFields = ({
           {order.product.subUsers?.length ? (
             <div className={styles.subUsersWrapper}>
               <div className={styles.subUsersTitleWrapper}>
-                <Typography className={styles.subUsersTitle}>{t(TranslationKey['Product available'])}</Typography>
+                <p className={styles.subUsersTitle}>{t(TranslationKey['Product available'])}</p>
               </div>
               <div className={styles.subUsersBodyWrapper}>
                 <div className={styles.subUsersBody}>

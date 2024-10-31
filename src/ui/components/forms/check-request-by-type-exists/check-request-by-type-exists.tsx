@@ -1,14 +1,14 @@
 import { FC } from 'react'
 
-import { Link, Typography } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './check-request-by-type-exists.style'
 
@@ -38,16 +38,14 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
 
   return (
     <div className={styles.root}>
-      <Typography className={styles.attentionText}>{t(TranslationKey.Attention)}</Typography>
+      <p className={styles.attentionText}>{t(TranslationKey.Attention)}</p>
 
       <div className={styles.requestsInfoWrapper}>
-        <Typography className={styles.text}>{`${t(TranslationKey['With the product'])}: ${t(TranslationKey.ASIN)} ${
+        <p className={styles.text}>{`${t(TranslationKey['With the product'])}: ${t(TranslationKey.ASIN)} ${
           asin || t(TranslationKey.Missing)
-        },`}</Typography>
+        },`}</p>
 
-        <Typography className={styles.text}>{`${t(
-          TranslationKey['there are already requests of the type'],
-        )} ${specTitle}`}</Typography>
+        <p className={styles.text}>{`${t(TranslationKey['there are already requests of the type'])} ${specTitle}`}</p>
 
         <div className={styles.requestsTextWrapper}>
           {requestsData.map((request, requestIndex: number) => (
@@ -62,12 +60,10 @@ export const CheckRequestByTypeExists: FC<CheckRequestByTypeExistsProps> = ({
         </div>
       </div>
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} onClick={onClickContinue}>
+        <CustomButton type="primary" onClick={onClickContinue}>
           {t(TranslationKey.Continue)}
-        </Button>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancel}>
-          {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
+        <CustomButton onClick={onClickCancel}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

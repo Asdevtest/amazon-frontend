@@ -1,13 +1,11 @@
-import { Typography } from '@mui/material'
-
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './failed-asins-modal.style'
 
@@ -16,18 +14,18 @@ export const FailedAsinsModal = ({ failedData, onClickSuccessBtn }) => {
 
   return (
     <div className={styles.modalMessageWrapper}>
-      <Typography paragraph className={styles.title}>
+      <p className={styles.title}>
         {t(TranslationKey['The following ASINs have already been entered into the table'])}
-      </Typography>
+      </p>
       {failedData.failed.map(el => (
         <div key={el.asin} className={styles.asinsWrapper}>
-          <Typography>{el.asin}</Typography>
-          <Typography>{humanFriendlyStategyStatus(productStrategyStatusesEnum[el.strategy]).toUpperCase()}</Typography>
+          <p>{el.asin}</p>
+          <p>{humanFriendlyStategyStatus(productStrategyStatusesEnum[el.strategy]).toUpperCase()}</p>
         </div>
       ))}
-      <Button styleType={ButtonStyle.SUCCESS} onClick={onClickSuccessBtn}>
+      <CustomButton type="primary" onClick={onClickSuccessBtn}>
         {t(TranslationKey.Ok)}
-      </Button>
+      </CustomButton>
     </div>
   )
 }

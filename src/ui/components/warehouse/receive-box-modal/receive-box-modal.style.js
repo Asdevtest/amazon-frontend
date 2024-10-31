@@ -18,10 +18,6 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
 
-  icon: {
-    marginLeft: '16px',
-  },
-
   boxesWrapper: {
     marginTop: 30,
     display: 'flex',

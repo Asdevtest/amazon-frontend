@@ -2,7 +2,7 @@ import { FC, memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { SizeSwitcher } from '@components/shared/size-switcher'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
@@ -11,7 +11,7 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 import { IBox } from '@typings/models/boxes/box'
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -104,13 +104,11 @@ export const EditBoxTasksForm: FC<EditBoxTasksFormProps> = memo(props => {
       />
 
       <div className={styles.buttons}>
-        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledSubmit} onClick={onSubmit}>
+        <CustomButton type="primary" disabled={disabledSubmit} onClick={onSubmit}>
           {t(TranslationKey.Save)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} onClick={setEditModal}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={setEditModal}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

@@ -115,12 +115,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
   },
 
-  button: {
-    height: 30,
-    margin: 0,
-    whiteSpace: 'nowrap',
-  },
-
   checkboxWrapper: {
     flex: 1,
   },

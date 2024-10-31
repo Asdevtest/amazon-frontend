@@ -58,10 +58,4 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '40px',
   },
-
-  button: {
-    marginBottom: 5,
-    padding: '0 30px',
-    color: `${theme.palette.primary.main} !important`,
-  },
 }))

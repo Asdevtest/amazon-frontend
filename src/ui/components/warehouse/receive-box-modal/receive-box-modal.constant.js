@@ -1,21 +1,17 @@
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
 export const WAREHOUSE_RECEIVE_HEAD_CELLS = styles => [
-  { title: <Typography className={styles.headerCell}>{t(TranslationKey.Box)}</Typography> },
-  { title: <Typography className={styles.headerCell}>{t(TranslationKey['Boxes in group'])}</Typography> },
-  // {title: <Typography className={styles.headerCell}>{t(TranslationKey.Quantity)}</Typography>},
+  { title: <p className={styles.headerCell}>{t(TranslationKey.Box)}</p> },
+  { title: <p className={styles.headerCell}>{t(TranslationKey['Boxes in group'])}</p> },
+  // {title: <p className={styles.headerCell}>{t(TranslationKey.Quantity)}</p>},
 
-  { title: <Typography className={styles.headerCell}>{t(TranslationKey.Total)}</Typography> },
+  { title: <p className={styles.headerCell}>{t(TranslationKey.Total)}</p> },
   {
-    title: (
-      <Typography className={styles.headerCell}>{`${t(TranslationKey.Sizes)}, ${t(TranslationKey.cm)}`}</Typography>
-    ),
+    title: <p className={styles.headerCell}>{`${t(TranslationKey.Sizes)}, ${t(TranslationKey.cm)}`}</p>,
   },
-  { title: <Typography className={styles.headerCell}>{t(TranslationKey['Weight, kg'])}</Typography> },
-  { title: <Typography className={styles.headerCell}>{t(TranslationKey['Volume weight, kg'])}</Typography> },
-  { title: <Typography className={styles.headerCell}>{t(TranslationKey['Final weight, kg'])}</Typography> },
+  { title: <p className={styles.headerCell}>{t(TranslationKey['Weight, kg'])}</p> },
+  { title: <p className={styles.headerCell}>{t(TranslationKey['Volume weight, kg'])}</p> },
+  { title: <p className={styles.headerCell}>{t(TranslationKey['Final weight, kg'])}</p> },
 ]

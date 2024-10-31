@@ -12,7 +12,6 @@ import { CustomSelect } from '@components/shared/custom-select'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IProduct } from '@typings/models/products/product'
 
 import { getSwitcherConfig } from './admin-exchange-views.config'
 import { AdminExchangeViewModel } from './admin-exchange-views.model'
@@ -41,7 +40,6 @@ export const AdminExchangeViews = observer(() => {
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }: IProduct) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 
-import { Typography } from '@mui/material'
-
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { useStyles } from './dashboard-single-card-with-button.style'
 
@@ -12,22 +10,20 @@ export const DashboardSingleCardWithButton = observer(
 
     return (
       <div>
-        <Typography className={styles.cardListTitle}>{config.title}</Typography>
-        <Typography className={styles.cardListSubTitle}>{configSubTitle}</Typography>
+        <p className={styles.cardListTitle}>{config.title}</p>
+        <p className={styles.cardListSubTitle}>{configSubTitle}</p>
         <div className={cx(styles.cardWrapper, { [styles.cardWrapperHorizontal]: horizontal })}>
           {config.items.map(item => (
             <div
               key={item.dataKey}
               className={cx(styles.cardTitleWrapper, { [styles.cardTitleWrapperHorizontal]: horizontal })}
             >
-              <Typography className={styles.cardTitle}>{item.title}</Typography>
-              <Typography className={styles.cardValueTitle}>
-                {valuesData[item.dataKey] && valuesData[item.dataKey]}
-              </Typography>
+              <p className={styles.cardTitle}>{item.title}</p>
+              <p className={styles.cardValueTitle}>{valuesData[item.dataKey] && valuesData[item.dataKey]}</p>
             </div>
           ))}
           <div className={styles.buttonWrapper}>
-            <Button onClick={() => onClickViewMore(config.route)}>{buttonText}</Button>
+            <CustomButton onClick={() => onClickViewMore(config.route)}>{buttonText}</CustomButton>
           </div>
         </div>
       </div>

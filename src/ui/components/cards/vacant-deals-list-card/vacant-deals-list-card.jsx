@@ -1,11 +1,13 @@
-import { Avatar, Grid, Typography } from '@mui/material'
+import { Avatar } from 'antd'
+
+import { Grid } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
@@ -14,7 +16,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './vacant-deals-list-card.style'
 
@@ -27,7 +29,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
         <div className={styles.leftBlockWrapper}>
           <div className={styles.usersInfoBlockWrapper}>
             <div className={styles.userInfoWrapper}>
-              <Typography className={styles.userInfoName}>{t(TranslationKey.Client)}</Typography>
+              <p className={styles.userInfoName}>{t(TranslationKey.Client)}</p>
               <div className={styles.userInfo}>
                 <Avatar src={getUserAvatarSrc(item?.request?.createdBy?._id)} className={styles.cardImg} />
 
@@ -39,7 +41,7 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
               </div>
             </div>
             <div className={styles.userInfoWrapper}>
-              <Typography className={styles.userInfoName}>{t(TranslationKey.Performer)}</Typography>
+              <p className={styles.userInfoName}>{t(TranslationKey.Performer)}</p>
               <div className={styles.userInfo}>
                 <Avatar src={getUserAvatarSrc(item?.createdBy?._id)} className={styles.cardImg} />
 
@@ -53,8 +55,8 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           </div>
           <div>
             <div className={styles.cardTitleBlockHeaderWrapper}>
-              <Typography className={styles.cardTitle}>{item.title}</Typography>
-              <Typography className={styles.cardDescription}>{item.comment}</Typography>
+              <p className={styles.cardTitle}>{item.title}</p>
+              <p className={styles.cardDescription}>{item.comment}</p>
             </div>
           </div>
         </div>
@@ -63,39 +65,39 @@ export const VacantDealsListCard = ({ onClickViewMore, showDetails, onClickGetTo
           <div className={styles.subBlockWrapper}>
             <div className={styles.leftSubBlockWrapper}>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey['Time to complete'])}</Typography>
+                <p className={styles.text}>{t(TranslationKey['Time to complete'])}</p>
 
-                <Typography className={styles.text}>{minsToTime(item.execution_time)}</Typography>
+                <p className={styles.text}>{minsToTime(item.execution_time)}</p>
               </div>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey.Status)}</Typography>
+                <p className={styles.text}>{t(TranslationKey.Status)}</p>
 
                 <Text text={MyRequestStatusTranslate(item.status)} color={colorByStatus(item.status)} />
               </div>
             </div>
             <div className={styles.rightSubBlockWrapper}>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey.Deadline)}</Typography>
+                <p className={styles.text}>{t(TranslationKey.Deadline)}</p>
 
-                <Typography className={styles.text}>{formatNormDateTime(item.timeoutAt)}</Typography>
+                <p className={styles.text}>{formatNormDateTime(item.timeoutAt)}</p>
               </div>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey['Total price'])}</Typography>
+                <p className={styles.text}>{t(TranslationKey['Total price'])}</p>
 
-                <Typography className={styles.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</Typography>
+                <p className={styles.cardPrice}>{toFixedWithDollarSign(item.price, 2)}</p>
               </div>
             </div>
           </div>
           <div className={!showDetails ? styles.buttonsWrapper : styles.buttonWrapper}>
             {!showDetails && (
-              <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickGetToWorkModal(item._id, item.requestId)}>
+              <CustomButton type="primary" onClick={() => onClickGetToWorkModal(item._id, item.requestId)}>
                 {t(TranslationKey['Get to work'])}
-              </Button>
+              </CustomButton>
             )}
 
-            <Button onClick={() => onClickViewMore(item.requestId, item._id)}>
+            <CustomButton onClick={() => onClickViewMore(item.requestId, item._id)}>
               {t(TranslationKey['Open a deal'])}
-            </Button>
+            </CustomButton>
           </div>
         </div>
       </div>

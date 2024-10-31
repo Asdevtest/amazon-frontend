@@ -1,19 +1,18 @@
 import { useState } from 'react'
-
-import { Typography } from '@mui/material'
+import { FiArrowRight } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { EstimateCreateTradingShopForm } from '@components/forms/estimate-create-trading-shop-form'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { sortObjectsArrayByFiledDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './create-or-edit-trading-shop-content.style'
 
@@ -180,42 +179,30 @@ export const CreateOrEditTradingShopContent = ({
     <div className={styles.footerWrapper}>
       <div className={styles.footerRightWrapper}>
         <div className={styles.buttonsWrapper}>
-          <Button
-            tooltipInfoContent={
+          <CustomButton
+            title={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Back to Step 1'])
                 : t(TranslationKey['Cancel request creation'])
             }
-            styleType={ButtonStyle.CASUAL}
             onClick={onClickBackBtn}
           >
             {curStep === stepVariant.STEP_ONE ? t(TranslationKey.Close) : t(TranslationKey.Back)}
-          </Button>
+          </CustomButton>
 
-          <Button
-            styleType={ButtonStyle.SUCCESS}
-            tooltipInfoContent={
+          <CustomButton
+            type="primary"
+            title={
               curStep === stepVariant.STEP_TWO
                 ? t(TranslationKey['Creates a completed request'])
                 : t(TranslationKey['Go to Step 2'])
             }
             disabled={disableSubmit}
+            icon={!curStep === stepVariant.STEP_THREE ? <FiArrowRight size={16} /> : null}
             onClick={onSuccessSubmit}
           >
-            {curStep === stepVariant.STEP_THREE ? (
-              t(TranslationKey.Save)
-            ) : (
-              <div className={styles.successBtnTextWrapper}>
-                <Typography>{t(TranslationKey.Next)}</Typography>
-                <img
-                  src="/assets/icons/right-arrow.svg"
-                  className={cx(styles.successBtnArrow, {
-                    [styles.disablesBtnArrow]: disableSubmit,
-                  })}
-                />
-              </div>
-            )}
-          </Button>
+            {curStep === stepVariant.STEP_THREE ? t(TranslationKey.Save) : t(TranslationKey.Next)}
+          </CustomButton>
         </div>
       </div>
     </div>
@@ -224,13 +211,9 @@ export const CreateOrEditTradingShopContent = ({
   return (
     <div className={styles.mainWrapper}>
       <div className={styles.headerWrapper}>
-        <Typography className={styles.mainTitle}>
-          {t(TranslationKey['We will find a reliable buyer of your store'])}
-        </Typography>
+        <p className={styles.mainTitle}>{t(TranslationKey['We will find a reliable buyer of your store'])}</p>
 
-        <Typography className={styles.mainSubTitle}>
-          {t(TranslationKey['Fill in basic information about your store'])}
-        </Typography>
+        <p className={styles.mainSubTitle}>{t(TranslationKey['Fill in basic information about your store'])}</p>
       </div>
 
       <div className={styles.mainContentWrapper}>
@@ -294,13 +277,13 @@ export const CreateOrEditTradingShopContent = ({
             style={{ backgroundColor: curStep === stepVariant.STEP_THREE ? '#00B746' : '#c4c4c4' }}
           ></div>
         </div>
-        <Typography className={styles.stepTitle}>
+        <p className={styles.stepTitle}>
           {curStep === stepVariant.STEP_ONE
             ? `${t(TranslationKey.Step)} 1`
             : curStep === stepVariant.STEP_TWO
             ? `${t(TranslationKey.Step)} 2`
             : `${t(TranslationKey.Step)} 3`}
-        </Typography>
+        </p>
       </div>
 
       <Modal openModal={showEstimateModal} setOpenModal={() => setShowEstimateModal(!showEstimateModal)}>

@@ -2,11 +2,10 @@ import { memo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 
-import { IconButton, TableCell, TableRow, Typography } from '@mui/material'
+import { IconButton, TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomButton } from '@components/shared/custom-button'
 import { Input } from '@components/shared/input'
@@ -31,10 +30,10 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             <img className={styles.img} src={getAmazonImageUrl(el?.product.images[0])} />
 
             <div>
-              <Typography className={styles.title}>{i + 1 + '. ' + el.product.amazonTitle}</Typography>
+              <p className={styles.title}>{i + 1 + '. ' + el.product.amazonTitle}</p>
 
               <div className={styles.asinWrapper}>
-                <Typography className={styles.orderText}>
+                <p className={styles.orderText}>
                   <span className={styles.unitsText}>{t(TranslationKey.ASIN) + ': '}</span>
                   {el?.product?.asin ? (
                     <a
@@ -48,12 +47,12 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
                   ) : (
                     <span className={styles.typoSpan}>{t(TranslationKey.Missing)}</span>
                   )}
-                </Typography>
+                </p>
                 {el?.product?.asin ? <CopyValue text={el?.product?.asin} /> : null}
               </div>
 
               <div className={styles.unitsWrapper}>
-                <Typography className={styles.unitsText}>{t(TranslationKey.Quantity) + ':'}</Typography>
+                <p className={styles.unitsText}>{t(TranslationKey.Quantity) + ':'}</p>
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
@@ -97,7 +96,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
       <TableCell className={styles.standartCell}>
         <div className={styles.sizesCell}>
           <div className={styles.sizeWrapper}>
-            <Typography>{t(TranslationKey.L) + ': '}</Typography>
+            <p>{t(TranslationKey.L) + ': '}</p>
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
@@ -112,7 +111,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
           </div>
 
           <div className={styles.sizeWrapper}>
-            <Typography>{t(TranslationKey.W) + ': '}</Typography>
+            <p>{t(TranslationKey.W) + ': '}</p>
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
@@ -126,7 +125,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
             />
           </div>
           <div className={styles.sizeWrapper}>
-            <Typography>{t(TranslationKey.H) + ': '}</Typography>
+            <p>{t(TranslationKey.H) + ': '}</p>
             <Input
               classes={{
                 root: cx(styles.inputWrapper, {
@@ -172,15 +171,13 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
         />
       </TableCell>
       <TableCell>
-        <Button className={styles.imagesBtn} onClick={() => handlers.onAddImages(item._id)}>
-          {buttonTextWithCounter}
-        </Button>
+        <CustomButton onClick={() => handlers.onAddImages(item._id)}>{buttonTextWithCounter}</CustomButton>
       </TableCell>
 
       <TableCell>
-        <Button onClick={() => handlers.addDouble(item._id)}>
+        <CustomButton onClick={() => handlers.addDouble(item._id)}>
           <FiPlus style={{ width: 16, height: 16 }} />
-        </Button>
+        </CustomButton>
       </TableCell>
 
       <TableCell>

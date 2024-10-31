@@ -5,13 +5,12 @@ import { zipCodeGroups } from '@constants/configs/zip-code-groups'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
 import { IDestination } from '@typings/shared/destinations'
 
 import { useStyles } from './warehouse-destination-and-tariff-cell.style'
@@ -86,10 +85,8 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
         onClickSelect={(el: any) => onSelectDestination(boxesMy?._id, { destinationId: el?._id })}
       />
 
-      <Button
+      <CustomButton
         disabled={disabled}
-        variant={ButtonVariant.OUTLINED}
-        className={styles.tariffButton}
         onClick={() => {
           onClickSetTariff(boxesMy)
           setShowSelectionStorekeeperAndTariffModal()
@@ -103,7 +100,7 @@ export const WarehouseDestinationAndTariffCell: FC<WarehouseDestinationAndTariff
         ) : (
           <p>{t(TranslationKey.Select)}</p>
         )}
-      </Button>
+      </CustomButton>
     </div>
   )
 })

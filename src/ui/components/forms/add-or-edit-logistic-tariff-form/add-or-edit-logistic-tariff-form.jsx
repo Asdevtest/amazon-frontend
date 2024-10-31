@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
@@ -19,7 +17,7 @@ import {
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-logistic-tariff-form.style'
 
@@ -202,9 +200,7 @@ export const AddOrEditLogisticTariffForm = observer(
 
     return (
       <div className={styles.root}>
-        <Typography variant="h5" className={styles.modalTitle}>
-          {t(TranslationKey['Adding tariff'])}
-        </Typography>
+        <h5 className={styles.modalTitle}>{t(TranslationKey['Adding tariff'])}</h5>
 
         <div className={styles.form}>
           <div className={styles.nameDeliveryWrapper}>
@@ -347,9 +343,7 @@ export const AddOrEditLogisticTariffForm = observer(
               </div>
             </div>
 
-            <Typography variant="h5" className={styles.modalSubTitle}>
-              {t(TranslationKey['Shipping dates'])}
-            </Typography>
+            <h5 className={styles.modalSubTitle}>{t(TranslationKey['Shipping dates'])}</h5>
 
             <div className={styles.blockWrapper}>
               <div className={styles.blockItem}>
@@ -440,13 +434,11 @@ export const AddOrEditLogisticTariffForm = observer(
           </div>
 
           <div className={styles.btnsWrapper}>
-            <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={onSubmit}>
+            <CustomButton type="primary" disabled={disableSubmitBtn} onClick={onSubmit}>
               {t(TranslationKey.Save)}
-            </Button>
+            </CustomButton>
 
-            <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-              {t(TranslationKey.Close)}
-            </Button>
+            <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       </div>

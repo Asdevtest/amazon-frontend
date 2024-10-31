@@ -4,14 +4,14 @@ import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { RadioButtons } from '@components/shared/radio-buttons'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { ProductVariation } from '@typings/enums/product/product-variation'
 import { IProduct } from '@typings/models/products/product'
 
@@ -138,17 +138,15 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
+        <CustomButton
+          type="primary"
           disabled={!selectedProducts.length}
           onClick={() => onClickNextButton(selectedRadioValue, selectedProducts)}
         >
           {t(TranslationKey.Next)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelButton}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={onClickCancelButton}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

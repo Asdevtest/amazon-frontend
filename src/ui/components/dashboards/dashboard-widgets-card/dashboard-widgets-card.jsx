@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
@@ -34,8 +32,8 @@ export const DashboardWidgetsCard = observer(({ config, valuesData, onClickViewM
         <div className={styles.bottomRightSideWidgetsWrapper}>
           <div className={styles.bottomRightSideTopWidgetsWrapper}>
             <div>
-              <Typography className={styles.cardListTitle}>{config.boxes.title}</Typography>
-              <Typography className={styles.cardListSubTitle}>{t(TranslationKey['Boxes data'])}</Typography>
+              <p className={styles.cardListTitle}>{config.boxes.title}</p>
+              <p className={styles.cardListSubTitle}>{t(TranslationKey['Boxes data'])}</p>
               <div className={styles.sectionWrapper}>
                 {config.boxes.items.map(item => (
                   <DashboardSingleCard

@@ -2,18 +2,14 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdFiberManualRecord } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { Button } from '@components/shared/button'
 import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-chart'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './bar-charts-card.style'
 
@@ -51,19 +47,19 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
     <div className={styles.mainWrapper}>
       <div className={styles.cardWrapper}>
         <div className={styles.cardHeaderWrapper}>
-          <Typography>{isRevenue ? t(TranslationKey.Revenue) : t(TranslationKey['Website traffic'])}</Typography>
+          <p>{isRevenue ? t(TranslationKey.Revenue) : t(TranslationKey['Website traffic'])}</p>
           <div className={styles.barStatusesWrapper}>
             <div className={styles.barStatusWrapper}>
               <MdFiberManualRecord size={18} className={styles.icon} />
-              <Typography className={styles.cardTitle}>
+              <p className={styles.cardTitle}>
                 {isRevenue ? t(TranslationKey['gross profit']) : t(TranslationKey['page view'])}
-              </Typography>
+              </p>
             </div>
             <div className={styles.barStatusWrapper}>
               <MdFiberManualRecord size={18} classes={{ root: styles.indicator }} />
-              <Typography className={styles.cardTitle}>
+              <p className={styles.cardTitle}>
                 {isRevenue ? t(TranslationKey['net income']) : t(TranslationKey['unique users'])}
-              </Typography>
+              </p>
             </div>
           </div>
         </div>
@@ -76,15 +72,15 @@ export const BarChartsCard = observer(({ isRevenue, data }) => {
         />
 
         <div className={styles.buttonsWrapper}>
-          <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
+          <CustomButton onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
             {`6 ${t(TranslationKey.months)}`}
-          </Button>
-          <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
+          </CustomButton>
+          <CustomButton onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
             {`12 ${t(TranslationKey.months)}`}
-          </Button>
-          <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
+          </CustomButton>
+          <CustomButton onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
             {t(TranslationKey['All time'])}
-          </Button>
+          </CustomButton>
         </div>
       </div>
     </div>
