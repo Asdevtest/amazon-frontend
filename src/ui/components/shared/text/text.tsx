@@ -115,7 +115,7 @@ export const Text: FC<TextCellProps> = memo(props => {
     <div
       {...onMouseFunctions}
       className={cx(styles.wrapper, { [styles.cell]: isCell })}
-      onDoubleClick={e => e.stopPropagation()}
+      onDoubleClick={e => editMode && e.stopPropagation()}
     >
       {editMode ? (
         <Popconfirm
