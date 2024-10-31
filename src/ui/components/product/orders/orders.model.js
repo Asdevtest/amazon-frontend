@@ -66,8 +66,7 @@ export class OrdersModel {
     return UserModel.platformSettings
   }
 
-  constructor({ productId, filterStatus }) { 
-   
+  constructor({ productId, filterStatus }) {
     this.productId = productId
 
     this.isCheckedStatusByFilter = getActiveStatuses(filterStatus)
@@ -351,10 +350,7 @@ export class OrdersModel {
 
   onClickTableRow(order) {
     window
-      .open(
-        `/client/my-orders/orders/order?orderId=${order.originalData._id}&order-human-friendly-id=${order.originalData.id}`,
-        '_blank',
-      )
+      .open(`/client/my-orders/orders/order?orderId=${order._id}&order-human-friendly-id=${order._id}`, '_blank')
       .focus()
   }
 

@@ -80,7 +80,7 @@ export class AdminAwaitingBatchesViewModel {
     if (this.nameSearchValue) {
       runInAction(() => {
         this.batches = this.batchesData.filter(item =>
-          item.originalData.boxes.some(
+          item.boxes.some(
             box =>
               box.items.some(item =>
                 item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
