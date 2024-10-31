@@ -401,7 +401,7 @@ export const IdeaViewAndEditCard = observer(
                         />
                       </div>
 
-                      <Button disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
+                      <Button disabled={!showCreateRequestButton} onClick={onClickLinkRequestButton}>
                         {t(TranslationKey['Link request'])}
                       </Button>
                     </div>
