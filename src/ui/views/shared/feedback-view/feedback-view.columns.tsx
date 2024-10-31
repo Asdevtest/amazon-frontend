@@ -18,7 +18,6 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { FeedbackStatus } from '@typings/enums/feedback-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { ColumnProps, getStatusColor, getStatusText } from './feedback-view.config'
@@ -31,10 +30,8 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       field: 'xid',
       headerName: 'ID',
       renderHeader: () => <MultilineTextHeaderCell text="ID" />,
-      renderCell: ({ row }: GridRowModel) => (
-        <Text isCell text={getStatusText(row.status)} color={getStatusColor(row.status)} />
-      ),
-      width: 110,
+      renderCell: ({ row }: GridRowModel) => <Text isCell text={row.xid} />,
+      width: 90,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
     {
@@ -42,14 +39,10 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
       renderCell: ({ row }: GridRowModel) => {
-        const showFirst = row.status === FeedbackStatus.CREATED || creator()
-        const showSecond = row.status === FeedbackStatus.CREATED && !creator()
-        const firstIcon =
-          [FeedbackStatus.ACCEPTED, FeedbackStatus.REJECTED].includes(row.status) && creator() ? (
-            <FaEye size={16} />
-          ) : (
-            <MdOutlineEdit size={16} />
-          )
+        const isResponse = !!row.responseText || !!row.responseMedia?.length
+        const showFirst = !isResponse || creator()
+        const showSecond = !isResponse && !creator()
+        const firstIcon = isResponse && creator() ? <FaEye size={16} /> : <MdOutlineEdit size={16} />
 
         return (
           <ActionButtonsCell
