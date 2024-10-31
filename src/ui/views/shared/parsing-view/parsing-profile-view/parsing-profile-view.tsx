@@ -62,7 +62,6 @@ export const ParsingProfileView = observer(() => {
         columnVisibilityModel={viewModel.columnVisibilityModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

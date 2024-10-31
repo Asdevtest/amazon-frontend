@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCell } from '@components/data-grid/data-grid-cells'
@@ -72,7 +70,6 @@ export const ProductDataForm: FC<ProductDataFormProps> = observer(({ product, on
         columnVisibilityModel={viewModel.columnVisibilityModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

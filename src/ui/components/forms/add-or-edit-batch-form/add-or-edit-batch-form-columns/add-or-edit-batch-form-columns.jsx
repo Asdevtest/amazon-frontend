@@ -34,7 +34,7 @@ export const addOrEditBatchFormColumns = isClient => [
     headerName: t(TranslationKey.Boxes),
     width: 200,
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Boxes)} />,
-    renderCell: params => <ProductsCell box={params.row.originalData} />,
+    renderCell: params => <ProductsCell box={params.row} />,
     filterable: false,
     sortable: false,
   },
@@ -63,9 +63,9 @@ export const addOrEditBatchFormColumns = isClient => [
     ),
     renderCell: params => (
       <UserCell
-        name={isClient ? params.row.originalData?.storekeeper?.name : params.row.originalData?.client?.name}
-        id={isClient ? params.row.originalData?.storekeeper?._id : params.row.originalData?.client?._id}
-        email={isClient ? params.row.originalData?.storekeeper?.email : params.row.originalData?.client?.email}
+        name={isClient ? params.row?.storekeeper?.name : params.row?.client?.name}
+        id={isClient ? params.row?.storekeeper?._id : params.row?.client?._id}
+        email={isClient ? params.row?.storekeeper?.email : params.row?.client?.email}
       />
     ),
     width: 130,

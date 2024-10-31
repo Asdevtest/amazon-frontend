@@ -306,6 +306,8 @@
   "Number of units in box": "箱子内单位数量",
   "Make the main supplier": "设置供应商为首选",
   "File added": "文档已添加了",
+  "Set Shipping Label": "设置运输标签",
+  "Set Barcode": "设置条形码",
   "Set FBA shipment": "设置 FBA shipment",
   "Set HS code": "设置 HS code",
   "Real weight": "实际重量",

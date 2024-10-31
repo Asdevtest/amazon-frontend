@@ -10,7 +10,6 @@ import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { ITask } from '@typings/models/tasks/task'
 
 import { AdminWarehouseTasksViewModel } from './admin-warehouse-tasks-view.model'
 
@@ -31,7 +30,6 @@ export const AdminWarehouseTasksView = observer(() => {
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }: ITask) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

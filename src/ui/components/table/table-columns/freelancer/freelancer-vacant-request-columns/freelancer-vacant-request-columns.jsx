@@ -34,7 +34,7 @@ export const freelancerVacantRequestColumns = handlers => [
     renderCell: params => (
       <PriorityAndChinaDeliverCell
         isRequest
-        priority={params.row.originalData.priority}
+        priority={params.row.priority}
         onClickOpenInNewTab={() => handlers.onClickOpenInNewTab(params.row._id)}
       />
     ),

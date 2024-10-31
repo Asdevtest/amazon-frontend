@@ -70,7 +70,6 @@ export const WarehouseMyWarehouseView = observer(() => {
         isRowSelectable={getIsRowSelectable}
         getRowClassName={getRowClassName}
         rowCount={viewModel.rowCount}
-        getRowId={({ _id }: GridRowModel) => _id}
         rowSelectionModel={viewModel.selectedRows}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}

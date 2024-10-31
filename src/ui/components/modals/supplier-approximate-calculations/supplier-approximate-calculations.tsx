@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useCallback, useMemo } from 'react'
 
-import { DataGridPremiumProps, GridCellParams, GridRowClassNameParams, GridRowModel } from '@mui/x-data-grid-premium'
+import { DataGridPremiumProps, GridCellParams, GridRowClassNameParams } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -166,7 +166,6 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
           paginationModel={viewModel?.paginationModel}
           rows={viewModel?.currentData}
           getRowHeight={() => 'auto'}
-          getRowId={({ _id }: GridRowModel) => _id}
           getRowClassName={getRowClassName}
           getCellClassName={getCellClassName}
           slotProps={{

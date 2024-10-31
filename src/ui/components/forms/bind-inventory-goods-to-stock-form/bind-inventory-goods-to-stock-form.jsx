@@ -58,9 +58,9 @@ export const BindInventoryGoodsToStockForm = observer(props => {
     setSelectedGoods(model)
   }
   const onClickAdd = () => {
-    const curChosenGoodsIds = chosenGoods.map(el => el.id)
+    const curChosenGoodsIds = chosenGoods.map(el => el._id)
     const newRowIds = selectedGoods.filter(el => !curChosenGoodsIds.includes(el))
-    const newSelectedItems = stockData.filter(el => newRowIds.includes(el.id))
+    const newSelectedItems = stockData.filter(el => newRowIds.includes(el._id))
     setChosenGoods([...chosenGoods, ...newSelectedItems])
     setSelectedGoods([])
   }

@@ -41,7 +41,6 @@ export const ResearcherProductsView = observer(() => {
         columnVisibilityModel={viewModel.columnVisibilityModel}
         rows={viewModel.currentData}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

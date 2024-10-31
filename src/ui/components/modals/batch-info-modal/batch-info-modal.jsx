@@ -296,7 +296,6 @@ export const BatchInfoModal = observer(
                 ),
               },
             }}
-            getRowId={dataToRender => dataToRender._id}
             columns={batchInfoModalColumn(
               currentBatch?.volumeWeightDivide,
               currentBatch?.calculationMethod,
