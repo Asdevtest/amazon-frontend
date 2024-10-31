@@ -34,15 +34,30 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { TAGS, disableDoubleClickOnCells, disableSelectionCells } from './client-inventory-view.constants'
+import { useStyles } from './client-inventory-view.style'
+
+import {
+  TAGS,
+  clickableCells,
+  disableDoubleClickOnCells,
+  disableSelectionCells,
+} from './client-inventory-view.constants'
 import { ClientInventoryViewModel } from './client-inventory-view.model'
 import { Header } from './header'
 
 export const ClientInventoryView = observer(({ history }) => {
+  const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new ClientInventoryViewModel(), [])
   viewModel.initHistory()
 
   const apiRef = useGridApiRef()
+  const selectedProduct = viewModel.currentData.find(item => viewModel.selectedRows.includes(item._id))
+  console.log(selectedProduct)
+  const getCellClassName = params => {
+    if (clickableCells.includes(params.field) || params.field?.includes('counter')) {
+      return styles.clickableCell
+    }
+  }
 
   return (
     <div className="viewWrapper">
@@ -65,6 +80,7 @@ export const ClientInventoryView = observer(({ history }) => {
         checkboxSelection
         disableRowSelectionOnClick
         apiRef={apiRef}
+        getCellClassName={getCellClassName}
         pinnedColumns={viewModel.pinnedColumns}
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
@@ -125,7 +141,6 @@ export const ClientInventoryView = observer(({ history }) => {
           },
         }}
         rowSelectionModel={viewModel.selectedRows}
-        getRowId={row => row._id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -306,7 +321,7 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
         <BindInventoryGoodsToStockForm
-          product={viewModel.currentData.find(item => viewModel.selectedRows.includes(item._id))}
+          productAsin={selectedProduct?.asin}
           stockData={viewModel.sellerBoardDailyData}
           updateStockData={viewModel.getStockGoodsByFilters}
           onSubmit={viewModel.onSubmitBindStockGoods}

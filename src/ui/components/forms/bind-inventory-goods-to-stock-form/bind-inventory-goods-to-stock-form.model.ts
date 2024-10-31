@@ -1,3 +1,4 @@
+import type { Key } from 'antd/es/table/interface'
 import { makeAutoObservable, runInAction, toJS } from 'mobx'
 import qs from 'qs'
 import { toast } from 'react-toastify'
@@ -13,6 +14,8 @@ import { loadingStatus } from '@typings/enums/loading-status'
 export class BindInventoryGoodsToStockFormModel {
   loading = false
   sellerBoard: any = []
+  searchInputValue: string = ''
+  targetKeys: Key[] = []
   constructor(asin: string) {
     if (asin) {
       const recFilter = qs.stringify({ asin: { $contains: asin } }, { encode: false }).replace(/&/, ';')
@@ -25,7 +28,22 @@ export class BindInventoryGoodsToStockFormModel {
     this.loading = loading
   }
 
-  async getStockGoodsByFilters(filter?: any, isRecCall?: boolean) {
+  get dataWithKeys() {
+    return this.sellerBoard.map((item: any) => ({ ...item, key: item._id }))
+  }
+
+  get filteredData() {
+    if (!this.searchInputValue) return this.dataWithKeys
+    return this.dataWithKeys.filter((item: any) =>
+      item.title.toLowerCase().includes(this.searchInputValue.toLowerCase()),
+    )
+  }
+
+  onChange = (nextTargetKeys: Key[]) => {
+    this.targetKeys = nextTargetKeys
+  }
+
+  async getStockGoodsByFilters(filter?: any) {
     try {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
@@ -34,11 +52,6 @@ export class BindInventoryGoodsToStockFormModel {
       })
     } catch (error) {
       console.error(error)
-      if (isRecCall) {
-        this.getStockGoodsByFilters()
-      } else {
-        this.sellerBoard = []
-      }
     }
   }
 

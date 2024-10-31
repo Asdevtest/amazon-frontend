@@ -46,7 +46,6 @@ import { SourceProduct } from './source-product'
 export const IdeaViewAndEditCard = observer(
   ({
     isModalView,
-    languageTag,
     curUser,
     inEdit,
     inCreate,
@@ -224,7 +223,7 @@ export const IdeaViewAndEditCard = observer(
         setFormFields(getFullIdea())
         // setShowFullCard(true) // 10527
       }
-    }, [idea, languageTag])
+    }, [idea])
 
     useEffect(() => {
       if (selectedIdea === idea?._id) {

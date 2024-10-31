@@ -21,11 +21,11 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 
-import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { isBuyer, isClient } from '@typings/guards/roles'
 
 import { useStyles } from './suppliers-and-ideas.style'
 
@@ -58,7 +58,7 @@ export const SuppliersAndIdeas = observer(props => {
 
   const {
     requestStatus,
-    curUser,
+    userInfo,
     curIdea,
     inEdit,
     inCreate,
@@ -84,7 +84,6 @@ export const SuppliersAndIdeas = observer(props => {
     currentRequest,
     showSelectionSupplierModal,
     currentData,
-    languageTag,
     showCommentsModal,
     showSelectShopsModal,
     shopsData,
@@ -125,7 +124,7 @@ export const SuppliersAndIdeas = observer(props => {
   }, [selectedIdeaId, ideasData])
 
   const showAddProductIdeaButton =
-    (checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
+    (isClient(userInfo?.role) || isBuyer(userInfo?.role)) &&
     !inCreate &&
     !inEdit &&
     !isModalView &&
@@ -149,9 +148,8 @@ export const SuppliersAndIdeas = observer(props => {
       {inCreate && (
         <IdeaViewAndEditCard
           inCreate
-          languageTag={languageTag}
           isModalView={isModalView}
-          curUser={curUser}
+          curUser={userInfo}
           idea={curIdea}
           inEdit={inEdit}
           currentProduct={currentProduct}
@@ -177,15 +175,14 @@ export const SuppliersAndIdeas = observer(props => {
         />
       )}
 
-      {((isModalView && !isCreate) || !inCreate) && (
+      {isModalView && !isCreate && (
         <>
           {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
-          ) : (
+          ) : curIdea ? (
             <IdeaViewAndEditCard
               isModalView
-              languageTag={languageTag}
-              curUser={curUser}
+              curUser={userInfo}
               inEdit={inEdit}
               idea={curIdea}
               currentProduct={currentProduct}
@@ -209,6 +206,11 @@ export const SuppliersAndIdeas = observer(props => {
               onClickSaveSupplierBtn={onClickSaveSupplierBtn}
               onRemoveSupplier={onRemoveSupplier}
             />
+          ) : (
+            <div className={styles.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <p className={styles.emptyTableText}>{t(TranslationKey['No ideas yet'])}</p>
+            </div>
           )}
         </>
       )}
@@ -217,14 +219,13 @@ export const SuppliersAndIdeas = observer(props => {
         <>
           {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
-          ) : (
+          ) : currentData?.length ? (
             currentData.map(idea => (
               <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
                 <IdeaViewAndEditCard
-                  curUser={curUser}
+                  curUser={userInfo}
                   inEdit={inEdit}
                   idea={idea}
-                  languageTag={languageTag}
                   currentProduct={currentProduct}
                   selectedIdea={selectedIdeaId}
                   onCreateProduct={onClickCreateProduct}
@@ -248,6 +249,11 @@ export const SuppliersAndIdeas = observer(props => {
                 />
               </div>
             ))
+          ) : (
+            <div className={styles.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <p className={styles.emptyTableText}>{t(TranslationKey['No ideas yet'])}</p>
+            </div>
           )}
         </>
       )}
@@ -280,7 +286,7 @@ export const SuppliersAndIdeas = observer(props => {
       >
         <RequestDesignerResultClientForm
           onlyRead
-          userInfo={curUser}
+          userInfo={userInfo}
           request={{ request: currentRequest }}
           proposal={currentProposal}
           setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
@@ -291,7 +297,7 @@ export const SuppliersAndIdeas = observer(props => {
         <MainRequestResultModal
           readOnly
           customProposal={currentProposal}
-          userInfo={curUser}
+          userInfo={userInfo}
           openModal={showMainRequestResultModal}
           onOpenModal={() => onTriggerOpenModal('showMainRequestResultModal')}
         />

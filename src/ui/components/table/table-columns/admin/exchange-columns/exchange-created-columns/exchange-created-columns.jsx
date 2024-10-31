@@ -35,7 +35,7 @@ export const exchangeСreatedColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     renderCell: params => {
-      const product = params.row.originalData
+      const product = params.row
 
       return (
         <ProductCell
@@ -74,11 +74,7 @@ export const exchangeСreatedColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
     renderCell: params => (
-      <UserCell
-        name={params.row.originalData.createdBy?.name}
-        id={params.row.originalData.createdBy?._id}
-        email={params.row.originalData.createdBy?.email}
-      />
+      <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} email={params.row.createdBy?.email} />
     ),
     width: 200,
   },

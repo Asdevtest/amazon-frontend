@@ -135,7 +135,6 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
             paginationMode="client"
             rows={rows || []}
             columns={columns}
-            getRowId={({ _id }: GridRowModel) => _id}
             getRowHeight={() => 'auto'}
             slotProps={{
               baseTooltip: {

@@ -2,9 +2,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    width: 920,
+    width: 1200,
     display: 'flex',
     flexDirection: 'column',
+    height: '800px',
     gap: 15,
   },
 
@@ -20,8 +21,5 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
   },
 
-  transferWrapper: {
-    display: 'flex',
-    height: 230,
-  },
+  transferWrapper: {},
 }))

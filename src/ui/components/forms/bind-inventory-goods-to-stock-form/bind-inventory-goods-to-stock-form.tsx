@@ -1,16 +1,19 @@
-import { Transfer, TransferProps } from 'antd'
+import type { Key } from 'antd/es/table/interface'
 import { observer } from 'mobx-react'
-import { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { TableTransfer } from '@components/shared/table-transfer'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './bind-inventory-goods-to-stock-form.style'
 
-import { BindInventoryGoodsToStockFormModel } from './bind-inventory-goods-to-stock-form.modal'
+// Import the TableTransfer component
+import { BindInventoryGoodsToStockFormModel } from './bind-inventory-goods-to-stock-form.model'
+import { bindInventoryColumns } from './bind-stock-goods-to-inventory-columns'
 
 interface BindInventoryGoodsToStockFormProps {
   stockData: any
@@ -18,29 +21,37 @@ interface BindInventoryGoodsToStockFormProps {
   productAsin: string
   onSubmit: () => void
 }
+
 export const BindInventoryGoodsToStockForm = observer((props: BindInventoryGoodsToStockFormProps) => {
-  const { stockData, updateStockData, productAsin, onSubmit } = props
+  const { productAsin } = props
   const viewModel = useMemo(() => new BindInventoryGoodsToStockFormModel(productAsin), [])
   const { classes: styles } = useStyles()
 
-  const [searchInputValue, setSearchInputValue] = useState<string>('')
+  console.log(viewModel.targetKeys)
 
-  console.log(viewModel.sellerBoard)
   return (
     <div className={styles.wrapper}>
       <div className={styles.titleContainer}>
         <p className={styles.title}>{t(TranslationKey['Bind an product from Amazon'])}</p>
         <CustomInputSearch
+          enterButton
           allowClear
           size="large"
-          value={searchInputValue}
+          value={viewModel.searchInputValue}
           placeholder="Search"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchInputValue(e.target.value)}
+          // onChange={(e: React.ChangeEvent<HTMLInputElement>) => viewModel.setSearchInputValue(e.target.value)}
         />
       </div>
 
       <div className={styles.transferWrapper}>
-        <Transfer />
+        <TableTransfer
+          dataSource={viewModel.filteredData}
+          targetKeys={viewModel.targetKeys}
+          leftColumns={bindInventoryColumns}
+          rightColumns={bindInventoryColumns}
+          titles={['Available', 'Selected']}
+          onChange={viewModel.onChange}
+        />
       </div>
     </div>
   )
