@@ -409,7 +409,7 @@ export const clientInventoryColumns = ({
       renderCell: ({ row }) => (
         <ActionButtonsCell
           showFirst
-          firstDropdown={!row?.hsCode}
+          firstDropdown={row?.hsCode}
           firstContent={t(TranslationKey['HS code'])}
           onClickFirst={() => hsCodeHandlers.onClickHsCode(row)}
           onClickRemoveFirst={() => hsCodeHandlers.onDeleteHsCode(row)}
