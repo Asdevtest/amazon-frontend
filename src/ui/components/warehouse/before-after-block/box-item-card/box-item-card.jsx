@@ -1,10 +1,10 @@
-import { Checkbox, Typography } from '@mui/material'
+import { Checkbox } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Text } from '@components/shared/text'
@@ -56,7 +56,7 @@ export const BoxItemCard = ({
                 <p title={t(TranslationKey['Number of products in the box'])} className={styles.subTitle}>
                   {t(TranslationKey.Quantity) + ':'}
                 </p>
-                <Typography className={styles.subValue}>{item.amount}</Typography>
+                <p className={styles.subValue}>{item.amount}</p>
               </div>
               <div
                 className={cx(styles.barCodeWrapper, {
@@ -86,27 +86,27 @@ export const BoxItemCard = ({
               </div>
 
               <div className={styles.countSubWrapper}>
-                <Typography className={styles.subTitle}>{t(TranslationKey['Order number'])}</Typography>
-                <Typography className={styles.subValue}>{item.order.id}</Typography>
+                <p className={styles.subTitle}>{t(TranslationKey['Order number'])}</p>
+                <p className={styles.subValue}>{item.order.id}</p>
               </div>
 
               <div className={styles.countSubWrapper}>
-                <Typography className={styles.subTitle}>{'item'}</Typography>
-                <Typography className={styles.subValue}>{item.order.item}</Typography>
+                <p className={styles.subTitle}>{'item'}</p>
+                <p className={styles.subValue}>{item.order.item}</p>
               </div>
 
               {taskType === TaskOperationType.RECEIVE ? (
                 <div className={styles.priorityWrapper}>
-                  <Typography className={styles.countSubWrapper}>{`${t(TranslationKey.Priority)}:`}</Typography>
+                  <p className={styles.countSubWrapper}>{`${t(TranslationKey.Priority)}:`}</p>
                   {item.order.priority === '40' ? (
                     <div className={styles.rushOrderWrapper}>
                       <img className={styles.rushOrderImg} src="/assets/icons/fire.svg" />
-                      <Typography className={styles.subValue}>{t(TranslationKey['Rush order'])}</Typography>
+                      <p className={styles.subValue}>{t(TranslationKey['Rush order'])}</p>
                     </div>
                   ) : null}
                   {item.order.priority !== '40' /* && !item.order.expressChinaDelivery  */ ? (
                     <div className={styles.rushOrderWrapper}>
-                      <Typography className={styles.subValue}>{t(TranslationKey['Medium priority'])}</Typography>
+                      <p className={styles.subValue}>{t(TranslationKey['Medium priority'])}</p>
                     </div>
                   ) : null}
                 </div>
@@ -117,8 +117,8 @@ export const BoxItemCard = ({
               <div className={styles.attributeHeaderWrapper}>
                 {superCount > 1 && (
                   <div className={styles.countSuperBoxWrapper}>
-                    <Typography className={styles.subTitle}>{t(TranslationKey['Boxes in group']) + ':'}</Typography>
-                    <Typography className={styles.subValue}>{`x${superCount}`}</Typography>
+                    <p className={styles.subTitle}>{t(TranslationKey['Boxes in group']) + ':'}</p>
+                    <p className={styles.subValue}>{`x${superCount}`}</p>
                   </div>
                 )}
 
@@ -129,8 +129,8 @@ export const BoxItemCard = ({
                 (readOnly && taskType === TaskOperationType.RECEIVE) ||
                 (!isNewBox && taskType !== TaskOperationType.RECEIVE && index === 0) ? (
                   <div className={styles.countSubWrapper}>
-                    <Typography className={styles.subTitle}>{`${t(TranslationKey.Box)} №:`}</Typography>
-                    <Typography className={styles.subValue}>{boxId}</Typography>
+                    <p className={styles.subTitle}>{`${t(TranslationKey.Box)} №:`}</p>
+                    <p className={styles.subValue}>{boxId}</p>
                   </div>
                 ) : null}
               </div>
@@ -241,7 +241,7 @@ export const BoxItemCard = ({
                         label={t(TranslationKey['Apply to all boxes'])}
                         tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
                         inputComponent={
-                          <Button
+                          <CustomButton
                             disabled={disableBarCodeCheckbox}
                             onClick={() =>
                               onApplyGluedBarcodeToAllBoxes(
@@ -253,7 +253,7 @@ export const BoxItemCard = ({
                             }
                           >
                             {t(TranslationKey.Apply)}
-                          </Button>
+                          </CustomButton>
                         }
                       />
                     )}
@@ -262,8 +262,8 @@ export const BoxItemCard = ({
               {taskType === TaskOperationType.RECEIVE ? (
                 <div className={styles.copyValueWrapper}>
                   <div className={styles.asinWrapper}>
-                    <Typography className={styles.asin}>{'PREP ID' + ':'}</Typography>
-                    <Typography className={styles.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</Typography>
+                    <p className={styles.asin}>{'PREP ID' + ':'}</p>
+                    <p className={styles.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</p>
                     {box.prepId ? <CopyValue text={box.prepId} /> : null}
                   </div>
                 </div>
@@ -272,19 +272,19 @@ export const BoxItemCard = ({
               <>
                 {taskType !== TaskOperationType.RECEIVE && (
                   <div className={styles.asinWrapper}>
-                    <Typography className={styles.asin}>{'PREP ID' + ':'}</Typography>
-                    <Typography className={styles.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</Typography>
+                    <p className={styles.asin}>{'PREP ID' + ':'}</p>
+                    <p className={styles.asinTitle}>{box.prepId || t(TranslationKey.Missing)}</p>
                     {box.prepId ? <CopyValue text={box.prepId} /> : null}
                   </div>
                 )}
 
                 <div className={styles.asinWrapper}>
-                  <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
+                  <p className={styles.asin}>{t(TranslationKey.ASIN)}</p>
                   <Text className={styles.asinTitle} text={item.product?.asin} />
                 </div>
               </>
 
-              <Typography className={styles.title}>{item.product?.amazonTitle}</Typography>
+              <p className={styles.title}>{item.product?.amazonTitle}</p>
             </div>
           </div>
         </div>
@@ -395,7 +395,7 @@ export const BoxItemCard = ({
                       label={t(TranslationKey['Apply to all boxes'])}
                       tooltipInfoContent={t(TranslationKey['Apply barcode sticker values to all boxes'])}
                       inputComponent={
-                        <Button
+                        <CustomButton
                           disabled={disableBarCodeCheckbox}
                           onClick={() =>
                             onApplyGluedBarcodeToAllBoxes(
@@ -405,7 +405,7 @@ export const BoxItemCard = ({
                           }
                         >
                           {t(TranslationKey.Apply)}
-                        </Button>
+                        </CustomButton>
                       }
                     />
                   )}
@@ -413,10 +413,10 @@ export const BoxItemCard = ({
             )}
           </div>
           <div className={styles.asinWrapper}>
-            <Typography className={styles.asin}>{t(TranslationKey.ASIN)}</Typography>
+            <p className={styles.asin}>{t(TranslationKey.ASIN)}</p>
             <Text className={styles.asinTitle} copyable={false} text={item.product?.asin} />
           </div>
-          <Typography className={styles.title}>{item.product?.amazonTitle}</Typography>
+          <p className={styles.title}>{item.product?.amazonTitle}</p>
         </div>
       </div>
     </div>

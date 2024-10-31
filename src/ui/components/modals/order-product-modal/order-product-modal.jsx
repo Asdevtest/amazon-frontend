@@ -1,22 +1,12 @@
 import { isPast, isToday, isTomorrow } from 'date-fns'
 import { memo, useEffect, useState } from 'react'
 
-import {
-  Checkbox,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-  Typography,
-} from '@mui/material'
+import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 import { TooltipAttentionIcon } from '@components/shared/svg-icons'
 import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
@@ -26,7 +16,7 @@ import { checkIsPositiveNum, isNotUndefined } from '@utils/checks'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './order-product-modal.style'
 
@@ -355,7 +345,7 @@ export const OrderProductModal = memo(props => {
 
   return (
     <div className={styles.wrapper}>
-      <Typography className={styles.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
+      <p className={styles.modalTitle}>{t(TranslationKey['Order products'])}</p>
       <TableContainer className={styles.tableWrapper}>
         <Table className={styles.table}>
           <TableHead>
@@ -467,7 +457,7 @@ export const OrderProductModal = memo(props => {
       </TableContainer>
 
       <div className={styles.sumWrapper}>
-        <Typography className={styles.sumText}>{`${t(TranslationKey['Total amount'])}: ${totalOrdersCost}`}</Typography>
+        <p className={styles.sumText}>{`${t(TranslationKey['Total amount'])}: ${totalOrdersCost}`}</p>
       </div>
 
       <div className={styles.buttonsWrapper}>
@@ -479,7 +469,7 @@ export const OrderProductModal = memo(props => {
               root: styles.checkbox,
             }}
           />
-          <Typography className={styles.sumText}>{t(TranslationKey['Re-search supplier'])}</Typography>
+          <p className={styles.sumText}>{t(TranslationKey['Re-search supplier'])}</p>
         </div>
 
         {!isPendingOrdering ? (
@@ -500,35 +490,29 @@ export const OrderProductModal = memo(props => {
                 root: styles.checkbox,
               }}
             />
-            <Typography className={styles.sumText}>{t(TranslationKey['Pending order'])}</Typography>
+            <p className={styles.sumText}>{t(TranslationKey['Pending order'])}</p>
           </div>
         ) : null}
 
-        <Button
-          tooltipInfoContent={
-            !disabledSubmit &&
-            t(TranslationKey['Complete the order (freezes the required amount of the order from the balance)'])
-          }
-          tooltipAttentionContent={
-            disabledSubmit &&
-            t(
-              TranslationKey[
-                'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses'
-              ],
-            )
+        <CustomButton
+          title={
+            !disabledSubmit
+              ? t(TranslationKey['Complete the order (freezes the required amount of the order from the balance)'])
+              : t(
+                  TranslationKey[
+                    'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses'
+                  ],
+                )
           }
           disabled={disabledSubmit}
           onClick={onClickSubmit}
         >
           {t(TranslationKey['Order a batch of products'])}
-        </Button>
+        </CustomButton>
 
-        <Button
-          styleType={ButtonStyle.CASUAL}
-          onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}
-        >
+        <CustomButton onClick={() => (onClickCancel ? onClickCancel() : onTriggerOpenModal('showOrderModal'))}>
           {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
       </div>
       <Modal openModal={showSetBarcodeModal} setOpenModal={() => triggerBarcodeModal()}>
         <SetBarcodeModal

@@ -3,13 +3,12 @@ import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CircleSpinner } from '@components/shared/circle-spinner'
+import { CustomButton } from '@components/shared/custom-button'
 import { CrossIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { ITagList } from '@typings/models/generals/tag-list'
 
 import { useSelectsServer } from '@hooks/use-selects-server'
@@ -66,24 +65,20 @@ export const TagsSelect: FC<TagsSelectProps> = memo(props => {
 
         {searchValue ? (
           <div className={styles.buttonsWrapper}>
-            <Button
-              iconButton
+            <CustomButton
+              icon={<CrossIcon className={styles.crossIcon} />}
               onClick={() => {
                 setSearchValue('')
               }}
-            >
-              <CrossIcon className={styles.crossIcon} />
-            </Button>
+            />
 
-            <Button
-              iconButton
+            <CustomButton
+              icon={<FiPlus style={{ width: 16, height: 16 }} />}
               onClick={() => {
                 onClickCreateTag(searchValue)
                 setSearchValue('')
               }}
-            >
-              <FiPlus style={{ width: 16, height: 16 }} />
-            </Button>
+            />
           </div>
         ) : null}
       </form>
@@ -93,16 +88,15 @@ export const TagsSelect: FC<TagsSelectProps> = memo(props => {
           <div className={styles.menuItems} onScroll={loadMoreDataHadler}>
             {tags?.length
               ? tags.map((item, index) => (
-                  <Button
+                  <CustomButton
                     key={index}
                     className={cx(styles.button, {
                       [styles.buttonSelected]: selectedTags?.some(tag => tag._id === item._id),
                     })}
-                    styleType={ButtonStyle.DEFAULT}
                     onClick={() => onClickTag(item)}
                   >
                     {item.title}
-                  </Button>
+                  </CustomButton>
                 ))
               : isloadingTags
               ? null

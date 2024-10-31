@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import { useStyles } from './sectional-dashboard.style'
 
@@ -25,9 +25,9 @@ export const SectionalDashboard = ({ config, valuesData, onClickViewMore }) => {
   const renderInfoCardsSections = sections =>
     sections.map((section, sectionIndex) => (
       <div key={`dashboardSection_${section.key}`}>
-        <Typography paragraph variant="h5" className={styles.sectionTitle}>
+        <p paragraph variant="h5" className={styles.sectionTitle}>
           {section.title}
-        </Typography>
+        </p>
         <Grid
           container
           spacing={3}

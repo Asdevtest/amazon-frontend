@@ -1,8 +1,8 @@
-import { Link, Typography } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
@@ -14,13 +14,13 @@ export const GetFilesForm = ({ receivedFiles, onClose }) => {
 
   return (
     <div className={styles.root}>
-      <Typography className={styles.modalText}>{t(TranslationKey['Received files'])}</Typography>
+      <p className={styles.modalText}>{t(TranslationKey['Received files'])}</p>
 
       <Link href={checkAndMakeAbsoluteUrl(receivedFiles)} download="file.xlsx" target="_blank">
         {t(TranslationKey.download)}
       </Link>
 
-      <Button onClick={onClose}>{t(TranslationKey.Ok)}</Button>
+      <CustomButton onClick={onClose}>{t(TranslationKey.Ok)}</CustomButton>
     </div>
   )
 }

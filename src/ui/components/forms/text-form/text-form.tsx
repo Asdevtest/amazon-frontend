@@ -2,11 +2,11 @@ import { FC, memo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './text-form.style'
 
@@ -46,13 +46,11 @@ export const TextForm: FC<TextFormProps> = memo(props => {
       />
 
       <div className={styles.buttons}>
-        <Button styleType={ButtonStyle.SUCCESS} disabled={disabledButton} onClick={handleSubmit}>
+        <CustomButton type="primary" disabled={disabledButton} onClick={handleSubmit}>
           {t(TranslationKey.Save)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

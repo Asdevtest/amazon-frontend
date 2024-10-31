@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { MdArrowDropDown, MdArrowDropUp,MdCheckBox } from 'react-icons/md'
+import { MdArrowDropDown, MdArrowDropUp, MdCheckBox } from 'react-icons/md'
 
-
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -120,7 +119,7 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
               <div className={styles.chartSharedWrapper}>
                 <div className={styles.dateChartWrapper}>
                   <div className={styles.subLabelWrapper}>
-                    <Typography className={styles.chartSubLabel}>{t(TranslationKey['Add month'])}</Typography>
+                    <p className={styles.chartSubLabel}>{t(TranslationKey['Add month'])}</p>
                   </div>
 
                   <div className={styles.indicatorPaper}>
@@ -171,9 +170,7 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
               <div className={styles.chartSharedWrapper}>
                 <div className={styles.chartWrapper}>
                   <div className={styles.subLabelWrapper}>
-                    <Typography className={styles.chartSubLabel}>{`${t(
-                      TranslationKey['Gross income'],
-                    )}, $`}</Typography>
+                    <p className={styles.chartSubLabel}>{`${t(TranslationKey['Gross income'])}, $`}</p>
                     <img
                       src="/assets/icons/chart.svg"
                       className={styles.chartIcon}
@@ -211,7 +208,7 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
 
                 <div className={styles.chartWrapper}>
                   <div className={styles.subLabelWrapper}>
-                    <Typography className={styles.chartSubLabel}>{`${t(TranslationKey['Pure profit'])}, $`}</Typography>
+                    <p className={styles.chartSubLabel}>{`${t(TranslationKey['Pure profit'])}, $`}</p>
                     <img
                       src="/assets/icons/chart.svg"
                       className={styles.chartIcon}
@@ -258,7 +255,7 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
               <div className={styles.chartSharedWrapper}>
                 <div className={styles.chartWrapper}>
                   <div className={styles.subLabelWrapper}>
-                    <Typography className={styles.chartSubLabel}>{t(TranslationKey['Unique visitors'])}</Typography>
+                    <p className={styles.chartSubLabel}>{t(TranslationKey['Unique visitors'])}</p>
                     <img
                       src="/assets/icons/chart.svg"
                       className={styles.chartIcon}
@@ -296,7 +293,7 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
 
                 <div className={styles.chartWrapper}>
                   <div className={styles.subLabelWrapper}>
-                    <Typography className={styles.chartSubLabel}>{t(TranslationKey['View page'])}</Typography>
+                    <p className={styles.chartSubLabel}>{t(TranslationKey['View page'])}</p>
                     <img
                       src="/assets/icons/chart.svg"
                       className={styles.chartIcon}
@@ -348,19 +345,13 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     labelClasses={styles.totalLabel}
                     containerClasses={styles.totalContainer}
                     label={t(TranslationKey['Average. Monthly net profit'])}
-                    inputComponent={
-                      <Typography className={styles.totalText}>
-                        {toFixedWithDollarSign(averagePureIncome, 2)}
-                      </Typography>
-                    }
+                    inputComponent={<p className={styles.totalText}>{toFixedWithDollarSign(averagePureIncome, 2)}</p>}
                   />
                   <Field
                     labelClasses={styles.totalLabel}
                     containerClasses={styles.totalContainer}
                     label={t(TranslationKey.Profitability)}
-                    inputComponent={
-                      <Typography className={styles.totalText}>{`${toFixed(profitability, 2)} %`}</Typography>
-                    }
+                    inputComponent={<p className={styles.totalText}>{`${toFixed(profitability, 2)} %`}</p>}
                   />
                 </div>
 
@@ -369,20 +360,14 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                     labelClasses={styles.totalLabel}
                     containerClasses={styles.totalContainer}
                     label={t(TranslationKey['Average. Monthly income'])}
-                    inputComponent={
-                      <Typography className={styles.totalText}>
-                        {toFixedWithDollarSign(averageGrossIncome, 2)}
-                      </Typography>
-                    }
+                    inputComponent={<p className={styles.totalText}>{toFixedWithDollarSign(averageGrossIncome, 2)}</p>}
                   />
 
                   <Field
                     labelClasses={styles.totalLabel}
                     containerClasses={styles.totalContainer}
                     label={t(TranslationKey['Monthly multiplier'])}
-                    inputComponent={
-                      <Typography className={styles.totalText}>{`${toFixed(monthlyMultiplier, 2)} x`}</Typography>
-                    }
+                    inputComponent={<p className={styles.totalText}>{`${toFixed(monthlyMultiplier, 2)} x`}</p>}
                   />
                 </div>
               </div>
@@ -400,10 +385,10 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                       ) : (
                         <MdArrowDropUp size={22} className={styles.green} />
                       )}
-                      <Typography className={cx(styles.green, { [styles.red]: trafficСhange < 0 })}>{`${toFixed(
+                      <p className={cx(styles.green, { [styles.red]: trafficСhange < 0 })}>{`${toFixed(
                         isNaN(trafficСhange) ? 0 : trafficСhange,
                         2,
-                      )} %`}</Typography>
+                      )} %`}</p>
                     </div>
                   }
                 />
@@ -421,10 +406,10 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                         ) : (
                           <MdArrowDropUp size={22} className={styles.red} />
                         )}
-                        <Typography className={cx(styles.green, { [styles.red]: grossIncomeСhange < 0 })}>{`${toFixed(
+                        <p className={cx(styles.green, { [styles.red]: grossIncomeСhange < 0 })}>{`${toFixed(
                           isNaN(grossIncomeСhange) ? 0 : grossIncomeСhange,
                           2,
-                        )} %`}</Typography>
+                        )} %`}</p>
                       </div>
                     }
                   />
@@ -441,10 +426,10 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
                         ) : (
                           <MdArrowDropUp size={22} className={styles.red} />
                         )}
-                        <Typography className={cx(styles.green, { [styles.red]: pureIncomeСhange < 0 })}>{`${toFixed(
+                        <p className={cx(styles.green, { [styles.red]: pureIncomeСhange < 0 })}>{`${toFixed(
                           isNaN(pureIncomeСhange) ? 0 : pureIncomeСhange,
                           2,
-                        )} %`}</Typography>
+                        )} %`}</p>
                       </div>
                     }
                   />

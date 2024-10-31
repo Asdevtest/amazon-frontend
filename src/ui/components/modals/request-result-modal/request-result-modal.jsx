@@ -4,8 +4,8 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -13,7 +13,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { isString } from '@typings/guards'
 
 import { useStyles } from './request-result-modal.style'
@@ -99,9 +99,9 @@ export const RequestResultModal = memo(props => {
                   onChange={e => setLink(e.target.value)}
                 />
 
-                <Button disabled={!link} onClick={onClickLinkBtn}>
+                <CustomButton disabled={!link} onClick={onClickLinkBtn}>
                   {t(TranslationKey.Add)}
-                </Button>
+                </CustomButton>
               </div>
             )}
 
@@ -153,8 +153,8 @@ export const RequestResultModal = memo(props => {
 
         <div className={styles.buttonsWrapper}>
           {onClickSendAsResult && (
-            <Button
-              styleType={ButtonStyle.SUCCESS}
+            <CustomButton
+              type="primary"
               disabled={disabledSendButton}
               onClick={() => {
                 onClickSendAsResult({
@@ -167,12 +167,10 @@ export const RequestResultModal = memo(props => {
               }}
             >
               {t(TranslationKey.Send)}
-            </Button>
+            </CustomButton>
           )}
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={setOpenModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     </Modal>

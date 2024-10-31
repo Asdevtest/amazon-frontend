@@ -3,8 +3,6 @@ import { useEffect, useMemo } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { withStyles } from 'tss-react/mui'
 
-import { Typography } from '@mui/material'
-
 import { tableSortMode, tableViewMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -41,7 +39,7 @@ export const VacantDealsViewRaw = props => {
       <div>
         <div className={styles.tablePanelWrapper}>
           <div className={styles.tablePanelSortWrapper} onClick={viewModel.onTriggerSortMode}>
-            <Typography className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+            <p className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</p>
 
             {viewModel.sortMode === tableSortMode.DESK ? (
               <MdArrowDropDown size={22} className={styles.icon} />
@@ -67,9 +65,7 @@ export const VacantDealsViewRaw = props => {
           ) : (
             <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={styles.emptyTableText}>
-                {t(TranslationKey['No deals yet'])}
-              </Typography>
+              <h5 className={styles.emptyTableText}>{t(TranslationKey['No deals yet'])}</h5>
             </div>
           )}
         </div>

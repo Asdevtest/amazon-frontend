@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { Typography } from '@mui/material'
-
 import { getFreelancerDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -46,7 +44,7 @@ export const FreelancerDashboardViewRaw = props => {
 
           {viewModel.userInfo.masterUser && (
             <div className={styles.masterUserWrapper}>
-              <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+              <p>{t(TranslationKey['Master user']) + ':'}</p>
 
               <UserLink
                 blackText

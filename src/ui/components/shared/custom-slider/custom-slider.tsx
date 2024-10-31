@@ -2,8 +2,6 @@
 import { FC, ReactNode, useEffect, useState } from 'react'
 import { MdArrowLeft, MdArrowRight } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { RIGHT_BLOCK_WIDTH } from '@constants/configs/sizes-settings'
 
 import { SettingsModel } from '@models/settings-model'
@@ -131,7 +129,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
           </div>
           {alignButtons === 'center' ? (
             <div className={styles.numberOfFiles}>
-              {!isHideCounter && <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>}
+              {!isHideCounter && <p color="primary">{`${slideCount}/${children?.length}`}</p>}
             </div>
           ) : (
             <div className={styles.numberOfFilesFlex}>
@@ -140,7 +138,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
                 className={cx(styles.arrowIcon, { [styles.arrowDisabledIcon]: isFirstSlide })}
                 onClick={handleLeftArrowClick}
               />
-              <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
+              <p color="primary">{`${slideCount}/${children?.length}`}</p>
               <MdArrowRight
                 size={arrowSize}
                 className={cx(styles.arrowIcon, {
@@ -161,7 +159,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
                 className={cx(styles.arrowIcon, { [styles.arrowDisabledIcon]: isFirstSlide })}
                 onClick={handleLeftArrowClick}
               />
-              <Typography className={styles.proposalCount}>{`${title} №${slideCount}`}</Typography>
+              <p className={styles.proposalCount}>{`${title} №${slideCount}`}</p>
 
               <MdArrowRight
                 size={arrowSize}
@@ -172,7 +170,7 @@ export const CustomSlider: FC<CustomSliderProps> = props => {
               />
             </div>
 
-            <Typography color="primary">{`${slideCount}/${children?.length}`}</Typography>
+            <p color="primary">{`${slideCount}/${children?.length}`}</p>
           </div>
 
           <div className={styles.window}>

@@ -2,11 +2,9 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './buttons.style'
 
@@ -26,23 +24,18 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
 
   return (
     <div className={styles.buttonsWrapper}>
-      <Button disabled={disabled} variant={ButtonVariant.OUTLINED} onClick={onShowImages}>
+      <CustomButton disabled={disabled} onClick={onShowImages}>
         {showImages ? t(TranslationKey.Hide) : t(TranslationKey.View)}
-      </Button>
+      </CustomButton>
 
       <p className={styles.imagesCount}>
         <span className={styles.imagesCountSpan}>{`${quantity || 0}/${maxNumber}`}</span>
         {t(TranslationKey.files)}
       </p>
 
-      <Button
-        disabled={disabled}
-        styleType={ButtonStyle.DANGER}
-        variant={ButtonVariant.OUTLINED}
-        onClick={onRemoveAllFiles}
-      >
+      <CustomButton danger disabled={disabled} type="primary" onClick={onRemoveAllFiles}>
         {t(TranslationKey['Remove all'])}
-      </Button>
+      </CustomButton>
     </div>
   )
 })

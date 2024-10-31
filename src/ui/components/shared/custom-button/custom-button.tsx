@@ -28,20 +28,17 @@ export const CustomButton: FC<CustomButtonProps> = memo(props => {
 
   if (dropdown) {
     return (
-      <div onClick={e => e.stopPropagation()}>
-        <Dropdown.Button
-          {...restProps}
-          destroyPopupOnHide
-          // trigger={['click']}
-          overlayClassName={styles.dropdown}
-          className={styles.dropdownButton}
-          menu={{ items: menuItems }}
-          onClick={handleClick}
-        >
-          {children}
-          {icon}
-        </Dropdown.Button>
-      </div>
+      <Dropdown.Button
+        {...restProps}
+        destroyPopupOnHide
+        overlayClassName={styles.dropdown}
+        className={styles.dropdownButton}
+        menu={{ items: menuItems }}
+        onClick={handleClick}
+      >
+        {children}
+        {icon}
+      </Dropdown.Button>
     )
   }
 

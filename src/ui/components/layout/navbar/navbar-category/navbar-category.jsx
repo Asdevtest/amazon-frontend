@@ -11,7 +11,7 @@ import { renderTooltipTitle } from '@utils/renders'
 
 import { HintsContext } from '@contexts/hints-context'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './navbar-category.style'
 
@@ -66,13 +66,13 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
   useEffect(() => {
     setSubRoutes(getSubRoutes())
   }, [category])
-
+  // ! replace Button after swich to ant
   return (
     <Button
       tooltipPosition="center"
       tooltipInfoContent={hints && !shortNavbar && renderTooltipTitle(category.title(), userInfo.role)}
       className={styles.menuItem}
-      styleType={ButtonStyle.TRANSPARENT}
+      styleType="transparent"
     >
       <MuiListItem
         disableGutters

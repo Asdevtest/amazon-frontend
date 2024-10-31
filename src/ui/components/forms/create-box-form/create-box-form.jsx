@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import {
   inchesCoefficient,
   maxLengthInputInSizeBox,
@@ -18,7 +16,7 @@ import {
 } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { SizeSwitcher } from '@components/shared/size-switcher'
 
@@ -27,7 +25,7 @@ import { checkIsPositiveNum } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './create-box-form.style'
 
@@ -257,7 +255,7 @@ export const CreateBoxForm = observer(
               label={t(TranslationKey.Status)}
               containerClasses={styles.fieldContainer}
               inputComponent={
-                <Typography
+                <p
                   className={cx({
                     [styles.orange]:
                       `${formItem.status}` === `${OrderStatusByKey[OrderStatus.AT_PROCESS]}` ||
@@ -274,7 +272,7 @@ export const CreateBoxForm = observer(
                   })}
                 >
                   {OrderStatusTranslate(getOrderStatusOptionByCode(formItem.status).key)}
-                </Typography>
+                </p>
               }
             />
           </div>
@@ -304,24 +302,22 @@ export const CreateBoxForm = observer(
           ) : null}
           {!isEdit ? (
             <div className={styles.buttonsWrapper}>
-              <Button
-                tooltipInfoContent={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
+              <CustomButton
+                title={t(TranslationKey['Allows you to create the required number of boxes to the order'])}
                 onClick={() => setFormFieldsArr(formFieldsArr.concat({ ...sourceBox }))}
               >
                 {t(TranslationKey['Add another box'])}
-              </Button>
+              </CustomButton>
             </div>
           ) : null}
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmit} onClick={onSubmit}>
+          <CustomButton type="primary" disabled={disableSubmit} onClick={onSubmit}>
             {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Add)}
-          </Button>
+          </CustomButton>
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={onTriggerOpenModal}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onTriggerOpenModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )

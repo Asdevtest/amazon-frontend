@@ -1,7 +1,5 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { useStyles } from '@components/product/suplier-price-variation-selector/supplier-price-variation-selector.style'
@@ -52,7 +50,7 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
 
   return (
     <div className={styles.body}>
-      <Typography className={styles.title}>{t(TranslationKey['Price variations'])}:</Typography>
+      <p className={styles.title}>{t(TranslationKey['Price variations'])}:</p>
       <div className={styles.content}>
         {isEditMode && (
           <div className={styles.creationBlock}>

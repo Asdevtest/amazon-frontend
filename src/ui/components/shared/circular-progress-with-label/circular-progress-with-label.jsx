@@ -1,7 +1,6 @@
 import { memo } from 'react'
 
 import CircularProgress from '@mui/material/CircularProgress'
-import Typography from '@mui/material/Typography'
 
 import { useStyles } from './circular-progress-with-label.style'
 
@@ -17,18 +16,14 @@ export const CircularProgressWithLabel = memo(props => {
       })}
     >
       <div className={styles.progressContainer}>
-        {title ? (
-          <Typography variant="h4" className={styles.standartText}>
-            {title}
-          </Typography>
-        ) : null}
+        {title ? <h4 className={styles.standartText}>{title}</h4> : null}
 
         {value ? (
           <div className={styles.progressWrapper}>
             <CircularProgress variant="determinate" value={value} size={85} />
             {title ? (
               <div className={styles.subWrapper}>
-                <Typography className={styles.text}>{`${Math.round(value)}%`}</Typography>
+                <p className={styles.text}>{`${Math.round(value)}%`}</p>
               </div>
             ) : null}
           </div>

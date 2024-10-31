@@ -1,18 +1,16 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-warehouse-tariff-form.style'
 
@@ -66,9 +64,7 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
 
   return (
     <div className={styles.root}>
-      <Typography variant="h5" className={styles.modalTitle}>
-        {t(TranslationKey['Adding tariff'])}
-      </Typography>
+      <h5 className={styles.modalTitle}>{t(TranslationKey['Adding tariff'])}</h5>
 
       <div className={styles.form}>
         <Field
@@ -105,13 +101,11 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
       </div>
 
       <div className={styles.btnsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
+        <CustomButton type="primary" disabled={disableSubmitBtn} onClick={onSubmit}>
           {t(TranslationKey.Add)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

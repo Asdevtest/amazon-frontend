@@ -1,7 +1,5 @@
 import { FC, memo } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { useStyles } from './high-priority-value.style'
 
 interface HighPriorityValueProps {
@@ -13,7 +11,7 @@ export const HighPriorityValue: FC<HighPriorityValueProps> = memo(({ value }) =>
 
   return (
     <div className={styles.body}>
-      <Typography className={styles.value}>{value}</Typography>
+      <p className={styles.value}>{value}</p>
       <img src="/assets/icons/fire.svg" />
     </div>
   )

@@ -8,7 +8,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { AddOrEditDestinationForm } from '@components/forms/add-or-edit-destination-form'
 import { AddOrEditWarehouseTariffForm } from '@components/forms/add-or-edit-warehouse-tariff-form'
 import { AddOrEditWeightBasedLogisticsTariffForm } from '@components/forms/add-or-edit-weight-based-logistics-tariff-form'
-import { Button } from '@components/shared/button'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -17,7 +16,6 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './warehouse-management.style'
@@ -59,9 +57,9 @@ export const WarehouseManagementView = observer(() => {
         />
 
         {viewModel.tabIndex === WarehouseTabs.WAREHOUSE_SERVICES ? (
-          <Button styleType={ButtonStyle.SUCCESS} onClick={viewModel.onClickAddWarehouseTariff}>
+          <CustomButton type="primary" onClick={viewModel.onClickAddWarehouseTariff}>
             {t(TranslationKey['Create a tariff'])}
-          </Button>
+          </CustomButton>
         ) : (
           <div className={styles.flexRow}>
             {viewModel.storekeeperDestination ? (

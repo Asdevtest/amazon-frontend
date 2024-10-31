@@ -1,11 +1,11 @@
 import { FC, useState } from 'react'
 
-import { Container, MenuItem, Select, Typography } from '@mui/material'
+import { Container, MenuItem, Select } from '@mui/material'
 
 import { EntityType } from '@constants/finances/entity-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -13,7 +13,7 @@ import { Modal } from '@components/shared/modal'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { ICreatedBy } from '@typings/shared/created-by'
 
 import { useStyles } from './admin-balance-modal.style'
@@ -83,9 +83,7 @@ export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw
   return (
     <>
       <Container disableGutters className={styles.modalContainer}>
-        <Typography paragraph variant="h3" className={styles.title}>
-          {isWithdraw ? t(TranslationKey.Withdraw) : t(TranslationKey.Deposit)}
-        </Typography>
+        <h3 className={styles.title}>{isWithdraw ? t(TranslationKey.Withdraw) : t(TranslationKey.Deposit)}</h3>
 
         {isWithdraw && (
           <Field
@@ -130,20 +128,18 @@ export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw
         {isWithdraw ? renderNegativeMessage : renderPositiveMessage}
 
         <div className={styles.buttonWrapper}>
-          <Button disabled={disableButtonExecute} onClick={onTriggerConfirmModal}>
+          <CustomButton disabled={disableButtonExecute} onClick={onTriggerConfirmModal}>
             {t(TranslationKey.Execute)}
-          </Button>
+          </CustomButton>
         </div>
       </Container>
 
       <Modal openModal={showConfirmModal} setOpenModal={onTriggerConfirmModal}>
         <div className={styles.confirmModal}>
-          <Typography paragraph>{confirmMsg()}</Typography>
+          <p>{confirmMsg()}</p>
           <div className={styles.buttonWrapper}>
-            <Button onClick={onConfirm}>{t(TranslationKey.Yes)}</Button>
-            <Button styleType={ButtonStyle.CASUAL} onClick={onDecline}>
-              {t(TranslationKey.Close)}
-            </Button>
+            <CustomButton onClick={onConfirm}>{t(TranslationKey.Yes)}</CustomButton>
+            <CustomButton onClick={onDecline}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       </Modal>

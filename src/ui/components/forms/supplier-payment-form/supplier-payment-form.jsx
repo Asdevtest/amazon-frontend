@@ -2,12 +2,12 @@ import { memo, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './supplier-payment-form.style'
 
@@ -31,19 +31,19 @@ export const SupplierPaymentForm = memo(props => {
       <UploadFilesInput images={files} setImages={setFiles} />
 
       <diiv className={styles.buttons}>
-        <Button
+        <CustomButton
           fullWidth
-          styleType={ButtonStyle.SUCCESS}
+          type="primary"
           onClick={() => {
             setEditPaymentDetailsPhotos(files)
             onCloseModal()
           }}
         >
           {t(TranslationKey.Save)}
-        </Button>
-        <Button fullWidth styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
+        </CustomButton>
+        <CustomButton fullWidth onClick={onCloseModal}>
           {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
       </diiv>
     </div>
   )

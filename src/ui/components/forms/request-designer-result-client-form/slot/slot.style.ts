@@ -70,14 +70,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
   },
 
-  commentBtn: {
-    width: 161,
-    display: 'flex',
-    justifyContent: 'center',
-    position: 'relative',
-    paddingRight: '40px',
-  },
-
   commentIcon: {
     position: 'absolute',
     top: '11px',

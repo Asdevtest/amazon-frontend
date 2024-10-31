@@ -6,11 +6,9 @@ import { MinusIcon, ParentProductIcon, ShareIcon, VariationIcon } from '@compone
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
-import { ButtonStyle } from '@typings/enums/button-style'
-
 import { useStyles } from './interconnected-products.style'
 
-import { Button } from '../button'
+import { CustomButton } from '../custom-button'
 
 interface InterconnectedProductsProps {
   isParent?: boolean
@@ -47,19 +45,15 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button iconButton smallIconButton onClick={() => navigateToProduct(_id)}>
-          <ShareIcon />
-        </Button>
+        <CustomButton icon={<ShareIcon />} size="small" onClick={() => navigateToProduct(_id)} />
 
         {showRemoveButton && (
-          <Button
-            iconButton
-            smallIconButton
-            styleType={ButtonStyle.DANGER}
+          <CustomButton
+            danger
+            icon={<MinusIcon />}
+            type="primary"
             onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}
-          >
-            <MinusIcon />
-          </Button>
+          />
         )}
       </div>
     </div>

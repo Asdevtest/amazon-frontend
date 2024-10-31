@@ -2,19 +2,16 @@ import { t } from 'i18n-js'
 import { useState } from 'react'
 import { MdOutlineFilterAlt } from 'react-icons/md'
 
-import { Menu, Typography } from '@mui/material'
+import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
-
-import { ButtonVariant } from '@typings/enums/button-style'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { useStyles } from './data-grid-custom-filter-button.style'
 
-export const DataGridCustomFilterButton = props => {
+export const DataGridCustomFilterButton = () => {
   const { classes: styles, cx } = useStyles()
-  const { className } = props
 
   const [menuAnchor, setMenuAnchor] = useState(null)
 
@@ -28,13 +25,9 @@ export const DataGridCustomFilterButton = props => {
 
   return (
     <div>
-      <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
-        <div className={cx(className, styles.mainFilterBtnInsert)}>
-          <MdOutlineFilterAlt size={18} />
-
-          <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey['My filter'])}</Typography>
-        </div>
-      </Button>
+      <CustomButton icon={<MdOutlineFilterAlt size={18} />} onClick={handleClick}>
+        {t(TranslationKey['My filter'])}
+      </CustomButton>
 
       {Boolean(menuAnchor) && (
         <Menu keepMounted anchorEl={menuAnchor} autoFocus={false} open={Boolean(menuAnchor)} onClose={handleClose}>

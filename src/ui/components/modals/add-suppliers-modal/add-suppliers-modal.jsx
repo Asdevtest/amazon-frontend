@@ -4,14 +4,14 @@ import { Link } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { isString } from '@typings/guards'
 
 import { useStyles } from './add-suppliers-modal.style'
@@ -51,12 +51,10 @@ export const AddSuppliersModal = memo(props => {
       <UploadFilesInput images={images} setImages={setImages} maxNumber={1} />
 
       <div className={styles.buttons}>
-        <Button disabled={images.length === 0} styleType={ButtonStyle.SUCCESS} onClick={handleSubmit}>
+        <CustomButton disabled={images.length === 0} type="primary" onClick={handleSubmit}>
           {t(TranslationKey.Save)}
-        </Button>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-          {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
+        <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
       </div>
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}

@@ -2,7 +2,6 @@ import { ClassNamesArg } from '@emotion/react'
 import { observer } from 'mobx-react'
 import { ComponentType, FC, InputHTMLAttributes, ReactElement, useContext } from 'react'
 
-import { Typography } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 
 import { Input } from '@components/shared/input'
@@ -67,11 +66,7 @@ export const Field: FC<Props> = observer(
     return (
       <div className={cx(styles.root, { [styles.rootOneLine]: oneLine }, containerClasses)}>
         <div className={styles.labelWrapper}>
-          {label ? (
-            <Typography className={cx(styles.label, labelClasses, { [styles.labelOneLine]: oneLine })}>
-              {label}
-            </Typography>
-          ) : null}
+          {label ? <p className={cx(styles.label, labelClasses, { [styles.labelOneLine]: oneLine })}>{label}</p> : null}
 
           {(tooltipAttentionContent || tooltipInfoContent) && label ? (
             <div className={styles.tooltipsWrapper}>

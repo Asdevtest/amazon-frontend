@@ -1,12 +1,10 @@
 import { memo, useEffect, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './confirmation-modal.style'
 
@@ -91,26 +89,18 @@ export const ConfirmationModal = memo(props => {
         {!isShowComment && (
           <>
             <div className={styles.titleWrapper}>
-              <Typography variant="h5" className={cx(styles.title, { [styles.warningTitle]: isWarning })}>
-                {title}
-              </Typography>
+              <h5 className={cx(styles.title, { [styles.warningTitle]: isWarning })}>{title}</h5>
             </div>
 
-            <Typography paragraph className={cx(styles.modalMessage, { [styles.warningModalMessage]: isWarning })}>
-              {message}
-            </Typography>
+            <p className={cx(styles.modalMessage, { [styles.warningModalMessage]: isWarning })}>{message}</p>
 
-            <Typography paragraph className={cx(styles.modalSmallMessage, { [styles.warningModalMessage]: isWarning })}>
-              {smallMessage}
-            </Typography>
+            <p className={cx(styles.modalSmallMessage, { [styles.warningModalMessage]: isWarning })}>{smallMessage}</p>
           </>
         )}
 
         {isShowComment && (
           <>
-            <Typography variant="h5" className={styles.commentTitle}>
-              {commentTitleText || title}
-            </Typography>
+            <h5 className={styles.commentTitle}>{commentTitleText || title}</h5>
             <Field
               multiline
               className={styles.heightFieldAuto}
@@ -133,17 +123,18 @@ export const ConfirmationModal = memo(props => {
             [styles.buttonsWrapper]: !isShowComment,
           })}
         >
-          <Button
-            styleType={isWarning ? ButtonStyle.DANGER : ButtonStyle.SUCCESS}
+          <CustomButton
+            {...(isWarning ? { danger: true } : {})}
+            type="primary"
             disabled={submitIsClicked}
             onClick={onSubmit}
           >
             {isShowComment ? commentSuccessBtnText || successBtnText : successBtnText}
-          </Button>
+          </CustomButton>
 
-          <Button disabled={submitIsClicked} styleType={ButtonStyle.CASUAL} onClick={() => handleClose()}>
+          <CustomButton disabled={submitIsClicked} onClick={() => handleClose()}>
             {isShowComment ? commentCancelBtnText || cancelBtnText : cancelBtnText}
-          </Button>
+          </CustomButton>
         </div>
       </div>
     </Modal>

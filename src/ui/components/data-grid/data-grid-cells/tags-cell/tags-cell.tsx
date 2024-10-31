@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomTag } from '@components/shared/custom-tag'
 import { EditIcon } from '@components/shared/svg-icons'
 
@@ -33,11 +33,7 @@ export const TagsCell: FC<TagsCellProps> = memo(({ tags, onClickTag, onClickEdit
         ))}
       </div>
 
-      {onClickEdit ? (
-        <Button iconButton onClick={onClickEdit}>
-          <EditIcon />
-        </Button>
-      ) : null}
+      {onClickEdit ? <CustomButton icon={<EditIcon />} onClick={onClickEdit} /> : null}
     </div>
   )
 })
