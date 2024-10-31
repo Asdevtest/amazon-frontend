@@ -1507,7 +1507,6 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
 
   async initTableColumns() {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
       const [storekeepers, integrationTables] = await Promise.all([this.getStorekeepers(), this.getIntegrationFields()])
 
       const filteredStorekeepers = storekeepers?.filter(storekeeper => storekeeper?.boxesCount > 0)
@@ -1517,9 +1516,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       this.setAllColumns = undefined
 
       this.getTableSettingsPreset()
-      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }

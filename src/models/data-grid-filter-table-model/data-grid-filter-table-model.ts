@@ -253,7 +253,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   async setSettingsFromActivePreset() {
-    this.setRequestStatus(loadingStatus.IS_LOADING)
     const activePreset = this.getActivePreset()
 
     if (activePreset) {
@@ -311,7 +310,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     }
 
     this.getCurrentData()
-    this.setRequestStatus(loadingStatus.SUCCESS)
   }
 
   parseQueryString(queryString?: string): Record<string, string | string[]> {
