@@ -46,6 +46,8 @@ export const UserProfileView = observer(() => {
 
           <div className={styles.tableWrapper}>
             <CustomDataGrid
+              sortingMode="client"
+              paginationMode="client"
               sortModel={viewModel.sortModel}
               filterModel={viewModel.filterModel}
               pinnedColumns={viewModel.pinnedColumns}

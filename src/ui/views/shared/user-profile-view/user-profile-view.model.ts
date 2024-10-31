@@ -59,8 +59,8 @@ export class ProfileViewModel extends DataGridTableModel {
       defaultGetCurrentDataOptions,
     })
 
-    this.getCurrentData()
     this.getReviews()
+    this.getTableSettingsPreset()
 
     makeObservable(this, userProfileConfig)
   }
