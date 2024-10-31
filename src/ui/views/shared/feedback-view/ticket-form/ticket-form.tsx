@@ -62,8 +62,12 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
             )}
 
             <div className={styles.flexRow}>
-              <Text copyable={false} text={`Updated: ${formatNormDateTime(viewModel.feedback?.updatedAt)}`} />
-              <Text type="secondary" copyable={false} text={`ID: ${viewModel.feedback?.xid}`} />
+              <Text
+                copyable={false}
+                text={`Updated: ${formatNormDateTime(viewModel.feedback?.updatedAt)}`}
+                className={styles.text}
+              />
+              <Text type="secondary" copyable={false} text={`ID: ${viewModel.feedback?.xid}`} className={styles.text} />
             </div>
           </div>
 

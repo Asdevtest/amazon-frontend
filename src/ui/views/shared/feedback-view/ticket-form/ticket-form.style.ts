@@ -38,4 +38,8 @@ export const useStyles = makeStyles()(theme => ({
   select: {
     width: '120px',
   },
+
+  text: {
+    width: 'max-content',
+  },
 }))

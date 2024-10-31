@@ -6,10 +6,6 @@ export const useStyles = makeStyles()(() => ({
     width: '100%',
   },
 
-  maxContent: {
-    width: 'max-content',
-  },
-
   cell: {
     height: '100%',
     padding: '5px 0 5px 5px',
