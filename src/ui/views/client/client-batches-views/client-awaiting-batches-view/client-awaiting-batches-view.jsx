@@ -86,9 +86,6 @@ export const ClientAwaitingBatchesView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
       >
         <AddOrEditBatchForm
-          progressValue={viewModel.progressValue}
-          showProgress={viewModel.showProgress}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           batchToEdit={viewModel.curBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
