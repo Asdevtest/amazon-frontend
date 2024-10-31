@@ -130,8 +130,8 @@ export const proposalsColumns = (handlers: IHandlers) => {
 
     {
       field: 'requestXid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: (params: GridCellParams) => <Text isCell text={params.row?.request.xid} />,
       width: 80,
 

@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
+import { GridRowModel } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ContentEditorForm } from '@components/forms/content-editor-form'

@@ -28,6 +28,16 @@ export const feedbackViewColumns = (props: ColumnProps) => {
 
   const columns: IGridColumn[] = [
     {
+      field: 'xid',
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
+      renderCell: ({ row }: GridRowModel) => (
+        <Text isCell text={getStatusText(row.status)} color={getStatusColor(row.status)} />
+      ),
+      width: 110,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+    {
       field: 'action',
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,

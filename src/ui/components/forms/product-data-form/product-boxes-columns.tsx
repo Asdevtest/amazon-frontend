@@ -22,8 +22,8 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
   const columns: IGridColumn[] = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.xid || '-'} />,
       table: DataGridFilterTables.BOXES,
       columnKey: columnnsKeys.shared.NUMBER,

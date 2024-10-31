@@ -122,8 +122,8 @@ export const clientTasksViewColumns = handlers => {
 
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID) + ' / item',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
+      headerName: 'ID/item',
+      renderHeader: () => <MultilineTextHeaderCell text="ID/item" />,
       renderCell: params => <Text isCell text={params.row.xid} />,
       width: 100,
       type: 'number',

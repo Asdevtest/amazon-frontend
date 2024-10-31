@@ -54,7 +54,7 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
             </div>
             <div className={styles.requestConatainer}>
               <p className={styles.requestText}>
-                <span className={styles.requestTextSecond}>{`${t(TranslationKey.ID)}:`}</span>
+                <span className={styles.requestTextSecond}>ID:</span>
                 <NavLink to={getUrlToRequest(request?._id)} className={styles.link} target="_blank">
                   {request?.xid}
                 </NavLink>

@@ -114,7 +114,6 @@ export enum TranslationKey {
   'For' = 'For',
   'move' = 'move',
   'sending' = 'sending',
-  'ID' = 'ID',
   'Total price' = 'Total price',
   'Product' = 'Product',
   'Editing a batch' = 'Editing a batch',
