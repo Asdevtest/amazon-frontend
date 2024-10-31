@@ -1,7 +1,7 @@
 import isEqual from 'lodash.isequal'
 import { memo, useState } from 'react'
 
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,8 +14,8 @@ import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
@@ -31,7 +31,7 @@ import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-ma
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 import { TariffModal } from '@typings/enums/tariff-modal'
 
@@ -190,6 +190,7 @@ export const EditBoxStorekeeperForm = memo(
       const newFormFields = { ...boxFields }
       newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = []
+      newFormFields.isShippingLabelAttachedByStorekeeper = false
       setBoxFields(newFormFields)
     }
 
@@ -316,7 +317,7 @@ export const EditBoxStorekeeperForm = memo(
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
-          <Typography className={styles.title}>{t(TranslationKey['Editing the box'])}</Typography>
+          <p className={styles.title}>{t(TranslationKey['Editing the box'])}</p>
           <BoxEdit />
         </div>
 
@@ -334,7 +335,7 @@ export const EditBoxStorekeeperForm = memo(
                       label={`${t(TranslationKey.Box)} №`}
                       inputComponent={
                         <div className={styles.boxTitleWrapper}>
-                          <Typography className={styles.tableTitle}>{`${formItem && formItem.xid}`}</Typography>
+                          <p className={styles.tableTitle}>{`${formItem && formItem.xid}`}</p>
                         </div>
                       }
                     />
@@ -364,9 +365,7 @@ export const EditBoxStorekeeperForm = memo(
                     value={allItemsCount}
                   />
                 </div>
-                <Typography className={styles.amountSpan}>
-                  {boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}
-                </Typography>
+                <p className={styles.amountSpan}>{boxFields.amount > 1 ? `super x ${boxFields.amount}` : ''}</p>
 
                 <Divider className={styles.divider} />
 
@@ -470,7 +469,7 @@ export const EditBoxStorekeeperForm = memo(
                         </div>
 
                         <div className={styles.rightProductColumn}>
-                          <Typography className={styles.amazonTitle}>{item.product.amazonTitle}</Typography>
+                          <p className={styles.amazonTitle}>{item.product.amazonTitle}</p>
 
                           {item.product.asin ? (
                             <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.product.asin} />
@@ -504,9 +503,9 @@ export const EditBoxStorekeeperForm = memo(
                             label={t(TranslationKey['HS code'])}
                             value={item.product.hsCode}
                             inputComponent={
-                              <Button onClick={() => onClickHsCode(item.product._id)}>
+                              <CustomButton onClick={() => onClickHsCode(item.product._id)}>
                                 {t(TranslationKey['HS code'])}
-                              </Button>
+                              </CustomButton>
                             }
                             onChange={setHsCode(index)}
                           />
@@ -555,7 +554,7 @@ export const EditBoxStorekeeperForm = memo(
                       label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
                       tooltipInfoContent={t(TranslationKey['Prep Center in China, available for change'])}
                       inputComponent={
-                        <Button
+                        <CustomButton
                           onClick={() =>
                             setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                           }
@@ -563,7 +562,7 @@ export const EditBoxStorekeeperForm = memo(
                           {boxFields.storekeeperId && (tariffName || tariffRate)
                             ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                             : t(TranslationKey.Select)}
-                        </Button>
+                        </CustomButton>
                       }
                     />
                   </div>
@@ -662,7 +661,7 @@ export const EditBoxStorekeeperForm = memo(
                         onChange={setFormField('trackNumberText')}
                       />
 
-                      <Button
+                      <CustomButton
                         onClick={() => {
                           setBarcodeModalSetting({
                             title: 'Track number',
@@ -682,7 +681,7 @@ export const EditBoxStorekeeperForm = memo(
                         {boxFields.tmpTrackNumberFile[0]
                           ? t(TranslationKey['File added'])
                           : t(TranslationKey['Photo track numbers'])}
-                      </Button>
+                      </CustomButton>
                     </div>
 
                     <div className={styles.field}>
@@ -697,7 +696,7 @@ export const EditBoxStorekeeperForm = memo(
                             }
                           />
                         ) : (
-                          <Typography>{`${t(TranslationKey['no photo track number'])}...`}</Typography>
+                          <p>{`${t(TranslationKey['no photo track number'])}...`}</p>
                         )}
                       </div>
                     </div>
@@ -734,9 +733,9 @@ export const EditBoxStorekeeperForm = memo(
                 </div>
 
                 <div className={styles.boxPhotoWrapper}>
-                  <Typography className={styles.standartLabel}>
+                  <p className={styles.standartLabel}>
                     {t(TranslationKey['Photos of the box taken at the warehouse:'])}
-                  </Typography>
+                  </p>
                   <SlideshowGallery slidesToShow={2} files={boxFields.images} />
                 </div>
 
@@ -782,21 +781,17 @@ export const EditBoxStorekeeperForm = memo(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button
+          <CustomButton
             disabled={disableSubmit}
-            tooltipInfoContent={t(TranslationKey['Save changes to the box'])}
+            title={t(TranslationKey['Save changes to the box'])}
             onClick={handleSubmit}
           >
             {t(TranslationKey.Save)}
-          </Button>
+          </CustomButton>
 
-          <Button
-            styleType={ButtonStyle.CASUAL}
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            onClick={onTriggerOpenModal}
-          >
+          <CustomButton title={t(TranslationKey['Close the form without saving'])} onClick={onTriggerOpenModal}>
             {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
         </div>
 
         <Modal

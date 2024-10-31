@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -10,7 +10,7 @@ import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
 
@@ -89,23 +89,17 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = memo(props => {
 
             {onClickButton && isSuccess ? (
               <div className={styles.buttonWrapper}>
-                <Button
-                  styleType={isSuccess ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
-                  onClick={() => onClickButton(service)}
-                >
+                <CustomButton type="primary" onClick={() => onClickButton(service)}>
                   {t(translationButtonKey)}
-                </Button>
+                </CustomButton>
               </div>
             ) : null}
 
             {onClickSelectButton && select ? (
               <div className={styles.buttonWrapper}>
-                <Button
-                  styleType={select ? ButtonStyle.SUCCESS : ButtonStyle.PRIMARY}
-                  onClick={() => onClickSelectButton()}
-                >
+                <CustomButton type="primary" onClick={() => onClickSelectButton()}>
                   {t(TranslationKey.Select)}
-                </Button>
+                </CustomButton>
               </div>
             ) : null}
           </div>

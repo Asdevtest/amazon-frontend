@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -15,6 +13,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './parsing-reports.style'
 
+import { getSearchPlaceholder } from './helpers/get-search-placeholder'
 import { LinkCascader } from './link-cascader'
 import { getSelectConfig } from './parsing-reports.config'
 import { ParsingReportsModel } from './parsing-reports.model'
@@ -54,7 +53,7 @@ export const ParsingReports: FC<ParsingReportsProps> = observer(({ table, produc
           allowClear
           disabled={!viewModel.fieldsForSearch.length}
           size="large"
-          placeholder="Search"
+          placeholder={getSearchPlaceholder(viewModel.table)}
           onSearch={viewModel.onSearchSubmit}
         />
       </div>
@@ -71,7 +70,6 @@ export const ParsingReports: FC<ParsingReportsProps> = observer(({ table, produc
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

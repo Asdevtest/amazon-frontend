@@ -1,8 +1,7 @@
+import { Avatar } from 'antd'
 import { format } from 'date-fns'
 import { History } from 'history'
 import { FC } from 'react'
-
-import { Avatar, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -35,7 +34,7 @@ export const OrdersUpdatesNotification: FC<OrdersUpdatesNotificationProps> = pro
       />
 
       <div className={styles.centerWrapper}>
-        <Typography className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</Typography>
+        <p className={styles.attentionTitle}>{t(TranslationKey.Notice).toUpperCase()}</p>
 
         {!!noticeItem?.vacOrders?.length && (
           <OrdersUpdatesNotificationRow
@@ -55,7 +54,7 @@ export const OrdersUpdatesNotification: FC<OrdersUpdatesNotificationProps> = pro
       </div>
 
       <div className={styles.footer}>
-        <Typography className={styles.messageDate}>{format(new Date(), 'HH:mm')}</Typography>
+        <p className={styles.messageDate}>{format(new Date(), 'HH:mm')}</p>
       </div>
     </div>
   )

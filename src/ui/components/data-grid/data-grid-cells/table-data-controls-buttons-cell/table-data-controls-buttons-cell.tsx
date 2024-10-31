@@ -1,9 +1,9 @@
 import { FC, memo } from 'react'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CrossIcon, EditIcon, ReturnArrowIcon, SaveIcon, SendArrowIcon } from '@components/shared/svg-icons'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './table-data-controls-buttons-cell.style'
 
@@ -31,33 +31,35 @@ export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps>
   return (
     <div className={styles.buttonsWrapper}>
       {onClickSaveButton ? (
-        <Button iconButton styleType={ButtonStyle.SUCCESS} disabled={disableButton} onClick={onClickSaveButton}>
-          <SaveIcon />
-        </Button>
+        <CustomButton icon={<SaveIcon />} type="primary" disabled={disableButton} onClick={onClickSaveButton} />
       ) : null}
 
       {onClickEditButton ? (
-        <Button iconButton disabled={disableButton} onClick={onClickEditButton}>
-          <EditIcon />
-        </Button>
+        <CustomButton icon={<EditIcon />} disabled={disableButton} onClick={onClickEditButton} />
       ) : null}
 
       {onClickCancelButton ? (
-        <Button iconButton styleType={ButtonStyle.DANGER} disabled={disableButton} onClick={onClickCancelButton}>
-          <CrossIcon />
-        </Button>
+        <CustomButton
+          danger
+          icon={<CrossIcon />}
+          type="primary"
+          disabled={disableButton}
+          onClick={onClickCancelButton}
+        />
       ) : null}
 
       {onClickSendButton ? (
-        <Button iconButton styleType={ButtonStyle.DANGER} disabled={disableButton} onClick={onClickSendButton}>
-          <ReturnArrowIcon />
-        </Button>
+        <CustomButton
+          danger
+          icon={<ReturnArrowIcon />}
+          type="primary"
+          disabled={disableButton}
+          onClick={onClickSendButton}
+        />
       ) : null}
 
       {onClickReturnButton ? (
-        <Button iconButton styleType={ButtonStyle.SUCCESS} disabled={disableButton} onClick={onClickReturnButton}>
-          <SendArrowIcon />
-        </Button>
+        <CustomButton icon={<SendArrowIcon />} type="primary" disabled={disableButton} onClick={onClickReturnButton} />
       ) : null}
     </div>
   )

@@ -1,19 +1,16 @@
 import { memo, useState } from 'react'
 
 import { Rating } from '@material-ui/lab'
-import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './request-proposal-accept-or-reject-result-form.style'
 
@@ -46,7 +43,7 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
     return (
       <Modal openModal={openModal} setOpenModal={() => setIsShowConfirmationModal(true)}>
         <div className={styles.root}>
-          <Typography className={styles.modalTitle}>{title}</Typography>
+          <p className={styles.modalTitle}>{title}</p>
           <div className={styles.ratingWrapper}>
             <Field
               label={rateLabel + '*'}
@@ -75,16 +72,15 @@ export const RequestProposalAcceptOrRejectResultForm = memo(
           />
 
           <div className={styles.btnsWrapper}>
-            <Button
+            <CustomButton
+              {...(isReject ? { danger: true } : {})}
               disabled={!formFields.rating}
-              styleType={isReject ? ButtonStyle.DANGER : ButtonStyle.SUCCESS}
-              onClick={throttle(() => onSubmit(formFields))}
+              type="primary"
+              onClick={() => onSubmit(formFields)}
             >
               {isReject ? rejectButtonText : confirmButtonText}
-            </Button>
-            <Button variant={ButtonVariant.OUTLINED} onClick={() => setIsShowConfirmationModal(true)}>
-              {cancelBtnText}
-            </Button>
+            </CustomButton>
+            <CustomButton onClick={() => setIsShowConfirmationModal(true)}>{cancelBtnText}</CustomButton>
           </div>
 
           {isShowConfirmationModal ? (

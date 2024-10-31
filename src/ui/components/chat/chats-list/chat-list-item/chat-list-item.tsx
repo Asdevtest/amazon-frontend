@@ -1,8 +1,7 @@
+import { Avatar } from 'antd'
 import he from 'he'
 import { observer } from 'mobx-react'
 import { FC, useContext } from 'react'
-
-import { Avatar } from '@mui/material'
 
 import { chatsType } from '@constants/keys/chats'
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'

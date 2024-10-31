@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DatePicker } from '@components/shared/date-picker'
@@ -151,7 +149,7 @@ export const FirstStep = ({
                   {formFields.shopAssets.map((asset, index) => (
                     <div key={index} className={styles.selectedRoleWrapper}>
                       <div className={styles.leftContentWrapper}>
-                        <Typography className={styles.selectedRole}>{asset}</Typography>
+                        <p className={styles.selectedRole}>{asset}</p>
                       </div>
 
                       <div className={styles.actionDelButton} onClick={() => removeAsset(index)}>

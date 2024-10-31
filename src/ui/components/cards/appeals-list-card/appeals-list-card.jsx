@@ -1,13 +1,17 @@
-import { Avatar, Grid, Rating, Typography } from '@mui/material'
+import { Avatar, Rate } from 'antd'
+
+import { Grid } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UserLink } from '@components/user/user-link'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
+
+import '@typings/enums/button-style'
 
 import { useStyles } from './appeals-list-card.style'
 
@@ -20,8 +24,8 @@ export const AppealsListCard = ({ onClickViewMore }) => {
         <div className={styles.leftBlockWrapper}>
           <div>
             <div className={styles.cardTitleBlockHeaderWrapper}>
-              <Typography className={styles.cardTitle}>{'Причина обращения'}</Typography>
-              <Typography className={styles.cardDescription}>{'Текст обращения'}</Typography>
+              <p className={styles.cardTitle}>{'Причина обращения'}</p>
+              <p className={styles.cardDescription}>{'Текст обращения'}</p>
             </div>
           </div>
 
@@ -38,47 +42,49 @@ export const AppealsListCard = ({ onClickViewMore }) => {
           <div className={styles.subBlockWrapper}>
             <div className={styles.leftSubBlockWrapper}>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography>{'Дата обращения'}</Typography>
+                <p>{'Дата обращения'}</p>
 
-                <Typography>{'2.08.22'}</Typography>
+                <p>{'2.08.22'}</p>
               </div>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography>{'Срок'}</Typography>
+                <p>{'Срок'}</p>
 
-                <Typography>{'3.08.22'}</Typography>
+                <p>{'3.08.22'}</p>
               </div>
             </div>
             <div className={styles.rightSubBlockWrapper}>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography>{'Статус'}</Typography>
+                <p>{'Статус'}</p>
 
-                <Typography>{'На проверке'}</Typography>
+                <p>{'На проверке'}</p>
               </div>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography>{t(TranslationKey['Total price'])}</Typography>
+                <p>{t(TranslationKey['Total price'])}</p>
 
-                <Typography className={styles.cardPrice}>{toFixedWithDollarSign(22, 2)}</Typography>
+                <p className={styles.cardPrice}>{toFixedWithDollarSign(22, 2)}</p>
               </div>
             </div>
           </div>
           <div className={styles.timeOnReviewWrapper}>
-            <Typography className={styles.timeOnReviewTitle}>{'Время на прием к рассмотрению'}</Typography>
-            <Typography className={styles.timeOnReview}>{'24ч 00мин'}</Typography>
+            <p className={styles.timeOnReviewTitle}>{'Время на прием к рассмотрению'}</p>
+            <p className={styles.timeOnReview}>{'24ч 00мин'}</p>
           </div>
           <div className={styles.footerWrapper}>
             <div className={styles.userInfoWrapper}>
-              <Typography className={styles.userInfoName}>{t(TranslationKey.Client)}</Typography>
+              <p className={styles.userInfoName}>{t(TranslationKey.Client)}</p>
               <div className={styles.userInfo}>
                 <Avatar src={''} className={styles.cardImg} />
 
                 <div className={styles.nameWrapper}>
                   <UserLink blackText name={'Клиент'} userId={''} />
 
-                  <Rating readOnly value={'5'} />
+                  <Rate disabled value={5} />
                 </div>
               </div>
             </div>
-            <Button onClick={() => onClickViewMore()}>{t(TranslationKey['Open an appeal'])}</Button>
+            <CustomButton type="primary" onClick={() => onClickViewMore()}>
+              {t(TranslationKey['Open an appeal'])}
+            </CustomButton>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
-import { Box, Grid, Link, MenuItem, Radio, Select, Typography } from '@mui/material'
+import { Box, Grid, Link, MenuItem, Radio, Select } from '@mui/material'
 
 import { UserRole } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -14,9 +14,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserCell } from '@components/data-grid/data-grid-cells'
 import { EditProductTags } from '@components/modals/edit-product-tags-modal'
-import { Button } from '@components/shared/button'
 import { Checkbox } from '@components/shared/checkbox'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
@@ -31,7 +31,7 @@ import { checkAndMakeAbsoluteUrl } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadFileByLink } from '@utils/upload-files'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './fields-and-suppliers.style'
 
@@ -102,7 +102,7 @@ export const FieldsAndSuppliers = memo(props => {
                     href={checkAndMakeAbsoluteUrl(product?.lamazon)}
                     className={cx(styles.inputLink, { [styles.linkDecoration]: !edit || !product?.lamazon })}
                   >
-                    <Typography className={styles.lamazonText}>{product?.lamazon}</Typography>
+                    <p className={styles.lamazonText}>{product?.lamazon}</p>
                   </Link>
                 ) : (
                   <Input
@@ -124,8 +124,8 @@ export const FieldsAndSuppliers = memo(props => {
               </div>
 
               {!checkIsBuyer(curUserRole) ? (
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Fills the card with the necessary information'])}
+                <CustomButton
+                  title={t(TranslationKey['Fills the card with the necessary information'])}
                   disabled={curUserRole === UserRole.ADMIN}
                   onClick={() => {
                     // onClickParseProductData(ProductDataParser.AMAZON, product)
@@ -135,7 +135,7 @@ export const FieldsAndSuppliers = memo(props => {
                   }}
                 >
                   Parse Product Data
-                </Button>
+                </CustomButton>
               ) : null}
             </div>
 
@@ -145,22 +145,22 @@ export const FieldsAndSuppliers = memo(props => {
                 !product?.archive &&
                 clientToEditStatuses.includes(productBase.status) &&
                 (edit ? (
-                  <Button
-                    tooltipInfoContent={t(TranslationKey['Open the field to edit the link'])}
+                  <CustomButton
+                    title={t(TranslationKey['Open the field to edit the link'])}
                     disabled={!checkIsClient(curUserRole)}
                     onClick={() => setEdit(!edit)}
                   >
                     {t(TranslationKey.Edit)}
-                  </Button>
+                  </CustomButton>
                 ) : (
-                  <Button
-                    styleType={ButtonStyle.SUCCESS}
-                    tooltipInfoContent={t(TranslationKey['Saves a link to an Amazon product'])}
+                  <CustomButton
+                    type="primary"
+                    title={t(TranslationKey['Saves a link to an Amazon product'])}
                     disabled={!checkIsClient(curUserRole)}
                     onClick={() => setEdit(!edit)}
                   >
                     {t(TranslationKey.Save)}
-                  </Button>
+                  </CustomButton>
                 ))}
             </div>
           </>
@@ -228,7 +228,7 @@ export const FieldsAndSuppliers = memo(props => {
           )}
 
           <div className={styles.productCheckboxBoxesWrapper}>
-            <Typography className={styles.label}>{t(TranslationKey['Delivery Method'])}</Typography>
+            <p className={styles.label}>{t(TranslationKey['Delivery Method'])}</p>
             <div className={styles.productCheckboxBoxWrapper}>
               <Box className={styles.productCheckboxBox}>
                 <Radio
@@ -247,7 +247,7 @@ export const FieldsAndSuppliers = memo(props => {
                   checked={product?.fba}
                   onChange={() => onChangeField?.('fba')({ target: { value: !product?.fba } })}
                 />
-                <Typography className={styles.radioLabel}>{t(TranslationKey.FBA)}</Typography>
+                <p className={styles.radioLabel}>{t(TranslationKey.FBA)}</p>
               </Box>
 
               <Box className={styles.productCheckboxBox}>
@@ -267,7 +267,7 @@ export const FieldsAndSuppliers = memo(props => {
                   checked={!product?.fba}
                   onChange={() => onChangeField?.('fba')({ target: { value: !product?.fba } })}
                 />
-                <Typography className={styles.radioLabel}>{'FBM'}</Typography>
+                <p className={styles.radioLabel}>{'FBM'}</p>
               </Box>
             </div>
           </div>
@@ -315,9 +315,7 @@ export const FieldsAndSuppliers = memo(props => {
               <p className={styles.subUsersTitle}>{t(TranslationKey['Product tags'])}</p>
 
               {showActionBtns && !checkIsSupervisor(curUserRole) && !checkIsBuyer(curUserRole) ? (
-                <Button iconButton onClick={() => setShowEditProductTagsModal(true)}>
-                  <EditIcon />
-                </Button>
+                <CustomButton icon={<EditIcon />} onClick={() => setShowEditProductTagsModal(true)} />
               ) : null}
             </div>
 
@@ -328,7 +326,7 @@ export const FieldsAndSuppliers = memo(props => {
         {(isEditRedFlags || !!product?.redFlags?.length) && (
           <div>
             <div className={styles.subUsersTitleWrapper}>
-              <Typography className={styles.subUsersTitle}>{t(TranslationKey['Red flags'])}</Typography>
+              <p className={styles.subUsersTitle}>{t(TranslationKey['Red flags'])}</p>
             </div>
             <div className={cx(styles.redFlags, { [styles.redFlagsView]: !isEditRedFlags })}>
               <RedFlags
@@ -434,9 +432,7 @@ export const FieldsAndSuppliers = memo(props => {
           {(checkIsClient(curUserRole) || checkIsBuyer(curUserRole)) && product?.subUsers?.length ? (
             <div className={styles.subUsersWrapper}>
               <div className={styles.subUsersTitleWrapper}>
-                <Typography className={styles.subUsersTitle}>
-                  {t(TranslationKey['Users with access to the product']) + ':'}
-                </Typography>
+                <p className={styles.subUsersTitle}>{t(TranslationKey['Users with access to the product']) + ':'}</p>
               </div>
               <div className={styles.subUsersBodyWrapper}>
                 <div className={styles.subUsersBody}>
@@ -465,9 +461,11 @@ export const FieldsAndSuppliers = memo(props => {
               </p>
 
               {checkIsClient(curUserRole) && !product?.parentProductId && (
-                <Button iconButton smallIconButton onClick={() => onTriggerOpenModal('showBindProductModal')}>
-                  <FiPlus style={{ width: 16, height: 16 }} />
-                </Button>
+                <CustomButton
+                  size="small"
+                  icon={<FiPlus style={{ width: 16, height: 16 }} />}
+                  onClick={() => onTriggerOpenModal('showBindProductModal')}
+                />
               )}
             </div>
             <div className={styles.interconnectedProductsBodyWrapper}>
@@ -504,10 +502,10 @@ export const FieldsAndSuppliers = memo(props => {
             </div>
           </div>
         ) : checkIsClient(curUserRole) ? (
-          <Button onClick={() => onTriggerOpenModal('showBindProductModal')}>
+          <CustomButton onClick={() => onTriggerOpenModal('showBindProductModal')}>
             <FiPlus style={{ width: 16, height: 16 }} />
             {t(TranslationKey['Add product linkage'])}
-          </Button>
+          </CustomButton>
         ) : null}
 
         <div className={styles.flexColumnBlock}>
@@ -522,9 +520,10 @@ export const FieldsAndSuppliers = memo(props => {
 
             {product?.latestSeoFiles[0] ? (
               <div className={styles.downloadButtonContainer}>
-                <Button iconButton onClick={() => downloadFileByLink(product?.latestSeoFiles[0])}>
-                  <DownloadRoundIcon className={styles.downloadButtonIcon} />
-                </Button>
+                <CustomButton
+                  icon={<DownloadRoundIcon className={styles.downloadButtonIcon} />}
+                  onClick={() => downloadFileByLink(product?.latestSeoFiles[0])}
+                />
               </div>
             ) : null}
           </div>
@@ -547,7 +546,9 @@ export const FieldsAndSuppliers = memo(props => {
           label={t(TranslationKey['HS code'])}
           labelClasses={styles.label}
           containerClasses={styles.hsFieldContainer}
-          inputComponent={<Button onClick={() => onClickHsCode(product?._id)}>{t(TranslationKey['HS code'])}</Button>}
+          inputComponent={
+            <CustomButton onClick={() => onClickHsCode(product?._id)}>{t(TranslationKey['HS code'])}</CustomButton>
+          }
         />
       ) : null}
       {checkIsClient(curUserRole) ? (

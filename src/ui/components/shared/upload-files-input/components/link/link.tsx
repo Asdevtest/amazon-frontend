@@ -2,7 +2,7 @@ import { ChangeEvent, ClipboardEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 
 import { t } from '@utils/translations'
@@ -54,14 +54,9 @@ export const Link: FC<LinkProps> = memo(props => {
         onPaste={onPasteFile}
       />
 
-      <Button
-        isSmallButton
-        disabled={disabledLoadButton}
-        tooltipInfoContent={t(TranslationKey['Adds a document/file from the entered link'])}
-        onClick={onLoadFile}
-      >
+      <CustomButton size="small" disabled={disabledLoadButton} onClick={onLoadFile}>
         {t(TranslationKey.Load)}
-      </Button>
+      </CustomButton>
     </div>
   )
 })

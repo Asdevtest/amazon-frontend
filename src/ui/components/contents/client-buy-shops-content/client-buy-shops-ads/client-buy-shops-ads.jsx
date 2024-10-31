@@ -3,21 +3,17 @@ import { useEffect, useRef } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { useHistory } from 'react-router-dom'
 
-import { Typography } from '@mui/material'
-
 import { tableSortMode } from '@constants/table/table-view-modes'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
 import { TradingShopCard } from '@components/cards/trading-shop-card'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { sortObjectsArrayByFiledDateWithParseISO, sortObjectsArrayByFiledDateWithParseISOAsc } from '@utils/date-time'
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './client-buy-shops-ads.style'
 
@@ -59,21 +55,19 @@ export const ClientBuyShopsAds = observer(() => {
       {SettingsModel.languageTag && (
         <>
           <div className={styles.boxesFiltersWrapper}>
-            <Button
+            <CustomButton
               disabled={curFilter === filtersSettings.ALL_ADS}
-              variant={ButtonVariant.OUTLINED}
               onClick={() => onClickFilterBtn(filtersSettings.ALL_ADS)}
             >
               {t(TranslationKey['All Ads'])}
-            </Button>
+            </CustomButton>
 
-            <Button
+            <CustomButton
               disabled={curFilter === filtersSettings.PURCHASED_ADS}
-              variant={ButtonVariant.OUTLINED}
               onClick={() => onClickFilterBtn(filtersSettings.PURCHASED_ADS)}
             >
               {t(TranslationKey['Purchased Ads'])}
-            </Button>
+            </CustomButton>
           </div>
 
           <div className={styles.tablePanelWrapper}>
@@ -87,7 +81,7 @@ export const ClientBuyShopsAds = observer(() => {
             />
 
             <div className={styles.tablePanelSortWrapper} onClick={onTriggerSortMode}>
-              <Typography className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</Typography>
+              <p className={styles.tablePanelViewText}>{t(TranslationKey['Sort by date'])}</p>
 
               {sortMode === tableSortMode.DESK ? (
                 <MdArrowDropDown size={22} className={styles.icon} />
@@ -106,9 +100,7 @@ export const ClientBuyShopsAds = observer(() => {
           ) : (
             <div className={styles.emptyTableWrapper}>
               <img src="/assets/icons/empty-table.svg" />
-              <Typography variant="h5" className={styles.emptyTableText}>
-                {t(TranslationKey['No stores for sale yet'])}
-              </Typography>
+              <h5 className={styles.emptyTableText}>{t(TranslationKey['No stores for sale yet'])}</h5>
             </div>
           )}
         </>

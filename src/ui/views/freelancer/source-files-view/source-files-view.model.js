@@ -2,9 +2,9 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { RequestProposalModel } from '@models/request-proposal'
 
-import { sourceFilesColumns } from '@components/table/table-columns/freelancer/source-files-columns/source-files-columns'
-
 import { loadingStatus } from '@typings/enums/loading-status'
+
+import { sourceFilesColumns } from './source-files-columns'
 
 export class SourceFilesViewModel {
   nameSearchValue = ''

@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
@@ -10,7 +8,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
 import { PriorityForm } from '@components/forms/priority-form/priority-form'
 import { BoxMerge } from '@components/shared/boxes/box-merge'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -24,7 +22,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getShortenStringIfLongerThanCount, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { TariffModal } from '@typings/enums/tariff-modal'
@@ -231,12 +229,12 @@ export const MergeBoxesModal = ({
   return (
     <div className={styles.root}>
       <div className={styles.modalTitleWrapper}>
-        <Typography className={styles.modalTitle}>{t(TranslationKey['Merging boxes'])}</Typography>
+        <p className={styles.modalTitle}>{t(TranslationKey['Merging boxes'])}</p>
         <BoxMerge />
       </div>
       <div className={styles.mainWrapper}>
         <div>
-          <Typography className={styles.boxTitle}>{t(TranslationKey['Source boxes'])}</Typography>
+          <p className={styles.boxTitle}>{t(TranslationKey['Source boxes'])}</p>
           <div className={styles.marginBox}>
             {selectedBoxes.map((box, boxIndex) => (
               <BoxForMerge
@@ -251,7 +249,7 @@ export const MergeBoxesModal = ({
         </div>
 
         <div>
-          <Typography className={styles.boxTitle}>{t(TranslationKey['Final box data'])}</Typography>
+          <p className={styles.boxTitle}>{t(TranslationKey['Final box data'])}</p>
 
           <div className={styles.finalBoxWrapper}>
             {finalBoxData &&
@@ -260,17 +258,15 @@ export const MergeBoxesModal = ({
                   <img className={styles.img} src={getAmazonImageUrl(order.product?.images[0])} />
                   <div>
                     <div className={styles.asinWrapper}>
-                      <Typography className={styles.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
+                      <p className={styles.asinTitle}>{t(TranslationKey.ASIN)}</p>
                       <Text className={styles.asinValue} text={order.product?.asin} />
                     </div>
                     <div className={styles.asinWrapper}>
-                      <Typography className={styles.asinTitle}>{t(TranslationKey.Order)}</Typography>
-                      <Typography className={styles.asinValue}>{order.order.id}</Typography>
+                      <p className={styles.asinTitle}>{t(TranslationKey.Order)}</p>
+                      <p className={styles.asinValue}>{order.order.id}</p>
                     </div>
 
-                    <Typography className={styles.title}>
-                      {getShortenStringIfLongerThanCount(order.product?.amazonTitle, 85)}
-                    </Typography>
+                    <p className={styles.title}>{getShortenStringIfLongerThanCount(order.product?.amazonTitle, 85)}</p>
                   </div>
 
                   <div>
@@ -320,14 +316,14 @@ export const MergeBoxesModal = ({
                 label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
                 labelClasses={styles.label}
                 inputComponent={
-                  <Button
+                  <CustomButton
                     disabled={isDifferentStorekeepers}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
                     {boxBody.logicsTariffId
                       ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                       : t(TranslationKey.Select)}
-                  </Button>
+                  </CustomButton>
                 }
               />
               <Field
@@ -417,28 +413,21 @@ export const MergeBoxesModal = ({
       </div>
       <div className={cx(styles.modalFooter, { [styles.modalAlternateFooter]: !isDifferentStorekeepers })}>
         {isDifferentStorekeepers ? (
-          <Typography className={styles.attentionDifStorekeepers}>
-            {t(TranslationKey['Intermediate warehouses must match!'])}
-          </Typography>
+          <p className={styles.attentionDifStorekeepers}>{t(TranslationKey['Intermediate warehouses must match!'])}</p>
         ) : (
           <div />
         )}
         <div className={styles.buttonsWrapper}>
-          <Button
-            tooltipInfoContent={t(TranslationKey['Create a task to merge boxes'])}
+          <CustomButton
+            title={t(TranslationKey['Create a task to merge boxes'])}
             disabled={isStorekeeper ? disabledSubmitStorekeeper : disabledSubmit}
             onClick={handleSubmit}
           >
             {t(TranslationKey.Merge)}
-          </Button>
-          <Button
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            disabled={requestStatus === loadingStatus.IS_LOADING}
-            styleType={ButtonStyle.CASUAL}
-            onClick={onCloseBoxesModal}
-          >
+          </CustomButton>
+          <CustomButton disabled={requestStatus === loadingStatus.IS_LOADING} onClick={onCloseBoxesModal}>
             {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
         </div>
       </div>
 

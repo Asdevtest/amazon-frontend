@@ -28,6 +28,7 @@ export const ReviewCard: FC<ReviewCardProps> = memo(({ review }) => {
       <div className={styles.cardHeader}>
         <UserLink
           withAvatar
+          readOnlyRating
           name={reviewer?.name}
           userId={reviewer?._id}
           rating={reviewer?.rating}

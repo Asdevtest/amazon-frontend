@@ -1,19 +1,17 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { TableCell, TableRow, Typography } from '@mui/material'
+import { TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Input } from '@components/shared/input'
 import { Table } from '@components/shared/table'
 import { TableHeadRow } from '@components/table/table-rows/batches-view/table-head-row'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-hs-code-in-box-form.style'
 
@@ -27,9 +25,9 @@ const TableBodyBoxRow = ({ item, handlers, ...restProps }) => {
           <div className={styles.imgBlock}>
             <img className={styles.imgBox} src={getAmazonImageUrl(item.image)} />
             <div className={styles.imgSubBlock}>
-              <Typography className={styles.productTitle}>{item.amazonTitle}</Typography>
+              <p className={styles.productTitle}>{item.amazonTitle}</p>
 
-              <Typography className={styles.boxTitle}>{`ASIN: ${item.asin}`}</Typography>
+              <p className={styles.boxTitle}>{`ASIN: ${item.asin}`}</p>
             </div>
           </div>
         </div>
@@ -37,11 +35,9 @@ const TableBodyBoxRow = ({ item, handlers, ...restProps }) => {
 
       <TableCell>
         <div className={styles.countBlock}>
-          <Typography className={styles.amount}>{item.qty}</Typography>
+          <p className={styles.amount}>{item.qty}</p>
 
-          {restProps.box.amount > 1 && (
-            <Typography className={styles.superboxTypo}>{`Superbox x ${restProps.box.amount}`}</Typography>
-          )}
+          {restProps.box.amount > 1 && <p className={styles.superboxTypo}>{`Superbox x ${restProps.box.amount}`}</p>}
         </div>
       </TableCell>
 
@@ -95,9 +91,7 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
 
   return (
     <div className={styles.form}>
-      <Typography className={styles.modalTitle} variant="h5">
-        {`${t(TranslationKey.Box)} ${box.xid}`}
-      </Typography>
+      <h5 className={styles.modalTitle}>{`${t(TranslationKey.Box)} ${box.xid}`}</h5>
 
       <Table
         rowsOnly
@@ -109,13 +103,11 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button styleType={ButtonStyle.SUCCESS} disabled={submitDisabled} onClick={onClickSubmit}>
+        <CustomButton type="primary" disabled={submitDisabled} onClick={onClickSubmit}>
           {t(TranslationKey.Save)}
-        </Button>
+        </CustomButton>
 
-        <Button variant={ButtonVariant.OUTLINED} onClick={() => setOpenModal()}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={() => setOpenModal()}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

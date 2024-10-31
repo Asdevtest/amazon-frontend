@@ -2,13 +2,11 @@
 import { observer } from 'mobx-react'
 import { ChangeEvent, FC, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
@@ -16,10 +14,9 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { ClsIcon, EtaIcon, EtdIcon } from '@components/shared/svg-icons'
 
 import { checkDateByDeadline, checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { IDestination, IDestinationVariation } from '@typings/shared/destinations'
 import { ILogicTariff } from '@typings/shared/logic-tariff'
 
@@ -299,7 +296,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
     return (
       <div className={styles.root}>
-        <Typography className={styles.modalTitle}>{t(TranslationKey['Adding tariff'])}</Typography>
+        <p className={styles.modalTitle}>{t(TranslationKey['Adding tariff'])}</p>
 
         <div className={styles.nameWrapper}>
           <Field
@@ -383,8 +380,8 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
 
           <div className={styles.rateContainer}>
             <div className={styles.currentRateWrapper}>
-              <Typography className={styles.currentRate}>{t(TranslationKey['Current exchange rate'])}</Typography>
-              <Typography className={styles.currentRateText}>{sourceYuanToDollarRate}</Typography>
+              <p className={styles.currentRate}>{t(TranslationKey['Current exchange rate'])}</p>
+              <p className={styles.currentRateText}>{sourceYuanToDollarRate}</p>
             </div>
 
             <Field
@@ -426,7 +423,7 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         </div>
 
         <div className={styles.shippingDateWrapper}>
-          <Typography className={styles.modalTitle}>{t(TranslationKey['Shipping dates'])}</Typography>
+          <p className={styles.modalTitle}>{t(TranslationKey['Shipping dates'])}</p>
 
           <div className={styles.dateBlockWrapper}>
             <Field
@@ -524,12 +521,10 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
         />
 
         <div className={styles.btnsWrapper}>
-          <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
+          <CustomButton type="primary" disabled={disableSubmitBtn} onClick={onSubmit}>
             {t(TranslationKey.Save)}
-          </Button>
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClickClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
+          <CustomButton onClick={onClickClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )

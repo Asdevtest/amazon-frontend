@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useEffect, useMemo, useState } from 'react'
 
-import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
+import { FormControlLabel, Radio, RadioGroup } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
@@ -16,7 +16,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { UserModel } from '@models/user-model'
 
 import { BoxModal } from '@components/modals/box-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
@@ -37,7 +37,7 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-batch-form.style'
 
@@ -349,9 +349,9 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
 
   return (
     <div className={styles.root}>
-      <Typography className={styles.modalTitle}>
+      <p className={styles.modalTitle}>
         {batchToEdit ? t(TranslationKey['Editing a batch']) : t(TranslationKey['Creating a batch'])}
-      </Typography>
+      </p>
 
       <div className={styles.form}>
         <div className={styles.filtersWrapper}>
@@ -439,7 +439,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
         </div>
 
         <div className={styles.searchWrapper}>
-          <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
+          <p>{t(TranslationKey['Choose boxes from the list:'])}</p>
 
           <CustomInputSearch
             allowClear
@@ -473,10 +473,8 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
                 },
                 children: (
                   <div className={styles.boxCounterWrapper}>
-                    <Typography className={styles.boxCounterText}>
-                      {t(TranslationKey['Selected boxes']) + ':'}
-                    </Typography>
-                    <Typography className={styles.boxCounterCount}>
+                    <p className={styles.boxCounterText}>{t(TranslationKey['Selected boxes']) + ':'}</p>
+                    <p className={styles.boxCounterCount}>
                       {[
                         ...addOrEditBatchDataConverter(
                           boxesData,
@@ -492,7 +490,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
                       ]
                         .filter(el => boxesToAddIds.includes(el._id))
                         .reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-                    </Typography>
+                    </p>
                   </div>
                 ),
               },
@@ -526,7 +524,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
               onClickSelect={item => changeBatchFields('calculationMethod')(item.methodStatus)}
             />
 
-            <Typography className={styles.volumeWeightDivider}>{t(TranslationKey.Divider) + ':'}</Typography>
+            <p className={styles.volumeWeightDivider}>{t(TranslationKey.Divider) + ':'}</p>
 
             <RadioGroup
               row
@@ -538,19 +536,19 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             </RadioGroup>
           </div>
 
-          <Button
-            tooltipAttentionContent={
+          <CustomButton
+            title={
               !chosenBoxesBase.length && !batchToEdit && t(TranslationKey['First select one box'])
             }
             disabled={!boxesToAddIds.length || (!chosenBoxesBase.length && boxesToAddIds.length !== 1 && !batchToEdit)}
             onClick={onClickAdd}
           >
             {t(TranslationKey.Add)}
-          </Button>
+          </CustomButton>
         </div>
 
         <div className={styles.searchWrapper}>
-          <Typography>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
+          <p>{t(TranslationKey['Boxes in batch']) + ':'}</p>
 
           <CustomInputSearch
             allowClear
@@ -580,12 +578,10 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
                 },
                 children: (
                   <div className={styles.boxCounterWrapper}>
-                    <Typography className={styles.boxCounterText}>
-                      {t(TranslationKey['Quantity of boxes']) + ':'}
-                    </Typography>
-                    <Typography className={styles.boxCounterCount}>
+                    <p className={styles.boxCounterText}>{t(TranslationKey['Quantity of boxes']) + ':'}</p>
+                    <p className={styles.boxCounterCount}>
                       {chosenBoxesBase.reduce((ac, cur) => (ac += cur.originalData.amount), 0)}
-                    </Typography>
+                    </p>
                   </div>
                 ),
               },
@@ -654,29 +650,28 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
               placeholder={'0'}
             />
           </div>
-          <Button
-            styleType={ButtonStyle.DANGER}
+          <CustomButton
+            danger
+            type="primary"
             disabled={!boxesToDeliteIds.length || !chosenBoxes.length}
             onClick={onClickTrash}
           >
             {t(TranslationKey.Remove)}
-          </Button>
+          </CustomButton>
         </div>
 
         {filesToAdd ? <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} /> : null}
 
         <div className={styles.btnsWrapper}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            type="primary"
             disabled={(chosenBoxes.length < 1 && !batchToEdit) || submitIsClicked}
             onClick={onClickSubmit}
           >
             {t(TranslationKey.Save)}
-          </Button>
+          </CustomButton>
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
 

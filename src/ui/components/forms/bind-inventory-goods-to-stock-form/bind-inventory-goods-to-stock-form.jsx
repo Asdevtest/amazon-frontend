@@ -4,13 +4,11 @@ import { useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './bind-inventory-goods-to-stock-form.style'
 
@@ -60,9 +58,9 @@ export const BindInventoryGoodsToStockForm = observer(props => {
     setSelectedGoods(model)
   }
   const onClickAdd = () => {
-    const curChosenGoodsIds = chosenGoods.map(el => el.id)
+    const curChosenGoodsIds = chosenGoods.map(el => el._id)
     const newRowIds = selectedGoods.filter(el => !curChosenGoodsIds.includes(el))
-    const newSelectedItems = stockData.filter(el => newRowIds.includes(el.id))
+    const newSelectedItems = stockData.filter(el => newRowIds.includes(el._id))
     setChosenGoods([...chosenGoods, ...newSelectedItems])
     setSelectedGoods([])
   }
@@ -96,39 +94,35 @@ export const BindInventoryGoodsToStockForm = observer(props => {
 
       <div className={styles.flexContainer}>
         <div className={styles.flexContainer}>
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            styleType={chipConfig === chipConfigSettings.RECOMMENDED ? ButtonStyle.PRIMARY : ButtonStyle.CASUAL}
+          <CustomButton
+            type={chipConfig === chipConfigSettings.RECOMMENDED ? 'primary' : 'default'}
             onClick={() => setRecommendChip()}
           >
             {t(TranslationKey.Recommended)}
-          </Button>
+          </CustomButton>
 
           <p className={styles.text}>{t(TranslationKey['or search by'])}</p>
 
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            styleType={chipConfig === chipConfigSettings.NAME ? ButtonStyle.PRIMARY : ButtonStyle.CASUAL}
+          <CustomButton
+            type={chipConfig === chipConfigSettings.NAME ? 'primary' : 'default'}
             onClick={() => setChipConfig(chipConfigSettings.NAME)}
           >
             {t(TranslationKey.Title)}
-          </Button>
+          </CustomButton>
 
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            styleType={chipConfig === chipConfigSettings.ASIN ? ButtonStyle.PRIMARY : ButtonStyle.CASUAL}
+          <CustomButton
+            type={chipConfig === chipConfigSettings.ASIN ? 'primary' : 'default'}
             onClick={() => setChipConfig(chipConfigSettings.ASIN)}
           >
             {t(TranslationKey.ASIN)}
-          </Button>
+          </CustomButton>
 
-          <Button
-            variant={ButtonVariant.OUTLINED}
-            styleType={chipConfig === chipConfigSettings.SKU ? ButtonStyle.PRIMARY : ButtonStyle.CASUAL}
+          <CustomButton
+            type={chipConfig === chipConfigSettings.SKU ? 'primary' : 'default'}
             onClick={() => setChipConfig(chipConfigSettings.SKU)}
           >
             {t(TranslationKey.SKU)}
-          </Button>
+          </CustomButton>
         </div>
 
         <CustomInputSearch
@@ -158,12 +152,12 @@ export const BindInventoryGoodsToStockForm = observer(props => {
       </div>
 
       <div className={styles.btnsWrapper}>
-        <Button
+        <CustomButton
           disabled={selectedGoods.every(el => chosenGoods.map(el => el.id).includes(el)) || selectedGoods.length < 1}
           onClick={onClickAdd}
         >
           {t(TranslationKey.Add)}
-        </Button>
+        </CustomButton>
       </div>
 
       <p className={styles.text}>{t(TranslationKey['Selected products from stock'])}</p>
@@ -181,16 +175,9 @@ export const BindInventoryGoodsToStockForm = observer(props => {
       </div>
 
       <div className={styles.btnsWrapper}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          tooltipInfoContent={t(
-            TranslationKey['Bind the selected product from the store to the item in the inventory'],
-          )}
-          disabled={chosenGoods.length < 1}
-          onClick={onClickSubmit}
-        >
+        <CustomButton type="primary" disabled={chosenGoods.length < 1} onClick={onClickSubmit}>
           {t(TranslationKey.Bind)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

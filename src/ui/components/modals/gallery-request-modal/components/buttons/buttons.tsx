@@ -3,7 +3,7 @@ import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -20,7 +20,7 @@ export const Buttons: FC<ButtonsProps> = memo(({ disabled, onClick, buttonText }
 
   return (
     <div className={styles.wrapper}>
-      <Button disabled={disabled} onClick={onClick}>
+      <CustomButton disabled={disabled} onClick={onClick}>
         {buttonText ? (
           buttonText
         ) : (
@@ -29,7 +29,7 @@ export const Buttons: FC<ButtonsProps> = memo(({ disabled, onClick, buttonText }
             {t(TranslationKey['Add to request'])}
           </>
         )}
-      </Button>
+      </CustomButton>
     </div>
   )
 })

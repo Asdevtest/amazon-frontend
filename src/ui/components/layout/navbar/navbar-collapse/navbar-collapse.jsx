@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 
-import { Collapse, List, ListItemIcon, ListItemText, Menu, Typography } from '@mui/material'
+import { Collapse, List, ListItemIcon, ListItemText, Menu } from '@mui/material'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
@@ -12,7 +12,7 @@ import { HighPriorityValue } from '@components/shared/high-priority-value'
 import { getSumPropertiesObject } from '@utils/object'
 import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './navbar-collapse.style'
 
@@ -242,13 +242,13 @@ export const NavbarCollapse = ({
       showHighPriorityNotification && getNotificationCountBySubRoute(subCategory.subRoute)
     const subCategoryTitle = subCategory?.subtitle()
     const isTooltipVisible = !shortNavbar && subCategoryTitle !== category?.title()
-
+    // ! replace Button after swich to ant
     return (
       <Button
         key={subIndex}
         tooltipPosition="center"
         className={cx(styles.menuItem, { [styles.selected]: subIndex === activeSubCategory })}
-        styleType={ButtonStyle.TRANSPARENT}
+        styleType="transparent"
         tooltipInfoContent={isTooltipVisible && renderTooltipTitle(subCategoryTitle, userInfo.role)}
         tooltipAttentionContent={isTooltipVisible && renderAttentionTooltipTitle(subCategoryTitle, userInfo.role)}
       >
@@ -295,9 +295,7 @@ export const NavbarCollapse = ({
               aria-haspopup="true"
               onClick={handleClick}
             >
-              <Typography className={cx(styles.collapseText, { [styles.selected]: index === activeCategory })}>
-                {'...'}
-              </Typography>
+              <p className={cx(styles.collapseText, { [styles.selected]: index === activeCategory })}>{'...'}</p>
 
               {menuAnchor ? (
                 <MdArrowDropUp size={24} className={cx({ [styles.selected]: index === activeCategory })} />

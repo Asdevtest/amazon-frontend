@@ -175,7 +175,7 @@ export const useStyles = makeStyles()(theme => ({
   onlineIcon: {
     position: 'relative',
     '&:before': {
-      zIndex: 10,
+      zIndex: 1,
       content: '""',
       position: 'absolute',
       bottom: 0,

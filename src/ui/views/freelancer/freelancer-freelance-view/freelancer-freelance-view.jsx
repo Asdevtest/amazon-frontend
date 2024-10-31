@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './freelancer-freelance-view.style'
 
@@ -23,7 +21,7 @@ export const FreelancerFreelanceView = memo(() => {
       <div className={styles.btnsWrapper}>
         {renderData.map(item => (
           <Link key={item.text} to={item.link}>
-            <Button variant={ButtonVariant.OUTLINED}>{t(TranslationKey[item.text])}</Button>
+            <CustomButton>{t(TranslationKey[item.text])}</CustomButton>
           </Link>
         ))}
       </div>

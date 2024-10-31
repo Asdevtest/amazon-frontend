@@ -12,7 +12,6 @@ import { CustomSelect } from '@components/shared/custom-select'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IOrder } from '@typings/models/orders/order'
 
 import { useStyles } from './admin-orders-views.style'
 
@@ -53,7 +52,6 @@ export const AdminOrdersViews = observer(() => {
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }: IOrder) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

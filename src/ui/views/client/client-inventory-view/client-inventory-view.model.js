@@ -299,24 +299,14 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       }
     }
 
-    const columns = clientInventoryColumns({
-      barCodeHandlers,
-      hsCodeHandlers,
-      fourMonthesStockHandlers,
-      stockUsHandlers,
-      otherHandlers,
-    })
-
-    const filtersFields = getFilterFields(columns, additionalFilterFields)
-
     const operatorsSettings = {
       shop: '$any',
     }
 
     super({
       getMainDataMethod: ClientModel.getProductsMyFilteredByShopIdWithPag,
-      columnsModel: columns,
-      filtersFields,
+      columnsModel: [],
+      filtersFields: [],
       mainMethodURL: 'clients/products/my_with_pag_v2?',
       fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient'],
       tableKey: DataGridTablesKeys.CLIENT_INVENTORY,
@@ -1516,15 +1506,19 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   }
 
   async initTableColumns() {
-    const [storekeepers, integrationTables] = await Promise.all([this.getStorekeepers(), this.getIntegrationFields()])
+    try {
+      const [storekeepers, integrationTables] = await Promise.all([this.getStorekeepers(), this.getIntegrationFields()])
 
-    const filteredStorekeepers = storekeepers?.filter(storekeeper => storekeeper?.boxesCount > 0)
+      const filteredStorekeepers = storekeepers?.filter(storekeeper => storekeeper?.boxesCount > 0)
 
-    this.setAllColumns(filteredStorekeepers, integrationTables)
+      this.setAllColumns(filteredStorekeepers, integrationTables)
 
-    this.setAllColumns = undefined
+      this.setAllColumns = undefined
 
-    this.getTableSettingsPreset()
+      this.getTableSettingsPreset()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   hideByDefaultIntegrationColumns(integrationTables) {

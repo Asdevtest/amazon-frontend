@@ -4,7 +4,6 @@ import { MdNavigateNext } from 'react-icons/md'
 import { useHistory, useLocation } from 'react-router-dom'
 
 import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Typography from '@mui/material/Typography'
 
 import { LOCAL_STORAGE_KEYS } from '@constants/keys/local-storage'
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
@@ -82,15 +81,15 @@ export const BreadCrumbsLine = observer(() => {
             }
 
             return last ? (
-              <Typography key={to} className={styles.lastCrumb}>
+              <p key={to} className={styles.lastCrumb}>
                 {t(getCrumbNameKey(to)) + `${breadcrumbsAdditionalText ? breadcrumbsAdditionalText : ''}`}
-              </Typography>
+              </p>
             ) : (
-              <Typography key={to} className={styles.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
+              <p key={to} className={styles.crumb} onClick={() => onClickCrumb(to, isPreLast, index)}>
                 {getCrumbNameKey(to) === 'Order'
                   ? `${t(TranslationKey.Order)} ${savedLastCrumbAdditionalText ? savedLastCrumbAdditionalText : ''}`
                   : t(getCrumbNameKey(to))}
-              </Typography>
+              </p>
             )
           })}
         </Breadcrumbs>

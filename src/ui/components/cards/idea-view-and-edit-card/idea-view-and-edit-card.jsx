@@ -3,15 +3,15 @@ import { useEffect, useRef, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import { IconButton, Link, Typography } from '@mui/material'
+import { IconButton, Link } from '@mui/material'
 
 import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status.ts'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -35,7 +35,6 @@ import { objectDeepCompare } from '@utils/object'
 import { checkAndMakeAbsoluteUrl, clearEverythingExceptNumbers, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 import { RequestSwitherType } from '@typings/enums/request/request-type'
 
 import { useStyles } from './idea-view-and-edit-card.style'
@@ -47,7 +46,6 @@ import { SourceProduct } from './source-product'
 export const IdeaViewAndEditCard = observer(
   ({
     isModalView,
-    languageTag,
     curUser,
     inEdit,
     inCreate,
@@ -161,7 +159,6 @@ export const IdeaViewAndEditCard = observer(
         length: toFixed(idea?.length / multiplier, 2) || 0,
         suppliers: idea?.suppliers || [],
         _id: idea?._id || undefined,
-        parentProduct: idea?.parentProduct || undefined,
         childProduct: idea?.childProduct || undefined,
         requestsOnCheck: idea?.requestsOnCheck || [],
         requestsOnFinished: idea?.requestsOnFinished || [],
@@ -226,7 +223,7 @@ export const IdeaViewAndEditCard = observer(
         setFormFields(getFullIdea())
         // setShowFullCard(true) // 10527
       }
-    }, [idea, languageTag])
+    }, [idea])
 
     useEffect(() => {
       if (selectedIdea === idea?._id) {
@@ -354,14 +351,14 @@ export const IdeaViewAndEditCard = observer(
                 onClickShareIcon={() => onClickOpenProduct(formFields?.childProduct?._id)}
               />
             )}
-            {(currentProduct || formFields?.parentProduct) && (
+            {currentProduct && (
               <SourceProduct
                 showOpenInNewTabIcon
                 title={t(TranslationKey['Parent product'])}
-                img={formFields?.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
-                asin={formFields?.parentProduct?.asin || currentProduct?.asin}
-                sku={formFields?.parentProduct?.skuByClient || currentProduct?.skuByClient}
-                onClickShareIcon={() => onClickOpenProduct(formFields?.parentProduct?._id || currentProduct?._id)}
+                img={currentProduct?.images?.[0]}
+                asin={currentProduct?.asin}
+                sku={currentProduct?.skuByClient}
+                onClickShareIcon={() => onClickOpenProduct(currentProduct?._id)}
               />
             )}
           </div>
@@ -403,9 +400,9 @@ export const IdeaViewAndEditCard = observer(
                         />
                       </div>
 
-                      <Button disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
+                      <CustomButton disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
                         {t(TranslationKey['Link request'])}
-                      </Button>
+                      </CustomButton>
                     </div>
                   </div>
 
@@ -484,9 +481,7 @@ export const IdeaViewAndEditCard = observer(
           {showFullCard && (
             <>
               <div className={cx(styles.middleBlock, { [styles.fullMiddleBlock]: showFullCard })}>
-                <Typography className={styles.supplierSearchTitle}>
-                  {t(TranslationKey['Supplier search options'])}
-                </Typography>
+                <p className={styles.supplierSearchTitle}>{t(TranslationKey['Supplier search options'])}</p>
 
                 <div className={cx(styles.cardWrapper, { [styles.fullCardWpapper]: showFullCard })}>
                   <div className={styles.nameAndInfoProductWrapper}>
@@ -534,9 +529,9 @@ export const IdeaViewAndEditCard = observer(
                                 className={styles.input}
                                 onChange={e => setLinkLine(e.target.value)}
                               />
-                              <Button disabled={!linkLine || disableFields} onClick={onClickLinkBtn}>
+                              <CustomButton disabled={!linkLine || disableFields} onClick={onClickLinkBtn}>
                                 {t(TranslationKey.Add)}
-                              </Button>
+                              </CustomButton>
                             </div>
                           )}
                           <div ref={linkListRef} className={styles.linksSubWrapper}>
@@ -548,7 +543,7 @@ export const IdeaViewAndEditCard = observer(
                                     href={checkAndMakeAbsoluteUrl(el)}
                                     className={styles.linkTextWrapper}
                                   >
-                                    <Typography className={styles.linkText}>{`${index + 1}. ${el}`}</Typography>
+                                    <p className={styles.linkText}>{`${index + 1}. ${el}`}</p>
                                   </Link>
 
                                   <div className={styles.linksBtnsWrapper}>
@@ -565,7 +560,7 @@ export const IdeaViewAndEditCard = observer(
                                 </div>
                               ))
                             ) : (
-                              <Typography className={styles.noDataText}>{t(TranslationKey['No data'])}</Typography>
+                              <p className={styles.noDataText}>{t(TranslationKey['No data'])}</p>
                             )}
                           </div>
                         </div>
@@ -693,9 +688,9 @@ export const IdeaViewAndEditCard = observer(
           <div className={styles.existedIdeaBtnsWrapper}>
             {!isModalView ? (
               <div className={styles.tablePanelSortWrapper} onClick={setShowFullCardByCurIdea}>
-                <Typography className={styles.tablePanelViewText}>
+                <p className={styles.tablePanelViewText}>
                   {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-                </Typography>
+                </p>
 
                 {!showFullCard ? (
                   <MdArrowDropDown size={22} className={styles.icon} />
@@ -704,11 +699,7 @@ export const IdeaViewAndEditCard = observer(
                 )}
               </div>
             ) : (
-              <OpenInNewTab
-                onClickOpenNewTab={() =>
-                  onClickOpenNewTab(formFields?.parentProduct?._id || currentProduct?._id, formFields?._id)
-                }
-              />
+              <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(currentProduct?._id, formFields?._id)} />
             )}
 
             {!checkIsAdmin(userRole) && (
@@ -721,13 +712,13 @@ export const IdeaViewAndEditCard = observer(
                       onClickRadioButton={selectedStatus => setSupplierFound(selectedStatus)}
                     />
 
-                    <Button
-                      styleType={ButtonStyle.SUCCESS}
+                    <CustomButton
+                      type="primary"
                       disabled={!supplierFound}
                       onClick={() => onClickAcceptButton(formFields, supplierFound)}
                     >
                       {t(TranslationKey.Save)}
-                    </Button>
+                    </CustomButton>
                   </div>
                 )}
 
@@ -738,86 +729,86 @@ export const IdeaViewAndEditCard = observer(
                 )}
 
                 {currentUserIsClient && isCurrentIdea && isCardCreating && (
-                  <Button
-                    styleType={ButtonStyle.SUCCESS}
-                    tooltipInfoContent={t(TranslationKey['A new product card will appear in the inventory'])}
+                  <CustomButton
+                    type="primary"
                     disabled={idea.childProduct}
                     onClick={() => onCreateProduct(calculateFieldsToCreateProductSubmit(formFields))}
                   >
                     {t(TranslationKey['Create a product card'])}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {currentUserIsClient && showCreateRequestButton && (
-                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickCreateRequestButton(formFields)}>
-                    <FiPlus style={{ width: 16, height: 16 }} />
+                  <CustomButton
+                    type="primary"
+                    icon={<FiPlus size={16} />}
+                    onClick={() => onClickCreateRequestButton(formFields)}
+                  >
                     {t(TranslationKey['Create request'])}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {showAcceptButtonToClient /* || (currentUserIsBuyer && isSupplierSearch) */ && (
-                  <Button
-                    styleType={ButtonStyle.SUCCESS}
+                  <CustomButton
+                    type="primary"
                     disabled={disableAcceptButton}
                     onClick={() => onClickAcceptButton(formFields)}
                   >
                     {t(TranslationKey.Accept)}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {currentUserIsClient && isVerified && (
-                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickToOrder(formFields)}>
+                  <CustomButton type="primary" onClick={() => onClickToOrder(formFields)}>
                     {t(TranslationKey['To order'])}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {currentUserIsClient && isNewIdea && (
-                  <Button onClick={() => onClickAcceptButton(formFields)}>{t(TranslationKey['To check'])}</Button>
+                  <CustomButton onClick={() => onClickAcceptButton(formFields)}>
+                    {t(TranslationKey['To check'])}
+                  </CustomButton>
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button styleType={ButtonStyle.DANGER} onClick={() => onClickCloseIdea(formFields?._id)}>
+                  <CustomButton danger type="primary" onClick={() => onClickCloseIdea(formFields?._id)}>
                     {t(TranslationKey['Close idea'])}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {currentUserIsClient && isRejected && (
-                  <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickReoperButton(formFields?._id)}>
+                  <CustomButton type="primary" onClick={() => onClickReoperButton(formFields?._id)}>
                     {t(TranslationKey.Restore)}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {checkIsClientOrBuyer && !isClosed && (
-                  <Button onClick={() => onEditIdea(formFields)}>{t(TranslationKey.Edit)}</Button>
+                  <CustomButton onClick={() => onEditIdea(formFields)}>{t(TranslationKey.Edit)}</CustomButton>
                 )}
 
                 {currentUserIsClient && showRejectButton && (
-                  <Button styleType={ButtonStyle.DANGER} onClick={() => onClickRejectButton(formFields?._id)}>
+                  <CustomButton danger type="primary" onClick={() => onClickRejectButton(formFields?._id)}>
                     {t(TranslationKey.Reject)}
-                  </Button>
+                  </CustomButton>
                 )}
 
                 {isModalView && (
-                  <Button variant={ButtonVariant.OUTLINED} onClick={() => onClickCancelBtn()}>
-                    {t(TranslationKey.Close)}
-                  </Button>
+                  <CustomButton onClick={() => onClickCancelBtn()}>{t(TranslationKey.Close)}</CustomButton>
                 )}
               </div>
             )}
           </div>
         ) : (
           <div className={styles.addOrEditBtnsWrapper}>
-            <Button
+            <CustomButton
+              type="primary"
               disabled={disabledSubmit}
-              styleType={ButtonStyle.SUCCESS}
               onClick={() => onClickSaveBtn(calculateFieldsToSubmit(), images)}
             >
               {t(TranslationKey.Save)}
-            </Button>
+            </CustomButton>
 
-            <Button variant={ButtonVariant.OUTLINED} onClick={() => onClickCancelBtn()}>
-              {t(TranslationKey.Close)}
-            </Button>
+            <CustomButton onClick={() => onClickCancelBtn()}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         )}
       </div>

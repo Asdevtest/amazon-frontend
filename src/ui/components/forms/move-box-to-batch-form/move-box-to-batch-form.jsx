@@ -8,6 +8,8 @@ import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
 import { t } from '@utils/translations'
 
+import '@typings/enums/button-style'
+
 import { useStyles } from './move-box-to-batch-form.style'
 
 import { moveBoxToBatchFormColumns } from './move-box-to-batch-form-columns'
@@ -44,13 +46,12 @@ export const MoveBoxToBatchForm = observer(props => {
           rows={filteredBatches}
           columns={moveBoxToBatchFormColumns({ setSelectedBatch }, selectedBatch)}
           getRowHeight={() => 'auto'}
-          getRowId={({ _id }) => _id}
           onRowClick={e => setSelectedBatch(e.row)}
         />
       </div>
 
-      <div className={styles.flexRow}>
-        <CustomButton type="primary" size="large" onClick={() => onSubmitCreateBatch(box)}>
+      <div className={styles.btnsWrapper}>
+        <CustomButton type="primary" onClick={() => onSubmitCreateBatch(box)}>
           {t(TranslationKey['Create new batch'])}
         </CustomButton>
 

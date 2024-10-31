@@ -1,18 +1,16 @@
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { UserLink } from '@components/user/user-link'
 
 import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './add-or-edit-destination-form.style'
 
@@ -81,7 +79,7 @@ export const AddOrEditDestinationForm = observer(
                       userId={destinationToEdit.storekeeper?._id}
                     />
                   ) : (
-                    <Typography className={styles.standartText}>{t(TranslationKey.Missing)}</Typography>
+                    <p className={styles.standartText}>{t(TranslationKey.Missing)}</p>
                   )}
                 </>
               }
@@ -145,23 +143,17 @@ export const AddOrEditDestinationForm = observer(
 
         <div className={styles.footerWrapper}>
           {onClickAddBtn ? (
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              tooltipInfoContent={t(TranslationKey['Add a new rate'])}
-              onClick={throttle(onClickAddBtn)}
-            >
+            <CustomButton type="primary" title={t(TranslationKey['Add a new rate'])} onClick={onClickAddBtn}>
               {t(TranslationKey.Add)}
-            </Button>
+            </CustomButton>
           ) : null}
 
           <div className={styles.btnsWrapper}>
-            <Button styleType={ButtonStyle.SUCCESS} disabled={disableSubmitBtn} onClick={throttle(onSubmit)}>
+            <CustomButton type="primary" disabled={disableSubmitBtn} onClick={onSubmit}>
               {t(TranslationKey.Save)}
-            </Button>
+            </CustomButton>
 
-            <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-              {t(TranslationKey.Close)}
-            </Button>
+            <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       </div>

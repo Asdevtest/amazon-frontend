@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid'
-
 import { UserRole, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { CLIENT_USER_MANAGERS_LIST } from '@constants/mocks'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -55,7 +53,6 @@ export const UserProfileView = observer(() => {
               columnVisibilityModel={viewModel.columnVisibilityModel}
               rows={viewModel.currentData}
               getRowHeight={() => 'auto'}
-              getRowId={({ _id }: GridRowModel) => _id}
               slotProps={{
                 baseTooltip: {
                   title: t(TranslationKey.Filter),

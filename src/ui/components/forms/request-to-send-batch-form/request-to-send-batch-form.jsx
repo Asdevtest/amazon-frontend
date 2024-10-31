@@ -1,16 +1,14 @@
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { findTariffInStorekeepersData } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './request-to-send-batch-form.style'
 
@@ -117,9 +115,7 @@ export const RequestToSendBatchForm = observer(
 
     return (
       <div className={styles.content}>
-        <Typography className={styles.modalTitle} variant="h5">
-          {t(TranslationKey['Sending boxes'])}
-        </Typography>
+        <h5 className={styles.modalTitle}>{t(TranslationKey['Sending boxes'])}</h5>
         <div className={styles.boxesWrapper}>
           {boxesGroupedByWarehouseAndDeliveryMethod.map((selectedGroup, i) => (
             <div key={i}>
@@ -136,17 +132,14 @@ export const RequestToSendBatchForm = observer(
           ))}
         </div>
         <div className={styles.warningWrapper}>
-          <Typography
-            variant="subtitle1"
-            className={cx(styles.warningText, { [styles.noWarningText]: !disabledSubmit })}
-          >
+          <p className={cx(styles.warningText, { [styles.noWarningText]: !disabledSubmit })}>
             {'*' +
               t(
                 TranslationKey[
                   'Boxes marked in red will not be shipped because they have no dimensions or insufficient data'
                 ],
               )}
-          </Typography>
+          </p>
         </div>
 
         <div className={styles.btnsWrapper}>
@@ -160,22 +153,14 @@ export const RequestToSendBatchForm = observer(
             </p>
           ) : null}
 
-          <Button
+          <CustomButton
             disabled={disabledSubmit}
-            tooltipAttentionContent={t(
-              TranslationKey['Create a request to send to the batch, freeze funds, then see "My batches"'],
-            )}
+            title={t(TranslationKey['Create a request to send to the batch, freeze funds, then see "My batches"'])}
             onClick={onClickSubmit}
           >
             {t(TranslationKey.Send)}
-          </Button>
-          <Button
-            styleType={ButtonStyle.CASUAL}
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            onClick={closeModal}
-          >
-            {t(TranslationKey.Close)}
-          </Button>
+          </CustomButton>
+          <CustomButton onClick={closeModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     )

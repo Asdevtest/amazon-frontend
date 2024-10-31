@@ -12,7 +12,7 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 export const ideasNotificationsViewColumns = handlers => [
   {
@@ -34,7 +34,7 @@ export const ideasNotificationsViewColumns = handlers => [
       <ActionButtonsCell
         isFirstButton
         firstButtonElement={t(TranslationKey.View)}
-        firstButtonStyle={ButtonStyle.PRIMARY}
+        firstButtonStyle="primary"
         onClickFirstButton={() => handlers.onClickViewBtn(params?.row?.product?._id)}
       />
     ),
@@ -84,11 +84,7 @@ export const ideasNotificationsViewColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Idea Status'])} />,
 
     renderCell: params => (
-      <Text
-        isCell
-        text={params?.value}
-        color={colorByIdeaStatus(ideaStatusByCode[params.row.originalData.idea.status])}
-      />
+      <Text isCell text={params?.value} color={colorByIdeaStatus(ideaStatusByCode[params.row.idea.status])} />
     ),
     width: 120,
   },

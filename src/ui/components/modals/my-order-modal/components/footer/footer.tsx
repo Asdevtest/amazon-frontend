@@ -3,12 +3,12 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { ShareIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { OrderStatus } from '@typings/enums/order/order-status'
 
 import { useStyles } from './footer.style'
@@ -58,26 +58,22 @@ export const Footer: FC<FooterProps> = memo(props => {
 
       <div className={styles.buttons}>
         {showCancelButton ? (
-          <Button styleType={ButtonStyle.DANGER} onClick={() => onClickCancelOrder(formFields?._id)}>
+          <CustomButton danger type="primary" onClick={() => onClickCancelOrder(formFields?._id)}>
             {t(TranslationKey['Cancel order'])}
-          </Button>
+          </CustomButton>
         ) : null}
 
         {showButtons ? (
           <>
             {showToOrderButton && (
-              <Button disabled={isNotMultiple} onClick={() => onClickReorder(formFields, isPendingOrder)}>
+              <CustomButton disabled={isNotMultiple} onClick={() => onClickReorder(formFields, isPendingOrder)}>
                 {t(TranslationKey['To order'])}
-              </Button>
+              </CustomButton>
             )}
 
-            <Button
-              styleType={ButtonStyle.SUCCESS}
-              disabled={disabledSaveSubmit}
-              onClick={() => onSubmitSaveOrder(formFields)}
-            >
+            <CustomButton type="primary" disabled={disabledSaveSubmit} onClick={() => onSubmitSaveOrder(formFields)}>
               {t(TranslationKey.Save)}
-            </Button>
+            </CustomButton>
           </>
         ) : null}
       </div>

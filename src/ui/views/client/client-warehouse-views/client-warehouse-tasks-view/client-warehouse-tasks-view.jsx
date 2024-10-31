@@ -83,7 +83,6 @@ export const ClientWarehouseTasksView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={row => row._id}
         pinnedColumns={viewModel.pinnedColumns}
         slotProps={{
           baseTooltip: {

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
-import { Link } from '@mui/material'
-
-import { UserLink } from '@components/user/user-link'
+import { Text } from '@components/shared/text'
 
 import { useStyles } from './in-stock-cell.style'
+
+import { UserCell } from '../user-cell/user-cell'
 
 interface InStockCellProps {
   boxAmounts: any[]
@@ -15,36 +15,24 @@ interface InStockCellProps {
 }
 
 export const InStockCell: FC<InStockCellProps> = memo(props => {
-  const { classes: styles, cx } = useStyles()
   const { boxAmounts, boxId, onClickInStock, isHideStorekeeper } = props
 
-  return (
-    <div className={styles.inStockWrapper}>
-      {!!boxAmounts?.length &&
-        boxAmounts
-          ?.sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
-          ?.map(el => (
-            <div
-              key={el?._id}
-              className={cx(styles.inStockSubWrapper, { [styles.stockWrapperNoLink]: isHideStorekeeper })}
-            >
-              {!isHideStorekeeper ? (
-                <UserLink maxNameWidth={100} name={el?.storekeeper?.name} userId={el.storekeeper?._id} />
-              ) : null}
+  const { classes: styles } = useStyles()
 
-              <Link
-                target="_blank"
-                underline="hover"
-                className={styles.linkWrapper}
-                onClick={e => {
-                  e.stopPropagation()
-                  onClickInStock(boxId, el?.storekeeper)
-                }}
-              >
-                {el?.amountInBoxes}
-              </Link>
-            </div>
-          ))}
+  return (
+    <div className={styles.root}>
+      {boxAmounts?.map(el => (
+        <div key={el?._id} className={styles.flexRow}>
+          {!isHideStorekeeper ? <UserCell name={el?.storekeeper?.name} /> : null}
+
+          <Text
+            link
+            url={el?.amountInBoxes}
+            text={el?.amountInBoxes}
+            onClick={() => onClickInStock(boxId, el?.storekeeper)}
+          />
+        </div>
+      ))}
     </div>
   )
 })

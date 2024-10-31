@@ -2,14 +2,14 @@ import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
 
@@ -128,15 +128,16 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
           onChange={e => setNameSearchValue(e.target.value)}
         />
 
-        <Button
-          styleType={ButtonStyle.DANGER}
+        <CustomButton
+          danger
+          type="primary"
           onClick={() => {
             onClickResetPerformerBtn()
             onClickCloseBtn()
           }}
         >
           {t(TranslationKey['Reset performer'])}
-        </Button>
+        </CustomButton>
       </div>
 
       <div className={styles.cardsWrapper}>
@@ -151,16 +152,14 @@ export const ChoiceOfPerformerModal: FC<ChoiceOfPerformerModalProps> = props => 
       </div>
 
       <div className={styles.footerWrapper}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
+        <CustomButton
+          type="primary"
           disabled={!selectedService && !selectedExecutor}
           onClick={() => onClickSelectButton(selectedService, selectedExecutor)}
         >
           {t(TranslationKey.Select)}
-        </Button>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCloseBtn}>
-          {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
+        <CustomButton onClick={onClickCloseBtn}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

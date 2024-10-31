@@ -6,12 +6,12 @@ import { IoCloseOutline } from 'react-icons/io5'
 import { MdExpandMore } from 'react-icons/md'
 import { v4 as uuid } from 'uuid'
 
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
@@ -20,8 +20,6 @@ import { CrossInRectangleIcon, PhotoCameraWithPlusIcon } from '@components/share
 import { createUploadFile } from '@utils/create-upload-file'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useScrollToFile } from '@hooks/use-scroll-to-file'
 
@@ -116,7 +114,7 @@ const Slot = ({
               <PhotoCameraWithPlusIcon className={styles.cameraIcon} />
             </div>
 
-            <Typography className={cx(styles.imageUploadText)}>Upload</Typography>
+            <p className={cx(styles.imageUploadText)}>Upload</p>
 
             <input
               multiple
@@ -130,7 +128,7 @@ const Slot = ({
       </div>
 
       <div className={styles.imageObjSubWrapper}>
-        <Typography className={cx(styles.imageObjIndex)}>{index + 1}</Typography>
+        <p className={cx(styles.imageObjIndex)}>{index + 1}</p>
 
         <Input
           multiline
@@ -144,9 +142,9 @@ const Slot = ({
         />
       </div>
 
-      <Typography title={slot?.commentByClient || ''} className={styles.clientComment}>
+      <p title={slot?.commentByClient || ''} className={styles.clientComment}>
         {getShortenStringIfLongerThanCount(slot?.commentByClient, 30)}
-      </Typography>
+      </p>
     </div>
   )
 }
@@ -253,17 +251,17 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
       <div className={styles.modalMainWrapper}>
         <div className={styles.headerWrapper}>
           <div className={styles.headerLeftSubWrapper}>
-            <Typography className={cx(styles.headerLabel, styles.mainTitleMargin)}>{`${t(
+            <p className={cx(styles.headerLabel, styles.mainTitleMargin)}>{`${t(
               TranslationKey['Request result'],
-            )} / ID ${proposal?.request?.xid}`}</Typography>
+            )} / ID ${proposal?.request?.xid}`}</p>
 
-            <Typography className={cx(styles.headerLabel, styles.labelMargin)}>
+            <p className={cx(styles.headerLabel, styles.labelMargin)}>
               {t(TranslationKey['Your image recommendations'])}
-            </Typography>
+            </p>
 
-            <Typography className={cx(styles.headerSubText, styles.textMargin)}>
+            <p className={cx(styles.headerSubText, styles.textMargin)}>
               {t(TranslationKey['Upload your recommendations for product images.'])}
-            </Typography>
+            </p>
 
             <Accordion
               disableGutters
@@ -279,41 +277,41 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
                   expandIconWrapper: styles.expandIconWrapper,
                 }}
               >
-                <Typography className={styles.headerLabel}>
+                <p className={styles.headerLabel}>
                   {showDetails
                     ? t(TranslationKey['Hide image guidelines'])
                     : t(TranslationKey['Show image guidelines'])}
-                </Typography>
+                </p>
               </AccordionSummary>
 
               <AccordionDetails classes={{ root: styles.details }} style={{ padding: 0 }}>
-                <Typography className={cx(styles.headerSubText, styles.textMargin)}>
+                <p className={cx(styles.headerSubText, styles.textMargin)}>
                   {t(TranslationKey['Product images style guideline'])}
-                </Typography>
+                </p>
 
-                <Typography className={cx(styles.headerSubText, styles.textMargin)}>
+                <p className={cx(styles.headerSubText, styles.textMargin)}>
                   {t(
                     TranslationKey[
                       'Listings that are missing a main image will not appear in search or browse until you fix the listing.Choose images that are clear, information-rich, and attractive.'
                     ],
                   )}
-                </Typography>
+                </p>
 
-                <Typography className={cx(styles.headerSubText, styles.textMargin)}>
+                <p className={cx(styles.headerSubText, styles.textMargin)}>
                   {t(
                     TranslationKey[
                       'Images must meet the following requirements:Products must fill at least 85% of the image. Images must show only the product that is for sale, with few or no props and with no logos, watermarks, or inset images. Images may only contain text that is a part of the product.Main images must have a pure white background, must be a photo (not a drawing), and must not contain excluded accessories.Images must be at least 1000 pixels on the longest side and at least 500 pixels on the shortest side to be zoom-able.Images must not exceed 10000 pixels on the longest side.JPEG is the preferred image format, but you also may use TIFF and GIF files.'
                     ],
                   )}
-                </Typography>
+                </p>
 
                 <div className={cx(styles.uploadGuidWrapper, styles.labelMargin)}>
-                  <Typography className={cx(styles.headerLabel, styles.spanText)}>
+                  <p className={cx(styles.headerLabel, styles.spanText)}>
                     {t(TranslationKey['Upload multiple files'])}
-                  </Typography>
-                  <Typography className={cx(styles.headerLabel)}>
+                  </p>
+                  <p className={cx(styles.headerLabel)}>
                     {t(TranslationKey['or drag and drop 1 or more files below']) + '.'}
-                  </Typography>
+                  </p>
                 </div>
               </AccordionDetails>
             </Accordion>
@@ -323,9 +321,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
               labelClasses={styles.fieldLabel}
               label={t(TranslationKey['Time till deadline'])}
               containerClasses={styles.containerField}
-              inputComponent={
-                <Typography className={styles.simpleSpan}>{minsToTime(proposal.proposal.execution_time)}</Typography>
-              }
+              inputComponent={<p className={styles.simpleSpan}>{minsToTime(proposal.proposal.execution_time)}</p>}
             />
 
             <Field
@@ -381,11 +377,9 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
               onChange={e => setSourceLink(e.target.value)}
             />
 
-            <Button variant={ButtonVariant.OUTLINED} onClick={setOpenModal}>
-              {t(TranslationKey.Back)}
-            </Button>
+            <CustomButton onClick={setOpenModal}>{t(TranslationKey.Back)}</CustomButton>
 
-            <Button
+            <CustomButton
               disabled={disableSubmit}
               onClick={() => {
                 onClickSendAsResult({ message: comment, files: imagesData.filter(el => el.fileLink), sourceLink })
@@ -393,7 +387,7 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
               }}
             >
               {t(TranslationKey.Send)}
-            </Button>
+            </CustomButton>
           </div>
         </div>
       </div>

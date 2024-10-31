@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { FC, useCallback, useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -64,8 +62,6 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         columns={viewModel.columnsModel}
         getRowHeight={() => 'auto'}
         columnHeaderHeight={35}
-        // getRowId={({ type }: GridRowModel) => type}
-        getRowId={({ _id }: GridRowModel) => _id}
         slots={null}
         className={styles.dataGridRoot}
         loading={viewModel.requestTableStatus === loadingStatus.IS_LOADING}

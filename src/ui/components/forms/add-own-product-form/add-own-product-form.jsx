@@ -7,7 +7,6 @@ import { Checkbox, IconButton } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
@@ -81,13 +80,9 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
               onChange={onChangeField('lamazon')}
             />
 
-            <Button
-              isSmallButton
-              tooltipInfoContent={t(TranslationKey['Fills in the ASIN field from the added Amazon link'])}
-              onClick={onClickParseBtn}
-            >
+            <CustomButton size="small" onClick={onClickParseBtn}>
               Parse
-            </Button>
+            </CustomButton>
           </div>
         }
       />
@@ -143,9 +138,13 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                     onChange={e => setSkuLine(e.target.value)}
                   />
 
-                  <Button isSmallButton disabled={skuLine === '' || !!formFields.skuByClient} onClick={onClickSkuBtn}>
+                  <CustomButton
+                    isSmallButton
+                    disabled={skuLine === '' || !!formFields.skuByClient}
+                    onClick={onClickSkuBtn}
+                  >
                     {t(TranslationKey.Add)}
-                  </Button>
+                  </CustomButton>
                 </div>
               </div>
             }

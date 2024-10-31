@@ -1,11 +1,12 @@
 import { parseISO } from 'date-fns/esm'
 import { useState } from 'react'
 
-import { Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize, Typography } from '@mui/material'
+import { Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 
+import { CustomButton } from '@components/shared/custom-button'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 
@@ -71,9 +72,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
   return (
     <div className={styles.root}>
       <div className={styles.form}>
-        <Typography variant="h3" className={styles.title}>
-          {'title'}
-        </Typography>
+        <h3 className={styles.title}>{'title'}</h3>
 
         <Field
           containerClasses={styles.field}
@@ -146,16 +145,16 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
         />
       </div>
 
-      <Button
+      <CustomButton
         disabled={disableSubmitBtn}
         onClick={() =>
           isDeadlineError ? setDeadlineError(!deadlineError) : onSubmit(formFields, requestToEdit?.request?._id)
         }
       >
         {isEdit ? 'editBtn' : 'createBtn'}
-      </Button>
+      </CustomButton>
 
-      <Button onClick={() => setOpenModal()}>{'cancelBtn'}</Button>
+      <CustomButton onClick={() => setOpenModal()}>{'cancelBtn'}</CustomButton>
     </div>
   )
 }

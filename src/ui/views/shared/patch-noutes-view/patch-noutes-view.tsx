@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PatchNoteForm } from '@components/forms/patch-note-form'
@@ -43,7 +41,6 @@ export const PatchNoutesView = observer(() => {
         rows={viewModel.currentData}
         columnHeaderHeight={40}
         getRowHeight={() => 'auto'}
-        getRowId={(row: GridRowModel) => row._id}
         columns={viewModel.columnsModel}
         paginationModel={viewModel.paginationModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

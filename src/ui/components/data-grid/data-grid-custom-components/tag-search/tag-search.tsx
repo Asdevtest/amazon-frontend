@@ -4,12 +4,12 @@ import { CircularProgress } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { IItemWithTitle, useSelect } from '@hooks/use-select'
 
@@ -39,7 +39,7 @@ export const TagSearch: FC<TagSearchProps> = memo(props => {
   }
 
   useEffect(() => {
-    setTagsWithoutActiveTags(filteredItems.filter(item => !activeTags.some(el => el?._id === item?._id)))
+    setTagsWithoutActiveTags(filteredItems?.filter(item => !activeTags?.some(el => el?._id === item?._id)))
   }, [filteredItems, activeTags])
 
   return (
@@ -62,14 +62,9 @@ export const TagSearch: FC<TagSearchProps> = memo(props => {
           <div className={styles.menuItems}>
             {tagsWithoutActiveTags?.length
               ? tagsWithoutActiveTags.map((item, index) => (
-                  <Button
-                    key={index}
-                    className={styles.button}
-                    styleType={ButtonStyle.DEFAULT}
-                    onClick={() => setActiveProductsTag([...activeTags, item])}
-                  >
+                  <CustomButton key={index} onClick={() => setActiveProductsTag([...activeTags, item])}>
                     {item.title}
-                  </Button>
+                  </CustomButton>
                 ))
               : t(TranslationKey['Not found'])}
           </div>

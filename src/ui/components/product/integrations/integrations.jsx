@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -51,13 +51,13 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
   return (
     <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
       <div className={styles.addProductBtnsWrapper}>
-        <Button disabled={isAdmin} onClick={onClickBindInventoryGoodsToStockBtn}>
+        <CustomButton disabled={isAdmin} onClick={onClickBindInventoryGoodsToStockBtn}>
           {t(TranslationKey['Bind an product from Amazon'])}
-        </Button>
+        </CustomButton>
 
-        <Button disabled={isDisabledUnlinkButton} onClick={onUnlinkSkuSProduct}>
+        <CustomButton disabled={isDisabledUnlinkButton} onClick={onUnlinkSkuSProduct}>
           {t(TranslationKey['Unlink an product from Amazon'])}
-        </Button>
+        </CustomButton>
       </div>
 
       <CustomDataGrid

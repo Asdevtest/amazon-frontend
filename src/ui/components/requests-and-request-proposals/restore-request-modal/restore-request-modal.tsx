@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -10,7 +10,7 @@ import { Input } from '@components/shared/input'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './restore-request-modal.style'
 
@@ -67,8 +67,8 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
       />
 
       <div className={styles.controls}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
+        <CustomButton
+          type="primary"
           disabled={disableButton}
           onClick={() => {
             handleSubmit(date, requestCount)
@@ -76,10 +76,8 @@ export const RestoreRequestModal: FC<RestoreRequestModalProps> = props => {
           }}
         >
           {t(TranslationKey.Save)}
-        </Button>
-        <Button styleType={ButtonStyle.CASUAL} onClick={handleCloseModal}>
-          {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
+        <CustomButton onClick={handleCloseModal}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </>
   )

@@ -11,7 +11,7 @@ import { SetFileForm } from '@components/forms/set-file-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Modal } from '@components/shared/modal'
@@ -190,7 +190,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 inputComponent={
                   <div>
                     {isNewBox ? (
-                      <Button
+                      <CustomButton
                         disabled={!isNewBox}
                         onClick={() =>
                           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
@@ -199,7 +199,7 @@ export const Box: FC<BoxProps> = memo(props => {
                         {box.logicsTariffId
                           ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
                           : t(TranslationKey.Select)}
-                      </Button>
+                      </CustomButton>
                     ) : (
                       <p>{`${
                         box.logicsTariff?._id ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}` : 'none'
@@ -279,20 +279,18 @@ export const Box: FC<BoxProps> = memo(props => {
               <IconButton classes={{ root: styles.icon }} onClick={() => onRemoveBox(box._id)}>
                 <MdDeleteOutline size={22} />
               </IconButton>
-              <Button
-                tooltipAttentionContent={isNotAllDimensionsAdded ? t(TranslationKey['Specify dimensions']) : ''}
-                tooltipInfoContent={t(TranslationKey['Edit box parameters'])}
+              <CustomButton
                 onClick={() => {
                   setCurBox(box)
                   onClickEditBox(box)
                 }}
               >
                 {t(TranslationKey.Edit)}
-              </Button>
+              </CustomButton>
 
-              <Button disabled={isNotAllDimensionsAdded} onClick={() => onClickApplyAllBtn(box)}>
+              <CustomButton disabled={isNotAllDimensionsAdded} onClick={() => onClickApplyAllBtn(box)}>
                 {t(TranslationKey['Apply to all'])}
-              </Button>
+              </CustomButton>
               <div className={styles.incomingBtnWrapper}>
                 <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
                   <p className={styles.tablePanelViewText}>

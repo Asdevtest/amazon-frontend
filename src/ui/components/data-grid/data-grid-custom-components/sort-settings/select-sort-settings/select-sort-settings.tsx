@@ -1,9 +1,9 @@
 import { FC, memo } from 'react'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { IItem, useSelect } from '@hooks/use-select'
 
@@ -27,9 +27,7 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
 
   return (
     <div ref={selectRef} className={styles.root}>
-      <Button styleType={ButtonStyle.DEFAULT} className={styles.mainButton} onClick={onToggleSelect}>
-        {selectedItemName}
-      </Button>
+      <CustomButton onClick={onToggleSelect}>{selectedItemName}</CustomButton>
 
       <div className={cx(styles.menuContainer, { [styles.menuContainerAnimation]: isOpen })}>
         <CustomInputSearch
@@ -42,18 +40,16 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
 
         <div className={styles.menuItems}>
           {filteredItems.map((item, index) => (
-            <Button
+            <CustomButton
               key={index}
               title={item.name}
-              className={styles.button}
-              styleType={ButtonStyle.DEFAULT}
               onClick={() => {
                 onClickField(item._id)
                 onToggleSelect()
               }}
             >
-              <p>{item.name}</p>
-            </Button>
+              {item.name}
+            </CustomButton>
           ))}
         </div>
       </div>
