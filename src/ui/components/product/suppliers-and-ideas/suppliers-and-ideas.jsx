@@ -176,11 +176,11 @@ export const SuppliersAndIdeas = observer(props => {
         />
       )}
 
-      {((isModalView && !isCreate) || !inCreate) && (
+      {isModalView && !isCreate && (
         <>
           {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
-          ) : (
+          ) : curIdea ? (
             <IdeaViewAndEditCard
               isModalView
               curUser={userInfo}
@@ -207,6 +207,13 @@ export const SuppliersAndIdeas = observer(props => {
               onClickSaveSupplierBtn={onClickSaveSupplierBtn}
               onRemoveSupplier={onRemoveSupplier}
             />
+          ) : (
+            <div className={styles.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <Typography variant="h5" className={styles.emptyTableText}>
+                {t(TranslationKey['No ideas yet'])}
+              </Typography>
+            </div>
           )}
         </>
       )}
@@ -215,7 +222,7 @@ export const SuppliersAndIdeas = observer(props => {
         <>
           {requestStatus === loadingStatus.IS_LOADING ? (
             <CircularProgressWithLabel />
-          ) : (
+          ) : currentData?.length ? (
             currentData.map(idea => (
               <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
                 <IdeaViewAndEditCard
@@ -245,18 +252,16 @@ export const SuppliersAndIdeas = observer(props => {
                 />
               </div>
             ))
+          ) : (
+            <div className={styles.emptyTableWrapper}>
+              <img src="/assets/icons/empty-table.svg" />
+              <Typography variant="h5" className={styles.emptyTableText}>
+                {t(TranslationKey['No ideas yet'])}
+              </Typography>
+            </div>
           )}
         </>
       )}
-
-      {!currentData?.length || !curIdea ? (
-        <div className={styles.emptyTableWrapper}>
-          <img src="/assets/icons/empty-table.svg" />
-          <Typography variant="h5" className={styles.emptyTableText}>
-            {t(TranslationKey['No ideas yet'])}
-          </Typography>
-        </div>
-      ) : null}
 
       {showConfirmModal ? (
         <ConfirmationModal

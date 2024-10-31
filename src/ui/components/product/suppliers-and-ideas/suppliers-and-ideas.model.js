@@ -278,6 +278,8 @@ export class SuppliersAndIdeasModel {
 
         if (!this.currentProduct) {
           this.onTriggerOpenModal('showSelectShopsModal')
+        } else {
+          this.closeModalHandler()
         }
       }
 
