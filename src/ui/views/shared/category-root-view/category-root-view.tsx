@@ -3,14 +3,13 @@ import { useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { CategoryRootViewModel } from '@views/shared/category-root-view/category-root-view.model'
 import { useStyles } from '@views/shared/category-root-view/category-root-view.style'
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
 import { HistoryType } from '@typings/types/history'
 
 export const CategoryRootView = observer(({ history }: { history: HistoryType }) => {
@@ -27,9 +26,9 @@ export const CategoryRootView = observer(({ history }: { history: HistoryType })
 
       <div className={styles.btnsWrapper}>
         {viewModel.subRoutes?.map((el, index) => (
-          <Button key={index} variant={ButtonVariant.OUTLINED} onClick={() => viewModel.onClickCategory(el.subRoute)}>
+          <CustomButton key={index} onClick={() => viewModel.onClickCategory(el.subRoute)}>
             {el.subtitle()}
-          </Button>
+          </CustomButton>
         ))}
       </div>
     </>

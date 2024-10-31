@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PrivateLabelCard } from '@components/cards/private-label-card'
@@ -42,7 +40,7 @@ export const ClientExchangePrivateLabelViewRaw = props => {
           {viewModel.productsVacant.length > 0 ? (
             renderProductsVacant()
           ) : (
-            <Typography className={styles.noRows}>{t(TranslationKey['No suggestions'])}</Typography>
+            <p className={styles.noRows}>{t(TranslationKey['No suggestions'])}</p>
           )}
         </div>
       </div>

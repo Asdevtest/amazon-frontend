@@ -10,11 +10,11 @@ import {
 import { showResultStatuses } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './proposals-slider.style'
 
@@ -129,56 +129,55 @@ export const ProposalsSlider = ({
 
           <div className={styles.buttons}>
             {onClickDeleteBtn ? (
-              <Button
-                styleType={ButtonStyle.CASUAL}
-                tooltipInfoContent={isFirst && t(TranslationKey['Cancel current proposal'])}
+              <CustomButton
+                title={isFirst && t(TranslationKey['Cancel current proposal'])}
                 disabled={disabledCancelBtnStatuses.includes(currentProposal?.status)}
                 className={styles.button}
                 onClick={() => onClickDeleteBtn(currentProposal)}
               >
                 {t(TranslationKey.Close)}
-              </Button>
+              </CustomButton>
             ) : null}
 
             {onClickResultBtn ? (
-              <Button
+              <CustomButton
                 disabled={!showResultStatuses.includes(currentProposal?.status)}
                 className={styles.button}
                 onClick={() => onClickResultBtn(item, currentProposal?._id)}
               >
                 {t(TranslationKey.Result)}
-              </Button>
+              </CustomButton>
             ) : null}
 
             {onClickEditBtn ? (
-              <Button
-                tooltipInfoContent={isFirst && t(TranslationKey['Change the current proposal'])}
+              <CustomButton
+                title={isFirst && t(TranslationKey['Change the current proposal'])}
                 disabled={!noDisabledEditBtnStatuses.includes(currentProposal?.status)}
                 className={styles.button}
                 onClick={() => onClickEditBtn(item, currentProposal)}
               >
                 {t(TranslationKey.Edit)}
-              </Button>
+              </CustomButton>
             ) : null}
 
             {onClickOpenBtn ? (
-              <Button
-                tooltipInfoContent={isFirst && t(TranslationKey['Open an request for the selected proposal'])}
+              <CustomButton
+                title={isFirst && t(TranslationKey['Open an request for the selected proposal'])}
                 className={styles.button}
                 onClick={() => onClickOpenBtn(item)}
               >
                 {t(TranslationKey['Open a request'])}
-              </Button>
+              </CustomButton>
             ) : null}
 
             {currentProposal?.chatId ? (
-              <Button
+              <CustomButton
                 disabled={currentProposal?.chatMember}
                 className={styles.button}
                 onClick={() => onJoinChat(currentProposal?.chatId)}
               >
                 {t(TranslationKey['Join chat'])}
-              </Button>
+              </CustomButton>
             ) : null}
           </div>
         </div>

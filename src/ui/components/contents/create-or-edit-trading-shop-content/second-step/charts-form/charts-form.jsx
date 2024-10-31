@@ -2,16 +2,12 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdFiberManualRecord } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { TwoBarsChart } from '@components/shared/charts/two-bars-chart/two-bars-chart'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './charts-form.style'
 
@@ -50,30 +46,26 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
     <div className={styles.cardWrapper}>
       <div className={styles.cardHeaderWrapper}>
         <div className={styles.buttonsWrapper}>
-          <Button variant={ButtonVariant.OUTLINED} onClick={() => setIsRevenue(true)}>
-            {t(TranslationKey.Revenue)}
-          </Button>
-          <Button variant={ButtonVariant.OUTLINED} onClick={() => setIsRevenue(false)}>
-            {t(TranslationKey['Website traffic'])}
-          </Button>
+          <CustomButton onClick={() => setIsRevenue(true)}>{t(TranslationKey.Revenue)}</CustomButton>
+          <CustomButton onClick={() => setIsRevenue(false)}>{t(TranslationKey['Website traffic'])}</CustomButton>
         </div>
 
         <div className={styles.buttonsWrapper}>
           <div className={styles.barStatusWrapper}>
             <MdFiberManualRecord size={22} color="primary" />
-            <Typography className={styles.cardTitle}>
+            <p className={styles.cardTitle}>
               {isRevenue
                 ? t(TranslationKey['Gross income']).toLowerCase()
                 : t(TranslationKey['View page']).toLowerCase()}
-            </Typography>
+            </p>
           </div>
           <div className={styles.barStatusWrapper}>
             <MdFiberManualRecord size={22} classes={{ root: styles.indicator }} />
-            <Typography className={styles.cardTitle}>
+            <p className={styles.cardTitle}>
               {isRevenue
                 ? t(TranslationKey['Pure profit']).toLowerCase()
                 : t(TranslationKey['Unique visitors']).toLowerCase()}
-            </Typography>
+            </p>
           </div>
         </div>
       </div>
@@ -87,15 +79,15 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
       />
 
       <div className={styles.buttonsWrapper}>
-        <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
+        <CustomButton onClick={() => setCurFilterSetting(filterSettings.SIX_MONTHS)}>
           {`6 ${t(TranslationKey.months)}`}
-        </Button>
-        <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
+        </CustomButton>
+        <CustomButton onClick={() => setCurFilterSetting(filterSettings.TWELVE_MONTHS)}>
           {`12 ${t(TranslationKey.months)}`}
-        </Button>
-        <Button variant={ButtonVariant.OUTLINED} onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
+        </CustomButton>
+        <CustomButton onClick={() => setCurFilterSetting(filterSettings.ALL_MONTHS)}>
           {t(TranslationKey['All time'])}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

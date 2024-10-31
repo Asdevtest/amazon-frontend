@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
@@ -35,7 +33,7 @@ export const SupervisorDashboardView = observer(({ history }) => {
 
         {viewModel.userInfo.masterUser ? (
           <div className={styles.masterUserWrapper}>
-            <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+            <p>{t(TranslationKey['Master user']) + ':'}</p>
 
             <UserLink
               blackText

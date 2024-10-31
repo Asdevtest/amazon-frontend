@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { UserCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -115,14 +115,14 @@ export const DeliveryParameters = ({
         label={`${t(TranslationKey['Int warehouse'])} / ${t(TranslationKey.Tariff)}`}
         tooltipAttentionContent={!tariffName && t(TranslationKey['The tariff is invalid or has been removed!'])}
         inputComponent={
-          <Button
+          <CustomButton
             disabled={!isCanChange}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
             {formFields.storekeeperId && (tariffName || tariffRate)
               ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
               : t(TranslationKey.Select)}
-          </Button>
+          </CustomButton>
         }
       />
 

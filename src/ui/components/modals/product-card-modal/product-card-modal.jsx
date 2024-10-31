@@ -11,8 +11,8 @@ import { ClientModel } from '@models/client-model'
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { getTab } from '@components/product/product-wrapper/product-wrapper'
 import { ProductStatusButtons } from '@components/product/product-wrapper/top-card/right-side-comments/product-status-buttons'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 
@@ -23,7 +23,7 @@ import { SupervisorProductViewModel } from '@views/supervisor/supervisor-product
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ProductVariation } from '@typings/enums/product/product-variation'
 
@@ -177,29 +177,30 @@ export const ProductCardModal = observer(props => {
             <div className={styles.buttonsWrapper}>
               {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
               (checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && !viewModel?.product.archive) ? (
-                <Button
-                  styleType={ButtonStyle.DANGER}
+                <CustomButton
+                  danger
+                  type="primary"
                   onClick={() => viewModel?.handleProductActionButtons('delete', undefined, true, updateDataHandler)}
                 >
                   {t(TranslationKey.Delete)}
-                </Button>
+                </CustomButton>
               ) : null}
 
               {viewModel?.product?.status ===
                 ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
               checkIsBuyer(UserRoleCodeMap[viewModel?.userInfo.role]) ? null : (
-                <Button
-                  styleType={ButtonStyle.SUCCESS}
+                <CustomButton
+                  type="primary"
                   onClick={() => viewModel?.handleProductActionButtons('accept', undefined, true, updateDataHandler)}
                 >
                   {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role])
                     ? t(TranslationKey.Save)
                     : t(TranslationKey.Receive)}
-                </Button>
+                </CustomButton>
               )}
 
               {checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) && (
-                <Button
+                <CustomButton
                   disabled={viewModel?.product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
                   onClick={
                     checkIsResearcher(UserRoleCodeMap[viewModel?.userInfo.role]) ||
@@ -209,28 +210,25 @@ export const ProductCardModal = observer(props => {
                   }
                 >
                   {t(TranslationKey['Save without status'])}
-                </Button>
+                </CustomButton>
               )}
 
               {checkIsClient(UserRoleCodeMap[viewModel?.userInfo.role]) && viewModel?.product.archive && (
-                <Button
+                <CustomButton
                   onClick={() => viewModel?.handleProductActionButtons('restore', undefined, true, updateDataHandler)}
                 >
                   {t(TranslationKey.Restore)}
-                </Button>
+                </CustomButton>
               )}
 
-              <Button
-                styleType={ButtonStyle.CASUAL}
-                onClick={() => viewModel?.handleProductActionButtons('closeModal')}
-              >
+              <CustomButton onClick={() => viewModel?.handleProductActionButtons('closeModal')}>
                 {t(TranslationKey.Close)}
-              </Button>
+              </CustomButton>
             </div>
           ) : (
-            <Button styleType={ButtonStyle.CASUAL} onClick={() => viewModel?.handleProductActionButtons('closeModal')}>
+            <CustomButton onClick={() => viewModel?.handleProductActionButtons('closeModal')}>
               {t(TranslationKey.Close)}
-            </Button>
+            </CustomButton>
           )}
         </div>
       )}

@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useMemo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
-import { Typography } from '@mui/material'
-
 import { getClientDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,13 +9,11 @@ import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { DashboardButtons } from '@components/dashboards/dashboard-buttons'
 import { DashboardWidgetsCard } from '@components/dashboards/dashboard-widgets-card'
 import { UserMoneyTransferModal } from '@components/modals/user-money-transfer-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './client-dashboard-view.style'
 
@@ -47,20 +43,19 @@ export const ClientDashboardView = observer(({ history }) => {
               <DashboardBalance user={viewModel.userInfo} />
 
               <div className={styles.buttonWrapper}>
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Contact to request a deposit'])}
+                <CustomButton
+                  title={t(TranslationKey['Contact to request a deposit'])}
+                  icon={<FiPlus style={{ width: 16, height: 16 }} />}
                   onClick={viewModel.onClickWithdrawMoney}
                 >
-                  <FiPlus style={{ width: 16, height: 16 }} />
                   {t(TranslationKey.Deposit)}
-                </Button>
-                <Button
-                  tooltipInfoContent={t(TranslationKey['Contact to request a withdrawal'])}
-                  variant={ButtonVariant.OUTLINED}
+                </CustomButton>
+                <CustomButton
+                  title={t(TranslationKey['Contact to request a withdrawal'])}
                   onClick={viewModel.onClickAddMoney}
                 >
                   {t(TranslationKey.Withdraw)}
-                </Button>
+                </CustomButton>
               </div>
             </div>
           </div>
@@ -69,7 +64,7 @@ export const ClientDashboardView = observer(({ history }) => {
 
           {viewModel.userInfo.masterUser && (
             <div className={styles.masterUserWrapper}>
-              <Typography>{t(TranslationKey['Master user']) + ':'}</Typography>
+              <p>{t(TranslationKey['Master user']) + ':'}</p>
 
               <UserLink
                 blackText

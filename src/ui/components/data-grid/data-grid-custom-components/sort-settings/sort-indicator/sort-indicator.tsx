@@ -1,8 +1,8 @@
 import { FC, memo } from 'react'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './sort-indicator.style'
 
@@ -20,8 +20,7 @@ export const SortIndicator: FC<SortIndicatorProps> = memo(({ sortType, onClickSo
 
   return (
     <div className={styles.root}>
-      <Button
-        styleType={ButtonStyle.DEFAULT}
+      <CustomButton
         className={styles.button}
         onClick={() => onClickSort(undefined, isAsc ? SortSettingsMode.DESC : SortSettingsMode.ASC)}
       >
@@ -30,7 +29,7 @@ export const SortIndicator: FC<SortIndicatorProps> = memo(({ sortType, onClickSo
           <div />
           <div />
         </div>
-      </Button>
+      </CustomButton>
     </div>
   )
 })

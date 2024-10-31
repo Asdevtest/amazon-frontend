@@ -1,11 +1,12 @@
 import { memo } from 'react'
+import { FiPlus } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 
-import { IconButton, Typography } from '@mui/material'
+import { IconButton } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Input } from '@components/shared/input'
 import { Table } from '@components/shared/table'
 import { TableHeadRow } from '@components/table/table-rows/batches-view/table-head-row'
@@ -48,7 +49,7 @@ export const NewBoxes = memo(
         {newBoxes.map((item, index) => (
           <div key={index} className={styles.tableWrapperMobile}>
             <div className={styles.boxesTitleWrapper}>
-              <Typography className={styles.boxesTitle}>{t(TranslationKey.Box)}</Typography>
+              <p className={styles.boxesTitle}>{t(TranslationKey.Box)}</p>
               <IconButton onClick={() => onRemoveBox(item._id)}>
                 <MdDeleteOutline size={24} className={styles.deleteBtn} />
               </IconButton>
@@ -59,12 +60,10 @@ export const NewBoxes = memo(
                 <div key={i} className={styles.descriptionWrapper}>
                   <img className={styles.img} src={getAmazonImageUrl(el.product.images[0])} />
                   <div>
-                    <Typography className={styles.title}>
-                      {getShortenStringIfLongerThanCount(el.product.amazonTitle, 50)}
-                    </Typography>
+                    <p className={styles.title}>{getShortenStringIfLongerThanCount(el.product.amazonTitle, 50)}</p>
 
                     <div className={styles.unitsWrapper}>
-                      <Typography className={styles.unitsText}>{t(TranslationKey.Quantity) + ':'}</Typography>
+                      <p className={styles.unitsText}>{t(TranslationKey.Quantity) + ':'}</p>
 
                       <Input
                         classes={{
@@ -84,7 +83,7 @@ export const NewBoxes = memo(
             </div>
 
             <div className={styles.tableRow}>
-              <Typography className={styles.boxTitleMobile}>{t(TranslationKey['Boxes in group'])}</Typography>
+              <p className={styles.boxTitleMobile}>{t(TranslationKey['Boxes in group'])}</p>
               <Input
                 classes={{
                   root: cx(styles.inputWrapper, {
@@ -99,7 +98,7 @@ export const NewBoxes = memo(
             </div>
 
             <div className={styles.tableRow}>
-              <Typography className={styles.boxTitleMobile}>{t(TranslationKey.Total)}</Typography>
+              <p className={styles.boxTitleMobile}>{t(TranslationKey.Total)}</p>
               <Input
                 disabled
                 classes={{ root: styles.inputWrapper, input: styles.input }}
@@ -108,9 +107,9 @@ export const NewBoxes = memo(
             </div>
 
             <div className={styles.tableRow}>
-              <Typography className={styles.boxTitleMobile}>{t(TranslationKey.Sizes)}</Typography>
+              <p className={styles.boxTitleMobile}>{t(TranslationKey.Sizes)}</p>
               <div className={styles.sizeWrapper}>
-                <Typography className={styles.sizeTitle}>{t(TranslationKey.L) + ': '}</Typography>
+                <p className={styles.sizeTitle}>{t(TranslationKey.L) + ': '}</p>
 
                 <Input
                   classes={{
@@ -125,7 +124,7 @@ export const NewBoxes = memo(
                 />
               </div>
               <div className={styles.sizeWrapper}>
-                <Typography className={styles.sizeTitle}>{t(TranslationKey.W) + ': '}</Typography>
+                <p className={styles.sizeTitle}>{t(TranslationKey.W) + ': '}</p>
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
@@ -139,7 +138,7 @@ export const NewBoxes = memo(
                 />
               </div>
               <div className={styles.sizeWrapper}>
-                <Typography className={styles.sizeTitle}>{t(TranslationKey.H) + ': '}</Typography>
+                <p className={styles.sizeTitle}>{t(TranslationKey.H) + ': '}</p>
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
@@ -155,7 +154,7 @@ export const NewBoxes = memo(
             </div>
 
             <div className={styles.tableRow}>
-              <Typography className={styles.boxTitleMobile}>{t(TranslationKey['Weight, kg'])}</Typography>
+              <p className={styles.boxTitleMobile}>{t(TranslationKey['Weight, kg'])}</p>
               <Input
                 classes={{
                   root: cx(styles.inputWrapper, {
@@ -170,7 +169,7 @@ export const NewBoxes = memo(
             </div>
 
             <div className={styles.tableRow}>
-              <Typography className={styles.boxTitleMobile}>{t(TranslationKey['Volume weight, kg'])}</Typography>
+              <p className={styles.boxTitleMobile}>{t(TranslationKey['Volume weight, kg'])}</p>
               <Input
                 disabled
                 classes={{ root: styles.inputWrapper, input: styles.input }}
@@ -179,7 +178,7 @@ export const NewBoxes = memo(
             </div>
 
             <div className={styles.tableRow}>
-              <Typography className={styles.boxTitleMobile}>{t(TranslationKey['Final weight, kg'])}</Typography>
+              <p className={styles.boxTitleMobile}>{t(TranslationKey['Final weight, kg'])}</p>
               <Input
                 disabled
                 classes={{ root: styles.inputWrapper, input: styles.input }}
@@ -188,11 +187,9 @@ export const NewBoxes = memo(
             </div>
 
             <div className={styles.footerBtnsWrapper}>
-              <Button onClick={() => addDouble(item._id)}>
-                <img src="/assets/icons/plus.svg" />
-              </Button>
+              <CustomButton icon={<FiPlus size={16} />} onClick={() => addDouble(item._id)}></CustomButton>
 
-              <Button onClick={() => onAddImages(item._id)}>{t(TranslationKey.Photos)}</Button>
+              <CustomButton onClick={() => onAddImages(item._id)}>{t(TranslationKey.Photos)}</CustomButton>
             </div>
           </div>
         ))}

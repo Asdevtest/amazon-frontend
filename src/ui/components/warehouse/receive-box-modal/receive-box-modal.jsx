@@ -9,12 +9,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddFilesForm } from '@components/forms/add-files-form'
 import { CheckQuantityForm } from '@components/forms/check-quantity-form'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './receive-box-modal.style'
 
@@ -211,13 +211,9 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
         <p className={styles.modalTitle}>{t(TranslationKey['Receive and distribute'])}</p>
 
         {!receiveNotFromBuyer && (
-          <Button
-            tooltipInfoContent={t(TranslationKey['Add a box'])}
-            onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
-          >
+          <CustomButton icon={<MdAdd size={18} />} onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}>
             {t(TranslationKey['New box'])}
-            <MdAdd size={18} className={styles.icon} />
-          </Button>
+          </CustomButton>
         )}
       </div>
 
@@ -248,8 +244,8 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           <p className={styles.noImageText}>{t(TranslationKey['Be sure to add a photo to the box'])}</p>
         )}
 
-        <Button
-          styleType={ButtonStyle.SUCCESS}
+        <CustomButton
+          type="primary"
           disabled={disableSubmit}
           onClick={() => {
             receiveNotFromBuyer
@@ -260,11 +256,9 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
           }}
         >
           {t(TranslationKey.Save)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
-          {t(TranslationKey.Close)}
-        </Button>
+        <CustomButton onClick={setOpenModal}>{t(TranslationKey.Close)}</CustomButton>
       </div>
 
       <Modal openModal={showAddImagesModal} setOpenModal={() => setShowAddImagesModal(!showAddImagesModal)}>

@@ -5,13 +5,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DashboardBalance } from '@components/dashboards/dashboard-balance'
 import { AdminBalanceModal } from '@components/modals/admin-balance-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { ButtonVariant } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './user-balance.style'
@@ -29,10 +28,8 @@ export const UserBalance = observer(({ userId }) => {
       {viewModel.user ? <DashboardBalance user={viewModel.user} /> : null}
 
       <div className={styles.buttons}>
-        <Button onClick={viewModel.onTriggerReplenishModal}>{t(TranslationKey.Deposit)}</Button>
-        <Button variant={ButtonVariant.OUTLINED} onClick={viewModel.onTriggerWithdrawModal}>
-          {t(TranslationKey.Withdraw)}
-        </Button>
+        <CustomButton onClick={viewModel.onTriggerReplenishModal}>{t(TranslationKey.Deposit)}</CustomButton>
+        <CustomButton onClick={viewModel.onTriggerWithdrawModal}>{t(TranslationKey.Withdraw)}</CustomButton>
       </div>
 
       <div className={styles.tableWrapper}>

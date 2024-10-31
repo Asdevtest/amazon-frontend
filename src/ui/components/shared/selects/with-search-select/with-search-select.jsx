@@ -3,17 +3,17 @@ import { Fragment, memo, useEffect, useState } from 'react'
 import { IoMdStar } from 'react-icons/io'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import { Checkbox, ClickAwayListener, Popover, Tooltip, Typography } from '@mui/material'
+import { Checkbox, ClickAwayListener, Popover, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { MasterUserItem } from '@components/shared/master-user-item'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './with-search-select.style'
 
@@ -143,14 +143,14 @@ export const WithSearchSelect = memo(
                 !disabled && handleClick(e)
               }}
             >
-              <Typography
+              <p
                 className={cx(styles.selectedItemName, {
                   [styles.disabledSelectedItemName]: disabled,
                   [styles.blackSelectedItem]: blackSelectedItem,
                 })}
               >
                 {selectedItemName}
-              </Typography>
+              </p>
 
               {open ? (
                 <MdArrowDropDown size={22} className={styles.icon} />
@@ -202,9 +202,9 @@ export const WithSearchSelect = memo(
                 >
                   {onClickNotChosen && (
                     <Tooltip followCursor title={t(TranslationKey['Not chosen'])}>
-                      <Button
+                      <CustomButton
+                        ghoust
                         className={styles.button}
-                        styleType={ButtonStyle.TRANSPARENT}
                         onClick={e => {
                           e.stopPropagation()
 
@@ -213,7 +213,7 @@ export const WithSearchSelect = memo(
                         }}
                       >
                         {t(TranslationKey['Not chosen'])}
-                      </Button>
+                      </CustomButton>
                     </Tooltip>
                   )}
 
@@ -234,11 +234,11 @@ export const WithSearchSelect = memo(
                         }}
                       />
                     ) : (
-                      <Button
+                      <CustomButton
                         key={index}
+                        ghoust
                         className={cx(styles.button, buttonStyles)}
                         style={changeColorById && { color: changeColorById(el._id) }}
-                        styleType={ButtonStyle.TRANSPARENT}
                         onClick={e => {
                           e.stopPropagation()
                           onClickSelect(el)
@@ -259,14 +259,14 @@ export const WithSearchSelect = memo(
                               )}
                               {!isWithoutItemsTooltip ? (
                                 <Tooltip followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
-                                  <Typography className={cx(styles.fieldName, fieldNameStyles)}>
+                                  <p className={cx(styles.fieldName, fieldNameStyles)}>
                                     {getRowValue ? getRowValue(el) : el[fieldName]}
-                                  </Typography>
+                                  </p>
                                 </Tooltip>
                               ) : (
-                                <Typography className={cx(styles.fieldName, fieldNameStyles)}>
+                                <p className={cx(styles.fieldName, fieldNameStyles)}>
                                   {getRowValue ? getRowValue(el) : el[fieldName]}
-                                </Typography>
+                                </p>
                               )}
                             </Fragment>
                           ))}
@@ -284,9 +284,7 @@ export const WithSearchSelect = memo(
                                 />
                               )}
                               <Tooltip key={index} followCursor title={getRowValue ? getRowValue(el) : el}>
-                                <Typography className={styles.fieldName}>
-                                  {getRowValue ? getRowValue(el) : el}
-                                </Typography>
+                                <p className={styles.fieldName}>{getRowValue ? getRowValue(el) : el}</p>
                               </Tooltip>
                             </>
                           )}
@@ -312,14 +310,14 @@ export const WithSearchSelect = memo(
                             />
                           ) : null}
                         </div>
-                      </Button>
+                      </CustomButton>
                     ),
                   )}
                 </div>
 
                 {(checkbox || onClickSubmitBtn) && (
                   <div className={styles.submitWrapper}>
-                    <Button
+                    <CustomButton
                       className={styles.apply}
                       onClick={() => {
                         if (onClickSubmitBtn) {
@@ -331,7 +329,7 @@ export const WithSearchSelect = memo(
                       }}
                     >
                       {t(TranslationKey.Apply)}
-                    </Button>
+                    </CustomButton>
                   </div>
                 )}
               </div>

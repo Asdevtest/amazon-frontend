@@ -4,7 +4,6 @@ import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RestoreRequestModal } from '@components/requests-and-request-proposals/restore-request-modal/'
-import { Button } from '@components/shared/button'
 import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
@@ -12,7 +11,7 @@ import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { getTomorrowDate } from '@utils/date-time'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './freelance-request-details-modal.style'
 
@@ -62,36 +61,37 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
       <div className={styles.controlsWrapper}>
         {showMarkAsCompletedButtton && (
-          <Button
+          <CustomButton
             fullWidth
-            styleType={ButtonStyle.SUCCESS}
+            type="primary"
             disabled={disableMarkAsCompletedButton}
             onClick={() => onClickMarkAsCompletedBtn(request?._id)}
           >
             {t(TranslationKey['Mark as completed'])}
-          </Button>
+          </CustomButton>
         )}
 
         {isRequestOwner && (
           <>
             {showMainActionsButton && (
               <>
-                <Button
+                <CustomButton
                   fullWidth
-                  styleType={ButtonStyle.DANGER}
+                  danger
+                  type="primary"
                   title={t(TranslationKey['Delete the selected request'])}
                   onClick={onClickCancelBtn}
                 >
                   {t(TranslationKey.Delete)}
-                </Button>
+                </CustomButton>
 
-                <Button
+                <CustomButton
                   fullWidth
                   title={t(TranslationKey['Allows you to change the selected request'])}
                   onClick={onClickEditBtn}
                 >
                   {t(TranslationKey.Edit)}
-                </Button>
+                </CustomButton>
 
                 {showPublishButton && (
                   <CustomButton
@@ -109,9 +109,9 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
             {showChangeRequestTermsButton && (
               <>
-                <Button fullWidth onClick={() => setIsRestoreModalOpen(true)}>
+                <CustomButton fullWidth onClick={() => setIsRestoreModalOpen(true)}>
                   {t(TranslationKey['Change request terms'])}
-                </Button>
+                </CustomButton>
 
                 <Modal openModal={isRestoreModalOpen} setOpenModal={() => setIsRestoreModalOpen(false)}>
                   <RestoreRequestModal
@@ -126,9 +126,9 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
             )}
 
             {showAcceptingProposalsButton && (
-              <Button
+              <CustomButton
                 fullWidth
-                tooltipInfoContent={
+                title={
                   request?.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
                   t(TranslationKey['Removes the visibility of the request on the exchange'])
                 }
@@ -140,15 +140,15 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
                 {request?.status === RequestStatus.FORBID_NEW_PROPOSALS
                   ? t(TranslationKey['Resume accepting proposals'])
                   : t(TranslationKey['Stop accepting proposals'])}
-              </Button>
+              </CustomButton>
             )}
           </>
         )}
 
         {onClickSuggest && (
-          <Button fullWidth onClick={onClickSuggest}>
+          <CustomButton fullWidth onClick={onClickSuggest}>
             {t(TranslationKey['Suggest a deal'])}
-          </Button>
+          </CustomButton>
         )}
       </div>
     </div>

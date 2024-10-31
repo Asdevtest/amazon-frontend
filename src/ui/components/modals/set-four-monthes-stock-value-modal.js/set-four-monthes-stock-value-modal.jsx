@@ -1,16 +1,16 @@
 import { useState } from 'react'
 
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './set-four-monthes-stock-value-modal.style'
 
@@ -21,7 +21,7 @@ export const SetFourMonthesStockModal = ({ title, onSubmit, onCloseModal, select
 
   return (
     <Container disableGutters className={styles.root}>
-      <Typography className={styles.modalTitle}>{title}</Typography>
+      <p className={styles.modalTitle}>{title}</p>
 
       <Field
         containerClasses={styles.field}
@@ -37,16 +37,10 @@ export const SetFourMonthesStockModal = ({ title, onSubmit, onCloseModal, select
       </div>
 
       <Box className={styles.saveBox}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          disabled={!newValue || newValue > 99999}
-          onClick={() => onSubmit(newValue)}
-        >
+        <CustomButton type="primary" disabled={!newValue || newValue > 99999} onClick={() => onSubmit(newValue)}>
           {t(TranslationKey.Save)}
-        </Button>
-        <Button styleType={ButtonStyle.CASUAL} onClick={onCloseModal}>
-          {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
+        <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
       </Box>
     </Container>
   )

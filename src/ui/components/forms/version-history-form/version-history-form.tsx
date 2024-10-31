@@ -3,12 +3,12 @@ import { FC, UIEvent, memo } from 'react'
 import { appVersion } from '@constants/app-version'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { IPatchNote } from '@typings/shared/patch-notes'
 
 import { useStyles } from './version-history-form.style'
@@ -58,9 +58,7 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
     <div className={styles.wrapper}>
       <div className={styles.header}>
         {selectedPatchNote ? (
-          <Button iconButton styleType={ButtonStyle.CASUAL} className={styles.back} onClick={onResetPatchNote}>
-            <ArrowBackIcon />
-          </Button>
+          <CustomButton icon={<ArrowBackIcon />} className={styles.back} onClick={onResetPatchNote}></CustomButton>
         ) : null}
         <p className={styles.title}>{selectedPatchNote ? selectedPatchNote?.[0]?.title : title}</p>
         {!selectedPatchNote ? <p className={styles.appVersion}>{appVersion}</p> : null}
@@ -77,9 +75,9 @@ export const VersionHistoryForm: FC<VersionHistoryFormProps> = memo(props => {
       )}
 
       <div className={styles.buttons}>
-        <Button styleType={ButtonStyle.DANGER} onClick={onClickResetVersion}>
+        <CustomButton danger type="primary" onClick={onClickResetVersion}>
           {t(TranslationKey['Reset session data'])}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

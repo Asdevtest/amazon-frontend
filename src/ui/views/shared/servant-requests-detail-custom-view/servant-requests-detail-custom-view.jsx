@@ -12,15 +12,15 @@ import { MainRequestResultModal } from '@components/modals/main-request-result-m
 import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { ServantGeneralRequestInfo } from '@components/requests-and-request-proposals/servant-general-request-info'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
 import { ChatRequestAndRequestProposalContext } from '@contexts/chat-request-and-request-proposal-context'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './servant-requests-detail-custom-view.style'
 
@@ -100,21 +100,22 @@ export const RequestDetailCustomView = observer(({ history }) => {
                 renderAdditionalButtons={() => (
                   <div className={styles.additionalButtonsWrapper}>
                     {showRejectTheDealButton ? (
-                      <Button
-                        styleType={ButtonStyle.DANGER}
+                      <CustomButton
+                        danger
+                        type="primary"
                         onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
                       >
                         {t(TranslationKey['Reject the deal'])}
-                      </Button>
+                      </CustomButton>
                     ) : (
                       <div />
                     )}
                     {showActionsButton ? (
-                      <Button
+                      <CustomButton
                         onClick={() => (isRefine ? viewModel.onClickReworkProposal() : viewModel.onClickResultBtn())}
                       >
                         {isRefine ? t(TranslationKey.Refine) : t(TranslationKey.Result)}
-                      </Button>
+                      </CustomButton>
                     ) : null}
                   </div>
                 )}

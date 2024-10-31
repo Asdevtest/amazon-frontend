@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import { Typography } from '@mui/material'
-
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
   humanFriendlyStategyStatus,
@@ -9,15 +7,13 @@ import {
 } from '@constants/product/product-strategy-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
 import { EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
-
-import { ButtonStyle, ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './asin-proxy-checker-form.style'
 
@@ -106,17 +102,13 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
     <div className={styles.modalMessageWrapper}>
       <div className={styles.modalTitle}>
         {checkIsAdmin(userRole) ? (
-          <Typography variant="h5" className={styles.modalMessageTitle}>
-            {t(TranslationKey['Proxy servers for parsing'])}
-          </Typography>
+          <h5 className={styles.modalMessageTitle}>{t(TranslationKey['Proxy servers for parsing'])}</h5>
         ) : (
-          <Typography variant="h5" className={styles.modalMessageTitle}>
-            {t(TranslationKey['ASIN list'])}
-          </Typography>
+          <h5 className={styles.modalMessageTitle}>{t(TranslationKey['ASIN list'])}</h5>
         )}
 
         {checkIsAdmin(userRole) ? null : (
-          <Typography className={styles.standartText}>{humanFriendlyStategyStatus(strategy)?.toUpperCase()}</Typography>
+          <p className={styles.standartText}>{humanFriendlyStategyStatus(strategy)?.toUpperCase()}</p>
         )}
       </div>
       <div className={styles.modalFieldsWrapper}>
@@ -156,7 +148,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
 
       <div className={styles.tableWrapper}>
         <div className={styles.tableSearchWrapper}>
-          <Typography className={styles.tableSearchTitle}>{t(TranslationKey['To be added to the list'])}</Typography>
+          <p className={styles.tableSearchTitle}>{t(TranslationKey['To be added to the list'])}</p>
           <CustomInputSearch
             allowClear
             wrapperClassName={styles.searchInput}
@@ -180,13 +172,11 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <Button iconButton variant={ButtonVariant.OUTLINED} onClick={onClickPreviewButton}>
-          <EyeIcon />
-        </Button>
+        <CustomButton icon={<EyeIcon />} onClick={onClickPreviewButton} />
 
         <div className={styles.actionsButtonsContainer}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            type="primary"
             disabled={
               !updatedAsinsAndReasonsData.length ||
               updatedAsinsAndReasonsData.some(item => item.asin === '') ||
@@ -205,11 +195,9 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
             }}
           >
             {t(TranslationKey.Save)}
-          </Button>
+          </CustomButton>
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={onClose}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
     </div>

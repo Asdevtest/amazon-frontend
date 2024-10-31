@@ -1,15 +1,15 @@
 import { memo, useState } from 'react'
 import { MdOutlineDownload } from 'react-icons/md'
 
-import { Checkbox, Link, Typography } from '@mui/material'
+import { Checkbox, Link } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
 import { DownloadArchiveIcon } from '@components/shared/svg-icons'
@@ -19,7 +19,7 @@ import { checkAndMakeAbsoluteUrl, minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
 import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { isString } from '@typings/guards'
 
 import { useStyles } from './request-designer-result-client-form.style'
@@ -134,9 +134,9 @@ export const RequestDesignerResultClientForm = memo(props => {
     <>
       <div className={styles.modalMainWrapper}>
         <div className={styles.headerWrapper}>
-          <Typography className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
+          <p className={styles.headerLabel}>{`${t(TranslationKey['Request result'])} / ID ${
             proposal?.request?.xid
-          }`}</Typography>
+          }`}</p>
           <div className={styles.headerRightSubWrapper}>
             <Field
               labelClasses={styles.fieldLabel}
@@ -152,7 +152,7 @@ export const RequestDesignerResultClientForm = memo(props => {
                   </div>
                 ) : (
                   <div className={styles.shippingLabelWrapper}>
-                    <Typography className={styles.miss}>{t(TranslationKey['Not available'])}</Typography>
+                    <p className={styles.miss}>{t(TranslationKey['Not available'])}</p>
                   </div>
                 )
               }
@@ -162,13 +162,13 @@ export const RequestDesignerResultClientForm = memo(props => {
               labelClasses={styles.fieldLabel}
               label={t(TranslationKey['Time to check'])}
               containerClasses={styles.containerField}
-              inputComponent={<Typography className={styles.simpleSpan}>{minsToTime(1440)}</Typography>}
+              inputComponent={<p className={styles.simpleSpan}>{minsToTime(1440)}</p>}
             />
             <Field
               labelClasses={styles.fieldLabel}
               label={t(TranslationKey['Number of illustrations'])}
               containerClasses={styles.containerField}
-              inputComponent={<Typography className={styles.simpleSpan}>{mediaToShow.length}</Typography>}
+              inputComponent={<p className={styles.simpleSpan}>{mediaToShow.length}</p>}
             />
             <Field
               labelClasses={styles.fieldLabel}
@@ -233,24 +233,25 @@ export const RequestDesignerResultClientForm = memo(props => {
           <div className={styles.downloadsWrapper}>
             <div className={styles.downloadsCheckWrapper} onClick={onClickAllAddDownload}>
               <Checkbox color="primary" checked={imagesForDownload.length === imagesData.length} />
-              <Typography>{t(TranslationKey['Select all'])}</Typography>
+              <p>{t(TranslationKey['Select all'])}</p>
             </div>
 
-            <Button disabled={!imagesForDownload.length} onClick={onClickAllDownload}>
-              <MdOutlineDownload size={24} />
-            </Button>
+            <CustomButton
+              disabled={!imagesForDownload.length}
+              icon={<MdOutlineDownload size={24} />}
+              onClick={onClickAllDownload}
+            />
 
-            <Button
+            <CustomButton
               disabled={!imagesForDownload.length || archiveButtonInactiveBeforeDownloading}
+              icon={<DownloadArchiveIcon />}
               onClick={onClickDownloadArchive}
-            >
-              <DownloadArchiveIcon />
-            </Button>
+            />
           </div>
 
           {!noShowActions && (
             <>
-              <Button
+              <CustomButton
                 onClick={() =>
                   onPressSubmitDesignerResultToCorrect({
                     reason: comment,
@@ -260,22 +261,20 @@ export const RequestDesignerResultClientForm = memo(props => {
                 }
               >
                 {t(TranslationKey['Send in for rework'])}
-              </Button>
-              <Button
-                styleType={ButtonStyle.SUCCESS}
+              </CustomButton>
+              <CustomButton
+                type="primary"
                 onClick={() => {
                   onClickProposalResultAccept(proposal.proposal._id)
                   setOpenModal()
                 }}
               >
                 {t(TranslationKey.Accept)}
-              </Button>
+              </CustomButton>
             </>
           )}
 
-          <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={setOpenModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       </div>
 

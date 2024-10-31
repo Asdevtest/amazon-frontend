@@ -1,5 +1,3 @@
-import { Typography } from '@mui/material'
-
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
 import {
@@ -101,9 +99,9 @@ export const RequestTermsList = props => {
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey['Time till deadline'])}
           inputComponent={
-            <Typography className={cx(styles.accentText, getDeadlineColor(request?.timeoutAt))}>{`${Math.round(
+            <p className={cx(styles.accentText, getDeadlineColor(request?.timeoutAt))}>{`${Math.round(
               getDistanceBetweenDatesInSeconds(request?.timeoutAt) / 3600,
-            )} ${t(TranslationKey.hour)} `}</Typography>
+            )} ${t(TranslationKey.hour)} `}</p>
           }
         />
 

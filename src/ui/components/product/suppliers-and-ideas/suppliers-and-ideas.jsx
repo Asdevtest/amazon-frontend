@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { Typography } from '@mui/material'
-
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -19,14 +17,14 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 
 import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './suppliers-and-ideas.style'
@@ -137,14 +135,14 @@ export const SuppliersAndIdeas = observer(props => {
     <div className={styles.mainWrapper}>
       {showAddProductIdeaButton && (
         <div className={styles.btnsWrapper}>
-          <Button
-            styleType={ButtonStyle.SUCCESS}
+          <CustomButton
+            type="primary"
             disabled={!!product.parentProductId}
-            tooltipInfoContent={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
+            title={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
             onClick={onCreateIdea}
           >
             {t(TranslationKey['Add a product idea'])}
-          </Button>
+          </CustomButton>
         </div>
       )}
 
@@ -257,9 +255,7 @@ export const SuppliersAndIdeas = observer(props => {
       {!currentData?.length || !curIdea ? (
         <div className={styles.emptyTableWrapper}>
           <img src="/assets/icons/empty-table.svg" />
-          <Typography variant="h5" className={styles.emptyTableText}>
-            {t(TranslationKey['No ideas yet'])}
-          </Typography>
+          <h5 className={styles.emptyTableText}>{t(TranslationKey['No ideas yet'])}</h5>
         </div>
       ) : null}
 

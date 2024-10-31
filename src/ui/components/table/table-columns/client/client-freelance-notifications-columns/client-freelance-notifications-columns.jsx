@@ -2,7 +2,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextHeaderCell, Text } from '@components/data-grid/data-grid-cells'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
@@ -63,9 +63,9 @@ export const clientFreelanceNotificationsColumns = handlers => [
     headerName: t(TranslationKey.Action),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
     renderCell: params => (
-      <Button onClick={() => handlers.onClickReplyBtn(params.row._id, params.row.chatId)}>
+      <CustomButton onClick={() => handlers.onClickReplyBtn(params.row._id, params.row.chatId)}>
         {t(TranslationKey.Reply)}
-      </Button>
+      </CustomButton>
     ),
     sortable: false,
     width: 140,

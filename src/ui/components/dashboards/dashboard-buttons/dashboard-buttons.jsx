@@ -1,7 +1,5 @@
 import { useHistory } from 'react-router-dom'
 
-import { Typography } from '@mui/material'
-
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -58,7 +56,7 @@ export const DashboardButtons = ({ user }) => {
             {Number(notices) > 0 ? <div className={styles.badge}>{notices}</div> : null}
           </button>
 
-          <Typography className={styles.title}>{t(TranslationKey.Notifications)}</Typography>
+          <p className={styles.title}>{t(TranslationKey.Notifications)}</p>
         </div>
       ) : null}
       <div className={styles.buttonWrapper}>
@@ -71,7 +69,7 @@ export const DashboardButtons = ({ user }) => {
           {Number(unreadMessages) > 0 ? <div className={styles.badge}>{unreadMessages}</div> : null}
         </button>
 
-        <Typography className={styles.title}>{t(TranslationKey.Messages)}</Typography>
+        <p className={styles.title}>{t(TranslationKey.Messages)}</p>
       </div>
       {checkIsAdmin(UserRoleCodeMap[user.role]) ||
       checkIsStorekeeper(UserRoleCodeMap[user.role]) ||
@@ -81,7 +79,7 @@ export const DashboardButtons = ({ user }) => {
             <SettingsIcon classes={{ root: styles.fontSizeLarge }} fontSize="large" />
           </button>
 
-          <Typography className={styles.title}>{buttonTitle}</Typography>
+          <p className={styles.title}>{buttonTitle}</p>
         </div>
       ) : null}
     </div>

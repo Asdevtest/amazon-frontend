@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdDone } from 'react-icons/md'
 
-import { Checkbox, Typography } from '@mui/material'
+import { Checkbox } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { BoxStatus } from '@constants/statuses/box-status'
@@ -17,14 +17,14 @@ import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 import { TariffModal } from '@typings/enums/tariff-modal'
 import { isStorekeeper } from '@typings/guards/roles'
 
@@ -416,14 +416,14 @@ export const EditMultipleBoxesForm = observer(
     return (
       <div className={styles.root}>
         <div className={styles.modalTitleWrapper}>
-          <Typography className={styles.modalTitle}>{t(TranslationKey['Editing boxes'])}</Typography>
+          <p className={styles.modalTitle}>{t(TranslationKey['Editing boxes'])}</p>
           <BoxEdit />
         </div>
 
         <div className={styles.boxesWrapper}>
           <div className={styles.currentBox}>
             <div className={styles.currentBoxTitle}>
-              <Typography className={styles.sectionTitle}>{t(TranslationKey['Shared options'])}</Typography>
+              <p className={styles.sectionTitle}>{t(TranslationKey['Shared options'])}</p>
             </div>
 
             <div className={styles.sharedItemSubWrapper}>
@@ -455,9 +455,12 @@ export const EditMultipleBoxesForm = observer(
                   }
                 />
 
-                <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('destinationId')}>
+                <CustomButton
+                  disabled={disabledApplyBtn}
+                  onClick={() => onApplySharedValuesToAllBoxes('destinationId')}
+                >
                   {applyBtnsClicked.destinationId ? <MdDone size={18} /> : t(TranslationKey.Apply)}
-                </Button>
+                </CustomButton>
               </div>
 
               <div>
@@ -467,7 +470,7 @@ export const EditMultipleBoxesForm = observer(
                   label={`${t(TranslationKey['Int warehouse'])} / ` + t(TranslationKey.Tariff)}
                   labelClasses={styles.label}
                   inputComponent={
-                    <Button
+                    <CustomButton
                       onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                     >
                       {sharedFields.logicsTariffId
@@ -477,13 +480,16 @@ export const EditMultipleBoxesForm = observer(
                               : 'none'
                           }`
                         : t(TranslationKey.Select)}
-                    </Button>
+                    </CustomButton>
                   }
                 />
 
-                <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('logicsTariffId')}>
+                <CustomButton
+                  disabled={disabledApplyBtn}
+                  onClick={() => onApplySharedValuesToAllBoxes('logicsTariffId')}
+                >
                   {applyBtnsClicked.logicsTariffId ? <MdDone size={18} /> : t(TranslationKey.Apply)}
-                </Button>
+                </CustomButton>
               </div>
 
               <div>
@@ -498,9 +504,9 @@ export const EditMultipleBoxesForm = observer(
                   onChange={e => onChangeSharedFields(e, 'fbaShipment')}
                 />
 
-                <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('fbaShipment')}>
+                <CustomButton disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('fbaShipment')}>
                   {applyBtnsClicked.fbaShipment ? <MdDone size={18} /> : t(TranslationKey.Apply)}
-                </Button>
+                </CustomButton>
               </div>
 
               <div>
@@ -518,9 +524,12 @@ export const EditMultipleBoxesForm = observer(
                     />
                   }
                 />
-                <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('tmpShippingLabel')}>
+                <CustomButton
+                  disabled={disabledApplyBtn}
+                  onClick={() => onApplySharedValuesToAllBoxes('tmpShippingLabel')}
+                >
                   {applyBtnsClicked.tmpShippingLabel ? <MdDone size={18} /> : t(TranslationKey.Apply)}
-                </Button>
+                </CustomButton>
               </div>
 
               <div>
@@ -537,9 +546,9 @@ export const EditMultipleBoxesForm = observer(
                     />
                   }
                 />
-                <Button disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('tmpBarCode')}>
+                <CustomButton disabled={disabledApplyBtn} onClick={() => onApplySharedValuesToAllBoxes('tmpBarCode')}>
                   {applyBtnsClicked.tmpBarCode ? <MdDone size={18} /> : t(TranslationKey.Apply)}
-                </Button>
+                </CustomButton>
               </div>
 
               <div>
@@ -562,12 +571,12 @@ export const EditMultipleBoxesForm = observer(
                     />
                   }
                 />
-                <Button
+                <CustomButton
                   disabled={disabledApplyBtn || isStorekeeper(userInfo.role)}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
                 >
                   {applyBtnsClicked.tmpTransparencyFile ? <MdDone size={18} /> : t(TranslationKey.Apply)}
-                </Button>
+                </CustomButton>
               </div>
 
               {isStorekeeper(userInfo.role) ? (
@@ -584,11 +593,11 @@ export const EditMultipleBoxesForm = observer(
                           checked={sharedFields.isShippingLabelAttachedByStorekeeper}
                           onChange={e => onChangeSharedFields(e, 'isShippingLabelAttachedByStorekeeper')}
                         />
-                        {/* <Typography className={styles.checkboxLabel}>{t(TranslationKey.FBA)}</Typography> */}
+                        {/* <p className={styles.checkboxLabel}>{t(TranslationKey.FBA)}</p> */}
                       </div>
                     }
                   />
-                  <Button
+                  <CustomButton
                     disabled={disabledApplyBtn}
                     onClick={() => onApplySharedValuesToAllBoxes('isShippingLabelAttachedByStorekeeper')}
                   >
@@ -597,7 +606,7 @@ export const EditMultipleBoxesForm = observer(
                     ) : (
                       t(TranslationKey.Apply)
                     )}
-                  </Button>
+                  </CustomButton>
                 </div>
               ) : null}
 
@@ -662,12 +671,12 @@ export const EditMultipleBoxesForm = observer(
                     }
                   />
 
-                  <Button
+                  <CustomButton
                     disabled={disabledApplyBtn}
                     onClick={() => onApplySharedValuesToAllBoxes('isBarcodeLabelAttached')}
                   >
                     {applyBtnsClicked.isBarcodeLabelAttached ? <MdDone size={18} /> : t(TranslationKey.Apply)}
-                  </Button>
+                  </CustomButton>
                 </div>
               )}
             </div>
@@ -690,17 +699,11 @@ export const EditMultipleBoxesForm = observer(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <Button disabled={disabledSubmitBtn} onClick={onClickSubmit}>
+          <CustomButton disabled={disabledSubmitBtn} onClick={onClickSubmit}>
             {t(TranslationKey.Edit)}
-          </Button>
+          </CustomButton>
 
-          <Button
-            styleType={ButtonStyle.CASUAL}
-            tooltipInfoContent={t(TranslationKey['Close the form without saving'])}
-            onClick={onCloseModal}
-          >
-            {t(TranslationKey.Close)}
-          </Button>
+          <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
 
         <Modal

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 
-import { PopoverProps, Typography } from '@mui/material'
+import { PopoverProps } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 
@@ -34,9 +34,7 @@ export const LanguageSelector: FC<LanguageSelectorProps> = ({ className }) => {
       <div className={styles.languageTagWrapper} onClick={handleClick}>
         <img src={`/assets/icons/${SettingsModel.languageTag}.svg`} className={className} />
 
-        <Typography className={styles.title}>{`${SettingsModel.languageTag.replace(/(^)[a-z]/g, x =>
-          x.toUpperCase(),
-        )}`}</Typography>
+        <p className={styles.title}>{`${SettingsModel.languageTag.replace(/(^)[a-z]/g, x => x.toUpperCase())}`}</p>
       </div>
 
       {Boolean(anchorEl) && (

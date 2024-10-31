@@ -2,13 +2,13 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { Divider, Typography } from '@mui/material'
+import { Divider } from '@mui/material'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -17,7 +17,7 @@ import { UserBalanceHistory } from '@components/user/user-balance-history'
 import { checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './listing.style'
 
@@ -53,7 +53,7 @@ export const Listing = observer(({ productId, onClickBack }) => {
   return (
     <div className={styles.mainWrapper}>
       <div className={styles.productBlockWrapper}>
-        <Typography className={styles.title}>{t(TranslationKey['Details about the product:'])}</Typography>
+        <p className={styles.title}>{t(TranslationKey['Details about the product:'])}</p>
 
         <div className={styles.productSubBlockWrapper}>
           <div className={styles.sideBlockWrapper}>
@@ -139,15 +139,13 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
             <div className={styles.photosWrapper}>
               <div className={styles.photosLeftSubWrapper}>
-                <Typography className={styles.subTitle}>
-                  {t(TranslationKey['Photos of the product in boxes:'])}
-                </Typography>
+                <p className={styles.subTitle}>{t(TranslationKey['Photos of the product in boxes:'])}</p>
 
                 <SlideshowGallery slidesToShow={2} files={imagesFromBoxes} />
               </div>
 
               <div>
-                <Typography className={styles.subTitle}>{t(TranslationKey['Listing photos:'])}</Typography>
+                <p className={styles.subTitle}>{t(TranslationKey['Listing photos:'])}</p>
 
                 <SlideshowGallery slidesToShow={2} files={listingProduct.listingImages} />
               </div>
@@ -161,17 +159,15 @@ export const Listing = observer(({ productId, onClickBack }) => {
 
             {userCanEdit ? (
               <div className={styles.buttonsWrapper}>
-                <Button onClick={onSaveSubmit}>{t(TranslationKey.Save)}</Button>
+                <CustomButton onClick={onSaveSubmit}>{t(TranslationKey.Save)}</CustomButton>
 
-                <Button styleType={ButtonStyle.CASUAL} onClick={onCancel}>
-                  {t(TranslationKey.Close)}
-                </Button>
+                <CustomButton onClick={onCancel}>{t(TranslationKey.Close)}</CustomButton>
 
-                <Button onClick={onClickBack}>{t(TranslationKey.Back)}</Button>
+                <CustomButton onClick={onClickBack}>{t(TranslationKey.Back)}</CustomButton>
               </div>
             ) : (
               <div className={styles.buttonsWrapper}>
-                <Button onClick={onClickBack ? onClickBack : onCancel}>{t(TranslationKey.Back)}</Button>
+                <CustomButton onClick={onClickBack ? onClickBack : onCancel}>{t(TranslationKey.Back)}</CustomButton>
               </div>
             )}
           </div>

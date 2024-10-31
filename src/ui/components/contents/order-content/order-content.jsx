@@ -1,7 +1,7 @@
 import { isPast, isValid, parseISO } from 'date-fns'
 import { useEffect, useState } from 'react'
 
-import { Divider, Typography, useMediaQuery, useTheme } from '@mui/material'
+import { Divider, useMediaQuery, useTheme } from '@mui/material'
 
 import { OrderStatus, OrderStatusByCode, OrderStatusByKey, OrderStatusText } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -9,7 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { BoxesToOrder } from '@components/shared/tables/boxes-to-order'
@@ -21,7 +21,7 @@ import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './order-content.style'
 
@@ -123,8 +123,8 @@ export const OrderContent = ({
 
         <div className={styles.infosWrapper}>
           <div className={styles.orderItemWrapper}>
-            <Typography className={styles.orderTitle}>{t(TranslationKey['Order number'])}</Typography>
-            <Typography className={styles.orderText}>{`№ ${updatedOrder.xid}`}</Typography>
+            <p className={styles.orderTitle}>{t(TranslationKey['Order number'])}</p>
+            <p className={styles.orderText}>{`№ ${updatedOrder.xid}`}</p>
           </div>
 
           <div className={styles.orderItemWrapper}>
@@ -134,20 +134,18 @@ export const OrderContent = ({
               label={t(TranslationKey['Order amount'])}
               labelClasses={styles.orderTitle}
               containerClasses={styles.field}
-              inputComponent={
-                <Typography className={styles.orderText}>{toFixedWithDollarSign(formFields.totalPrice, 2)}</Typography>
-              }
+              inputComponent={<p className={styles.orderText}>{toFixedWithDollarSign(formFields.totalPrice, 2)}</p>}
             />
           </div>
 
           <div className={styles.orderItemWrapper}>
-            <Typography className={styles.orderTitle}>{'item'}</Typography>
-            <Typography className={styles.orderText}>{updatedOrder.item || '-'}</Typography>
+            <p className={styles.orderTitle}>{'item'}</p>
+            <p className={styles.orderText}>{updatedOrder.item || '-'}</p>
           </div>
 
           <div className={styles.orderItemWrapper}>
-            <Typography className={styles.orderTitle}>{t(TranslationKey.Created)}</Typography>
-            <Typography className={styles.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</Typography>
+            <p className={styles.orderTitle}>{t(TranslationKey.Created)}</p>
+            <p className={styles.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</p>
           </div>
         </div>
       </div>
@@ -195,31 +193,27 @@ export const OrderContent = ({
       <div className={styles.btnsWrapper}>
         {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isOrderEditable)) &&
           onClickCancelOrder && (
-            <Button
-              styleType={ButtonStyle.DANGER}
-              tooltipInfoContent={
+            <CustomButton
+              danger
+              type="primary"
+              title={
                 updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
                 t(TranslationKey['Cancel order, refund of frozen funds'])
               }
               onClick={onClickCancelOrder}
             >
               {t(TranslationKey['Cancel order'])}
-            </Button>
+            </CustomButton>
           )}
         {isClient && isOrderEditable ? (
           <div className={styles.btnsSubWrapper}>
             {isClient && updatedOrder.status <= OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT] && (
-              <Button
-                disabled={isNotMultiple}
-                styleType={ButtonStyle.SUCCESS}
-                className={styles.button}
-                onClick={onClickReorder}
-              >
+              <CustomButton disabled={isNotMultiple} type="primary" className={styles.button} onClick={onClickReorder}>
                 {t(TranslationKey['To order'])}
-              </Button>
+              </CustomButton>
             )}
 
-            <Button
+            <CustomButton
               disabled={disabledSaveSubmit}
               onClick={() => {
                 onSubmitSaveOrder(
@@ -235,7 +229,7 @@ export const OrderContent = ({
               }}
             >
               {t(TranslationKey.Save)}
-            </Button>
+            </CustomButton>
           </div>
         ) : null}
       </div>

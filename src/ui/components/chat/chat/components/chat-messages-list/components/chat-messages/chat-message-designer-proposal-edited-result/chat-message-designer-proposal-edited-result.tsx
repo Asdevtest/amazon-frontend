@@ -6,7 +6,7 @@ import { ChatMessageDataDesignerProposalResultEditedContract } from '@models/cha
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { SlideByType } from '@components/shared/slide-by-type'
 
@@ -87,9 +87,9 @@ export const ChatMessageDesignerProposalEditedResult: FC<Props> = ({ message, is
           />
         </div>
 
-        <Button onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}>
+        <CustomButton onClick={() => handlers.onClickOpenRequest(message.data.proposal.media)}>
           {t(TranslationKey['Open result'])}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

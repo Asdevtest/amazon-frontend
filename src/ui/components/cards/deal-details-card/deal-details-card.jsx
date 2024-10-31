@@ -1,11 +1,13 @@
-import { Avatar, Grid, Typography } from '@mui/material'
+import { Avatar, Rate } from 'antd'
+
+import { Grid } from '@mui/material'
 import Rating from '@mui/material/Rating'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { RequestStatus, colorByStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
@@ -15,7 +17,7 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './deal-details-card.style'
 
@@ -38,7 +40,7 @@ export const DealDetailsCard = ({
         <div className={cx(styles.leftBlockWrapper, { [styles.leftBlockMarginWrapper]: dealsOnReview })}>
           <div className={styles.usersInfoBlockWrapper}>
             <div className={styles.userInfoWrapper}>
-              <Typography className={styles.userInfoName}>{t(TranslationKey.Client)}</Typography>
+              <p className={styles.userInfoName}>{t(TranslationKey.Client)}</p>
               <div className={styles.userInfo}>
                 <Avatar src={getUserAvatarSrc(curProposal?.request?.createdBy?._id)} className={styles.cardImg} />
 
@@ -53,7 +55,7 @@ export const DealDetailsCard = ({
               </div>
             </div>
             <div className={styles.userInfoWrapper}>
-              <Typography className={styles.userInfoName}>{t(TranslationKey.Performer)}</Typography>
+              <p className={styles.userInfoName}>{t(TranslationKey.Performer)}</p>
               <div className={styles.userInfo}>
                 <Avatar src={getUserAvatarSrc(curProposal?.proposal.createdBy._id)} className={styles.cardImg} />
 
@@ -70,24 +72,22 @@ export const DealDetailsCard = ({
           </div>
           <div>
             <div className={styles.cardTitleBlockHeaderWrapper}>
-              <Typography className={styles.cardTitle}>{`${t(TranslationKey['Client task'])}:`}</Typography>
-              <Typography className={styles.cardTitle}>{request?.request?.title}</Typography>
-              <Typography className={styles.cardDescription}>{request?.details?.conditions}</Typography>
-              <Typography className={styles.cardTitle}>{`${t(TranslationKey['Proposed solution'])}:`}</Typography>
-              <Typography className={styles.cardTitle}>{curProposal?.proposal.title}</Typography>
-              <Typography className={styles.cardDescription}>{curProposal?.proposal.comment}</Typography>
+              <p className={styles.cardTitle}>{`${t(TranslationKey['Client task'])}:`}</p>
+              <p className={styles.cardTitle}>{request?.request?.title}</p>
+              <p className={styles.cardDescription}>{request?.details?.conditions}</p>
+              <p className={styles.cardTitle}>{`${t(TranslationKey['Proposed solution'])}:`}</p>
+              <p className={styles.cardTitle}>{curProposal?.proposal.title}</p>
+              <p className={styles.cardDescription}>{curProposal?.proposal.comment}</p>
             </div>
           </div>
           <div className={styles.sumAndTimeWrapper}>
             <div>
-              <Typography className={styles.sumAndTimeTitle}>{t(TranslationKey.Budget)}</Typography>
-              <Typography className={styles.cardPrice}>
-                {toFixedWithDollarSign(curProposal?.proposal.price, 2)}
-              </Typography>
+              <p className={styles.sumAndTimeTitle}>{t(TranslationKey.Budget)}</p>
+              <p className={styles.cardPrice}>{toFixedWithDollarSign(curProposal?.proposal.price, 2)}</p>
             </div>
             <div>
-              <Typography className={styles.sumAndTimeTitle}>{t(TranslationKey.Deadline)}</Typography>
-              <Typography className={styles.text}>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
+              <p className={styles.sumAndTimeTitle}>{t(TranslationKey.Deadline)}</p>
+              <p className={styles.text}>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</p>
             </div>
           </div>
 
@@ -100,9 +100,9 @@ export const DealDetailsCard = ({
             RequestStatus.VERIFYING_BY_SUPERVISOR,
           ].includes(curProposal?.proposal.status) ? (
             <div>
-              <Button onClick={() => onSubmitSendInForRework(curProposal?.proposal._id)}>
+              <CustomButton onClick={() => onSubmitSendInForRework(curProposal?.proposal._id)}>
                 {t(TranslationKey['Send in for rework'])}
-              </Button>
+              </CustomButton>
             </div>
           ) : null}
         </div>
@@ -111,12 +111,12 @@ export const DealDetailsCard = ({
           <div className={styles.subBlockWrapper}>
             <div className={styles.leftSubBlockWrapper}>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey['Time to complete'])}</Typography>
+                <p className={styles.text}>{t(TranslationKey['Time to complete'])}</p>
 
-                <Typography className={styles.text}>{minsToTime(curProposal?.proposal.execution_time)}</Typography>
+                <p className={styles.text}>{minsToTime(curProposal?.proposal.execution_time)}</p>
               </div>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey.Status)}</Typography>
+                <p className={styles.text}>{t(TranslationKey.Status)}</p>
 
                 <Text
                   text={MyRequestStatusTranslate(curProposal?.proposal.status)}
@@ -126,30 +126,28 @@ export const DealDetailsCard = ({
             </div>
             <div className={styles.rightSubBlockWrapper}>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey.Deadline)}</Typography>
+                <p className={styles.text}>{t(TranslationKey.Deadline)}</p>
 
-                <Typography className={styles.text}>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</Typography>
+                <p className={styles.text}>{formatNormDateTime(curProposal?.proposal.timeoutAt)}</p>
               </div>
               <div className={styles.timeItemInfoWrapper}>
-                <Typography className={styles.text}>{t(TranslationKey['Total price'])}</Typography>
+                <p className={styles.text}>{t(TranslationKey['Total price'])}</p>
 
-                <Typography className={styles.cardPrice}>
-                  {toFixedWithDollarSign(curProposal?.proposal.price, 2)}
-                </Typography>
+                <p className={styles.cardPrice}>{toFixedWithDollarSign(curProposal?.proposal.price, 2)}</p>
               </div>
             </div>
           </div>
           <div className={styles.resultWrapper}>
-            <Typography className={styles.result}>{t(TranslationKey.Result)}</Typography>
+            <p className={styles.result}>{t(TranslationKey.Result)}</p>
 
-            <Typography className={styles.resultDescription}>{curProposal?.details.result}</Typography>
+            <p className={styles.resultDescription}>{curProposal?.details.result}</p>
           </div>
           <div className={styles.filesAndTimeWrapper}>
             <SlideshowGallery slidesToShow={2} files={curProposal?.details?.linksToMediaFiles} />
 
             <div className={styles.timeOnReviewWrapper}>
-              <Typography className={styles.timeOnReviewTitle}>{t(TranslationKey['Time to complete'])}</Typography>
-              <Typography className={styles.timeOnReview}>{'24ч 00мин'}</Typography>
+              <p className={styles.timeOnReviewTitle}>{t(TranslationKey['Time to complete'])}</p>
+              <p className={styles.timeOnReview}>{'24ч 00мин'}</p>
             </div>
           </div>
           {!dealsOnReview &&
@@ -159,26 +157,20 @@ export const DealDetailsCard = ({
               RequestStatus.VERIFYING_BY_SUPERVISOR,
             ].includes(curProposal?.proposal.status) && (
               <div className={styles.buttonsWrapper}>
-                <Button
-                  styleType={ButtonStyle.DANGER}
-                  onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}
-                >
+                <CustomButton danger type="primary" onClick={() => onClickRejectDealModal(curProposal?.proposal._id)}>
                   {t(TranslationKey['Reject the deal'])}
-                </Button>
+                </CustomButton>
 
-                <Button
-                  styleType={ButtonStyle.SUCCESS}
-                  onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}
-                >
+                <CustomButton type="primary" onClick={() => onClickConfirmDealModal(curProposal?.proposal._id)}>
                   {t(TranslationKey['Accept the deal'])}
-                </Button>
+                </CustomButton>
               </div>
             )}
           {dealsOnReview ? (
             <div className={styles.buttonWrapper}>
-              <Button styleType={ButtonStyle.SUCCESS} onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}>
+              <CustomButton type="primary" onClick={() => onClickGetToWorkModal(curProposal?.proposal._id)}>
                 {t(TranslationKey['Get to work'])}
-              </Button>
+              </CustomButton>
             </div>
           ) : null}
         </div>

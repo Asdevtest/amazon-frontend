@@ -5,7 +5,6 @@ import { FaMinus, FaPlus } from 'react-icons/fa'
 import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/keys/currency'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
 import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -13,7 +12,6 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { toFixed } from '@utils/text'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { IDestination, IDestinationVariation } from '@typings/shared/destinations'
@@ -175,9 +173,9 @@ export const DestinationVariationsContent: FC<DestinationVariationsContentProps>
                       {t(TranslationKey['Apply to all'])}
                     </p>
 
-                    <Button onClick={throttle(() => onApplyMinBoxWeightToAll(variantIndex))}>
+                    <CustomButton onClick={() => onApplyMinBoxWeightToAll(variantIndex)}>
                       {t(TranslationKey.Apply)}
-                    </Button>
+                    </CustomButton>
                   </div>
                 </>
               }

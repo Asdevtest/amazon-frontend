@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react'
 import { IoSettingsOutline } from 'react-icons/io5'
 
-import { Checkbox, Menu, Typography } from '@mui/material'
+import { Checkbox, Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
-
-import { ButtonVariant } from '@typings/enums/button-style'
 
 import { useStyles } from './data-grid-custom-columns-button.style'
 
@@ -60,13 +58,9 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
 
   return (
     <div>
-      <Button variant={ButtonVariant.OUTLINED} className={cx(className, styles.mainFilterBtn)} onClick={handleClick}>
-        <div className={cx(className, styles.mainFilterBtnInsert)}>
-          <IoSettingsOutline size={20} />
-
-          <Typography className={styles.mainFilterBtnInsertText}>{t(TranslationKey.Parameters)}</Typography>
-        </div>
-      </Button>
+      <CustomButton className={cx(className)} icon={<IoSettingsOutline size={16} />} onClick={handleClick}>
+        {t(TranslationKey.Parameters)}
+      </CustomButton>
 
       {Boolean(menuAnchor) && (
         <Menu
@@ -78,7 +72,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
           onClose={handleClose}
         >
           <div className={styles.mainWrapper}>
-            <Typography className={styles.titleText}>{t(TranslationKey.Columns)}</Typography>
+            <p className={styles.titleText}>{t(TranslationKey.Columns)}</p>
             <div className={styles.searchInputWrapper}>
               <CustomInputSearch
                 allowClear

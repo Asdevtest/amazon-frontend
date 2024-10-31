@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { MdAdd, MdEdit } from 'react-icons/md'
 
-import { Checkbox, MenuItem, Select, Typography } from '@mui/material'
+import { Checkbox, MenuItem, Select } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -80,11 +80,11 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
         <div className={styles.paymentMethodsPlaceholder}>
           {!isReadOnly ? (
             <>
-              <Typography className={styles.placeholderText}>{t(TranslationKey.Add)}</Typography>
+              <p className={styles.placeholderText}>{t(TranslationKey.Add)}</p>
               <MdAdd size={13} className={styles.addIcon} />
             </>
           ) : (
-            <Typography className={styles.placeholderText}>{t(TranslationKey.Missing)}</Typography>
+            <p className={styles.placeholderText}>{t(TranslationKey.Missing)}</p>
           )}
         </div>
       )
@@ -140,7 +140,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
             {!onlyRead && ( // @ts-ignore
               <MenuItem value={{ _id: 'SELECT_ALL' }}>
                 <Checkbox color="primary" checked={value?.length === allPayments?.length} />
-                <Typography>{t(TranslationKey.All)}</Typography>
+                <p>{t(TranslationKey.All)}</p>
               </MenuItem>
             )}
 

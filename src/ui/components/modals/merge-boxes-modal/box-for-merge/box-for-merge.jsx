@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import { Typography } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field/field'
@@ -22,7 +20,7 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
 
   return (
     <div className={styles.box}>
-      <Typography className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${box.xid}`}</Typography>
+      <p className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${box.xid}`}</p>
       <div>
         <div>
           {box.items.map((order, orderIndex) => (
@@ -31,18 +29,16 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
                 <img className={styles.img} src={getAmazonImageUrl(order.product.images[0])} />
                 <div>
                   <div className={styles.asinWrapper}>
-                    <Typography className={styles.asinTitle}>{t(TranslationKey.ASIN)}</Typography>
+                    <p className={styles.asinTitle}>{t(TranslationKey.ASIN)}</p>
                     <Text className={styles.asinValue} text={order.product?.asin} />
                   </div>
 
                   <div className={styles.asinWrapper}>
-                    <Typography className={styles.asinTitle}>{t(TranslationKey.Order)}</Typography>
-                    <Typography className={styles.asinValue}>{order.order.id}</Typography>
+                    <p className={styles.asinTitle}>{t(TranslationKey.Order)}</p>
+                    <p className={styles.asinValue}>{order.order.id}</p>
                   </div>
 
-                  <Typography className={styles.title}>
-                    {getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}
-                  </Typography>
+                  <p className={styles.title}>{getShortenStringIfLongerThanCount(order.product.amazonTitle, 85)}</p>
                 </div>
 
                 <div>
@@ -85,7 +81,7 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               labelClasses={styles.label}
               inputComponent={
                 <div>
-                  <Typography className={styles.storekeeperDisableBtn}>{getNewTariffTextForBoxOrOrder(box)}</Typography>
+                  <p className={styles.storekeeperDisableBtn}>{getNewTariffTextForBoxOrOrder(box)}</p>
                 </div>
               }
             />
@@ -115,9 +111,9 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
       <div className={styles.bottomBlockWrapper}>
         <div className={styles.incomingBtnWrapper}>
           <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
-            <Typography className={styles.tablePanelViewText}>
+            <p className={styles.tablePanelViewText}>
               {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
-            </Typography>
+            </p>
 
             {!showFullCard ? (
               <MdArrowDropDown size={22} className={styles.icon} />
