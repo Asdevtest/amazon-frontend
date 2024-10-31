@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,11 +22,11 @@ import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
-import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { isBuyer, isClient } from '@typings/guards/roles'
 
 import { useStyles } from './suppliers-and-ideas.style'
 
@@ -60,7 +59,7 @@ export const SuppliersAndIdeas = observer(props => {
 
   const {
     requestStatus,
-    curUser,
+    userInfo,
     curIdea,
     inEdit,
     inCreate,
@@ -86,7 +85,6 @@ export const SuppliersAndIdeas = observer(props => {
     currentRequest,
     showSelectionSupplierModal,
     currentData,
-    languageTag,
     showCommentsModal,
     showSelectShopsModal,
     shopsData,
@@ -127,7 +125,7 @@ export const SuppliersAndIdeas = observer(props => {
   }, [selectedIdeaId, ideasData])
 
   const showAddProductIdeaButton =
-    (checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
+    (isClient(userInfo?.role) || isBuyer(userInfo?.role)) &&
     !inCreate &&
     !inEdit &&
     !isModalView &&
@@ -151,9 +149,8 @@ export const SuppliersAndIdeas = observer(props => {
       {inCreate && (
         <IdeaViewAndEditCard
           inCreate
-          languageTag={languageTag}
           isModalView={isModalView}
-          curUser={curUser}
+          curUser={userInfo}
           idea={curIdea}
           inEdit={inEdit}
           currentProduct={currentProduct}
@@ -186,8 +183,7 @@ export const SuppliersAndIdeas = observer(props => {
           ) : (
             <IdeaViewAndEditCard
               isModalView
-              languageTag={languageTag}
-              curUser={curUser}
+              curUser={userInfo}
               inEdit={inEdit}
               idea={curIdea}
               currentProduct={currentProduct}
@@ -223,10 +219,9 @@ export const SuppliersAndIdeas = observer(props => {
             currentData.map(idea => (
               <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
                 <IdeaViewAndEditCard
-                  curUser={curUser}
+                  curUser={userInfo}
                   inEdit={inEdit}
                   idea={idea}
-                  languageTag={languageTag}
                   currentProduct={currentProduct}
                   selectedIdea={selectedIdeaId}
                   onCreateProduct={onClickCreateProduct}
@@ -284,7 +279,7 @@ export const SuppliersAndIdeas = observer(props => {
       >
         <RequestDesignerResultClientForm
           onlyRead
-          userInfo={curUser}
+          userInfo={userInfo}
           request={{ request: currentRequest }}
           proposal={currentProposal}
           setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
@@ -295,7 +290,7 @@ export const SuppliersAndIdeas = observer(props => {
         <MainRequestResultModal
           readOnly
           customProposal={currentProposal}
-          userInfo={curUser}
+          userInfo={userInfo}
           openModal={showMainRequestResultModal}
           onOpenModal={() => onTriggerOpenModal('showMainRequestResultModal')}
         />
