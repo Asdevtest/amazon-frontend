@@ -211,7 +211,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
         const supplier = params.row.suppliers?.[0]
         const priceWithDelivery = supplier?.price + supplier?.batchDeliveryCostInDollar / supplier?.amount
 
-        return <Text isCell center text={toFixed(priceWithDelivery || 0, 2)} />
+        return <Text isCell text={toFixed(priceWithDelivery || 0, 2)} />
       },
       width: 120,
       disableCustomSort: true,
