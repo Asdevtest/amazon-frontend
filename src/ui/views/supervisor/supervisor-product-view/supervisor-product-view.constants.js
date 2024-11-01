@@ -80,8 +80,6 @@ export const confirmMessageByProductStatus = () => ({
   290: t(TranslationKey["Is the supplier's price unacceptable"]) + '?',
 })
 
-export const confirmMessageWithoutStatus = () => t(TranslationKey['Save without status']) + '?'
-
 export const warningModalTitleVariants = () => ({
   NO_SUPPLIER: t(TranslationKey["You can't choose without a supplier"]),
   CHOOSE_STATUS: t(TranslationKey['We need to choose a status']),

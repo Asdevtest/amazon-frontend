@@ -45,10 +45,8 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
 
               <CustomButton
                 danger
-                shape="circle"
                 size="small"
-                icon={<CrossIcon className={styles.crossIcon} />}
-                className={styles.crossButton}
+                icon={<CrossIcon />}
                 onClick={() => onRemoveRequest(request.launch?._id)}
               />
             </div>

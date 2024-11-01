@@ -31,7 +31,6 @@ export const HeaderTable = ({ viewModel }) => {
             size="large"
             type="primary"
             disabled={!viewModel.selectedRows.length}
-            title={t(TranslationKey["Returns all boxes from the selected batch to the 'Boxes ready to send' section"])}
             onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
           >
             {t(TranslationKey['Cancel Send'])}

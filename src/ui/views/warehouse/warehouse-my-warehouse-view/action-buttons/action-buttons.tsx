@@ -23,33 +23,15 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
 
   return (
     <div className={styles.leftBtnsWrapper}>
-      <CustomButton
-        type="primary"
-        size="large"
-        title={t(TranslationKey['Form for changing the box data'])}
-        disabled={!selectedBoxes?.length}
-        onClick={onEditBox}
-      >
+      <CustomButton type="primary" size="large" disabled={!selectedBoxes?.length} onClick={onEditBox}>
         {t(TranslationKey.Edit)}
       </CustomButton>
 
-      <CustomButton
-        type="primary"
-        size="large"
-        title={t(TranslationKey['Form for merging several boxes'])}
-        disabled={selectedBoxes.length <= 1}
-        onClick={onClickMergeBtn}
-      >
+      <CustomButton type="primary" size="large" disabled={selectedBoxes.length <= 1} onClick={onClickMergeBtn}>
         {t(TranslationKey.Merge)}
       </CustomButton>
 
-      <CustomButton
-        type="primary"
-        size="large"
-        title={t(TranslationKey['Form for distributing to multiple boxes'])}
-        disabled={selectedBoxes.length !== 1}
-        onClick={onClickSplitBtn}
-      >
+      <CustomButton type="primary" size="large" disabled={selectedBoxes.length !== 1} onClick={onClickSplitBtn}>
         {t(TranslationKey.Redistribute)}
       </CustomButton>
 

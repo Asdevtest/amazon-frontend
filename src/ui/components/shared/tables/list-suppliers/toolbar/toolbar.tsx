@@ -153,7 +153,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
         </CustomButton>
 
         <CustomButton
-          icon={<FiPlus style={{ width: 16, height: 16 }} />}
+          icon={<FiPlus size={16} />}
           className={styles.button}
           disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea || !showAddSupplierButton}
           onClick={() => onSupplierActions(ModalModes.ADD)}

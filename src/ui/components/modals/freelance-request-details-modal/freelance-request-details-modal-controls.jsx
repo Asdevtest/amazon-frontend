@@ -62,7 +62,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
       <div className={styles.controlsWrapper}>
         {showMarkAsCompletedButtton && (
           <CustomButton
-            fullWidth
+            block
             type="primary"
             disabled={disableMarkAsCompletedButton}
             onClick={() => onClickMarkAsCompletedBtn(request?._id)}
@@ -75,32 +75,16 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
           <>
             {showMainActionsButton && (
               <>
-                <CustomButton
-                  fullWidth
-                  danger
-                  type="primary"
-                  title={t(TranslationKey['Delete the selected request'])}
-                  onClick={onClickCancelBtn}
-                >
+                <CustomButton block danger type="primary" onClick={onClickCancelBtn}>
                   {t(TranslationKey.Delete)}
                 </CustomButton>
 
-                <CustomButton
-                  fullWidth
-                  title={t(TranslationKey['Allows you to change the selected request'])}
-                  onClick={onClickEditBtn}
-                >
+                <CustomButton block onClick={onClickEditBtn}>
                   {t(TranslationKey.Edit)}
                 </CustomButton>
 
                 {showPublishButton && (
-                  <CustomButton
-                    block
-                    type="primary"
-                    size="large"
-                    title={t(TranslationKey['Publish the selected request on the exchange'])}
-                    onClick={onClickPublishBtn}
-                  >
+                  <CustomButton block type="primary" onClick={onClickPublishBtn}>
                     {t(TranslationKey.Publish)}
                   </CustomButton>
                 )}
@@ -109,7 +93,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
             {showChangeRequestTermsButton && (
               <>
-                <CustomButton fullWidth onClick={() => setIsRestoreModalOpen(true)}>
+                <CustomButton block onClick={() => setIsRestoreModalOpen(true)}>
                   {t(TranslationKey['Change request terms'])}
                 </CustomButton>
 
@@ -127,14 +111,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
 
             {showAcceptingProposalsButton && (
               <CustomButton
-                fullWidth
-                title={
-                  request?.status !== RequestStatus.FORBID_NEW_PROPOSALS &&
-                  t(TranslationKey['Removes the visibility of the request on the exchange'])
-                }
-                className={cx({
-                  [styles.stopBtn]: request?.status !== RequestStatus.FORBID_NEW_PROPOSALS,
-                })}
+                block
                 onClick={request?.status !== RequestStatus.FORBID_NEW_PROPOSALS ? onClickAbortBtn : onClickPublishBtn}
               >
                 {request?.status === RequestStatus.FORBID_NEW_PROPOSALS
@@ -146,7 +123,7 @@ export const FreelanceRequestDetailsModalControls = memo(props => {
         )}
 
         {onClickSuggest && (
-          <CustomButton fullWidth onClick={onClickSuggest}>
+          <CustomButton block onClick={onClickSuggest}>
             {t(TranslationKey['Suggest a deal'])}
           </CustomButton>
         )}

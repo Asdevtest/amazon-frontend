@@ -29,7 +29,6 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import {
   confirmMessageByProductStatus,
-  confirmMessageWithoutStatus,
   fieldsOfProductAllowedToUpdate,
   formFieldsDefault,
   warningModalTitleVariants,
@@ -260,7 +259,7 @@ export class SupervisorProductViewModel {
         this.confirmModalSettings = {
           isWarning: false,
           message: withoutStatus
-            ? confirmMessageWithoutStatus()
+            ? t(TranslationKey['Save without status']) + '?'
             : confirmMessageByProductStatus()[this.curUpdateProductData.status],
           onClickOkBtn: () => this.onSaveProductData(updateDataHandler),
         }

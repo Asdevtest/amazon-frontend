@@ -58,7 +58,6 @@ export const PatchNoteForm: FC<PatchNoteFormProps> = memo(props => {
             type="link"
             icon={<FiPlus />}
             disabled={!!editPatchNote || disabledAddButton}
-            className={styles.addButton}
             onClick={onAddPatchNote}
           >
             {t(TranslationKey['Add role'])}

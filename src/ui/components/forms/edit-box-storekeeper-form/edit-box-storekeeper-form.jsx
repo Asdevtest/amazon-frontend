@@ -14,7 +14,6 @@ import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
@@ -781,17 +780,11 @@ export const EditBoxStorekeeperForm = memo(
         </div>
 
         <div className={styles.buttonsWrapper}>
-          <CustomButton
-            disabled={disableSubmit}
-            title={t(TranslationKey['Save changes to the box'])}
-            onClick={handleSubmit}
-          >
+          <CustomButton disabled={disableSubmit} onClick={handleSubmit}>
             {t(TranslationKey.Save)}
           </CustomButton>
 
-          <CustomButton title={t(TranslationKey['Close the form without saving'])} onClick={onTriggerOpenModal}>
-            {t(TranslationKey.Close)}
-          </CustomButton>
+          <CustomButton onClick={onTriggerOpenModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
 
         <Modal

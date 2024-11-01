@@ -26,7 +26,7 @@ export const RequestProposalsDetailsCustomItem = observer(({ requestProposal }) 
         <p className={styles.text}>{comment}</p>
       </div>
 
-      <CustomButton disabled>{'Открыть'}</CustomButton>
+      <CustomButton disabled>Открыть</CustomButton>
     </div>
   )
 })

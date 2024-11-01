@@ -96,7 +96,7 @@ export const AppealDetailsCard = () => {
 
           <div className={styles.footerWrapper}>
             <p className={styles.timeOnReviewTitle}>{'Время на рассмотрение с момента принятия 48 часов'}</p>
-            <CustomButton type="primary">{'Принять к рассмотрению'}</CustomButton>
+            <CustomButton type="primary">Принять к рассмотрению</CustomButton>
           </div>
         </div>
       </div>
