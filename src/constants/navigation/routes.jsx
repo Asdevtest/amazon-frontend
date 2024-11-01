@@ -3,6 +3,8 @@ import { lazy } from 'react'
 import { UserRole } from '@constants/keys/user-roles'
 import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 
+import { BuyerIdeas } from '@views/buyer/buyer-ideas'
+
 import { t } from '@utils/translations'
 
 import { TaskStatus } from '@typings/enums/task/task-status'
@@ -105,6 +107,8 @@ const BuyerDashboardView = lazy(() =>
 const BuyerMyProductsView = lazy(() =>
   import('@views/buyer/buyer-my-products-view').then(module => ({ default: module.BuyerMyProductsView })),
 )
+
+const BuyerIdeasView = lazy(() => import('@views/buyer/buyer-ideas').then(module => ({ default: module.BuyerIdeas })))
 
 const BuyerFreeOrdersView = lazy(() =>
   import('@views/buyer/buyer-orders-views/buyer-free-orders-view').then(module => ({
@@ -700,6 +704,22 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
       title: () => t(TranslationKey['My products']),
+    },
+  },
+
+  {
+    routePath: '/buyer/ideas',
+    component: BuyerIdeasView,
+    exact: true,
+    permission: [UserRole.BUYER],
+    permissionKey: permissionsKeys.buyer.SHOW_IDEAS_BUYER,
+
+    crumbNameKey: TranslationKey.Ideas,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Ideas),
     },
   },
 
