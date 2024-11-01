@@ -33,7 +33,6 @@ export const fieldsForSearch = ['title', 'text']
 export interface ColumnProps {
   onSelectFeedback: (feedback?: IFeedback, viewMode?: boolean) => void
   onRemoveFeedback: (id: string) => void
-  creator: () => boolean
 }
 
 export const getStatusText = (status?: FeedbackStatus) => {

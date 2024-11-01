@@ -39,7 +39,6 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
     const columnsProps: ColumnProps = {
       onSelectFeedback: (feedback, viewMode) => this.onSelectFeedback(feedback, viewMode),
       onRemoveFeedback: id => this.onRemoveFeedback(id),
-      creator: () => this.creator,
     }
     const columnsModel = feedbackViewColumns(columnsProps)
     const filtersFields = getFilterFields(columnsModel)
