@@ -400,11 +400,7 @@ export const IdeaViewAndEditCard = observer(
                         />
                       </div>
 
-<<<<<<< HEAD
                       <CustomButton disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
-=======
-                      <Button disabled={!showCreateRequestButton} onClick={onClickLinkRequestButton}>
->>>>>>> pre-release
                         {t(TranslationKey['Link request'])}
                       </CustomButton>
                     </div>
