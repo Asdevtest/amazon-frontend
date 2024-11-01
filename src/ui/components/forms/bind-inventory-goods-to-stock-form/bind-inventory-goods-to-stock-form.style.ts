@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 1200,
     display: 'flex',
     flexDirection: 'column',
-    height: '800px',
+    height: '750px',
     gap: 15,
   },
 
@@ -22,4 +22,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   transferWrapper: {},
+
+  buttonsWrapper: {
+    display: 'flex',
+    gap: '20px',
+    justifyContent: 'flex-end',
+    marginTop: 'auto',
+  },
 }))

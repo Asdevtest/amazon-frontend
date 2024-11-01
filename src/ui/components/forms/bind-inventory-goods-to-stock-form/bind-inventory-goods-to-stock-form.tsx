@@ -1,9 +1,9 @@
-import type { Key } from 'antd/es/table/interface'
 import { observer } from 'mobx-react'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { TableTransfer } from '@components/shared/table-transfer'
 
@@ -16,18 +16,14 @@ import { BindInventoryGoodsToStockFormModel } from './bind-inventory-goods-to-st
 import { bindInventoryColumns } from './bind-stock-goods-to-inventory-columns'
 
 interface BindInventoryGoodsToStockFormProps {
-  stockData: any
-  updateStockData: (data: any) => void
   productAsin: string
-  onSubmit: () => void
+  productId: string
 }
 
 export const BindInventoryGoodsToStockForm = observer((props: BindInventoryGoodsToStockFormProps) => {
-  const { productAsin } = props
-  const viewModel = useMemo(() => new BindInventoryGoodsToStockFormModel(productAsin), [])
+  const { productAsin, productId } = props
+  const viewModel = useMemo(() => new BindInventoryGoodsToStockFormModel(productAsin, productId), [])
   const { classes: styles } = useStyles()
-
-  console.log(viewModel.targetKeys)
 
   return (
     <div className={styles.wrapper}>
@@ -39,19 +35,25 @@ export const BindInventoryGoodsToStockForm = observer((props: BindInventoryGoods
           size="large"
           value={viewModel.searchInputValue}
           placeholder="Search"
-          // onChange={(e: React.ChangeEvent<HTMLInputElement>) => viewModel.setSearchInputValue(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => viewModel.setSearchInputValue(e.target.value)}
         />
       </div>
 
       <div className={styles.transferWrapper}>
         <TableTransfer
-          dataSource={viewModel.filteredData}
+          dataSource={viewModel.dataWithKeys}
           targetKeys={viewModel.targetKeys}
           leftColumns={bindInventoryColumns}
           rightColumns={bindInventoryColumns}
-          titles={['Available', 'Selected']}
+          tableHeight={500}
           onChange={viewModel.onChange}
         />
+      </div>
+      <div className={styles.buttonsWrapper}>
+        <CustomButton>{t(TranslationKey.Close)}</CustomButton>
+        <CustomButton disabled={!viewModel.targetKeys.length} type="primary" onClick={viewModel.onSubmitBindStockGoods}>
+          {t(TranslationKey.Bind)}
+        </CustomButton>
       </div>
     </div>
   )

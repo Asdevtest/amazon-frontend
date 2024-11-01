@@ -8,7 +8,7 @@ import { t } from '@utils/translations'
 export const bindInventoryColumns = [
   {
     dataIndex: 'asin',
-    title: 'Product / ASIN / SKU',
+    title: `${t(TranslationKey.Product)} / ASIN / SKU`,
     width: 140,
     render: (_: any, record: any) => <ProductCell title={record?.title} asin={record?.asin} sku={record?.sku} />,
   },
@@ -26,7 +26,7 @@ export const bindInventoryColumns = [
   },
   {
     dataIndex: 'reserved',
-    title: 'Reserved',
+    title: t(TranslationKey.Reserved),
     width: 80,
   },
   {

@@ -2,12 +2,15 @@ import { Table, Transfer } from 'antd'
 import type { TransferProps } from 'antd'
 import type { TableRowSelection } from 'antd/es/table/interface'
 
+import { useStyles } from './table-transfer.styles'
+
 interface TableTransferProps extends TransferProps<any> {
   leftColumns: any[]
   rightColumns: any[]
+  tableHeight?: number
 }
 
-export const TableTransfer = ({ leftColumns, rightColumns, ...restProps }: TableTransferProps) => (
+export const TableTransfer = ({ leftColumns, rightColumns, tableHeight, ...restProps }: TableTransferProps) => (
   <Transfer {...restProps}>
     {({
       direction,
@@ -18,7 +21,7 @@ export const TableTransfer = ({ leftColumns, rightColumns, ...restProps }: Table
       disabled: listDisabled,
     }) => {
       const columns = direction === 'left' ? leftColumns : rightColumns
-
+      const { classes: styles } = useStyles()
       const rowSelection: TableRowSelection<any> = {
         onSelectAll(selected, selectedRows) {
           const treeSelectedKeys = selectedRows.map(({ key }) => key)
@@ -36,8 +39,7 @@ export const TableTransfer = ({ leftColumns, rightColumns, ...restProps }: Table
           columns={columns}
           dataSource={filteredItems}
           size="small"
-          style={{ height: 600 }}
-          scroll={{ y: 500 }}
+          scroll={{ y: tableHeight || 400 }}
           onRow={({ key }) => ({
             onClick: () => {
               if (listDisabled) return

@@ -320,12 +320,7 @@ export const ClientInventoryView = observer(({ history }) => {
         openModal={viewModel.showBindInventoryGoodsToStockModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
-        <BindInventoryGoodsToStockForm
-          productAsin={selectedProduct?.asin}
-          stockData={viewModel.sellerBoardDailyData}
-          updateStockData={viewModel.getStockGoodsByFilters}
-          onSubmit={viewModel.onSubmitBindStockGoods}
-        />
+        <BindInventoryGoodsToStockForm productAsin={selectedProduct?.asin} productId={selectedProduct?._id} />
       </Modal>
 
       <Modal

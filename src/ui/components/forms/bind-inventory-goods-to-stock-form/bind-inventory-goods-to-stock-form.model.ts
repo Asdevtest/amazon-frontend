@@ -15,32 +15,52 @@ export class BindInventoryGoodsToStockFormModel {
   loading = false
   sellerBoard: any = []
   searchInputValue: string = ''
+  initialAsin: string
+  productId: string
   targetKeys: Key[] = []
-  constructor(asin: string) {
+  constructor(asin: string, productId: string) {
+    this.initialAsin = asin
+    this.productId = productId
     if (asin) {
-      const recFilter = qs.stringify({ asin: { $contains: asin } }, { encode: false }).replace(/&/, ';')
+      const recFilter = this.constructFilter('')
       this.getStockGoodsByFilters(recFilter)
     }
     makeAutoObservable(this, undefined, { autoBind: true })
-  }
-
-  setLoading(loading: boolean) {
-    this.loading = loading
   }
 
   get dataWithKeys() {
     return this.sellerBoard.map((item: any) => ({ ...item, key: item._id }))
   }
 
-  get filteredData() {
-    if (!this.searchInputValue) return this.dataWithKeys
-    return this.dataWithKeys.filter((item: any) =>
-      item.title.toLowerCase().includes(this.searchInputValue.toLowerCase()),
-    )
+  setLoading(loading: boolean) {
+    this.loading = loading
   }
 
   onChange = (nextTargetKeys: Key[]) => {
     this.targetKeys = nextTargetKeys
+  }
+
+  constructFilter(searchTerm: string) {
+    if (searchTerm) {
+      return qs
+        .stringify(
+          {
+            or: [
+              { asin: { $contains: searchTerm } },
+              { title: { $contains: searchTerm } },
+              { sku: { $contains: searchTerm } },
+            ],
+          },
+          { encode: false },
+        )
+        .replace(/&/g, ';')
+    } else return qs.stringify({ asin: { $contains: this.initialAsin } }, { encode: false }).replace(/&/g, ';')
+  }
+
+  setSearchInputValue(value: string) {
+    this.searchInputValue = value
+    const filter = this.constructFilter(value)
+    this.getStockGoodsByFilters(filter)
   }
 
   async getStockGoodsByFilters(filter?: any) {
@@ -55,8 +75,20 @@ export class BindInventoryGoodsToStockFormModel {
     }
   }
 
-  async onSubmitBindStockGoods(data: any) {
+  async onSubmitBindStockGoods() {
     try {
+      const selectedItems = this.dataWithKeys.filter((item: any) => this.targetKeys.includes(item.key))
+
+      // Map over selected items to get sku and shopId
+      const warehouseStocks = selectedItems.map((el: any) => ({
+        sku: el.sku,
+        shopId: el.shop?._id, // Ensure el.shop exists
+      }))
+
+      const data = {
+        productId: this.productId,
+        warehouseStocks,
+      }
       await SellerBoardModel.bindStockProductsBySku(data)
       //   this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
 
