@@ -110,8 +110,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => {
-        const disable =
-          params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH] || !params.row?.suppliers?.length
+        const disable = params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH]
 
         return (
           <ActionButtonsCell
@@ -119,7 +118,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
             showSecond
             secondDanger
             firstContent={t(TranslationKey['Supplier found'])}
-            firstDisabled={disable}
+            firstDisabled={disable || !params.row?.suppliers?.length}
             secondContent={t(TranslationKey['Supplier not found'])}
             secondDisabled={disable}
             onClickFirst={() => rowHandlers.onClickSupplierFound(params.row._id)}
