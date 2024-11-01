@@ -27,11 +27,11 @@ export const getColumnValue = ({
       value = lastColumn?.[name]
     }
   } else if (isCounter) {
-    value = params.row?.reports?.[table]
+    value = columns
   } else if (type === 'date') {
-    value = formatDateWithoutTime(params.row?.reports?.[table]?.[name])
+    value = formatDateWithoutTime(columns?.[name])
   } else {
-    value = params.row?.reports?.[table]?.[name]
+    value = columns?.[name]
   }
 
   return value

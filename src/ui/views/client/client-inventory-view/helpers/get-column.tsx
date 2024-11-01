@@ -45,7 +45,7 @@ export const getColumn = ({
     },
     renderCell: (params: GridRenderCellParams) => {
       return (
-        <Tooltip title={formatDateWithoutTime(params.row?.reports?.[table]?.updatedAt)}>
+        <Tooltip title={getColumnValue({ params, table, name: 'updatedAt', type: 'date', isCounter: false }) as string}>
           <div
             style={{ width: '100%', height: '100%' }}
             onClick={(event: MouseEvent<HTMLDivElement>) => {

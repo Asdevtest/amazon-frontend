@@ -17,7 +17,7 @@ export const inventoryColumns = (handlers, selectedRow) => [
     renderCell: params => (
       <Radio
         color="primary"
-        checked={params.row.id === selectedRow?.id}
+        checked={params.row._id === selectedRow?._id}
         onChange={() => handlers.selectRow(params.row)}
       />
     ),
