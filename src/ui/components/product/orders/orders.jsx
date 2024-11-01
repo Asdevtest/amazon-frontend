@@ -71,10 +71,6 @@ export const Orders = observer(({ productId, filterStatus, modal }) => {
           },
           columnMenu: { orderStatusData },
           toolbar: {
-            resetFiltersBtnSettings: {
-              onClickResetFilters,
-              isSomeFilterOn,
-            },
             columsBtnSettings: {
               columnsModel,
               columnVisibilityModel,
