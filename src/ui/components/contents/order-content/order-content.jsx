@@ -3,7 +3,13 @@ import { useEffect, useState } from 'react'
 
 import { Divider, useMediaQuery, useTheme } from '@mui/material'
 
-import { OrderStatus, OrderStatusByCode, OrderStatusByKey, OrderStatusText } from '@constants/orders/order-status'
+import {
+  OrderStatus,
+  OrderStatusByCode,
+  OrderStatusByKey,
+  OrderStatusTranslate,
+  orderColorByStatus,
+} from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
@@ -14,6 +20,7 @@ import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { BoxesToOrder } from '@components/shared/tables/boxes-to-order'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
+import { Text } from '@components/shared/text'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
 import { formatShortDateTime } from '@utils/date-time'
@@ -115,10 +122,10 @@ export const OrderContent = ({
   return (
     <div className={styles.wrapper}>
       <div className={styles.orderContainer}>
-        <OrderStatusText
-          isClient={isClient}
-          status={OrderStatusByCode[updatedOrder.status]}
-          className={styles.containerTitle}
+        <Text
+          copyable={false}
+          text={OrderStatusTranslate(OrderStatusByCode[updatedOrder.status])}
+          color={orderColorByStatus(OrderStatusByCode[updatedOrder.status])}
         />
 
         <div className={styles.infosWrapper}>
