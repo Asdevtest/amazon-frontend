@@ -129,7 +129,7 @@ export const adminUsersViewColumns = handlers => {
       renderCell: params => (
         <ActionButtonsCell
           showFirst
-          firstDisabled={params.row?.originalData?.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
+          firstDisabled={params.row?.role === mapUserRoleEnumToKey[UserRole.ADMIN]}
           firstContent={t(TranslationKey['Edit and balance'])}
           onClickFirst={() => handlers.onClickUser(params.row)}
         />

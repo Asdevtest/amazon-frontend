@@ -92,9 +92,7 @@ export const SuppliersAndIdeas = observer(props => {
     onClickSaveBarcode,
     onDoubleClickBarcode,
     onClickCreateRequestButton,
-    onClickBindButton,
     onClickUnbindButton,
-    onClickLinkRequestButton,
     onClickResultButton,
     onClickRejectButton,
     onClickReoperButton,
@@ -157,7 +155,7 @@ export const SuppliersAndIdeas = observer(props => {
           onClickSaveBtn={onClickSaveBtn}
           onClickCancelBtn={onClickCancelBtn}
           onClickCreateRequestButton={onClickCreateRequestButton}
-          onClickLinkRequestButton={onClickLinkRequestButton}
+          onClickLinkRequestButton={() => onTriggerOpenModal('showLinkRequestModal')}
           onClickAcceptButton={onClickAcceptButton}
           onClickCloseIdea={onClickCloseIdea}
           onClickRejectButton={onClickRejectButton}
@@ -190,7 +188,7 @@ export const SuppliersAndIdeas = observer(props => {
               onClickSaveBtn={onClickSaveBtn}
               onClickCancelBtn={onClickCancelBtn}
               onClickCreateRequestButton={onClickCreateRequestButton}
-              onClickLinkRequestButton={onClickLinkRequestButton}
+              onClickLinkRequestButton={() => onTriggerOpenModal('showLinkRequestModal')}
               onClickAcceptButton={onClickAcceptButton}
               onClickCloseIdea={onClickCloseIdea}
               onClickRejectButton={onClickRejectButton}
@@ -232,7 +230,7 @@ export const SuppliersAndIdeas = observer(props => {
                   onClickSaveBtn={onClickSaveBtn}
                   onClickCancelBtn={onClickCancelBtn}
                   onClickCreateRequestButton={onClickCreateRequestButton}
-                  onClickLinkRequestButton={onClickLinkRequestButton}
+                  onClickLinkRequestButton={() => onTriggerOpenModal('showLinkRequestModal')}
                   onClickAcceptButton={onClickAcceptButton}
                   onClickCloseIdea={onClickCloseIdea}
                   onClickRejectButton={onClickRejectButton}

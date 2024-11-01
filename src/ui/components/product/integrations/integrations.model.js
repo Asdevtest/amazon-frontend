@@ -14,19 +14,13 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 export class IntegrationsModel {
   requestStatus = undefined
-
   productId = undefined
   product = undefined
-
   showBindInventoryGoodsToStockModal = false
-
   sellerBoardDailyData = []
   sellerBoardData = []
-
   paginationModel = { page: 0, pageSize: 15 }
-
   selectedRowIds = []
-
   columnsModel = productIntegrationsColumns()
   columnVisibilityModel = {}
 
@@ -64,7 +58,8 @@ export class IntegrationsModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      await Promise.all([this.getProductById(), this.getProductsWithSkuById()])
+      this.getProductById()
+      this.getProductsWithSkuById()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -110,7 +105,7 @@ export class IntegrationsModel {
     try {
       await SellerBoardModel.unlinkSkuProduct({
         productId: this.productId,
-        skus: this.sellerBoardData.filter(el => this.selectedRowIds.includes(el._id)).map(el => el.originalData.sku),
+        skus: this.sellerBoardData.filter(el => this.selectedRowIds.includes(el._id)).map(el => el.sku),
       })
 
       this.selectedRowIds = []

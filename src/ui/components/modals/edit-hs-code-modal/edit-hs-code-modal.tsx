@@ -29,7 +29,7 @@ export const EditHSCodeModal: FC<EditHSCodeModalProps> = observer(props => {
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>HS Code</p>
+      <p className={styles.title}>{t(TranslationKey['HS code'])}</p>
 
       <Field
         label="HS Code"
