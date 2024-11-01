@@ -102,18 +102,28 @@ export const clientBatchesViewColumns = rowHandlers => {
       headerName: t(TranslationKey['Access to product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
       renderCell: params => {
-        const product = params.row?.boxes?.[0]?.items?.[0]?.product
-        const subUsers = product?.subUsers || []
-        const subUsersByShop = product?.subUsersByShop || []
+        const products = params.row?.boxes.flatMap(box => box.items?.map(item => item.product) || [])
 
-        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+        const subUsers = products.flatMap(product => product?.subUsers || [])
+        const subUsersByShop = products.flatMap(product => product?.subUsersByShop || [])
+
+        const usersData = [...subUsers, ...subUsersByShop]
+        const uniqueUsersData = usersData.filter(
+          (user, index, self) => index === self.findIndex(u => u._id === user._id),
+        )
+
+        return <ManyUserLinkCell usersData={uniqueUsersData} />
       },
       valueGetter: ({ row }) => {
-        const product = row?.boxes?.[0]?.items?.[0]?.product
-        const subUsers = product?.subUsers || []
-        const subUsersByShop = product?.subUsersByShop || []
+        const products = row?.boxes.flatMap(box => box.items?.map(item => item.product) || [])
+        const subUsers = products.flatMap(product => product?.subUsers || [])
+        const subUsersByShop = products.flatMap(product => product?.subUsersByShop || [])
+        const usersData = [...subUsers, ...subUsersByShop]
 
-        return subUsers?.concat(subUsersByShop).join(', ')
+        const uniqueUsersData = usersData.filter(
+          (user, index, self) => index === self.findIndex(u => u._id === user._id),
+        )
+        return uniqueUsersData.map(user => user.name).join(', ')
       },
       width: 187,
       table: DataGridFilterTables.PRODUCTS,

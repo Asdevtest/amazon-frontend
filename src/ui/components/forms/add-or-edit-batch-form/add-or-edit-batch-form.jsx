@@ -28,11 +28,12 @@ import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-vie
 
 import {
   calcFinalWeightForBatchByMoreTotalWeight,
+  calcPriceForBox,
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
+  getTariffRateForBoxOrOrder,
 } from '@utils/calculation'
 import { checkIsClient } from '@utils/checks'
-import { addOrEditBatchDataConverter } from '@utils/data-grid-data-converters'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -42,6 +43,67 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { useStyles } from './add-or-edit-batch-form.style'
 
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
+
+export const addOrEditBatchDataConverter = (
+  data,
+  volumeWeightCoefficient,
+  finalWeightCalculationMethod,
+  getBatchWeightCalculationMethodForBox,
+  calculationMethod,
+  // isDifferentMethodForEach,
+) =>
+  data.map(item => ({
+    originalData: item,
+    id: item._id,
+    _id: item._id,
+
+    qty: item.items?.reduce((acc, cur) => (acc += cur.amount), 0),
+
+    amazonPrice: calcPriceForBox(item),
+
+    finalWeight: getBatchWeightCalculationMethodForBox
+      ? getBatchWeightCalculationMethodForBox(
+          calculationMethod,
+          checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
+        )(item, volumeWeightCoefficient) * item.amount
+      : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
+    grossWeight: item.weighGrossKgWarehouse,
+
+    destination: item.destination?.name,
+    storekeeper: item.storekeeper?.name,
+    // storekeeper: item.storekeeper,
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
+    client: item.client?.name,
+
+    isDraft: item.isDraft,
+    isFormed: item.isFormed,
+
+    createdAt: item.createdAt,
+
+    updatedAt: item.updatedAt,
+
+    xid: item.xid,
+    deliveryTotalPrice:
+      getTariffRateForBoxOrOrder(item) *
+      (getBatchWeightCalculationMethodForBox
+        ? getBatchWeightCalculationMethodForBox(
+            calculationMethod,
+            checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
+          )(item, volumeWeightCoefficient) * item.amount
+        : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount),
+
+    deliveryTotalPriceChanged: item.deliveryTotalPriceChanged,
+
+    shippingLabel: item.shippingLabel,
+    fbaShipment: item.fbaShipment,
+    volumeWeightCoefficient,
+
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
+      ?.reduce((acc, cur) => (acc += cur.order?.xid + ', '), '')
+      .slice(0, -2)}  item №: ${item.items
+      ?.reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+      .slice(0, -2)}`,
+  }))
 
 export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batchToEdit, sourceBox }) => {
   const viewModel = useMemo(() => new ClientAwaitingBatchesViewModel(true), [])
@@ -317,7 +379,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
         getBatchWeightCalculationMethodForBox,
         batchFields.calculationMethod,
       ),
-      // ...sourceChosenBoxesBase,
+      ...sourceChosenBoxesBase,
     ].filter(el => newRowIds.includes(el.id))
 
     setChosenBoxes(() => filterBySearchValueChosenBoxes([...chosenBoxesBase, ...newSelectedItems]))

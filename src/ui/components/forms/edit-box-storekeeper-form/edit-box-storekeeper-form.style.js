@@ -141,6 +141,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 20,
     justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
+  checkboxWrapper: {
+    width: '100%',
   },
 
   fbaShipmentInput: {

@@ -77,9 +77,9 @@ export const AccessToProductForm = memo(props => {
     if (searchInputValue) {
       const filter = sourceData?.filter(
         i =>
-          i.originalData.skuByClient?.toLowerCase().includes(searchInputValue.toLowerCase()) ||
+          i.skuByClient?.toLowerCase().includes(searchInputValue.toLowerCase()) ||
           i.asin.toLowerCase().includes(searchInputValue.toLowerCase()) ||
-          i.originalData.amazonTitle.toLowerCase().includes(searchInputValue.toLowerCase()),
+          i.amazonTitle.toLowerCase().includes(searchInputValue.toLowerCase()),
       )
       setCurProdutsData(filter)
     } else {

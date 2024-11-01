@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
 import { useEffect, useMemo, useState } from 'react'
-import { MdAutorenew, MdDeleteOutline, MdOutlineHighlightOff, MdOutlineModeEditOutline } from 'react-icons/md'
 
 import AutorenewIcon from '@mui/icons-material/Autorenew'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
@@ -17,7 +16,6 @@ import { Field } from '@components/shared/field/field'
 import { UploadIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from './tab-payment-methods.style'
@@ -108,12 +106,7 @@ export const TabPaymentMethods = observer(() => {
           ))}
         </div>
 
-        <CustomButton
-          type="primary"
-          size="large"
-          disabled={!isDisableButton}
-          onClick={throttle(viewModel.onSubmitPaymentMethod)}
-        >
+        <CustomButton type="primary" size="large" disabled={!isDisableButton} onClick={viewModel.onSubmitPaymentMethod}>
           {t(TranslationKey.Save)}
         </CustomButton>
       </div>

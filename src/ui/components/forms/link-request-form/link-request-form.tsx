@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
 import { FC, useCallback, useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
@@ -70,7 +68,6 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
           rowCount={viewModel.rowCount}
           columns={viewModel.columnsModel}
           getRowHeight={() => 'auto'}
-          getRowId={({ _id }: GridRowModel) => _id}
           slots={null}
           onRowSelectionModelChange={viewModel.onSelectionModel}
         />

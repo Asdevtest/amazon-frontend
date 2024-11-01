@@ -9,7 +9,6 @@ import { ClientModel } from '@models/client-model'
 import { ShopModel } from '@models/shop-model'
 import { UserModel } from '@models/user-model'
 
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
@@ -88,7 +87,7 @@ export class ClientExchangePrivateLabelViewModel {
     try {
       const result = await ShopModel.getMyShops()
       runInAction(() => {
-        this.shopsData = addIdDataConverter(result)
+        this.shopsData = result
       })
     } catch (error) {
       console.error(error)

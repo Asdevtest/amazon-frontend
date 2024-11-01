@@ -17,7 +17,6 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IPermission } from '@typings/models/permissions/permission'
 
 import { useStyles } from './user-permissions.style'
 
@@ -69,7 +68,6 @@ export const UserPermissions = observer(() => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: IPermission) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

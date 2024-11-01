@@ -15,7 +15,6 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IOrder } from '@typings/models/orders/order'
 
 import { useStyles } from './buyer-pending-orders-view.style'
 
@@ -45,7 +44,6 @@ export const BuyerPendingOrdersView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={(row: IOrder) => row._id}
         rowSelectionModel={viewModel.selectedRows}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}

@@ -16,9 +16,9 @@ export const destinationsColumns = handlers => [
     width: 150,
     renderCell: params => (
       <UserCell
-        name={params?.row?.originalData?.storekeeper?.name}
-        id={params?.row?.originalData?.storekeeper?._id}
-        email={params?.row?.originalData?.storekeeper?.email}
+        name={params?.row?.storekeeper?.name}
+        id={params?.row?.storekeeper?._id}
+        email={params?.row?.storekeeper?.email}
       />
     ),
   },
@@ -93,8 +93,8 @@ export const destinationsColumns = handlers => [
         secondGhost
         firstIcon={<MdOutlineEdit size={16} />}
         secondIcon={<MdOutlineDelete size={16} />}
-        onClickFirst={() => handlers.onClickEditBtn(params.row.originalData)}
-        onClickSecond={() => handlers.onClickRemoveBtn(params.row.originalData)}
+        onClickFirst={() => handlers.onClickEditBtn(params.row)}
+        onClickSecond={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
     filterable: false,

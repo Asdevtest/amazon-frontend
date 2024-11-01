@@ -19,14 +19,12 @@ import { IdeaModel } from '@models/ideas-model'
 import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
-import { SettingsModel } from '@models/settings-model'
 import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { toFixed } from '@utils/text'
@@ -34,6 +32,7 @@ import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { isBuyer, isClient } from '@typings/guards/roles'
 
 export class SuppliersAndIdeasModel {
   requestStatus = undefined
@@ -90,18 +89,12 @@ export class SuppliersAndIdeasModel {
     onClickConfirm: () => {},
   }
 
-  get curUser() {
+  get userInfo() {
     return UserModel.userInfo
   }
-
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get currentData() {
     return this.ideasData?.toSorted(sortObjectsArrayByFiledDateWithParseISO('updatedAt')) // ideas sort by desc
   }
-
   get platformSettings() {
     return UserModel.platformSettings
   }
@@ -139,11 +132,15 @@ export class SuppliersAndIdeasModel {
   }
 
   async onClickOpenNewTab(productId, ideaId) {
-    const userRole = UserRoleCodeMap[this.curUser?.role]
+    const userRole = UserRoleCodeMap[this.userInfo?.role]
     window
       .open(
         `${
-          checkIsClient(userRole) ? '/client/inventory' : checkIsBuyer(userRole) ? '/buyer/my-products' : userRole
+          isClient(this.userInfo?.role)
+            ? '/client/inventory'
+            : isBuyer(this.userInfo?.role)
+            ? '/buyer/my-products'
+            : userRole
         }/product?product-id=${productId}&show-tab=ideas&ideaId=${ideaId}`,
         '_blank',
       )
@@ -274,8 +271,16 @@ export class SuppliersAndIdeasModel {
           isForceUpdate,
         )
         await this.getIdea(createdIdeaId)
-        await this.getShops()
-        this.onTriggerOpenModal('showSelectShopsModal')
+
+        if (!isBuyer(this.userInfo?.role)) {
+          await this.getShops()
+        }
+
+        if (!this.currentProduct) {
+          this.onTriggerOpenModal('showSelectShopsModal')
+        } else {
+          this.closeModalHandler()
+        }
       }
 
       runInAction(() => {
@@ -304,7 +309,7 @@ export class SuppliersAndIdeasModel {
       const result = await ShopModel.getMyShops()
 
       runInAction(() => {
-        this.shopsData = addIdDataConverter(result)
+        this.shopsData = result
       })
     } catch (error) {
       console.error(error)
@@ -389,7 +394,7 @@ export class SuppliersAndIdeasModel {
     const isCreateByChildProduct = ideaData?.status >= ideaStatusByKey[ideaStatus.ADDING_ASIN] && ideaData?.childProduct
 
     const win = window.open(
-      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request?parentProduct=${
+      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/create-request?parentProduct=${
         isCreateByChildProduct ? ideaData?.childProduct?._id : this.currentProduct?._id
       }&asin=${isCreateByChildProduct ? ideaData?.childProduct?.asin : this.currentProduct?.asin}`,
       '_blank',
@@ -772,7 +777,7 @@ export class SuppliersAndIdeasModel {
 
   onClickRequestId(id) {
     const win = window.open(
-      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/custom-request?request-id=${id}`,
+      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request?request-id=${id}`,
       '_blank',
     )
 
@@ -780,8 +785,8 @@ export class SuppliersAndIdeasModel {
   }
 
   onClickOpenProduct(id) {
-    const userRole = UserRoleCodeMap[this.curUser?.role]
-    const userRolePath = UserRoleCodeMapForRoutes[this.curUser?.role]
+    const userRole = UserRoleCodeMap[this.userInfo?.role]
+    const userRolePath = UserRoleCodeMapForRoutes[this.userInfo?.role]
 
     if (checkIsClient(userRole)) {
       window.open(`/${userRolePath}/inventory/product?product-id=${id}`)?.focus()
@@ -824,13 +829,11 @@ export class SuppliersAndIdeasModel {
       })
 
       this.loadData()
-
-      this.onTriggerOpenModal('showConfirmModal')
-      this.onTriggerOpenModal('showSelectionSupplierModal')
     } catch (error) {
+      console.error(error)
+    } finally {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
-      console.error(error)
     }
   }
 }

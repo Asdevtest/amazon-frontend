@@ -16,8 +16,8 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     renderCell: params => (
       <Radio
         color="primary"
-        checked={params.row.id === selectedRow?.id}
-        onChange={() => handlers.onClickRowRadioBtn(params.row)}
+        checked={params.row._id === selectedRow?._id}
+        onChange={() => handlers.setSelectedBatch(params.row)}
       />
     ),
     filterable: false,
@@ -28,8 +28,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     field: 'title',
     headerName: t(TranslationKey.Title),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
-
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row.title} />,
     width: 110,
   },
 
@@ -37,8 +36,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     field: 'destination',
     headerName: t(TranslationKey.Destination),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Destination)} />,
-
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row?.boxes?.[0]?.destination?.name} />,
     width: 110,
   },
 
@@ -46,8 +44,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row.xid} />,
     width: 60,
   },
 
@@ -55,8 +52,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     field: 'tariff',
     headerName: t(TranslationKey.Tariff),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tariff)} />,
-
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row?.boxes?.[0]?.logicsTariff?.name} />,
     width: 120,
   },
 
@@ -64,8 +60,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-
-    renderCell: params => <NormDateCell value={params.value} />,
+    renderCell: params => <NormDateCell value={params.row.updatedAt} />,
     width: 100,
   },
 
@@ -73,8 +68,15 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     field: 'volumeWeight',
     headerName: t(TranslationKey['Volume weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Volume weight'])} />,
+    renderCell: ({ row }) => {
+      const calculationVolumeWeight =
+        row?.boxes?.reduce(
+          (total, box) => total + box?.heightCmWarehouse * box?.widthCmWarehouse * box?.lengthCmWarehouse,
+          0,
+        ) / row.volumeWeightDivide
 
-    renderCell: params => <Text isCell text={toFixedWithKg(params.value)} />,
+      return <Text isCell text={toFixedWithKg(calculationVolumeWeight)} />
+    },
     type: 'number',
     width: 90,
   },
@@ -83,8 +85,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     field: 'finalWeight',
     headerName: t(TranslationKey['Final weight']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Final weight'])} />,
-
-    renderCell: params => <Text isCell text={toFixedWithKg(params.value)} />,
+    renderCell: params => <Text isCell text={toFixedWithKg(params.row.finalWeight)} />,
     type: 'number',
     width: 120,
   },
@@ -93,8 +94,23 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
     field: 'totalPrice',
     headerName: t(TranslationKey['Total price']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
+    renderCell: ({ row }) => {
+      const calculationTotalPrice = row?.boxes?.reduce(
+        (total, box) =>
+          total +
+          box.items?.reduce((boxTotal, item) => {
+            return (
+              boxTotal +
+              (item?.order?.orderSupplier?.batchTotalCostInDollar / item?.order?.orderSupplier?.amount) *
+                item?.amount *
+                box?.amount
+            )
+          }, 0),
+        0,
+      )
 
-    renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
+      return <Text isCell text={toFixedWithDollarSign(calculationTotalPrice)} />
+    },
     width: 120,
     type: 'number',
   },

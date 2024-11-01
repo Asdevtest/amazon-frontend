@@ -22,6 +22,7 @@ export const CustomDataGrid = ({ ...restProps }) => (
       disableVirtualization
       sortingMode="server"
       paginationMode="server"
+      getRowId={({ _id }) => _id}
       pageSizeOptions={[15, 25, 50, 100]}
       localeText={getLocalizationByLanguageTag()}
       slots={{

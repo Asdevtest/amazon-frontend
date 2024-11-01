@@ -35,7 +35,6 @@ export const ClientAwaitingBatchesView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }) => _id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -87,9 +86,6 @@ export const ClientAwaitingBatchesView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
       >
         <AddOrEditBatchForm
-          progressValue={viewModel.progressValue}
-          showProgress={viewModel.showProgress}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           batchToEdit={viewModel.curBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}

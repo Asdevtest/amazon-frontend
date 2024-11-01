@@ -8,7 +8,6 @@ import {
   NormDateCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
@@ -18,16 +17,16 @@ export const sourceFilesColumns = rowHandlers => [
     field: 'title',
     headerName: t(TranslationKey['Request title']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request title'])} />,
-    renderCell: params => <Text isCell text={params.value || '-'} />,
-    width: 205,
+    renderCell: params => <Text isCell text={params.row.proposal?.request?.title} />,
+    width: 240,
   },
 
   {
     field: 'xid',
     headerName: t(TranslationKey.ID),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
-    renderCell: params => <Text isCell text={params.value || '-'} />,
-    width: 70,
+    renderCell: params => <Text isCell text={params.row.proposal?.xid} />,
+    width: 90,
     headerAlign: 'center',
     align: 'center',
   },
@@ -36,8 +35,8 @@ export const sourceFilesColumns = rowHandlers => [
     field: 'updatedAt',
     headerName: t(TranslationKey.Updated),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
-    renderCell: params => <NormDateCell value={params.value} />,
-    width: 100,
+    renderCell: params => <NormDateCell value={params.row.updatedAt} />,
+    width: 105,
   },
 
   {
@@ -45,11 +44,7 @@ export const sourceFilesColumns = rowHandlers => [
     headerName: t(TranslationKey.Performer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Performer)} />,
     width: 180,
-    renderCell: params => {
-      const user = params.row.sub ? params.row.sub : params.row.performer
-
-      return <UserCell name={user?.name} id={user?._id} email={user?.email} />
-    },
+    renderCell: params => <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} />,
   },
 
   {
@@ -57,30 +52,33 @@ export const sourceFilesColumns = rowHandlers => [
     headerName: t(TranslationKey.Client),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
     width: 180,
-    renderCell: params => (
-      <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
-    ),
+    renderCell: params => <UserCell name={params.row.proposal?.client?.name} id={params.row.proposal?.client?._id} />,
   },
 
   {
     field: 'asin',
     headerName: t(TranslationKey.ASIN),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-    width: 180,
-    renderCell: params => <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={params.value} />,
+    width: 160,
+    renderCell: params => (
+      <Text
+        link
+        text={params.row.proposal?.request?.asin}
+        url={`https://www.amazon.com/dp/${params.row.proposal?.request?.asin}`}
+      />
+    ),
   },
 
   {
     field: 'sourceFile',
     headerName: t(TranslationKey.Link),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
-    width: 250,
+    width: 280,
     renderCell: params => (
       <Text
         isCell
         editMode
-        textRows={2}
-        text={params.row.originalData.sourceFile}
+        text={params.row.sourceFile}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'sourceFile', value)}
       />
     ),
@@ -90,13 +88,12 @@ export const sourceFilesColumns = rowHandlers => [
     field: 'comments',
     headerName: t(TranslationKey.Comment),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-    width: 240,
+    width: 280,
     renderCell: params => (
       <Text
         isCell
         editMode
-        textRows={2}
-        text={params.row.originalData.comments}
+        text={params.row.comments}
         onClickSubmit={value => rowHandlers.onClickSaveBtn(params.row._id, 'comments', value)}
       />
     ),
@@ -116,7 +113,7 @@ export const sourceFilesColumns = rowHandlers => [
         onClickFirst={() => rowHandlers.onClickRemoveBtn(params.row._id)}
       />
     ),
-    width: 100,
+    width: 90,
     filterable: false,
     sortable: false,
   },

@@ -21,6 +21,7 @@ export const userProfileColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
       renderCell: ({ row }) => <MediaContentCell image={row.images?.[0]} />,
       width: 70,
+      disableCustomSort: true,
     },
 
     {
@@ -87,6 +88,7 @@ export const userProfileColumns = () => {
         <UserCell name={row.createdBy?.name} id={row.createdBy?._id} email={row.createdBy?.email} />
       ),
       width: 200,
+      disableCustomSort: true,
     },
 
     {
@@ -94,8 +96,8 @@ export const userProfileColumns = () => {
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
       renderCell: ({ row }) => <UserCell name={row.buyer?.name} id={row.buyer?._id} email={row.buyer?.email} />,
-
       width: 200,
+      disableCustomSort: true,
     },
 
     {
@@ -106,12 +108,12 @@ export const userProfileColumns = () => {
         <UserCell name={row.checkedBy?.name} id={row.checkedBy?._id} email={row.checkedBy?.email} />
       ),
       width: 200,
+      disableCustomSort: true,
     },
   ]
 
   for (const column of columns) {
     column.sortable = false
-    column.filterable = false
   }
 
   return columns

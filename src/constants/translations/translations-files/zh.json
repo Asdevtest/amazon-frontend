@@ -306,6 +306,8 @@
   "Number of units in box": "箱子内单位数量",
   "Make the main supplier": "设置供应商为首选",
   "File added": "文档已添加了",
+  "Set Shipping Label": "设置运输标签",
+  "Set Barcode": "设置条形码",
   "Set FBA shipment": "设置 FBA shipment",
   "Set HS code": "设置 HS code",
   "Real weight": "实际重量",
@@ -2066,5 +2068,14 @@
   "Select at least 2 users": "请选择至少两个用户",
   "Orders info": "订单信息",
   "Requested in batch": "请求入批次",
-  "No reviews": "没有评论"
+  "No reviews": "没有评论",
+  "Link a store to a product": "将商店链接到产品",
+  "AMZ order ID, ASIN, SKU": "AMZ order ID, ASIN, SKU",
+  "AMZ order ID": "AMZ order ID",
+  "ASIN, SKU": "ASIN, SKU",
+  "AMZ ID, Title, Text": "AMZ ID, Title, Text",
+  "ASIN, SKU, FNSKU": "ASIN, SKU, FNSKU",
+  "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments": "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments",
+  "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
+  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number"
 }

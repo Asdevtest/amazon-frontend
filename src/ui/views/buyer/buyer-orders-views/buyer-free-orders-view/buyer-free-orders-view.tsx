@@ -11,7 +11,6 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IOrder } from '@typings/models/orders/order'
 
 import { BuyerFreeOrdersViewModel } from './buyer-free-orders-view.model'
 
@@ -44,7 +43,6 @@ export const BuyerFreeOrdersView = observer(() => {
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={(row: IOrder) => row._id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

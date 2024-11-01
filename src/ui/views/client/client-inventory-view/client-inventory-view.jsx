@@ -47,17 +47,16 @@ import { Header } from './header'
 
 export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-
   const viewModel = useMemo(() => new ClientInventoryViewModel(), [])
   viewModel.initHistory()
+
+  const apiRef = useGridApiRef()
 
   const getCellClassName = params => {
     if (clickableCells.includes(params.field) || params.field?.includes('counter')) {
       return styles.clickableCell
     }
   }
-
-  const apiRef = useGridApiRef()
 
   return (
     <div className="viewWrapper">
@@ -80,8 +79,8 @@ export const ClientInventoryView = observer(({ history }) => {
         checkboxSelection
         disableRowSelectionOnClick
         apiRef={apiRef}
-        pinnedColumns={viewModel.pinnedColumns}
         getCellClassName={getCellClassName}
+        pinnedColumns={viewModel.pinnedColumns}
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
@@ -141,7 +140,6 @@ export const ClientInventoryView = observer(({ history }) => {
           },
         }}
         rowSelectionModel={viewModel.selectedRows}
-        getRowId={row => row._id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

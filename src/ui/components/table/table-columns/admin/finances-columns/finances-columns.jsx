@@ -41,11 +41,7 @@ export const financesViewColumns = () => [
 
     width: 170,
     renderCell: params => (
-      <UserCell
-        name={params.row.originalData.createdBy?.name}
-        id={params.row.originalData.createdBy?._id}
-        email={params.row.originalData.createdBy?.email}
-      />
+      <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} email={params.row.createdBy?.email} />
     ),
   },
 
@@ -56,11 +52,7 @@ export const financesViewColumns = () => [
 
     width: 170,
     renderCell: params => (
-      <UserCell
-        name={params.row.originalData.recipient?.name}
-        id={params.row.originalData.recipient?._id}
-        email={params.row.originalData.recipient?.email}
-      />
+      <UserCell name={params.row.recipient?.name} id={params.row.recipient?._id} email={params.row.recipient?.email} />
     ),
   },
 
@@ -79,8 +71,6 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     width: 700,
-    renderCell: params => (
-      <Text text={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`} />
-    ),
+    renderCell: params => <Text text={`${params.value} ${params.row?.product ? params.row.product?.id : ''}`} />,
   },
 ]

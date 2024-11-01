@@ -2,8 +2,6 @@ import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 import { BsDownload } from 'react-icons/bs'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { VerticalChoicesModal } from '@components/modals/vertical-choices-modal'
@@ -92,7 +90,6 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
         columnVisibilityModel={viewModel.columnVisibilityModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

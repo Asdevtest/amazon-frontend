@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { GridExceljsProcessInput, GridRowModel } from '@mui/x-data-grid-premium'
+import { GridExceljsProcessInput } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -51,7 +51,6 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
         columnHeaderHeight={40}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

@@ -32,7 +32,7 @@ export const getColumn = ({
 
   if (isCounter) {
     const tableName = formatSnakeCaseString(table)
-    headerName = `${tableName} ${headerName}`
+    headerName = tableName
   }
   const columnKey = getColumnKey(type)
 
@@ -45,7 +45,7 @@ export const getColumn = ({
     },
     renderCell: (params: GridRenderCellParams) => {
       return (
-        <Tooltip title={formatDateWithoutTime(params.row?.reports?.[table]?.updated_at)}>
+        <Tooltip title={getColumnValue({ params, table, name: 'updatedAt', type: 'date', isCounter: false }) as string}>
           <div
             style={{ width: '100%', height: '100%' }}
             onClick={(event: MouseEvent<HTMLDivElement>) => {

@@ -65,7 +65,6 @@ export const Orders = observer(({ productId, filterStatus, modal }) => {
         sortingMode="client"
         paginationMode="client"
         getRowHeight={() => 'auto'}
-        getRowId={row => row._id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

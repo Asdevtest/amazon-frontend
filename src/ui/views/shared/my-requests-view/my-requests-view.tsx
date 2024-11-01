@@ -133,7 +133,6 @@ export const MyRequestsView = observer(() => {
             },
           },
         }}
-        getRowId={({ _id }: GridRowModel) => _id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

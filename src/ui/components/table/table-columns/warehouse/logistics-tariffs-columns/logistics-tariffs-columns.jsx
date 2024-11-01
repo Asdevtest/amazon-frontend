@@ -115,9 +115,9 @@ export const logisticsTariffsColumns = (handlers, isArchive) => [
         firstIcon={<MdOutlineEdit size={16} />}
         secondIcon={isArchive ? <IoMdArrowUp /> : <IoMdArrowDown />}
         thirdIcon={<MdDeleteOutline size={16} />}
-        onClickFirst={() => handlers.onClickEditBtn(params.row.originalData)}
-        onClickSecond={() => handlers.onTriggerArchive(params.row.originalData)}
-        onClickThird={() => handlers.onClickRemoveBtn(params.row.originalData)}
+        onClickFirst={() => handlers.onClickEditBtn(params.row)}
+        onClickSecond={() => handlers.onTriggerArchive(params.row)}
+        onClickThird={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
     filterable: false,

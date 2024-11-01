@@ -55,7 +55,6 @@ export const AdminUsersView = observer(() => {
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

@@ -84,7 +84,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderCell: ({ row }) => {
         const text = t(TranslationKey[convertToSentenceCase(row.status) as TranslationKey])
 
-        return <Text isCell center copyable={false} color={getProfileStatusColor(row.status)} text={text} />
+        return <Text isCell copyable={false} color={getProfileStatusColor(row.status)} text={text} />
       },
       width: 145,
       columnKey: columnnsKeys.shared.STRING_VALUE,
@@ -97,7 +97,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderCell: ({ row }) => {
         const text = row.access ? t(TranslationKey.Yes) : t(TranslationKey.No)
 
-        return <Text isCell center copyable={false} text={text} />
+        return <Text isCell copyable={false} text={text} />
       },
       width: 70,
       disableCustomSort: true,

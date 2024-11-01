@@ -2,8 +2,6 @@
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
-import { GridRowModel } from '@mui/x-data-grid-premium'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-goods-to-inventory-form'
@@ -12,7 +10,6 @@ import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -88,7 +85,6 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
         rowSelectionModel={viewModel.selectedRows}
-        getRowId={({ _id }: GridRowModel) => _id}
         onRowSelectionModelChange={viewModel.onSelectionModel}
         onSortModelChange={viewModel.onChangeSortingModel}
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -102,9 +98,7 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindStockGoodsToInventoryModal')}
       >
         <BindStockGoodsToInventoryForm
-          goodsToSelect={addIdDataConverter(
-            viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id)),
-          )}
+          goodsToSelect={viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id))}
           inventoryData={viewModel.inventoryProducts}
           updateInventoryData={viewModel.getProductsMy}
           onSubmit={viewModel.submitBindStockGoodsHandler}
