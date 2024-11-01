@@ -1,8 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   root: {
-    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'start',
@@ -10,7 +9,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cell: {
-    padding: '10px 0',
+    width: '100%',
+    padding: '5px 0',
   },
 
   row: {
