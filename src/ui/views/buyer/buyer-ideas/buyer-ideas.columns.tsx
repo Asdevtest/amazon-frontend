@@ -108,7 +108,6 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       field: 'actions',
       headerName: t(TranslationKey.Actions),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
-
       renderCell: params => {
         const disable = params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH]
 
