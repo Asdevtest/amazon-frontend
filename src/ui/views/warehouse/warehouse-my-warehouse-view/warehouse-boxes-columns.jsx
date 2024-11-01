@@ -136,6 +136,7 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       },
       filterable: false,
       sortable: false,
+      disableCustomSort: true,
       width: 190,
     },
 
@@ -204,8 +205,9 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       renderCell: params => (
         <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
       ),
-      width: 150,
       sortable: false,
+      disableCustomSort: true,
+      width: 150,
     },
 
     {
@@ -237,9 +239,10 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
         const boxFinalWeight = toFixed(calcFinalWeightForBox(row, row.volumeWeightCoefficient), 2)
         return `L:${row?.lengthCmWarehouse}, W:${row?.widthCmWarehouse}, H:${row?.heightCmWarehouse}, FW:${boxFinalWeight}`
       },
-      minWidth: 230,
       sortable: false,
       filterable: false,
+      disableCustomSort: true,
+      minWidth: 230,
     },
 
     {
@@ -247,11 +250,12 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 200,
-
       renderCell: params => <WarehouseBoxesBtnsCell row={params.row} handlers={handlers} />,
+
       filterable: false,
       sortable: false,
+      disableCustomSort: true,
+      width: 200,
     },
 
     {
