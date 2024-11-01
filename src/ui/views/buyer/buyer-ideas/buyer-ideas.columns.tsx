@@ -225,7 +225,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       renderCell: params => <Text isCell text={params.row.suppliers?.[0]?.minlot} />,
       width: 80,
       type: 'number',
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
       table: DataGridFilterTables.SUPPLIERS,
       disableCustomSort: true,
     },
@@ -275,7 +275,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -286,7 +286,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       renderCell: params => <Text isCell text={params.value} />,
       width: 250,
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
