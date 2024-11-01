@@ -110,7 +110,8 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
 
       renderCell: params => {
-        const disable = params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH]
+        const disable =
+          params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_SEARCH] || !params.row?.suppliers?.length
 
         return (
           <ActionButtonsCell
