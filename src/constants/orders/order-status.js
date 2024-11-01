@@ -1,7 +1,5 @@
 import { SettingsModel } from '@models/settings-model'
 
-import { Text } from '@components/shared/text'
-
 import { objectFlip } from '@utils/object'
 import { t } from '@utils/translations'
 
@@ -230,40 +228,6 @@ export const orderColorByStatus = status => {
   } else {
     return '#black'
   }
-}
-
-export const OrderStatusText = ({ className, status, isClient }) => {
-  const colorByStatus = () => {
-    if (
-      [
-        OrderStatus.FORMED,
-        OrderStatus.PENDING,
-        OrderStatus.AT_PROCESS,
-        OrderStatus.PARTIALLY_PAID,
-        OrderStatus.TRACK_NUMBER_ISSUED,
-      ].includes(status)
-    ) {
-      return '#F3AF00'
-    } else if ([OrderStatus.IN_STOCK, OrderStatus.READY_FOR_BUYOUT, OrderStatus.PAID_TO_SUPPLIER].includes(status)) {
-      return '#00B746'
-    } else if (
-      [
-        OrderStatus.CANCELED_BY_BUYER,
-        OrderStatus.CANCELED_BY_CLIENT,
-        OrderStatus.NEED_CONFIRMING_TO_PRICE_CHANGE,
-      ].includes(status)
-    ) {
-      return '#FF1616'
-    } else if (
-      [OrderStatus.READY_FOR_PAYMENT, OrderStatus.VERIFY_RECEIPT, OrderStatus.READY_TO_PROCESS].includes(status)
-    ) {
-      return SettingsModel.uiTheme === UiTheme.dark ? '#4CA1DE' : '#0A6FE8'
-    } else {
-      return '#black'
-    }
-  }
-
-  return <Text color={colorByStatus()} text={OrderStatusTranslate(status)} />
 }
 
 export const getOrderStatusOptionByCode = statusCode =>

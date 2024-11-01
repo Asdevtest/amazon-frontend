@@ -48,17 +48,10 @@ export const colorByBoxStatus = status => {
       BoxStatus.NEED_TO_UPDATE_THE_TARIFF,
     ].includes(status)
   ) {
-    return {
-      color: '#C69109',
-    }
+    return '#F3AF00'
   }
+
   if ([BoxStatus.IN_STOCK, BoxStatus.REQUESTED_SEND_TO_BATCH, BoxStatus.IN_BATCH_ON_THE_WAY].includes(status)) {
-    return {
-      background: 'linear-gradient(180deg, #00B746 0%, #03A03F 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      backgroundClip: 'text',
-      textFillColor: 'transparent',
-    }
+    return '#00B746'
   }
 }

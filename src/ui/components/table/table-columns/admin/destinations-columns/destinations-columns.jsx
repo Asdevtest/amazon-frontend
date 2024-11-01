@@ -16,9 +16,9 @@ export const destinationsColumns = handlers => [
     width: 150,
     renderCell: params => (
       <UserCell
-        name={params?.row?.originalData?.storekeeper?.name}
-        id={params?.row?.originalData?.storekeeper?._id}
-        email={params?.row?.originalData?.storekeeper?.email}
+        name={params?.row?.storekeeper?.name}
+        id={params?.row?.storekeeper?._id}
+        email={params?.row?.storekeeper?.email}
       />
     ),
   },
