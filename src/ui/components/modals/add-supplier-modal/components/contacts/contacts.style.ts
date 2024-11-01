@@ -1,14 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  title: {
-    fontSize: 16,
-    fontWeight: 600,
-  },
-
-  form: {
+  contactsWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 10,
+    gap: '5px',
+  },
+
+  title: {
+    fontSize: '12px',
+    color: theme.palette.text.second,
   },
 }))
