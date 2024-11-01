@@ -2073,4 +2073,6 @@ export enum TranslationKey {
   'AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments' = 'AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments',
   'Author, ASIN, Title, AMZ ID' = 'Author, ASIN, Title, AMZ ID',
   'SKU, Shipment ID, Reference ID, Ship to, Tracking number' = 'SKU, Shipment ID, Reference ID, Ship to, Tracking number',
+  'Fill in the field' = 'Fill in the field',
+  'Contacts' = 'Contacts',
 }
