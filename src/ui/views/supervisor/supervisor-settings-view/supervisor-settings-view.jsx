@@ -29,7 +29,6 @@ export const SupervisorSettingsView = observer(() => {
     <div className="viewWrapper">
       <div className={styles.flexContainer}>
         <CustomRadioButton
-          size="large"
           options={switcherSettings}
           defaultValue={viewModel.condition}
           onChange={event => viewModel.onChangeСondition(event.target.value)}
