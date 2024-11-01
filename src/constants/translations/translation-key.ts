@@ -2075,4 +2075,9 @@ export enum TranslationKey {
   'SKU, Shipment ID, Reference ID, Ship to, Tracking number' = 'SKU, Shipment ID, Reference ID, Ship to, Tracking number',
   'Fill in the field' = 'Fill in the field',
   'Contacts' = 'Contacts',
+  'Contact person' = 'Contact person',
+  'Fullname' = 'Fullname',
+  'Phone' = 'Phone',
+  'E-mail' = 'E-mail',
+  'Optional' = 'Optional',
 }

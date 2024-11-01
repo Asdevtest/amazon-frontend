@@ -2076,5 +2076,10 @@
   "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
   "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number",
   "Fill in the field": "Fill in the field",
-  "Contacts": "Contacts"
+  "Contacts": "Contacts",
+  "Contact person": "Contact person",
+  "Fullname": "Fullname",
+  "Phone": "Phone",
+  "E-mail": "E-mail",
+  "Optional": "Optional"
 }

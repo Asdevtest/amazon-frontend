@@ -2075,5 +2075,10 @@
   "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
   "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number",
   "Fill in the field": "Заполните поле",
-  "Contacts": "Контакты"
+  "Contacts": "Контакты",
+  "Contact person": "Контактное лицо",
+  "Fullname": "ФИО",
+  "Phone": "Телефон",
+  "E-mail": "E-mail",
+  "Optional": "Дополнительно"
 }
