@@ -7,6 +7,11 @@ export const useStyles = makeStyles()(theme => ({
     gap: '5px',
   },
 
+  contactWrapper: {
+    display: 'flex',
+    gap: '10px',
+  },
+
   title: {
     fontSize: '12px',
     color: theme.palette.text.second,

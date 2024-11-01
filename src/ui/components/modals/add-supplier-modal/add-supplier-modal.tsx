@@ -48,11 +48,15 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
           contacts: [
             {
               name: 'First',
-              phones: ['UserName'] /* email: [''], optionals: [''] */,
+              phones: ['UserName'],
+              email: [''],
+              optionals: [''],
             },
             {
               name: 'Seconed',
-              phones: ['SeconedUserName'] /*  email: [''], optionals: [''] */,
+              phones: ['SeconedUserName'],
+              email: [''],
+              optionals: [''],
             },
           ],
         }}

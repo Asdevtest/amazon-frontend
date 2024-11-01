@@ -1,16 +1,14 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  root: {
-    width: '100%',
+  listWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
+    justifyContent: 'center',
   },
 
-  label: {
-    fontSize: 12,
-    lineHeight: '16px',
-    color: theme.palette.text.secondary,
+  listHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 }))
