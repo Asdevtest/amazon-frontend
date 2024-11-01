@@ -153,9 +153,8 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
         openModal={viewModel.showAddOrEditBatchModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
       >
+        {/* @ts-ignore  */}
         <AddOrEditBatchForm
-          // @ts-ignore
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           batchToEdit={viewModel.curBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}

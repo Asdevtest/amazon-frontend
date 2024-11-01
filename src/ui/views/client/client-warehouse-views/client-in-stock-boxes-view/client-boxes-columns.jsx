@@ -41,7 +41,6 @@ export const clientBoxesViewColumns = (
       field: 'storekeeper',
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
-
       renderCell: params => <Text isCell text={params?.row.storekeeper?.name} />,
       valueGetter: ({ row }) => row.storekeeper?.name,
       width: 100,
@@ -53,14 +52,10 @@ export const clientBoxesViewColumns = (
       field: 'shopId',
       headerName: t(TranslationKey.Shop),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
-
       renderCell: params => <Text isCell text={params.row.items?.[0]?.product?.shop?.name} />,
-
       valueGetter: ({ row }) => row.items?.[0]?.product?.shop?.name,
-
       width: 100,
       disableCustomSort: true,
-      sortOptions: 'asc',
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       table: DataGridFilterTables.PRODUCTS,
     },
@@ -69,15 +64,12 @@ export const clientBoxesViewColumns = (
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-
       width: 160,
       renderCell: params => (
         <Text isCell text={boxStatusTranslateKey(params.value)} color={colorByBoxStatus(params.value)} />
       ),
       valueFormatter: params => boxStatusTranslateKey(params.value),
-
       transformValueMethod: boxStatusTranslateKey,
-
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
@@ -86,22 +78,17 @@ export const clientBoxesViewColumns = (
       headerName: 'ID',
       renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.value} />,
-      type: 'number',
       width: 80,
-
       columnKey: columnnsKeys.client.WAREHOUSE_ID,
     },
 
     {
       field: 'orderXid',
-
       headerName: t(TranslationKey['№ Order']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
-
       renderCell: params => <Text text={params.value} />,
       valueGetter: ({ row }) => row.items?.map(item => item.order?.xid).join(', '),
       width: 160,
-
       columnKey: columnnsKeys.shared.NUMBER,
       table: DataGridFilterTables.ORDERS,
       disableCustomSort: true,
@@ -119,7 +106,6 @@ export const clientBoxesViewColumns = (
             return `Asin ${item.product.asin}`
           })
           .join('\n'),
-
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
@@ -130,7 +116,6 @@ export const clientBoxesViewColumns = (
       field: 'isFormed',
       headerName: t(TranslationKey.Formed),
       renderHeader: () => <MultilineTextHeaderCell withIcon text={t(TranslationKey.Formed)} />,
-
       renderCell: params => (
         <FormedCell
           sub={params.row.sub}
@@ -140,7 +125,6 @@ export const clientBoxesViewColumns = (
         />
       ),
       width: 120,
-
       filterable: false,
       valueFormatter: params => (params.value ? t(TranslationKey.Yes) : t(TranslationKey.No)),
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_IS_FORMED,
@@ -151,11 +135,8 @@ export const clientBoxesViewColumns = (
       field: 'totalAmount',
       headerName: t(TranslationKey.Quantity),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Quantity)} />,
-
       renderCell: params => <Text isCell text={params.value} />,
-      type: 'number',
       width: 95,
-
       columnKey: columnnsKeys.shared.QUANTITY,
       disableCustomSort: true,
     },
@@ -164,7 +145,6 @@ export const clientBoxesViewColumns = (
       field: 'destination',
       headerName: t(TranslationKey['Destination and tariff']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Destination and tariff'])} />,
-
       renderCell: params => {
         return params.row ? (
           <WarehouseDestinationAndTariffCell
@@ -185,7 +165,6 @@ export const clientBoxesViewColumns = (
       valueGetter: ({ row }) => {
         const storekeepers = getStorekeepersData()
         const destinations = getDestinations()
-
         const selectedDestination = destinations.find(el => el?._id === row?.destination?._id)?.name
         const currentStorekeeper = storekeepers?.find(el => el._id === row?.storekeeper?._id)
         const currentTariff = currentStorekeeper?.tariffLogistics?.find(el => el?._id === row?.logicsTariff?._id)
@@ -197,7 +176,6 @@ export const clientBoxesViewColumns = (
       width: 215,
       filterable: false,
       disableCustomSort: true,
-      align: 'center',
       columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_DESTINATION,
     },
 
@@ -205,7 +183,6 @@ export const clientBoxesViewColumns = (
       field: 'totalPrice',
       headerName: t(TranslationKey['Total price']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total price'])} />,
-
       renderCell: params => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
       type: 'number',
       width: 110,
@@ -226,7 +203,6 @@ export const clientBoxesViewColumns = (
       field: 'clientComment',
       headerName: t(TranslationKey.Comment),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-
       renderCell: params => (
         <Text
           isCell
@@ -235,7 +211,6 @@ export const clientBoxesViewColumns = (
           onClickSubmit={comment => handlers.onClickSaveClientComment(params.row._id, comment)}
         />
       ),
-
       width: 280,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -332,7 +307,6 @@ export const clientBoxesViewColumns = (
       field: 'prepId',
       headerName: 'PREP ID',
       renderHeader: () => <MultilineTextHeaderCell text={'PREP ID'} />,
-
       renderCell: params => (
         <ChangeInputCell
           isString
@@ -343,7 +317,6 @@ export const clientBoxesViewColumns = (
         />
       ),
       width: 240,
-
       columnKey: columnnsKeys.shared.STRING,
     },
 

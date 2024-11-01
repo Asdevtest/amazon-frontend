@@ -60,8 +60,8 @@ export class AnotherProfileViewModel extends DataGridTableModel {
 
     this.userId = history.location.search.slice(1)
     this.getUserById()
-    this.getCurrentData()
     this.getReviews()
+    this.getTableSettingsPreset()
 
     makeObservable(this, anotherUserProfileConfig)
   }

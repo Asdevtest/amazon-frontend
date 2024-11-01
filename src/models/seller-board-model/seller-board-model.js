@@ -27,8 +27,11 @@ class SellerBoardModelStatic {
   }
 
   getProductsWithSkuById = async guid => {
-    const response = await restApiService.integrationsApi.apiV1IntegrationsGetSkusByProductIdGuidGet({ guid })
-    return response?.data || []
+    const response = await restApiService.integrationsApi.apiV1IntegrationsGetSkusByProductIdGuidGet({
+      guid,
+      noCache: true,
+    })
+    return response?.data
   }
 
   createAndLinkSkuProducts = async body => {

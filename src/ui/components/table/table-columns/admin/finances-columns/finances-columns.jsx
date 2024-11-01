@@ -71,8 +71,6 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     width: 700,
-    renderCell: params => (
-      <Text text={`${params.value} ${params.row?.originalData?.product ? params.row.product?.id : ''}`} />
-    ),
+    renderCell: params => <Text text={`${params.value} ${params.row?.product ? params.row.product?.id : ''}`} />,
   },
 ]

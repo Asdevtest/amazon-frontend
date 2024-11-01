@@ -57,7 +57,7 @@ export class AdminSentBatchesViewModel {
     if (this.nameSearchValue) {
       runInAction(() => {
         this.batches = this.batchesData.filter(item =>
-          item.originalData.boxes.some(
+          item.boxes.some(
             box =>
               box.items.some(item =>
                 item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
@@ -181,7 +181,6 @@ export class AdminSentBatchesViewModel {
 
       this.batches
         .filter(batch => this.selectedBatches.includes(batch.id))
-        .map(batch => batch.originalData)
         .forEach(batch => batch.boxes.forEach(box => boxesIds.push(box._id)))
 
       await BoxesModel.sendBoxesToBatch(boxesIds)
