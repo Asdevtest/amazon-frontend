@@ -2,11 +2,14 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    width: 420,
+    width: 600,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
     gap: 20,
+    background: theme.palette.background.general,
+    padding: 20,
+    borderRadius: 16,
   },
 
   title: {

@@ -1,21 +1,18 @@
+import { Tabs } from 'antd'
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
-
-import { Tab, Tabs } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { TabPanel } from '@components/shared/tab-panel'
 
 import { t } from '@utils/translations'
 
-import { useStyles } from './admin-settings.style'
-
-import { tabIndexes, tabLabels } from './admin-settings.constants'
 import { AdminSettingsModel } from './admin-settings.model'
+import { TabLabels } from './admin-settings.type'
 import {
   Shutdown,
+  TabCountries,
   TabDestinations,
   TabFreelance,
   TabMain,
@@ -28,93 +25,102 @@ import {
 import { LaunchesReports } from './admin-tabs/launches-reports/launches-reports'
 
 export const AdminSettings = observer(() => {
-  const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new AdminSettingsModel(), [])
+
+  const generateTabs = () => [
+    {
+      key: TabLabels.MAIN,
+      label: t(TranslationKey.Main),
+      children: (
+        <TabMain
+          user={viewModel.user}
+          serverProxy={viewModel.serverProxy}
+          showAsinCheckerModal={viewModel.showAsinCheckerModal}
+          formFields={viewModel.formFields}
+          isFormFieldsChanged={viewModel.isFormFieldsChanged}
+          isEqualServerProxy={viewModel.isEqualServerProxy}
+          onClickToggleProxyModal={viewModel.onClickToggleProxyModal}
+          onSubmit={viewModel.onSubmitMain}
+          onChangeField={viewModel.onChangeField}
+        />
+      ),
+    },
+    {
+      key: TabLabels.FREELANCE,
+      label: t(TranslationKey.Freelance),
+      children: (
+        <TabFreelance
+          formFields={viewModel.formFields}
+          isFormFieldsChanged={viewModel.isFormFieldsChanged}
+          onSubmit={viewModel.onCreateAdminSettings}
+          onChangeField={viewModel.onChangeField}
+        />
+      ),
+    },
+    {
+      key: TabLabels.SUPPLIER_SEARCH,
+      label: t(TranslationKey['Supplier search']),
+      children: (
+        <TabSearchSupplier
+          formFields={viewModel.formFields}
+          isFormFieldsChanged={viewModel.isFormFieldsChanged}
+          onSubmit={viewModel.onCreateAdminSettings}
+          onChangeField={viewModel.onChangeField}
+        />
+      ),
+    },
+    {
+      key: TabLabels.ORDERS,
+      label: t(TranslationKey.Orders),
+      children: (
+        <TabOrders
+          formFields={viewModel.formFields}
+          isFormFieldsChanged={viewModel.isFormFieldsChanged}
+          onSubmit={viewModel.onCreateAdminSettings}
+          onChangeField={viewModel.onChangeField}
+        />
+      ),
+    },
+    {
+      key: TabLabels.DESTINATIONS,
+      label: t(TranslationKey.Destinations),
+      children: <TabDestinations />,
+    },
+    {
+      key: TabLabels.RED_FLAGS,
+      label: t(TranslationKey['Red flags']),
+      children: <TabRedFlags />,
+    },
+    {
+      key: TabLabels.PAYMENT_METHODS,
+      label: t(TranslationKey['Payment methods']),
+      children: <TabPaymentMethods />,
+    },
+    {
+      key: TabLabels.COUNTRIES,
+      label: t(TranslationKey.Countries),
+      children: <TabCountries />,
+    },
+    {
+      key: TabLabels.TAGS,
+      label: t(TranslationKey.Tags),
+      children: <TabTags />,
+    },
+    {
+      key: TabLabels.LAUNCHES_REPORTS,
+      label: t(TranslationKey['Launches reports']),
+      children: <LaunchesReports timeBeforeLaunchDeadline={viewModel.formFields.timeBeforeLaunchDeadline} />,
+    },
+    {
+      key: TabLabels.SHUTDOWN,
+      label: t(TranslationKey.Shutdown),
+      children: <Shutdown techPause={viewModel.techPause} />,
+    },
+  ]
 
   return (
     <div className="viewWrapper">
-      <Tabs
-        value={viewModel.tabIndex}
-        variant="scrollable"
-        classes={{
-          root: styles.rootTabs,
-          indicator: styles.indicator,
-          flexContainer: styles.flexContainerTabs,
-        }}
-        onChange={viewModel.onChangeTab}
-      >
-        {tabLabels.map(label => (
-          <Tab key={label} label={t(label)} classes={{ root: styles.rootTab }} />
-        ))}
-      </Tabs>
-
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.main}>
-        <div className={styles.contentWrapper}>
-          <TabMain
-            user={viewModel.user}
-            serverProxy={viewModel.serverProxy}
-            showAsinCheckerModal={viewModel.showAsinCheckerModal}
-            formFields={viewModel.formFields}
-            isFormFieldsChanged={viewModel.isFormFieldsChanged}
-            isEqualServerProxy={viewModel.isEqualServerProxy}
-            onClickToggleProxyModal={viewModel.onClickToggleProxyModal}
-            onSubmit={viewModel.onSubmitMain}
-            onChangeField={viewModel.onChangeField}
-          />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.freelance}>
-        <div className={styles.contentWrapper}>
-          <TabFreelance
-            formFields={viewModel.formFields}
-            isFormFieldsChanged={viewModel.isFormFieldsChanged}
-            onSubmit={viewModel.onCreateAdminSettings}
-            onChangeField={viewModel.onChangeField}
-          />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.supplierSearch}>
-        <div className={styles.contentWrapper}>
-          <TabSearchSupplier
-            formFields={viewModel.formFields}
-            isFormFieldsChanged={viewModel.isFormFieldsChanged}
-            onSubmit={viewModel.onCreateAdminSettings}
-            onChangeField={viewModel.onChangeField}
-          />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.orders}>
-        <div className={styles.contentWrapper}>
-          <TabOrders
-            formFields={viewModel.formFields}
-            isFormFieldsChanged={viewModel.isFormFieldsChanged}
-            onSubmit={viewModel.onCreateAdminSettings}
-            onChangeField={viewModel.onChangeField}
-          />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.destinations}>
-        <TabDestinations />
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.redFlags}>
-        <div className={styles.contentWrapper}>
-          <TabRedFlags />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.paymentMethods}>
-        <div className={styles.contentWrapper}>
-          <TabPaymentMethods />
-        </div>
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.tags}>
-        <TabTags />
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.launchesReports}>
-        <LaunchesReports timeBeforeLaunchDeadline={viewModel.formFields.timeBeforeLaunchDeadline} />
-      </TabPanel>
-      <TabPanel value={viewModel.tabIndex} index={tabIndexes.shutdown}>
-        <Shutdown techPause={viewModel.techPause} />
-      </TabPanel>
+      <Tabs defaultActiveKey={viewModel.tab} items={generateTabs()} onChange={viewModel.onChangeTab} />
 
       {viewModel.showConfirmModal ? (
         <ConfirmationModal

@@ -2005,5 +2005,11 @@
   "ASIN, SKU, FNSKU": "ASIN, SKU, FNSKU",
   "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments": "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments",
   "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
-  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number"
+  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number",
+  "Countries": "Країни",
+  "Adding a country": "Додавання країни",
+  "Add a country icon": "Додати іконку країни",
+  "Country name": "Назва країни",
+  "Country successfully saved": "Країна успішно збережена",
+  "Country is not saved": "Країну не збережено"
 }

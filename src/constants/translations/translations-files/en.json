@@ -2006,5 +2006,11 @@
   "ASIN, SKU, FNSKU": "ASIN, SKU, FNSKU",
   "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments": "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments",
   "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
-  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number"
+  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number",
+  "Countries": "Countries",
+  "Adding a country": "Adding a country",
+  "Add a country icon": "Add a country icon",
+  "Country name": "Country name",
+  "Country successfully saved": "Country successfully saved",
+  "Country is not saved": "Country is not saved"
 }
