@@ -11,9 +11,20 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
+
     p: {
       fontSize: '12px',
       color: theme.palette.text.second,
+    },
+
+    '.icon': {
+      display: 'none',
+    },
+
+    '&:hover': {
+      '.icon': {
+        display: 'block',
+      },
     },
   },
 }))

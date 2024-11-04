@@ -23,9 +23,9 @@ export const ContactListHeader: FC<ContactListHeaderProps> = memo(props => {
 
   return (
     <div className={styles.listHeader}>
-      <p className={styles.listTitle}>{`${t(TranslationKey[listTitle])}${required ? '*' : ''}`}</p>
+      <p>{`${t(TranslationKey[listTitle])}${required ? '*' : ''}`}</p>
 
-      <CustomButton type="text" size="small" icon={<Icon size={10} />} onClick={onClickButton} />
+      <CustomButton type="text" size="small" icon={<Icon size={10} className="icon" />} onClick={onClickButton} />
     </div>
   )
 })
