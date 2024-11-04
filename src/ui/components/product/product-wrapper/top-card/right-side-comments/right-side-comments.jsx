@@ -8,12 +8,6 @@ import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
-import {
-  translateTooltipCloseBtnMessage,
-  translateTooltipDeleteBtnMessage,
-  translateTooltipMessageByRole,
-  translateTooltipSaveBtnMessage,
-} from '@utils/translate-tooltip-message'
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
 
@@ -131,12 +125,7 @@ export const RightSideComments = memo(
               {showActionBtns ? (
                 <>
                   {checkIsResearcher(curUserRole) || (checkIsClient(curUserRole) && !product?.archive) ? (
-                    <CustomButton
-                      danger
-                      type={'primary'}
-                      title={translateTooltipDeleteBtnMessage(curUserRole)}
-                      onClick={() => handleProductActionButtons('delete')}
-                    >
+                    <CustomButton danger type="primary" onClick={() => handleProductActionButtons('delete')}>
                       {t(TranslationKey.Delete)}
                     </CustomButton>
                   ) : null}
@@ -144,18 +133,13 @@ export const RightSideComments = memo(
                   {product?.status ===
                     ProductStatusByKey[ProductStatus.FROM_CLIENT_READY_TO_BE_CHECKED_BY_SUPERVISOR] &&
                   checkIsBuyer(curUserRole) ? null : (
-                    <CustomButton
-                      type={'primary'}
-                      title={translateTooltipSaveBtnMessage(curUserRole)}
-                      onClick={() => handleProductActionButtons('accept', false)}
-                    >
+                    <CustomButton type={'primary'} onClick={() => handleProductActionButtons('accept', false)}>
                       {checkIsClient(curUserRole) ? t(TranslationKey.Save) : t(TranslationKey.Receive)}
                     </CustomButton>
                   )}
 
                   {checkIsResearcher(curUserRole) && (
                     <CustomButton
-                      title={translateTooltipMessageByRole(t(TranslationKey['Save without status']), curUserRole)}
                       disabled={product?.status === ProductStatusByKey[ProductStatus.PURCHASED_PRODUCT]}
                       onClick={
                         checkIsResearcher(curUserRole) || checkIsSupervisor(curUserRole)
@@ -167,10 +151,7 @@ export const RightSideComments = memo(
                     </CustomButton>
                   )}
 
-                  <CustomButton
-                    title={translateTooltipCloseBtnMessage(curUserRole)}
-                    onClick={() => handleProductActionButtons('cancel')}
-                  >
+                  <CustomButton onClick={() => handleProductActionButtons('cancel')}>
                     {t(TranslationKey.Close)}
                   </CustomButton>
 

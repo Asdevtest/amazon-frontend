@@ -45,21 +45,15 @@ export const getColumn = ({
     },
     renderCell: (params: GridRenderCellParams) => {
       return (
-        <Tooltip title={getColumnValue({ params, table, name: 'updatedAt', type: 'date', isCounter: false }) as string}>
-          <div
-            style={{ width: '100%', height: '100%' }}
-            onClick={(event: MouseEvent<HTMLDivElement>) => {
-              event.stopPropagation()
-              onClickParsingReportCell?.(params.row, table)
-            }}
-          >
-            {type === 'boolean' ? (
-              <CheckboxCell disabled checked={params.value} />
-            ) : (
-              <Text isCell text={params.value} />
-            )}
-          </div>
-        </Tooltip>
+        <div
+          style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          onClick={(event: MouseEvent<HTMLDivElement>) => {
+            event.stopPropagation()
+            onClickParsingReportCell?.(params.row, table)
+          }}
+        >
+          <p>{params.value}</p>
+        </div>
       )
     },
     width: 150,

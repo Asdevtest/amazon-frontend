@@ -14,8 +14,8 @@ interface RedFlagsCellProps {
 export const RedFlagsCell: FC<RedFlagsCellProps> = memo(({ flags }) => {
   const { classes: styles } = useStyles()
 
-  const visibleFlags = flags.slice(0, 5)
-  const hiddenFlags = flags.slice(5)
+  const visibleFlags = flags.slice(0, 3)
+  const hiddenFlags = flags.slice(3)
   const hiddenFlagsCount = hiddenFlags.length
 
   const popoverContent = hiddenFlagsCount ? (

@@ -24,7 +24,7 @@ export const StringListCell: FC<StringListCellProps> = memo(
     return (
       <div ref={ref} className={styles.root} style={{ maxHeight: calculatedHeight }} onScroll={onScroll}>
         {data?.map((item, index) => (
-          <StringItem key={index} item={String(item)} asin={asin} />
+          <StringItem key={index} item={item} asin={asin} />
         ))}
       </div>
     )

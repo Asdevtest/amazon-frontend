@@ -76,18 +76,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           onCancel={e => e?.stopPropagation()}
           onOpenChange={resetRenamePreset}
         >
-          <CustomButton
-            className={styles.button}
-            icon={
-              <MdOutlineDriveFileRenameOutline
-                size={20}
-                title={t(TranslationKey.Rename)}
-                className={styles.updateButton}
-              />
-            }
-          >
-            {t(TranslationKey.Rename)}
-          </CustomButton>
+          <CustomButton icon={<MdOutlineDriveFileRenameOutline size={16} />}>{t(TranslationKey.Rename)}</CustomButton>
         </Popconfirm>
       ),
     },
@@ -107,12 +96,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           onCancel={e => e?.stopPropagation()}
           onPopupClick={e => e?.stopPropagation()}
         >
-          <CustomButton
-            className={styles.button}
-            icon={<GrUpdate title={t(TranslationKey.Update)} className={styles.updateButton} />}
-          >
-            {t(TranslationKey.Update)}
-          </CustomButton>
+          <CustomButton icon={<GrUpdate size={16} />}>{t(TranslationKey.Update)}</CustomButton>
         </Popconfirm>
       ),
     },
@@ -133,11 +117,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
           onCancel={e => e?.stopPropagation()}
           onPopupClick={e => e?.stopPropagation()}
         >
-          <CustomButton
-            danger
-            className={styles.button}
-            icon={<MdOutlineDelete size={20} title={t(TranslationKey.Delete)} className={styles.deleteIcon} />}
-          >
+          <CustomButton danger icon={<MdOutlineDelete size={20} />}>
             {t(TranslationKey.Delete)}
           </CustomButton>
         </Popconfirm>
@@ -151,7 +131,7 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
         <CustomButton
           type="text"
           title={t(TranslationKey[quickAccessTitle])}
-          icon={<QuickAccessIcon title={t(TranslationKey[quickAccessTitle])} className={styles.updateButton} />}
+          icon={<QuickAccessIcon title={t(TranslationKey[quickAccessTitle])} />}
           onClick={onClickAddQuickAccess}
         />
       ) : (

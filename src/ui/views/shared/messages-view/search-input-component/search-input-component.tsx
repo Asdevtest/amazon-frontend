@@ -40,12 +40,11 @@ export const SearchInputComponent: FC<SearchInputComponentProps> = memo(props =>
     <div className={styles.searchMessageContainer}>
       <CustomInputSearch
         allowClear
-        placeholder={'Message Search'}
-        value={searchInputValue}
+        placeholder="Message Search"
         wrapperClassName={cx(styles.searchInput, {
           [styles.searchInputShort]: isShortInput,
         })}
-        onSubmit={value => onChangeMesSearchValue(value, currentChatId)}
+        onSearch={value => onChangeMesSearchValue(value, currentChatId)}
       />
 
       {foundMessages.length ? (

@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   tags: {
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     gap: '5px',

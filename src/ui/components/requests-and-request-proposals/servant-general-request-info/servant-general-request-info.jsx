@@ -107,11 +107,7 @@ export const ServantGeneralRequestInfo = memo(({ userRole, request, onSubmit, re
           {(request.request.status === RequestStatus.PUBLISHED ||
             request.request.status === RequestStatus.IN_PROCESS) && (
             <div className={styles.btnsBlockWrapper}>
-              <CustomButton
-                disabled={buttonDisabled}
-                title={t(TranslationKey['Make a proposal for the selected request'])}
-                onClick={onSubmit}
-              >
+              <CustomButton disabled={buttonDisabled} onClick={onSubmit}>
                 {t(TranslationKey['Suggest a deal'])}
               </CustomButton>
             </div>

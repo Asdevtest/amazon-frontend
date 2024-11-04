@@ -109,11 +109,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   checkboxContainer: {
-    display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '0 !important',
-    width: '100%',
+    marginBottom: '10px',
   },
 
   orderInput: {

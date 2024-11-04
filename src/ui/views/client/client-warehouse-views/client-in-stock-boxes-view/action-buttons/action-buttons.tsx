@@ -49,7 +49,6 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         <CustomButton
           type="primary"
           size="large"
-          title={t(TranslationKey['Form for requesting the shipment of boxes in a batch'])}
           disabled={!selectedRows?.length || isHaveRequestSendToBatch}
           onClick={onClickRequestToSendBatch}
         >
@@ -59,7 +58,6 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         <CustomButton
           type="primary"
           size="large"
-          title={t(TranslationKey['Form for merging several boxes'])}
           disabled={selectedRows?.length <= 1 || isHaveRequestSendToBatch}
           onClick={onClickMergeBtn}
         >
@@ -69,7 +67,6 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         <CustomButton
           type="primary"
           size="large"
-          title={t(TranslationKey['Form for distributing to multiple boxes'])}
           disabled={selectedRows?.length !== 1 || isHaveRequestSendToBatch}
           onClick={onClickSplitBtn}
         >
@@ -78,7 +75,6 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
         <CustomButton
           type="primary"
           size="large"
-          title={t(TranslationKey['Form for changing the box data'])}
           disabled={!selectedRows?.length || isHaveRequestSendToBatch}
           onClick={onClickEditBtn}
         >

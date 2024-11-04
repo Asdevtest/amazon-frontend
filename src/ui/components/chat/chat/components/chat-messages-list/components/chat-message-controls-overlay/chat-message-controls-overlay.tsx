@@ -11,8 +11,6 @@ import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
 
-import { useStyles } from './chat-message-controls-overlay.style'
-
 interface ChatMessageControlsOverlayProps extends PropsWithChildren {
   showDropdown: boolean
   isSelectedMessage?: boolean
@@ -36,8 +34,6 @@ export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = m
   if (!showDropdown) {
     return <>{children}</>
   }
-
-  const { classes: styles } = useStyles()
 
   const items = useMemo(
     () => [
