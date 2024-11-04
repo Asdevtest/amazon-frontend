@@ -1,9 +1,11 @@
 import { Form } from 'antd'
-import { memo } from 'react'
+import { FC, memo, useState } from 'react'
 
 import { CustomInput } from '@components/shared/custom-input'
 import { CustomSelect } from '@components/shared/custom-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+
+import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './supplier-details.style'
@@ -11,9 +13,20 @@ import { useStyles } from './supplier-details.style'
 import { getRequiredRules } from '../../add-supplier-modal.config'
 import { FieldType } from '../../add-supplier-modal.types'
 
-export const SupplierDetails = memo(() => {
-  const { classes: styles } = useStyles()
+interface SupplierDetailsProps {
+  handleUploadFiles: (images: UploadFileType[]) => void
+}
+
+export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ handleUploadFiles }) => {
+  const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
+
+  const [images, setImages] = useState<UploadFileType[]>([])
+
+  const onUploadFiles = (uploadedImages: UploadFileType[]) => {
+    setImages(uploadedImages)
+    handleUploadFiles(uploadedImages)
+  }
 
   return (
     <div className={styles.root}>
@@ -54,8 +67,13 @@ export const SupplierDetails = memo(() => {
         </Form.Item>
       </div>
 
-      <Form.Item<FieldType> name="link" className={sharedStyles.field} rules={getRequiredRules()}>
-        <UploadFilesInput dragAndDropButtonHeight={50} images={[]} setImages={() => console.log('setImages')} />
+      <Form.Item<FieldType>
+        name="files"
+        className={cx(sharedStyles.field, styles?.uploadFiles)}
+        rules={getRequiredRules()}
+        dependencies={['files']}
+      >
+        <UploadFilesInput dragAndDropButtonHeight={50} images={images} setImages={onUploadFiles} />
       </Form.Item>
     </div>
   )

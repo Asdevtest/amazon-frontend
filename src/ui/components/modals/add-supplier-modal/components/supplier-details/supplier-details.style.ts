@@ -1,22 +1,20 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
-    gap: '10px',
+    gap: '25px',
   },
 
   supplierDetailsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+
+    width: 'calc(50% - 25px)',
   },
 
-  field: {
-    margin: 0,
-  },
-
-  input: {
-    width: 'unset',
+  uploadFiles: {
+    flex: 1,
   },
 }))
