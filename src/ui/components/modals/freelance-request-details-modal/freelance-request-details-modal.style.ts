@@ -104,18 +104,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
   },
 
-  stopBtn: {
-    width: '100%',
-    background: '#F3AF00',
-    color: '#001029',
-
-    '&:hover': {
-      opacity: '0.8',
-      color: '#001029',
-      background: '#F3AF00',
-    },
-  },
-
   buttonsWrapper: {
     display: 'flex',
     gap: '10px',

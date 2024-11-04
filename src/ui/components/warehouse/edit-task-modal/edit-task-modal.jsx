@@ -286,10 +286,7 @@ export const EditTaskModal = memo(
 
               {task.operationType === TaskOperationType.RECEIVE && newBoxes.length > 0 && (
                 <div className={styles.hideButton}>
-                  <CustomButton
-                    title={newBoxes.length === 0 && t(TranslationKey['Create new box parameters'])}
-                    onClick={() => setReceiveBoxModal(!receiveBoxModal)}
-                  >
+                  <CustomButton onClick={() => setReceiveBoxModal(!receiveBoxModal)}>
                     {t(TranslationKey.Redistribute)}
                   </CustomButton>
                 </div>

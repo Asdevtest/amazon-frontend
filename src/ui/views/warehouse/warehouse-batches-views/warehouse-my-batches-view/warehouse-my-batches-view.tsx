@@ -52,7 +52,6 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
               size="large"
               type="primary"
               disabled={disabledConfirmSendButton}
-              title={t(TranslationKey['After confirmation it will be impossible to return the batch'])}
               onClick={() => viewModel.onTriggerOpenModal('showConfirmModal')}
             >
               {t(TranslationKey['Confirm send to batch'])}
@@ -62,7 +61,6 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
               size="large"
               type="primary"
               disabled={viewModel.selectedRows.length !== 1}
-              title={t(TranslationKey['Add/remove a box or files to a batch'])}
               onClick={() => viewModel.onClickAddOrEditBatch(false)}
             >
               {t(TranslationKey['Edit batch'])}
@@ -84,7 +82,6 @@ export const WarehouseMyBatchesView: FC<WarehouseMyBatchesViewProps> = observer(
             size="large"
             type="primary"
             icon={<FiPlus />}
-            title={t(TranslationKey['Open a form to create a new batch'])}
             onClick={() => viewModel.onClickAddOrEditBatch(true)}
           >
             {t(TranslationKey['Create a batch'])}

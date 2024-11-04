@@ -77,6 +77,7 @@ export const DataGridTablesKeys = {
   BUYER_FREE_ORDERS: 'buyerFreeOrdersDataGridState',
   BUYER_SUB_USERS: 'buyerSubUsersDataGridState',
   BUYER_BATCHES: 'buyerBatchesDataGridState',
+  BUYER_IDEAS: 'buyerIdeasDataGridState',
 
   CLIENT_EXCHANGE: 'clientExchangeCreatedDataGridState',
   CLIENT_INVENTORY: 'clientInventoryDataGridState',

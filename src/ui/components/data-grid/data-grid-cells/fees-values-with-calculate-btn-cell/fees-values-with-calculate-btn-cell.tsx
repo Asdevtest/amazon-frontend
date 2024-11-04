@@ -34,7 +34,7 @@ export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellPr
       </p>
       {!noCalculate && (
         <CustomButton icon={<MdOutlineCalculate />} onClick={() => onClickCalculate?.(productId)}>
-          {'Calculate fees'}
+          Calculate fees
         </CustomButton>
       )}
     </div>

@@ -98,7 +98,6 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
 
       <Field
         oneLine
-        tooltipInfoContent={t(TranslationKey['Opens additional fields to be filled in when adding a product'])}
         label={t(TranslationKey.No) + ' ASIN'}
         labelClasses={styles.fieldLabel}
         inputComponent={
@@ -138,11 +137,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
                     onChange={e => setSkuLine(e.target.value)}
                   />
 
-                  <CustomButton
-                    isSmallButton
-                    disabled={skuLine === '' || !!formFields.skuByClient}
-                    onClick={onClickSkuBtn}
-                  >
+                  <CustomButton disabled={skuLine === '' || !!formFields.skuByClient} onClick={onClickSkuBtn}>
                     {t(TranslationKey.Add)}
                   </CustomButton>
                 </div>

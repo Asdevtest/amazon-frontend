@@ -35,7 +35,6 @@ export const FinancesView = observer(() => {
         <CustomInputSearch
           enterButton
           allowClear
-          size="large"
           placeholder="Search by SKU, ASIN, Title"
           onSearch={viewModel.onSearchSubmit}
         />

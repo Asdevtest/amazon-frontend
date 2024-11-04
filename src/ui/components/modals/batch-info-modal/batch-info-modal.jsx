@@ -312,8 +312,7 @@ export const BatchInfoModal = observer(
 
           <div className={styles.filesAndButtonWrapper}>
             <div className={styles.buttonsWrapper}>
-              <CustomButton onClick={uploadTemplateFile}>
-                <BsDownload size={16} />
+              <CustomButton icon={<BsDownload size={16} />} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download the batch file'])}
               </CustomButton>
 

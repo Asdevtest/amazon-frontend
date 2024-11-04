@@ -276,7 +276,7 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <CustomButton
-            fullWidth
+            block
             className={styles.button}
             type={item.logicsTariffId ? 'default' : 'primary'}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
