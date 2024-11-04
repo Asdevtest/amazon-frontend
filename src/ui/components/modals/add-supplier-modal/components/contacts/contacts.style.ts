@@ -10,6 +10,7 @@ export const useStyles = makeStyles()(theme => ({
   contactWrapper: {
     display: 'flex',
     gap: '10px',
+    justifyContent: 'space-between',
   },
 
   title: {
