@@ -201,6 +201,11 @@ class OtherModelStatic {
     const response = await restApiService.otherApi.apiV1OtherPaymentsPagMyGet(options)
     return response.data
   }
+
+  getCountries = async () => {
+    const response = await restApiService.otherApi.apiV1OtherCountriesGet()
+    return response.data
+  }
 }
 
 export const OtherModel = new OtherModelStatic()

@@ -2011,5 +2011,7 @@
   "Add a country icon": "Додати іконку країни",
   "Country name": "Назва країни",
   "Country successfully saved": "Країна успішно збережена",
-  "Country is not saved": "Країну не збережено"
+  "Country is not saved": "Країну не збережено",
+  "Short country name": "Коротка назва країни",
+  "Are you sure you want to delete the country?": "Ви впевнені, що хочете видалити країну?"
 }

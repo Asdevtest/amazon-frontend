@@ -4,25 +4,33 @@ import { toast } from 'react-toastify'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
-import { SupplierModel } from '@models/supplier-model'
+import { OtherModel } from '@models/other-model'
 
 import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 import { isString } from '@typings/guards'
+import { ICountry } from '@typings/models/others/country'
+import { UploadFileType } from '@typings/shared/upload-file'
+
+import { CountryValues } from './tab-countries.type'
 
 export class AdminSettingsCountriesModel {
-  countries: any[] = []
-  isEdit = false
+  countries: ICountry[] = []
+  images: UploadFileType[] = []
 
   constructor() {
     this.getCountries()
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
+  onChangeImages(images: UploadFileType[]) {
+    this.images = images
+  }
+
   async getCountries() {
     try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
+      const response = (await OtherModel.getCountries()) as unknown as ICountry[]
 
       runInAction(() => {
         this.countries = response
@@ -32,9 +40,9 @@ export class AdminSettingsCountriesModel {
     }
   }
 
-  async createPaymentMethod(data: any) {
+  async onCreateCountry(data: CountryValues) {
     try {
-      await SupplierModel.addSuppliersPaymentMethod(data)
+      await AdministratorModel.addCountry(data)
       toast.success(t(TranslationKey['Country successfully saved']))
       this.getCountries()
     } catch (error) {
@@ -42,9 +50,9 @@ export class AdminSettingsCountriesModel {
     }
   }
 
-  async editPaymentMethod(id: string, data: any) {
+  async onEditCountry(id: string, data: CountryValues) {
     try {
-      await SupplierModel.editSuppliersPaymentMethod(id, data)
+      await AdministratorModel.editCountry(id, data)
       toast.success(t(TranslationKey['Country successfully saved']))
       this.getCountries()
     } catch (error) {
@@ -52,21 +60,26 @@ export class AdminSettingsCountriesModel {
     }
   }
 
-  async onRemovePaymentMethod(id: string) {
+  async onRemoveCountry(id: string) {
     try {
-      await AdministratorModel.removePaymentMethod(id)
+      await AdministratorModel.removeCountry(id)
       this.getCountries()
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onSaveCountry(values: any) {
-    console.log('values', values)
-    const icon = isString(values.media?.[0])
-      ? await uploadFileByUrl(values.media?.[0])
-      : await onPostImage(values.media?.[0])
+  async onSaveCountry(values: CountryValues) {
+    const image = isString(values.image?.[0])
+      ? await uploadFileByUrl(values.image?.[0])
+      : await onPostImage(values.image?.[0])
 
-    this.isEdit ? this.editPaymentMethod('', {}) : this.createPaymentMethod({})
+    const data = {
+      title: values.title || '',
+      shortTitle: values.shortTitle || '',
+      image: image || '',
+    }
+
+    values?.id ? await this.onEditCountry(values?.id, data) : await this.onCreateCountry(data)
   }
 }

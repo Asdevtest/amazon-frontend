@@ -12,6 +12,7 @@ export const useStyles = makeStyles()(theme => ({
 
     '.ant-form-item': {
       margin: 0,
+      width: '100%',
     },
   },
 
@@ -35,6 +36,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: '10px',
+  },
+
+  flexStart: {
+    alignItems: 'flex-start',
   },
 
   buttons: {
