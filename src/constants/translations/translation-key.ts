@@ -2018,4 +2018,5 @@ export enum TranslationKey {
   'Phone' = 'Phone',
   'E-mail' = 'E-mail',
   'Optional' = 'Optional',
+  'Import products' = 'Import products',
 }
