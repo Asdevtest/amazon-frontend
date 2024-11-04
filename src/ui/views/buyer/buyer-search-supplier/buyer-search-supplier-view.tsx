@@ -22,7 +22,6 @@ export const BuyerSearchSupplierBySupervisorView = observer(() => {
           size="large"
           type="primary"
           disabled={viewModel.selectedRows.length === 0}
-          title={t(TranslationKey['Assign several supplier search tasks to a Buyer'])}
           onClick={viewModel.onPickupSomeItems}
         >
           {t(TranslationKey['Take on the work of the selected'])}

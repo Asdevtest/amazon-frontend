@@ -5,19 +5,6 @@ export const useStyles = makeStyles()(theme => ({
     height: '100%',
   },
 
-  button: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    height: '100%',
-
-    border: `1px solid ${theme.palette.input.customBorder}`,
-    padding: '0 10px',
-
-    borderRadius: '25px 0px 0px 25px',
-  },
-
   indicatorWrapper: {
     display: 'flex',
     flexDirection: 'column',

@@ -56,8 +56,7 @@ export const SelectionSupplierModal = ({
         <div className={styles.buttons}>
           {onSubmitSeekSupplier ? (
             <CustomButton
-              fullWidth
-              title={t(TranslationKey['Paid service'])}
+              block
               disabled={product && !clientToEditStatuses.includes(product?.status)}
               onClick={() => onSubmitSeekSupplier(comment)}
             >
@@ -67,8 +66,7 @@ export const SelectionSupplierModal = ({
 
           {onClickFinalAddSupplierButton ? (
             <CustomButton
-              fullWidth
-              title={t(TranslationKey['Free service'])}
+              block
               disabled={product && !clientToEditStatuses.includes(product?.status)}
               onClick={() => {
                 onCloseModal()

@@ -7,7 +7,6 @@ import { Checkbox, ClickAwayListener, Popover, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { MasterUserItem } from '@components/shared/master-user-item'
 

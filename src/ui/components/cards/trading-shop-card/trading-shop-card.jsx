@@ -147,12 +147,7 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
             </div>
 
             <div className={styles.buttonWrapper}>
-              <CustomButton
-                title={t(TranslationKey['Open detailed information about the request'])}
-                onClick={() => onClickViewMore(item._id)}
-              >
-                {t(TranslationKey.Details)}
-              </CustomButton>
+              <CustomButton onClick={() => onClickViewMore(item._id)}>{t(TranslationKey.Details)}</CustomButton>
             </div>
           </div>
         </div>

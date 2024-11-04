@@ -43,19 +43,10 @@ export const ClientDashboardView = observer(({ history }) => {
               <DashboardBalance user={viewModel.userInfo} />
 
               <div className={styles.buttonWrapper}>
-                <CustomButton
-                  title={t(TranslationKey['Contact to request a deposit'])}
-                  icon={<FiPlus style={{ width: 16, height: 16 }} />}
-                  onClick={viewModel.onClickWithdrawMoney}
-                >
+                <CustomButton icon={<FiPlus size={16} />} onClick={viewModel.onClickWithdrawMoney}>
                   {t(TranslationKey.Deposit)}
                 </CustomButton>
-                <CustomButton
-                  title={t(TranslationKey['Contact to request a withdrawal'])}
-                  onClick={viewModel.onClickAddMoney}
-                >
-                  {t(TranslationKey.Withdraw)}
-                </CustomButton>
+                <CustomButton onClick={viewModel.onClickAddMoney}>{t(TranslationKey.Withdraw)}</CustomButton>
               </div>
             </div>
           </div>
