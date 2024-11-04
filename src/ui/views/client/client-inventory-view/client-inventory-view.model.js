@@ -45,37 +45,27 @@ import { observerConfig } from './model-observer.config'
 export class ClientInventoryViewModel extends DataGridTagsFilter {
   product = undefined
   ordersDataStateToSubmit = undefined
-
   sellerBoardDailyData = []
   storekeepers = []
   destinations = []
   ideaId = undefined
   isArchive = false
-
   presetsData = []
   productsTags = []
   activeProductsTags = []
-
   receivedFiles = undefined
-
   pendingOrderQuantity = undefined
   currentRow = undefined
-
   previousSelectedRows = []
   paymentMethods = []
-
   curProduct = undefined
   parsingTable = undefined
-
   productsToLaunch = []
   productVariations = []
   selectedProductToLaunch = undefined
-
   dataForOrderModal = []
-
   existingProducts = []
   selectedProduct = undefined
-
   selectedRowId = undefined
   showOrderModal = false
   showCheckPendingOrderFormModal = false
@@ -92,28 +82,24 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   showProductDataModal = false
   showGetFilesModal = false
   showEditHSCodeModal = false
-  productCardModal = false
+  mainProductModal = false
   showProductLaunch = false
   showIdeaModal = false
   showProductVariationsForm = false
   showAddOrEditSupplierModal = false
   showEditProductTagsModal = false
   showParsingReportsModal = false
-
   onAmazon = false
   isBatches = false
-
   confirmMessage = ''
   currentBarcode = ''
   currentHscode = ''
-
   readyImages = []
   progressValue = 0
   showProgress = false
-
   getCustomSortFields = []
-
   setAllColumns = undefined
+  productId = undefined
 
   get userInfo() {
     return UserModel.userInfo
@@ -355,20 +341,18 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     win.focus()
   }
 
-  onClickProductModal(row) {
-    if (window.getSelection().toString()) {
-      return
-    }
-
-    if (row) {
+  onClickProductModal(id) {
+    if (id) {
       this.isArchive
-        ? this.history.push(`/client/inventory?product-id=${row._id}&isArchive=true`)
-        : this.history.push(`/client/inventory?product-id=${row._id}`)
+        ? this.history.push(`/client/inventory?product-id=${id}&isArchive=true`)
+        : this.history.push(`/client/inventory?product-id=${id}`)
     } else {
       this.isArchive ? this.history.push(`/client/inventory?isArchive=true`) : this.history.push(`/client/inventory`)
     }
 
-    this.onTriggerOpenModal('productCardModal')
+    this.productId = id
+
+    this.onTriggerOpenModal('mainProductModal')
   }
 
   onClickPandingOrder(id) {
@@ -394,7 +378,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
         : this.history.push(`/client/inventory?product-id=${productId}&show-tab=orders&status=${filterStatus}`)
     }
 
-    this.onTriggerOpenModal('productCardModal')
+    this.onTriggerOpenModal('mainProductModal')
   }
 
   async onClickVariationButton(id) {

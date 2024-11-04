@@ -10,6 +10,7 @@ import { AddOwnProductForm } from '@components/forms/add-own-product-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
 import { CheckPendingOrderForm } from '@components/forms/check-pending-order-form'
 import { GetFilesForm } from '@components/forms/get-files-form'
+import { MainProductForm } from '@components/forms/main-product-form/main-product-form'
 import { ProductDataForm } from '@components/forms/product-data-form'
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { ProductVariationsForm } from '@components/forms/product-variations-form'
@@ -20,7 +21,6 @@ import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { ParsingReportsModal } from '@components/modals/parsing-reports-modal'
-import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-stock-value-modal.js'
@@ -167,8 +167,7 @@ export const ClientInventoryView = observer(({ history }) => {
             event.stopPropagation()
           }
         }}
-        onRowClick={params => viewModel.onClickProductModal(params.row)}
-        onRowDoubleClick={params => viewModel.onClickShowProduct(params?.row?._id)}
+        onRowDoubleClick={params => viewModel.onClickProductModal(params?.row?._id)}
         onPinnedColumnsChange={viewModel.handlePinColumn}
       />
 
@@ -207,15 +206,26 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       ) : null}
 
-      {viewModel.productCardModal && (
+      {/* {viewModel.mainProductModal && (
         <ProductCardModal
           history={history}
-          openModal={viewModel.productCardModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('productCardModal')}
+          openModal={viewModel.mainProductModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('mainProductModal')}
           updateDataHandler={viewModel.getCurrentData}
           onClickOpenNewTab={id => viewModel.onClickShowProduct(id)}
         />
-      )}
+      )} */}
+
+      <Modal
+        openModal={viewModel.mainProductModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('mainProductModal')}
+      >
+        <MainProductForm
+          productId={viewModel.productId}
+          onClose={() => viewModel.onTriggerOpenModal('mainProductModal')}
+          onUpdateData={viewModel.getCurrentData}
+        />
+      </Modal>
 
       <Modal
         openModal={viewModel.showProductDataModal}

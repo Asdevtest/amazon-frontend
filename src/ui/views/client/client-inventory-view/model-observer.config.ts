@@ -36,7 +36,7 @@ export const observerConfig = {
   showProductDataModal: observable,
   showGetFilesModal: observable,
   showEditHSCodeModal: observable,
-  productCardModal: observable,
+  mainProductModal: observable,
   showProductLaunch: observable,
   showIdeaModal: observable,
   showProductVariationsForm: observable,
