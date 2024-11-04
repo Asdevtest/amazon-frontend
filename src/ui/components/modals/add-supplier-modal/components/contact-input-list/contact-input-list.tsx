@@ -1,14 +1,12 @@
 import { Form } from 'antd'
 import { FormListProps, Rule } from 'antd/es/form'
 import { FC, memo } from 'react'
-import { FaMinus, FaPlus } from 'react-icons/fa'
+import { FaMinus } from 'react-icons/fa'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
-
-import { t } from '@utils/translations'
 
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './contact-input-list.style'
@@ -19,7 +17,7 @@ interface ContactInputListProps {
   required?: boolean
   listTitle: keyof typeof TranslationKey
   listName: FormListProps['name']
-  formItemRules: () => Rule[]
+  formItemRules?: () => Rule[]
   inputPlaceholder?: keyof typeof TranslationKey
 }
 
@@ -32,25 +30,36 @@ export const ContactInputList: FC<ContactInputListProps> = memo(props => {
   return (
     <Form.List name={listName}>
       {(phonesFields, methods) => (
-        <div className={styles.listWrapper}>
-          <ContactListHeader listTitle={listTitle} required={required} onClickButton={methods.add} />
+        <div className={sharedStyles.contactField}>
+          <ContactListHeader listTitle={listTitle} required={required} onClickButton={() => methods.add()} />
 
-          {phonesFields.map((phoneField, index) => (
-            <Form.Item
-              key={phoneField.key}
-              name={[phoneField.name]}
-              className={sharedStyles.field}
-              rules={formItemRules?.()}
-            >
-              <CustomInput
-                required
-                size="large"
-                placeholder={inputPlaceholder}
-                wrapperClassName={sharedStyles.input}
-                suffix={index > 0 ? <CustomButton type="text" size="small" icon={<FaMinus size={10} />} /> : null}
-              />
-            </Form.Item>
-          ))}
+          <div className={styles.inputList}>
+            {phonesFields.map((phoneField, index) => (
+              <Form.Item
+                key={phoneField.key}
+                name={[phoneField.name]}
+                className={sharedStyles.field}
+                rules={formItemRules?.()}
+              >
+                <CustomInput
+                  required
+                  size="large"
+                  placeholder={inputPlaceholder}
+                  wrapperClassName={sharedStyles.input}
+                  suffix={
+                    index > 0 ? (
+                      <CustomButton
+                        type="text"
+                        size="small"
+                        icon={<FaMinus size={10} className="icon" />}
+                        onClick={() => methods.remove(phoneField.name)}
+                      />
+                    ) : null
+                  }
+                />
+              </Form.Item>
+            ))}
+          </div>
         </div>
       )}
     </Form.List>

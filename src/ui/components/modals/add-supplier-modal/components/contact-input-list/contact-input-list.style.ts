@@ -1,10 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
-  listWrapper: {
+export const useStyles = makeStyles()(() => ({
+  inputList: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    gap: '5px',
   },
 
   listHeader: {
