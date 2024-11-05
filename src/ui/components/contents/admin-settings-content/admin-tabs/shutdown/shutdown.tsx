@@ -59,7 +59,7 @@ export const Shutdown: FC<ShutdownProps> = observer(({ techPause }) => {
       <div className={cx(styles.flexRowContainer, styles.spaceBetween, styles.fixedHeight)}>
         <div className={cx(styles.leftContainer, styles.flexColumnContainer)}>
           <CustomCheckbox checked={viewModel.shutdownDelayChecked} onChange={viewModel.onChangeShutdownDelay}>
-            {t(TranslationKey['Shutdown delay'])}
+            Shutdown delay
           </CustomCheckbox>
 
           <div className={styles.center}>

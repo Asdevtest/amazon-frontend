@@ -15,7 +15,6 @@ import { SupplierApproximateCalculationsModal } from '@components/modals/supplie
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
@@ -424,49 +423,42 @@ export const EditBoxStorekeeperForm = memo(
 
                           <div>
                             <CustomCheckbox
-                              isRow
                               disabled={isBarCodeMissing(item)}
-                              label="The barcode is glued by the supplier"
-                              labelClassName={styles.standartLabel}
-                              wrapperClassName={styles.checkboxContainer}
-                              tooltipLabel="The supplier has glued the barcode before shipment"
+                              tooltip="The supplier has glued the barcode before shipment"
                               checked={item.isBarCodeAlreadyAttachedByTheSupplier}
                               onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
-                            />
+                            >
+                              The barcode is glued by the supplier
+                            </CustomCheckbox>
 
                             <CustomCheckbox
                               isRow
                               disabled={isBarCodeMissing(item)}
-                              label="The barcode is glued by the Storekeeper"
-                              labelClassName={styles.standartLabel}
-                              wrapperClassName={styles.checkboxContainer}
-                              tooltipLabel="The barcode was glued on when the box was accepted at the prep center"
+                              tooltip="The barcode was glued on when the box was accepted at the prep center"
                               checked={item.isBarCodeAttachedByTheStorekeeper}
                               onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
-                            />
+                            >
+                              The barcode is glued by the Storekeeper
+                            </CustomCheckbox>
 
                             <CustomCheckbox
-                              isRow
                               disabled={isTransparencyFileMissing(item)}
-                              label="Transparency Codes glued by the supplier"
-                              labelClassName={styles.standartLabel}
-                              wrapperClassName={styles.checkboxContainer}
                               checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
                               onChange={onClickGluedCheckbox(
                                 'isTransparencyFileAlreadyAttachedByTheSupplier',
                                 item._id,
                               )}
-                            />
+                            >
+                              Transparency Codes glued by the supplier
+                            </CustomCheckbox>
 
                             <CustomCheckbox
-                              isRow
                               disabled={isTransparencyFileMissing(item)}
-                              label="Transparency Codes are glued by storekeeper"
-                              labelClassName={styles.standartLabel}
-                              wrapperClassName={styles.checkboxContainer}
                               checked={item.isTransparencyFileAttachedByTheStorekeeper}
                               onChange={onClickGluedCheckbox('isTransparencyFileAttachedByTheStorekeeper', item._id)}
-                            />
+                            >
+                              Transparency Codes are glued by storekeeper
+                            </CustomCheckbox>
                           </div>
                         </div>
 
@@ -618,15 +610,12 @@ export const EditBoxStorekeeperForm = memo(
                     />
 
                     <CustomCheckbox
-                      isRow
-                      rowRight
                       disabled={isShippingLabelMissing}
-                      label="Shipping label was glued to the warehouse"
-                      labelClassName={styles.standartLabel}
-                      wrapperClassName={styles.checkboxWrapper}
                       checked={boxFields.isShippingLabelAttachedByStorekeeper}
                       onChange={setFormField('isShippingLabelAttachedByStorekeeper')}
-                    />
+                    >
+                      Shipping label was glued to the warehouse
+                    </CustomCheckbox>
                   </div>
 
                   <div className={styles.shareBoxSubWrapper}>

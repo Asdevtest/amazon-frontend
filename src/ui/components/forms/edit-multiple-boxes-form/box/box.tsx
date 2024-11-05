@@ -268,12 +268,8 @@ export const Box: FC<BoxProps> = memo(props => {
                   {isStorekeeper(userInfo.role) ? (
                     <div>
                       <CustomCheckbox
-                        isRow
                         disabled={isBarCodeMissing(order)}
-                        label="The barcode is glued by the supplier"
-                        labelClassName={styles.label}
-                        wrapperClassName={styles.checkboxContainer}
-                        tooltipLabel="The supplier has glued the barcode before shipment"
+                        tooltip="The supplier has glued the barcode before shipment"
                         checked={order.isBarCodeAlreadyAttachedByTheSupplier}
                         onClick={() =>
                           onChangeBarcodeGlued(
@@ -281,14 +277,12 @@ export const Box: FC<BoxProps> = memo(props => {
                             'isBarCodeAlreadyAttachedByTheSupplier',
                           )(!order.isBarCodeAlreadyAttachedByTheSupplier)
                         }
-                      />
+                      >
+                        The barcode is glued by the supplier
+                      </CustomCheckbox>
                       <CustomCheckbox
-                        isRow
                         disabled={isBarCodeMissing(order)}
-                        label="The barcode is glued by the Storekeeper"
-                        labelClassName={styles.label}
-                        wrapperClassName={styles.checkboxContainer}
-                        tooltipLabel="The barcode was glued on when the box was accepted at the prep center"
+                        tooltip="The barcode was glued on when the box was accepted at the prep center"
                         checked={order.isBarCodeAttachedByTheStorekeeper}
                         onClick={() =>
                           onChangeBarcodeGlued(
@@ -296,13 +290,11 @@ export const Box: FC<BoxProps> = memo(props => {
                             'isBarCodeAttachedByTheStorekeeper',
                           )(!order.isBarCodeAttachedByTheStorekeeper)
                         }
-                      />
+                      >
+                        The barcode is glued by the Storekeeper
+                      </CustomCheckbox>
                       <CustomCheckbox
-                        isRow
                         disabled={isTransparencyFileMissing(order)}
-                        label="Transparency Codes glued by the supplier"
-                        labelClassName={styles.label}
-                        wrapperClassName={styles.checkboxContainer}
                         checked={order.isTransparencyFileAlreadyAttachedByTheSupplier}
                         onChange={e =>
                           onChangeBarcodeGlued(
@@ -310,19 +302,19 @@ export const Box: FC<BoxProps> = memo(props => {
                             'isTransparencyFileAlreadyAttachedByTheSupplier',
                           )(e.target.checked)
                         }
-                      />
+                      >
+                        Transparency Codes glued by the supplier
+                      </CustomCheckbox>
 
                       <CustomCheckbox
-                        isRow
                         disabled={isTransparencyFileMissing(order)}
-                        label="Transparency Codes are glued by storekeeper"
-                        labelClassName={styles.label}
-                        wrapperClassName={styles.checkboxContainer}
                         checked={order.isTransparencyFileAttachedByTheStorekeeper}
                         onChange={e =>
                           onChangeBarcodeGlued(order, 'isTransparencyFileAttachedByTheStorekeeper')(e.target.checked)
                         }
-                      />
+                      >
+                        Transparency Codes are glued by storekeeper
+                      </CustomCheckbox>
                     </div>
                   ) : null}
                 </div>
@@ -423,14 +415,12 @@ export const Box: FC<BoxProps> = memo(props => {
 
               {isStorekeeper(userInfo.role) ? (
                 <CustomCheckbox
-                  isRow
                   disabled={isShippingLabelMissing(box)}
-                  label="Shipping label was glued to the warehouse"
-                  labelClassName={styles.label}
-                  wrapperClassName={styles.checkboxContainer}
                   checked={box.isShippingLabelAttachedByStorekeeper}
                   onChange={e => onChangeField(e, 'isShippingLabelAttachedByStorekeeper', box._id)}
-                />
+                >
+                  Shipping label was glued to the warehouse
+                </CustomCheckbox>
               ) : null}
             </div>
           ) : null}

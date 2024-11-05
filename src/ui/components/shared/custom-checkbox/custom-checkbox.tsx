@@ -10,30 +10,21 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-checkbox.style'
 
-interface CustomCheckboxProps extends CheckboxProps, IDefaultPropsExtensionAntdComponent {
-  rowRight?: boolean
-}
+interface CustomCheckboxProps extends CheckboxProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomCheckbox: FC<CustomCheckboxProps> = memo(props => {
-  const { isRow, isCell, rowRight, className, wrapperClassName, label, tooltipLabel, labelClassName, ...restProps } =
-    props
+  const { isCell, className, wrapperClassName, label, tooltip, labelClassName, children, ...restProps } = props
 
   const { classes: styles, cx } = useStyles()
 
   return (
-    <div
-      className={cx(
-        styles.root,
-        { [styles.cell]: isCell, [styles.row]: isRow, [styles.rowRight]: rowRight },
-        wrapperClassName,
-      )}
+    <Tooltip
+      title={tooltip ? t(TranslationKey[tooltip as TranslationKey]) : ''}
+      className={cx({ [styles.cell]: isCell }, wrapperClassName)}
     >
-      {label && (
-        <Tooltip title={tooltipLabel ? t(TranslationKey[tooltipLabel as TranslationKey]) : ''} placement="top">
-          <p className={labelClassName}>{t(TranslationKey[label as TranslationKey])}</p>
-        </Tooltip>
-      )}
-      <Checkbox {...restProps} className={cx(styles.checkbox, className)} />
-    </div>
+      <Checkbox {...restProps} className={cx(styles.checkbox, className)}>
+        {t(TranslationKey[children as TranslationKey])}
+      </Checkbox>
+    </Tooltip>
   )
 })
