@@ -1176,7 +1176,7 @@
   "Add address": "添加地址",
   "Edit address": "编辑地址",
   "Reply to a User Feedback": "回复用户反馈",
-  "Search by ASIN, Order ID, Item": "按ASIN, 订单 ID, 项目搜索",
+  "Search by ASIN, Order ID, Item, ID": "按ASIN, 订单 ID, 项目搜索, ID",
   "Message Search": "消息搜索",
   "Search results": "搜索结果",
   "Apply to all boxes": "应用到所有盒子",
@@ -1267,7 +1267,7 @@
   "s.": "秒",
   "Canceled": "已取消",
   "Production time, days": "生产时间, 天",
-  "Search by ASIN, Order ID, Item, Track number": "按ASIN, 订单ID, 项目, 追踪号搜索",
+  "Search by ASIN, Order ID, Item, Track number, ID": "按ASIN, 订单ID, 项目, 追踪号搜索, ID",
   "Available": "可用",
   "Update": "更新",
   "Current tariffs": "当前关税",
@@ -2003,5 +2003,7 @@
   "ASIN, SKU, FNSKU": "ASIN, SKU, FNSKU",
   "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments": "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments",
   "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
-  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number"
+  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number",
+  "Proposal ID": "提案 ID",
+  "Search by Title, ASIN, SKU, ID, Proposal ID": "按标题, ASIN, SKU, ID, 提案 ID"
 }

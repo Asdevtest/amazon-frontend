@@ -57,7 +57,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
           enterButton
           allowClear
           size="large"
-          placeholder="Search by Title, ASIN, SKU, ID"
+          placeholder="Search by Title, ASIN, SKU, ID, Proposal ID"
           onSearch={viewModel.onSearchSubmit}
         />
 

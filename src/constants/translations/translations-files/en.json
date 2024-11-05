@@ -1178,8 +1178,8 @@
   "Add address": "Add address",
   "Edit address": "Edit address",
   "Reply to a User Feedback": "Reply to a User Feedback",
-  "Search by ASIN, Order ID, Item": "Search by ASIN, Order ID, Item",
-  "Search by ASIN, Order ID, Item, Track number": "Search by ASIN, Order ID, Item, Track number",
+  "Search by ASIN, Order ID, Item, ID": "Search by ASIN, Order ID, Item, ID",
+  "Search by ASIN, Order ID, Item, Track number, ID": "Search by ASIN, Order ID, Item, Track number, ID",
   "Message Search": "Message Search",
   "Search results": "Search results",
   "Apply to all boxes": "Apply to all boxes",
@@ -2006,5 +2006,7 @@
   "ASIN, SKU, FNSKU": "ASIN, SKU, FNSKU",
   "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments": "AMZ Order ID, ASIN, SKU, FNSKU, Fulfillment Center ID, Customer comments",
   "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
-  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number"
+  "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number",
+  "Proposal ID": "Proposal ID",
+  "Search by Title, ASIN, SKU, ID, Proposal ID": "Search by Title, ASIN, SKU, ID, Proposal ID"
 }

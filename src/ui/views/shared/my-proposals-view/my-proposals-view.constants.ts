@@ -29,7 +29,8 @@ export const filtersFields = [
 
 export const additionalFields = ['skuByClient', 'amazonTitle']
 
-export const fieldsForSearch = ['asin', 'title', 'requestXid', 'skuByClient']
+export const fieldsForSearch = ['asin', 'title', 'requestXid', 'skuByClient', 'xid']
+
 export const customSwitcherSettings = () => [
   { label: t(TranslationKey['In the work']), value: ProposalsCondition.IN_THE_WORK },
   { label: t(TranslationKey.Executed), value: ProposalsCondition.EXECUTED },

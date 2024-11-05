@@ -264,8 +264,4 @@ export const useStyles = makeStyles()(theme => ({
   containerField: {
     width: 'min-content',
   },
-
-  checkboxContainer: {
-    justifyContent: 'space-between',
-  },
 }))

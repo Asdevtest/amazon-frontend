@@ -3,7 +3,7 @@ export interface IDefaultPropsExtensionAntdComponent {
   isCell?: boolean
   label?: string
   required?: boolean
-  tooltipLabel?: string
+  tooltip?: string
   labelClassName?: string
   wrapperClassName?: string
 }
