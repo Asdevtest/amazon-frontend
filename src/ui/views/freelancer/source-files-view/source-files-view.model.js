@@ -11,11 +11,12 @@ export class SourceFilesViewModel {
 
   get currentData() {
     if (this.nameSearchValue) {
+      console.log(this.nameSearchValue)
       return this.sourceFiles.filter(
         el =>
-          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          String(el?.xid)?.includes(this.nameSearchValue),
+          el?.proposal?.request?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.proposal?.request?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          String(el?.proposal?.request?.xid)?.includes(this.nameSearchValue),
       )
     } else {
       return this.sourceFiles
