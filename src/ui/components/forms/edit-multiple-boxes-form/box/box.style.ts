@@ -108,11 +108,6 @@ export const useStyles = makeStyles()(theme => ({
     backgroundcolor: theme.palette.text.general,
   },
 
-  checkboxContainer: {
-    justifyContent: 'space-between',
-    marginBottom: '10px',
-  },
-
   orderInput: {
     width: '120px',
   },

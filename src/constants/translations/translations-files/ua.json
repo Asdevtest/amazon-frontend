@@ -1177,8 +1177,8 @@
   "Add address": "Додати адресу",
   "Edit address": "Редагувати адресу",
   "Reply to a User Feedback": "Відповісти на зворотний зв'язок користувача",
-  "Search by ASIN, Order ID, Item": "Пошук за ASIN, ID замовлення, Товар",
-  "Search by ASIN, Order ID, Item, Track number": "Пошук за ASIN, ID замовлення, Товар, Трек номер",
+  "Search by ASIN, Order ID, Item, ID": "Пошук за ASIN, ID замовлення, Товар, ID",
+  "Search by ASIN, Order ID, Item, Track number, ID": "Пошук за ASIN, ID замовлення, Товар, Трек номер, ID",
   "Message Search": "Пошук за повідомленнями",
   "Search results": "Результати пошуку",
   "Apply to all boxes": "Застосувати до всіх коробок",
@@ -2017,5 +2017,7 @@
   "Phone": "Телефон",
   "E-mail": "E-mail",
   "Optional": "Додатково",
-  "Import products": "Імпортувати продукти"
+  "Import products": "Імпортувати продукти",
+  "Proposal ID": "ID пропозиції",
+  "Search by Title, ASIN, SKU, ID, Proposal ID": "Пошук по Назві, ASIN, SKU, ID, ID пропозиції"
 }

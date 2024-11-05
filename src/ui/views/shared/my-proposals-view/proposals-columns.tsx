@@ -47,6 +47,17 @@ interface IHandlers {
 export const proposalsColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
     {
+      field: 'xid',
+      headerName: t(TranslationKey['Proposal ID']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Proposal ID'])} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.xid} />,
+
+      width: 120,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+      table: DataGridFilterTables.REQUESTS,
+    },
+
+    {
       field: 'priority',
       headerName: t(TranslationKey.Priority),
       renderHeader: () => <MultilineTextHeaderCell component={<img src="/assets/icons/bookmark.svg" />} />,
