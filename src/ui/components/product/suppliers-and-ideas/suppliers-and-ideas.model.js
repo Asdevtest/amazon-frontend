@@ -296,7 +296,7 @@ export class SuppliersAndIdeasModel {
 
   async onSaveProductData(shop) {
     try {
-      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: shop.id })
+      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: shop._id })
       this.closeModalHandler()
       this.updateData?.()
     } catch (error) {
