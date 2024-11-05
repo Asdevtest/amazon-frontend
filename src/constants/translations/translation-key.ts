@@ -1174,6 +1174,7 @@ export enum TranslationKey {
   'The warehouse has already taken the task to work' = 'The warehouse has already taken the task to work',
   'Messages' = 'Messages',
   'Search by ASIN, Title' = 'Search by ASIN, Title',
+  'Search by ASIN, Title, ID' = 'Search by ASIN, Title, ID',
   'Disable multiple execution' = 'Disable multiple execution',
   'Multiple performances by the same performer are prohibited' = 'Multiple performances by the same performer are prohibited',
   'The task for the warehouse will be formed' = 'The task for the warehouse will be formed',
