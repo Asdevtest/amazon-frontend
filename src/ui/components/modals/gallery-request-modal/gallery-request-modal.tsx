@@ -1,13 +1,9 @@
 import { FC, memo } from 'react'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 import { TabPanel } from '@components/shared/tab-panel'
-
-import { t } from '@utils/translations'
 
 import { IRequestMedia } from '@typings/models/requests/request-media'
 
@@ -69,7 +65,7 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
           <Header title={filesCounter} />
 
           <CustomCheckbox checked={isAllSelected} onChange={onSelectAllFiles}>
-            {t(TranslationKey['Select all'])}
+            Select all
           </CustomCheckbox>
         </div>
 
