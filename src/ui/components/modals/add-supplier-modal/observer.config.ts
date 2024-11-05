@@ -1,7 +1,12 @@
 import { action, observable } from 'mobx'
 
 export const observerConfig = {
-  form: observable,
+  countries: observable,
+  paymentMethods: observable,
 
-  handleUploadFiles: action.bound,
+  countriesRequestStatus: observable,
+  paymentMethodsRequestStatus: observable,
+
+  getSuppliersPaymentMethods: action.bound,
+  getCountries: action.bound,
 }

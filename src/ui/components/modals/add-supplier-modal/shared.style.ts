@@ -26,4 +26,10 @@ export const useStyles = makeStyles()(() => ({
   input: {
     width: 'unset',
   },
+
+  selectOption: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
 }))

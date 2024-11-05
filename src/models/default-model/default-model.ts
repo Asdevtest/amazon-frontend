@@ -55,8 +55,9 @@ export class DefaultModel extends ModalsModel {
     }
   }
 
-  setRequestStatus(requestStatus: loadingStatus) {
-    this.requestStatus = requestStatus
+  setRequestStatus(requestStatus: loadingStatus, requestStatusField: string = 'requestStatus') {
+    // @ts-ignore
+    this[requestStatusField] = requestStatus
   }
 
   setLoading(value: boolean) {

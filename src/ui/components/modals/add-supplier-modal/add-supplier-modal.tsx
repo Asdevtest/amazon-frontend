@@ -1,6 +1,6 @@
-import { Form } from 'antd'
+import { Avatar, Form } from 'antd'
 import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,14 +9,17 @@ import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 import { Modal } from '@components/shared/modal'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './add-supplier-modal.style'
 import { useStyles as useSharedStyles } from './shared.style'
 
 import { getRequiredRules } from './add-supplier-modal.config'
+import { AddSupplierModalModel } from './add-supplier-modal.model'
 import { FieldType } from './add-supplier-modal.types'
 import { Contacts } from './components/contacts'
 import { SupplierDetails } from './components/supplier-details'
@@ -33,9 +36,24 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
 
   const [form] = Form.useForm<FieldType>()
 
+  const viewModel = useMemo(() => new AddSupplierModalModel(), [])
+
   const handleUploadFiles = (images: UploadFileType[]) => {
     form.setFieldValue('files', images)
   }
+
+  useEffect(() => {
+    form.setFieldsValue({
+      contacts: [
+        {
+          name: 'First',
+          phones: ['UserName'],
+          email: [''],
+          optionals: [''],
+        },
+      ],
+    })
+  }, [])
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
@@ -45,31 +63,29 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
         size="large"
         form={form}
         rootClassName={styles.form} /* onFinish={onFinish} */
-        initialValues={{
-          contacts: [
-            {
-              name: 'First',
-              phones: ['UserName'],
-              email: [''],
-              optionals: [''],
-            },
-          ],
-        }}
       >
         <p className={styles.title}>{t(TranslationKey['Add a supplier'])}</p>
 
-        <SupplierDetails handleUploadFiles={handleUploadFiles} />
+        <SupplierDetails countries={viewModel.countries} handleUploadFiles={handleUploadFiles} />
 
         <Form.Item<FieldType> name="paymentMethods" className={sharedStyles.field} rules={getRequiredRules()}>
           <CustomSelect
             required
             allowClear
+            mode="tags"
+            loading={viewModel.paymentMethodsRequestStatus === loadingStatus.IS_LOADING}
             wrapperClassName={sharedStyles.input}
             label="Payment methods"
-            options={[
-              { label: 'Poland', value: 'poland' },
-              { label: 'Ukraine', value: 'ukraine' },
-            ]}
+            options={viewModel.paymentMethods}
+            fieldNames={{ label: 'title', value: '_id' }}
+            optionRender={option => {
+              return (
+                <div className={sharedStyles.selectOption}>
+                  <Avatar size={20} src={getAmazonImageUrl(option.data.iconImage)} />
+                  <p>{option.data.title}</p>
+                </div>
+              )
+            }}
           />
         </Form.Item>
 
