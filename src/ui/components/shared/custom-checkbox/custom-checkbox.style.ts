@@ -1,27 +1,9 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'start',
-    gap: 5,
-  },
-
   cell: {
     width: '100%',
     padding: '5px 0',
-  },
-
-  row: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-
-  rowRight: {
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
   },
 
   checkbox: {

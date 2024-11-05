@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RadioChangeEvent } from 'antd'
 import { transformAndValidate } from 'class-transformer-validator'
 import { makeObservable, runInAction } from 'mobx'

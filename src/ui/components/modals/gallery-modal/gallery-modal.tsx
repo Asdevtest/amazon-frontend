@@ -22,6 +22,7 @@ export const GalleryModal: FC<GalleryModalProps> = memo(({ files }) => {
       <Header />
 
       <CustomRadioButton
+        block
         size="large"
         options={customSwitcherSettings}
         value={tabValue}

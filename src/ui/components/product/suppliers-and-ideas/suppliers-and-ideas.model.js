@@ -36,9 +36,7 @@ import { isBuyer, isClient } from '@typings/guards/roles'
 
 export class SuppliersAndIdeasModel {
   requestStatus = undefined
-
   currentIdeaId = undefined
-
   curIdea = undefined
   ideaForReject = undefined
   currentProduct = undefined
@@ -46,28 +44,21 @@ export class SuppliersAndIdeasModel {
   currentProposal = undefined
   currentRequest = undefined
   requestTypeTask = undefined
-
   productId = undefined
   updateData = undefined
-
   inCreate = false
   isCreateModal = false
   inEdit = false
   ideasData = []
   ideaIdToRemove = undefined
-
   supplierData = undefined
-
   dataToCreateProduct = undefined
-
   readyFiles = []
   progressValue = 0
   showProgress = false
-
+  shopsData = []
   isCreate = false
-
   showConfirmModal = false
-
   showRequestDesignerResultModal = false
   showMainRequestResultModal = false
   showRequestBloggerResultModal = false
@@ -77,12 +68,10 @@ export class SuppliersAndIdeasModel {
   showSelectionSupplierModal = false
   showCommentsModal = false
   showSelectShopsModal = false
-
   selectedProduct = undefined
   storekeepers = []
   destinations = []
   ordersDataStateToSubmit = undefined
-
   confirmModalSettings = {
     isWarning: false,
     confirmMessage: '',
@@ -296,11 +285,12 @@ export class SuppliersAndIdeasModel {
 
   async onSaveProductData(shop) {
     try {
-      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: shop.id })
-      this.closeModalHandler()
-      this.updateData?.()
+      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: shop._id })
     } catch (error) {
       console.error(error)
+    } finally {
+      this.closeModalHandler()
+      this.updateData?.()
     }
   }
 
