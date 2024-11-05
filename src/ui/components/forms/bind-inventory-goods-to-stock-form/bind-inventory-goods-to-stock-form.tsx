@@ -39,16 +39,14 @@ export const BindInventoryGoodsToStockForm = observer((props: BindInventoryGoods
         />
       </div>
 
-      <div className={styles.transferWrapper}>
-        <TableTransfer
-          dataSource={viewModel.dataWithKeys}
-          targetKeys={viewModel.targetKeys}
-          leftColumns={bindInventoryColumns}
-          rightColumns={bindInventoryColumns}
-          tableHeight={500}
-          onChange={viewModel.onChange}
-        />
-      </div>
+      <TableTransfer
+        dataSource={viewModel.dataWithKeys}
+        targetKeys={viewModel.targetKeys}
+        leftColumns={bindInventoryColumns}
+        rightColumns={bindInventoryColumns}
+        onChange={viewModel.onChange}
+      />
+
       <div className={styles.buttonsWrapper}>
         <CustomButton>{t(TranslationKey.Close)}</CustomButton>
         <CustomButton disabled={!viewModel.targetKeys.length} type="primary" onClick={viewModel.onSubmitBindStockGoods}>

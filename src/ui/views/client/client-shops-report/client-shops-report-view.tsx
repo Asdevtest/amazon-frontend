@@ -20,7 +20,7 @@ import { ControllButtons } from './controll-buttons/controll-buttons'
 
 export const ClientShopsReportView = observer(({ history }: { history: any }) => {
   const viewModel = useMemo(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, history), [])
-
+  const selectedData = viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id))
   return (
     <div className="viewWrapper">
       <ControllButtons
@@ -98,6 +98,7 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindStockGoodsToInventoryModal')}
       >
         <BindStockGoodsToInventoryForm
+          productAsin={selectedData[0]?.asin}
           goodsToSelect={viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id))}
           inventoryData={viewModel.inventoryProducts}
           updateInventoryData={viewModel.getProductsMy}

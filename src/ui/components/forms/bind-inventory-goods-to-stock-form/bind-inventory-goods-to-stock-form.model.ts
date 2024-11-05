@@ -18,6 +18,7 @@ export class BindInventoryGoodsToStockFormModel {
   initialAsin: string
   productId: string
   targetKeys: Key[] = []
+
   constructor(asin: string, productId: string) {
     this.initialAsin = asin
     this.productId = productId
