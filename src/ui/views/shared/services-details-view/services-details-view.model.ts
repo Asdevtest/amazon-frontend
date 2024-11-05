@@ -5,7 +5,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { AnnouncementsModel } from '@models/announcements-model'
 import { DataGridTableModel } from '@models/data-grid-table-model'
 
-import { IFeedback } from '@typings/models/administrators/feedback'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICreatedBy } from '@typings/shared/created-by'
 import { HistoryType } from '@typings/types/history'

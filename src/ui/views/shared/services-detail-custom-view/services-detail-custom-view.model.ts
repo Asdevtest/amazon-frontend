@@ -3,7 +3,6 @@ import { makeAutoObservable, runInAction } from 'mobx'
 import { AnnouncementsModel } from '@models/announcements-model'
 import { RequestModel } from '@models/request-model'
 
-import { IFeedback } from '@typings/models/administrators/feedback'
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 import { ICustomRequest } from '@typings/models/requests/custom-request'
 import { ICreatedBy } from '@typings/shared/created-by'
