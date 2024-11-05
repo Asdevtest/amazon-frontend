@@ -2083,5 +2083,6 @@
   "Author, ASIN, Title, AMZ ID": "Author, ASIN, Title, AMZ ID",
   "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number",
   "Proposal ID": "ID предложения",
-  "Search by Title, ASIN, SKU, ID, Proposal ID": "Поиск по Названию, ASIN, SKU, ID, ID предложения"
+  "Search by Title, ASIN, SKU, ID, Proposal ID": "Поиск по Названию, ASIN, SKU, ID, ID предложения",
+  "Order ID": "ID заказа"
 }

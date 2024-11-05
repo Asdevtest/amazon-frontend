@@ -2084,4 +2084,5 @@ export enum TranslationKey {
   'SKU, Shipment ID, Reference ID, Ship to, Tracking number' = 'SKU, Shipment ID, Reference ID, Ship to, Tracking number',
   'Proposal ID' = 'Proposal ID',
   'Search by Title, ASIN, SKU, ID, Proposal ID' = 'Search by Title, ASIN, SKU, ID, Proposal ID',
+  'Order ID' = 'Order ID',
 }
