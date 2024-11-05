@@ -28,7 +28,7 @@ export const feedbackViewConfig = {
   onUpdateFeedback: action.bound,
 }
 
-export const fieldsForSearch = ['title', 'text']
+export const fieldsForSearch = ['title', 'text', 'xid']
 
 export interface ColumnProps {
   onSelectFeedback: (feedback?: IFeedback, viewMode?: boolean) => void
