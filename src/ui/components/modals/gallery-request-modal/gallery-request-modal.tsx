@@ -70,6 +70,7 @@ export const GalleryRequestModal: FC<GalleryRequestModalProps> = memo(props => {
         </div>
 
         <CustomRadioButton
+          block
           size="large"
           options={customSwitcherSettings}
           value={tabValue}
