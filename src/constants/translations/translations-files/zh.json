@@ -2017,5 +2017,13 @@
   "Optional": "可选",
   "Import products": "导入产品",
   "Proposal ID": "提案 ID",
-  "Search by Title, ASIN, SKU, ID, Proposal ID": "按标题, ASIN, SKU, ID, 提案 ID"
+  "Search by Title, ASIN, SKU, ID, Proposal ID": "按标题, ASIN, SKU, ID, 提案 ID",
+  "Countries": "国家",
+  "Adding a country": "添加国家",
+  "Add a country icon": "添加国家图标",
+  "Country name": "国家名称",
+  "Country successfully saved": "国家已成功保存",
+  "Country is not saved": "国家未保存",
+  "Short country name": "国家简称",
+  "Are you sure you want to delete the country?": "您确定要删除该国家吗?"
 }

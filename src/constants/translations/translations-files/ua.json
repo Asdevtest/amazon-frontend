@@ -2019,5 +2019,13 @@
   "Optional": "Додатково",
   "Import products": "Імпортувати продукти",
   "Proposal ID": "ID пропозиції",
-  "Search by Title, ASIN, SKU, ID, Proposal ID": "Пошук по Назві, ASIN, SKU, ID, ID пропозиції"
+  "Search by Title, ASIN, SKU, ID, Proposal ID": "Пошук по Назві, ASIN, SKU, ID, ID пропозиції",
+  "Countries": "Країни",
+  "Adding a country": "Додавання країни",
+  "Add a country icon": "Додати іконку країни",
+  "Country name": "Назва країни",
+  "Country successfully saved": "Країна успішно збережена",
+  "Country is not saved": "Країну не збережено",
+  "Short country name": "Коротка назва країни",
+  "Are you sure you want to delete the country?": "Ви впевнені, що хочете видалити країну?"
 }

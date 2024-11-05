@@ -2020,5 +2020,13 @@
   "Optional": "Дополнительно",
   "Import products": "Импорт продуктов",
   "Proposal ID": "ID предложения",
-  "Search by Title, ASIN, SKU, ID, Proposal ID": "Поиск по Названию, ASIN, SKU, ID, ID предложения"
+  "Search by Title, ASIN, SKU, ID, Proposal ID": "Поиск по Названию, ASIN, SKU, ID, ID предложения",
+  "Countries": "Страны",
+  "Adding a country": "Добавление страны",
+  "Add a country icon": "Добавить иконку страны",
+  "Country name": "Название страны",
+  "Country successfully saved": "Страна успешно сохранена",
+  "Country is not saved": "Страна не сохранена",
+  "Short country name": "Краткое название страны",
+  "Are you sure you want to delete the country?": "Вы уверены, что хотите удалить страну?"
 }

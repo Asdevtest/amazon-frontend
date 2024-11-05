@@ -2021,4 +2021,12 @@ export enum TranslationKey {
   'Import products' = 'Import products',
   'Proposal ID' = 'Proposal ID',
   'Search by Title, ASIN, SKU, ID, Proposal ID' = 'Search by Title, ASIN, SKU, ID, Proposal ID',
+  'Countries' = 'Countries',
+  'Adding a country' = 'Adding a country',
+  'Add a country icon' = 'Add a country icon',
+  'Country name' = 'Country name',
+  'Country successfully saved' = 'Country successfully saved',
+  'Country is not saved' = 'Country is not saved',
+  'Short country name' = 'Short country name',
+  'Are you sure you want to delete the country?' = 'Are you sure you want to delete the country?',
 }

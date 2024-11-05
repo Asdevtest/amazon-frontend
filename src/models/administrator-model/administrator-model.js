@@ -209,6 +209,21 @@ class AdministratorModelStatic {
     const response = await restApiService.administratorApi.apiV1AdminsSetLaunchPreDeadlineValuePatch(body)
     return response.data
   }
+
+  removeCountry = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsCountriesGuidDelete({ guid })
+    return response.data
+  }
+
+  addCountry = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsCountriesPost({ body })
+    return response.data
+  }
+
+  editCountry = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsCountriesGuidPatch({ guid, body })
+    return response.data
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()
