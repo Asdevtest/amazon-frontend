@@ -40,7 +40,7 @@ export const SelectShopsModal = memo(props => {
             customItemsWrapper={styles.customItemsWrapper}
             customSubMainWrapper={styles.customSubMainWrapper}
             width={340}
-            disabled={!shops.length}
+            disabled={!shops?.length}
             data={sortingShops}
             searchFields={['name']}
             selectedItemName={selectedItemName}
