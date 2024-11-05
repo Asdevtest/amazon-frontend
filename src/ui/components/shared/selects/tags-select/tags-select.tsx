@@ -73,7 +73,7 @@ export const TagsSelect: FC<TagsSelectProps> = memo(props => {
             />
 
             <CustomButton
-              icon={<FiPlus style={{ width: 16, height: 16 }} />}
+              icon={<FiPlus size={16} />}
               onClick={() => {
                 onClickCreateTag(searchValue)
                 setSearchValue('')

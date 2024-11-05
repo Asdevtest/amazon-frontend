@@ -60,13 +60,7 @@ export const Header: FC<HeaderProps> = memo(props => {
 
         {!isArchive && (
           <div className={styles.buttonsSubWrapper}>
-            <CustomButton
-              type="primary"
-              size="large"
-              title={t(TranslationKey['To order selected products'])}
-              disabled={isNoSelectedRows}
-              onClick={onClickOrderBtn}
-            >
+            <CustomButton type="primary" size="large" disabled={isNoSelectedRows} onClick={onClickOrderBtn}>
               {t(TranslationKey['To order'])}
             </CustomButton>
 
@@ -83,20 +77,13 @@ export const Header: FC<HeaderProps> = memo(props => {
             <CustomButton
               type="primary"
               size="large"
-              title={t(TranslationKey['Bind the selected product from the inventory to an item from the store'])}
               disabled={isSelectedRowsNotEqualOne}
               onClick={onClickBindInventoryGoodsToStockBtn}
             >
               {t(TranslationKey['Bind an product from Amazon'])}
             </CustomButton>
 
-            <CustomButton
-              type="primary"
-              size="large"
-              title={t(TranslationKey['Supplier Addition Services'])}
-              disabled={isNoSelectedRows}
-              onClick={onClickAddSupplierBtn}
-            >
+            <CustomButton type="primary" size="large" disabled={isNoSelectedRows} onClick={onClickAddSupplierBtn}>
               {t(TranslationKey['Supplier search'])}
             </CustomButton>
 
@@ -107,7 +94,6 @@ export const Header: FC<HeaderProps> = memo(props => {
             <CustomButton
               type="primary"
               size="large"
-              title={t(TranslationKey['Product batches data'])}
               disabled={isSelectedRowsNotEqualOne}
               onClick={onClickProducDataButton}
             >
@@ -125,7 +111,6 @@ export const Header: FC<HeaderProps> = memo(props => {
               type="primary"
               size="large"
               icon={<FiPlus />}
-              title={t(TranslationKey['Allows you to add your product to inventory'])}
               onClick={() => onTriggerOpenModal('showSendOwnProductModal')}
             >
               {t(TranslationKey.Product)}
@@ -135,12 +120,7 @@ export const Header: FC<HeaderProps> = memo(props => {
 
         {!isArchive && (
           <div className={styles.controlButtonsSubWrapper}>
-            <CustomButton
-              block
-              size="large"
-              title={t(TranslationKey['Deleted product archive'])}
-              onClick={onTriggerArchive}
-            >
+            <CustomButton block size="large" onClick={onTriggerArchive}>
               {t(TranslationKey['Open archive'])}
             </CustomButton>
 
@@ -148,7 +128,6 @@ export const Header: FC<HeaderProps> = memo(props => {
               danger
               block
               size="large"
-              title={t(TranslationKey['Delete the selected product (the product is moved to the archive)'])}
               icon={<ArchiveIcon />}
               disabled={isNoSelectedRows}
               onClick={onClickTriggerArchOrResetProducts}
@@ -160,12 +139,7 @@ export const Header: FC<HeaderProps> = memo(props => {
 
         {isArchive && (
           <div className={styles.controlButtonsSubWrapper}>
-            <CustomButton
-              block
-              size="large"
-              title={t(TranslationKey['Return to inventory with a list of items'])}
-              onClick={onTriggerArchive}
-            >
+            <CustomButton block size="large" onClick={onTriggerArchive}>
               {t(TranslationKey['Open inventory'])}
             </CustomButton>
 
@@ -173,7 +147,6 @@ export const Header: FC<HeaderProps> = memo(props => {
               block
               type="primary"
               size="large"
-              title={t(TranslationKey['Return the selected product to the inventory list'])}
               disabled={isNoSelectedRows}
               onClick={onClickTriggerArchOrResetProducts}
             >

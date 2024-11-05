@@ -80,6 +80,7 @@ export const ClientInventoryView = observer(({ history }) => {
         checkboxSelection
         disableRowSelectionOnClick
         apiRef={apiRef}
+        disableVirtualization={false}
         getCellClassName={getCellClassName}
         pinnedColumns={viewModel.pinnedColumns}
         rowCount={viewModel.rowCount}
@@ -88,7 +89,8 @@ export const ClientInventoryView = observer(({ history }) => {
         columnVisibilityModel={viewModel.columnVisibilityModel}
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
-        getRowHeight={() => 'auto'}
+        columnBufferPx={300}
+        rowHeight={130}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

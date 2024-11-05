@@ -32,7 +32,7 @@ export const NewBoxes = memo(
         <div className={styles.sectionTitleWrapper}>
           <p className={styles.sectionTitle}>{t(TranslationKey['New boxes'])}</p>
 
-          <p className={cx(styles.sectionTitle, styles.redText)}>
+          <p className={cx(styles.sectionTitle, styles.warningText)}>
             {t(TranslationKey['A photo of the Transparency Code sticker'])}
           </p>
         </div>
@@ -48,10 +48,10 @@ export const NewBoxes = memo(
 
         {newBoxes.map((item, index) => (
           <div key={index} className={styles.tableWrapperMobile}>
-            <div className={styles.boxesTitleWrapper}>
-              <p className={styles.boxesTitle}>{t(TranslationKey.Box)}</p>
+            <div>
+              <p>{t(TranslationKey.Box)}</p>
               <IconButton onClick={() => onRemoveBox(item._id)}>
-                <MdDeleteOutline size={24} className={styles.deleteBtn} />
+                <MdDeleteOutline size={24} />
               </IconButton>
             </div>
 
@@ -83,7 +83,7 @@ export const NewBoxes = memo(
             </div>
 
             <div className={styles.tableRow}>
-              <p className={styles.boxTitleMobile}>{t(TranslationKey['Boxes in group'])}</p>
+              <p>{t(TranslationKey['Boxes in group'])}</p>
               <Input
                 classes={{
                   root: cx(styles.inputWrapper, {
@@ -109,7 +109,7 @@ export const NewBoxes = memo(
             <div className={styles.tableRow}>
               <p className={styles.boxTitleMobile}>{t(TranslationKey.Sizes)}</p>
               <div className={styles.sizeWrapper}>
-                <p className={styles.sizeTitle}>{t(TranslationKey.L) + ': '}</p>
+                <p>{t(TranslationKey.L) + ': '}</p>
 
                 <Input
                   classes={{
@@ -124,7 +124,7 @@ export const NewBoxes = memo(
                 />
               </div>
               <div className={styles.sizeWrapper}>
-                <p className={styles.sizeTitle}>{t(TranslationKey.W) + ': '}</p>
+                <p>{t(TranslationKey.W) + ': '}</p>
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
@@ -138,7 +138,7 @@ export const NewBoxes = memo(
                 />
               </div>
               <div className={styles.sizeWrapper}>
-                <p className={styles.sizeTitle}>{t(TranslationKey.H) + ': '}</p>
+                <p>{t(TranslationKey.H) + ': '}</p>
                 <Input
                   classes={{
                     root: cx(styles.inputWrapper, {
@@ -186,7 +186,7 @@ export const NewBoxes = memo(
               />
             </div>
 
-            <div className={styles.footerBtnsWrapper}>
+            <div>
               <CustomButton icon={<FiPlus size={16} />} onClick={() => addDouble(item._id)}></CustomButton>
 
               <CustomButton onClick={() => onAddImages(item._id)}>{t(TranslationKey.Photos)}</CustomButton>

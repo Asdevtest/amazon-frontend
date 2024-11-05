@@ -20,10 +20,7 @@ export const SortIndicator: FC<SortIndicatorProps> = memo(({ sortType, onClickSo
 
   return (
     <div className={styles.root}>
-      <CustomButton
-        className={styles.button}
-        onClick={() => onClickSort(undefined, isAsc ? SortSettingsMode.DESC : SortSettingsMode.ASC)}
-      >
+      <CustomButton onClick={() => onClickSort(undefined, isAsc ? SortSettingsMode.DESC : SortSettingsMode.ASC)}>
         <div className={cx(styles.indicatorWrapper, { [styles.ascIndicator]: isAsc, [styles.descIndicator]: !isAsc })}>
           <div />
           <div />

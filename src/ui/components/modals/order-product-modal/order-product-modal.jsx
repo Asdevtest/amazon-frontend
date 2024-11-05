@@ -494,19 +494,7 @@ export const OrderProductModal = memo(props => {
           </div>
         ) : null}
 
-        <CustomButton
-          title={
-            !disabledSubmit
-              ? t(TranslationKey['Complete the order (freezes the required amount of the order from the balance)'])
-              : t(
-                  TranslationKey[
-                    'Choose the most efficient rate, split batches into multiple purchases if you need to ship to different warehouses'
-                  ],
-                )
-          }
-          disabled={disabledSubmit}
-          onClick={onClickSubmit}
-        >
+        <CustomButton disabled={disabledSubmit} onClick={onClickSubmit}>
           {t(TranslationKey['Order a batch of products'])}
         </CustomButton>
 

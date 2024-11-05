@@ -180,6 +180,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '10px 20px 0',
     display: 'flex',
     justifyContent: 'space-between',
+    gap: '10px',
   },
 
   amazonTitle: {
@@ -265,6 +266,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   checkboxContainer: {
-    margin: 0,
+    justifyContent: 'space-between',
   },
 }))

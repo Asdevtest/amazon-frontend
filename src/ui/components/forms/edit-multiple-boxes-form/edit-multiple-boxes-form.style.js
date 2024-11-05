@@ -32,7 +32,7 @@ export const useStyles = makeStyles()(theme => ({
 
   checkboxContainer: {
     marginBottom: 10,
-    alignItems: 'flex-end',
+    justifyContent: 'space-between',
   },
 
   modalTitleWrapper: {

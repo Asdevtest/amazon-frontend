@@ -47,15 +47,4 @@ export const useStyles = makeStyles()(theme => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
   },
-
-  crossButton: {
-    width: '16px !important',
-    height: '16px !important',
-    minWidth: '16px !important',
-  },
-
-  crossIcon: {
-    width: '8px !important',
-    height: '8px !important',
-  },
 }))

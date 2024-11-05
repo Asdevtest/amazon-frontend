@@ -627,15 +627,12 @@ export const EditBoxForm = memo(
         <div className={styles.buttonsWrapper}>
           <CustomButton
             disabled={disableSubmit}
-            title={t(TranslationKey['Save changes to the box'])}
             onClick={() => onSubmit(formItem?._id, getBoxDataToSubmit(), formItem, priority, priorityReason)}
           >
             {t(TranslationKey.Save)}
           </CustomButton>
 
-          <CustomButton title={t(TranslationKey['Close the form without saving'])} onClick={onTriggerOpenModal}>
-            {t(TranslationKey.Close)}
-          </CustomButton>
+          <CustomButton onClick={onTriggerOpenModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
 
         <Modal

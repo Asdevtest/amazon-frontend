@@ -153,11 +153,7 @@ export const RequestToSendBatchForm = observer(
             </p>
           ) : null}
 
-          <CustomButton
-            disabled={disabledSubmit}
-            title={t(TranslationKey['Create a request to send to the batch, freeze funds, then see "My batches"'])}
-            onClick={onClickSubmit}
-          >
+          <CustomButton disabled={disabledSubmit} onClick={onClickSubmit}>
             {t(TranslationKey.Send)}
           </CustomButton>
           <CustomButton onClick={closeModal}>{t(TranslationKey.Close)}</CustomButton>

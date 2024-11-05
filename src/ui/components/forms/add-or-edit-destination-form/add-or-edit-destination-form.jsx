@@ -143,7 +143,7 @@ export const AddOrEditDestinationForm = observer(
 
         <div className={styles.footerWrapper}>
           {onClickAddBtn ? (
-            <CustomButton type="primary" title={t(TranslationKey['Add a new rate'])} onClick={onClickAddBtn}>
+            <CustomButton type="primary" onClick={onClickAddBtn}>
               {t(TranslationKey.Add)}
             </CustomButton>
           ) : null}

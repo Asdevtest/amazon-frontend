@@ -130,7 +130,6 @@ export const ProposalsSlider = ({
           <div className={styles.buttons}>
             {onClickDeleteBtn ? (
               <CustomButton
-                title={isFirst && t(TranslationKey['Cancel current proposal'])}
                 disabled={disabledCancelBtnStatuses.includes(currentProposal?.status)}
                 className={styles.button}
                 onClick={() => onClickDeleteBtn(currentProposal)}
@@ -151,7 +150,6 @@ export const ProposalsSlider = ({
 
             {onClickEditBtn ? (
               <CustomButton
-                title={isFirst && t(TranslationKey['Change the current proposal'])}
                 disabled={!noDisabledEditBtnStatuses.includes(currentProposal?.status)}
                 className={styles.button}
                 onClick={() => onClickEditBtn(item, currentProposal)}
@@ -161,11 +159,7 @@ export const ProposalsSlider = ({
             ) : null}
 
             {onClickOpenBtn ? (
-              <CustomButton
-                title={isFirst && t(TranslationKey['Open an request for the selected proposal'])}
-                className={styles.button}
-                onClick={() => onClickOpenBtn(item)}
-              >
+              <CustomButton className={styles.button} onClick={() => onClickOpenBtn(item)}>
                 {t(TranslationKey['Open a request'])}
               </CustomButton>
             ) : null}
