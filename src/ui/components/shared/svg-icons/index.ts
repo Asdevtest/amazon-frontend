@@ -25,7 +25,6 @@ export { DashboardIcon } from '@components/shared/svg-icons/dashboard-icon/dashb
 export { DeleteIcon } from '@components/shared/svg-icons/delete-icon/delete-icon'
 export { DiagramIcon } from '@components/shared/svg-icons/diagram-icon/diagram-icon'
 export { DollarIcon } from '@components/shared/svg-icons/dollar-icon/dollar-icon'
-export { DownloadAll } from '@components/shared/svg-icons/download-all/download-all'
 export { DownloadArchiveIcon } from '@components/shared/svg-icons/download-archive-icon/download-archive-icon'
 export { DownloadRoundIcon } from '@components/shared/svg-icons/download-round-icon/download-round-icon'
 export { EditIcon } from '@components/shared/svg-icons/edit-icon/edit-icon'

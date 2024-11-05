@@ -1,4 +1,4 @@
-import { GridRowModel } from '@mui/x-data-grid-premium'
+import { GridCellParams, GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { colorByTaskPriorityStatus, taskPriorityStatusTranslate } from '@constants/task/task-priority-status'
@@ -59,6 +59,16 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
     : null
 
   const columns: IGridColumn[] = [
+    {
+      field: 'xid',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.xid} />,
+
+      width: 120,
+      disableCustomSort: true,
+    },
+
     {
       field: 'action',
       headerName: t(TranslationKey.Action),

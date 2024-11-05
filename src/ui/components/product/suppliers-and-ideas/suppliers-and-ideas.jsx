@@ -363,7 +363,7 @@ export const SuppliersAndIdeas = observer(props => {
           title={t(TranslationKey['Link a store to a product'])}
           shops={shopsData}
           onClickSuccessBtn={onSaveProductData}
-          onClickCancelBtn={() => onTriggerOpenModal('showSelectShopsModal')}
+          onClickCancelBtn={onClickCancelBtn}
         />
       </Modal>
 
