@@ -115,7 +115,9 @@ export const SuppliersView: FC = observer(() => {
         onPinnedColumnsChange={viewModel.handlePinColumn}
       />
 
-      <AddSupplierModal openModal={viewModel.showAddSupplierModal} setOpenModal={onCloseAddSupplierModal} />
+      {viewModel.showAddSupplierModal ? (
+        <AddSupplierModal openModal={viewModel.showAddSupplierModal} setOpenModal={onCloseAddSupplierModal} />
+      ) : null}
     </div>
   )
 })
