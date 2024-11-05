@@ -11,7 +11,6 @@ export class SourceFilesViewModel {
 
   get currentData() {
     if (this.nameSearchValue) {
-      console.log(this.nameSearchValue)
       return this.sourceFiles.filter(
         el =>
           el?.proposal?.request?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
