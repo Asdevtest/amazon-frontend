@@ -11,10 +11,6 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'flex-start',
 
     width: 'calc(100% / 4)',
-  },
-
-  input: {
-    width: 'unset',
 
     '.icon': {
       display: 'none',
@@ -25,5 +21,9 @@ export const useStyles = makeStyles()(() => ({
         display: 'block',
       },
     },
+  },
+
+  input: {
+    width: 'unset',
   },
 }))
