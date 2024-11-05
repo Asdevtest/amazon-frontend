@@ -200,15 +200,7 @@ export const OrderContent = ({
       <div className={styles.btnsWrapper}>
         {(updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] || (isClient && isOrderEditable)) &&
           onClickCancelOrder && (
-            <CustomButton
-              danger
-              type="primary"
-              title={
-                updatedOrder.status === OrderStatusByKey[OrderStatus.READY_TO_PROCESS] &&
-                t(TranslationKey['Cancel order, refund of frozen funds'])
-              }
-              onClick={onClickCancelOrder}
-            >
+            <CustomButton danger type="primary" onClick={onClickCancelOrder}>
               {t(TranslationKey['Cancel order'])}
             </CustomButton>
           )}

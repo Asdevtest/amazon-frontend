@@ -108,14 +108,6 @@ export const useStyles = makeStyles()(theme => ({
     backgroundcolor: theme.palette.text.general,
   },
 
-  checkboxContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '0 !important',
-    width: '100%',
-  },
-
   orderInput: {
     width: '120px',
   },

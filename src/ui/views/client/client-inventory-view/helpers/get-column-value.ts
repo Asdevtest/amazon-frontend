@@ -18,16 +18,10 @@ export const getColumnValue = ({
   const columns = params.row?.reports?.[table]
   let value: unknown = 0
 
-  if (Array.isArray(columns)) {
-    const lastColumn = columns[columns.length - 1]
-
-    if (type === 'date') {
-      value = formatDateWithoutTime(lastColumn?.[name])
-    } else {
-      value = lastColumn?.[name]
-    }
-  } else if (isCounter) {
+  if (isCounter) {
     value = columns
+  } else if (type === 'boolean') {
+    columns?.[name] ? (value = 'Yes') : (value = 'No')
   } else if (type === 'date') {
     value = formatDateWithoutTime(columns?.[name])
   } else {

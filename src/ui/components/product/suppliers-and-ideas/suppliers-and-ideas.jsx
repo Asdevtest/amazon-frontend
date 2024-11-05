@@ -2,7 +2,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -132,12 +131,7 @@ export const SuppliersAndIdeas = observer(props => {
     <div className={styles.mainWrapper}>
       {showAddProductIdeaButton && (
         <div className={styles.btnsWrapper}>
-          <CustomButton
-            type="primary"
-            disabled={!!product.parentProductId}
-            title={product.parentProductId ? t(TranslationKey['This product has a parent product']) : ''}
-            onClick={onCreateIdea}
-          >
+          <CustomButton type="primary" disabled={!!product.parentProductId} onClick={onCreateIdea}>
             {t(TranslationKey['Add a product idea'])}
           </CustomButton>
         </div>
@@ -369,7 +363,7 @@ export const SuppliersAndIdeas = observer(props => {
           title={t(TranslationKey['Link a store to a product'])}
           shops={shopsData}
           onClickSuccessBtn={onSaveProductData}
-          onClickCancelBtn={() => onTriggerOpenModal('showSelectShopsModal')}
+          onClickCancelBtn={onClickCancelBtn}
         />
       </Modal>
 

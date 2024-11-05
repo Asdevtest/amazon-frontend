@@ -2,7 +2,7 @@
 import { FC, memo, useEffect, useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import { Checkbox, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,6 +15,7 @@ import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -266,85 +267,54 @@ export const Box: FC<BoxProps> = memo(props => {
 
                   {isStorekeeper(userInfo.role) ? (
                     <div>
-                      <Field
-                        oneLine
-                        labelClasses={styles.label}
-                        tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
-                        containerClasses={styles.checkboxContainer}
-                        label={t(TranslationKey['The barcode is glued by the supplier'])}
-                        inputComponent={
-                          <Checkbox
-                            disabled={isBarCodeMissing(order)}
-                            checked={order.isBarCodeAlreadyAttachedByTheSupplier}
-                            onClick={() =>
-                              onChangeBarcodeGlued(
-                                order,
-                                'isBarCodeAlreadyAttachedByTheSupplier',
-                              )(!order.isBarCodeAlreadyAttachedByTheSupplier)
-                            }
-                          />
+                      <CustomCheckbox
+                        disabled={isBarCodeMissing(order)}
+                        tooltip="The supplier has glued the barcode before shipment"
+                        checked={order.isBarCodeAlreadyAttachedByTheSupplier}
+                        onClick={() =>
+                          onChangeBarcodeGlued(
+                            order,
+                            'isBarCodeAlreadyAttachedByTheSupplier',
+                          )(!order.isBarCodeAlreadyAttachedByTheSupplier)
                         }
-                      />
+                      >
+                        The barcode is glued by the supplier
+                      </CustomCheckbox>
+                      <CustomCheckbox
+                        disabled={isBarCodeMissing(order)}
+                        tooltip="The barcode was glued on when the box was accepted at the prep center"
+                        checked={order.isBarCodeAttachedByTheStorekeeper}
+                        onClick={() =>
+                          onChangeBarcodeGlued(
+                            order,
+                            'isBarCodeAttachedByTheStorekeeper',
+                          )(!order.isBarCodeAttachedByTheStorekeeper)
+                        }
+                      >
+                        The barcode is glued by the Storekeeper
+                      </CustomCheckbox>
+                      <CustomCheckbox
+                        disabled={isTransparencyFileMissing(order)}
+                        checked={order.isTransparencyFileAlreadyAttachedByTheSupplier}
+                        onChange={e =>
+                          onChangeBarcodeGlued(
+                            order,
+                            'isTransparencyFileAlreadyAttachedByTheSupplier',
+                          )(e.target.checked)
+                        }
+                      >
+                        Transparency Codes glued by the supplier
+                      </CustomCheckbox>
 
-                      <Field
-                        oneLine
-                        labelClasses={styles.label}
-                        tooltipInfoContent={t(
-                          TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
-                        )}
-                        containerClasses={styles.checkboxContainer}
-                        label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
-                        inputComponent={
-                          <Checkbox
-                            disabled={isBarCodeMissing(order)}
-                            checked={order.isBarCodeAttachedByTheStorekeeper}
-                            onClick={() =>
-                              onChangeBarcodeGlued(
-                                order,
-                                'isBarCodeAttachedByTheStorekeeper',
-                              )(!order.isBarCodeAttachedByTheStorekeeper)
-                            }
-                          />
+                      <CustomCheckbox
+                        disabled={isTransparencyFileMissing(order)}
+                        checked={order.isTransparencyFileAttachedByTheStorekeeper}
+                        onChange={e =>
+                          onChangeBarcodeGlued(order, 'isTransparencyFileAttachedByTheStorekeeper')(e.target.checked)
                         }
-                      />
-
-                      <Field
-                        oneLine
-                        labelClasses={styles.label}
-                        containerClasses={styles.checkboxContainer}
-                        label={t(TranslationKey['Transparency Codes glued by the supplier'])}
-                        inputComponent={
-                          <Checkbox
-                            disabled={isTransparencyFileMissing(order)}
-                            checked={order.isTransparencyFileAlreadyAttachedByTheSupplier}
-                            onChange={e =>
-                              onChangeBarcodeGlued(
-                                order,
-                                'isTransparencyFileAlreadyAttachedByTheSupplier',
-                              )(e.target.checked)
-                            }
-                          />
-                        }
-                      />
-
-                      <Field
-                        oneLine
-                        labelClasses={styles.label}
-                        containerClasses={styles.checkboxContainer}
-                        label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
-                        inputComponent={
-                          <Checkbox
-                            disabled={isTransparencyFileMissing(order)}
-                            checked={order.isTransparencyFileAttachedByTheStorekeeper}
-                            onChange={e =>
-                              onChangeBarcodeGlued(
-                                order,
-                                'isTransparencyFileAttachedByTheStorekeeper',
-                              )(e.target.checked)
-                            }
-                          />
-                        }
-                      />
+                      >
+                        Transparency Codes are glued by storekeeper
+                      </CustomCheckbox>
                     </div>
                   ) : null}
                 </div>
@@ -444,19 +414,13 @@ export const Box: FC<BoxProps> = memo(props => {
               />
 
               {isStorekeeper(userInfo.role) ? (
-                <Field
-                  oneLine
-                  labelClasses={styles.label}
-                  label={t(TranslationKey['Shipping label was glued to the warehouse'])}
-                  inputComponent={
-                    <Checkbox
-                      disabled={isShippingLabelMissing(box)}
-                      color="primary"
-                      checked={box.isShippingLabelAttachedByStorekeeper}
-                      onChange={e => onChangeField(e, 'isShippingLabelAttachedByStorekeeper', box._id)}
-                    />
-                  }
-                />
+                <CustomCheckbox
+                  disabled={isShippingLabelMissing(box)}
+                  checked={box.isShippingLabelAttachedByStorekeeper}
+                  onChange={e => onChangeField(e, 'isShippingLabelAttachedByStorekeeper', box._id)}
+                >
+                  Shipping label was glued to the warehouse
+                </CustomCheckbox>
               ) : null}
             </div>
           ) : null}

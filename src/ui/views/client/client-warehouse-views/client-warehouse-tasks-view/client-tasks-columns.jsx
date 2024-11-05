@@ -20,6 +20,16 @@ import { t } from '@utils/translations'
 export const clientTasksViewColumns = handlers => {
   const columns = [
     {
+      field: 'xid',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: params => <Text isCell text={params.row?.xid} />,
+
+      width: 120,
+      disableCustomSort: true,
+    },
+
+    {
       field: 'action',
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,

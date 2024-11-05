@@ -30,11 +30,6 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'flex-start',
   },
 
-  addButton: {
-    padding: 0,
-    height: 'max-content',
-  },
-
   buttons: {
     display: 'flex',
     justifyContent: 'space-between',

@@ -64,7 +64,7 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
           allowClear
           size="large"
           wrapperClassName={styles.searchInput}
-          placeholder="Search by ASIN, Order ID, Item, Track number"
+          placeholder="Search by ASIN, Order ID, Item, Track number, ID"
           onSearch={viewModel.onSearchSubmit}
         />
 

@@ -58,7 +58,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
 
   return (
     <div>
-      <CustomButton className={cx(className)} icon={<IoSettingsOutline size={16} />} onClick={handleClick}>
+      <CustomButton className={className} icon={<IoSettingsOutline size={16} />} onClick={handleClick}>
         {t(TranslationKey.Parameters)}
       </CustomButton>
 

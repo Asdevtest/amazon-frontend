@@ -125,7 +125,6 @@ export const FieldsAndSuppliers = memo(props => {
 
               {!checkIsBuyer(curUserRole) ? (
                 <CustomButton
-                  title={t(TranslationKey['Fills the card with the necessary information'])}
                   disabled={curUserRole === UserRole.ADMIN}
                   onClick={() => {
                     // onClickParseProductData(ProductDataParser.AMAZON, product)
@@ -145,20 +144,11 @@ export const FieldsAndSuppliers = memo(props => {
                 !product?.archive &&
                 clientToEditStatuses.includes(productBase.status) &&
                 (edit ? (
-                  <CustomButton
-                    title={t(TranslationKey['Open the field to edit the link'])}
-                    disabled={!checkIsClient(curUserRole)}
-                    onClick={() => setEdit(!edit)}
-                  >
+                  <CustomButton disabled={!checkIsClient(curUserRole)} onClick={() => setEdit(!edit)}>
                     {t(TranslationKey.Edit)}
                   </CustomButton>
                 ) : (
-                  <CustomButton
-                    type="primary"
-                    title={t(TranslationKey['Saves a link to an Amazon product'])}
-                    disabled={!checkIsClient(curUserRole)}
-                    onClick={() => setEdit(!edit)}
-                  >
+                  <CustomButton type="primary" disabled={!checkIsClient(curUserRole)} onClick={() => setEdit(!edit)}>
                     {t(TranslationKey.Save)}
                   </CustomButton>
                 ))}
@@ -463,7 +453,7 @@ export const FieldsAndSuppliers = memo(props => {
               {checkIsClient(curUserRole) && !product?.parentProductId && (
                 <CustomButton
                   size="small"
-                  icon={<FiPlus style={{ width: 16, height: 16 }} />}
+                  icon={<FiPlus size={16} />}
                   onClick={() => onTriggerOpenModal('showBindProductModal')}
                 />
               )}
@@ -503,7 +493,7 @@ export const FieldsAndSuppliers = memo(props => {
           </div>
         ) : checkIsClient(curUserRole) ? (
           <CustomButton onClick={() => onTriggerOpenModal('showBindProductModal')}>
-            <FiPlus style={{ width: 16, height: 16 }} />
+            <FiPlus size={16} />
             {t(TranslationKey['Add product linkage'])}
           </CustomButton>
         ) : null}

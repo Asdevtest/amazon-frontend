@@ -20,15 +20,8 @@ export const Buttons: FC<ButtonsProps> = memo(({ disabled, onClick, buttonText }
 
   return (
     <div className={styles.wrapper}>
-      <CustomButton disabled={disabled} onClick={onClick}>
-        {buttonText ? (
-          buttonText
-        ) : (
-          <>
-            <FiPlus style={{ width: 16, height: 16 }} />
-            {t(TranslationKey['Add to request'])}
-          </>
-        )}
+      <CustomButton icon={!buttonText && <FiPlus size={16} />} disabled={disabled} onClick={onClick}>
+        {buttonText || t(TranslationKey['Add to request'])}
       </CustomButton>
     </div>
   )

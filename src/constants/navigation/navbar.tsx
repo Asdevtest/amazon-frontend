@@ -861,6 +861,19 @@ export const navbarConfig = {
         checkGroupPermissions(permissionsKeys.buyer.SHOW_PRODUCTS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
     },
+
+    {
+      icon: IdeasIcon,
+      title: () => t(TranslationKey.Ideas),
+      route: '/buyer/ideas',
+      subtitles: null,
+      key: navBarActiveCategory.NAVBAR_IDEAS,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_IDEAS_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_IDEAS_BUYER),
+    },
+
     {
       icon: SearchIcon,
       title: () => t(TranslationKey['Supplier search']),

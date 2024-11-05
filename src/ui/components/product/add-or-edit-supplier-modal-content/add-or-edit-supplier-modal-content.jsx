@@ -234,7 +234,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
           <div className={styles.saveBtnWrapperClient}>
             <CustomButton
               type="primary"
-              title={t(TranslationKey['Saves the current supplier to the selected product'])}
               disabled={diasabledSubmit}
               onClick={() => {
                 onClickSaveBtn({
@@ -250,7 +249,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
             </CustomButton>
             <CustomButton
               type="primary"
-              title={t(TranslationKey['Saves the supplier and opens the form for adding a new one'])}
               disabled={diasabledSubmit}
               onClick={() => {
                 onClickSaveBtn({
@@ -277,7 +275,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
       return (
         <div className={styles.buttonsWrapper}>
           <CustomButton
-            title={t(TranslationKey['Saves data about the supplier'])}
             disabled={diasabledSubmit}
             onClick={() => {
               onClickSaveBtn({
@@ -291,9 +288,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           >
             {t(TranslationKey.Save)}
           </CustomButton>
-          <CustomButton title={t(TranslationKey['Cancel supplier creation/change'])} onClick={onTriggerShowModal}>
-            {t(TranslationKey.Close)}
-          </CustomButton>
+          <CustomButton onClick={onTriggerShowModal}>{t(TranslationKey.Close)}</CustomButton>
         </div>
       )
     }
@@ -904,11 +899,6 @@ export const AddOrEditSupplierModalContent = memo(props => {
       {product && storekeepersData?.length ? (
         <div className={styles.calculationBtnWrapper}>
           <CustomButton
-            title={
-              !product ||
-              !storekeepersData?.length ||
-              (!boxPropertiesIsFullAndMainsValues && t(TranslationKey['Not enough data']))
-            }
             disabled={!product || !storekeepersData || !boxPropertiesIsFullAndMainsValues}
             onClick={() => setShowSupplierApproximateCalculationsModal(!showSupplierApproximateCalculationsModal)}
           >

@@ -21,7 +21,6 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
         <CustomButton
           size="large"
           type="primary"
-          title={t(TranslationKey['Assign several product cards to a Supervisor'])}
           disabled={viewModel.selectedRows.length === 0}
           onClick={viewModel.onPickUpSomeItems}
         >

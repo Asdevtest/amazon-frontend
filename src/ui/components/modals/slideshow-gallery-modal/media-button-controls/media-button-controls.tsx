@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react'
-import { ChangeEvent, FC } from 'react'
-import { BsDownload, BsFileEarmarkArrowDown } from 'react-icons/bs'
+import { ChangeEvent, FC, useState } from 'react'
+import { BsDownload } from 'react-icons/bs'
 import { MdAutorenew, MdDeleteOutline, MdOutlineModeEdit, MdOutlineStar, MdZoomOutMap } from 'react-icons/md'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { DownloadAll } from '@components/shared/svg-icons'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 
 import { checkIsImageLink } from '@utils/checks'
 
@@ -44,26 +44,21 @@ export const MediaButtonControls: FC<MediaButtonControlsProps> = observer(props 
 
   const { classes: styles, cx } = useStyles()
 
+  const [downloadAll, setDownloadAll] = useState(false)
+
   const isImageType = checkIsImageLink(isString(mediaFile) ? mediaFile : '.' + mediaFile?.file?.name) // checkIsImageLink accepts .extension
 
-  const downloadMenuItems = [
-    {
-      key: 'download',
-      label: <BsFileEarmarkArrowDown size={20} />,
-      onClick: () => onDownloadFile(mediaFile),
-    },
-    {
-      key: 'download-all',
-      label: <DownloadAll className={styles.icon} />,
-      onClick: onDownloadFiles,
-    },
-  ]
+  const handleDownload = () => {
+    downloadAll ? onDownloadFiles() : onDownloadFile(mediaFile)
+    setDownloadAll(false)
+  }
 
   return (
     <div className={styles.controls}>
-      <div>
-        <CustomButton dropdown type="primary" menuItems={downloadMenuItems} icon={<BsDownload size={20} />} />
-      </div>
+      <CustomCheckbox checked={downloadAll} onChange={e => setDownloadAll(e.target.checked)}>
+        Select all
+      </CustomCheckbox>
+      <CustomButton icon={<BsDownload size={16} onClick={handleDownload} />} />
 
       <CustomButton icon={<MdZoomOutMap size={20} />} onClick={onOpenImageZoomModal} />
 

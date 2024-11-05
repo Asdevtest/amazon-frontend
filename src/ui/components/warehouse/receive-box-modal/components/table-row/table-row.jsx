@@ -2,7 +2,7 @@ import { memo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 
-import { IconButton, TableCell, TableRow } from '@mui/material'
+import { TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -176,7 +176,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
 
       <TableCell>
         <CustomButton onClick={() => handlers.addDouble(item._id)}>
-          <FiPlus style={{ width: 16, height: 16 }} />
+          <FiPlus size={16} />
         </CustomButton>
       </TableCell>
 
