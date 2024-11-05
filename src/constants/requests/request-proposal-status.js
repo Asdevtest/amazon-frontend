@@ -215,8 +215,8 @@ export const showResultRequestProposalsStatuses = [
 ]
 
 export const inProgressRequestProposalsStatuses = [
-  RequestProposalStatus.DRAFT,
-  RequestProposalStatus.IN_PROCESS,
-  RequestProposalStatus.PUBLISHED,
-  RequestProposalStatus.EXPIRED,
+  MyRequestStatus.DRAFT,
+  MyRequestStatus.IN_PROCESS,
+  MyRequestStatus.PUBLISHED,
+  MyRequestStatus.EXPIRED,
 ]
