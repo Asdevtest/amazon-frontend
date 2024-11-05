@@ -33,14 +33,14 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
+  const placeholderText = placeholder
+    ? `${t(TranslationKey[placeholder as TranslationKey])}${required ? '*' : ''}`
+    : undefined
+  const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
+
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
-      {label ? (
-        <p className={cx(styles.label, labelClassName)}>
-          {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>*</span> : null}
-        </p>
-      ) : null}
+      {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
       <Input.TextArea
         {...restProps}
         rows={rows}
@@ -48,7 +48,7 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
         autoSize={readOnly && { maxRows: rows, minRows: 1 }}
         className={cx(className, { [styles.readOnly]: readOnly })}
         style={{ resize: resize ? 'vertical' : 'none' }}
-        placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
+        placeholder={placeholderText}
         onKeyDown={event => event.stopPropagation()}
       />
     </div>

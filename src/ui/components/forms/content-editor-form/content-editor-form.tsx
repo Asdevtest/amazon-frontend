@@ -83,7 +83,7 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
           }),
         ]}
       >
-        <CustomInput fullWidth placeholder="Title" />
+        <CustomInput fullWidth required placeholder="Title" />
       </Form.Item>
 
       <Form.Item<EditorFormFieldData>
@@ -103,7 +103,7 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
           }),
         ]}
       >
-        <CustomTextarea rows={6} placeholder="Description" />
+        <CustomTextarea required rows={6} placeholder="Description" />
       </Form.Item>
 
       {showMediaBlock ? (
