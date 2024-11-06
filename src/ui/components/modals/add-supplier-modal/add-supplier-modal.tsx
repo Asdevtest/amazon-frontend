@@ -20,7 +20,7 @@ import { useStyles as useSharedStyles } from './shared.style'
 
 import { getRequiredRules } from './add-supplier-modal.config'
 import { AddSupplierModalModel } from './add-supplier-modal.model'
-import { FieldType } from './add-supplier-modal.types'
+import { CreateSupplier } from './add-supplier-modal.types'
 import { Contacts } from './components/contacts'
 import { SupplierDetails } from './components/supplier-details'
 
@@ -34,22 +34,29 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
   const { classes: styles } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
-  const [form] = Form.useForm<FieldType>()
+  const [form] = Form.useForm<CreateSupplier>()
 
   const viewModel = useMemo(() => new AddSupplierModalModel(), [])
 
   const handleUploadFiles = (images: UploadFileType[]) => {
-    form.setFieldValue('files', images)
+    form.setFieldValue('companyLogo', images)
+    form.validateFields(['companyLogo'])
+  }
+
+  const onFinish = async (value: CreateSupplier) => {
+    await viewModel.createSupplier(value)
+
+    // setOpenModal(false)
   }
 
   useEffect(() => {
     form.setFieldsValue({
-      contacts: [
+      supplierEmployees: [
         {
           name: 'First',
-          phones: ['UserName'],
-          email: [''],
-          optionals: [''],
+          contacts: ['UserName'],
+          links: [''],
+          phoneNumbers: [''],
         },
       ],
     })
@@ -57,18 +64,12 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <Form
-        clearOnDestroy
-        name="supplier"
-        size="large"
-        form={form}
-        rootClassName={styles.form} /* onFinish={onFinish} */
-      >
+      <Form clearOnDestroy name="supplier" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
         <p className={styles.title}>{t(TranslationKey['Add a supplier'])}</p>
 
         <SupplierDetails countries={viewModel.countries} handleUploadFiles={handleUploadFiles} />
 
-        <Form.Item<FieldType> name="paymentMethods" className={sharedStyles.field} rules={getRequiredRules()}>
+        <Form.Item<CreateSupplier> name="paymentMethods" className={sharedStyles.field} rules={getRequiredRules()}>
           <CustomSelect
             required
             allowClear
@@ -91,7 +92,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
 
         <Contacts />
 
-        <Form.Item<FieldType> name="description" className={sharedStyles.field}>
+        <Form.Item<CreateSupplier> name="comment" className={sharedStyles.field}>
           <CustomTextarea size="large" rows={4} label="Description" placeholder="Description" />
         </Form.Item>
 

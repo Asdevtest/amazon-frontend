@@ -9,4 +9,5 @@ export const observerConfig = {
 
   getSuppliersPaymentMethods: action.bound,
   getCountries: action.bound,
+  createSupplier: action.bound,
 }

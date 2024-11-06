@@ -41,4 +41,6 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
   onClickCreateSupplier() {
     this.onTriggerOpenModal('showAddSupplierModal', true)
   }
+
+  
 }

@@ -2,17 +2,17 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 export interface Contact {
   name: string
-  phones: string[]
-  email: string[]
-  optionals: string[]
+  contacts: string[]
+  links: string[]
+  phoneNumbers: string[]
 }
 
-export interface FieldType {
-  title: string
-  country: string
+export interface CreateSupplier {
+  companyName: string
   link: string
-  files: UploadFileType[]
+  companyLogo: UploadFileType[]
+  countryId: string
+  comment: string
   paymentMethods: string[]
-  contacts: Contact[]
-  description: string
+  supplierEmployees: Contact[]
 }

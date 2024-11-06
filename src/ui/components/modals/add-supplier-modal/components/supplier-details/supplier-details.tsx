@@ -14,7 +14,7 @@ import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './supplier-details.style'
 
 import { getRequiredRules } from '../../add-supplier-modal.config'
-import { FieldType } from '../../add-supplier-modal.types'
+import { CreateSupplier } from '../../add-supplier-modal.types'
 
 interface SupplierDetailsProps {
   countries: ICountry[]
@@ -35,7 +35,7 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ countries, hand
   return (
     <div className={styles.root}>
       <div className={styles.supplierDetailsWrapper}>
-        <Form.Item<FieldType> name="title" className={sharedStyles.field} rules={getRequiredRules()}>
+        <Form.Item<CreateSupplier> name="companyName" className={sharedStyles.field} rules={getRequiredRules()}>
           <CustomInput
             required
             allowClear
@@ -46,7 +46,7 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ countries, hand
           />
         </Form.Item>
 
-        <Form.Item<FieldType> name="country" className={sharedStyles.field} rules={getRequiredRules()}>
+        <Form.Item<CreateSupplier> name="countryId" className={sharedStyles.field} rules={getRequiredRules()}>
           <CustomSelect
             required
             allowClear
@@ -64,7 +64,7 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ countries, hand
           />
         </Form.Item>
 
-        <Form.Item<FieldType> name="link" className={sharedStyles.field} rules={getRequiredRules()}>
+        <Form.Item<CreateSupplier> name="link" className={sharedStyles.field} rules={getRequiredRules()}>
           <CustomInput
             required
             allowClear
@@ -76,11 +76,11 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ countries, hand
         </Form.Item>
       </div>
 
-      <Form.Item<FieldType>
-        name="files"
+      <Form.Item<CreateSupplier>
+        name="companyLogo"
         className={cx(sharedStyles.field, styles?.uploadFiles)}
         rules={getRequiredRules()}
-        dependencies={['files']}
+        validateTrigger={['onChange', 'onBlur']}
       >
         <UploadFilesInput dragAndDropButtonHeight={50} images={images} setImages={onUploadFiles} />
       </Form.Item>

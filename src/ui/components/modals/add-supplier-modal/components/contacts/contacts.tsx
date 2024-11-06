@@ -24,7 +24,7 @@ export const Contacts = memo(() => {
     <div className={styles.contactsWrapper}>
       <p className={styles.title}>{t(TranslationKey.Contacts)}</p>
 
-      <Form.List name="contacts">
+      <Form.List name="supplierEmployees">
         {(fields, methods) => (
           <>
             {fields.map((field, index) => {
@@ -63,7 +63,7 @@ export const Contacts = memo(() => {
                   <ContactInputList
                     listTitle="Phone"
                     inputPlaceholder="Phone"
-                    listName={[fieldName, 'phones']}
+                    listName={[fieldName, 'phoneNumbers']}
                     formItemRules={getRequiredRules}
                   />
 
