@@ -1104,6 +1104,7 @@
   "The warehouse has already taken the task to work": "Склад вже взяв завдання в роботу",
   "Messages": "Повідомлення",
   "Search by ASIN, Title": "Пошук за ASIN, Назва",
+  "Search by ASIN, Title, ID": "Пошук за ASIN, Назва, ID",
   "Disable multiple execution": "Заборонити багаторазове виконання",
   "Multiple performances by the same performer are prohibited": "Багаторазове виконання одним виконавцем заборонене",
   "The task for the warehouse will be formed": "Будуть сформовані завдання для складу",
@@ -2013,5 +2014,6 @@
   "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number",
   "Moderator": "Модератор",
   "Proposal ID": "ID пропозиції",
-  "Search by Title, ASIN, SKU, ID, Proposal ID": "Пошук по Назві, ASIN, SKU, ID, ID пропозиції"
+  "Search by Title, ASIN, SKU, ID, Proposal ID": "Пошук по Назві, ASIN, SKU, ID, ID пропозиції",
+  "Order ID": "ID замовлення"
 }
