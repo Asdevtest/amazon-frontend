@@ -11,7 +11,6 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './bind-inventory-goods-to-stock-form.style'
 
-// Import the TableTransfer component
 import { BindInventoryGoodsToStockFormModel } from './bind-inventory-goods-to-stock-form.model'
 import { bindInventoryColumns } from './bind-inventory-goods-to-stock.columns'
 
