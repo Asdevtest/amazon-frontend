@@ -64,14 +64,14 @@ export const TabCountries = observer(() => {
           validateTrigger="onBlur"
           rules={generateCountryFieldRules('Country name is required')}
         >
-          <CustomInput fullWidth allowClear label="Country name" />
+          <CustomInput required fullWidth allowClear label="Name" />
         </Form.Item>
         <Form.Item<CountryValues>
           name="shortTitle"
           validateTrigger="onBlur"
           rules={generateCountryFieldRules('Country code is required')}
         >
-          <CustomInput fullWidth allowClear label="Short country name" />
+          <CustomInput required fullWidth allowClear label="Code" />
         </Form.Item>
       </div>
 
@@ -83,10 +83,13 @@ export const TabCountries = observer(() => {
         {viewModel.countries.length ? (
           viewModel.countries?.map(country => (
             <div key={country._id} className={styles.flexRow}>
-              <div className={styles.flexRow}>
-                <CustomImage src={country.image} preview={false} width={32} height={32} />
-                <Text copyable={false} rows={1} text={`${country.title} (${country.shortTitle})`} />
-              </div>
+              <CustomImage src={country.image} preview={false} width={32} height={32} />
+              <Text
+                copyable={false}
+                rows={1}
+                text={`${country.title} (${country.shortTitle})`}
+                className={styles.text}
+              />
 
               <div className={styles.flexRow}>
                 <CustomButton

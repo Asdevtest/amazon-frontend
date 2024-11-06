@@ -2014,7 +2014,7 @@ export enum TranslationKey {
   'Country name' = 'Country name',
   'Country successfully saved' = 'Country successfully saved',
   'Country is not saved' = 'Country is not saved',
-  'Short country name' = 'Short country name',
+  'Code' = 'Code',
   'Are you sure you want to delete the country?' = 'Are you sure you want to delete the country?',
   'Proposal ID' = 'Proposal ID',
   'Search by Title, ASIN, SKU, ID, Proposal ID' = 'Search by Title, ASIN, SKU, ID, Proposal ID',

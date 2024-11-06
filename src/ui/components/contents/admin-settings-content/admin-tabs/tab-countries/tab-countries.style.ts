@@ -46,4 +46,8 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+
+  text: {
+    width: '450px',
+  },
 }))
