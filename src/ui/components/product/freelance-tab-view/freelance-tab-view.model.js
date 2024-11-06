@@ -2,7 +2,10 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { showResultRequestProposalsStatuses } from '@constants/requests/request-proposal-status'
+import {
+  inProgressRequestProposalsStatuses,
+  showResultRequestProposalsStatuses,
+} from '@constants/requests/request-proposal-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 
 import { GeneralModel } from '@models/general-model'
@@ -88,8 +91,12 @@ export class FreelanceModel {
     () => this.onHover,
   )
 
-  constructor(productId) {
+  constructor(productId, filterStatus) {
     this.productId = productId
+
+    if (filterStatus === 'inProgress') {
+      this.onChangeFullFieldMenuItem(inProgressRequestProposalsStatuses, 'status')
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }

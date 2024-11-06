@@ -1105,6 +1105,7 @@
   "The warehouse has already taken the task to work": "Склад вже взяв завдання в роботу",
   "Messages": "Повідомлення",
   "Search by ASIN, Title": "Пошук за ASIN, Назва",
+  "Search by ASIN, Title, ID": "Пошук за ASIN, Назва, ID",
   "Disable multiple execution": "Заборонити багаторазове виконання",
   "Multiple performances by the same performer are prohibited": "Багаторазове виконання одним виконавцем заборонене",
   "The task for the warehouse will be formed": "Будуть сформовані завдання для складу",
@@ -2027,5 +2028,6 @@
   "Country successfully saved": "Країна успішно збережена",
   "Country is not saved": "Країну не збережено",
   "Short country name": "Коротка назва країни",
-  "Are you sure you want to delete the country?": "Ви впевнені, що хочете видалити країну?"
+  "Are you sure you want to delete the country?": "Ви впевнені, що хочете видалити країну?",
+  "Order ID": "ID замовлення"
 }
