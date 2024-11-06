@@ -9,19 +9,18 @@ import { SellerBoardModel } from '@models/seller-board-model'
 
 import { t } from '@utils/translations'
 
-import { loadingStatus } from '@typings/enums/loading-status'
-
 export class BindInventoryGoodsToStockFormModel {
-  loading = false
   sellerBoard: any = []
   searchInputValue: string = ''
   initialAsin: string
   productId: string
   targetKeys: Key[] = []
+  onCloseModal: () => void
 
-  constructor(asin: string, productId: string) {
+  constructor(asin: string, productId: string, onCloseModal: () => void) {
     this.initialAsin = asin
     this.productId = productId
+    this.onCloseModal = onCloseModal
     if (asin) {
       const recFilter = this.constructFilter('')
       this.getStockGoodsByFilters(recFilter)
@@ -31,14 +30,6 @@ export class BindInventoryGoodsToStockFormModel {
 
   get dataWithKeys() {
     return this.sellerBoard.map((item: any) => ({ ...item, key: item._id }))
-  }
-
-  setLoading(loading: boolean) {
-    this.loading = loading
-  }
-
-  onChange = (nextTargetKeys: Key[]) => {
-    this.targetKeys = nextTargetKeys
   }
 
   constructFilter(searchTerm: string) {
@@ -56,6 +47,10 @@ export class BindInventoryGoodsToStockFormModel {
         )
         .replace(/&/g, ';')
     } else return qs.stringify({ asin: { $contains: this.initialAsin } }, { encode: false }).replace(/&/g, ';')
+  }
+
+  onChange = (nextTargetKeys: Key[]) => {
+    this.targetKeys = nextTargetKeys
   }
 
   setSearchInputValue(value: string) {
@@ -80,10 +75,9 @@ export class BindInventoryGoodsToStockFormModel {
     try {
       const selectedItems = this.dataWithKeys.filter((item: any) => this.targetKeys.includes(item.key))
 
-      // Map over selected items to get sku and shopId
       const warehouseStocks = selectedItems.map((el: any) => ({
         sku: el.sku,
-        shopId: el.shop?._id, // Ensure el.shop exists
+        shopId: el.shop?._id,
       }))
 
       const data = {
@@ -91,11 +85,9 @@ export class BindInventoryGoodsToStockFormModel {
         warehouseStocks,
       }
       await SellerBoardModel.bindStockProductsBySku(data)
-      //   this.onTriggerOpenModal('showBindInventoryGoodsToStockModal')
+      this.onCloseModal()
 
       toast.success(t(TranslationKey['Goods are bound']))
-
-      //   await this.getCurrentData()
     } catch (error) {
       toast.error(t(TranslationKey["You can't bind"]))
 

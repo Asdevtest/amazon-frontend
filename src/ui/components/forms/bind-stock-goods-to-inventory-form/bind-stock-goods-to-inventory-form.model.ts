@@ -1,83 +1,88 @@
-import { makeAutoObservable, runInAction } from 'mobx'
-import qs from 'qs'
+import { makeObservable } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 
 import { t } from '@utils/translations'
 
-import { loadingStatus } from '@typings/enums/loading-status'
+import { stockGoodsColumns } from './bind-stock-goods-to-inventory-columns'
+import { bindStockGoodsToInventoryFormConfig, searchFields } from './bind-stock-goods-to-inventory-form.config'
 
-export class BindStockGoodsToInventoryFormModel {
-  loading = false
-  inventoryProducts: any = []
-  searchInputValue: string = ''
-  initialAsin: string
-  // productId: string
+export class BindStockGoodsToInventoryFormModel extends DataGridFilterTableModel {
   choosenGoods: any
-  selectedProduct: any = []
+  initialChoosenGoods: any
+  selectedProduct: string = ''
+  onCloseModal: () => void
 
-  constructor(asin: string, goodsToSelect: any) {
-    this.initialAsin = asin
+  constructor(goodsToSelect: any, onCloseModal: () => void) {
+    const columnProps = {
+      onSelectProduct: (selectedRow: any) => this.onSelectProduct(selectedRow),
+      selectedProduct: () => this.selectedProduct,
+    }
+    const chosenGoodscolumnsModel = stockGoodsColumns(columnProps)
+
+    const defaultFilterParams = () => {
+      if (this.currentSearchValue) {
+        return
+      }
+      return {
+        asin: {
+          $eq: this.choosenGoods?.[0]?.asin,
+        },
+      }
+    }
+    super({
+      getMainDataMethod: ClientModel.getProductPermissionsData,
+      columnsModel: chosenGoodscolumnsModel,
+      filtersFields: searchFields,
+      mainMethodURL: '/clients/products/light',
+      fieldsForSearch: searchFields,
+      defaultFilterParams,
+    })
+
+    this.onCloseModal = onCloseModal
+    this.initialChoosenGoods = goodsToSelect
     this.choosenGoods = goodsToSelect
 
-    // this.productId = productId
+    this.getTableSettingsPreset()
 
-    if (asin) {
-      const recFilter = this.constructFilter('')
-      this.getProductsMy(recFilter)
-    }
-    makeAutoObservable(this, undefined, { autoBind: true })
+    makeObservable(this, bindStockGoodsToInventoryFormConfig)
   }
 
-  setLoading(loading: boolean) {
-    this.loading = loading
+  onSelectProduct(selectedRow: any) {
+    this.selectedProduct = selectedRow._id
   }
 
-  constructFilter(searchTerm: string) {
-    if (searchTerm) {
-      return qs
-        .stringify(
-          {
-            or: [{ asin: { $contains: searchTerm } }, { amazonTitle: { $contains: searchTerm } }],
-          },
-          { encode: false },
-        )
-        .replace(/&/g, ';')
-    } else return qs.stringify({ asin: { $contains: this.initialAsin } }, { encode: false }).replace(/&/g, ';')
+  onDeleteGoods(id: string) {
+    const filteredArray = this.choosenGoods.filter((el: any) => el._id !== id)
+    this.choosenGoods = filteredArray
+  }
+  onResetData() {
+    this.choosenGoods = this.initialChoosenGoods
+    this.selectedProduct = ''
   }
 
-  setSearchInputValue(value: string) {
-    this.searchInputValue = value
-    const filter = this.constructFilter(value)
-    this.getProductsMy(filter)
-  }
-
-  onSelectProduct(selection: any[]) {
-    if (selection.length > 1) {
-      this.selectedProduct = selection[selection.length - 1]
-    } else if (selection.length === 1) {
-      this.selectedProduct = selection[0]
-    } else {
-      this.selectedProduct = []
-    }
-  }
-
-  async getProductsMy(filters?: any) {
+  async onSubmitBindStockGoods() {
+    this.setLoading(true)
     try {
-      const result = await ClientModel.getProductPermissionsData({ filters })
+      const warehouseStocks = this.choosenGoods.map((el: any) => ({ sku: el.sku, shopId: el.shop._id }))
 
-      runInAction(() => {
-        this.inventoryProducts = result.rows
-      })
-
-      if (!this.inventoryProducts.length) {
-        this.getProductsMy()
+      const data = {
+        productId: this.selectedProduct,
+        warehouseStocks,
       }
+      await SellerBoardModel.bindStockProductsBySku(data)
+      this.setLoading(false)
+      this.onCloseModal()
+
+      toast.success(t(TranslationKey['Goods are bound']))
     } catch (error) {
+      toast.error(t(TranslationKey["You can't bind"]))
+      this.setLoading(false)
       console.error(error)
     }
   }

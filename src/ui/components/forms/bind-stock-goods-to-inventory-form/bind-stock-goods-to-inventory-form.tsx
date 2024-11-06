@@ -4,7 +4,6 @@ import { useMemo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
@@ -12,21 +11,20 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './bind-stock-goods-to-inventory-form.style'
 
-import { chosenGoodsColumns, stockGoodsColumns } from './bind-stock-goods-to-inventory-columns'
+import { chosenGoodsColumns } from './bind-stock-goods-to-inventory-columns'
 import { BindStockGoodsToInventoryFormModel } from './bind-stock-goods-to-inventory-form.model'
 
 interface BindStockGoodsToInventoryFormProps {
   goodsToSelect: any
-  inventoryData: any
-  updateInventoryData: any
-  productAsin: string
-  onSubmit: any
+  onCloseModal: () => void
 }
 
 export const BindStockGoodsToInventoryForm = observer((props: BindStockGoodsToInventoryFormProps) => {
-  const { goodsToSelect, inventoryData, updateInventoryData, productAsin, onSubmit } = props
+  const { goodsToSelect, onCloseModal } = props
   const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new BindStockGoodsToInventoryFormModel(productAsin, goodsToSelect), [])
+  const viewModel = useMemo(() => new BindStockGoodsToInventoryFormModel(goodsToSelect, onCloseModal), [])
+
+  const disableResetButton = !viewModel.selectedProduct && viewModel.choosenGoods.length === goodsToSelect.length
   return (
     <div className={styles.wrapper}>
       <div className={styles.flexContainer}>
@@ -35,9 +33,8 @@ export const BindStockGoodsToInventoryForm = observer((props: BindStockGoodsToIn
           enterButton
           allowClear
           size="large"
-          value={viewModel.searchInputValue}
           placeholder="Search"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => viewModel.setSearchInputValue(e.target.value)}
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 
@@ -49,35 +46,39 @@ export const BindStockGoodsToInventoryForm = observer((props: BindStockGoodsToIn
             sortingMode="client"
             paginationMode="client"
             rows={viewModel.choosenGoods}
-            columns={chosenGoodsColumns()}
+            columns={chosenGoodsColumns(viewModel.onDeleteGoods)}
             getRowHeight={() => 'auto'}
           />
         </div>
         <div className={styles.tableWrapper}>
           <CustomDataGrid
             disableColumnMenu
-            checkboxSelection
-            columnHeaderHeight={40}
-            sortingMode="client"
-            paginationMode="client"
-            rows={viewModel.inventoryProducts}
-            columns={stockGoodsColumns()}
+            rowCount={viewModel.rowCount}
+            paginationModel={viewModel.paginationModel}
+            rows={viewModel.currentData}
             getRowHeight={() => 'auto'}
-            rowSelectionModel={viewModel.selectedProduct}
-            onRowSelectionModelChange={viewModel.onSelectProduct}
+            columns={viewModel.columnsModel}
+            onPaginationModelChange={viewModel.onPaginationModelChange}
           />
         </div>
       </div>
-
-      <div className={styles.buttons}>
-        <CustomButton
-          type="primary"
-          title={t(TranslationKey['Binds integration to the product card'])}
-          // disabled={!selectedRow || chosenGoods.length < 1}
-          // onClick={onClickSubmit}
-        >
-          {t(TranslationKey.Bind)}
+      <div className={styles.flexContainer}>
+        <CustomButton danger size="large" disabled={disableResetButton} onClick={viewModel.onResetData}>
+          {t(TranslationKey.Reset)}
         </CustomButton>
+        <div className={styles.buttonsWrapper}>
+          <CustomButton
+            type="primary"
+            size="large"
+            disabled={!viewModel.selectedProduct || viewModel.choosenGoods.length < 1}
+            onClick={viewModel.onSubmitBindStockGoods}
+          >
+            {t(TranslationKey.Bind)}
+          </CustomButton>
+          <CustomButton size="large" onClick={onCloseModal}>
+            {t(TranslationKey.Close)}
+          </CustomButton>
+        </div>
       </div>
     </div>
   )

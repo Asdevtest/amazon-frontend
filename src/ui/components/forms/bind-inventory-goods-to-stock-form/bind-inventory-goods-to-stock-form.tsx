@@ -13,16 +13,17 @@ import { useStyles } from './bind-inventory-goods-to-stock-form.style'
 
 // Import the TableTransfer component
 import { BindInventoryGoodsToStockFormModel } from './bind-inventory-goods-to-stock-form.model'
-import { bindInventoryColumns } from './bind-stock-goods-to-inventory-columns'
+import { bindInventoryColumns } from './bind-inventory-goods-to-stock.columns'
 
 interface BindInventoryGoodsToStockFormProps {
   productAsin: string
   productId: string
+  onCloseModal: () => void
 }
 
 export const BindInventoryGoodsToStockForm = observer((props: BindInventoryGoodsToStockFormProps) => {
-  const { productAsin, productId } = props
-  const viewModel = useMemo(() => new BindInventoryGoodsToStockFormModel(productAsin, productId), [])
+  const { productAsin, productId, onCloseModal } = props
+  const viewModel = useMemo(() => new BindInventoryGoodsToStockFormModel(productAsin, productId, onCloseModal), [])
   const { classes: styles } = useStyles()
 
   return (
@@ -48,8 +49,15 @@ export const BindInventoryGoodsToStockForm = observer((props: BindInventoryGoods
       />
 
       <div className={styles.buttonsWrapper}>
-        <CustomButton>{t(TranslationKey.Close)}</CustomButton>
-        <CustomButton disabled={!viewModel.targetKeys.length} type="primary" onClick={viewModel.onSubmitBindStockGoods}>
+        <CustomButton danger size="large" onClick={onCloseModal}>
+          {t(TranslationKey.Close)}
+        </CustomButton>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={!viewModel.targetKeys.length}
+          onClick={viewModel.onSubmitBindStockGoods}
+        >
           {t(TranslationKey.Bind)}
         </CustomButton>
       </div>

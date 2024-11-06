@@ -98,11 +98,8 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindStockGoodsToInventoryModal')}
       >
         <BindStockGoodsToInventoryForm
-          productAsin={selectedData[0]?.asin}
           goodsToSelect={viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id))}
-          inventoryData={viewModel.inventoryProducts}
-          updateInventoryData={viewModel.getProductsMy}
-          onSubmit={viewModel.submitBindStockGoodsHandler}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showBindStockGoodsToInventoryModal')}
         />
       </Modal>
 

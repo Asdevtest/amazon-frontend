@@ -1,24 +1,35 @@
+import { Radio } from 'antd'
+import { MdDeleteOutline } from 'react-icons/md'
+
 import { GridCellParams } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MultilineTextHeaderCell, ProductCell } from '@components/data-grid/data-grid-cells'
 import { CustomButton } from '@components/shared/custom-button'
-import { DeleteIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-export const chosenGoodsColumns = () => {
+interface IStockGoodsColumns {
+  selectedProduct: () => void
+  onSelectProduct: (selection: any) => void
+}
+export const chosenGoodsColumns = (onDeleteGoods: (id: string) => void) => {
   const columns: IGridColumn[] = [
     {
       field: 'asin',
       headerName: `${t(TranslationKey.Product)} / ASIN / SKU`,
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Product)} / ASIN / SKU`} />,
       renderCell: (params: GridCellParams) => (
-        <ProductCell title={params.row.title} asin={params.row.asin} sku={params.row.sku} />
+        <ProductCell
+          image={params.row?.images?.[0]}
+          title={params.row.title}
+          asin={params.row.asin}
+          sku={params.row.sku}
+        />
       ),
       width: 150,
     },
@@ -58,7 +69,14 @@ export const chosenGoodsColumns = () => {
     {
       field: ' ',
       headerName: '',
-      // renderCell: params => <CustomButton icon={<DeleteIcon />} onClick={() => handlers.onClickTrash(params.row.asin)} />,
+      renderCell: params => (
+        <CustomButton
+          danger
+          size="small"
+          icon={<MdDeleteOutline size={18} />}
+          onClick={() => onDeleteGoods(params.row._id)}
+        />
+      ),
       width: 40,
     },
   ]
@@ -71,14 +89,28 @@ export const chosenGoodsColumns = () => {
   return columns
 }
 
-export const stockGoodsColumns = () => {
+export const stockGoodsColumns = ({ selectedProduct, onSelectProduct }: IStockGoodsColumns) => {
   const columns: IGridColumn[] = [
+    {
+      field: '.',
+      headerName: '',
+      width: 40,
+      renderCell: params => (
+        <Radio checked={params.row._id === selectedProduct()} onChange={() => onSelectProduct(params.row)} />
+      ),
+      filterable: false,
+      sortable: false,
+    },
     {
       field: 'asin',
       headerName: '',
-
       renderCell: (params: GridCellParams) => (
-        <ProductCell title={params.row.amazonTitle} asin={params.row.asin} sku={params.row.skuByClient} />
+        <ProductCell
+          image={params.row?.images?.[0]}
+          title={params.row.amazonTitle}
+          asin={params.row.asin}
+          sku={params.row.skuByClient}
+        />
       ),
       flex: 1,
       sortable: false,

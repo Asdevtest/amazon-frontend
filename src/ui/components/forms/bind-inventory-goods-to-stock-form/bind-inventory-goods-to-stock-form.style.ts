@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(theme => ({
+export const useStyles = makeStyles()(() => ({
   wrapper: {
     width: 1200,
     display: 'flex',
@@ -20,8 +20,6 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '25px',
     fontWeight: 600,
   },
-
-  transferWrapper: {},
 
   buttonsWrapper: {
     display: 'flex',

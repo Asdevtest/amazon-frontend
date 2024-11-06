@@ -52,7 +52,6 @@ export const ClientInventoryView = observer(({ history }) => {
 
   const apiRef = useGridApiRef()
   const selectedProduct = viewModel.currentData.find(item => viewModel.selectedRows.includes(item._id))
-  console.log(selectedProduct)
   const getCellClassName = params => {
     if (clickableCells.includes(params.field) || params.field?.includes('counter')) {
       return styles.clickableCell
@@ -322,7 +321,11 @@ export const ClientInventoryView = observer(({ history }) => {
         openModal={viewModel.showBindInventoryGoodsToStockModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
-        <BindInventoryGoodsToStockForm productAsin={selectedProduct?.asin} productId={selectedProduct?._id} />
+        <BindInventoryGoodsToStockForm
+          productAsin={selectedProduct?.asin}
+          productId={selectedProduct?._id}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
+        />
       </Modal>
 
       <Modal

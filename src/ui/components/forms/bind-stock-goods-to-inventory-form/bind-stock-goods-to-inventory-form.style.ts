@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(theme => ({
     width: 1200,
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: '20px',
   },
 
   title: {
@@ -18,7 +18,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 20,
+    gap: '20px',
   },
 
   text: {
@@ -35,14 +35,9 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  productItems: {
-    width: '550px',
-    height: '600px',
-    overflow: 'auto',
-  },
-
-  buttons: {
+  buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: '20px',
   },
 }))
