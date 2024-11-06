@@ -219,8 +219,20 @@ export const downloadArchive = async (files, folderName) => {
     })
 
     const fetchedData = await Promise.all(validFilesData)
+    const fileMap = {}
 
-    fetchedData.forEach(file => zip.file(file.title, file.blob, { base64: true }))
+    fetchedData.forEach(file => {
+      if (fileMap[file.title] >= 0) {
+        fileMap[file.title]++
+      } else {
+        fileMap[file.title] = 0
+      }
+
+      const uniqueTitle = fileMap[file.title] > 0 ? `${file.title}(${fileMap[file.title]})` : file.title
+
+      zip.file(uniqueTitle, file.blob, { base64: true })
+    })
+
     zip.generateAsync({ type: 'blob' }).then(content => {
       downloadFile(content, `${folderName}.rar`)
     })
