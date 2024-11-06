@@ -69,7 +69,7 @@ export const TabCountries = observer(() => {
             }),
           ]}
         >
-          <CustomInput fullWidth label="Country name" />
+          <CustomInput fullWidth allowClear label="Country name" />
         </Form.Item>
         <Form.Item<CountryValues>
           name="shortTitle"
@@ -87,7 +87,7 @@ export const TabCountries = observer(() => {
             }),
           ]}
         >
-          <CustomInput fullWidth label="Short country name" />
+          <CustomInput fullWidth allowClear label="Short country name" />
         </Form.Item>
       </div>
 

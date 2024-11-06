@@ -2019,5 +2019,11 @@
   "Category successfully saved": "类别已成功保存",
   "Category is not saved": "类别未保存",
   "Are you sure you want to delete the category?": "您确定要删除该类别吗?",
-  "Order ID": "订单 ID"
+  "Order ID": "订单 ID",
+  "Adding a category": "添加类别",
+  "Editing a category": "编辑类别",
+  "Parent category": "父类别",
+  "Category name": "类别名称",
+  "Enter category name": "输入类别名称",
+  "Select parent category": "选择父类别"
 }

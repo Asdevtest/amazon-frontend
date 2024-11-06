@@ -2021,5 +2021,11 @@
   "Category successfully saved": "Категорію успішно збережено",
   "Category is not saved": "Категорію не збережено",
   "Are you sure you want to delete the category?": "Ви впевнені, що хочете видалити категорію?",
-  "Order ID": "ID замовлення"
+  "Order ID": "ID замовлення",
+  "Adding a category": "Додавання категорії",
+  "Editing a category": "Редагування категорії",
+  "Parent category": "Батьківська категорія",
+  "Category name": "Назва категорії",
+  "Enter category name": "Введіть назву категорії",
+  "Select parent category": "Оберіть батьківську категорію"
 }

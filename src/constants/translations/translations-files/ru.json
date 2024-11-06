@@ -2022,5 +2022,11 @@
   "Category successfully saved": "Категория успешно сохранена",
   "Category is not saved": "Категория не сохранена",
   "Are you sure you want to delete the category?": "Вы уверены, что хотите удалить категорию?",
-  "Order ID": "ID заказа"
+  "Order ID": "ID заказа",
+  "Adding a category": "Добавление категории",
+  "Editing a category": "Редактирование категории",
+  "Parent category": "Родительская категория",
+  "Category name": "Название категории",
+  "Enter category name": "Введите название категории",
+  "Select parent category": "Выберите родительскую категорию"
 }

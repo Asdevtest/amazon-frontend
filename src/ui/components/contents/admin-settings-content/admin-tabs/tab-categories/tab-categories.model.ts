@@ -1,4 +1,3 @@
-import { TreeDataNode } from 'antd'
 import { TreeProps } from 'antd/lib'
 import { makeAutoObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
@@ -13,9 +12,13 @@ import { t } from '@utils/translations'
 
 import { ICategory } from '@typings/models/others/category'
 
+import { CategoryTreeNode, CategoryValues, transformDataToTree } from './tab-categories.config'
+
 export class AdminSettingsCategoriesModel {
-  categories: TreeDataNode[] = []
+  categories: CategoryTreeNode[] = []
+  categoryToEdit?: CategoryValues
   title: string = ''
+  showCategoryModal = false
 
   constructor() {
     this.getCategories()
@@ -26,36 +29,56 @@ export class AdminSettingsCategoriesModel {
     this.title = e.target.value
   }
 
+  onToggleCategoryModal() {
+    this.showCategoryModal = !this.showCategoryModal
+  }
+
   async getCategories() {
     try {
       const response = (await OtherModel.getCategories()) as unknown as ICategory[]
 
       runInAction(() => {
-        this.categories = this.transformDataToTree(response)
+        this.categories = transformDataToTree(response, this.onSelectCategoryToEdit, this.onRemoveCategory)
       })
     } catch (error) {
       console.error(error)
     }
   }
 
-  async onCreateCategory(title: string) {
+  async onCreateCategory({ title, parentId }: CategoryValues) {
     try {
-      await AdministratorModel.addCategory({ title })
+      await AdministratorModel.addCategory({ title, parentId })
       toast.success(t(TranslationKey['Category successfully saved']))
-      this.getCategories()
     } catch (error) {
       toast.error(t(TranslationKey['Category is not saved']))
+    } finally {
+      this.onToggleCategoryModal()
+      this.getCategories()
     }
   }
 
-  async onEditCategory(id: string, title: string) {
+  onSelectCategoryToEdit(category: CategoryValues) {
+    this.categoryToEdit = category
+    this.onToggleCategoryModal()
+  }
+
+  async onEditCategory({ title, id, parentId }: CategoryValues) {
     try {
-      await AdministratorModel.editCategory(id, { title })
+      await AdministratorModel.editCategory(id, { title, parentId })
       toast.success(t(TranslationKey['Category successfully saved']))
-      this.getCategories()
     } catch (error) {
       toast.error(t(TranslationKey['Category is not saved']))
+    } finally {
+      runInAction(() => {
+        this.categoryToEdit = undefined
+      })
+      this.onToggleCategoryModal()
+      this.getCategories()
     }
+  }
+
+  onSubmitCategoryModal(category: CategoryValues) {
+    this.categoryToEdit ? this.onEditCategory(category) : this.onCreateCategory(category)
   }
 
   async onRemoveCategory(id: string) {
@@ -67,18 +90,6 @@ export class AdminSettingsCategoriesModel {
     }
   }
 
-  transformDataToTree(data: ICategory[]): TreeDataNode[] {
-    return data.map(item => {
-      const transformedNode: TreeDataNode = {
-        key: item._id,
-        title: item.title,
-        children: item.subCategories ? this.transformDataToTree(item.subCategories) : undefined,
-      }
-
-      return transformedNode
-    })
-  }
-
   onDrop: TreeProps['onDrop'] = info => {
     const dropKey = info.node.key
     const dragKey = info.dragNode.key
@@ -86,9 +97,9 @@ export class AdminSettingsCategoriesModel {
     const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1])
 
     const loop = (
-      data: TreeDataNode[],
+      data: CategoryTreeNode[],
       key: React.Key,
-      callback: (node: TreeDataNode, i: number, data: TreeDataNode[]) => void,
+      callback: (node: CategoryTreeNode, i: number, data: CategoryTreeNode[]) => void,
     ) => {
       for (let i = 0; i < data.length; i++) {
         if (data[i].key === key) {
@@ -101,7 +112,7 @@ export class AdminSettingsCategoriesModel {
       }
     }
     const data = [...this.categories]
-    let dragObj: TreeDataNode
+    let dragObj: CategoryTreeNode
 
     loop(data, dragKey, (item, index, arr) => {
       arr.splice(index, 1)
@@ -114,7 +125,7 @@ export class AdminSettingsCategoriesModel {
         item.children.unshift(dragObj)
       })
     } else {
-      let ar: TreeDataNode[] = []
+      let ar: CategoryTreeNode[] = []
       let i: number
 
       loop(data, dropKey, (_item, index, arr) => {

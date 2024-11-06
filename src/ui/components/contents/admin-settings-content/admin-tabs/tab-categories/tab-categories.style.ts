@@ -22,4 +22,17 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     gap: '20px',
   },
+
+  treeSelect: {
+    '.ant-tree-title': {
+      paddingRight: '10px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+
+    button: {
+      marginLeft: '10px',
+    },
+  },
 }))

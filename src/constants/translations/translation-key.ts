@@ -2023,4 +2023,10 @@ export enum TranslationKey {
   'Category is not saved' = 'Category is not saved',
   'Are you sure you want to delete the category?' = 'Are you sure you want to delete the category?',
   'Order ID' = 'Order ID',
+  'Adding a category' = 'Adding a category',
+  'Editing a category' = 'Editing a category',
+  'Parent category' = 'Parent category',
+  'Category name' = 'Category name',
+  'Enter category name' = 'Enter category name',
+  'Select parent category' = 'Select parent category',
 }
