@@ -253,6 +253,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       onClickTag: tag => this.setActiveProductsTagFromTable(tag),
       onClickEdit: productId => this.onClickEditTags(productId),
       onClickParsingReportCell: (product, table) => this.onClickParsingReportCell(product, table),
+      onClickRequestCell: productId => this.onClickRequestCell(productId),
     }
 
     const defaultGetCurrentDataOptions = () => ({
@@ -392,6 +393,18 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
             `/client/inventory?product-id=${productId}&isArchive=true&show-tab=orders&status=${filterStatus}`,
           )
         : this.history.push(`/client/inventory?product-id=${productId}&show-tab=orders&status=${filterStatus}`)
+    }
+
+    this.onTriggerOpenModal('productCardModal')
+  }
+
+  onClickRequestCell(productId) {
+    if (productId) {
+      this.isArchive
+        ? this.history.push(
+            `/client/inventory?product-id=${productId}&isArchive=true&show-tab=freelance&show-tab=orders&status=inProgress}`,
+          )
+        : this.history.push(`/client/inventory?product-id=${productId}&show-tab=freelance&status=inProgress`)
     }
 
     this.onTriggerOpenModal('productCardModal')

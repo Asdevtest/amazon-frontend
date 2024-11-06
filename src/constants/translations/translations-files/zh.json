@@ -1104,6 +1104,7 @@
   "The warehouse has already taken the task to work": "仓库已经接受任务",
   "Messages": "信息",
   "Search by ASIN, Title": "按ASIN, 名称搜素",
+  "Search by ASIN, Title, ID": "按ASIN, 名称搜素, ID",
   "Disable multiple execution": "禁用多次执行",
   "Multiple performances by the same performer are prohibited": "对此执行者禁止多次执行",
   "The task for the warehouse will be formed": "仓库的任务已成立了",
@@ -2013,5 +2014,6 @@
   "Short country name": "国家简称",
   "Are you sure you want to delete the country?": "您确定要删除该国家吗?",
   "Proposal ID": "提案 ID",
-  "Search by Title, ASIN, SKU, ID, Proposal ID": "按标题, ASIN, SKU, ID, 提案 ID"
+  "Search by Title, ASIN, SKU, ID, Proposal ID": "按标题, ASIN, SKU, ID, 提案 ID",
+  "Order ID": "订单 ID"
 }

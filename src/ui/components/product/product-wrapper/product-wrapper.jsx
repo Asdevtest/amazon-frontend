@@ -117,6 +117,10 @@ export const ProductWrapper = memo(
       if (tab === 'reports') {
         setTabIndex(tabsValues.REPORTS)
       }
+
+      if (tab === 'freelance') {
+        setTabIndex(tabsValues.FREELANCE)
+      }
     }, [])
 
     return (
@@ -220,7 +224,7 @@ export const ProductWrapper = memo(
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.FREELANCE}>
-          <Freelance modal={modal} productId={product?._id} />
+          <Freelance modal={modal} productId={product?._id} filterStatus={filterStatus} />
         </TabPanel>
 
         <TabPanel value={tabIndex} index={tabsValues.SUPPLIERS_AND_IDEAS}>
