@@ -114,8 +114,8 @@ export const clientInventoryColumns = ({
 
     {
       field: 'fbaFbmStockSum',
-      headerName: 'Available',
-      renderHeader: () => <MultilineTextHeaderCell text={'Available'} />,
+      headerName: 'Product Available',
+      renderHeader: () => <MultilineTextHeaderCell text="Product Available" />,
       renderCell: params => <Text isCell text={String(params.value)} />,
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
