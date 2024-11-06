@@ -144,8 +144,8 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
     },
     {
       field: 'orderId',
-      headerName: t(TranslationKey['Order number']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
+      headerName: t(TranslationKey['Order ID']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order ID'])} />,
       renderCell: ({ row }) => <StringListCell data={row.boxesBeforeOrderXids} />,
       width: 160,
       disableCustomSort: true,

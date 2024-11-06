@@ -131,23 +131,13 @@ export const clientTasksViewColumns = handlers => {
     },
 
     {
-      field: 'xid',
-      headerName: t(TranslationKey.ID) + ' / item',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-      renderCell: params => <Text isCell text={params.row.xid} />,
-      width: 100,
-      type: 'number',
-    },
+      field: 'orderXid',
 
-    {
-      field: 'orderId',
-      headerName: t(TranslationKey['Order number']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
+      headerName: t(TranslationKey['№ Order']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
-      renderCell: params => (
-        <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.xid))} />
-      ),
-      type: 'number',
+      renderCell: params => <Text text={params.value} />,
+      valueGetter: ({ row }) => row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.xid))?.join(', '),
       disableCustomSort: true,
       width: 160,
     },
