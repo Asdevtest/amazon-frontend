@@ -20,7 +20,7 @@ import { ControllButtons } from './controll-buttons/controll-buttons'
 
 export const ClientShopsReportView = observer(({ history }: { history: any }) => {
   const viewModel = useMemo(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, history), [])
-  const selectedData = viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id))
+
   return (
     <div className="viewWrapper">
       <ControllButtons
