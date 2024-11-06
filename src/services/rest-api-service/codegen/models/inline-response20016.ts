@@ -33,7 +33,7 @@ export interface InlineResponse20016 {
      * @type {number}
      * @memberof InlineResponse20016
      */
-    humanFriendlyId?: number;
+    xid?: number;
     /**
      * Статус партии.
      * @type {string}

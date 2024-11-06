@@ -25,7 +25,7 @@ import { BadRequestError } from '../models';
 // @ts-ignore
 import { ConflictInTheState } from '../models';
 // @ts-ignore
-import { InlineObject71 } from '../models';
+import { InlineObject72 } from '../models';
 // @ts-ignore
 import { InlineResponse20059 } from '../models';
 // @ts-ignore
@@ -43,7 +43,7 @@ export const GeneralApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * # Получить данные по определенной таблице по определенной колонке## Фильтрация для сабов присутствует
          * @summary Получить данные по определенной таблице по определенной колонке
-         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
+         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
          * @param {string} column Колонка
          * @param {string} endpoint 
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -51,7 +51,7 @@ export const GeneralApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralDataFiltersGet: async (table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1GeneralDataFiltersGet: async (table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'table' is not null or undefined
             assertParamExists('apiV1GeneralDataFiltersGet', 'table', table)
             // verify required parameter 'column' is not null or undefined
@@ -145,7 +145,7 @@ export const GeneralApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * # Получить теги с пагинацией
          * @summary Получить теги с пагинацией
-         * @param {string} [filters]                Возможные поля: asin:, amazonTitle, skuByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {string} [filters]                Возможные поля: asin:, amazonTitle, skuByClient, orderXid, trackNumberText, orderItem, xid               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {number} [limit] Лимит записей для пагинации
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
@@ -213,12 +213,12 @@ export const GeneralApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * # Создать тег
          * @summary Создать тег
-         * @param {InlineObject71} [body] 
+         * @param {InlineObject72} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralTagsPost: async (body?: InlineObject71, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
+        apiV1GeneralTagsPost: async (body?: InlineObject72, acceptEncoding?: string, options: any = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/v1/general/tags`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -265,7 +265,7 @@ export const GeneralApiFp = function(configuration?: Configuration) {
         /**
          * # Получить данные по определенной таблице по определенной колонке## Фильтрация для сабов присутствует
          * @summary Получить данные по определенной таблице по определенной колонке
-         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
+         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
          * @param {string} column Колонка
          * @param {string} endpoint 
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -273,7 +273,7 @@ export const GeneralApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GeneralDataFiltersGet(table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
+        async apiV1GeneralDataFiltersGet(table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<object>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GeneralDataFiltersGet(table, column, endpoint, noCache, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -291,7 +291,7 @@ export const GeneralApiFp = function(configuration?: Configuration) {
         /**
          * # Получить теги с пагинацией
          * @summary Получить теги с пагинацией
-         * @param {string} [filters]                Возможные поля: asin:, amazonTitle, skuByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {string} [filters]                Возможные поля: asin:, amazonTitle, skuByClient, orderXid, trackNumberText, orderItem, xid               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {number} [limit] Лимит записей для пагинации
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
@@ -308,12 +308,12 @@ export const GeneralApiFp = function(configuration?: Configuration) {
         /**
          * # Создать тег
          * @summary Создать тег
-         * @param {InlineObject71} [body] 
+         * @param {InlineObject72} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiV1GeneralTagsPost(body?: InlineObject71, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2018>> {
+        async apiV1GeneralTagsPost(body?: InlineObject72, acceptEncoding?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InlineResponse2018>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiV1GeneralTagsPost(body, acceptEncoding, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -330,7 +330,7 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
         /**
          * # Получить данные по определенной таблице по определенной колонке## Фильтрация для сабов присутствует
          * @summary Получить данные по определенной таблице по определенной колонке
-         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
+         * @param {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'} table Таблица
          * @param {string} column Колонка
          * @param {string} endpoint 
          * @param {boolean} [noCache] Игнорировать данные в кеше
@@ -338,7 +338,7 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralDataFiltersGet(table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<object>> {
+        apiV1GeneralDataFiltersGet(table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY', column: string, endpoint: string, noCache?: boolean, acceptEncoding?: string, options?: any): AxiosPromise<Array<object>> {
             return localVarFp.apiV1GeneralDataFiltersGet(table, column, endpoint, noCache, acceptEncoding, options).then((request) => request(axios, basePath));
         },
         /**
@@ -354,7 +354,7 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
         /**
          * # Получить теги с пагинацией
          * @summary Получить теги с пагинацией
-         * @param {string} [filters]                Возможные поля: asin:, amazonTitle, skuByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+         * @param {string} [filters]                Возможные поля: asin:, amazonTitle, skuByClient, orderXid, trackNumberText, orderItem, xid               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
          * @param {number} [limit] Лимит записей для пагинации
          * @param {number} [offset] Смещение для пагинации
          * @param {string} [sortField] Название поля
@@ -370,12 +370,12 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
         /**
          * # Создать тег
          * @summary Создать тег
-         * @param {InlineObject71} [body] 
+         * @param {InlineObject72} [body] 
          * @param {string} [acceptEncoding] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiV1GeneralTagsPost(body?: InlineObject71, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2018> {
+        apiV1GeneralTagsPost(body?: InlineObject72, acceptEncoding?: string, options?: any): AxiosPromise<InlineResponse2018> {
             return localVarFp.apiV1GeneralTagsPost(body, acceptEncoding, options).then((request) => request(axios, basePath));
         },
     };
@@ -389,10 +389,10 @@ export const GeneralApiFactory = function (configuration?: Configuration, basePa
 export interface GeneralApiApiV1GeneralDataFiltersGetRequest {
     /**
      * Таблица
-     * @type {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'}
+     * @type {'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'}
      * @memberof GeneralApiApiV1GeneralDataFiltersGet
      */
-    readonly table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_OUT_OF_STOCK' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'
+    readonly table: 'boxes' | 'announcements' | 'orders' | 'products' | 'batches' | 'tasks' | 'requests' | 'proposals' | 'suppliers' | 'ideas' | 'inventoryReturns' | 'inventory' | 'inventoryShipments' | 'ppcSalesWeeks' | 'ppcSalesDays' | 'sellerboardWarehouseEveryDay' | 'sellerboardLast30Days' | 'payments' | 'storekeepers' | 'user_notifications' | 'productListingReports' | 'users' | 'tags' | 'shops' | 'ACCOUNT_HEALTH' | 'BRANDS_REVIEW' | 'BUSINESS_REPORTS' | 'CAMPAIGNS' | 'FYP_SEARCH_SUPPRESSED' | 'INCOME' | 'INVENTORY' | 'INVENTORY_PLANNING' | 'INVENTORY_SHIPMENTS' | 'ORDERS' | 'PERFORMANCE_NOTIFICATIONS' | 'PPC_ORGANIC' | 'PPC_SALES_WEEKS' | 'RETURNS' | 'TOTAL_BALANCE' | 'TRANSACTIONS' | 'VOICE' | 'PROFILE' | 'RECEIVING_REQUESTS' | 'FEEDBACK' | 'FBA_INVENTORY'
 
     /**
      * Колонка
@@ -444,7 +444,7 @@ export interface GeneralApiApiV1GeneralTagsGetRequest {
  */
 export interface GeneralApiApiV1GeneralTagsPagGetRequest {
     /**
-     *                Возможные поля: asin:, amazonTitle, skuByClient, orderHumanFriendlyId, trackNumberText, orderItem, humanFriendlyId               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
+     *                Возможные поля: asin:, amazonTitle, skuByClient, orderXid, trackNumberText, orderItem, xid               Поиск для полей продукта идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Продукт               Поиск для полей заказа идет через схему Задача -&gt; Коробка -&gt; Айтем коробки -&gt; Заказ               2 варианта использования:                 1. Фильтр по одному полю:                   [amazonTitle][$eq]&#x3D;some_title                 2. Фильтр по нескольким полям:                   or[0][amazonTitle][$eq]&#x3D;some_title;or[1][asin][$eq]&#x3D;some_asin                     Возвращает партии с коробками с продуктами, в которых amazonTitle равен some_title или asin равен some_asin               2 оператора совпадения:                 $eq - полное совпадение, нечувствителен к регистру                 $contains - наличие данной подстроки в поле, нечувствителен к регистру, предназначен только для строк                 $lt - less than (меньше)                 $gt - greater than (больше)                 $lte - less than or equal to (меньше или равно)                 $gte - greater than or equal to (больше или равно)                 $null - является ли поле NULL                 $notnull - не является ли поле NULL                 $any - значение поля соответствует любому из значений в массиве (Строка с разделителем -&gt; \&#39;,\&#39; example&#x3D;3,5,6,null)             
      * @type {string}
      * @memberof GeneralApiApiV1GeneralTagsPagGet
      */
@@ -501,10 +501,10 @@ export interface GeneralApiApiV1GeneralTagsPagGetRequest {
 export interface GeneralApiApiV1GeneralTagsPostRequest {
     /**
      * 
-     * @type {InlineObject71}
+     * @type {InlineObject72}
      * @memberof GeneralApiApiV1GeneralTagsPost
      */
-    readonly body?: InlineObject71
+    readonly body?: InlineObject72
 
     /**
      * 

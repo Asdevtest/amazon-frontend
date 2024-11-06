@@ -21,11 +21,11 @@
  */
 export interface InlineObject80 {
     /**
-     * Причина отклонения
+     * GUID поставщика, который нужно удалить в БД.
      * @type {string}
      * @memberof InlineObject80
      */
-    reasonReject: string;
+    suppliersId?: string;
 }
 
 

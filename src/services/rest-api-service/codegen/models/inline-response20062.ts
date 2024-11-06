@@ -42,6 +42,12 @@ export interface InlineResponse20062 {
      */
     status?: number;
     /**
+     * Readable ID
+     * @type {number}
+     * @memberof InlineResponse20062
+     */
+    xid?: number;
+    /**
      * Медиа идеи
      * @type {Array<string>}
      * @memberof InlineResponse20062
