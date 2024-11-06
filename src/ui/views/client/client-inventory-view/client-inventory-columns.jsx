@@ -221,28 +221,6 @@ export const clientInventoryColumns = ({
     },
 
     {
-      field: 'boxAmounts',
-      headerName: 'In stock',
-      renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
-      renderCell: params => (
-        <InStockCell
-          boxAmounts={params.row?.boxAmounts}
-          boxId={params.row?._id}
-          onClickInStock={otherHandlers.onClickInStock}
-        />
-      ),
-      valueGetter: params => {
-        return params.row?.boxAmounts
-          ?.sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
-          ?.map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
-          ?.join(', ')
-      },
-      width: 145,
-      disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
-    },
-
-    {
       field: 'sumStock',
       headerName: t(TranslationKey['Stock sum']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
