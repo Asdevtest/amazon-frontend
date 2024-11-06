@@ -25,7 +25,7 @@ export class AdminSettingsModel {
   serverProxy = []
   formFields = startValueFields
   prevFormFields = undefined
-  tab = TabLabels.CATEGORIES
+  tab = TabLabels.COUNTRIES
   isFormFieldsChanged = false
   isProxyServersChanged = false
 

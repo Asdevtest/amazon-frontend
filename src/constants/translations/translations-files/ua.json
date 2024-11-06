@@ -2027,5 +2027,8 @@
   "Parent category": "Батьківська категорія",
   "Category name": "Назва категорії",
   "Enter category name": "Введіть назву категорії",
-  "Select parent category": "Оберіть батьківську категорію"
+  "Select parent category": "Оберіть батьківську категорію",
+  "Country name is required": "Назва країни обов'язкова",
+  "Country code is required": "Код країни обов'язковий",
+  "Country icon is required": "Іконка країни обов'язкова"
 }

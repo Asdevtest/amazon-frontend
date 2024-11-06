@@ -2025,5 +2025,8 @@
   "Parent category": "父类别",
   "Category name": "类别名称",
   "Enter category name": "输入类别名称",
-  "Select parent category": "选择父类别"
+  "Select parent category": "选择父类别",
+  "Country name is required": "国家名称为必填项",
+  "Country code is required": "国家代码为必填项",
+  "Country icon is required": "国家图标为必填项"
 }

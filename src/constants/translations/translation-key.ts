@@ -2029,4 +2029,7 @@ export enum TranslationKey {
   'Category name' = 'Category name',
   'Enter category name' = 'Enter category name',
   'Select parent category' = 'Select parent category',
+  'Country name is required' = 'Country name is required',
+  'Country code is required' = 'Country code is required',
+  'Country icon is required' = 'Country icon is required',
 }

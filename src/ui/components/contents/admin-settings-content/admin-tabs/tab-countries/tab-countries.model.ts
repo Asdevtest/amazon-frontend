@@ -13,7 +13,7 @@ import { isString } from '@typings/guards'
 import { ICountry } from '@typings/models/others/country'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { CountryValues } from './tab-countries.type'
+import { CountryValues } from './tab-countries.config'
 
 export class AdminSettingsCountriesModel {
   countries: ICountry[] = []

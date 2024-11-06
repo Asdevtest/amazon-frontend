@@ -2028,5 +2028,8 @@
   "Parent category": "Родительская категория",
   "Category name": "Название категории",
   "Enter category name": "Введите название категории",
-  "Select parent category": "Выберите родительскую категорию"
+  "Select parent category": "Выберите родительскую категорию",
+  "Country name is required": "Название страны обязательно",
+  "Country code is required": "Код страны обязателен",
+  "Country icon is required": "Иконка страны обязательна"
 }

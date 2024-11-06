@@ -1,9 +1,11 @@
 import { Empty, Form } from 'antd'
 import { observer } from 'mobx-react'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { MdDeleteOutline, MdEdit } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { SettingsModel } from '@models/settings-model'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomImage } from '@components/shared/custom-image'
@@ -19,13 +21,17 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './tab-countries.style'
 
+import { CountryValues, generateCountryFieldRules, generateCountryIconRules } from './tab-countries.config'
 import { AdminSettingsCountriesModel } from './tab-countries.model'
-import { CountryValues } from './tab-countries.type'
 
 export const TabCountries = observer(() => {
   const { classes: styles, cx } = useStyles()
   const viewModel = useMemo(() => new AdminSettingsCountriesModel(), [])
   const [form] = Form.useForm()
+
+  useEffect(() => {
+    form.resetFields()
+  }, [SettingsModel.languageTag])
 
   const handleFinish = (values: CountryValues) => {
     viewModel.onSaveCountry(values)
@@ -56,42 +62,20 @@ export const TabCountries = observer(() => {
         <Form.Item<CountryValues>
           name="title"
           validateTrigger="onBlur"
-          rules={[
-            { required: true, message: 'Country name is required' },
-            () => ({
-              validator(_, value) {
-                if (!value?.trim()) {
-                  return Promise.reject()
-                }
-
-                return Promise.resolve()
-              },
-            }),
-          ]}
+          rules={generateCountryFieldRules('Country name is required')}
         >
           <CustomInput fullWidth allowClear label="Country name" />
         </Form.Item>
         <Form.Item<CountryValues>
           name="shortTitle"
           validateTrigger="onBlur"
-          rules={[
-            { required: true, message: 'Short country name is required' },
-            () => ({
-              validator(_, value) {
-                if (!value?.trim()) {
-                  return Promise.reject()
-                }
-
-                return Promise.resolve()
-              },
-            }),
-          ]}
+          rules={generateCountryFieldRules('Country code is required')}
         >
           <CustomInput fullWidth allowClear label="Short country name" />
         </Form.Item>
       </div>
 
-      <Form.Item<CountryValues> name="image" rules={[{ required: true, message: 'Country icon is required' }]}>
+      <Form.Item<CountryValues> name="image" rules={generateCountryIconRules()}>
         <UploadFilesInput minimized maxNumber={1} images={viewModel.images} setImages={handleSetImages} />
       </Form.Item>
 
