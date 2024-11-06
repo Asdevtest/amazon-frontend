@@ -1,7 +1,5 @@
 import { FC, memo, useState } from 'react'
-
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-import DoneIcon from '@mui/icons-material/Done'
+import { MdContentCopy, MdDone } from 'react-icons/md'
 
 import { useStyles } from './copy-value.style'
 
@@ -25,9 +23,10 @@ export const CopyValue: FC<CopyValueProps> = memo(({ text, disabled, iconStyles 
   return (
     <div className={styles.copyImgWrapper}>
       {copied ? (
-        <DoneIcon className={cx(styles.doneIcon, iconStyles)} />
+        <MdDone size={18} className={cx(styles.doneIcon, iconStyles)} />
       ) : (
-        <ContentCopyIcon
+        <MdContentCopy
+          size={18}
           className={cx(styles.copyImg, iconStyles, { [styles.disabledIcon]: disabled })}
           onClick={e => {
             e.stopPropagation()

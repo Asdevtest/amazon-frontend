@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { Typography } from '@mui/material'
 
@@ -20,7 +20,7 @@ import { SupervisorDashboardViewModel } from './supervisor-dashboard-view.model'
 
 export const SupervisorDashboardView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new SupervisorDashboardViewModel({ history }))
+  const viewModel = useMemo(() => new SupervisorDashboardViewModel({ history }), [])
 
   return (
     <>

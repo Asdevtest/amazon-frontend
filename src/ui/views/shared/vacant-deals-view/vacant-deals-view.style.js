@@ -41,4 +41,8 @@ export const styles = theme => ({
     color: theme.palette.primary.main,
     marginRight: '15px',
   },
+
+  icon: {
+    color: theme.palette.text.main,
+  },
 })

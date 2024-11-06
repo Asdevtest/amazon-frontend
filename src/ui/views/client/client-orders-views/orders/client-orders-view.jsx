@@ -39,7 +39,8 @@ export const ClientOrdersView = observer(history => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by SKU, ASIN, Title"
+          placeholder="Search by SKU, ASIN, Title, Order, item"
+          wrapperClassName={styles.inputSearch}
           onSearch={viewModel.onSearchSubmit}
         />
 
@@ -81,7 +82,6 @@ export const ClientOrdersView = observer(history => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={row => row._id}
         rowSelectionModel={viewModel.selectedRows}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
@@ -116,7 +116,7 @@ export const ClientOrdersView = observer(history => {
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
-              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset, 
+              onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },
           },
         }}

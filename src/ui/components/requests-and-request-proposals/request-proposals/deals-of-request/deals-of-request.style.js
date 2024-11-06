@@ -34,6 +34,7 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     padding: '18px 0px',
     justifyContent: 'space-between',
+    gap: '5px',
   },
 
   userInfoWrapper: {
@@ -63,7 +64,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   blockInfoWrapper: {
-    minWidth: '245px',
+    minWidth: '200px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

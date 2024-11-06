@@ -1,6 +1,6 @@
 import { memo } from 'react'
+import { MdDeleteOutline } from 'react-icons/md'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -50,7 +50,7 @@ export const NewBoxes = memo(
             <div className={styles.boxesTitleWrapper}>
               <Typography className={styles.boxesTitle}>{t(TranslationKey.Box)}</Typography>
               <IconButton onClick={() => onRemoveBox(item._id)}>
-                <DeleteIcon className={styles.deleteBtn} />
+                <MdDeleteOutline size={24} className={styles.deleteBtn} />
               </IconButton>
             </div>
 

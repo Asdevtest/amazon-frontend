@@ -44,7 +44,7 @@ export const clientFreelanceNotificationsColumns = handlers => [
   },
 
   {
-    field: 'humanFriendlyId',
+    field: 'xid',
     headerName: `ID ${t(TranslationKey.Requests)}`,
     renderHeader: () => <MultilineTextHeaderCell text={`ID ${t(TranslationKey.Requests)}`} />,
     renderCell: params => <Text text={params.value} />,

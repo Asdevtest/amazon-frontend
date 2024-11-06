@@ -1,20 +1,25 @@
 import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-orders-statuses'
 
-export const getActiveStatuses = (isAtProcessOnly: boolean) => {
-  let statuses = {
-    [chosenStatusesByFilter.ALL]: true,
-    [chosenStatusesByFilter.AT_PROCESS]: true,
-    [chosenStatusesByFilter.CANCELED]: true,
-    [chosenStatusesByFilter.COMPLETED]: true,
+type FilterStatus = keyof typeof chosenStatusesByFilter
+
+export const getActiveStatuses = (filterStatus?: FilterStatus) => {
+  const statuses: Record<FilterStatus, boolean> = {
+    [chosenStatusesByFilter.ALL]: false,
+    [chosenStatusesByFilter.AT_PROCESS]: false,
+    [chosenStatusesByFilter.CANCELED]: false,
+    [chosenStatusesByFilter.COMPLETED]: false,
+    [chosenStatusesByFilter.PENDING]: false,
   }
 
-  if (isAtProcessOnly) {
-    statuses = {
-      [chosenStatusesByFilter.ALL]: false,
-      [chosenStatusesByFilter.AT_PROCESS]: true,
-      [chosenStatusesByFilter.CANCELED]: false,
-      [chosenStatusesByFilter.COMPLETED]: false,
-    }
+  if (!filterStatus || filterStatus === 'ALL') {
+    Object.keys(statuses).forEach(key => {
+      const statusKey = key as FilterStatus
+      statuses[statusKey] = true
+    })
+  } else if (Object.prototype.hasOwnProperty.call(statuses, filterStatus)) {
+    statuses[filterStatus] = true
+  } else {
+    throw new Error(`Invalid filterStatus: ${filterStatus}`)
   }
 
   return statuses

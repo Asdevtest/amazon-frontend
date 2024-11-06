@@ -19,13 +19,12 @@ import { IdeaModel } from '@models/ideas-model'
 import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
-import { SettingsModel } from '@models/settings-model'
+import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor, checkIsValidProposalStatusToShowResoult } from '@utils/checks'
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { toFixed } from '@utils/text'
@@ -33,12 +32,11 @@ import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { isBuyer, isClient } from '@typings/guards/roles'
 
 export class SuppliersAndIdeasModel {
   requestStatus = undefined
-
   currentIdeaId = undefined
-
   curIdea = undefined
   ideaForReject = undefined
   currentProduct = undefined
@@ -46,61 +44,46 @@ export class SuppliersAndIdeasModel {
   currentProposal = undefined
   currentRequest = undefined
   requestTypeTask = undefined
-  requestsForProduct = []
-
   productId = undefined
   updateData = undefined
-
   inCreate = false
   isCreateModal = false
   inEdit = false
   ideasData = []
   ideaIdToRemove = undefined
-
   supplierData = undefined
-
   dataToCreateProduct = undefined
-
   readyFiles = []
   progressValue = 0
   showProgress = false
-
+  shopsData = []
   isCreate = false
-
   showConfirmModal = false
-
   showRequestDesignerResultModal = false
   showMainRequestResultModal = false
   showRequestBloggerResultModal = false
-  showBindingModal = false
+  showLinkRequestModal = false
   showOrderModal = false
   showSetBarcodeModal = false
   showSelectionSupplierModal = false
   showCommentsModal = false
-
+  showSelectShopsModal = false
   selectedProduct = undefined
   storekeepers = []
   destinations = []
   ordersDataStateToSubmit = undefined
-
   confirmModalSettings = {
     isWarning: false,
     confirmMessage: '',
     onClickConfirm: () => {},
   }
 
-  get curUser() {
+  get userInfo() {
     return UserModel.userInfo
   }
-
-  get languageTag() {
-    return SettingsModel.languageTag
-  }
-
   get currentData() {
     return this.ideasData?.toSorted(sortObjectsArrayByFiledDateWithParseISO('updatedAt')) // ideas sort by desc
   }
-
   get platformSettings() {
     return UserModel.platformSettings
   }
@@ -125,11 +108,10 @@ export class SuppliersAndIdeasModel {
     try {
       if (this.isModalView && this.currentIdeaId) {
         await this.getIdea(this.currentIdeaId)
-        if (this.updateData) {
-          this.updateData?.()
-        }
       } else {
-        await this.getIdeas()
+        if (this.productId) {
+          await this.getIdeas()
+        }
       }
 
       this.getStorekeepers()
@@ -139,11 +121,15 @@ export class SuppliersAndIdeasModel {
   }
 
   async onClickOpenNewTab(productId, ideaId) {
-    const userRole = UserRoleCodeMap[this.curUser?.role]
+    const userRole = UserRoleCodeMap[this.userInfo?.role]
     window
       .open(
         `${
-          checkIsClient(userRole) ? '/client/inventory' : checkIsBuyer(userRole) ? '/buyer/my-products' : userRole
+          isClient(this.userInfo?.role)
+            ? '/client/inventory'
+            : isBuyer(this.userInfo?.role)
+            ? '/buyer/my-products'
+            : userRole
         }/product?product-id=${productId}&show-tab=ideas&ideaId=${ideaId}`,
         '_blank',
       )
@@ -184,12 +170,6 @@ export class SuppliersAndIdeasModel {
       const res = await IdeaModel.createIdea({ ...data, price: data.price || 0, quantity: data.quantity || 0 })
 
       if (!isForceUpdate) {
-        if (this.isModalView) {
-          this.closeModalHandler()
-        }
-
-        this.updateData?.()
-
         toast.success(t(TranslationKey['Idea created']))
       }
 
@@ -208,9 +188,9 @@ export class SuppliersAndIdeasModel {
           this.closeModalHandler()
         }
 
-        this.updateData?.()
-
         toast.success(t(TranslationKey['Idea edited']))
+
+        this.updateData?.()
       }
     } catch (error) {
       console.error(error)
@@ -279,28 +259,48 @@ export class SuppliersAndIdeasModel {
           getObjectFilteredByKeyArrayWhiteList({ ...submitData, parentProductId: this.productId }, IdeaCreate),
           isForceUpdate,
         )
-
         await this.getIdea(createdIdeaId)
-      }
 
-      /* if (isForceUpdate) {
-        runInAction(() => {
-          this.inCreate = false
-          this.inEdit = true
-        })
-      } else {
-        runInAction(() => {
-          this.inCreate = false
-          this.inEdit = false
-        })
-      } */
+        if (!isBuyer(this.userInfo?.role)) {
+          await this.getShops()
+        }
+
+        if (!this.currentProduct) {
+          this.onTriggerOpenModal('showSelectShopsModal')
+        } else {
+          this.closeModalHandler()
+        }
+      }
 
       runInAction(() => {
         this.inCreate = false
         this.inEdit = false
       })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.readyFiles = []
+    }
+  }
 
-      this.loadData()
+  async onSaveProductData(shop) {
+    try {
+      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: shop._id })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.closeModalHandler()
+      this.updateData?.()
+    }
+  }
+
+  async getShops() {
+    try {
+      const result = await ShopModel.getMyShops()
+
+      runInAction(() => {
+        this.shopsData = result
+      })
     } catch (error) {
       console.error(error)
     }
@@ -384,34 +384,13 @@ export class SuppliersAndIdeasModel {
     const isCreateByChildProduct = ideaData?.status >= ideaStatusByKey[ideaStatus.ADDING_ASIN] && ideaData?.childProduct
 
     const win = window.open(
-      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/create-request?parentProduct=${
+      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/create-request?parentProduct=${
         isCreateByChildProduct ? ideaData?.childProduct?._id : this.currentProduct?._id
       }&asin=${isCreateByChildProduct ? ideaData?.childProduct?.asin : this.currentProduct?.asin}`,
       '_blank',
     )
 
     win.focus()
-  }
-
-  async onClickBindButton(requests, idea) {
-    const currentIdeaStatus = this.curIdea?.status || idea?.status
-    const currentIdeaId = this.curIdea?._id || idea?._id
-    const methodBody = [ideaStatusByKey[ideaStatus.NEW], ideaStatusByKey[ideaStatus.ON_CHECK]].includes(
-      currentIdeaStatus,
-    )
-      ? { onCheckedIdeaId: currentIdeaId }
-      : { onFinishedIdeaId: currentIdeaId }
-    for (const request of requests) {
-      try {
-        await RequestModel.bindIdeaToRequest(request, methodBody)
-      } catch (error) {
-        console.error('error', error)
-      }
-    }
-
-    this.getIdea(currentIdeaId)
-    this.onTriggerOpenModal('showBindingModal')
-    this.loadData()
   }
 
   async unbindRequest(requestId) {
@@ -434,26 +413,6 @@ export class SuppliersAndIdeasModel {
     }
 
     this.onTriggerOpenModal('showConfirmModal')
-  }
-
-  async onClickLinkRequestButton(idea) {
-    try {
-      const result = await RequestModel.getRequestsByProductLight({
-        guid: this.productId,
-        status: 'DRAFT, PUBLISHED, IN_PROCESS',
-        excludeIdeaId: idea._id,
-      })
-
-      runInAction(() => {
-        this.requestsForProduct = addIdDataConverter(result)
-      })
-
-      this.onTriggerOpenModal('showBindingModal')
-
-      this.loadData()
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async changeIdeaStatus(ideaData, chesenStatus) {
@@ -808,7 +767,7 @@ export class SuppliersAndIdeasModel {
 
   onClickRequestId(id) {
     const win = window.open(
-      `/${UserRoleCodeMapForRoutes[this.curUser.role]}/freelance/my-requests/custom-request?request-id=${id}`,
+      `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request?request-id=${id}`,
       '_blank',
     )
 
@@ -816,8 +775,8 @@ export class SuppliersAndIdeasModel {
   }
 
   onClickOpenProduct(id) {
-    const userRole = UserRoleCodeMap[this.curUser?.role]
-    const userRolePath = UserRoleCodeMapForRoutes[this.curUser?.role]
+    const userRole = UserRoleCodeMap[this.userInfo?.role]
+    const userRolePath = UserRoleCodeMapForRoutes[this.userInfo?.role]
 
     if (checkIsClient(userRole)) {
       window.open(`/${userRolePath}/inventory/product?product-id=${id}`)?.focus()
@@ -860,13 +819,11 @@ export class SuppliersAndIdeasModel {
       })
 
       this.loadData()
-
-      this.onTriggerOpenModal('showConfirmModal')
-      this.onTriggerOpenModal('showSelectionSupplierModal')
     } catch (error) {
+      console.error(error)
+    } finally {
       this.onTriggerOpenModal('showConfirmModal')
       this.onTriggerOpenModal('showSelectionSupplierModal')
-      console.error(error)
     }
   }
 }

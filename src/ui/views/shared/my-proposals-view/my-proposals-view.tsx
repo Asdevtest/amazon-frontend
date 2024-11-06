@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridCellParams, GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -20,7 +20,6 @@ import { FreelanceTypeTaskSelect } from '@components/shared/selects/freelance-ty
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IProposal } from '@typings/models/proposals/proposal'
 
 import { useStyles } from './my-proposals-view.style'
 
@@ -30,7 +29,7 @@ import { MyProposalsViewModel } from './my-proposals-view.model'
 export const MyProposalsView = observer(({ allProposals }: { allProposals: boolean }) => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new MyProposalsViewModel({ allProposals }))
+  const viewModel = useMemo(() => new MyProposalsViewModel({ allProposals }), [])
 
   const getRowClassName = (params: GridRowParams) => {
     if (params?.row?.request?.freelanceNotices > 0) {
@@ -49,8 +48,7 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
       <div className={styles.tablePanelWrapper}>
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
-          options={customSwitcherSettings}
+          options={customSwitcherSettings()}
           defaultValue={viewModel.switcherCondition}
           onChange={viewModel.onClickChangeCatigory}
         />
@@ -59,12 +57,11 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
           enterButton
           allowClear
           size="large"
-          placeholder="Search by Title, ASIN, SKU, ID"
+          placeholder="Search by Title, ASIN, SKU, ID, Proposal ID"
           onSearch={viewModel.onSearchSubmit}
         />
 
         <FreelanceTypeTaskSelect
-          // @ts-ignore
           specs={viewModel.userInfo?.allowedSpec}
           selectedSpec={viewModel.specOption}
           onChangeSpec={viewModel.onChangeSpec}
@@ -83,7 +80,6 @@ export const MyProposalsView = observer(({ allProposals }: { allProposals: boole
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }: IProposal) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

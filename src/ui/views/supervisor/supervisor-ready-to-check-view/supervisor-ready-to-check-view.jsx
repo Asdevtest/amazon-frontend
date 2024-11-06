@@ -1,12 +1,11 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -14,20 +13,21 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { SupervisorReadyToCheckViewModel } from './supervisor-ready-to-check-view.model'
 
 export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
-  const [viewModel] = useState(() => new SupervisorReadyToCheckViewModel(isCreatedByClient))
+  const viewModel = useMemo(() => new SupervisorReadyToCheckViewModel(isCreatedByClient), [])
 
   return (
     <div className="viewWrapper">
-      <CustomButton
-        size="large"
-        type="primary"
-        title={t(TranslationKey['Assign several product cards to a Supervisor'])}
-        disabled={viewModel.selectedRows.length === 0}
-        onClick={throttle(viewModel.onPickUpSomeItems)}
-      >
-        {t(TranslationKey['Take on the work of the selected'])}
-      </CustomButton>
-
+      <div>
+        <CustomButton
+          size="large"
+          type="primary"
+          title={t(TranslationKey['Assign several product cards to a Supervisor'])}
+          disabled={viewModel.selectedRows.length === 0}
+          onClick={viewModel.onPickUpSomeItems}
+        >
+          {t(TranslationKey['Take on the work of the selected'])}
+        </CustomButton>
+      </div>
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick
@@ -43,7 +43,6 @@ export const SupervisorReadyToCheckView = observer(({ isCreatedByClient }) => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

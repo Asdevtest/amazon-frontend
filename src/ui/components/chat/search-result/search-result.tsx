@@ -1,8 +1,5 @@
 import { FC, memo } from 'react'
-
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import { MdArrowDropDown, MdArrowDropUp, MdClose } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -33,7 +30,8 @@ export const SearchResult: FC<SearchResultProps> = memo(props => {
       </p>
 
       <div className={styles.dropUpOrDownWrapper}>
-        <ArrowDropUpIcon
+        <MdArrowDropUp
+          size={24}
           className={cx(styles.searchIconBtn)}
           onClick={() =>
             curFoundedMessageIndex !== 0
@@ -42,7 +40,8 @@ export const SearchResult: FC<SearchResultProps> = memo(props => {
           }
         />
 
-        <ArrowDropDownIcon
+        <MdArrowDropDown
+          size={24}
           className={cx(styles.searchIconBtn)}
           onClick={() =>
             curFoundedMessageIndex + 1 !== messagesFound.length
@@ -52,7 +51,7 @@ export const SearchResult: FC<SearchResultProps> = memo(props => {
         />
       </div>
 
-      <CloseOutlinedIcon className={styles.searchIconBtn} onClick={onClose} />
+      <MdClose size={24} className={styles.searchIconBtn} onClick={onClose} />
     </div>
   )
 })

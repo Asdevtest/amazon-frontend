@@ -8,4 +8,8 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     gap: '10px',
   },
+
+  createPresetInput: {
+    flex: 1,
+  },
 }))

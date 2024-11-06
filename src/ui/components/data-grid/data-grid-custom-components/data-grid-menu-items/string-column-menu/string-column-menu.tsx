@@ -29,6 +29,8 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
     filtersData,
     filterRequestStatus,
     isShowFullText,
+    additionalFilterSettings,
+    fieldNameFilter,
     transformValueMethod,
     onClose,
     onClickFilterBtn,
@@ -50,6 +52,8 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
     field,
     table,
     filtersData,
+    additionalFilterSettings,
+    fieldNameFilter,
     transformValueMethod,
     onClickFilterBtn,
   })

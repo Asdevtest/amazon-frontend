@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton } from '@mui/material'
 
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
+import { SetFileForm } from '@components/forms/set-file-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
@@ -73,7 +71,7 @@ export const Box: FC<BoxProps> = memo(props => {
   const [showSetShippingLabelModal, setShowSetShippingLabelModal] = useState(false)
   const [showFullCard, setShowFullCard] = useState(true)
 
-  const setShippingLabel = () => (value: any) => {
+  const setShippingLabel = (value: any) => {
     onChangeField({ target: { value } }, 'tmpShippingLabel', box._id)
   }
 
@@ -130,6 +128,7 @@ export const Box: FC<BoxProps> = memo(props => {
                 <Field
                   disabled={readOnly}
                   label={t(TranslationKey.Quantity)}
+                  containerClasses={styles.fieldContainer}
                   className={styles.orderInput}
                   labelClasses={styles.label}
                   value={isMasterBox ? (boxIsMasterBox ? selectedBox.amount : 1) : order.amount}
@@ -202,12 +201,10 @@ export const Box: FC<BoxProps> = memo(props => {
 
               <Field
                 disabled={!isNewBox}
-                // @ts-ignore
                 inputProps={{ maxLength: 255 }}
                 tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
                 containerClasses={styles.field}
                 labelClasses={styles.label}
-                // @ts-ignore
                 inputClasses={cx(styles.fieldInput, {
                   [styles.inputAccent]:
                     (box.shippingLabel || box.tmpShippingLabel?.length) &&
@@ -215,9 +212,8 @@ export const Box: FC<BoxProps> = memo(props => {
                     !destinations.find(el => el._id === box.destinationId)?.storekeeper &&
                     isNewBox,
                 })}
-                label={t(TranslationKey['FBA Shipment'])}
+                label="FBA Shipment"
                 value={box.fbaShipment}
-                // @ts-ignore
                 onChange={e => onChangeField(e, 'fbaShipment', box._id)}
               />
 
@@ -226,7 +222,7 @@ export const Box: FC<BoxProps> = memo(props => {
                   direction="column"
                   labelTitleColor="gray"
                   lableLinkTitleSize="medium"
-                  labelTitle={t(TranslationKey['Shipping label'])}
+                  labelTitle="Shipping label"
                   labelValue={box.shippingLabel}
                   lableLinkTitle={t(TranslationKey.View)}
                   labelWrapperStyles={styles.labelWrapperStyles}
@@ -236,7 +232,7 @@ export const Box: FC<BoxProps> = memo(props => {
               {isNewBox ? (
                 <div>
                   <Field
-                    label={t(TranslationKey['Shipping label']) + ':'}
+                    label="Shipping label:"
                     tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
                     labelClasses={styles.label}
                     inputComponent={
@@ -271,7 +267,7 @@ export const Box: FC<BoxProps> = memo(props => {
           {isNewBox && (
             <div className={styles.bottomBlockWrapper}>
               <IconButton classes={{ root: styles.icon }} onClick={() => onRemoveBox(box._id)}>
-                <DeleteOutlineOutlinedIcon />
+                <MdDeleteOutline size={22} />
               </IconButton>
               <div className={styles.incomingBtnWrapper}>
                 <div className={styles.tablePanelSortWrapper} onClick={() => setShowFullCard(!showFullCard)}>
@@ -279,7 +275,11 @@ export const Box: FC<BoxProps> = memo(props => {
                     {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
                   </p>
 
-                  {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+                  {!showFullCard ? (
+                    <MdArrowDropDown size={22} className={styles.blue} />
+                  ) : (
+                    <MdArrowDropUp size={22} className={styles.blue} />
+                  )}
                 </div>
               </div>
             </div>
@@ -291,15 +291,11 @@ export const Box: FC<BoxProps> = memo(props => {
         openModal={showSetShippingLabelModal}
         setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
       >
-        <SetShippingLabelModal
-          tmpShippingLabel={box.tmpShippingLabel}
-          item={box}
+        <SetFileForm
+          data={box?.shippingLabel}
           // @ts-ignore
-          onClickSaveShippingLabel={shippingLabel => {
-            setShippingLabel()(shippingLabel)
-            setShowSetShippingLabelModal(!showSetShippingLabelModal)
-          }}
-          onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+          onSubmit={setShippingLabel}
+          onClose={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         />
       </Modal>
 

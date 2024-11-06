@@ -38,7 +38,7 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
                 src={getAmazonImageUrl(el, true)}
                 alt={index.toString()}
                 loading="lazy"
-                onError={e => ((e.target as HTMLImageElement).src = '/assets/img/no-photo.jpg')}
+                onError={e => ((e.target as HTMLImageElement).src = '/assets/img/defaultImage.png')}
               />
             )}
           </div>

@@ -12,7 +12,6 @@ export const productIntegrationsColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    // type: 'date',
   },
 
   {
@@ -66,7 +65,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Available),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Available)} />,
 
-    renderCell: params => <Text isCell text={params.row.originalData.fbaFbmStock} />,
+    renderCell: params => <Text isCell text={params.row.fbaFbmStock} />,
     width: 150,
   },
 
@@ -84,7 +83,7 @@ export const productIntegrationsColumns = () => [
     headerName: t(TranslationKey.Inbound),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Inbound)} />,
 
-    renderCell: params => <Text isCell text={params.row.originalData.sentToFba} />,
+    renderCell: params => <Text isCell text={params.row.sentToFba} />,
     width: 150,
   },
 

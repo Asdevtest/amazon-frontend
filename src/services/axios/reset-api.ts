@@ -6,19 +6,12 @@ import { BACKEND_API_URL } from '@constants/keys/env'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
-import { SettingsModel } from '@models/settings-model'
-import { UserModel } from '@models/user-model'
 
 import api from '@services/axios/api'
 
 import { t } from '@utils/translations'
 
-interface IPostAccessToken {
-  refreshToken: string
-}
-interface IGetAccessToken {
-  data: { accessToken: string }
-}
+import { IGetAccessToken, IPostAccessToken } from './axios.types'
 
 export const resetTokens = async (originalRequest?: AxiosRequestConfig) => {
   const storage = localStorage.getItem('UserModel')
@@ -40,8 +33,7 @@ export const resetTokens = async (originalRequest?: AxiosRequestConfig) => {
 
       const accessToken = response?.data?.accessToken
 
-      SettingsModel.saveValue('UserModel', { ...userModel, accessToken })
-      UserModel.setAccessToken(accessToken)
+      localStorage.setItem('UserModel', JSON.stringify({ ...userModel, accessToken }))
 
       ChatModel.disconnect()
       ChatModel.init(accessToken)

@@ -16,6 +16,7 @@ export const observerConfig = {
   onChangeFullFieldMenuItem: action.bound,
   onClickFilterBtn: action.bound,
   setFilterRequestStatus: action.bound,
+  setFilterFromPreset: action.bound,
 
   getCurrentData: override,
   isSomeFilterOn: override,
@@ -24,4 +25,6 @@ export const observerConfig = {
   onPaginationModelChange: override,
   currentSearchValue: override,
   onClickResetFilters: override,
+  getPresetSettingForSave: override,
+  setSettingsFromActivePreset: override,
 }

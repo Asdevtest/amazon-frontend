@@ -1,10 +1,8 @@
 import { observer } from 'mobx-react'
 import { useEffect, useRef, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
+import { MdArrowDropDown, MdArrowDropUp, MdDeleteOutline } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined'
 import { IconButton, Link, Typography } from '@mui/material'
 
 import { inchesCoefficient, unitsOfChangeOptions } from '@constants/configs/sizes-settings'
@@ -14,11 +12,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { OpenInNewTab } from '@components/shared/open-in-new-tab'
 import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
+import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -48,7 +47,6 @@ import { SourceProduct } from './source-product'
 export const IdeaViewAndEditCard = observer(
   ({
     isModalView,
-    languageTag,
     curUser,
     inEdit,
     inCreate,
@@ -162,7 +160,6 @@ export const IdeaViewAndEditCard = observer(
         length: toFixed(idea?.length / multiplier, 2) || 0,
         suppliers: idea?.suppliers || [],
         _id: idea?._id || undefined,
-        parentProduct: idea?.parentProduct || undefined,
         childProduct: idea?.childProduct || undefined,
         requestsOnCheck: idea?.requestsOnCheck || [],
         requestsOnFinished: idea?.requestsOnFinished || [],
@@ -227,7 +224,7 @@ export const IdeaViewAndEditCard = observer(
         setFormFields(getFullIdea())
         // setShowFullCard(true) // 10527
       }
-    }, [idea, languageTag])
+    }, [idea])
 
     useEffect(() => {
       if (selectedIdea === idea?._id) {
@@ -355,14 +352,14 @@ export const IdeaViewAndEditCard = observer(
                 onClickShareIcon={() => onClickOpenProduct(formFields?.childProduct?._id)}
               />
             )}
-            {(currentProduct || formFields?.parentProduct) && (
+            {currentProduct && (
               <SourceProduct
                 showOpenInNewTabIcon
                 title={t(TranslationKey['Parent product'])}
-                img={formFields?.parentProduct?.images?.[0] || currentProduct?.images?.[0]}
-                asin={formFields?.parentProduct?.asin || currentProduct?.asin}
-                sku={formFields?.parentProduct?.skuByClient || currentProduct?.skuByClient}
-                onClickShareIcon={() => onClickOpenProduct(formFields?.parentProduct?._id || currentProduct?._id)}
+                img={currentProduct?.images?.[0]}
+                asin={currentProduct?.asin}
+                sku={currentProduct?.skuByClient}
+                onClickShareIcon={() => onClickOpenProduct(currentProduct?._id)}
               />
             )}
           </div>
@@ -393,18 +390,18 @@ export const IdeaViewAndEditCard = observer(
 
                     <div className={styles.requestsControlButtonsWrapper}>
                       <div className={styles.switcherWrapper}>
-                        <CustomSwitcher
-                          switchMode={'medium'}
-                          condition={showRequestType}
-                          switcherSettings={[
-                            { label: () => t(TranslationKey['On check']), value: RequestSwitherType.REQUESTS_ON_CHECK },
-                            { label: () => t(TranslationKey.Realized), value: RequestSwitherType.REQUESTS_ON_FINISHED },
+                        <CustomRadioButton
+                          size="large"
+                          options={[
+                            { label: t(TranslationKey['On check']), value: RequestSwitherType.REQUESTS_ON_CHECK },
+                            { label: t(TranslationKey.Realized), value: RequestSwitherType.REQUESTS_ON_FINISHED },
                           ]}
-                          changeConditionHandler={setShowRequestType}
+                          value={showRequestType}
+                          onChange={e => setShowRequestType(e.target.value)}
                         />
                       </div>
 
-                      <Button disabled={!showCreateRequestButton} onClick={() => onClickLinkRequestButton(idea)}>
+                      <Button disabled={!showCreateRequestButton} onClick={onClickLinkRequestButton}>
                         {t(TranslationKey['Link request'])}
                       </Button>
                     </div>
@@ -416,7 +413,7 @@ export const IdeaViewAndEditCard = observer(
                         <IdeaRequestCard
                           key={requestIndex}
                           requestTitle={request?.spec?.title}
-                          requestId={request.humanFriendlyId}
+                          requestId={request.xid}
                           requestStatus={request.status}
                           executor={request.executor}
                           proposals={request.proposals}
@@ -437,6 +434,13 @@ export const IdeaViewAndEditCard = observer(
             </div>
 
             <div className={styles.commentsWrapper}>
+              {idea ? (
+                <p className={styles.ideaID}>
+                  {t(TranslationKey['Idea ID'])}
+                  <span className={styles.idText}>{`: ${idea?.xid}`}</span>
+                </p>
+              ) : null}
+
               <Field
                 multiline
                 disabled={disableFields || currentUserIsBuyer}
@@ -552,7 +556,7 @@ export const IdeaViewAndEditCard = observer(
                                         className={styles.deleteBtnWrapper}
                                         onClick={() => onRemoveLink(index)}
                                       >
-                                        <DeleteOutlineOutlinedIcon className={styles.deleteBtn} />
+                                        <MdDeleteOutline size={20} className={styles.deleteBtn} />
                                       </IconButton>
                                     )}
                                   </div>
@@ -595,15 +599,7 @@ export const IdeaViewAndEditCard = observer(
                       <div className={styles.sizesWrapper}>
                         <div className={styles.sizesSubWrapper}>
                           <p className={styles.spanLabel}>{t(TranslationKey.Dimensions)}</p>
-
-                          <CustomSwitcher
-                            condition={sizeSetting}
-                            switcherSettings={[
-                              { label: () => unitsOfChangeOptions.EU, value: unitsOfChangeOptions.EU },
-                              { label: () => unitsOfChangeOptions.US, value: unitsOfChangeOptions.US },
-                            ]}
-                            changeConditionHandler={handleChange}
-                          />
+                          <SizeSwitcher condition={sizeSetting} onChangeCondition={handleChange} />
                         </div>
 
                         <div className={styles.sizesBottomWrapper}>
@@ -699,14 +695,14 @@ export const IdeaViewAndEditCard = observer(
                   {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
                 </Typography>
 
-                {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+                {!showFullCard ? (
+                  <MdArrowDropDown size={22} className={styles.icon} />
+                ) : (
+                  <MdArrowDropUp size={22} className={styles.icon} />
+                )}
               </div>
             ) : (
-              <OpenInNewTab
-                onClickOpenNewTab={() =>
-                  onClickOpenNewTab(formFields?.parentProduct?._id || currentProduct?._id, formFields?._id)
-                }
-              />
+              <OpenInNewTab onClickOpenNewTab={() => onClickOpenNewTab(currentProduct?._id, formFields?._id)} />
             )}
 
             {!checkIsAdmin(userRole) && (

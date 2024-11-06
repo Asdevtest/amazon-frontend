@@ -4,7 +4,7 @@ import {
   MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -96,7 +96,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Researcher)} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
+      <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} email={params.row.createdBy?.email} />
     ),
     width: 200,
   },
@@ -106,7 +106,9 @@ export const vacByUserIdExchangeColumns = () => [
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
+    renderCell: params => (
+      <UserCell name={params.row.buyer?.name} id={params.row.buyer?._id} email={params.row.buyer?.email} />
+    ),
     width: 200,
   },
 
@@ -116,7 +118,7 @@ export const vacByUserIdExchangeColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
+      <UserCell name={params.row.checkedBy?.name} id={params.row.checkedBy?._id} email={params.row.checkedBy?.email} />
     ),
     width: 200,
   },

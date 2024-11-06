@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { ArrowDownIcon, RatingStarIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
@@ -58,10 +58,11 @@ export const Select: FC<SelectProps> = memo(props => {
 
       <div className={cx(styles.menuContainer, { [styles.menuContainerAnimation]: isOpen })}>
         <div className={styles.searchInputWrapper}>
-          <SearchInput
+          <CustomInputSearch
+            allowClear
             value={searchValue}
-            placeholder={t(TranslationKey.Search)}
-            inputClasses={styles.searchInput}
+            placeholder="Search"
+            wrapperClassName={styles.searchInput}
             onChange={e => setSearchValue(e.target.value)}
           />
         </div>

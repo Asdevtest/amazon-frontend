@@ -87,11 +87,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 18,
     opacity: 1,
     transition: '.3s ease-in-out',
-
-    '&:hover': {
-      opacity: 0.8,
-      transform: 'scale(1.1)',
-    },
   },
 
   pencilIcon: {

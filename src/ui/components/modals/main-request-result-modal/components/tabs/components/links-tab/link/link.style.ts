@@ -56,9 +56,5 @@ export const useStyles = makeStyles()(theme => ({
   iconBasket: {
     width: '18px !important',
     height: '18px !important',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 }))

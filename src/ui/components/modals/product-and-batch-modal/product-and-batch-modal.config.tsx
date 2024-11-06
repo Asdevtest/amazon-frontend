@@ -1,4 +1,4 @@
-import WatchLaterSharpIcon from '@mui/icons-material/WatchLaterSharp'
+import { MdOutlineWatchLater } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,9 +11,9 @@ import { useStyles } from './product-and-batch-modal.style'
 
 import { IModalConfig, ProductAndBatchModalSwitcherConditions } from './product-and-batch-modal.type'
 
-export const switcherSettings = [
-  { label: () => t(TranslationKey['Orders info']), value: ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION },
-  { label: () => t(TranslationKey['Batch data']), value: ProductAndBatchModalSwitcherConditions.BATCH_DATA },
+export const generateSwitcherSettings = () => [
+  { label: t(TranslationKey['Orders info']), value: ProductAndBatchModalSwitcherConditions.ORDER_INFORMATION },
+  { label: t(TranslationKey['Batch data']), value: ProductAndBatchModalSwitcherConditions.BATCH_DATA },
 ]
 
 export const infoModalConfig = (
@@ -55,7 +55,7 @@ export const infoModalConfig = (
           <p className={styles.fieldValue}>{selectedProduct?.amountInOrders}</p>
 
           <div className={styles.flexConainer}>
-            <WatchLaterSharpIcon className={styles.fieldIcon} />
+            <MdOutlineWatchLater size={20} className={styles.fieldIcon} />
             <p className={styles.fieldValue}>{selectedProduct?.amountInPendingOrders}</p>
           </div>
         </div>

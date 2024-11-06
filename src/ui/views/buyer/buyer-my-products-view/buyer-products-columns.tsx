@@ -28,6 +28,7 @@ import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/da
 
 interface IHandlers {
   onClickShowProduct: (row: IProduct) => void
+  onClickTag: (tag: ITag) => void
 }
 
 export const buyerProductsViewColumns = (handlers: IHandlers) => {
@@ -220,7 +221,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       field: 'tags',
       headerName: t(TranslationKey.Tags),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Tags)} />,
-      renderCell: params => <TagsCell tags={params.row.tags} />,
+      renderCell: params => <TagsCell tags={params.row.tags} onClickTag={handlers.onClickTag} />,
       valueGetter: params => params.row.tags?.map((el: ITag) => `#${el.title}`).join(),
       width: 160,
       sortable: false,

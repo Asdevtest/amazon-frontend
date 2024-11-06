@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
-import { useMemo, useState } from 'react'
-
-import { GridRowModel } from '@mui/x-data-grid-premium'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -28,7 +26,7 @@ import { WarehouseTabs } from './warehouse-management.types'
 
 export const WarehouseManagementView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new WarehouseTariffModel())
+  const viewModel = useMemo(() => new WarehouseTariffModel(), [])
 
   const currentAddress = useMemo(
     () =>
@@ -45,7 +43,6 @@ export const WarehouseManagementView = observer(() => {
       <div className={styles.flexRow}>
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
           options={createSwitcherConfig()}
           defaultValue={viewModel.tabIndex}
           onChange={viewModel.onChangeTabIndex}
@@ -99,7 +96,6 @@ export const WarehouseManagementView = observer(() => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),
@@ -162,7 +158,7 @@ export const WarehouseManagementView = observer(() => {
           onCloseModal={() => viewModel.onTriggerOpenModal('showAddOrEditDestinationModal')}
           onCreateSubmit={viewModel.onChangeDestination}
           onEditSubmit={viewModel.onChangeDestination}
-          onClickAddBtn={() => viewModel.onTriggerOpenModal('showAddOrEditLogisticTariffModal')}
+          onClickAddBtn={viewModel.onClickAddLogisticTariff}
         />
       </Modal>
 

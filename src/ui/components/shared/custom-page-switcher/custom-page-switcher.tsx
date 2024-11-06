@@ -1,8 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC } from 'react'
+import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md'
 
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
-import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import Typography from '@mui/material/Typography'
@@ -69,14 +68,16 @@ export const CustomPageSwitcher: FC<CustomPageSwitcherProps> = observer(props =>
           } ${t(TranslationKey.of)} ${rowCount}`}
         </Typography>
 
-        <NavigateBeforeIcon
+        <MdNavigateBefore
+          size={20}
           className={cx(styles.navigation, { [styles.disabledNavigation]: isFistPage })}
           onClick={() => {
             if (!isFistPage) changeCurrentPage(-1)
           }}
         />
 
-        <NavigateNextIcon
+        <MdNavigateNext
+          size={20}
           className={cx(styles.navigation, { [styles.disabledNavigation]: !morePagesAvailable })}
           onClick={() => {
             if (morePagesAvailable) changeCurrentPage(1)

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Paper, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -127,7 +127,7 @@ export const FirstStep = ({
               labelClasses={styles.spanLabelSmall}
               label={`${t(TranslationKey['Assets included in sale'])} *`}
               inputComponent={
-                <Paper className={styles.assetsPaper}>
+                <div className={styles.assetsPaper}>
                   <div className={styles.assetInputWrapper}>
                     <div className={styles.leftContentWrapper}>
                       <Input
@@ -159,7 +159,7 @@ export const FirstStep = ({
                       </div>
                     </div>
                   ))}
-                </Paper>
+                </div>
               }
             />
 

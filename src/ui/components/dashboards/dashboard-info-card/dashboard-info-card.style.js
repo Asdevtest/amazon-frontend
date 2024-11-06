@@ -28,10 +28,6 @@ export const useStyles = makeStyles()(theme => ({
     right: '16px',
     bottom: '16px',
     textAlign: 'right',
-    transition: '0.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
   circle: {
     border: `3px solid rgba(84, 173, 255, 1)`,

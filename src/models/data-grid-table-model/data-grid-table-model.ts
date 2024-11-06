@@ -45,7 +45,7 @@ export class DataGridTableModel extends DefaultModel {
 
   get filteredData() {
     if (this.fieldsForSearch?.length) {
-      const searchValue = this.currentSearchValue.toLowerCase()
+      const searchValue = this.currentSearchValue.trim().toLowerCase()
 
       return this.currentData?.filter((item: any) => this.checkNestedFields(item, searchValue, this.fieldsForSearch))
     } else {
@@ -214,7 +214,9 @@ export class DataGridTableModel extends DefaultModel {
         this.presetsTableData = result as ITablePreset[]
       })
     } catch (error) {
-      this.presetsTableData = []
+      runInAction(() => {
+        this.presetsTableData = []
+      })
       console.error(error)
     }
 

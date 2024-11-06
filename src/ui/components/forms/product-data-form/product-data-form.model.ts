@@ -15,12 +15,8 @@ import { productDataFormConfig, searchFields } from './product-data-form.config'
 
 export class ProductDataFormModel extends DataGridFilterTableModel {
   batch?: IBatch = undefined
-  batchArchive = false
+  archive = false
   showBatchInfoModal = false
-
-  get rows() {
-    return this.currentData
-  }
 
   constructor({ product, isBatches, onAmazon }: { product: IProduct; onAmazon: boolean; isBatches?: boolean }) {
     const columnProps = {
@@ -30,9 +26,9 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
     const defaultGetCurrentDataOptions = () => ({
       guid: product._id,
       onAmazon,
-      archive: this.batchArchive,
+      archive: this.archive,
     })
-    const filtersFields = getFilterFields(columnsModel, ['batchArchive'])
+    const filtersFields = getFilterFields(columnsModel, ['archive'])
 
     super({
       getMainDataMethod: isBatches ? BatchesModel.getBatchesbyProduct : BoxesModel.getProductInBatch,
@@ -48,9 +44,9 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
     if (!isBatches) {
       this.handleHideColumns(['logicsTariffCls', 'logicsTariffEtd', 'logicsTariffEta'])
     }
-    this.sortModel = [{ field: 'humanFriendlyId', sort: 'desc' }]
+    this.sortModel = [{ field: 'xid', sort: 'desc' }]
     this.pinnedColumns = { right: ['actions'] }
-    this.onChangeFullFieldMenuItem([false], 'batchArchive')
+    this.onChangeFullFieldMenuItem([false], 'archive')
     this.getCurrentData()
 
     makeObservable(this, productDataFormConfig)
@@ -69,8 +65,8 @@ export class ProductDataFormModel extends DataGridFilterTableModel {
   }
 
   onToggleArchive() {
-    this.batchArchive = !this.batchArchive
-    this.onChangeFullFieldMenuItem([this.batchArchive], 'batchArchive')
+    this.archive = !this.archive
+    this.onChangeFullFieldMenuItem([this.archive], 'archive')
     this.getCurrentData()
   }
 

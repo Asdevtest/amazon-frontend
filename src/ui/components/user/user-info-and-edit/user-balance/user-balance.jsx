@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,7 +20,7 @@ import { UserBalanceModel } from './user-balance.model'
 
 export const UserBalance = observer(({ userId }) => {
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(() => new UserBalanceModel(userId))
+  const viewModel = useMemo(() => new UserBalanceModel(userId), [])
 
   const getRowClassName = params => (params.row.sum < 0 ? styles.redRow : params.row.sum > 0 && styles.greenRow)
 
@@ -49,7 +49,6 @@ export const UserBalance = observer(({ userId }) => {
           paginationModel={viewModel.paginationModel}
           columnVisibilityModel={viewModel.columnVisibilityModel}
           getRowHeight={() => 'auto'}
-          getRowId={({ _id }) => _id}
           slotProps={{
             baseTooltip: {
               title: t(TranslationKey.Filter),

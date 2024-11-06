@@ -96,6 +96,7 @@ export interface IProduct {
   productsInWarehouseSchema: Array<object>
   orders: Array<IOrder>
   shop: ICreatedBy
+  selected?: boolean
 }
 
 export interface IBoxAmount {

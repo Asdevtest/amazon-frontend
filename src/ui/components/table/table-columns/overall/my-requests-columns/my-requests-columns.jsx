@@ -18,7 +18,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -115,7 +115,7 @@ export const myRequestsViewColumns = rowHandlers => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
@@ -170,10 +170,10 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
       renderCell: params => (
-        <UserLinkCell
-          blackText
-          name={params.row.sub ? params.row.sub?.name : params.row.createdBy?.name}
-          userId={params.row.sub ? params.row.sub?._id : params.row.createdBy?._id}
+        <UserCell
+          name={params.row.sub?.name || params.row.createdBy?.name}
+          id={params.row.sub?._id || params.row.createdBy?._id}
+          email={params.row.sub?.email || params.row.createdBy?.email}
         />
       ),
       width: 110,
@@ -213,12 +213,22 @@ export const myRequestsViewColumns = rowHandlers => {
       headerName: t(TranslationKey['Access to product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
 
-      renderCell: params => <ManyUserLinkCell usersData={params.row.product?.subUsers} />,
+      renderCell: params => {
+        const subUsers = params.row?.product?.subUsers || []
+        const subUsersByShop = params.row?.product?.subUsersByShop || []
+        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+      },
+
+      valueGetter: ({ row }) => {
+        const subUsers = row?.product?.subUsers || []
+        const subUsersByShop = row?.product?.subUsersByShop || []
+        return subUsers?.concat(subUsersByShop).join(', ')
+      },
+
       width: 187,
-
       filterable: false,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
 
-      columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
     },
 
@@ -228,10 +238,10 @@ export const myRequestsViewColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service representative'])} />,
 
       renderCell: params => (
-        <UserLinkCell
-          blackText
+        <UserCell
           name={params.row.announcement?.createdBy.name}
-          userId={params.row.announcement?.createdBy._id}
+          id={params.row.announcement?.createdBy._id}
+          email={params.row.announcement?.createdBy.email}
         />
       ),
       width: 160,
@@ -240,6 +250,15 @@ export const myRequestsViewColumns = rowHandlers => {
 
       columnKey: columnnsKeys.shared.OBJECT,
       disableCustomSort: true,
+    },
+
+    {
+      field: 'announcement',
+      headerName: t(TranslationKey['Service name']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service name'])} />,
+      renderCell: params => <Text isCell text={params.row.announcement?.title} />,
+      width: 200,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -284,7 +303,7 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      // type: 'date',
+
       columnKey: columnnsKeys.shared.DATE,
     },
 
@@ -297,7 +316,7 @@ export const myRequestsViewColumns = rowHandlers => {
         <Text
           isCell
           editMode
-          maxLength={MIDDLE_COMMENT_VALUE}
+          maxTextareaLength={MIDDLE_COMMENT_VALUE}
           text={row?.detailsCustom?.comment}
           onClickSubmit={comment => rowHandlers.onClickSaveComment(row?._id, comment)}
         />

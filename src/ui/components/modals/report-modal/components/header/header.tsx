@@ -1,5 +1,5 @@
 import { BaseOptionType } from 'antd/es/select'
-import { FC, UIEvent, memo, useCallback, useMemo } from 'react'
+import { FC, UIEvent, memo, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,18 +10,16 @@ import { t } from '@utils/translations'
 import { Launches as LaunchesEnum } from '@typings/enums/launches'
 import { IProduct } from '@typings/models/products/product'
 
-import { IPermissionsData } from '@hooks/use-products-permissions'
-
 import { useStyles } from './header.style'
 
+import { getDefaultAsinOption } from '../../report-modal.config'
 import { ILaunchOption, IRequestWithLaunch } from '../../report-modal.type'
 
 import { AsinOption } from './asin-option'
-import { getAsinOptions, getDefaultAsinOption } from './header.config'
 import { Requests } from './requests'
 
 interface HeaderProps {
-  products: IPermissionsData[]
+  asinOptions: BaseOptionType[]
   editMode: boolean
   launchOptions: ILaunchOption[]
   selectLaunchValue: LaunchesEnum | null
@@ -29,16 +27,16 @@ interface HeaderProps {
   onRemoveRequest: (id?: string) => void
   onSelectLaunch: (value: LaunchesEnum) => void
   onSelectProduct: (value: string, option: BaseOptionType) => void
-  onGetProducts: () => void
+  onDropdownVisibleChange: (value: boolean) => void
   onSearchAsinSelect: (value: string) => void
-  onScrollAsinSelect: () => void
+  onPopupScroll: (e: UIEvent<HTMLElement>) => void
   subView?: boolean
   product?: IProduct
 }
 
 export const Header: FC<HeaderProps> = memo(props => {
   const {
-    products,
+    asinOptions,
     editMode,
     launchOptions,
     selectLaunchValue,
@@ -46,42 +44,19 @@ export const Header: FC<HeaderProps> = memo(props => {
     onRemoveRequest,
     onSelectLaunch,
     onSelectProduct,
-    onGetProducts,
+    onDropdownVisibleChange,
     onSearchAsinSelect,
-    onScrollAsinSelect,
+    onPopupScroll,
     subView,
     product,
   } = props
 
   const { classes: styles, cx } = useStyles()
 
-  const handlePopupScroll = useCallback(
-    (e: UIEvent<HTMLElement>) => {
-      const element = e.target as HTMLElement
-      const scrollTop = element?.scrollTop
-      const containerHeight = element?.clientHeight
-      const contentHeight = element?.scrollHeight
-
-      if (contentHeight - (scrollTop + containerHeight) < 90) {
-        onScrollAsinSelect()
-      }
-    },
-    [onScrollAsinSelect],
-  )
-  const handleDropdownVisibleChange = useCallback(
-    (isOpen: boolean) => {
-      if (isOpen) {
-        onGetProducts()
-      }
-    },
-    [onGetProducts],
-  )
-
   const modalTitle = useMemo(
     () => `${editMode ? t(TranslationKey.Edit) : t(TranslationKey.New)} ${t(TranslationKey['report by the product'])}`,
     [editMode],
   )
-  const asinOptions = useMemo(() => getAsinOptions(products), [products])
   const defaultAsinOption = useMemo(() => getDefaultAsinOption(product), [product])
   const disabledLaunchesSelect = useMemo(() => launchOptions.length === 0 || !product, [product, launchOptions.length])
   const disabledAsinsSelect = useMemo(() => !subView || editMode, [subView, editMode])
@@ -101,9 +76,9 @@ export const Header: FC<HeaderProps> = memo(props => {
             value={defaultAsinOption}
             options={asinOptions}
             optionRender={({ data }) => <AsinOption data={data} />}
-            onDropdownVisibleChange={handleDropdownVisibleChange}
+            onDropdownVisibleChange={onDropdownVisibleChange}
             onSearch={onSearchAsinSelect}
-            onPopupScroll={handlePopupScroll}
+            onPopupScroll={onPopupScroll}
             onChange={onSelectProduct}
           />
 

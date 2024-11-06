@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,7 +15,7 @@ import { styles } from './client-freelance-view.style'
 import { ClientFreelanceViewModel } from './client-freelance-view.model'
 
 export const ClientFreelanceViewRaw = props => {
-  const [viewModel] = useState(() => new ClientFreelanceViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new ClientFreelanceViewModel({ history: props.history }), [])
 
   const { classes: styles } = props
 

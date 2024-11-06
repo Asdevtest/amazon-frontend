@@ -1,8 +1,6 @@
 import { FC, memo } from 'react'
 import { FiPlus } from 'react-icons/fi'
-
-import AcceptIcon from '@material-ui/icons/Check'
-import AcceptRevokeIcon from '@material-ui/icons/Clear'
+import { IoMdCheckmark, IoMdClose } from 'react-icons/io'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ACCESS_DENIED } from '@constants/text'
@@ -194,7 +192,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           disabled={isAtProcessOrder || !(showToggleCurrentSupplierButton && isCurrentSupplierSelected)}
           onClick={() => onSupplierActions(ModalModes.ACCERT_REVOKE)}
         >
-          <AcceptRevokeIcon />
+          <IoMdClose size={18} />
         </Button>
 
         <Button
@@ -204,7 +202,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           disabled={isAtProcessOrder || !(showToggleCurrentSupplierButton && !isCurrentSupplierSelected)}
           onClick={() => onSupplierActions(ModalModes.ACCEPT)}
         >
-          <AcceptIcon />
+          <IoMdCheckmark size={18} />
         </Button>
 
         <Button

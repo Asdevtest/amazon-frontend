@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,7 +20,7 @@ import { ClientBoxesNotificationsViewModel } from './client-boxes-notifications-
 export const ClientBoxesNotificationsView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new ClientBoxesNotificationsViewModel())
+  const viewModel = useMemo(() => new ClientBoxesNotificationsViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -56,7 +56,6 @@ export const ClientBoxesNotificationsView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }) => _id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

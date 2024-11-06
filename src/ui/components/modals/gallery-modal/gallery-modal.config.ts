@@ -5,6 +5,6 @@ import { t } from '@utils/translations'
 import { SwitcherConditions } from './gallery-modal.type'
 
 export const customSwitcherSettings = [
-  { label: () => t(TranslationKey.Photos), value: SwitcherConditions.MEDIA_FILES },
-  { label: () => t(TranslationKey.Documents), value: SwitcherConditions.DOCUMENTS },
+  { label: t(TranslationKey.Photos), value: SwitcherConditions.MEDIA_FILES },
+  { label: t(TranslationKey.Documents), value: SwitcherConditions.DOCUMENTS },
 ]

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
-import { Link } from 'react-router-dom'
 
 import { Tooltip } from '@mui/material'
 
@@ -12,6 +11,8 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './shop-notification-message-cell.style'
 
+import { getIntegrationResult } from './helpers/get-integration-result'
+import { IntegrationResult } from './integration-result'
 import { IShop, ShopUpdateResult } from './shop-notification.type'
 
 interface ShopNotificationMessageCellProps {
@@ -25,11 +26,20 @@ export const ShopNotificationMessageCell: FC<ShopNotificationMessageCellProps> =
   const success = ShopUpdateResult.SUCCESS
   const error = ShopUpdateResult.ERROR
 
-  const renderShop = (shop: IShop, needСomma: boolean) => (
-    <Link className={styles.shopLink} to={`/client/shops/shops`}>
-      {`${shop?.name}${needСomma ? ', ' : ''}`}
-    </Link>
-  )
+  const renderShop = (shop: IShop, needСomma: boolean) => {
+    const shopIntegrated = getIntegrationResult(shop.data)
+
+    return (
+      <Tooltip
+        key={shop?._id}
+        classes={{ tooltip: styles.tooltip }}
+        placement="left"
+        title={shopIntegrated ? <IntegrationResult integrationResult={shopIntegrated} /> : ''}
+      >
+        <p className={styles.shopLink}>{`${shop?.name}${needСomma ? ', ' : ''}`}</p>
+      </Tooltip>
+    )
+  }
 
   const renderShops = (shops: IShop[], status: ShopUpdateResult) => {
     const isSuccess = status === success

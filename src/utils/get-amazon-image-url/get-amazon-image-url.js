@@ -18,7 +18,7 @@ import { removeText } from '@utils/text'
 
 export const getAmazonImageUrl = (str, isBig) => {
   if (!str || str?.endsWith('.com')) {
-    return '/assets/img/no-photo.jpg'
+    return '/assets/img/defaultImage.png'
   }
 
   if (checkIsHasHttp(str)) {

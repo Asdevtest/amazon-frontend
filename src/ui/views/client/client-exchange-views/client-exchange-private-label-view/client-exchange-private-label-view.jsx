@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { Typography } from '@mui/material'
@@ -18,7 +18,7 @@ import { styles } from './client-exchange-private-label-view.style'
 import { ClientExchangePrivateLabelViewModel } from './client-exchange-private-label-view.model'
 
 export const ClientExchangePrivateLabelViewRaw = props => {
-  const [viewModel] = useState(() => new ClientExchangePrivateLabelViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new ClientExchangePrivateLabelViewModel({ history: props.history }), [])
   const { classes: styles } = props
 
   useEffect(() => {

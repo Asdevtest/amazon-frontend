@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 
-import { GridRowModel, GridRowParams } from '@mui/x-data-grid'
+import { GridRowParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -30,7 +30,7 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(props => {
   const { formFields, platformSettings } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new BoxesToOrderModel(formFields))
+  const viewModel = useMemo(() => new BoxesToOrderModel(formFields), [])
 
   return (
     <>
@@ -43,7 +43,6 @@ export const BoxesToOrder: FC<BoxesToOrderProps> = observer(props => {
           rows={viewModel.boxes || []}
           columnHeaderHeight={40}
           getRowHeight={() => 'auto'}
-          getRowId={(row: GridRowModel) => row._id}
           columns={boxesToOrderColumn(platformSettings)}
           paginationModel={viewModel.paginationModel}
           loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

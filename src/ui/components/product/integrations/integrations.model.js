@@ -8,26 +8,19 @@ import { SellerBoardModel } from '@models/seller-board-model'
 
 import { productIntegrationsColumns } from '@components/table/table-columns/product/integrations-columns'
 
-import { addIdDataConverter, stockReportDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class IntegrationsModel {
   requestStatus = undefined
-
   productId = undefined
   product = undefined
-
   showBindInventoryGoodsToStockModal = false
-
   sellerBoardDailyData = []
   sellerBoardData = []
-
   paginationModel = { page: 0, pageSize: 15 }
-
   selectedRowIds = []
-
   columnsModel = productIntegrationsColumns()
   columnVisibilityModel = {}
 
@@ -65,7 +58,8 @@ export class IntegrationsModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      await Promise.all([this.getProductById(), this.getProductsWithSkuById()])
+      this.getProductById()
+      this.getProductsWithSkuById()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -95,7 +89,7 @@ export class IntegrationsModel {
       const result = await SellerBoardModel.getStockGoodsByFilters(filter)
 
       runInAction(() => {
-        this.sellerBoardDailyData = addIdDataConverter(result?.rows)
+        this.sellerBoardDailyData = result?.rows
       })
     } catch (error) {
       console.error(error)
@@ -111,7 +105,7 @@ export class IntegrationsModel {
     try {
       await SellerBoardModel.unlinkSkuProduct({
         productId: this.productId,
-        skus: this.sellerBoardData.filter(el => this.selectedRowIds.includes(el._id)).map(el => el.originalData.sku),
+        skus: this.sellerBoardData.filter(el => this.selectedRowIds.includes(el._id)).map(el => el.sku),
       })
 
       this.selectedRowIds = []
@@ -144,7 +138,7 @@ export class IntegrationsModel {
       const result = await SellerBoardModel.getProductsWithSkuById(this.productId)
 
       runInAction(() => {
-        this.sellerBoardData = stockReportDataConverter(result)
+        this.sellerBoardData = result
       })
     } catch (error) {
       console.error(error)

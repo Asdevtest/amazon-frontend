@@ -1,7 +1,5 @@
 import { ChangeEvent, FC, KeyboardEvent, memo, useEffect, useState } from 'react'
-
-import ClearIcon from '@mui/icons-material/Clear'
-import DoneIcon from '@mui/icons-material/Done'
+import { MdClear, MdDone } from 'react-icons/md'
 
 import { Input } from '@components/shared/input'
 import { SaveIcon } from '@components/shared/svg-icons'
@@ -17,14 +15,18 @@ interface ChangeInputCellProps {
   maxLength?: number
   isString?: boolean
   isPepurchase?: boolean
+  minValue?: number
+  maxValue?: number
 }
 
 export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
-  const { rowId, onClickSubmit, text, disabled, isInteger, maxLength, isString, isPepurchase } = props
+  const { rowId, onClickSubmit, text, disabled, isInteger, maxLength, isString, isPepurchase, minValue, maxValue } =
+    props
 
   const { classes: styles } = useStyles()
   const [value, setValue] = useState(text || '')
   const [isShow, setIsShow] = useState(false)
+  const [isInvalidValue, setIsInvalidValue] = useState(false)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value
@@ -36,6 +38,18 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
 
     if (isString) {
       setValue(inputValue)
+    }
+
+    if (isPepurchase && isInteger) {
+      const numericValue = Number(inputValue)
+      if (numericValue === 0) {
+        // Allow 0 value
+        setIsInvalidValue(false)
+      } else if ((minValue && numericValue < minValue) || (maxValue && numericValue > maxValue)) {
+        setIsInvalidValue(true)
+      } else {
+        setIsInvalidValue(false)
+      }
     }
   }
 
@@ -54,7 +68,8 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
     }
   }, [text])
 
-  const disabledSave = !isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50))
+  const disabledSave =
+    !isPepurchase || (!isNaN(Number(value)) && (Number(value) === 0 || Number(value) >= 50) && !isInvalidValue)
 
   return (
     <Input
@@ -64,7 +79,7 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
       value={String(value)}
       endAdornment={
         <>
-          {isShow ? <DoneIcon className={styles.doneIcon} /> : null}
+          {isShow ? <MdDone size={16} className={styles.doneIcon} /> : null}
 
           {Number(text) !== Number(value) ? (
             <div className={styles.icons}>
@@ -72,7 +87,7 @@ export const ChangeInputCell: FC<ChangeInputCellProps> = memo(props => {
                 <SaveIcon className={styles.saveIcon} />
               </button>
               <button className={styles.button} onClick={() => setValue(text)}>
-                <ClearIcon className={styles.clearIcon} />
+                <MdClear size={16} className={styles.clearIcon} />
               </button>
             </div>
           ) : null}

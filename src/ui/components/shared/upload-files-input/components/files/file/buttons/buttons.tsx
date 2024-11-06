@@ -1,7 +1,5 @@
 import { FC, memo } from 'react'
-
-import AutorenewIcon from '@mui/icons-material/Autorenew'
-import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import { MdAutorenew, MdHighlightOff } from 'react-icons/md'
 
 import { useStyles } from './buttons.style'
 
@@ -17,13 +15,13 @@ export const Buttons: FC<ButtonsProps> = memo(({ fileIndex, onUploadFile, onRemo
   return (
     <div className={styles.buttons}>
       <button className={styles.iconButton}>
-        <AutorenewIcon className={styles.icon} fontSize="small" />
+        <MdAutorenew size={18} className={styles.icon} />
 
         <input type="file" className={styles.uploadInput} onChange={onUploadFile(fileIndex)} />
       </button>
 
       <button className={styles.iconButton} onClick={() => onRemoveFile(fileIndex)}>
-        <HighlightOffIcon className={styles.icon} fontSize="small" />
+        <MdHighlightOff size={18} className={styles.icon} />
       </button>
     </div>
   )

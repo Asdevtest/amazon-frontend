@@ -31,11 +31,8 @@ export class AnnouncementsModelStatic {
     return response.data
   }
 
-  getAnnouncementsByGuid = async (guid, body) => {
-    const response = await restApiService.announcementsApi.apiV1AnnouncementsGuidGet({
-      guid,
-      body,
-    })
+  getAnnouncementsByGuid = async body => {
+    const response = await restApiService.announcementsApi.apiV1AnnouncementsGuidGet(body)
     return response.data
   }
 

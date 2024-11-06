@@ -32,35 +32,35 @@ class ParserModelStatic {
     return response.data
   }
 
-  onForceStart = async data => {
+  forceStart = async data => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesStartPatch({
       body: { profileIds: data },
     })
     return response.data
   }
 
-  onForceStop = async data => {
+  forceStop = async data => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesStopPatch({
       body: { profileIds: data },
     })
     return response.data
   }
 
-  onParsingProfile = async data => {
+  parsingProfile = async data => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserClientsProfilesReceivingPost({
       body: { shopId: data },
     })
     return response.data
   }
 
-  onParsingAccess = async data => {
+  parsingAccess = async data => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserClientsProfilesCheckPatch({
       body: { email: data },
     })
     return response.data
   }
 
-  onParsingStatus = async (guid, data) => {
+  parsingStatus = async (guid, data) => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserClientsProfilesGuidPatch({
       guid,
       body: { isActive: data },
@@ -68,7 +68,7 @@ class ParserModelStatic {
     return response.data
   }
 
-  onApproveProfile = async (guid, data) => {
+  approveProfile = async (guid, data) => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesApproveGuidPatch({
       guid,
       body: { profileId: data },
@@ -76,23 +76,33 @@ class ParserModelStatic {
     return response.data
   }
 
-  onRejectProfile = async guid => {
+  rejectProfile = async guid => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesRejectGuidPatch({ guid })
     return response.data
   }
 
-  onParsingProfileInvited = async guid => {
+  parsingProfileInvited = async guid => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserClientsProfilesGuidInvitedPatch({ guid })
     return response.data
   }
 
-  onParsingProfileRegistred = async guid => {
+  parsingProfileRegistred = async guid => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesGuidRegisteredPatch({ guid })
     return response.data
   }
 
-  onParsingProfileRemoved = async guid => {
+  parsingProfileRemoved = async guid => {
     const response = await restApiService.parserApi.apiV1IntegrationsParserAdminsProfilesGuidDelete({ guid })
+    return response.data
+  }
+
+  bindProductToTable = async body => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserClientsProductsLinkSkuPatch({ body })
+    return response.data
+  }
+
+  getFieldsInventoryIntegration = async () => {
+    const response = await restApiService.parserApi.apiV1IntegrationsParserFieldsForInventoryGet()
     return response.data
   }
 }

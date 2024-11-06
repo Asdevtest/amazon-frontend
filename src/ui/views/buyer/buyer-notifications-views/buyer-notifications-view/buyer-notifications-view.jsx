@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,7 +15,7 @@ import { styles } from './buyer-notifications-view.style'
 import { BuyerNotificationsViewModel } from './buyer-notifications-view.model'
 
 export const BuyerNotificationsViewRaw = props => {
-  const [viewModel] = useState(() => new BuyerNotificationsViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new BuyerNotificationsViewModel({ history: props.history }), [])
   const { classes: styles } = props
 
   return (

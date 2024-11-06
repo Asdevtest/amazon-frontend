@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
-import { withStyles } from 'tss-react/mui'
+import { useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,7 +15,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { AdminSentBatchesViewModel } from './admin-sent-batches-view.model'
 
 export const AdminSentBatchesView = observer(props => {
-  const [viewModel] = useState(() => new AdminSentBatchesViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new AdminSentBatchesViewModel({ history: props.history }), [])
 
   useEffect(() => {
     viewModel.loadData()
@@ -60,7 +59,7 @@ export const AdminSentBatchesView = observer(props => {
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
-        onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row.originalData)}
+        onRowDoubleClick={e => viewModel.setCurrentOpenedBatch(e.row)}
       />
 
       {viewModel.showConfirmModal ? (

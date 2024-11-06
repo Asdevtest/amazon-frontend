@@ -7,15 +7,15 @@ import { tariffTypes } from '@constants/keys/tariff-types'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell } from '@components/data-grid/data-grid-cells'
+import { SetFileForm } from '@components/forms/set-file-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFilesModal } from '@components/modals/set-files-modal'
-import { SetShippingLabelModal } from '@components/modals/set-shipping-label-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
 import { Button } from '@components/shared/button'
-import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -72,52 +72,27 @@ export const EditBoxStorekeeperForm = memo(
       setShowSetBarcodeModal(false)
     }
 
-    const onClickGluedCheckbox = (field, itemId) => e => {
-      const newFormFields = { ...boxFields }
-
-      if (field === 'isBarCodeAlreadyAttachedByTheSupplier') {
-        newFormFields.items = boxFields.items.map(el =>
-          el._id === itemId
-            ? {
-                ...el,
-                isBarCodeAlreadyAttachedByTheSupplier: e.target.checked,
-                isBarCodeAttachedByTheStorekeeper: el.isBarCodeAttachedByTheStorekeeper
-                  ? !e.target.checked
-                  : el.isBarCodeAttachedByTheStorekeeper,
-              }
-            : el,
-        )
-      } else if (field === 'isBarCodeAttachedByTheStorekeeper') {
-        newFormFields.items = boxFields.items.map(el =>
-          el._id === itemId
-            ? {
-                ...el,
-                isBarCodeAlreadyAttachedByTheSupplier: el.isBarCodeAlreadyAttachedByTheSupplier
-                  ? !e.target.checked
-                  : el.isBarCodeAlreadyAttachedByTheSupplier,
-                isBarCodeAttachedByTheStorekeeper: e.target.checked,
-              }
-            : el,
-        )
-      }
-      setBoxFields(newFormFields)
+    const counterpartFields = {
+      isBarCodeAlreadyAttachedByTheSupplier: 'isBarCodeAttachedByTheStorekeeper',
+      isBarCodeAttachedByTheStorekeeper: 'isBarCodeAlreadyAttachedByTheSupplier',
+      isTransparencyFileAlreadyAttachedByTheSupplier: 'isTransparencyFileAttachedByTheStorekeeper',
+      isTransparencyFileAttachedByTheStorekeeper: 'isTransparencyFileAlreadyAttachedByTheSupplier',
     }
 
-    const onClickGluedTransparency = (fieldName, index, value) => {
+    const onClickGluedCheckbox = (field, itemId) => e => {
       const newFormFields = { ...boxFields }
-      if (fieldName === 'isTransparencyFileAlreadyAttachedByTheSupplier') {
-        newFormFields.items[index] = {
-          ...newFormFields.items[index],
-          isTransparencyFileAlreadyAttachedByTheSupplier: value,
-          isTransparencyFileAttachedByTheStorekeeper: false,
-        }
-      } else {
-        newFormFields.items[index] = {
-          ...newFormFields.items[index],
-          isTransparencyFileAlreadyAttachedByTheSupplier: false,
-          isTransparencyFileAttachedByTheStorekeeper: value,
-        }
-      }
+      const counterpartField = counterpartFields[field]
+
+      newFormFields.items = boxFields.items.map(el =>
+        el._id === itemId
+          ? {
+              ...el,
+              [field]: e.target.checked,
+              [counterpartField]: el[counterpartField] ? !e.target.checked : el[counterpartField],
+            }
+          : el,
+      )
+
       setBoxFields(newFormFields)
     }
 
@@ -182,9 +157,11 @@ export const EditBoxStorekeeperForm = memo(
     } = useTariffVariation(boxFields.destinationId, setBoxFields)
 
     const setFormField = fieldName => e => {
+      const { type, value, checked } = e.target
       const newFormFields = { ...boxFields }
-      const currentValue = e.target.value
-      newFormFields[fieldName] = currentValue
+
+      newFormFields[fieldName] = type === 'checkbox' ? checked : value
+
       setBoxFields(newFormFields)
     }
 
@@ -195,12 +172,13 @@ export const EditBoxStorekeeperForm = memo(
       setBoxFields(newFormFields)
     }
 
-    const setShippingLabel = () => value => {
+    const setShippingLabel = value => {
       const newFormFields = { ...boxFields }
       newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = value
 
       setBoxFields(newFormFields)
+      setShowSetShippingLabelModal(!showSetShippingLabelModal)
     }
 
     const onClickShippingLabel = () => {
@@ -211,13 +189,22 @@ export const EditBoxStorekeeperForm = memo(
       const newFormFields = { ...boxFields }
       newFormFields.shippingLabel = newFormFields.shippingLabel === null ? null : ''
       newFormFields.tmpShippingLabel = []
+      newFormFields.isShippingLabelAttachedByStorekeeper = false
       setBoxFields(newFormFields)
     }
 
     const onDeleteBarcode = productId => {
       const newFormFields = { ...boxFields }
       newFormFields.items = boxFields.items.map(item =>
-        item.product._id === productId ? { ...item, barCode: '', tmpBarCode: [] } : item,
+        item.product._id === productId
+          ? {
+              ...item,
+              barCode: '',
+              tmpBarCode: [],
+              isBarCodeAlreadyAttachedByTheSupplier: false,
+              isBarCodeAttachedByTheStorekeeper: false,
+            }
+          : item,
       )
       setBoxFields(newFormFields)
     }
@@ -320,9 +307,12 @@ export const EditBoxStorekeeperForm = memo(
       boxFields.variationTariffId,
     )
 
+    const isBarCodeMissing = item => !item.tmpBarCode.length && !item.barCode
+    const isTransparencyFileMissing = item => !item.tmpTransparencyFile.length && !item.transparencyFile
+    const isShippingLabelMissing = !boxFields.shippingLabel && !boxFields.tmpShippingLabel.length
+
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
-
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
@@ -344,9 +334,7 @@ export const EditBoxStorekeeperForm = memo(
                       label={`${t(TranslationKey.Box)} №`}
                       inputComponent={
                         <div className={styles.boxTitleWrapper}>
-                          <Typography className={styles.tableTitle}>{`${
-                            formItem && formItem.humanFriendlyId
-                          }`}</Typography>
+                          <Typography className={styles.tableTitle}>{`${formItem && formItem.xid}`}</Typography>
                         </div>
                       }
                     />
@@ -397,7 +385,7 @@ export const EditBoxStorekeeperForm = memo(
                             inputComponent={
                               <ChangeChipCell
                                 isChipOutTable
-                                text={!item.barCode && !item?.tmpBarCode?.length && t(TranslationKey['Set Barcode'])}
+                                text={isBarCodeMissing(item) && t(TranslationKey['Set Barcode'])}
                                 value={item?.tmpBarCode?.[0]?.file?.name || item?.tmpBarCode?.[0] || item.barCode}
                                 onClickChip={() => onClickBarcode(item)}
                                 onDoubleClickChip={() => onDoubleClickBarcode(item)}
@@ -409,16 +397,12 @@ export const EditBoxStorekeeperForm = memo(
                           <Field
                             containerClasses={styles.field}
                             labelClasses={styles.standartLabel}
-                            label={t(TranslationKey['Transparency Codes'])}
+                            label="Transparency Codes"
                             inputComponent={
                               <ChangeChipCell
                                 disabled
                                 isChipOutTable
-                                text={
-                                  !item.transparencyFile &&
-                                  !item?.tmpTransparencyFile?.length &&
-                                  t(TranslationKey.Transparency)
-                                }
+                                text={isTransparencyFileMissing(item) && t(TranslationKey.Transparency)}
                                 value={
                                   item?.tmpTransparencyFile?.[0]?.file?.name ||
                                   item?.tmpTransparencyFile?.[0] ||
@@ -438,74 +422,43 @@ export const EditBoxStorekeeperForm = memo(
                           />
 
                           <div>
-                            <Field
-                              oneLine
-                              labelClasses={styles.standartLabel}
-                              tooltipInfoContent={t(
-                                TranslationKey['The supplier has glued the barcode before shipment'],
-                              )}
-                              containerClasses={styles.checkboxContainer}
-                              label={t(TranslationKey['The barcode is glued by the supplier'])}
-                              inputComponent={
-                                <Checkbox
-                                  checked={item.isBarCodeAlreadyAttachedByTheSupplier}
-                                  onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
-                                />
-                              }
-                            />
-                            <Field
-                              oneLine
-                              labelClasses={styles.standartLabel}
-                              tooltipInfoContent={t(
-                                TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
-                              )}
-                              containerClasses={styles.checkboxContainer}
-                              label={t(TranslationKey['The barcode is glued by the Storekeeper'])}
-                              inputComponent={
-                                <Checkbox
-                                  checked={item.isBarCodeAttachedByTheStorekeeper}
-                                  onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
-                                />
-                              }
-                            />
+                            <CustomCheckbox
+                              disabled={isBarCodeMissing(item)}
+                              tooltip="The supplier has glued the barcode before shipment"
+                              checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+                              onChange={onClickGluedCheckbox('isBarCodeAlreadyAttachedByTheSupplier', item._id)}
+                            >
+                              The barcode is glued by the supplier
+                            </CustomCheckbox>
 
-                            <Field
-                              oneLine
-                              labelClasses={styles.standartLabel}
-                              containerClasses={styles.checkboxContainer}
-                              label={t(TranslationKey['Transparency Codes glued by the supplier'])}
-                              inputComponent={
-                                <Checkbox
-                                  checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
-                                  onChange={e =>
-                                    onClickGluedTransparency(
-                                      'isTransparencyFileAlreadyAttachedByTheSupplier',
-                                      index,
-                                      e.target.checked,
-                                    )
-                                  }
-                                />
-                              }
-                            />
+                            <CustomCheckbox
+                              isRow
+                              disabled={isBarCodeMissing(item)}
+                              tooltip="The barcode was glued on when the box was accepted at the prep center"
+                              checked={item.isBarCodeAttachedByTheStorekeeper}
+                              onChange={onClickGluedCheckbox('isBarCodeAttachedByTheStorekeeper', item._id)}
+                            >
+                              The barcode is glued by the Storekeeper
+                            </CustomCheckbox>
 
-                            <Field
-                              oneLine
-                              labelClasses={styles.standartLabel}
-                              containerClasses={styles.checkboxContainer}
-                              label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
-                              inputComponent={
-                                <Checkbox
-                                  checked={item.isTransparencyFileAttachedByTheStorekeeper}
-                                  onChange={e =>
-                                    onClickGluedTransparency(
-                                      'isTransparencyFileAttachedByTheStorekeeper',
-                                      index,
-                                      e.target.checked,
-                                    )
-                                  }
-                                />
-                              }
-                            />
+                            <CustomCheckbox
+                              disabled={isTransparencyFileMissing(item)}
+                              checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
+                              onChange={onClickGluedCheckbox(
+                                'isTransparencyFileAlreadyAttachedByTheSupplier',
+                                item._id,
+                              )}
+                            >
+                              Transparency Codes glued by the supplier
+                            </CustomCheckbox>
+
+                            <CustomCheckbox
+                              disabled={isTransparencyFileMissing(item)}
+                              checked={item.isTransparencyFileAttachedByTheStorekeeper}
+                              onChange={onClickGluedCheckbox('isTransparencyFileAttachedByTheStorekeeper', item._id)}
+                            >
+                              Transparency Codes are glued by storekeeper
+                            </CustomCheckbox>
                           </div>
                         </div>
 
@@ -623,7 +576,7 @@ export const EditBoxStorekeeperForm = memo(
                       labelClasses={styles.standartLabel}
                       containerClasses={styles.shippingField}
                       tooltipInfoContent={t(TranslationKey['Add or replace the shipping label'])}
-                      label={t(TranslationKey['Shipping label'])}
+                      label="Shipping label"
                       inputComponent={
                         <ChangeChipCell
                           isChipOutTable
@@ -651,20 +604,18 @@ export const EditBoxStorekeeperForm = memo(
                       inputClasses={styles.fbaShipmentInput}
                       inputProps={{ maxLength: 255 }}
                       tooltipInfoContent={t(TranslationKey['Enter or edit FBA Shipment'])}
-                      label={t(TranslationKey['FBA Shipment'])}
+                      label="FBA Shipment"
                       value={boxFields.fbaShipment}
                       onChange={setFormField('fbaShipment')}
                     />
 
-                    <Field
-                      labelClasses={styles.standartLabel}
-                      containerClasses={styles.field}
-                      inputClasses={styles.fbaShipmentInput}
-                      inputProps={{ maxLength: 255 }}
-                      label={'FBA number'}
-                      value={boxFields.fbaNumber}
-                      onChange={setFormField('fbaNumber')}
-                    />
+                    <CustomCheckbox
+                      disabled={isShippingLabelMissing}
+                      checked={boxFields.isShippingLabelAttachedByStorekeeper}
+                      onChange={setFormField('isShippingLabelAttachedByStorekeeper')}
+                    >
+                      Shipping label was glued to the warehouse
+                    </CustomCheckbox>
                   </div>
 
                   <div className={styles.shareBoxSubWrapper}>
@@ -676,6 +627,16 @@ export const EditBoxStorekeeperForm = memo(
                       label={'UPS Track number'}
                       value={boxFields.upsTrackNumber}
                       onChange={setFormField('upsTrackNumber')}
+                    />
+
+                    <Field
+                      labelClasses={styles.standartLabel}
+                      containerClasses={styles.field}
+                      inputClasses={styles.fbaShipmentInput}
+                      inputProps={{ maxLength: 255 }}
+                      label={'FBA number'}
+                      value={boxFields.fbaNumber}
+                      onChange={setFormField('fbaNumber')}
                     />
                   </div>
 
@@ -832,14 +793,10 @@ export const EditBoxStorekeeperForm = memo(
           openModal={showSetShippingLabelModal}
           setOpenModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
         >
-          <SetShippingLabelModal
-            tmpShippingLabel={boxFields.tmpShippingLabel}
-            item={boxFields}
-            onClickSaveShippingLabel={shippingLabel => {
-              setShippingLabel()(shippingLabel)
-              setShowSetShippingLabelModal(!showSetShippingLabelModal)
-            }}
-            onCloseModal={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
+          <SetFileForm
+            data={boxFields?.shippingLabel}
+            onSubmit={setShippingLabel}
+            onClose={() => setShowSetShippingLabelModal(!showSetShippingLabelModal)}
           />
         </Modal>
 
@@ -868,7 +825,7 @@ export const EditBoxStorekeeperForm = memo(
         <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
           <SetFilesModal
             modalTitle={t(TranslationKey.Transparency)}
-            LabelTitle={t(TranslationKey['Transparency Codes'])}
+            LabelTitle="Transparency Codes"
             currentFiles={filesConditions.currentFiles}
             tmpFiles={filesConditions.tmpFiles}
             onClickSave={value => {

@@ -15,7 +15,7 @@ import { IBox } from '@typings/models/boxes/box'
 import { useStyles } from './info.style'
 
 interface InfoProps {
-  formFields: IBox
+  formFields?: IBox
   isStorekeeper: boolean
   onChangeField: (field: keyof IBox) => (event: ChangeEvent<HTMLInputElement>) => void
 }
@@ -75,10 +75,8 @@ export const Info: FC<InfoProps> = memo(props => {
 
       <div className={styles.informationContainer}>
         <p className={styles.informationTitle}>{t(TranslationKey.Batch)}</p>
-        <Tooltip title={formFields?.batch?.humanFriendlyId ? formFields?.batch?.humanFriendlyId : ''}>
-          <p className={styles.informationText}>
-            {formFields?.batch?.humanFriendlyId || t(TranslationKey['Not available'])}
-          </p>
+        <Tooltip title={formFields?.batch?.xid ? formFields?.batch?.xid : ''}>
+          <p className={styles.informationText}>{formFields?.batch?.xid || t(TranslationKey['Not available'])}</p>
         </Tooltip>
       </div>
     </div>

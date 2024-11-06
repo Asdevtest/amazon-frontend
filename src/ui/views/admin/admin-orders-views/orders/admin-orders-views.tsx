@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -12,7 +12,6 @@ import { CustomSelect } from '@components/shared/custom-select'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IOrder } from '@typings/models/orders/order'
 
 import { useStyles } from './admin-orders-views.style'
 
@@ -21,7 +20,7 @@ import { AdminOrdersAllViewModel } from './admin-orders-views.model'
 
 export const AdminOrdersViews = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AdminOrdersAllViewModel())
+  const viewModel = useMemo(() => new AdminOrdersAllViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -36,7 +35,7 @@ export const AdminOrdersViews = observer(() => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by SKU, ASIN, Title"
+          placeholder="Search by SKU, ASIN, Title, ID"
           onSearch={viewModel.onSearchSubmit}
         />
       </div>
@@ -53,7 +52,6 @@ export const AdminOrdersViews = observer(() => {
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }: IOrder) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

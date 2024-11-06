@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowClassNameParams } from '@mui/x-data-grid-premium'
 
@@ -18,7 +18,6 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IOrder } from '@typings/models/orders/order'
 
 import { useStyles } from './buyer-my-orders-view.style'
 
@@ -31,7 +30,7 @@ export const BuyerMyOrdersView = observer(({ history }: any) => {
 
   const pathname = history.location.pathname
 
-  const [viewModel] = useState(() => new BuyerMyOrdersViewModel({ pathname }))
+  const viewModel = useMemo(() => new BuyerMyOrdersViewModel({ pathname }), [])
 
   const getRowClassName = (params: GridRowClassNameParams) =>
     // @ts-ignore
@@ -45,6 +44,7 @@ export const BuyerMyOrdersView = observer(({ history }: any) => {
         <CustomInputSearch
           enterButton
           allowClear
+          wrapperClassName={styles.searchInput}
           size="large"
           placeholder="Search by SKU, ASIN, Title, Order, item"
           onSearch={viewModel.onSearchSubmit}
@@ -69,7 +69,6 @@ export const BuyerMyOrdersView = observer(({ history }: any) => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={(row: IOrder) => row._id}
         rowSelectionModel={viewModel.selectedRows}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}

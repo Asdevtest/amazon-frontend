@@ -9,10 +9,9 @@ import {
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  UserLinkCell,
+  UserCell,
   WarehouseTariffDatesCell,
 } from '@components/data-grid/data-grid-cells'
-import { DataGridSelectViewProductBatch } from '@components/data-grid/data-grid-custom-components/data-grid-select-view-product-batch'
 import { Text } from '@components/shared/text'
 
 import { getNewTariffTextForBoxOrOrder, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
@@ -20,30 +19,17 @@ import { t } from '@utils/translations'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
 
-export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
+export const clientBatchesViewColumns = rowHandlers => {
   const columns = [
     {
       field: 'asin',
       headerName: t(TranslationKey.Product),
-      renderHeader: () => (
-        <MultilineTextHeaderCell
-          text={t(TranslationKey.Product)}
-          component={
-            <DataGridSelectViewProductBatch
-              changeViewModeHandler={rowHandlers?.changeViewModeHandler}
-              selectedViewMode={getProductViewMode?.()}
-              rootStyles={{ marginLeft: 15, marginRight: 15 }}
-            />
-          }
-        />
-      ),
-      renderCell: params => <BatchBoxesCell boxes={params.row.boxes} productViewMode={getProductViewMode?.()} />,
-      width: 420,
-
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
+      renderCell: params => <BatchBoxesCell boxes={params.row.boxes} />,
+      width: 200,
       filterable: false,
       sortable: false,
       disableCustomSort: true,
-
       fields: getProductColumnMenuItems({ withoutSku: true }),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
@@ -84,7 +70,7 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <Text isCell text={params.value} />,
@@ -98,7 +84,11 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       headerName: t(TranslationKey['Int warehouse']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
       renderCell: params => (
-        <UserLinkCell blackText name={params.row?.storekeeper?.name} userId={params.row?.storekeeper?._id} />
+        <UserCell
+          name={params.row?.storekeeper?.name}
+          id={params.row?.storekeeper?._id}
+          email={params.row?.storekeeper?.email}
+        />
       ),
       width: 150,
       sortable: false,
@@ -112,18 +102,28 @@ export const clientBatchesViewColumns = (rowHandlers, getProductViewMode) => {
       headerName: t(TranslationKey['Access to product']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Access to product'])} />,
       renderCell: params => {
-        const product = params.row?.boxes?.[0]?.items?.[0]?.product
-        const subUsers = product?.subUsers || []
-        const subUsersByShop = product?.subUsersByShop || []
+        const products = params.row?.boxes.flatMap(box => box.items?.map(item => item.product) || [])
 
-        return <ManyUserLinkCell usersData={subUsers?.concat(subUsersByShop)} />
+        const subUsers = products.flatMap(product => product?.subUsers || [])
+        const subUsersByShop = products.flatMap(product => product?.subUsersByShop || [])
+
+        const usersData = [...subUsers, ...subUsersByShop]
+        const uniqueUsersData = usersData.filter(
+          (user, index, self) => index === self.findIndex(u => u._id === user._id),
+        )
+
+        return <ManyUserLinkCell usersData={uniqueUsersData} />
       },
       valueGetter: ({ row }) => {
-        const product = row?.boxes?.[0]?.items?.[0]?.product
-        const subUsers = product?.subUsers || []
-        const subUsersByShop = product?.subUsersByShop || []
+        const products = row?.boxes.flatMap(box => box.items?.map(item => item.product) || [])
+        const subUsers = products.flatMap(product => product?.subUsers || [])
+        const subUsersByShop = products.flatMap(product => product?.subUsersByShop || [])
+        const usersData = [...subUsers, ...subUsersByShop]
 
-        return subUsers?.concat(subUsersByShop).join(', ')
+        const uniqueUsersData = usersData.filter(
+          (user, index, self) => index === self.findIndex(u => u._id === user._id),
+        )
+        return uniqueUsersData.map(user => user.name).join(', ')
       },
       width: 187,
       table: DataGridFilterTables.PRODUCTS,

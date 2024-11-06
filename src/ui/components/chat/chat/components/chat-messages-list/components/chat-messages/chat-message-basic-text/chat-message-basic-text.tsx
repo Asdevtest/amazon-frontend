@@ -1,11 +1,16 @@
+import { Avatar } from 'antd'
 import he from 'he'
 import { FC, memo } from 'react'
 import Highlighter from 'react-highlight-words'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { IsReadIcon, NoReadIcon } from '@components/shared/svg-icons'
 import { UserLink } from '@components/user/user-link'
 
-import { formatDateTimeHourAndMinutes } from '@utils/date-time'
+import { formatDateTimeHourAndMinutesLocal } from '@utils/date-time'
+import { getUserAvatarSrc } from '@utils/get-user-avatar'
+import { t } from '@utils/translations'
 
 import { useStyles } from './chat-message-basic-text.style'
 
@@ -22,17 +27,21 @@ export const ChatMessageBasicText: FC<ChatMessageBasicTextProps> = memo(props =>
 
   const photoAndVideoFiles = message?.images?.concat(message?.video)
   const anotherFiles = message.files
+  const forwardedMessage = message?.forwardedMessage
 
   return (
     <div
-      className={cx(
-        styles.root,
-        { [styles.rootIsIncomming]: isIncomming },
-        { [styles.isFound]: isFound },
-        { [styles.isFoundIncomming]: isFound && isIncomming },
-      )}
+      className={cx(styles.root, { [styles.isFound]: isFound }, { [styles.isFoundIncomming]: isFound && isIncomming })}
     >
       <div className={styles.subWrapper}>
+        {forwardedMessage ? (
+          <div className={styles.forwardedMessage}>
+            <p className={styles.forwardedMessageTitle}>{t(TranslationKey['Forwarded from' as TranslationKey])}</p>
+            <Avatar size={24} src={getUserAvatarSrc(forwardedMessage.user?._id)} />
+            <p className={styles.forwardedMessageName}>{forwardedMessage.user?.name}</p>
+          </div>
+        ) : null}
+
         {showName ? <UserLink name={message.user?.name} userId={message.user?._id} /> : null}
 
         {!!photoAndVideoFiles.length && !anotherFiles.length ? (
@@ -69,7 +78,7 @@ export const ChatMessageBasicText: FC<ChatMessageBasicTextProps> = memo(props =>
       </div>
 
       <div className={styles.infoContainer}>
-        <p className={styles.timeText}>{formatDateTimeHourAndMinutes(message.createdAt)}</p>
+        <p className={styles.timeText}>{formatDateTimeHourAndMinutesLocal(message.createdAt)}</p>
 
         {!isIncomming && unReadMessage ? (
           <NoReadIcon className={cx(styles.icon, styles.noReadIcon)} />

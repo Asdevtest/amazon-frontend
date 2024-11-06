@@ -32,10 +32,10 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
           <div className={styles.header}>
             <p className={styles.headerText}>{t(TranslationKey.Request)}</p>
 
-            {message.humanFriendlyId ? (
+            {message.xid ? (
               <div className={styles.idWrapper}>
                 <p className={cx(styles.idText, styles.idTitle)}>{t(TranslationKey.ID)}</p>
-                <p className={styles.idText}>{message.humanFriendlyId}</p>
+                <p className={styles.idText}>{message.xid}</p>
               </div>
             ) : null}
           </div>

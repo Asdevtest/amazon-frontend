@@ -9,7 +9,6 @@ import { TableSettingsModel } from '@models/table-settings'
 
 import { destinationsColumns } from '@components/table/table-columns/admin/destinations-columns'
 
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -125,7 +124,7 @@ export class AdminDestinationsViewModel {
       const result = await ClientModel.getDestinations()
 
       runInAction(() => {
-        this.destinations = addIdDataConverter(result)
+        this.destinations = result
       })
 
       this.setRequestStatus(loadingStatus.SUCCESS)

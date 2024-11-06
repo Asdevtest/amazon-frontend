@@ -251,7 +251,7 @@ export class CreateOrEditRequestViewModel {
 
     if (guid) {
       try {
-        const result = await AnnouncementsModel.getAnnouncementsByGuid(guid)
+        const result = await AnnouncementsModel.getAnnouncementsByGuid({ guid })
 
         runInAction(() => {
           this.choosenAnnouncements = result

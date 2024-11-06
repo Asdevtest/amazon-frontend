@@ -30,8 +30,8 @@ export const LaunchCell: FC<LaunchCellProps> = observer(props => {
   const { row, onAddRequest, product } = props
 
   const { classes: styles } = useStyles()
-  const [showBindingModal, setShowBindingModal] = useState(false)
-  const handleToggleModal = useCallback(() => setShowBindingModal(prev => !prev), [])
+  const [showLinkRequestModal, setShowLinkRequestModal] = useState(false)
+  const handleToggleModal = useCallback(() => setShowLinkRequestModal(prev => !prev), [])
   const generatedSoloLaunch = useMemo(
     () => ({ type: row?.type, value: row?.value, expired: row?.expired, _id: row?._id, dateTo: row?.dateTo }),
     [row?.type, row?.value, row?.expired, row?._id, row?.dateTo],
@@ -55,7 +55,7 @@ export const LaunchCell: FC<LaunchCellProps> = observer(props => {
         ) : null}
       </div>
 
-      <Modal openModal={isLinkRequest && showBindingModal} setOpenModal={handleToggleModal}>
+      <Modal openModal={isLinkRequest && showLinkRequestModal} setOpenModal={handleToggleModal}>
         <LinkRequestForm
           product={product}
           onClose={handleToggleModal}

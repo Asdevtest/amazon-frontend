@@ -8,7 +8,7 @@ import { formatNormDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
-import { ActiveSession } from '@typings/shared/active-session'
+import { IActiveSession } from '@typings/shared/active-session'
 
 import { useStyles } from './session.style'
 
@@ -16,7 +16,7 @@ import { getBrowserAndVersion } from './helpers/get-browser-and-version'
 import { getDeviceIcon } from './helpers/get-device-icon'
 
 interface SessionProps {
-  activeSession: ActiveSession
+  activeSession: IActiveSession
   onLogoutSession: (sessionCreatedAt: string) => void
 }
 

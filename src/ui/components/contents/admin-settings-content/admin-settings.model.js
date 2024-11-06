@@ -128,7 +128,7 @@ export class AdminSettingsModel {
       this.getServerProxy()
     } catch (error) {
       console.error(error)
-      toast.error(t(TranslationKey['he proxy servers are not saved.']))
+      toast.error(t(TranslationKey['The proxy servers are not saved.']))
     }
   }
 

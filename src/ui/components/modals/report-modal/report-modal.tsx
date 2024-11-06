@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useCallback, useState } from 'react'
-
-import { GridRowModel } from '@mui/x-data-grid-premium'
+import { FC, useCallback, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -31,7 +29,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
   const { onClose, subView, reportId, defaultProduct, onUpdateTableData } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ReportModalModel({ reportId, defaultProduct }))
+  const viewModel = useMemo(() => new ReportModalModel({ reportId, defaultProduct }), [])
 
   const handleSave = useCallback(async () => {
     viewModel.reportId ? await viewModel.updateListingReport() : await viewModel.createListingReport()
@@ -44,7 +42,7 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
       <Header
         subView={subView}
         product={viewModel.product}
-        products={viewModel.currentPermissionsData}
+        asinOptions={viewModel.asinOptions}
         editMode={!!viewModel.reportId}
         launchOptions={viewModel.launchOptions}
         selectLaunchValue={viewModel.selectLaunchValue}
@@ -52,9 +50,9 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         onRemoveRequest={viewModel.onRemoveRequest}
         onSelectLaunch={viewModel.onSelectLaunch}
         onSelectProduct={viewModel.onSelectProduct}
-        onGetProducts={viewModel.onGetProducts}
+        onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
         onSearchAsinSelect={viewModel.onClickSubmitSearch}
-        onScrollAsinSelect={viewModel.loadMoreDataHadler}
+        onPopupScroll={viewModel.onPopupScroll}
       />
 
       <CustomDataGrid
@@ -64,8 +62,6 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         columns={viewModel.columnsModel}
         getRowHeight={() => 'auto'}
         columnHeaderHeight={35}
-        // getRowId={({ type }: GridRowModel) => type}
-        getRowId={({ _id }: GridRowModel) => _id}
         slots={null}
         className={styles.dataGridRoot}
         loading={viewModel.requestTableStatus === loadingStatus.IS_LOADING}

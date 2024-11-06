@@ -1,4 +1,6 @@
+import { Avatar } from 'antd'
 import { FC, memo } from 'react'
+import { RiShareForwardFill } from 'react-icons/ri'
 
 import { Link } from '@mui/material'
 
@@ -11,11 +13,12 @@ import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.c
 
 import { ChatSoundNotification } from '@components/chat/chat-sound-notification'
 import { CurrentOpponent } from '@components/chat/multiple-chats'
+import { CustomButton } from '@components/shared/custom-button'
 import { ArrowBackIcon } from '@components/shared/svg-icons'
 
 import { checkOnline } from '@utils/checks/check-online/check-online'
 import { getDistanceBetweenDatesSeconds } from '@utils/checks/get-distance-between-dates-seconds/get-distance-between-dates-seconds'
-import { formatDateTimeHourAndMinutes, formatDateWithoutTime } from '@utils/date-time'
+import { formatDateTimeHourAndMinutesLocal, formatDateWithoutTimeLocal } from '@utils/date-time'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -36,12 +39,15 @@ interface ChatHeaderProps {
   curFoundedMessageIndex: number
   unreadMessages: number
   currentOpponent?: CurrentOpponent
+  selectedMessages: string[]
 
+  onClearSelectedMessages: () => void
   handleLoadMoreMessages: (direction?: PaginationDirection, selectedMessageId?: string) => void
   onToggleMuteCurrentChat: () => void
   onClickBackButton: () => void
   onChangeMesSearchValue: (value: string, chatId: string) => void
   onChangeCurFoundedMessage: (index: number) => void
+  onClickForwardMessages: () => void
 }
 
 export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
@@ -57,11 +63,14 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
     currentOpponent,
     curFoundedMessageIndex,
     isMuteCurrentChat,
+    selectedMessages,
+    onClearSelectedMessages,
     handleLoadMoreMessages,
     onToggleMuteCurrentChat,
     onChangeMesSearchValue,
     onChangeCurFoundedMessage,
     onClickBackButton,
+    onClickForwardMessages,
   } = props
 
   const onChangeCurrentMessage = async (index: number, messageId: string) => {
@@ -78,14 +87,23 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
   const lastSeenMessage =
     dateGap > ONE_DAY_IN_SECONDS
       ? // @ts-ignore
-
-        `${t(TranslationKey['Last seen'], { date: formatDateWithoutTime(new Date(currentOpponent?.lastSeen)) })}`
+        `${t(TranslationKey['Last seen'], { date: formatDateWithoutTimeLocal(new Date(currentOpponent?.lastSeen)) })}`
       : // @ts-ignore
-        `${t(TranslationKey.Today)} ${formatDateTimeHourAndMinutes(new Date(currentOpponent?.lastSeen))}`
+        `${t(TranslationKey.Today)} ${formatDateTimeHourAndMinutesLocal(new Date(currentOpponent?.lastSeen))}`
 
   return (
     <div className={styles.header}>
-      {isChatSelectedAndFound && (
+      {selectedMessages?.length ? (
+        <div className={styles.forwardWrapper}>
+          <CustomButton size="large" icon={<RiShareForwardFill />} onClick={onClickForwardMessages}>{`${t(
+            TranslationKey.Forward,
+          )} ${selectedMessages.length}`}</CustomButton>
+
+          <CustomButton size="large" onClick={onClearSelectedMessages}>
+            {t(TranslationKey.Cancel)}
+          </CustomButton>
+        </div>
+      ) : isChatSelectedAndFound ? (
         <div className={styles.leftSideHeader}>
           <div className={styles.infoContainer}>
             <div className={styles.arrowBackIconWrapper}>
@@ -102,7 +120,7 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
                     underline="none"
                   >
                     <div className={styles.opponentWrapper}>
-                      <img src={getUserAvatarSrc(currentOpponent?._id)} className={styles.avatar} alt="avatar" />
+                      <Avatar src={getUserAvatarSrc(currentOpponent?._id)} alt="avatar" size={40} />
                       <div>
                         <p className={styles.opponentName}>{currentOpponent?.name}</p>
                         {isOnlineUser ? (
@@ -122,7 +140,7 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
             ) : (
               <>
                 <div className={styles.opponentWrapper}>
-                  <img src={getAmazonImageUrl(currentChat?.info?.image)} className={styles.avatar} />
+                  <Avatar src={getAmazonImageUrl(currentChat?.info?.image)} alt="avatar" size={40} />
                   <div>
                     <p className={styles.opponentName}>{currentChat?.info?.title}</p>
                     <p className={styles.usersCount}>{`${currentChat?.users?.length} ${t(
@@ -146,7 +164,7 @@ export const ChatHeader: FC<ChatHeaderProps> = memo(props => {
             onChangeCurFoundedMessage={onChangeCurrentMessage}
           />
         </div>
-      )}
+      ) : null}
     </div>
   )
 })

@@ -1,5 +1,3 @@
-import { BoxStatus } from '@constants/statuses/box-status'
-
 export const updateBoxWhiteList = [
   'amount',
   'weighGrossKg',
@@ -19,6 +17,7 @@ export const updateBoxWhiteList = [
   'isShippingLabelAttachedByStorekeeper',
   'isBarCodeAlreadyAttachedByTheSupplier',
   'items',
+  'clientComment',
   'images',
   'destinationId',
   'storekeeperId',
@@ -31,12 +30,34 @@ export const updateBoxWhiteList = [
   'prepId',
   'variationTariffId',
   'transparencyFile',
+  'clientComment',
+]
+
+export const updateManyBoxesWhiteList = [
+  '_id',
+  'logicsTariffId',
+  'fbaShipment',
+  'fbaNumber',
+  'destinationId',
+  'variationTariffId',
+  'items',
+]
+
+export const sharedFieldsWhiteList = [
+  'barCode',
+  'logicsTariffId',
+  'shippingLabel',
+  'fbaShipment',
+  'fbaNumber',
+  'destinationId',
+  'transparencyFile',
+  'variationTariffId',
 ]
 
 export const filtersFields = [
   'shopId',
-  'humanFriendlyId',
-  'id',
+  'xid',
+  'orderXid',
   'item',
   'asin',
   'skuByClient',
@@ -56,15 +77,4 @@ export const filtersFields = [
   'clientComment',
 ]
 
-export const fieldsForSearch = [
-  'asin',
-  'amazonTitle',
-  'skuByClient',
-  'id',
-  'item',
-  'productId',
-  'humanFriendlyId',
-  'prepId',
-]
-
-export const disableSelectionCells = ['prepId']
+export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'orderXid', 'item', 'productId', 'xid', 'prepId']

@@ -7,7 +7,7 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 import { IMessageState } from '../helpers/chat.interface'
 
-export const useChatInputControl = (messageInitialState: IMessageState) => {
+export const useChatInputControl = (messageInitialState: IMessageState, chatId: string) => {
   const [isShowEmojis, setIsShowEmojis] = useState(false)
   const [focused, setFocused] = useState(false)
   const [showFiles, setShowFiles] = useState(false)
@@ -46,6 +46,7 @@ export const useChatInputControl = (messageInitialState: IMessageState) => {
   const onBlur = () => setFocused(false)
 
   const changeMessageAndState = (value: string) => {
+    sessionStorage.setItem(chatId, value)
     setMessage(value)
   }
 

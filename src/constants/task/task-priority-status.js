@@ -27,13 +27,15 @@ export const taskPriorityStatusTranslate = value => {
       return t(TranslationKey.Urgent)
     case TaskPriorityStatus.PROBLEMATIC:
       return t(TranslationKey.Problematic)
+    default:
+      return ''
   }
 }
 
 export const colorByTaskPriorityStatus = status => {
-  if ([TaskPriorityStatus.STANDART].includes(status)) {
+  if (TaskPriorityStatus.STANDART === status) {
     return '#F3AF00'
-  } else if ([TaskPriorityStatus.LONG].includes(status)) {
+  } else if (TaskPriorityStatus.LONG === status) {
     return '#00B746'
   } else if ([TaskPriorityStatus.URGENT, TaskPriorityStatus.PROBLEMATIC].includes(status)) {
     return '#FF1616'

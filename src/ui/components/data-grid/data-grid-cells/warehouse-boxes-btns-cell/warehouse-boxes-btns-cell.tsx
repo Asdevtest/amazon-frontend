@@ -4,11 +4,9 @@ import { FC, memo } from 'react'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './warehouse-boxes-btns-cell.style'
 
@@ -31,31 +29,21 @@ export const WarehouseBoxesBtnsCell: FC<WarehouseBoxesBtnsCellProps> = memo(({ r
       {row.batchId &&
         row.status !== BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE &&
         row.status !== BoxStatus.NEW && (
-          <Button
-            isSmallButton
-            tooltipAttentionContent={
-              row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF
-                ? t(TranslationKey['The tariff is invalid or has been removed!'])
-                : ''
-            }
-            tooltipInfoContent={t(TranslationKey['Move a box from the current batch to another'])}
+          <CustomButton
+            block
+            type="primary"
+            size="small"
             disabled={row.status === BoxStatus.NEED_TO_UPDATE_THE_TARIFF || row.isDraft}
             onClick={() => handlers.moveBox(row)}
           >
             {t(TranslationKey['Move box'])}
-          </Button>
+          </CustomButton>
         )}
 
       {row.status === BoxStatus.REQUESTED_SEND_TO_BATCH && !row.batchId && (
-        <Button
-          isSmallButton
-          styleType={ButtonStyle.SUCCESS}
-          disabled={row.isDraft}
-          tooltipInfoContent={t(TranslationKey['Add a box to a new or existing batch'])}
-          onClick={() => handlers.moveBox(row)}
-        >
+        <CustomButton block type="primary" size="small" disabled={row.isDraft} onClick={() => handlers.moveBox(row)}>
           {t(TranslationKey['Add to batch'])}
-        </Button>
+        </CustomButton>
       )}
     </div>
   )

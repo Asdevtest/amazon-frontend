@@ -58,4 +58,5 @@ export class ChatContract implements TWebsocketChatService.Chat {
   public isAllPreviousMessagesLoaded!: boolean
   public lastMessage?: ChatMessageContract
   public messagesCount?: number
+  public messagesToForward?: ChatMessageContract[]
 }

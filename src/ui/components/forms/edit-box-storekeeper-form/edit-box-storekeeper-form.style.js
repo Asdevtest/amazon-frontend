@@ -28,11 +28,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 130,
     objectFit: 'contain',
     cursor: 'pointer',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   buttonsWrapper: {
@@ -146,6 +141,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: 20,
     justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+
+  checkboxWrapper: {
+    width: '100%',
   },
 
   fbaShipmentInput: {
@@ -158,7 +158,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   disabledNumInput: {
-    width: 80,
+    width: '120px',
     height: 40,
     marginLeft: 55,
   },
@@ -180,6 +180,7 @@ export const useStyles = makeStyles()(theme => ({
     padding: '10px 20px 0',
     display: 'flex',
     justifyContent: 'space-between',
+    gap: '10px',
   },
 
   amazonTitle: {
@@ -262,9 +263,5 @@ export const useStyles = makeStyles()(theme => ({
 
   containerField: {
     width: 'min-content',
-  },
-
-  checkboxContainer: {
-    margin: 0,
   },
 }))

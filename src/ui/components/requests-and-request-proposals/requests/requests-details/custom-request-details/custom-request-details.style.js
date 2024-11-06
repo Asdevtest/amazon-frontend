@@ -8,8 +8,13 @@ export const useStyles = makeStyles()(theme => ({
 
   accordion: {
     width: '100%',
-    borderRadius: '4px',
+    borderRadius: '16px !important',
     boxShadow: theme.palette.boxShadow.paper,
+    marginBottom: 20,
+
+    '&::before': {
+      opacity: 0,
+    },
   },
 
   title: {

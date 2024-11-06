@@ -8,7 +8,7 @@ import {
   NormDateCell,
   OpenInNewTabCell,
   ProductCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -105,7 +105,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserLinkCell blackText name={params.value.name} userId={params.value._id} />,
+      renderCell: params => <UserCell name={params.value.name} id={params.value._id} email={params.value.email} />,
       width: 200,
       hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -116,7 +116,11 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
       renderCell: params => (
-        <UserLinkCell blackText name={params.row.checkedBy?.name} userId={params.row.checkedBy?._id} />
+        <UserCell
+          name={params.row.checkedBy?.name}
+          id={params.row.checkedBy?._id}
+          email={params.row.checkedBy?.email}
+        />
       ),
       width: 200,
       hideEmptyObject: true,
@@ -129,7 +133,7 @@ export const adminExchangeColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey.Buyer),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-      renderCell: params => <UserLinkCell blackText name={params.value?.name} userId={params.value?._id} />,
+      renderCell: params => <UserCell name={params.value?.name} id={params.value?._id} email={params.value?.email} />,
       width: 200,
       hideEmptyObject: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,

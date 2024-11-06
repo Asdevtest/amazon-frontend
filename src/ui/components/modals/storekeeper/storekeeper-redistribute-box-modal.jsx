@@ -201,7 +201,7 @@ export const StorekeeperRedistributeBox = observer(
           <div className={styles.currentBox}>
             <div className={styles.currentBoxTitle}>
               <p className={styles.sectionTitle}>{t(TranslationKey.Redistribute)}</p>
-              <p className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${currentBox?.humanFriendlyId}`}</p>
+              <p className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${currentBox?.xid}`}</p>
             </div>
 
             <Box

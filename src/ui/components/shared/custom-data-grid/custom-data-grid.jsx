@@ -1,6 +1,6 @@
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
+import { MdOutlineFilterAlt } from 'react-icons/md'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { DataGridPremium } from '@mui/x-data-grid-premium'
 
 import { SettingsModel } from '@models/settings-model'
@@ -22,11 +22,12 @@ export const CustomDataGrid = ({ ...restProps }) => (
       disableVirtualization
       sortingMode="server"
       paginationMode="server"
+      getRowId={({ _id }) => _id}
       pageSizeOptions={[15, 25, 50, 100]}
       localeText={getLocalizationByLanguageTag()}
       slots={{
         toolbar: DataGridCustomToolbar,
-        columnMenuIcon: FilterAltOutlinedIcon,
+        columnMenuIcon: MdOutlineFilterAlt,
         columnMenu: DataGridCustomColumnMenuComponent,
         columnResizeIcon: SeparatorIcon,
         detailPanelExpandIcon: IoIosArrowDown,

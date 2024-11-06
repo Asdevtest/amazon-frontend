@@ -1,6 +1,5 @@
-import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -24,14 +23,12 @@ import { SupervisorSettingsViewModel } from './supervisor-settings-view.model'
 
 export const SupervisorSettingsView = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new SupervisorSettingsViewModel())
+  const viewModel = useMemo(() => new SupervisorSettingsViewModel(), [])
 
   return (
     <div className="viewWrapper">
       <div className={styles.flexContainer}>
         <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
           options={switcherSettings}
           defaultValue={viewModel.condition}
           onChange={event => viewModel.onChangeСondition(event.target.value)}
@@ -40,28 +37,22 @@ export const SupervisorSettingsView = observer(() => {
         <CustomInputSearch
           enterButton
           allowClear
-          size="large"
           placeholder="Search by ASIN, Reason"
           onSearch={viewModel.onChangeUnserverSearchValue}
         />
 
         <div className={styles.flexContainer}>
-          <Popconfirm
-            title={t(TranslationKey['Are you sure you want to delete the selected ASINs?'])}
-            okText={t(TranslationKey.Yes)}
-            cancelText={t(TranslationKey.No)}
-            onConfirm={viewModel.onRemoveAsins}
-          >
-            <CustomButton danger size="large" type="primary" disabled={!viewModel.selectedRows.length}>
-              {t(TranslationKey['Delete selected ASINs'])}
-            </CustomButton>
-          </Popconfirm>
-
           <CustomButton
-            size="large"
+            danger
             type="primary"
-            onClick={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
+            disabled={!viewModel.selectedRows.length}
+            confirmText="Are you sure you want to delete the selected ASINs?"
+            onClick={viewModel.onRemoveAsins}
           >
+            {t(TranslationKey['Delete selected ASINs'])}
+          </CustomButton>
+
+          <CustomButton type="primary" onClick={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}>
             ASIN checker
           </CustomButton>
         </div>
@@ -82,7 +73,6 @@ export const SupervisorSettingsView = observer(() => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

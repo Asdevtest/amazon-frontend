@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
 
@@ -10,7 +10,7 @@ export const ProductSearchRequestDetails = ({ request }) => {
   const { classes: styles, cx } = useStyles()
 
   return (
-    <Paper>
+    <div>
       <div className={styles.root}>
         <Typography variant="h3">{'productTitle'}</Typography>
 
@@ -199,6 +199,6 @@ export const ProductSearchRequestDetails = ({ request }) => {
           </div>
         </div>
       </div>
-    </Paper>
+    </div>
   )
 }

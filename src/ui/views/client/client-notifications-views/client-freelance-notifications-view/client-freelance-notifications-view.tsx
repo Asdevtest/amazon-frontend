@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,10 +10,9 @@ import { ClientFreelanceNotificationsViewModel } from '@views/client/client-noti
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IFreelanceNotice } from '@typings/shared/info-counters'
 
 export const ClientFreelanceNotificationsView = observer(() => {
-  const [viewModel] = useState(() => new ClientFreelanceNotificationsViewModel())
+  const viewModel = useMemo(() => new ClientFreelanceNotificationsViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -28,7 +27,6 @@ export const ClientFreelanceNotificationsView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={(row: IFreelanceNotice) => row?._id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

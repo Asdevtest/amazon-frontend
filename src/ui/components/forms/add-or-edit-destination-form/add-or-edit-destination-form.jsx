@@ -41,9 +41,9 @@ export const AddOrEditDestinationForm = observer(
 
     const onSubmit = () => {
       if (destinationToEdit) {
-        onEditSubmit(formFields, destinationToEdit._id)
+        throttle(onEditSubmit(formFields, destinationToEdit._id))
       } else {
-        onCreateSubmit(formFields)
+        throttle(onCreateSubmit(formFields))
       }
     }
 

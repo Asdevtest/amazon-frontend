@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { ClientOrdersNotificationsViewModel } from './client-orders-notifications-view.model'
 
 export const ClientOrdersNotificationsView = observer(() => {
-  const [viewModel] = useState(() => new ClientOrdersNotificationsViewModel())
+  const viewModel = useMemo(() => new ClientOrdersNotificationsViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -26,8 +26,7 @@ export const ClientOrdersNotificationsView = observer(() => {
         rows={viewModel.currentData}
         sortingMode="client"
         paginationMode="client"
-        rowHeight={140}
-        getRowId={({ _id }) => _id}
+        getRowHeight={() => 'auto'}
         pinnedColumns={viewModel.pinnedColumns}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}

@@ -25,7 +25,7 @@ interface MyOrderModalProps {
   switcherCondition: MyOrderModalSwitcherConditions
   destinationsFavourites: string[]
   setDestinationsFavouritesItem: () => void
-  onClickChangeCondition: () => void
+  onClickChangeCondition: (value: string) => void
   onClickCancelOrder: (id: string) => void
   onClickReorder: (order: IOrderWithAdditionalFields, isPendingOrder: boolean) => void
   onSubmitSaveOrder: (order: IOrderWithAdditionalFields) => void

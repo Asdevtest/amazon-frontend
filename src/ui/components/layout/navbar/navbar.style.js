@@ -75,7 +75,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   arrowIcon: {
-    height: '20px !important',
     marginLeft: 6,
     color: theme.palette.primary.main,
   },

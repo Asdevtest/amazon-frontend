@@ -26,9 +26,9 @@ export const warehouseMyBatchesConfig = {
   onTriggerArchive: action.bound,
 }
 
-export const fieldsForSearch = ['amazonTitle', 'humanFriendlyId', 'asin', 'orderHumanFriendlyId', 'title']
+export const fieldsForSearch = ['amazonTitle', 'xid', 'asin', 'orderXid', 'title']
 
-export interface IColumnsProps {
+export interface ColumnsProps {
   onClickSaveTrackingNumber: (id: string, trackingNumber: string) => void
   onClickSaveArrivalDate: (id: string, date: string) => void
   isSentBatches: boolean

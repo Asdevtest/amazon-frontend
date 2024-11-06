@@ -22,7 +22,7 @@ export const RequestDetailsItem: FC<RequestDetailsItemProps> = memo(({ request, 
 
   const requestAdditionalDetails = [
     { title: t(TranslationKey.Title), value: request?.title },
-    { title: t(TranslationKey.ID), value: request?.humanFriendlyId },
+    { title: t(TranslationKey.ID), value: request?.xid },
   ]
 
   if (showAllDetails) {

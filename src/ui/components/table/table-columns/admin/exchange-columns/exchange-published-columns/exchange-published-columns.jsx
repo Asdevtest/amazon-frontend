@@ -6,7 +6,7 @@ import {
   ProductCell,
   SupplierCell,
   Text,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -20,7 +20,6 @@ export const exchangePublishedColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    // type: 'date',
   },
   {
     field: 'updatedAt',
@@ -29,7 +28,6 @@ export const exchangePublishedColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 150,
-    // type: 'date',
   },
 
   {
@@ -38,7 +36,7 @@ export const exchangePublishedColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
 
     renderCell: params => {
-      const product = params.row.originalData
+      const product = params.row
 
       return (
         <ProductCell
@@ -76,7 +74,7 @@ export const exchangePublishedColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.createdBy?._id} />
+      <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} email={params.row.createdBy?.email} />
     ),
     width: 200,
   },
@@ -86,7 +84,7 @@ export const exchangePublishedColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supervisor)} />,
 
     renderCell: params => (
-      <UserLinkCell blackText name={params.value} userId={params.row.originalData.checkedBy?._id} />
+      <UserCell name={params.row.checkedBy?.name} id={params.row.checkedBy?._id} email={params.row.checkedBy?.email} />
     ),
     width: 200,
   },
@@ -96,7 +94,9 @@ export const exchangePublishedColumns = () => [
     headerName: t(TranslationKey.Buyer),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Buyer)} />,
 
-    renderCell: params => <UserLinkCell blackText name={params.value} userId={params.row.originalData.buyer?._id} />,
+    renderCell: params => (
+      <UserCell name={params.row.buyer?.name} id={params.row.buyer?._id} email={params.row.buyer?.email} />
+    ),
     width: 200,
   },
   {
@@ -105,10 +105,7 @@ export const exchangePublishedColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
 
     renderCell: params => (
-      <SupplierCell
-        supplierName={params.row.originalData.currentSupplier?.name}
-        supplierLink={params.row.originalData.currentSupplier?.link}
-      />
+      <SupplierCell supplierName={params.row.currentSupplier?.name} supplierLink={params.row.currentSupplier?.link} />
     ),
     width: 150,
   },

@@ -7,7 +7,7 @@ import { currencyTypes, currencyTypesToHumanFriendlyValue } from '@constants/key
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
 
@@ -248,22 +248,21 @@ export const AddOrEditLogisticTariffForm = observer(
                   {t(TranslationKey.Rates)}
                 </p>
 
-                <div>
-                  <CustomSwitcher
-                    condition={currencyType}
-                    switcherSettings={[
-                      {
-                        label: () => currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || '',
-                        value: currencyTypes.DOLLAR,
-                      },
-                      {
-                        label: () => currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || '',
-                        value: currencyTypes.YUAN,
-                      },
-                    ]}
-                    changeConditionHandler={handleChange}
-                  />
-                </div>
+                <CustomRadioButton
+                  size="small"
+                  options={[
+                    {
+                      label: currencyTypesToHumanFriendlyValue(currencyTypes.DOLLAR) || '',
+                      value: currencyTypes.DOLLAR,
+                    },
+                    {
+                      label: currencyTypesToHumanFriendlyValue(currencyTypes.YUAN) || '',
+                      value: currencyTypes.YUAN,
+                    },
+                  ]}
+                  value={currencyType}
+                  onChange={e => handleChange(e.target.value)}
+                />
               </div>
 
               <div className={styles.courseWrapper}>

@@ -1,6 +1,6 @@
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, Text, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, Text, UserCell } from '@components/data-grid/data-grid-cells'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -13,7 +13,6 @@ export const financesViewColumns = () => [
 
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    // type: 'date',
   },
 
   {
@@ -41,7 +40,9 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Initiator)} />,
 
     width: 170,
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.createdBy?._id} />,
+    renderCell: params => (
+      <UserCell name={params.row.createdBy?.name} id={params.row.createdBy?._id} email={params.row.createdBy?.email} />
+    ),
   },
 
   {
@@ -50,7 +51,9 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Recipient)} />,
 
     width: 170,
-    renderCell: params => <UserLinkCell name={params.value} userId={params.row.originalData.recipient?._id} />,
+    renderCell: params => (
+      <UserCell name={params.row.recipient?.name} id={params.row.recipient?._id} email={params.row.recipient?.email} />
+    ),
   },
 
   {
@@ -68,8 +71,6 @@ export const financesViewColumns = () => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
 
     width: 700,
-    renderCell: params => (
-      <Text text={`${params.value} ${params.row?.originalData?.product ? params.row.originalData.product?.id : ''}`} />
-    ),
+    renderCell: params => <Text text={`${params.value} ${params.row?.product ? params.row.product?.id : ''}`} />,
   },
 ]

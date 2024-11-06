@@ -213,3 +213,10 @@ export const showResultRequestProposalsStatuses = [
   RequestProposalStatus.CORRECTED,
   RequestProposalStatus.ACCEPTED_BY_CLIENT,
 ]
+
+export const inProgressRequestProposalsStatuses = [
+  MyRequestStatus.DRAFT,
+  MyRequestStatus.IN_PROCESS,
+  MyRequestStatus.PUBLISHED,
+  MyRequestStatus.EXPIRED,
+]

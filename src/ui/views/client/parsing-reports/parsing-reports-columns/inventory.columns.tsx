@@ -1,7 +1,7 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixed } from '@utils/text'
@@ -51,7 +51,9 @@ export const inventoryColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserLinkCell blackText name={params.row.client?.name} userId={params.row.client?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+      ),
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -62,7 +64,7 @@ export const inventoryColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.ASIN),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ASIN)} />,
-      renderCell: ({ row }) => <ProductCell image={row?.image} title={row?.title} asin={row?.asin} sku={row?.sku} />,
+      renderCell: ({ row }) => <ProductCell image={row.image} title={row.title} asin={row.asin} sku={row.sku} />,
 
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
@@ -96,8 +98,8 @@ export const inventoryColumns = () => {
 
     {
       field: 'fbaFees',
-      headerName: 'Fba fees',
-      renderHeader: () => <MultilineTextHeaderCell text="Fba fees" />,
+      headerName: 'FBA fees',
+      renderHeader: () => <MultilineTextHeaderCell text="FBA fees" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -106,8 +108,8 @@ export const inventoryColumns = () => {
 
     {
       field: 'refFees',
-      headerName: 'Ref fees',
-      renderHeader: () => <MultilineTextHeaderCell text="Ref fees" />,
+      headerName: 'REF fees',
+      renderHeader: () => <MultilineTextHeaderCell text="REF fees" />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
@@ -152,16 +154,6 @@ export const inventoryColumns = () => {
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'fnSku',
-      headerName: 'FnSku',
-      renderHeader: () => <MultilineTextHeaderCell text="FnSku" />,
-
-      renderCell: params => <Text isCell text={params.value} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {

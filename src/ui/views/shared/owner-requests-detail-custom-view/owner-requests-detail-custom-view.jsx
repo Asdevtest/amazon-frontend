@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 
@@ -12,6 +12,7 @@ import { RequestProposalAcceptOrRejectResultForm } from '@components/forms/reque
 import { RequestProposalResultToCorrectForm } from '@components/forms/request-proposal-result-to-correct-form'
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { OwnerGeneralRequestInfo } from '@components/requests-and-request-proposals/owner-general-request-info'
 import { DealsOfRequest } from '@components/requests-and-request-proposals/request-proposals/deals-of-request'
@@ -19,7 +20,6 @@ import { CustomSearchRequestForm } from '@components/requests-and-request-propos
 import { CustomSearchRequestDetails } from '@components/requests-and-request-proposals/requests/requests-details/custom-request-details'
 import { Button } from '@components/shared/button'
 import { Modal } from '@components/shared/modal'
-import { RequestProposalsCardList } from '@components/shared/request-proposals-card-list'
 
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
@@ -31,6 +31,7 @@ import { ButtonStyle } from '@typings/enums/button-style'
 import { useStyles } from './owner-requests-detail-custom-view.style'
 
 import { OwnerRequestDetailCustomViewModel } from './owner-requests-detail-custom-view.model'
+import { RequestProposalsCardList } from './request-proposals-card-list'
 
 const statusesReworkAndReceiveButtons = [RequestProposalStatus.READY_TO_VERIFY, RequestProposalStatus.CORRECTED]
 const statusesOrderAndRejectButtons = [RequestProposalStatus.CREATED, RequestProposalStatus.OFFER_CONDITIONS_CORRECTED]
@@ -40,7 +41,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
   const chatRef = useRef()
 
-  const [viewModel] = useState(
+  const viewModel = useMemo(
     () =>
       new OwnerRequestDetailCustomViewModel({
         history,
@@ -50,6 +51,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           }
         },
       }),
+    [],
   )
 
   useEffect(() => {
@@ -83,6 +85,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
             onClickAbortBtn={viewModel.onClickAbortBtn}
             onRecoverRequest={viewModel.onRecoverRequest}
             onToggleUploadedToListing={viewModel.onToggleUploadedToListing}
+            onClickIdeaId={viewModel.onClickIdeaId}
           />
         ) : null}
 
@@ -130,11 +133,22 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                     mesSearchValue={viewModel.mesSearchValue}
                     curFoundedMessage={viewModel.curFoundedMessage}
                     chatSelectedId={viewModel.chatSelectedId}
+                    currentOpponent={findRequestProposalForCurChat?.proposal?.createdBy}
                     chatMessageHandlers={{
                       onClickOpenRequest: viewModel.onClickOpenRequest,
                     }}
                     renderAdditionalButtons={() => (
-                      <>
+                      <div className={styles.buttonsWrapper}>
+                        <div className={styles.additionalButtonsWrapper}>
+                          <Button
+                            onClick={() =>
+                              viewModel.onClickAddMediaFromProduct(viewModel.request?.request?.product?._id)
+                            }
+                          >
+                            {t(TranslationKey['Add from product'])}
+                          </Button>
+                        </div>
+
                         {statusesReworkAndReceiveButtons.includes(statusForCurrentChat) && (
                           <div className={styles.additionalButtonsWrapper}>
                             <Button onClick={() => viewModel.onClickProposalResultToCorrect()}>
@@ -166,7 +180,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                             </Button>
                           </div>
                         )}
-                      </>
+                      </div>
                     )}
                     requestStatus={viewModel.requestStatus}
                     onChangeRequestStatus={viewModel.setRequestStatus}
@@ -224,9 +238,8 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
 
       <Modal openModal={viewModel.showReviewModal} setOpenModal={() => viewModel.onTriggerOpenModal('showReviewModal')}>
         <ReviewsForm
-          reviews={viewModel.currentReviews}
           user={viewModel.currentReviewModalUser}
-          onClickCloseButton={() => viewModel.onTriggerOpenModal('showReviewModal')}
+          onClose={() => viewModel.onTriggerOpenModal('showReviewModal')}
         />
       </Modal>
 
@@ -296,6 +309,17 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           cancelBtnText={t(TranslationKey.Close)}
           onClickSuccessBtn={viewModel.onSubmitAbortRequest}
           onClickCancelBtn={viewModel.onClickAbortBtn}
+        />
+      ) : null}
+
+      {viewModel.showGalleryModal ? (
+        <GalleryRequestModal
+          buttonText={t(TranslationKey.Send)}
+          data={viewModel.productMedia}
+          openModal={viewModel.showGalleryModal}
+          mediaFiles={[]}
+          onChangeMediaFiles={viewModel.sendFilesToChat}
+          onOpenModal={() => viewModel.onTriggerOpenModal('showGalleryModal')}
         />
       ) : null}
     </>

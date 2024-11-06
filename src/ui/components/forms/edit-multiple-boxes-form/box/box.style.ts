@@ -59,7 +59,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     fontWeight: 400,
     lineHeight: '21px',
-    width: '299px',
+    width: '270px',
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
@@ -108,16 +108,8 @@ export const useStyles = makeStyles()(theme => ({
     backgroundcolor: theme.palette.text.general,
   },
 
-  checkboxContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '0 !important',
-    width: '100%',
-  },
-
   orderInput: {
-    width: '79px',
+    width: '120px',
   },
 
   superBox: {
@@ -176,5 +168,9 @@ export const useStyles = makeStyles()(theme => ({
 
   icon: {
     padding: 4,
+  },
+
+  blue: {
+    color: theme.palette.text.main,
   },
 }))

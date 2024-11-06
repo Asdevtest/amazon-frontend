@@ -1,16 +1,11 @@
-import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useCallback, useMemo } from 'react'
 import { MdOutlineDelete } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomTextarea } from '@components/shared/custom-textarea'
-
-import { t } from '@utils/translations'
 
 import { useStyles } from './result-cell.style'
 
@@ -44,14 +39,14 @@ export const ResultCell: FC<ResultCellProps> = observer(props => {
         onChange={onChangeCommentCellValue(row._id, 'result')}
       />
 
-      <Popconfirm
-        title={t(TranslationKey['Are you sure you want to remove this launch?'])}
-        okText={t(TranslationKey.Yes)}
-        cancelText={t(TranslationKey.No)}
-        onConfirm={handleRemoveLaunch}
-      >
-        <CustomButton danger shape="circle" size="small" icon={<MdOutlineDelete size={16} />} />
-      </Popconfirm>
+      <CustomButton
+        danger
+        shape="circle"
+        size="small"
+        icon={<MdOutlineDelete size={16} />}
+        confirmText="Are you sure you want to remove this launch?"
+        onClick={handleRemoveLaunch}
+      />
     </div>
   )
 })

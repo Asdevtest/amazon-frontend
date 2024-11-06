@@ -64,13 +64,19 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     fontWeight: 400,
     color: theme.palette.text.general,
-
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     wordBreak: 'break-word',
+  },
+
+  infoText: {
+    fontSize: 14,
+    fontWeight: 400,
+    color: theme.palette.text.general,
+    whiteSpace: 'nowrap',
   },
 
   requestMoreInformation: {

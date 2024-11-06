@@ -2,7 +2,7 @@
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "types": ["react", "node"],
-    "lib": ["es2020", "DOM"],
+    "lib": ["es2020", "DOM", "ESNext.Array", "ESNext"],
     "module": "esnext",
     "sourceMap": true,
     "strict": true,

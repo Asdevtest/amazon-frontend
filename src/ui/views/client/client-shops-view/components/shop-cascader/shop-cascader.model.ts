@@ -107,7 +107,8 @@ export class ShopsCascaderModel {
       const ordersOptions = createOrdersOptions()
         .map(orders => ['ORDERS', orders.value])
         .filter(item => !item.includes('select-all-orders'))
-      const arraysMatch = value.length === ordersOptions.length && value.every(v => ordersOptions.flat().includes(v[1]))
+      const arraysMatch =
+        value.length === ordersOptions.length && value.every(ids => ordersOptions.flat().includes(ids[1]))
 
       if (hasAllOrdersOption && !allOrdersOptionSelected) {
         this.selectedTableOptions = [['ORDERS']]
@@ -126,7 +127,8 @@ export class ShopsCascaderModel {
       const boxesOptions = createBoxesOptions()
         .map(orders => ['BOXES', orders.value])
         .filter(item => !item.includes('select-all-boxes'))
-      const arraysMatch = value.length === boxesOptions.length && value.every(v => boxesOptions.flat().includes(v[1]))
+      const arraysMatch =
+        value.length === boxesOptions.length && value.every(ids => boxesOptions.flat().includes(ids[1]))
 
       if (hasAllBatchesOption && !allBatchesOptionSelected) {
         this.selectedTableOptions = [['BOXES']]
@@ -145,7 +147,8 @@ export class ShopsCascaderModel {
     const allOptionSelected = this.selectedShopsOptions.some(item => item.includes('select-all-shops'))
     const shopsOptions = this.shops.map(shop => [shop._id])
     const allOptions = [...shopsOptions, ['select-all-shops']]
-    const arraysMatch = value.length === shopsOptions.length && value.every(v => shopsOptions.flat().includes(v[0]))
+    const arraysMatch =
+      value.length === shopsOptions.length && value.every(ids => shopsOptions.flat().includes(ids[1] || ids[0]))
 
     if (hasAllOption && !allOptionSelected) {
       this.selectedShopsOptions = allOptions

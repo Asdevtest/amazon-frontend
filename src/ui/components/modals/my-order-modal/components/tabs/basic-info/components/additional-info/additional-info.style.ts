@@ -30,11 +30,11 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  userMiniCellWrapper: {
+  UserCellWrapper: {
     padding: 0,
   },
 
-  userMiniCellAvatar: {
+  UserCellAvatar: {
     width: 19,
     height: 19,
   },

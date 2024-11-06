@@ -13,31 +13,24 @@ import { UserModel } from '@models/user-model'
 
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { loadingStatus } from '@typings/enums/loading-status'
 import { isString } from '@typings/guards'
 
 export class RequestDetailCustomViewModel {
   history = undefined
   requestStatus = undefined
-
   requestId = undefined
   request = undefined
   requestProposals = undefined
   showProgress = false
-
   showConfirmModal = false
   showMainRequestResultModal = false
   showRequestDesignerResultModal = false
   showRequestDesignerResultClientModal = false
   showRequestResultModal = false
-
   curResultMedia = []
-
   loadedFiles = []
-
   chatSelectedId = undefined
   chatIsConnected = false
-
   mesSearchValue = ''
   messagesFound = []
   curFoundedMessage = undefined
@@ -45,19 +38,15 @@ export class RequestDetailCustomViewModel {
   get isMuteChats() {
     return SettingsModel.isMuteChats
   }
-
   get mutedChats() {
     return SettingsModel.mutedChats
   }
-
   get chats() {
     return ChatModel.chats
   }
-
   get userInfo() {
     return UserModel.userInfo
   }
-
   get typingUsers() {
     return ChatModel.typingUsers
   }
@@ -163,18 +152,9 @@ export class RequestDetailCustomViewModel {
     this.mesSearchValue = ''
   }
 
-  async loadData() {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      this.getCustomRequestById()
-      this.getRequestProposals()
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
+  loadData() {
+    this.getCustomRequestById()
+    this.getRequestProposals()
   }
 
   onClickChat(chat) {

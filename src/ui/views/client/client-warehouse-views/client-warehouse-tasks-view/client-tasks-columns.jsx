@@ -11,7 +11,7 @@ import {
   TaskPriorityCell,
   TaskStatusCell,
   TaskTypeCell,
-  UserLinkCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -20,11 +20,21 @@ import { t } from '@utils/translations'
 export const clientTasksViewColumns = handlers => {
   const columns = [
     {
+      field: 'xid',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: params => <Text isCell text={params.row?.xid} />,
+
+      width: 120,
+      disableCustomSort: true,
+    },
+
+    {
       field: 'action',
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
 
-      width: 160,
+      width: 130,
 
       renderCell: params => <ClientTasksActionBtnsCell handlers={handlers} row={params.row} />,
       filterable: false,
@@ -37,7 +47,7 @@ export const clientTasksViewColumns = handlers => {
       headerName: t(TranslationKey.Priority),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Priority)} />,
 
-      width: window.innerWidth < 1282 ? 140 : 170,
+      width: 170,
       renderCell: params => (
         <TaskPriorityCell
           disabled={
@@ -95,18 +105,13 @@ export const clientTasksViewColumns = handlers => {
 
       renderCell: params => (
         <StringListCell
-          withCopy
-          maxItemsDisplay={4}
-          maxLettersInItem={10}
-          sourceString={params.row?.boxesBefore?.reduce(
-            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.product?.asin], [])],
-            [],
-          )}
+          asin
+          data={params.row?.boxesBefore.flatMap(box => box.items?.map(item => item.product?.asin))}
         />
       ),
 
       disableCustomSort: true,
-      width: window.innerWidth < 1282 ? 100 : 160,
+      width: 160,
     },
 
     {
@@ -115,30 +120,26 @@ export const clientTasksViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
       renderCell: params => (
-        <UserLinkCell blackText name={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
+        <UserCell
+          name={params.row.storekeeper?.name}
+          id={params.row.storekeeper?._id}
+          email={params.row.storekeeper?.email}
+        />
       ),
       width: 170,
       disableCustomSort: true,
     },
 
     {
-      field: 'orderId',
-      headerName: t(TranslationKey['Order number']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
+      field: 'orderXid',
 
-      renderCell: params => (
-        <StringListCell
-          maxItemsDisplay={4}
-          maxLettersInItem={10}
-          sourceString={params.row?.boxesBefore.reduce(
-            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur?.order?.id], [])],
-            [],
-          )}
-        />
-      ),
-      type: 'number',
+      headerName: t(TranslationKey['№ Order']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
+
+      renderCell: params => <Text text={params.value} />,
+      valueGetter: ({ row }) => row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.xid))?.join(', '),
       disableCustomSort: true,
-      width: window.innerWidth < 1282 ? 73 : 160,
+      width: 160,
     },
 
     {
@@ -147,7 +148,7 @@ export const clientTasksViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
       renderCell: params => <CheckboxCell disabled checked={params.value} />,
-      width: window.innerWidth < 1282 ? 65 : 160,
+      width: 160,
       type: 'boolean',
     },
 
@@ -157,17 +158,10 @@ export const clientTasksViewColumns = handlers => {
       renderHeader: () => <MultilineTextHeaderCell text="item" />,
 
       renderCell: params => (
-        <StringListCell
-          maxItemsDisplay={4}
-          maxLettersInItem={10}
-          sourceString={params.row?.boxesBefore.reduce(
-            (ac, c) => [...ac, ...c.items.reduce((acc, cur) => [...acc, cur.order.item && cur.order.item], [])],
-            [],
-          )}
-        />
+        <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.item))} />
       ),
       disableCustomSort: true,
-      width: window.innerWidth < 1282 ? 54 : 160,
+      width: 160,
     },
 
     {
@@ -186,7 +180,6 @@ export const clientTasksViewColumns = handlers => {
 
       width: 130,
       renderCell: params => <NormDateFromUnixCell value={params.value} />,
-      // type: 'date',
     },
   ]
 

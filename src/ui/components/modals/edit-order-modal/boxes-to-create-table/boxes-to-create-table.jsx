@@ -216,6 +216,7 @@ export const BoxesToCreateTable = ({
 
       <Table
         rowsOnly
+        wrapperClassName={styles.tableWrapper}
         data={newBoxes}
         BodyRow={TableBodyBoxRow}
         renderHeadRow={renderHeadRow()}

@@ -21,5 +21,5 @@ export const useImageValidation = (file: string) => {
     }
   }, [file])
 
-  return isValidImage ? file : '/assets/img/no-photo.jpg'
+  return isValidImage ? file : '/assets/img/defaultImage.png'
 }

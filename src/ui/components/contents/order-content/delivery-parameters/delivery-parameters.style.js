@@ -16,17 +16,12 @@ export const useStyles = makeStyles()(theme => ({
     marginBottom: 20,
     transition: '.3s ease',
 
-    '&:hover': {
-      cursor: 'pointer',
-      transform: 'scale(1.01)',
-    },
+    cursor: 'pointer',
   },
 
   disabledExpressWrapper: {
-    '&:hover': {
-      cursor: 'auto',
-      transform: 'none',
-    },
+    cursor: 'auto',
+    transform: 'none',
   },
 
   deliveryImg: {

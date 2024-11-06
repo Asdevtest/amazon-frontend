@@ -47,10 +47,6 @@ export const useStyles = makeStyles()(theme => ({
   itemInputIcon: {
     color: theme.palette.primary.main,
     transition: '.3s ease',
-    cursor: 'pointer',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   modalSpanText: {
@@ -124,11 +120,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 137,
     objectFit: 'contain',
     cursor: 'pointer',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   addBoxTitle: {

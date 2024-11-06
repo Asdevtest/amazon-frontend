@@ -1,134 +1,82 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Radio } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useEffect, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
-import { RadioButtons } from '@components/shared/radio-buttons'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
+import { AsinOption } from '@components/modals/report-modal/components/header/asin-option'
+import { CustomButton } from '@components/shared/custom-button'
+import { CustomSelect } from '@components/shared/custom-select'
+import { ChildProductLaunchIcon, ParentProductLaunchIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './product-launch-form.style'
 
-interface IProductsLaunch {
-  amazonTitle: string
-  asin: string
-  images: Array<string>
-  shopId: string
-  skuByClient: string
-}
+import { RadioValue } from './product-launch-form.config'
+import { ProductLaunchFormModel } from './product-launch-form.model'
 
 interface ProductLaunchFormProps {
-  selectedProductToLaunch: any
-  productsToLaunch: Array<IProductsLaunch>
-  onClickNextButton: (product: any) => void
-  onClickVariationRadioButton: () => void
-  onClickCancelButton: () => void
-  onClickSubmitSearch: (searchValue: string) => void
-  loadMorePermissionsDataHadler: () => void
+  onClose: () => void
+  onSubmit: (product?: IProduct) => void
+  selectedProduct?: IProduct
 }
 
-const radioBottonsSettings = [
-  {
-    label: 'New product',
-    value: false,
-  },
-  {
-    label: 'Variation',
-    value: true,
-  },
-]
-
 export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
-  const { classes: styles } = useStyles()
-  const {
-    productsToLaunch,
-    selectedProductToLaunch,
-    onClickNextButton,
-    onClickVariationRadioButton,
-    onClickCancelButton,
-    loadMorePermissionsDataHadler,
-    onClickSubmitSearch,
-  } = props
+  const { onClose, onSubmit, selectedProduct } = props
 
-  const [selectedProduct, setSelectedProduct] = useState<IProductsLaunch | undefined>(undefined)
-
-  const [selectedRadioValue, setSelectedRadioValue] = useState<boolean>(false)
-
-  const changeRadioValueHandler = (selectedValue: boolean) => {
-    if (selectedValue) {
-      setSelectedRadioValue(selectedValue)
-      onClickVariationRadioButton()
-    } else {
-      setSelectedProduct(undefined)
-    }
-    setSelectedRadioValue(selectedValue)
-  }
-
-  useEffect(() => {
-    if (selectedProductToLaunch) {
-      changeRadioValueHandler(true)
-      setSelectedProduct(selectedProductToLaunch)
-    }
-  }, [selectedProductToLaunch])
+  const viewModel = useMemo(() => new ProductLaunchFormModel(selectedProduct), [])
+  const { classes: styles, cx } = useStyles()
 
   return (
     <div className={styles.root}>
-      <p className={styles.modalTitle}>{t(TranslationKey['Create or select product'])}</p>
+      <p className={styles.title}>{t(TranslationKey['Product launch'])}</p>
 
-      <div className={styles.radioButtonsWrapper}>
-        <RadioButtons
-          verticalDirection
-          radioBottonsSettings={radioBottonsSettings}
-          currentValue={selectedRadioValue}
-          onClickRadioButton={selectedValue =>
-            typeof selectedValue === 'boolean' && changeRadioValueHandler(selectedValue)
-          }
-        />
-      </div>
+      <Radio.Group value={viewModel.radioValue} className={styles.radioGroup} onChange={viewModel.onChangeRadioValue}>
+        <div className={styles.radioOptionContainer}>
+          <Radio value={RadioValue.NEW}>{t(TranslationKey['New product'])}</Radio>
+          <div className={cx(styles.iconContainer, styles.iconCreate)}>
+            <ParentProductLaunchIcon />
+          </div>
+        </div>
 
-      {/* @ts-ignore */}
-      <WithSearchSelect
-        // @ts-ignore
-        asinSelect
-        grayBorder
-        blackSelectedItem
-        darkIcon
-        chosenItemNoHover
-        CustomButton={(componentProps: any) => <SelectProductButton {...componentProps} />}
-        disabled={!selectedRadioValue}
-        data={productsToLaunch}
-        width={300}
-        customSubMainWrapper={styles.searchSelectCustomSubMainWrapper}
-        customSearchInput={styles.searchSelectCustomSearchInput}
-        customItemsWrapper={styles.searchSelectCustomItemsWrapper}
-        selectedItemName={
-          selectedProduct?.asin ||
-          (selectedProduct?.asin === '' && t(TranslationKey.Missing)) ||
-          t(TranslationKey['Parent product'])
-        }
-        onScrollItemList={loadMorePermissionsDataHadler}
-        onClickSubmitSearch={onClickSubmitSearch}
-        onClickSelect={(el: IProductsLaunch) => setSelectedProduct(el)}
-      />
+        <div className={styles.radioOptionContainer}>
+          <Radio value={RadioValue.VARIATION}>{t(TranslationKey.Variation)}</Radio>
+          <div className={cx(styles.iconContainer, styles.iconSelect)}>
+            <ChildProductLaunchIcon />
+          </div>
+          <CustomSelect
+            showSearch
+            filterOption={false}
+            disabled={!viewModel.radioValue}
+            defaultActiveFirstOption={false}
+            placeholder="Parent product"
+            options={viewModel.asinOptions}
+            value={viewModel.defaultAsinOption}
+            optionRender={({ data }) => <AsinOption data={data} />}
+            onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
+            onSearch={viewModel.onClickSubmitSearch}
+            onPopupScroll={viewModel.onPopupScroll}
+            onChange={viewModel.onChangeProduct}
+          />
+        </div>
+      </Radio.Group>
 
-      <div className={styles.buttonsWrapper}>
-        <Button
-          styleType={ButtonStyle.SUCCESS}
-          disabled={selectedRadioValue && !selectedProduct}
-          onClick={() => onClickNextButton(selectedProduct)}
+      <div className={styles.buttons}>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={viewModel.disabledSubmit}
+          onClick={() => onSubmit(viewModel.selectedProduct)}
         >
           {t(TranslationKey.Next)}
-        </Button>
+        </CustomButton>
 
-        <Button styleType={ButtonStyle.CASUAL} onClick={onClickCancelButton}>
+        <CustomButton size="large" onClick={onClose}>
           {t(TranslationKey.Close)}
-        </Button>
+        </CustomButton>
       </div>
     </div>
   )

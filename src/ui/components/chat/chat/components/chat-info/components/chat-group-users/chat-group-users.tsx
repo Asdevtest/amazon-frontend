@@ -1,14 +1,11 @@
 import { FC, memo } from 'react'
-import { FiPlus } from 'react-icons/fi'
+import { MdClose } from 'react-icons/md'
 
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Avatar } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatContract } from '@models/chat-model/contracts'
-
-import { CustomButton } from '@components/shared/custom-button'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
@@ -18,23 +15,16 @@ import { useStyles } from './chat-group-users.style'
 interface ChatGroupUsersProps {
   chat: ChatContract
   userId: string
-  onClickAddUsersToGroupChat: () => void
   onRemoveUsersFromGroupChat: (usersIds: string[]) => void
   onClickEditGroupChatInfo: () => void
 }
 
 export const ChatGroupUsers: FC<ChatGroupUsersProps> = memo(props => {
-  const { chat, userId, onRemoveUsersFromGroupChat, onClickAddUsersToGroupChat } = props
+  const { chat, userId, onRemoveUsersFromGroupChat } = props
   const { classes: styles } = useStyles()
 
   return (
     <div className={styles.groupSettingsWrapper}>
-      {userId === chat.info?.createdBy ? (
-        <CustomButton type="primary" size="large" icon={<FiPlus />} onClick={onClickAddUsersToGroupChat}>
-          {t(TranslationKey['Add member'])}
-        </CustomButton>
-      ) : null}
-
       <div className={styles.membersWrapper}>
         {chat.users
           .slice()
@@ -50,9 +40,9 @@ export const ChatGroupUsers: FC<ChatGroupUsersProps> = memo(props => {
               </div>
 
               {el._id !== chat.info?.createdBy && userId === chat.info?.createdBy ? (
-                <CloseOutlinedIcon
+                <MdClose
+                  size={22}
                   className={styles.pencilEditIcon}
-                  fontSize="small"
                   onClick={() => onRemoveUsersFromGroupChat([el._id])}
                 />
               ) : null}

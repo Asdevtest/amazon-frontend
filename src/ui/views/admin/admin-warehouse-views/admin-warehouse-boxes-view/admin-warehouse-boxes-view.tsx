@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -13,12 +13,11 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IBox } from '@typings/models/boxes/box'
 
 import { AdminWarehouseBoxesViewModel } from './admin-warehouse-boxes-view.model'
 
 export const AdminWarehouseBoxesView = observer(() => {
-  const [viewModel] = useState(() => new AdminWarehouseBoxesViewModel())
+  const viewModel = useMemo(() => new AdminWarehouseBoxesViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -42,7 +41,6 @@ export const AdminWarehouseBoxesView = observer(() => {
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }: IBox) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

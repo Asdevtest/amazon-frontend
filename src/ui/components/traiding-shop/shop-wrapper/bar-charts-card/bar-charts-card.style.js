@@ -1,3 +1,4 @@
+import { theme } from 'antd'
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
@@ -32,5 +33,9 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'center',
     gap: '30px',
     marginTop: '40px',
+  },
+
+  icon: {
+    color: theme.palette.primary.main,
   },
 }))

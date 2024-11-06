@@ -36,6 +36,27 @@ export const getUtcDateObject = dateString => {
   }
 }
 
+export const getLocalDateObject = dateString => {
+  const date = new Date(dateString)
+
+  const day = date.getDate().toString().padStart(2, '0')
+  const month = (date.getMonth() + 1).toString().padStart(2, '0')
+  const year = date.getFullYear()
+
+  const hours = date.getHours().toString().padStart(2, '0')
+  const minutes = date.getMinutes().toString().padStart(2, '0')
+  const seconds = date.getSeconds().toString().padStart(2, '0')
+
+  return {
+    day,
+    month,
+    year,
+    hours,
+    minutes,
+    seconds,
+  }
+}
+
 export const formatDateToCustomFormatInUTC = (dateString, format = 'dd.MM.yyyy HH:mm') => {
   if (!dateString) {
     return ''
@@ -43,15 +64,29 @@ export const formatDateToCustomFormatInUTC = (dateString, format = 'dd.MM.yyyy H
 
   const dateObj = getUtcDateObject(dateString)
 
-  const formattedDate = format
+  return format
     .replace('dd', dateObj.day)
     .replace('MM', dateObj.month)
     .replace('yyyy', dateObj.year)
     .replace('HH', dateObj.hours)
     .replace('mm', dateObj.minutes)
     .replace('ss', dateObj.seconds)
+}
 
-  return formattedDate
+export const formatDateToCustomFormatInLocal = (dateString, format = 'dd.MM.yyyy HH:mm') => {
+  if (!dateString) {
+    return ''
+  }
+
+  const dateObj = getLocalDateObject(dateString)
+
+  return format
+    .replace('dd', dateObj.day)
+    .replace('MM', dateObj.month)
+    .replace('yyyy', dateObj.year)
+    .replace('HH', dateObj.hours)
+    .replace('mm', dateObj.minutes)
+    .replace('ss', dateObj.seconds)
 }
 
 export const getYearDate = dateString => formatDateToCustomFormatInUTC(dateString, 'yyyy')
@@ -76,11 +111,13 @@ export const formatNormDateTime = dateString => {
 }
 
 export const formatDateTimeHourAndMinutes = dateString => formatDateToCustomFormatInUTC(dateString, 'HH:mm')
+export const formatDateTimeHourAndMinutesLocal = dateString => formatDateToCustomFormatInLocal(dateString, 'HH:mm')
 
 export const formatShortDateTime = dateString => {
   return formatDateToCustomFormatInUTC(dateString, 'dd.MM.yyyy HH:mm')
 }
 export const formatDateWithoutTime = dateString => formatDateToCustomFormatInUTC(dateString, 'dd.MM.yyyy')
+export const formatDateWithoutTimeLocal = dateString => formatDateToCustomFormatInLocal(dateString, 'dd.MM.yyyy')
 
 export const formatDateWithoutYear = dateString => formatDateToCustomFormatInUTC(dateString, 'dd.MM')
 

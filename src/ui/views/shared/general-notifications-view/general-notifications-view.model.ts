@@ -11,7 +11,6 @@ import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { UserModel } from '@models/user-model'
 
 import { checkIsBuyer, checkIsClient, checkIsFreelancer } from '@utils/checks'
-import { notificationDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -21,7 +20,7 @@ import { RowHandlers } from '@typings/shared/data-grid'
 import { IFullUser } from '@typings/shared/full-user'
 
 import { generalNotificationsColumns } from './general-notifications-columns'
-import { observerConfig } from './general-notifications-model.config'
+import { notificationDataConverter, observerConfig } from './general-notifications-model.config'
 
 interface IVariations {
   isArchive: boolean

@@ -1,6 +1,6 @@
 import { memo, useState } from 'react'
+import { MdExpandMore } from 'react-icons/md'
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { Avatar, Rating, Typography } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
@@ -31,7 +31,7 @@ export const DealsOfRequest = memo(({ requestProposals, onClickReview }) => {
         disabled={!requestProposals.length}
         onChange={() => setShowDetails(!showDetails)}
       >
-        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary expandIcon={<MdExpandMore size={20} />}>
           <Typography className={styles.title}>{`${t(TranslationKey['Transactions on the request'])} (${
             requestProposals.length
           })`}</Typography>

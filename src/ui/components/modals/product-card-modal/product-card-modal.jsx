@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -64,7 +64,7 @@ export const ProductCardModal = observer(props => {
     }
   }
 
-  const [viewModel] = useState(setCurrentModel())
+  const viewModel = useMemo(setCurrentModel(), [])
   const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   const [currentTab, setCurrentTab] = useState(getTab(viewModel.showTab))
@@ -113,6 +113,7 @@ export const ProductCardModal = observer(props => {
           <ProductWrapper
             modal
             showTab={viewModel?.showTab}
+            filterStatus={viewModel?.filterStatus}
             user={viewModel?.userInfo}
             userRole={viewModel?.userInfo.role}
             imagesForLoad={viewModel?.imagesForLoad}

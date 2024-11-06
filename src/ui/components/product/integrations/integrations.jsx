@@ -66,7 +66,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
         columnVisibilityModel={columnVisibilityModel}
         paginationModel={paginationModel}
         rows={getCurrentData()}
-        rowHeight={100}
+        getRowHeight={() => 'auto'}
         sortingMode="client"
         paginationMode="client"
         slotProps={{

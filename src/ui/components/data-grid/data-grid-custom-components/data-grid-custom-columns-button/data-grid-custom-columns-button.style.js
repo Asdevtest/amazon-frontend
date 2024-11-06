@@ -33,9 +33,7 @@ export const useStyles = makeStyles()(theme => ({
     margin: '5px 0 10px',
   },
   searchInput: {
-    border: '1px solid #E0E0E0',
     width: '100%',
-    height: '100%',
   },
 
   shopsBody: {

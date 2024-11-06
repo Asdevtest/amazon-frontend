@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import { MdFiberManualRecord } from 'react-icons/md'
 
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -60,7 +60,7 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
 
         <div className={styles.buttonsWrapper}>
           <div className={styles.barStatusWrapper}>
-            <FiberManualRecordRoundedIcon color="primary" />
+            <MdFiberManualRecord size={22} color="primary" />
             <Typography className={styles.cardTitle}>
               {isRevenue
                 ? t(TranslationKey['Gross income']).toLowerCase()
@@ -68,7 +68,7 @@ export const ChartsForm = observer(({ data, isRevenueBeggin }) => {
             </Typography>
           </div>
           <div className={styles.barStatusWrapper}>
-            <FiberManualRecordRoundedIcon classes={{ root: styles.indicator }} />
+            <MdFiberManualRecord size={22} classes={{ root: styles.indicator }} />
             <Typography className={styles.cardTitle}>
               {isRevenue
                 ? t(TranslationKey['Pure profit']).toLowerCase()

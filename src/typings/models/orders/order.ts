@@ -8,7 +8,7 @@ import { IProduct } from '../products/product'
 import { ISupplier } from '../suppliers/supplier'
 
 export interface IOrder {
-  id: number
+  xid: number
   _id: string
   asin: string
   clientComment: string

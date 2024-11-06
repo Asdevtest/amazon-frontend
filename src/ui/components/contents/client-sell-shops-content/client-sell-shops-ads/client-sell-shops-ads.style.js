@@ -46,11 +46,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  searchInput: {
-    width: '290px',
-    height: '40px',
-  },
-
   btnsWrapper: {
     width: '100%',
     display: 'flex',

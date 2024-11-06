@@ -1,6 +1,5 @@
-import { Popconfirm } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useState } from 'react'
+import { FC, useMemo } from 'react'
 import { IoMoonSharp, IoSunnySharp } from 'react-icons/io5'
 
 import { appVersion } from '@constants/app-version'
@@ -29,7 +28,7 @@ interface AuthViewProps {
 
 export const AuthView: FC<AuthViewProps> = observer(({ history, auth }) => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AuthViewModel({ history, auth }))
+  const viewModel = useMemo(() => new AuthViewModel({ history, auth }), [])
   const title = auth ? t(TranslationKey['Sign in']) : t(TranslationKey.Registration)
 
   return (
@@ -59,18 +58,14 @@ export const AuthView: FC<AuthViewProps> = observer(({ history, auth }) => {
         </div>
 
         <div className={styles.versionContainer}>
-          <Popconfirm
-            placement="topRight"
-            title={t(TranslationKey.Attention)}
-            description={t(TranslationKey['Temporary session data will be reset'])}
-            okText={t(TranslationKey.Yes)}
-            cancelText={t(TranslationKey.No)}
-            onConfirm={viewModel.onClickVersion}
+          <CustomButton
+            disabled={!auth}
+            type="link"
+            confirmText="Temporary session data will be reset"
+            onClick={viewModel.onClickVersion}
           >
-            <CustomButton disabled={!auth} type="link">
-              {appVersion}
-            </CustomButton>
-          </Popconfirm>
+            {appVersion}
+          </CustomButton>
         </div>
       </div>
     </div>

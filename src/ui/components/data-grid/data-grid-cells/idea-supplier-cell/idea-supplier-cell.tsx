@@ -4,11 +4,9 @@ import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Button } from '@components/shared/button'
+import { CustomButton } from '@components/shared/custom-button'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 import { useStyles } from './idea-supplier-cell.style'
 
@@ -24,10 +22,9 @@ export const IdeaSupplierCell: FC<IdeaSupplierCellProps> = memo(({ onClickAddSup
     <div className={styles.ideaSupplier}>
       {!!suppliers.length && <p>{suppliers[0].name}</p>}
       {!suppliers.length && (
-        <Button styleType={ButtonStyle.SUCCESS} onClick={onClickAddSupplier}>
-          <FiPlus style={{ width: 16, height: 16 }} />
+        <CustomButton type="primary" size="small" icon={<FiPlus size={16} />} onClick={onClickAddSupplier}>
           {t(TranslationKey.Add)}
-        </Button>
+        </CustomButton>
       )}
     </div>
   )

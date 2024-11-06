@@ -10,11 +10,6 @@ import { HistoryType } from '@typings/types/history'
 
 import { useStyles } from './warehouse-batches-view.style'
 
-const paths = {
-  awaitingBatches: '/warehouse/batches/awaiting-batches',
-  sentBatches: '/warehouse/batches/sent-batches',
-}
-
 interface WarehouseBatchesViewProps {
   history: HistoryType
 }
@@ -22,18 +17,15 @@ interface WarehouseBatchesViewProps {
 export const WarehouseBatchesView: FC<WarehouseBatchesViewProps> = memo(({ history }) => {
   const { classes: styles } = useStyles()
 
-  const handleClickAwaitingBatches = () => history?.push({ pathname: paths.awaitingBatches })
-  const handleClickSentBatches = () => history?.push({ pathname: paths.sentBatches })
-
   return (
     <>
       <p className={styles.title}>{t(TranslationKey['Choose a section in Batches'])}</p>
       <div className={styles.buttons}>
-        <CustomButton block type="primary" onClick={handleClickAwaitingBatches}>
+        <CustomButton block type="primary" onClick={() => history?.push('/warehouse/batches/awaiting-batches')}>
           {t(TranslationKey['Awaiting send'])}
         </CustomButton>
 
-        <CustomButton block type="primary" onClick={handleClickSentBatches}>
+        <CustomButton block type="primary" onClick={() => history?.push('/warehouse/batches/sent-batches')}>
           {t(TranslationKey.Sent)}
         </CustomButton>
       </div>

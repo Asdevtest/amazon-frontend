@@ -9,4 +9,4 @@ export const updateOrderKeys = [
   'deliveryCostToTheWarehouse',
 ]
 
-export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'id', 'item']
+export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'xid', 'item']

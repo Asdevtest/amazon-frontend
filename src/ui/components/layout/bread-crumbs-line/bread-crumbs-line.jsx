@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
+import { MdNavigateNext } from 'react-icons/md'
 import { useHistory, useLocation } from 'react-router-dom'
 
-import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Typography from '@mui/material/Typography'
 
@@ -69,10 +69,7 @@ export const BreadCrumbsLine = observer(() => {
   return (
     <div className={styles.breadCrumbsWrapper}>
       {pathnames.length > 2 || location.pathname === '/profile' ? (
-        <Breadcrumbs
-          aria-label="breadcrumb"
-          separator={<NavigateNextIcon fontSize="small" className={styles.seporatorIcon} />}
-        >
+        <Breadcrumbs aria-label="breadcrumb" separator={<MdNavigateNext className={styles.seporatorIcon} />}>
           {pathnames.map((value, index) => {
             const last = index === pathnames.length - 1
             const isPreLast = index === pathnames.length - 2

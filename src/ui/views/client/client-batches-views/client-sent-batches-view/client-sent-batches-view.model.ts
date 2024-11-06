@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RadioChangeEvent } from 'antd'
-import { makeObservable, reaction, runInAction } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -17,7 +17,6 @@ import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-f
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
-import { tableProductViewMode } from '@typings/enums/table-product-view'
 import { IBatch } from '@typings/models/batches/batch'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 
@@ -30,7 +29,6 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
   curBatch: IBatch | null = null
   currentStorekeeperId: string = ''
   storekeepersData: IStorekeeper[] = []
-  productViewMode = tableProductViewMode.EXTENDED
   uploadedFiles = []
 
   isArchive = false
@@ -39,13 +37,12 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
 
   constructor({ history }: { history: any }) {
     const rowHandlers = {
-      changeViewModeHandler: (value: tableProductViewMode) => this.changeViewModeHandler(value),
       onClickSaveArrivalDate: (id: string, date: string) => this.onClickSaveArrivalDate(id, date),
       onClickSaveTrackingNumber: (id: string, trackingNumber: string) =>
         this.onClickSaveTrackingNumber(id, trackingNumber),
     }
 
-    const columnsModel = clientBatchesViewColumns(rowHandlers, () => this.productViewMode)
+    const columnsModel = clientBatchesViewColumns(rowHandlers)
 
     const defaultGetCurrentDataOptions = () => ({
       archive: this.isArchive,
@@ -72,11 +69,6 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
 
     this.getTableSettingsPreset()
     this.getStorekeepers()
-
-    reaction(
-      () => this.productViewMode,
-      () => (this.columnsModel = columnsModel),
-    )
   }
 
   onTriggerArchive() {
@@ -185,10 +177,6 @@ export class ClientSentBatchesViewModel extends DataGridFilterTableModel {
     })
 
     this.setCurrentOpenedBatch(id, true)
-  }
-
-  changeViewModeHandler(value: tableProductViewMode) {
-    this.productViewMode = value
   }
 
   async onClickSaveArrivalDate(id: string, date: string) {

@@ -2,11 +2,9 @@ import { makeAutoObservable, runInAction } from 'mobx'
 
 import { RequestProposalModel } from '@models/request-proposal'
 
-import { sourceFilesColumns } from '@components/table/table-columns/freelancer/source-files-columns/source-files-columns'
-
-import { SourceFilesDataConverter } from '@utils/data-grid-data-converters'
-
 import { loadingStatus } from '@typings/enums/loading-status'
+
+import { sourceFilesColumns } from './source-files-columns'
 
 export class SourceFilesViewModel {
   nameSearchValue = ''
@@ -15,8 +13,9 @@ export class SourceFilesViewModel {
     if (this.nameSearchValue) {
       return this.sourceFiles.filter(
         el =>
-          el?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
-          el?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
+          el?.proposal?.request?.title?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          el?.proposal?.request?.asin?.toLowerCase().includes(this.nameSearchValue.toLowerCase()) ||
+          String(el?.proposal?.request?.xid)?.includes(this.nameSearchValue),
       )
     } else {
       return this.sourceFiles
@@ -99,7 +98,7 @@ export class SourceFilesViewModel {
       const result = await RequestProposalModel.getFreelanceSourceFiles()
 
       runInAction(() => {
-        this.sourceFiles = SourceFilesDataConverter(result)
+        this.sourceFiles = result
         this.rowCount = this.sourceFiles.length
       })
 

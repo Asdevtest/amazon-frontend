@@ -1,12 +1,10 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { useGridApiRef } from '@mui/x-data-grid-premium'
 
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { ClientModel } from '@models/client-model'
 
 import { AddOwnProductForm } from '@components/forms/add-own-product-form'
 import { BindInventoryGoodsToStockForm } from '@components/forms/bind-inventory-goods-to-stock-form'
@@ -21,6 +19,7 @@ import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
 import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
+import { ParsingReportsModal } from '@components/modals/parsing-reports-modal'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
@@ -35,8 +34,6 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
-
 import { useStyles } from './client-inventory-view.style'
 
 import {
@@ -50,20 +47,16 @@ import { Header } from './header'
 
 export const ClientInventoryView = observer(({ history }) => {
   const { classes: styles } = useStyles()
-
-  const [viewModel] = useState(() => new ClientInventoryViewModel())
+  const viewModel = useMemo(() => new ClientInventoryViewModel(), [])
   viewModel.initHistory()
 
-  const [useProductsPermissions] = useState(
-    () =>
-      new UseProductsPermissions(ClientModel.getProductPermissionsData, {
-        isChild: false,
-      }),
-  )
-
-  const getCellClassName = params => clickableCells.includes(params.field) && styles.clickableCell
-
   const apiRef = useGridApiRef()
+
+  const getCellClassName = params => {
+    if (clickableCells.includes(params.field) || params.field?.includes('counter')) {
+      return styles.clickableCell
+    }
+  }
 
   return (
     <div className="viewWrapper">
@@ -86,15 +79,17 @@ export const ClientInventoryView = observer(({ history }) => {
         checkboxSelection
         disableRowSelectionOnClick
         apiRef={apiRef}
-        pinnedColumns={viewModel.pinnedColumns}
+        disableVirtualization={false}
         getCellClassName={getCellClassName}
+        pinnedColumns={viewModel.pinnedColumns}
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
         filterModel={viewModel.filterModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
-        getRowHeight={() => 'auto'}
+        columnBufferPx={300}
+        rowHeight={130}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),
@@ -147,7 +142,6 @@ export const ClientInventoryView = observer(({ history }) => {
           },
         }}
         rowSelectionModel={viewModel.selectedRows}
-        getRowId={row => row._id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -197,13 +191,9 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductLaunch')}
       >
         <ProductLaunchForm
-          selectedProductToLaunch={viewModel.selectedProductToLaunch}
-          productsToLaunch={useProductsPermissions.currentPermissionsData}
-          loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
-          onClickVariationRadioButton={() => useProductsPermissions.getPermissionsData()}
-          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
-          onClickNextButton={viewModel.onClickNextButton}
-          onClickCancelButton={() => viewModel.onTriggerOpenModal('showProductLaunch')}
+          selectedProduct={viewModel.selectedProductToLaunch}
+          onSubmit={viewModel.onClickNextButton}
+          onClose={() => viewModel.onTriggerOpenModal('showProductLaunch')}
         />
       </Modal>
 
@@ -412,6 +402,15 @@ export const ClientInventoryView = observer(({ history }) => {
           setOpenModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
           productId={viewModel.selectedRowId}
           handleUpdateRow={tags => apiRef.current.updateRows([{ _id: viewModel.selectedRowId, tags }])}
+        />
+      ) : null}
+
+      {viewModel.showParsingReportsModal ? (
+        <ParsingReportsModal
+          openModal={viewModel.showParsingReportsModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showParsingReportsModal')}
+          product={viewModel?.curProduct}
+          table={viewModel.parsingTable}
         />
       ) : null}
     </div>

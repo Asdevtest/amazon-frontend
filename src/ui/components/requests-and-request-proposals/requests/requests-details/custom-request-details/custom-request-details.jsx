@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
+import { MdExpandMore } from 'react-icons/md'
 
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -27,7 +27,7 @@ export const CustomSearchRequestDetails = ({ request, isOpen = false }) => {
 
   return (
     <Accordion classes={{ root: styles.accordion }} expanded={showDetails} onChange={onClickToShowDetails}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary expandIcon={<MdExpandMore size={20} />}>
         <p className={styles.title}>{t(TranslationKey['Detailed application description'])}</p>
       </AccordionSummary>
 

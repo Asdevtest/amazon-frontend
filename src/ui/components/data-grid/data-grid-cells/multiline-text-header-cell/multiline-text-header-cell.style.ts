@@ -31,8 +31,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   headerIcon: {
-    width: '14px !important',
-    height: '14px !important',
     color: 'gray',
     position: 'absolute',
     right: -15,

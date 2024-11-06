@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, UIEvent, useCallback, useMemo, useState } from 'react'
+import { FC, UIEvent, useCallback, useMemo } from 'react'
 
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
@@ -15,7 +15,7 @@ interface RequestSelectProps extends CustomSelectProps {
 }
 
 export const RequestSelect: FC<RequestSelectProps> = observer(({ onChangeData, ...restProps }) => {
-  const [viewModel] = useState(() => new RequestSelectModel(onChangeData))
+  const viewModel = useMemo(() => new RequestSelectModel(onChangeData), [])
 
   const handlePopupScroll = useCallback(
     (e: UIEvent<HTMLElement>) => {

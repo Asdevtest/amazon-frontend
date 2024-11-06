@@ -17,7 +17,6 @@ import {
   checkIsPositiveNummberAndNoMoreNCharactersAfterDot,
   checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot,
 } from '@utils/checks'
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import {
   getNewObjectWithDefaultValue,
   getObjectFilteredByKeyArrayBlackList,
@@ -57,7 +56,7 @@ export class ClientProductViewModel {
   showBindProductModal = false
 
   showTab = undefined
-
+  filterStatus = undefined
   setOpenModal = undefined
 
   weightParserAmazon = 0
@@ -95,7 +94,7 @@ export class ClientProductViewModel {
     const url = new URL(window.location.href)
     this.productId = url.searchParams.get('product-id')
     this.showTab = url.searchParams.get('show-tab')
-
+    this.filterStatus = url.searchParams.get('status')
     if (setOpenModal) {
       this.setOpenModal = setOpenModal
     }
@@ -300,7 +299,7 @@ export class ClientProductViewModel {
       const result = await ShopModel.getMyShopNames()
 
       runInAction(() => {
-        this.shopsData = addIdDataConverter(result)
+        this.shopsData = result
       })
     } catch (error) {
       console.error(error)

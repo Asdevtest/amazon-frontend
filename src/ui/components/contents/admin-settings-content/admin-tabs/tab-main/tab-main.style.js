@@ -77,10 +77,5 @@ export const useStyles = makeStyles()(theme => ({
     margin: 2,
     color: theme.palette.text.general,
     cursor: 'pointer',
-    transition: '0.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 }))

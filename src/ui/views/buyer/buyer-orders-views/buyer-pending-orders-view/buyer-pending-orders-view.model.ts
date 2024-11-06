@@ -33,14 +33,11 @@ import { pendingOrdersColumns } from './pending-orders.columns'
 
 export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
   selectedOrder: IOrder | null = null
-
   showOrderModal = false
   showConfirmModal = false
   showProgress = false
-
   paymentMethods: IPaymentMethod[] = []
   hsCodeData: IHSCode | null = null
-
   progressValue = 0
   readyImages = []
 

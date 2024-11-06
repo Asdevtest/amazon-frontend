@@ -75,11 +75,6 @@ export const useStyles = makeStyles()(theme => ({
     margin: '25px 0 30px',
   },
 
-  searchInput: {
-    width: '400px',
-    height: '32px',
-  },
-
   searchWrapper: {
     display: 'flex',
     justifyContent: 'space-between',

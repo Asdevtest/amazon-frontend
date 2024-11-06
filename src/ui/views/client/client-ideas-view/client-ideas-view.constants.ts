@@ -10,6 +10,7 @@ export const intervalFields: string[] = [
 ]
 
 export const filtersFields = [
+  'xid',
   'parentProductSkuByClient',
   'parentProductAmazonTitle',
   'parentProductAsin',
@@ -59,5 +60,6 @@ export const fieldsForSearch = [
   'childProductAmazonTitle',
   'childProductSkuByClient',
   'childProductAsin',
+  'xid',
   'title',
 ]

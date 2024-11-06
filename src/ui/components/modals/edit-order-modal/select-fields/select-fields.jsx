@@ -3,7 +3,7 @@ import { Box, Checkbox, Grid, Typography } from '@mui/material'
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { UserCell } from '@components/data-grid/data-grid-cells'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
@@ -530,13 +530,7 @@ export const SelectFields = ({
                 <div className={styles.subUsersBody}>
                   {order.product.subUsers?.map((subUser, index) => (
                     <div key={index} className={styles.subUserBodyWrapper}>
-                      <UserLinkCell
-                        withAvatar
-                        name={subUser?.name}
-                        userId={subUser?._id}
-                        customStyles={{ fontWeight: 600, marginLeft: 5 }}
-                        maxNameWidth={100}
-                      />
+                      <UserCell name={subUser?.name} id={subUser?._id} />
                     </div>
                   ))}
                 </div>

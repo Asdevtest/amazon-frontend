@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react'
+import { MdOutlineArrowDropDown } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import {
   Accordion,
   AccordionDetails,
@@ -16,7 +16,7 @@ import {
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -77,9 +77,9 @@ export const AccessToProductForm = memo(props => {
     if (searchInputValue) {
       const filter = sourceData?.filter(
         i =>
-          i.originalData.skuByClient?.toLowerCase().includes(searchInputValue.toLowerCase()) ||
+          i.skuByClient?.toLowerCase().includes(searchInputValue.toLowerCase()) ||
           i.asin.toLowerCase().includes(searchInputValue.toLowerCase()) ||
-          i.originalData.amazonTitle.toLowerCase().includes(searchInputValue.toLowerCase()),
+          i.amazonTitle.toLowerCase().includes(searchInputValue.toLowerCase()),
       )
       setCurProdutsData(filter)
     } else {
@@ -173,7 +173,7 @@ export const AccessToProductForm = memo(props => {
         }}
       >
         <AccordionSummary
-          expandIcon={<ArrowDropDownIcon />}
+          expandIcon={<MdOutlineArrowDropDown size={20} />}
           classes={{ root: styles.accordionSummary, expanded: styles.accordionExpanded }}
         >
           <div className={styles.accardionTitleWrapper}>
@@ -227,14 +227,14 @@ export const AccessToProductForm = memo(props => {
               <Typography className={styles.standartText}>
                 {t(TranslationKey['Search by product description and ASIN, SKU:'])}
               </Typography>
-              <div>
-                <SearchInput
-                  inputClasses={styles.searchInput}
-                  value={searchInputValue}
-                  placeholder={t(TranslationKey.search)}
-                  onChange={e => setSearchInputValue(e.target.value)}
-                />
-              </div>
+
+              <CustomInputSearch
+                allowClear
+                wrapperClassName={styles.searchInput}
+                value={searchInputValue}
+                placeholder="Search"
+                onChange={e => setSearchInputValue(e.target.value)}
+              />
             </div>
 
             {selectedShop === shop?._id ? (
@@ -249,7 +249,7 @@ export const AccessToProductForm = memo(props => {
                   isRowSelectable={() => selectedAccess !== accessProductSettings.ALL_PRODUCTS}
                   rows={curProdutsData || []}
                   columns={sourceColumns(isResearcher)}
-                  rowHeight={65}
+                  getRowHeight={() => 'auto'}
                   rowSelectionModel={selectionModel}
                   onRowSelectionModelChange={model => handleSelectionModel(model)}
                   onPaginationModelChange={setPaginationModel}

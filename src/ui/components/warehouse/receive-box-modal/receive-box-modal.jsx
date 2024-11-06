@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { MdAdd } from 'react-icons/md'
 import { toast } from 'react-toastify'
 
-import AddIcon from '@mui/icons-material/Add'
 import { Divider } from '@mui/material'
 
 import { maxLengthInputInSizeBox } from '@constants/configs/sizes-settings'
@@ -193,17 +193,17 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
 
   const isSomeBoxHasntImage = newBoxes.some(box => !box?.images?.length)
 
-  const isSomeBoxesHasCorrectSizes = newBoxes.some(
+  const isSomeBoxesInvalid = newBoxes.some(
     box =>
-      box.heightCmWarehouse > maxLengthInputInSizeBox ||
-      box.lengthCmWarehouse > maxLengthInputInSizeBox ||
-      box.widthCmWarehouse > maxLengthInputInSizeBox,
+      ['heightCmWarehouse', 'lengthCmWarehouse', 'widthCmWarehouse'].some(
+        dim => box[dim] > maxLengthInputInSizeBox || !box[dim] || box[dim] <= 0,
+      ) ||
+      !box.weighGrossKgWarehouse ||
+      box.weighGrossKgWarehouse <= 0,
   )
 
   const disableSubmit =
-    newBoxes.some(box => box.amount === '') ||
-    (isSomeBoxHasntImage && !receiveNotFromBuyer) ||
-    isSomeBoxesHasCorrectSizes
+    newBoxes.some(box => box.amount === '') || (isSomeBoxHasntImage && !receiveNotFromBuyer) || isSomeBoxesInvalid
 
   return (
     <div className={styles.root}>
@@ -216,7 +216,7 @@ export const ReceiveBoxModal = ({ setOpenModal, setSourceBoxes, volumeWeightCoef
             onClick={() => setNewBoxes(newBoxes.concat(getEmptyBox()))}
           >
             {t(TranslationKey['New box'])}
-            <AddIcon fontSize="small" className={styles.icon} />
+            <MdAdd size={18} className={styles.icon} />
           </Button>
         )}
       </div>

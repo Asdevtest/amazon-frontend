@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, KeyboardEvent, memo, useState } from 'react'
+import { IoSettingsOutline } from 'react-icons/io5'
 
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
-import { CustomSwitcher } from '@components/shared/custom-switcher'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 
 import { t } from '@utils/translations'
 
@@ -49,7 +49,7 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
         className={styles.parametersButton}
         onClick={(event: any) => setMenuAnchor(event.currentTarget)}
       >
-        <SettingsOutlinedIcon fontSize="small" />
+        <IoSettingsOutline size={26} />
       </Button>
 
       {Boolean(menuAnchor) && (
@@ -63,17 +63,17 @@ export const DataGridTableSetting: FC<DataGridTableSettingProps> = memo(({ colum
           <p className={styles.title}>{t(TranslationKey['Parameters of the table'])}</p>
 
           {!!presetsSettings && (
-            <CustomSwitcher
-              fullWidth
-              switchMode="medium"
-              condition={switcherValue}
-              switcherSettings={switcherConfig}
-              changeConditionHandler={setSwitcherValue}
+            <CustomRadioButton
+              size="small"
+              options={switcherConfig}
+              value={switcherValue}
+              onChange={e => setSwitcherValue(e.target.value)}
             />
           )}
 
-          <SearchInput
-            inputClasses={styles.searchInput}
+          <CustomInputSearch
+            allowClear
+            wrapperClassName={styles.searchInput}
             onChange={e => setNameSearchValue(e.target.value)}
             onKeyDown={handleKeyDown}
           />

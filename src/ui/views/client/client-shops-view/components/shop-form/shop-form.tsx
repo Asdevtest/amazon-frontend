@@ -1,6 +1,6 @@
 import { Form } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -27,7 +27,7 @@ export const ShopForm: FC<ShopFormProps> = observer(props => {
   const { onClose, shop, onUpdateData } = props
 
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new ShopFormModel())
+  const viewModel = useMemo(() => new ShopFormModel(), [])
   const [form] = Form.useForm()
 
   const isEditMode = !!shop

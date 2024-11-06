@@ -22,6 +22,8 @@ export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
   field,
   table,
   filtersData,
+  additionalFilterSettings,
+  fieldNameFilter,
   onClickFilterBtn,
   hideEmptyObject,
   sortOptions,
@@ -81,8 +83,8 @@ export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
   )
 
   useEffect(() => {
-    onClickFilterBtn(field, table)
-  }, [field])
+    onClickFilterBtn(field, table, additionalFilterSettings, fieldNameFilter)
+  }, [fieldNameFilter, field])
 
   useEffect(() => {
     setChosenItems(currentFilterData)

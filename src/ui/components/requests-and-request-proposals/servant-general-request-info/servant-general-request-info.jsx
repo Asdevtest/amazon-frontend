@@ -6,23 +6,24 @@ import { RequestProposalStatus } from '@constants/requests/request-proposal-stat
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { OrderCell } from '@components/data-grid/data-grid-cells'
+import { ProductCell } from '@components/data-grid/data-grid-cells'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
-import { ProposalsSlider } from '@components/shared/proposals-slider'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
 import { translateProposalsLeftMessage } from '@utils/validation'
 
 import { RequestPriority } from '@typings/enums/request/request-priority'
+import { isFreelancer } from '@typings/guards/roles'
 
 import { useStyles } from './servant-general-request-info.style'
 
+import { ProposalsSlider } from './proposals-slider'
 import { RequestDetailsItem } from './request-details-item/request-details-item'
 
-export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestProposals, onJoinChat }) => {
+export const ServantGeneralRequestInfo = memo(({ userRole, request, onSubmit, requestProposals, onJoinChat }) => {
   const { classes: styles, cx } = useStyles()
 
   const buttonDisabled =
@@ -70,9 +71,7 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
               </div>
             )}
             <p className={styles.idText}>{t(TranslationKey.ID) + ':'}</p>
-            <p className={cx(styles.idText, styles.idTextDark)}>
-              {request?.request?.humanFriendlyId || t(TranslationKey.Missing)}
-            </p>
+            <p className={cx(styles.idText, styles.idTextDark)}>{request?.request?.xid || t(TranslationKey.Missing)}</p>
           </div>
         </div>
       )}
@@ -97,9 +96,11 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
             customRatingClass={{ fontSize: 24, opacity: 1 }}
           />
 
-          <p className={styles.transactions}>{`${t(
-            TranslationKey['The number of total successful transactions:'],
-          )} 0`}</p>
+          {!isFreelancer(userRole) ? (
+            <p className={styles.transactions}>{`${t(
+              TranslationKey['The number of total successful transactions:'],
+            )} 0`}</p>
+          ) : null}
 
           {!!requestProposals.length && <RequestDetailsItem request={request.request} />}
 
@@ -122,9 +123,12 @@ export const ServantGeneralRequestInfo = memo(({ request, onSubmit, requestPropo
             <div className={styles.titleAndIdWrapper}>
               <RequestDetailsItem showAllDetails request={request.request} />
 
-              <div>
-                <OrderCell withoutSku imageSize={'small'} product={request.request.product} />
-              </div>
+              <ProductCell
+                asin={request.request?.product?.asin}
+                image={request.request?.product?.images?.[0]}
+                sku={request.request?.product?.skuByClient}
+                title={request.request?.product?.amazonTitle}
+              />
             </div>
 
             <div>

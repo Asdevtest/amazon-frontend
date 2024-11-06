@@ -12,7 +12,7 @@ import {
   NormDateCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -29,12 +29,12 @@ import { productionTermColumnMenuItems, productionTermColumnMenuValue } from './
 export const pendingOrdersColumns = () => {
   const columns: IGridColumn[] = [
     {
-      field: 'id',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <Text isCell text={params.value} />,
       sortable: true,
-
+      width: 90,
       columnKey: columnnsKeys.shared.NUMBER,
     },
 
@@ -132,7 +132,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
       renderCell: params => <LinkCell value={params.row.product.barCode} />,
       disableCustomSort: true,
-      minWidth: 100,
+      width: 70,
       align: 'center',
     },
 
@@ -142,7 +142,11 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Int warehouse'])} />,
 
       renderCell: params => (
-        <UserMiniCell userName={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
+        <UserCell
+          name={params.row.storekeeper?.name}
+          id={params.row.storekeeper?._id}
+          email={params.row.storekeeper?.email}
+        />
       ),
 
       width: 120,
@@ -153,7 +157,7 @@ export const pendingOrdersColumns = () => {
 
     {
       field: 'minProductionTerm',
-      headerName: t(TranslationKey['Production time']),
+      headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
       renderCell: params => {
@@ -211,7 +215,11 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
 
       renderCell: params => (
-        <UserMiniCell userName={params.row.product.client?.name} userId={params.row.product.client?._id} />
+        <UserCell
+          name={params.row.product.client?.name}
+          id={params.row.product.client?._id}
+          email={params.row.product.client?.email}
+        />
       ),
       width: 130,
       table: DataGridFilterTables.PRODUCTS,

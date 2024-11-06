@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -15,19 +15,17 @@ interface FreelanceTypeTaskSelectProps {
   onChangeSpec: (value: Specs) => void
 }
 
-export const FreelanceTypeTaskSelect: FC<FreelanceTypeTaskSelectProps> = memo(
-  ({ selectedSpec, specs, onChangeSpec }) => {
-    const options = [
-      {
-        label: t(TranslationKey.All),
-        value: Specs.DEFAULT,
-      },
-      ...(specs || []).map(spec => ({
-        label: spec?.title,
-        value: spec?.type,
-      })),
-    ]
+export const FreelanceTypeTaskSelect: FC<FreelanceTypeTaskSelectProps> = ({ selectedSpec, specs, onChangeSpec }) => {
+  const options = [
+    {
+      label: t(TranslationKey.All),
+      value: Specs.DEFAULT,
+    },
+    ...(specs || []).map(spec => ({
+      label: spec?.title,
+      value: spec?.type,
+    })),
+  ]
 
-    return <CustomSelect size="large" options={options} value={selectedSpec} onChange={onChangeSpec} />
-  },
-)
+  return <CustomSelect size="large" options={options} value={selectedSpec} onChange={onChangeSpec} />
+}

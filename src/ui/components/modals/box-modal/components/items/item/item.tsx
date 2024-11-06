@@ -126,7 +126,7 @@ export const Item: FC<ItemProps> = memo(props => {
                 containerClasses={styles.field}
                 labelClasses={cx(styles.text, styles.label)}
                 label={t(TranslationKey['Order number'])}
-                value={item.order.id}
+                value={item.order.xid}
                 placeholder={t(TranslationKey['Not available'])}
               />
             </div>

@@ -15,11 +15,6 @@ export const useStyles = makeStyles()(theme => ({
   searchIconBtn: {
     color: theme.palette.text.second,
     cursor: 'pointer',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   dropUpOrDownWrapper: {

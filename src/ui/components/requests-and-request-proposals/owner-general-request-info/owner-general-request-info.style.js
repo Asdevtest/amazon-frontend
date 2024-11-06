@@ -5,5 +5,6 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'space-between',
     marginBottom: 20,
+    gap: '10px',
   },
 }))

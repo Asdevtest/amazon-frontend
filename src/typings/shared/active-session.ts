@@ -1,4 +1,4 @@
-export interface ActiveSession {
+export interface IActiveSession {
   device: string
   createdAt: string
 }

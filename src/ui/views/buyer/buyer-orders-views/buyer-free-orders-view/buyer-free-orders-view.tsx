@@ -3,15 +3,14 @@ import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
+import { VerticalChoicesModal } from '@components/modals/vertical-choices-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { Modal } from '@components/shared/modal'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IOrder } from '@typings/models/orders/order'
 
 import { BuyerFreeOrdersViewModel } from './buyer-free-orders-view.model'
 
@@ -20,15 +19,16 @@ export const BuyerFreeOrdersView = observer(() => {
 
   return (
     <div className="viewWrapper">
-      <CustomButton
-        type="primary"
-        size="large"
-        disabled={viewModel.selectedRows.length === 0}
-        onClick={throttle(viewModel.onPickupSomeItems)}
-      >
-        {t(TranslationKey['Take on the work of the selected'])}
-      </CustomButton>
-
+      <div>
+        <CustomButton
+          type="primary"
+          size="large"
+          disabled={viewModel.selectedRows.length === 0}
+          onClick={viewModel.onPickupSomeItems}
+        >
+          {t(TranslationKey['Take on the work of the selected'])}
+        </CustomButton>
+      </div>
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick
@@ -43,7 +43,6 @@ export const BuyerFreeOrdersView = observer(() => {
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={(row: IOrder) => row._id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),
@@ -86,20 +85,18 @@ export const BuyerFreeOrdersView = observer(() => {
         onRowSelectionModelChange={viewModel.onSelectionModel}
       />
 
-      {viewModel.showTwoVerticalChoicesModal ? (
-        <TwoVerticalChoicesModal
-          // @ts-ignore
-          tooltipFirstButton={t(TranslationKey['Go to the order and open the "Edit order" window'])}
-          tooltipSecondButton={t(TranslationKey['Stay in "Free orders"'])}
-          openModal={viewModel.showTwoVerticalChoicesModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showTwoVerticalChoicesModal')}
-          title={t(TranslationKey['Order picked up'])}
-          topBtnText={t(TranslationKey['Go to order'])}
-          bottomBtnText={t(TranslationKey['Free orders'])}
-          onClickTopBtn={viewModel.goToMyOrders}
-          onClickBottomBtn={viewModel.onClickContinueWorkButton}
+      <Modal
+        openModal={viewModel.showVerticalChoicesModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showVerticalChoicesModal')}
+      >
+        <VerticalChoicesModal
+          title="Order picked up"
+          firstButtonText="Go to order"
+          secondButtonText="Free orders"
+          onClickFirstButton={viewModel.goToMyOrders}
+          onClickSecondButton={viewModel.onClickContinueWorkButton}
         />
-      ) : null}
+      </Modal>
     </div>
   )
 })

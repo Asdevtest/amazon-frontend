@@ -1,23 +1,20 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
-  batchBoxesWrapper: {
+export const useStyles = makeStyles()(theme => ({
+  root: {
+    padding: '5px 5px 5px 0',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    height: '100%',
     width: '100%',
-    padding: '5px',
-    maxHeight: '199px',
-    overflow: 'auto',
-    gap: '5px',
+    maxHeight: '180px',
+    overflowY: 'auto',
+    gap: '6px',
   },
 
-  withScrollBatchBoxesWrapper: {
-    justifyContent: 'center',
-    gap: 15,
-    maxHeight: 'unset',
-    overflow: 'unset',
+  box: {
+    minWidth: '160px',
+    border: `1px solid ${theme.palette.primary.main}`,
+    borderRadius: '16px',
+    padding: '0 5px',
   },
 }))

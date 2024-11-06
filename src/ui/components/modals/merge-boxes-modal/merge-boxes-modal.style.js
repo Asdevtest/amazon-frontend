@@ -61,7 +61,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 400,
     lineHeight: '21px',
     marginRight: '10px',
-    width: '299px',
+    width: '270px',
     color: theme.palette.text.general,
   },
 
@@ -129,7 +129,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
   },
   orderInput: {
-    width: '79px',
+    width: '120px',
   },
   modalFooter: {
     display: 'flex',

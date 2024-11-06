@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { Tab, Tabs } from '@mui/material'
 
@@ -29,7 +29,7 @@ import { LaunchesReports } from './admin-tabs/launches-reports/launches-reports'
 
 export const AdminSettings = observer(() => {
   const { classes: styles } = useStyles()
-  const [viewModel] = useState(() => new AdminSettingsModel())
+  const viewModel = useMemo(() => new AdminSettingsModel(), [])
 
   return (
     <div className="viewWrapper">

@@ -21,7 +21,7 @@ export const boxStatusTranslateKey = status => {
     case BoxStatus.IN_STOCK:
       return t(TranslationKey['In stock'])
     case BoxStatus.REQUESTED_SEND_TO_BATCH:
-      return t(TranslationKey['Awaiting shipment in batches'])
+      return t(TranslationKey['Requested in batch'])
     case BoxStatus.IN_BATCH_ON_THE_WAY:
       return t(TranslationKey['Sent in batches'])
     case BoxStatus.NEED_CONFIRMING_TO_DELIVERY_PRICE_CHANGE:

@@ -4,6 +4,7 @@ import { useFaviconNotification } from 'react-favicon-notification'
 import { Redirect, Route, useLocation } from 'react-router-dom'
 
 import { UserRoleCodeMap, UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
+import { checkGroupPermissions } from '@constants/navigation/check-group-permissions'
 import { overallRoutesConfigs, privateRoutesConfigs } from '@constants/navigation/routes'
 
 import { ChatModel } from '@models/chat-model'
@@ -61,7 +62,8 @@ export const PrivateRoutes = observer(() => {
           route =>
             !isHaveMasterUser(userInfo) ||
             !route?.permissionKey ||
-            userInfo?.permissions?.some(item => item === route?.permissionKey),
+            userInfo?.permissions?.some(item => item === route?.permissionKey) ||
+            checkGroupPermissions(route?.permissionKey),
         ),
     )
 

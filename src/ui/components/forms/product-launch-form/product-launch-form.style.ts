@@ -1,43 +1,54 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '395px',
-    padding: '40px',
+    width: '500px',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    gap: '25px',
+    gap: '20px',
   },
 
-  radioButtonsWrapper: {
+  title: {
+    fontSize: '18px',
+    lineHeight: '25px',
+    fontWeight: 600,
+  },
+
+  radioGroup: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '20px',
+  },
+
+  radioOptionContainer: {
+    padding: '10px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    flex: 1,
+    background: theme.palette.background.general,
+    boxShadow: theme.palette.boxShadow.paper,
+    borderRadius: '12px',
+  },
+
+  iconContainer: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
-  searchSelectCustomSearchInput: {
-    height: 30,
-    marginBottom: 20,
+  iconCreate: {
+    height: '200px',
   },
 
-  searchSelectCustomSubMainWrapper: {
-    padding: '10px 0 !important',
-    width: '300px !important',
+  iconSelect: {
+    height: '160px',
   },
 
-  searchSelectCustomItemsWrapper: {
-    maxHeight: '300px !important',
-  },
-
-  modalTitle: {
-    fontSize: '18px',
-    fontWeight: 600,
-    whiteSpace: 'nowrap',
-  },
-
-  buttonsWrapper: {
+  buttons: {
     display: 'flex',
-    gap: '30px',
+    justifyContent: 'flex-end',
+    gap: '20px',
   },
 }))

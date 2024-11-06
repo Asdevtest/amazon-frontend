@@ -207,11 +207,6 @@ export const useStyles = makeStyles()(theme => ({
     height: '56px !important',
     color: theme.palette.primary.main,
     cursor: 'pointer',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.05)',
-    },
   },
 
   cameraIconWrapper: {
@@ -224,7 +219,6 @@ export const useStyles = makeStyles()(theme => ({
 
   cameraIcon: {
     color: theme.palette.primary.main,
-    transform: 'scale(3.5)',
   },
 
   imageSubWrapper: {
@@ -235,11 +229,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     width: '100%',
     height: '100%',
-    transition: '.3s ease',
     cursor: 'pointer',
-    '&: hover': {
-      transform: 'scale(1.05)',
-    },
   },
 
   imageListItem: {
@@ -283,13 +273,7 @@ export const useStyles = makeStyles()(theme => ({
     right: -18,
     top: -18,
     zIndex: 7,
-
     cursor: 'pointer',
-    transition: '.3s ease',
-
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
 
   removeIcon: {

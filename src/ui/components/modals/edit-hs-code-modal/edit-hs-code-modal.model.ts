@@ -20,7 +20,7 @@ export class EditHSCodeModalModel extends DefaultModel {
     onCloseModal,
     onUpdateData,
   }: {
-    productId: string
+    productId?: string
     onCloseModal: () => void
     onUpdateData?: () => void
   }) {

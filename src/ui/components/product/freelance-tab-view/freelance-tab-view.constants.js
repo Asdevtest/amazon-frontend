@@ -1,10 +1,11 @@
 export const filtersFields = [
-  'humanFriendlyId',
+  'xid',
   'updatedAt',
   'status',
   'title',
   'spec',
   'price',
+  'executor',
   'timeoutAt',
   'asin',
   'skuByClient',

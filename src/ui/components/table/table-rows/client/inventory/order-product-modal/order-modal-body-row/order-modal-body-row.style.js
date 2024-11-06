@@ -174,7 +174,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   priceVariationsCell: {
-    maxWidth: 130,
+    width: 145,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

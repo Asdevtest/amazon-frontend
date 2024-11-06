@@ -7,15 +7,13 @@ import {
   LinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OrderCell,
   PriorityAndChinaDeliverCell,
+  ProductCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixed, toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 export const clientOrdersNotificationsViewColumns = handlers => {
   const columns = [
@@ -45,13 +43,13 @@ export const clientOrdersNotificationsViewColumns = handlers => {
     },
 
     {
-      field: 'id',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
 
-      renderCell: params => <Text isCell text={params.row.id} />,
+      renderCell: params => <Text isCell text={params.row.xid} />,
       type: 'number',
-      width: 60,
+      width: 65,
     },
 
     {
@@ -68,17 +66,16 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       field: 'action',
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
       headerName: t(TranslationKey.Action),
-      width: 160,
+      width: 130,
       renderCell: params => (
         <ActionButtonsCell
-          isFirstButton
-          isSecondButton
-          firstButtonElement={t(TranslationKey.Confirm)}
-          firstButtonStyle={ButtonStyle.PRIMARY}
-          secondButtonElement={t(TranslationKey.Reject)}
-          secondButtonStyle={ButtonStyle.DANGER}
-          onClickFirstButton={() => handlers.onTriggerOpenConfirmModal(params.row)}
-          onClickSecondButton={() => handlers.onTriggerOpenRejectModal(params.row)}
+          showFirst
+          showSecond
+          secondDanger
+          firstContent={t(TranslationKey.Confirm)}
+          secondContent={t(TranslationKey.Reject)}
+          onClickFirst={() => handlers.onTriggerOpenConfirmModal(params.row)}
+          onClickSecond={() => handlers.onTriggerOpenRejectModal(params.row)}
         />
       ),
       filterable: false,
@@ -90,8 +87,15 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey.Orders),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Orders)} />,
 
-      width: 250,
-      renderCell: params => <OrderCell product={params.row.product} />,
+      width: 170,
+      renderCell: params => (
+        <ProductCell
+          asin={params.row.product?.asin}
+          image={params.row.product?.images?.[0]}
+          sku={params.row.product?.skuByClient}
+          title={params.row.product?.amazonTitle}
+        />
+      ),
       disableCustomSort: true,
     },
 
@@ -147,7 +151,7 @@ export const clientOrdersNotificationsViewColumns = handlers => {
       headerName: t(TranslationKey.BarCode),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.BarCode)} />,
 
-      width: 100,
+      width: 70,
       renderCell: params => <LinkCell value={params.row.product.barCode} />,
       disableCustomSort: true,
     },

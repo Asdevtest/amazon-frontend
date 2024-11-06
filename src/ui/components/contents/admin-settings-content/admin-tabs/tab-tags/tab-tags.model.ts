@@ -34,7 +34,7 @@ export class AdminSettingsTagsModel extends DataGridFilterTableModel {
       columnsModel,
       filtersFields: getFilterFields(columnsModel),
       mainMethodURL: 'general/tags/pag?',
-      fieldsForSearch: ['title', 'productCount'],
+      fieldsForSearch: ['title'],
       tableKey: DataGridTablesKeys.ADMIN_TAGS,
     })
 

@@ -1,9 +1,5 @@
 import { TCustomControl, TToolbarControl } from 'mui-rte'
-
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter'
-import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify'
-import FormatAlignLeftIcon from '@mui/icons-material/FormatAlignLeft'
-import FormatAlignRightIcon from '@mui/icons-material/FormatAlignRight'
+import { MdFormatAlignCenter, MdFormatAlignJustify, MdFormatAlignLeft, MdFormatAlignRight } from 'react-icons/md'
 
 import { useStyles } from './custom-text-editor.style'
 
@@ -24,27 +20,27 @@ export const getCustomControls = (title?: string): TCustomControl[] => {
     },
     {
       name: 'justifyLeft',
-      icon: <FormatAlignLeftIcon />,
+      icon: <MdFormatAlignLeft size={20} />,
       type: 'block',
       blockWrapper: <TextAlign textAlign="start" />,
     },
     {
       name: 'justifyCenter',
-      icon: <FormatAlignCenterIcon />,
+      icon: <MdFormatAlignCenter size={22} />,
       type: 'block',
       blockWrapper: <TextAlign textAlign="center" />,
     },
 
     {
       name: 'justifyRight',
-      icon: <FormatAlignRightIcon />,
+      icon: <MdFormatAlignRight size={22} />,
       type: 'block',
       blockWrapper: <TextAlign textAlign="end" />,
     },
 
     {
       name: 'justifyFull',
-      icon: <FormatAlignJustifyIcon />,
+      icon: <MdFormatAlignJustify size={22} />,
       type: 'block',
       blockWrapper: <TextAlign textAlign="justify" />,
     },

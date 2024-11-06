@@ -1,12 +1,10 @@
 import { useState } from 'react'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { Field } from '@components/shared/field/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -24,7 +22,7 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
 
   return (
     <div className={styles.box}>
-      <Typography className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${box.humanFriendlyId}`}</Typography>
+      <Typography className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${box.xid}`}</Typography>
       <div>
         <div>
           {box.items.map((order, orderIndex) => (
@@ -98,7 +96,7 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               containerClasses={styles.field}
               labelClasses={styles.label}
               className={styles.fieldInput}
-              label={t(TranslationKey['FBA Shipment'])}
+              label="FBA Shipment"
               value={box.fbaShipment}
             />
 
@@ -106,7 +104,7 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               direction="column"
               labelTitleColor="gray"
               lableLinkTitleSize="medium"
-              labelTitle={t(TranslationKey['Shipping label'])}
+              labelTitle="Shipping label"
               labelValue={box.shippingLabel}
               lableLinkTitle={t(TranslationKey.View)}
               labelWrapperStyles={styles.labelWrapperStyles}
@@ -121,7 +119,11 @@ export const BoxForMerge = ({ box, readOnly = false, index, destinations }) => {
               {showFullCard ? t(TranslationKey.Hide) : t(TranslationKey.Details)}
             </Typography>
 
-            {!showFullCard ? <ArrowDropDownIcon color="primary" /> : <ArrowDropUpIcon color="primary" />}
+            {!showFullCard ? (
+              <MdArrowDropDown size={22} className={styles.icon} />
+            ) : (
+              <MdArrowDropUp size={22} className={styles.icon} />
+            )}
           </div>
         </div>
       </div>

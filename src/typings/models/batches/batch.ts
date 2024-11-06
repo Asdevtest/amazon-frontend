@@ -3,7 +3,7 @@ import { IBox } from '../boxes/box'
 
 export interface IBatch {
   _id: string
-  humanFriendlyId: number
+  xid: number
   status: string
   shipId: string
   title: string

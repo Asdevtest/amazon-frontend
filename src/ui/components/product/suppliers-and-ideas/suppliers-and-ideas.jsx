@@ -4,29 +4,29 @@ import { useLocation } from 'react-router-dom'
 
 import { Typography } from '@mui/material'
 
-import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { MAX_DEFAULT_INPUT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
-import { BindIdeaToRequestForm } from '@components/forms/bind-idea-to-request-form'
+import { LinkRequestForm } from '@components/forms/link-request-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
 import { CommentsModal } from '@components/modals/comments-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
+import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { Modal } from '@components/shared/modal'
 
-import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
+import { isBuyer, isClient } from '@typings/guards/roles'
 
 import { useStyles } from './suppliers-and-ideas.style'
 
@@ -59,7 +59,7 @@ export const SuppliersAndIdeas = observer(props => {
 
   const {
     requestStatus,
-    curUser,
+    userInfo,
     curIdea,
     inEdit,
     inCreate,
@@ -74,7 +74,7 @@ export const SuppliersAndIdeas = observer(props => {
     showRequestDesignerResultModal,
     showMainRequestResultModal,
     showRequestBloggerResultModal,
-    showBindingModal,
+    showLinkRequestModal,
     requestsForProduct,
     showOrderModal,
     platformSettings,
@@ -85,16 +85,15 @@ export const SuppliersAndIdeas = observer(props => {
     currentRequest,
     showSelectionSupplierModal,
     currentData,
-    languageTag,
     showCommentsModal,
+    showSelectShopsModal,
+    shopsData,
     setRejectStatusHandler,
     onClickToOrder,
     onClickSaveBarcode,
     onDoubleClickBarcode,
     onClickCreateRequestButton,
-    onClickBindButton,
     onClickUnbindButton,
-    onClickLinkRequestButton,
     onClickResultButton,
     onClickRejectButton,
     onClickReoperButton,
@@ -114,6 +113,7 @@ export const SuppliersAndIdeas = observer(props => {
     onConfirmSubmitOrderProductModal,
     onSubmitCalculateSeekSupplier,
     onRemoveSupplier,
+    onSaveProductData,
   } = model.current
 
   useEffect(() => {
@@ -123,7 +123,7 @@ export const SuppliersAndIdeas = observer(props => {
   }, [selectedIdeaId, ideasData])
 
   const showAddProductIdeaButton =
-    (checkIsClient(UserRoleCodeMap[curUser.role]) || checkIsBuyer(UserRoleCodeMap[curUser.role])) &&
+    (isClient(userInfo?.role) || isBuyer(userInfo?.role)) &&
     !inCreate &&
     !inEdit &&
     !isModalView &&
@@ -147,9 +147,8 @@ export const SuppliersAndIdeas = observer(props => {
       {inCreate && (
         <IdeaViewAndEditCard
           inCreate
-          languageTag={languageTag}
           isModalView={isModalView}
-          curUser={curUser}
+          curUser={userInfo}
           idea={curIdea}
           inEdit={inEdit}
           currentProduct={currentProduct}
@@ -157,7 +156,7 @@ export const SuppliersAndIdeas = observer(props => {
           onClickSaveBtn={onClickSaveBtn}
           onClickCancelBtn={onClickCancelBtn}
           onClickCreateRequestButton={onClickCreateRequestButton}
-          onClickLinkRequestButton={onClickLinkRequestButton}
+          onClickLinkRequestButton={() => onTriggerOpenModal('showLinkRequestModal')}
           onClickAcceptButton={onClickAcceptButton}
           onClickCloseIdea={onClickCloseIdea}
           onClickRejectButton={onClickRejectButton}
@@ -182,8 +181,7 @@ export const SuppliersAndIdeas = observer(props => {
           ) : curIdea ? (
             <IdeaViewAndEditCard
               isModalView
-              languageTag={languageTag}
-              curUser={curUser}
+              curUser={userInfo}
               inEdit={inEdit}
               idea={curIdea}
               currentProduct={currentProduct}
@@ -191,7 +189,7 @@ export const SuppliersAndIdeas = observer(props => {
               onClickSaveBtn={onClickSaveBtn}
               onClickCancelBtn={onClickCancelBtn}
               onClickCreateRequestButton={onClickCreateRequestButton}
-              onClickLinkRequestButton={onClickLinkRequestButton}
+              onClickLinkRequestButton={() => onTriggerOpenModal('showLinkRequestModal')}
               onClickAcceptButton={onClickAcceptButton}
               onClickCloseIdea={onClickCloseIdea}
               onClickRejectButton={onClickRejectButton}
@@ -226,17 +224,16 @@ export const SuppliersAndIdeas = observer(props => {
             currentData.map(idea => (
               <div key={idea._id} ref={idea._id === selectedIdeaId ? ideaRef : null}>
                 <IdeaViewAndEditCard
-                  curUser={curUser}
+                  curUser={userInfo}
                   inEdit={inEdit}
                   idea={idea}
-                  languageTag={languageTag}
                   currentProduct={currentProduct}
                   selectedIdea={selectedIdeaId}
                   onCreateProduct={onClickCreateProduct}
                   onClickSaveBtn={onClickSaveBtn}
                   onClickCancelBtn={onClickCancelBtn}
                   onClickCreateRequestButton={onClickCreateRequestButton}
-                  onClickLinkRequestButton={onClickLinkRequestButton}
+                  onClickLinkRequestButton={() => onTriggerOpenModal('showLinkRequestModal')}
                   onClickAcceptButton={onClickAcceptButton}
                   onClickCloseIdea={onClickCloseIdea}
                   onClickRejectButton={onClickRejectButton}
@@ -285,7 +282,7 @@ export const SuppliersAndIdeas = observer(props => {
       >
         <RequestDesignerResultClientForm
           onlyRead
-          userInfo={curUser}
+          userInfo={userInfo}
           request={{ request: currentRequest }}
           proposal={currentProposal}
           setOpenModal={() => onTriggerOpenModal('showRequestDesignerResultModal')}
@@ -296,7 +293,7 @@ export const SuppliersAndIdeas = observer(props => {
         <MainRequestResultModal
           readOnly
           customProposal={currentProposal}
-          userInfo={curUser}
+          userInfo={userInfo}
           openModal={showMainRequestResultModal}
           onOpenModal={() => onTriggerOpenModal('showMainRequestResultModal')}
         />
@@ -311,8 +308,12 @@ export const SuppliersAndIdeas = observer(props => {
         />
       ) : null}
 
-      <Modal openModal={showBindingModal} setOpenModal={() => onTriggerOpenModal('showBindingModal')}>
-        <BindIdeaToRequestForm idea={curIdea} requests={requestsForProduct} onClickBindButton={onClickBindButton} />
+      <Modal openModal={showLinkRequestModal} setOpenModal={() => onTriggerOpenModal('showLinkRequestModal')}>
+        <LinkRequestForm
+          idea={curIdea}
+          onClose={() => onTriggerOpenModal('showLinkRequestModal')}
+          onUpdateData={updateData}
+        />
       </Modal>
 
       <Modal missClickModalOn openModal={showOrderModal} setOpenModal={() => onTriggerOpenModal('showOrderModal')}>
@@ -358,6 +359,17 @@ export const SuppliersAndIdeas = observer(props => {
           onChangeField={setRejectStatusHandler}
         />
       ) : null}
+
+      <Modal openModal={showSelectShopsModal} setOpenModal={() => onTriggerOpenModal('showSelectShopsModal')}>
+        <SelectShopsModal
+          // @ts-ignore
+          isNotDisabled
+          title={t(TranslationKey['Link a store to a product'])}
+          shops={shopsData}
+          onClickSuccessBtn={onSaveProductData}
+          onClickCancelBtn={onClickCancelBtn}
+        />
+      </Modal>
 
       {showProgress && <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading...'])} />}
     </div>

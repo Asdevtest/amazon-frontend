@@ -1,8 +1,6 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
-
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { useMemo, useState } from 'react'
+import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md'
 
 import { navbarConfig } from '@constants/navigation/navbar'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -25,7 +23,7 @@ export const Navbar = observer(props => {
   const { shortNavbar, activeCategory, activeSubCategory, isOpenModal, onShowNavbar, onToggleModal } = props
 
   const { classes: styles, cx } = useStyles()
-  const [viewModel] = useState(new NavbarModel())
+  const viewModel = useMemo(() => new NavbarModel(), [])
   const [curNavbar] = useState(navbarConfig)
 
   return (
@@ -39,9 +37,9 @@ export const Navbar = observer(props => {
             onClick={onShowNavbar}
           >
             {shortNavbar ? (
-              <ArrowForwardIosIcon className={styles.arrowIcon} />
+              <MdArrowForwardIos size={20} className={styles.arrowIcon} />
             ) : (
-              <ArrowBackIosIcon className={styles.arrowIcon} />
+              <MdArrowBackIos size={20} className={styles.arrowIcon} />
             )}
           </div>
         </div>

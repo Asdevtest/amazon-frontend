@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -15,18 +15,21 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IOrder } from '@typings/models/orders/order'
+
+import { useStyles } from './buyer-pending-orders-view.style'
 
 import { BuyerMyOrdersViewModel } from './buyer-pending-orders-view.model'
 
 export const BuyerPendingOrdersView = observer(() => {
-  const [viewModel] = useState(() => new BuyerMyOrdersViewModel())
+  const viewModel = useMemo(() => new BuyerMyOrdersViewModel(), [])
+  const { classes: styles } = useStyles()
 
   return (
     <div className="viewWrapper">
       <CustomInputSearch
         enterButton
         allowClear
+        wrapperClassName={styles.searchInput}
         size="large"
         placeholder="Search by SKU, ASIN, Title, Order, item"
         onSearch={viewModel.onSearchSubmit}
@@ -41,7 +44,6 @@ export const BuyerPendingOrdersView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={(row: IOrder) => row._id}
         rowSelectionModel={viewModel.selectedRows}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}

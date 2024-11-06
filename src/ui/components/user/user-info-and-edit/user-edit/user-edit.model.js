@@ -22,7 +22,7 @@ export class UserEditModel {
   singlePermissions = undefined
 
   showAddOrEditGroupPermissionModal = false
-  showTwoVerticalChoicesModal = false
+  showVerticalChoicesModal = false
   showConfirmModal = false
 
   addOrEditGroupPermissionSettings = {
@@ -70,7 +70,7 @@ export class UserEditModel {
         this.changeFields = { email: '', name: '' }
       })
 
-      this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+      this.onTriggerOpenModal('showVerticalChoicesModal')
     } catch (error) {
       console.error(error)
     }
@@ -90,7 +90,7 @@ export class UserEditModel {
 
   async onClickBottomBtn() {
     this.loadData()
-    this.onTriggerOpenModal('showTwoVerticalChoicesModal')
+    this.onTriggerOpenModal('showVerticalChoicesModal')
   }
 
   async submitEditUserForm(data, sourceData) {

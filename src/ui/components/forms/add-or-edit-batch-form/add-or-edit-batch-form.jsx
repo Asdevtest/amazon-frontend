@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
 
@@ -18,9 +18,9 @@ import { UserModel } from '@models/user-model'
 import { BoxModal } from '@components/modals/box-modal'
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
-import { SearchInput } from '@components/shared/search-input'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -28,11 +28,12 @@ import { ClientAwaitingBatchesViewModel } from '@views/client/client-batches-vie
 
 import {
   calcFinalWeightForBatchByMoreTotalWeight,
+  calcPriceForBox,
   calcVolumeWeightForBox,
   checkActualBatchWeightGreaterVolumeBatchWeight,
+  getTariffRateForBoxOrOrder,
 } from '@utils/calculation'
 import { checkIsClient } from '@utils/checks'
-import { addOrEditBatchDataConverter } from '@utils/data-grid-data-converters'
 import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -43,9 +44,58 @@ import { useStyles } from './add-or-edit-batch-form.style'
 
 import { addOrEditBatchFormColumns } from './add-or-edit-batch-form-columns'
 
-export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batchToEdit, sourceBox }) => {
-  const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel(true))
+export const addOrEditBatchDataConverter = (
+  data,
+  volumeWeightCoefficient,
+  finalWeightCalculationMethod,
+  getBatchWeightCalculationMethodForBox,
+  calculationMethod,
+  // isDifferentMethodForEach,
+) =>
+  data.map(item => ({
+    originalData: item,
+    ...item,
+    id: item._id,
+    _id: item._id,
+    qty: item.items?.reduce((acc, cur) => (acc += cur.amount), 0),
+    amazonPrice: calcPriceForBox(item),
+    finalWeight: getBatchWeightCalculationMethodForBox
+      ? getBatchWeightCalculationMethodForBox(
+          calculationMethod,
+          checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
+        )(item, volumeWeightCoefficient) * item.amount
+      : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
+    grossWeight: item.weighGrossKgWarehouse,
+    destination: item.destination?.name,
+    storekeeper: item.storekeeper,
+    logicsTariff: getNewTariffTextForBoxOrOrder(item),
+    client: item.client,
+    isDraft: item.isDraft,
+    isFormed: item.isFormed,
+    createdAt: item.createdAt,
+    updatedAt: item.updatedAt,
+    xid: item.xid,
+    deliveryTotalPrice:
+      getTariffRateForBoxOrOrder(item) *
+      (getBatchWeightCalculationMethodForBox
+        ? getBatchWeightCalculationMethodForBox(
+            calculationMethod,
+            checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
+          )(item, volumeWeightCoefficient) * item.amount
+        : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount),
+    deliveryTotalPriceChanged: item.deliveryTotalPriceChanged,
+    shippingLabel: item.shippingLabel,
+    fbaShipment: item.fbaShipment,
+    volumeWeightCoefficient,
+    orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
+      ?.reduce((acc, cur) => (acc += cur.order?.xid + ', '), '')
+      .slice(0, -2)}  item №: ${item.items
+      ?.reduce((acc, cur) => (acc += (cur.order?.item ? cur.order?.item : '-') + ', '), '')
+      .slice(0, -2)}`,
+  }))
 
+export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batchToEdit, sourceBox }) => {
+  const viewModel = useMemo(() => new ClientAwaitingBatchesViewModel(true), [])
   const { classes: styles, cx } = useStyles()
 
   const isClient = checkIsClient(UserRoleCodeMap[UserModel.platformSettings?.role])
@@ -88,7 +138,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
 
   useEffect(() => {
     if (batchToEdit) {
-      setfilesToAdd(batchToEdit?.attachedDocuments)
+      setfilesToAdd(batchToEdit?.attachedDocuments || [])
     }
   }, [batchToEdit])
 
@@ -176,7 +226,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             String(item.order.id)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
         ) ||
-        String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+        String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
         String(el.originalData.prepId)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
     )
 
@@ -190,7 +240,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             String(item.order.id)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
         ) ||
-        String(el.originalData.humanFriendlyId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+        String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
         String(el.originalData.prepId)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
     )
 
@@ -318,7 +368,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
         getBatchWeightCalculationMethodForBox,
         batchFields.calculationMethod,
       ),
-      // ...sourceChosenBoxesBase,
+      ...sourceChosenBoxesBase,
     ].filter(el => newRowIds.includes(el.id))
 
     setChosenBoxes(() => filterBySearchValueChosenBoxes([...chosenBoxesBase, ...newSelectedItems]))
@@ -442,10 +492,10 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
         <div className={styles.searchWrapper}>
           <Typography>{t(TranslationKey['Choose boxes from the list:'])}</Typography>
 
-          <SearchInput
-            inputClasses={styles.searchInput}
+          <CustomInputSearch
+            allowClear
             value={nameSearchValueBoxesToAddData}
-            placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
+            placeholder="Search by ASIN, Title, Order, item, ID Box"
             onChange={e => setNameSearchValueBoxesToAddData(e.target.value)}
           />
         </div>
@@ -501,7 +551,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             columnVisibilityModel={viewModel.columnVisibilityModel}
             rows={boxesToAddData}
             columns={columnsModel}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             rowSelectionModel={boxesToAddIds}
             onRowSelectionModelChange={onSelectionAwaitingBoxes}
             onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
@@ -553,10 +603,10 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
         <div className={styles.searchWrapper}>
           <Typography>{t(TranslationKey['Boxes in batch']) + ':'}</Typography>
 
-          <SearchInput
-            inputClasses={styles.searchInput}
+          <CustomInputSearch
+            allowClear
             value={nameSearchValueChosenBoxes}
-            placeholder={t(TranslationKey['Search by ASIN, Title, Order, item, ID Box'])}
+            placeholder="Search by ASIN, Title, Order, item, ID Box"
             onChange={e => setNameSearchValueChosenBoxes(e.target.value)}
           />
         </div>
@@ -593,7 +643,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
             }}
             rows={chosenBoxes || []}
             columns={columnsModel}
-            rowHeight={100}
+            getRowHeight={() => 'auto'}
             onRowSelectionModelChange={onSelectionChoosenBoxes}
             onRowDoubleClick={e => viewModel.setBoxId(e.row._id)}
             onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -664,7 +714,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
           </Button>
         </div>
 
-        <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} />
+        {filesToAdd ? <UploadFilesInput images={filesToAdd} setImages={setfilesToAdd} /> : null}
 
         <div className={styles.btnsWrapper}>
           <Button

@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
-
-import { GridRowModel } from '@mui/x-data-grid'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -23,7 +21,7 @@ import { ModalNames } from './patch-noutes-view.type'
 export const PatchNoutesView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new PatchNoutesViewModel())
+  const viewModel = useMemo(() => new PatchNoutesViewModel(), [])
 
   const patchNodesModalTitle = viewModel.editPatchNote
     ? t(TranslationKey['Edit a patch note'])
@@ -31,10 +29,11 @@ export const PatchNoutesView = observer(() => {
 
   return (
     <div className="viewWrapper">
-      <CustomButton type="primary" size="large" onClick={viewModel.onOpenPatchNoteForm}>
-        {t(TranslationKey['Add a patch note'])}
-      </CustomButton>
-
+      <div>
+        <CustomButton type="primary" size="large" onClick={viewModel.onOpenPatchNoteForm}>
+          {t(TranslationKey['Add a patch note'])}
+        </CustomButton>
+      </div>
       <CustomDataGrid
         disableColumnMenu
         disableRowSelectionOnClick
@@ -42,7 +41,6 @@ export const PatchNoutesView = observer(() => {
         rows={viewModel.currentData}
         columnHeaderHeight={40}
         getRowHeight={() => 'auto'}
-        getRowId={(row: GridRowModel) => row._id}
         columns={viewModel.columnsModel}
         paginationModel={viewModel.paginationModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

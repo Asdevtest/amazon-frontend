@@ -47,6 +47,7 @@ export const fieldNames = [
   'volumeWeightCoefficient',
   'timeToDeadlinePendingOrder',
   'timeBeforeLaunchDeadline',
+  'orderAmountLimit',
 ]
 
 export const fieldNameObject = fieldNames.reduce((obj, fieldName) => {

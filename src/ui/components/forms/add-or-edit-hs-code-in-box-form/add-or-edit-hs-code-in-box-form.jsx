@@ -96,7 +96,7 @@ export const AddOrEditHsCodeInBox = observer(({ box, setOpenModal, onSubmit, sta
   return (
     <div className={styles.form}>
       <Typography className={styles.modalTitle} variant="h5">
-        {`${t(TranslationKey.Box)} ${box.humanFriendlyId}`}
+        {`${t(TranslationKey.Box)} ${box.xid}`}
       </Typography>
 
       <Table

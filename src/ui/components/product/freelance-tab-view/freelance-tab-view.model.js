@@ -2,7 +2,10 @@ import { makeAutoObservable, runInAction, toJS } from 'mobx'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
-import { showResultRequestProposalsStatuses } from '@constants/requests/request-proposal-status'
+import {
+  inProgressRequestProposalsStatuses,
+  showResultRequestProposalsStatuses,
+} from '@constants/requests/request-proposal-status'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 
 import { GeneralModel } from '@models/general-model'
@@ -13,7 +16,6 @@ import { UserModel } from '@models/user-model'
 
 import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
 
-import { myRequestsDataConverter } from '@utils/data-grid-data-converters'
 import { dataGridFiltersConverter, dataGridFiltersInitializer } from '@utils/data-grid-filters'
 import { getTableByColumn, objectToUrlQs } from '@utils/text'
 
@@ -89,8 +91,12 @@ export class FreelanceModel {
     () => this.onHover,
   )
 
-  constructor(productId) {
+  constructor(productId, filterStatus) {
     this.productId = productId
+
+    if (filterStatus === 'inProgress') {
+      this.onChangeFullFieldMenuItem(inProgressRequestProposalsStatuses, 'status')
+    }
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -100,7 +106,7 @@ export class FreelanceModel {
   }
 
   onSearchSubmit(searchValue) {
-    this.nameSearchValue = searchValue
+    this.nameSearchValue = searchValue.trim()
 
     this.getCustomRequests()
   }
@@ -137,7 +143,7 @@ export class FreelanceModel {
       })
 
       runInAction(() => {
-        this.searchRequests = myRequestsDataConverter(result.rows)
+        this.searchRequests = result.rows
         this.rowCount = result.count
       })
     } catch (error) {
@@ -153,7 +159,7 @@ export class FreelanceModel {
     return objectToUrlQs(
       dataGridFiltersConverter(this.columnMenuSettings, this.nameSearchValue, exclusion, filtersFields, [
         'title',
-        'humanFriendlyId',
+        'xid',
       ]),
     )
   }

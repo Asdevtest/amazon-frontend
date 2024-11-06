@@ -76,6 +76,7 @@ export const DataGridTablesKeys = {
   BUYER_FREE_ORDERS: 'buyerFreeOrdersDataGridState',
   BUYER_SUB_USERS: 'buyerSubUsersDataGridState',
   BUYER_BATCHES: 'buyerBatchesDataGridState',
+  BUYER_IDEAS: 'buyerIdeasDataGridState',
 
   CLIENT_EXCHANGE: 'clientExchangeCreatedDataGridState',
   CLIENT_INVENTORY: 'clientInventoryDataGridState',
@@ -117,6 +118,7 @@ export const DataGridTablesKeys = {
   FREELANCER_SUB_USERS: 'freelancerSubUsersDataGridState',
   FREELANCER_MY_PROPOSALS: 'freelancerMyProposalsDataGridState',
   FREELANCER_ALL_PROPOSALS: 'freelancerAllProposalsDataGridState',
+  FREELANCER_VACANT_REQUESTS: 'vacantRequestsDataGridState',
 
   OVERALL_CUSTOM_SEARCH_REQUESTS: 'overallCustomSearchRequestsDataGridState',
   OVERALL_SUB_USERS: 'overallSubUsersDataGridState',
@@ -143,4 +145,5 @@ export const DataGridTablesKeys = {
   PRODUCT_BATCHES_DATA: 'productBatchesData',
   PARSING_PROFILES: 'parsingProfiles',
   PARSING_REQUESTS: 'parsingRequests',
+  SERVICES_DETAILS: 'servicesDetails',
 }

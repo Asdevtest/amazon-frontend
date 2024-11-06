@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { GridRowParams } from '@mui/x-data-grid-premium'
 
@@ -12,13 +12,12 @@ import { CustomSelect } from '@components/shared/custom-select'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IProduct } from '@typings/models/products/product'
 
 import { getSwitcherConfig } from './admin-exchange-views.config'
 import { AdminExchangeViewModel } from './admin-exchange-views.model'
 
 export const AdminExchangeViews = observer(() => {
-  const [viewModel] = useState(() => new AdminExchangeViewModel())
+  const viewModel = useMemo(() => new AdminExchangeViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -41,7 +40,6 @@ export const AdminExchangeViews = observer(() => {
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }: IProduct) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

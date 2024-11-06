@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { ProductWrapper } from '@components/product/product-wrapper'
 
 import { AdminProductViewModel } from './admin-product-view.model'
 
 export const AdminProductView = observer(({ history }) => {
-  const [viewModel] = useState(() => new AdminProductViewModel({ history }))
+  const viewModel = useMemo(() => new AdminProductViewModel({ history }), [])
 
   return (
     viewModel?.product && (

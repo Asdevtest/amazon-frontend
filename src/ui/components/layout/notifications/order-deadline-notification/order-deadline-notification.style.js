@@ -4,19 +4,14 @@ export const useStyles = makeStyles()(theme => ({
   mainWrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-    transition: '.3s ease',
-    '&:hover': {
-      transform: 'scale(1.01)',
-    },
   },
 
   itemWrapper: {
     padding: 5,
     borderRadius: 10,
     cursor: 'pointer',
-    transition: '.3s ease',
+
     '&:hover': {
-      transform: 'scale(0.99)',
       backgroundColor: theme.palette.background.second,
     },
   },

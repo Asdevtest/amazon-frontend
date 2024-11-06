@@ -9,9 +9,6 @@ import { UserModel } from '@models/user-model'
 
 import { adminBatchesViewColumns } from '@components/table/table-columns/admin/admin-batches-columns'
 
-import { warehouseBatchesDataConverter } from '@utils/data-grid-data-converters'
-import { sortObjectsArrayByFiledDateWithParseISO } from '@utils/date-time'
-
 import { loadingStatus } from '@typings/enums/loading-status'
 
 export class AdminAwaitingBatchesViewModel {
@@ -77,13 +74,13 @@ export class AdminAwaitingBatchesViewModel {
 
   onSearchSubmit(searchValue) {
     runInAction(() => {
-      this.nameSearchValue = searchValue
+      this.nameSearchValue = searchValue.trim()
     })
 
     if (this.nameSearchValue) {
       runInAction(() => {
         this.batches = this.batchesData.filter(item =>
-          item.originalData.boxes.some(
+          item.boxes.some(
             box =>
               box.items.some(item =>
                 item.product.amazonTitle?.toLowerCase().includes(this.nameSearchValue.toLowerCase()),
@@ -161,18 +158,11 @@ export class AdminAwaitingBatchesViewModel {
       const response = await BatchesModel.getBatches(BatchStatus.IS_BEING_COLLECTED)
 
       runInAction(() => {
-        this.batches = warehouseBatchesDataConverter(response, this.platformSettings?.volumeWeightCoefficient).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
-        this.batchesData = warehouseBatchesDataConverter(response, this.platformSettings?.volumeWeightCoefficient).sort(
-          sortObjectsArrayByFiledDateWithParseISO('updatedAt'),
-        )
+        this.batches = response
+        this.batchesData = response
       })
     } catch (error) {
       console.error(error)
-      runInAction(() => {
-        this.batches = []
-      })
     }
   }
 

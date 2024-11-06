@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
-
-import { GridRowModel } from '@mui/x-data-grid-premium'
+import { useMemo } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -23,14 +21,12 @@ import { getEntityTypeConfig, getPaymentTypeConfig } from './finances.config'
 export const FinancesView = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new FinancesViewModel())
+  const viewModel = useMemo(() => new FinancesViewModel(), [])
 
   return (
     <div className="viewWrapper">
       <div className={styles.header}>
         <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
           options={getPaymentTypeConfig()}
           defaultValue={viewModel.paymentType}
           onChange={viewModel.onSetPaymentType}
@@ -39,14 +35,11 @@ export const FinancesView = observer(() => {
         <CustomInputSearch
           enterButton
           allowClear
-          size="large"
           placeholder="Search by SKU, ASIN, Title"
           onSearch={viewModel.onSearchSubmit}
         />
 
         <CustomRadioButton
-          size="large"
-          buttonStyle="solid"
           options={getEntityTypeConfig(checkIsAdmin(UserRoleCodeMap[viewModel?.userRole]))}
           defaultValue={viewModel.entityType}
           onChange={viewModel.onSetEntityType}
@@ -61,7 +54,6 @@ export const FinancesView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         pinnedColumns={viewModel.pinnedColumns}
         slotProps={{
           baseTooltip: {

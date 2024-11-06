@@ -41,6 +41,7 @@ export const DropdownSelect: FC<DropdownSelectProps> = memo(props => {
           value={createPresetTitle}
           placeholder="Add a preset"
           maxLength={32}
+          wrapperClassName={styles.createPresetInput}
           onChange={onPresetTitleChange}
           onKeyDown={e => e.stopPropagation()}
         />

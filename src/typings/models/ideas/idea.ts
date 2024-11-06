@@ -51,7 +51,7 @@ export interface IIdea {
 
 export interface ApiV1IdeasByParentGuidRequestsOnCheck {
   _id: string
-  humanFriendlyId: number
+  xid: number
   title: string
   status: string
   typeTask: number

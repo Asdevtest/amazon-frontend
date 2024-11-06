@@ -25,6 +25,7 @@ export const useStyles = makeStyles()(theme => ({
   icon: {
     color: theme.palette.primary.main,
   },
+
   darkIcon: {
     color: theme.palette.text.second,
   },
@@ -55,21 +56,20 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     height: '30px',
     marginBottom: 10,
-    // borderBottom: '1px solid #E0E0E0',
     padding: '0 17px',
     cursor: 'pointer',
     transition: '0.3s ease',
+
     '&:hover': {
-      transform: 'scale(1.01)',
       backgroundColor: theme.palette.background.searchSelectHover,
     },
   },
 
   chosenItemNoHover: {
     height: '30px',
+
     '&:hover': {
       transform: 'unset',
-      backgroundColor: 'unset',
     },
   },
 
@@ -79,7 +79,6 @@ export const useStyles = makeStyles()(theme => ({
 
     '&:hover': {
       transform: 'none',
-
       backgroundColor: theme.palette.input.customDisabled,
     },
   },
@@ -104,6 +103,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-start',
     color: theme.palette.text.general,
+
     '&:hover': {
       backgroundColor: 'rgba(0, 0, 0, .2)',
     },
@@ -125,14 +125,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   setFavouriteBtn: {
-    height: 30,
-    width: 30,
     color: theme.palette.background.disabled,
     borderRadius: 30,
-    transition: '.3s ease',
-    '&:hover': {
-      transform: 'scale(1.1)',
-    },
   },
   setFavouriteBtnIsSelected: {
     color: '#ff9800',
@@ -157,6 +151,7 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
   },
+
   blackSelectedItem: {
     color: theme.palette.text.general,
   },

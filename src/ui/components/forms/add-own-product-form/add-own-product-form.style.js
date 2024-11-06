@@ -49,12 +49,6 @@ export const useStyles = makeStyles()(theme => ({
     height: '25px',
   },
 
-  deleteBtn: {
-    width: '20px',
-    height: '20px',
-    opacity: '0.5',
-  },
-
   skuItemTitle: {
     width: '100%',
     fontSize: '18px',

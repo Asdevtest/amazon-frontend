@@ -6,7 +6,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdminUserEditContent } from '@components/contents/admin-user-edit-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { TwoVerticalChoicesModal } from '@components/modals/two-vertical-choices-modal'
+import { VerticalChoicesModal } from '@components/modals/vertical-choices-modal'
+import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
@@ -25,7 +26,7 @@ export const UserEdit = observer(({ user }) => {
 
   const {
     // wrongPassword,
-    showTwoVerticalChoicesModal,
+    showVerticalChoicesModal,
     checkValidationNameOrEmail,
     changeFields,
     groupPermissions,
@@ -39,6 +40,7 @@ export const UserEdit = observer(({ user }) => {
     userData,
     specs,
     onClickBottomBtn,
+    getUserData,
   } = model.current
 
   return (
@@ -53,6 +55,7 @@ export const UserEdit = observer(({ user }) => {
           buttonLabel={t(TranslationKey.Save)}
           onSubmit={submitEditUserForm}
           onClickCancelBtn={onClickCancelBtn}
+          onUpdateData={getUserData}
         />
       ) : null}
 
@@ -71,18 +74,15 @@ export const UserEdit = observer(({ user }) => {
         />
       ) : null}
 
-      {showTwoVerticalChoicesModal ? (
-        <TwoVerticalChoicesModal
-          // @ts-ignore
-          openModal={showTwoVerticalChoicesModal}
-          setOpenModal={() => onTriggerOpenModal('showTwoVerticalChoicesModal')}
-          title={t(TranslationKey['Data saved successfully'])}
-          topBtnText={t(TranslationKey['Back to Users'])}
-          bottomBtnText={t(TranslationKey['Continue working with the user'])}
-          onClickTopBtn={() => goToUsers()}
-          onClickBottomBtn={onClickBottomBtn}
+      <Modal openModal={showVerticalChoicesModal} setOpenModal={() => onTriggerOpenModal('showVerticalChoicesModal')}>
+        <VerticalChoicesModal
+          title="Data saved successfully"
+          firstButtonText="Back to Users"
+          secondButtonText="Continue working with the user"
+          onClickFirstButton={goToUsers}
+          onClickSecondButton={onClickBottomBtn}
         />
-      ) : null}
+      </Modal>
     </div>
   )
 })

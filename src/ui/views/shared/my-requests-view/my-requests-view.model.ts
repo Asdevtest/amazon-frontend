@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -22,6 +24,7 @@ import { UserModel } from '@models/user-model'
 
 import { myRequestsViewColumns } from '@components/table/table-columns/overall/my-requests-columns'
 
+import { convertLocalDateToUTC } from '@utils/date-time'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -48,7 +51,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   researchIdToRemove = undefined
   currentRequestDetails: any = undefined
 
-  curProposal: ICustomRequest | null = null
+  curProposal?: ICustomRequest
 
   openModal = null
   showRequestDesignerResultClientModal = false
@@ -75,7 +78,9 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   radioButtonOption = SwitcherCondition.IN_PROGRESS
   statusGroup = SwitcherCondition.IN_PROGRESS
 
-  acceptProposalResultSetting = {}
+  acceptProposalResultSetting = {
+    onSubmit: (data: any) => {},
+  }
 
   constructor({ dataGridApi }: { dataGridApi: MutableRefObject<any> }) {
     const rowHandlers = {
@@ -155,6 +160,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       this.statusGroup = currentValue
     }
 
+    this.onChangeFullFieldMenuItem([], 'status')
     this.getCurrentData()
   }
 
@@ -295,7 +301,7 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   }
 
   async handleOpenRequestDetailModal(e: any) {
-    if (e.row.countProposalsByStatuses.acceptedProposals > 0) {
+    if (e.row?.countProposalsByStatuses?.acceptedProposals > 0) {
       this.isAcceptedProposals = true
     } else {
       this.isAcceptedProposals = false
@@ -320,9 +326,6 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
       })
     } catch (error) {
       console.error(error)
-      runInAction(() => {
-        this.curProposal = null
-      })
     }
   }
 
@@ -426,12 +429,13 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
   async onRecoverRequest(timeoutAt: string, maxAmountOfProposals: number) {
     this.setRequestStatus(loadingStatus.IS_LOADING)
 
-    const newDate = new Date(timeoutAt)
-    newDate.setUTCHours(0)
-    newDate.setUTCSeconds(0)
-    const arrivalDate = newDate.toISOString()
+    const arrivalDate = convertLocalDateToUTC(new Date(timeoutAt))
 
-    await RequestModel.updateDeadline(this.currentRequestDetails.request?._id, arrivalDate, maxAmountOfProposals)
+    await RequestModel.updateDeadline(
+      this.currentRequestDetails.request?._id,
+      new Date(arrivalDate),
+      maxAmountOfProposals,
+    )
     await this.loadData()
     this.onTriggerOpenModal('showRequestDetailModal')
 
@@ -497,7 +501,11 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickProposalResultAccept(proposalId: string) {
+  onClickProposalResultAccept(proposalId?: string) {
+    if (!proposalId) {
+      return
+    }
+
     this.acceptProposalResultSetting = {
       onSubmit: (data: any) => this.onClickProposalResultAcceptForm(proposalId, data),
     }
@@ -507,8 +515,9 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
 
   async onClickProposalResultAcceptForm(proposalId: string, data: any) {
     try {
+      const id = this.curProposal?.proposal?.sub?._id || this.curProposal?.proposal?.createdBy?._id
       await RequestProposalModel.requestProposalResultAccept(proposalId, data)
-      await FeedbackModel.sendFeedback(this.curProposal?.proposal?.createdBy?._id, {
+      await FeedbackModel.sendFeedback(id, {
         rating: data.rating,
         comment: data.review,
       })

@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
-import { Paper, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { getBuyerDashboardCardConfig } from '@constants/navigation/dashboard-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,7 +20,7 @@ import { styles } from './buyer-dashboard-view.style'
 import { BuyerDashboardViewModel } from './buyer-dashboard-view.model'
 
 export const BuyerDashboardViewRaw = props => {
-  const [viewModel] = useState(() => new BuyerDashboardViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new BuyerDashboardViewModel({ history: props.history }), [])
   const { classes: styles } = props
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export const BuyerDashboardViewRaw = props => {
   return (
     <>
       <div>
-        <Paper className={styles.userInfoWrapper}>
+        <div className={styles.userInfoWrapper}>
           <div className={styles.userInfoLeftWrapper}>
             <img src={getUserAvatarSrc(viewModel.userInfo._id)} className={styles.cardImg} />
 
@@ -55,7 +55,7 @@ export const BuyerDashboardViewRaw = props => {
               />
             </div>
           )}
-        </Paper>
+        </div>
         {viewModel.currentData &&
           getBuyerDashboardCardConfig().map(item => (
             <DashboardOneLineCardsList

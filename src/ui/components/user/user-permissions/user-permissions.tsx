@@ -1,6 +1,6 @@
 import { RadioChangeEvent } from 'antd'
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,7 +17,6 @@ import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
-import { IPermission } from '@typings/models/permissions/permission'
 
 import { useStyles } from './user-permissions.style'
 
@@ -27,15 +26,14 @@ import { UserPermissionsModel } from './user-permissions.model'
 export const UserPermissions = observer(() => {
   const { classes: styles } = useStyles()
 
-  const [viewModel] = useState(() => new UserPermissionsModel())
+  const viewModel = useMemo(() => new UserPermissionsModel(), [])
 
   return (
     <div className="viewWrapper">
       <div className={styles.buttons}>
         <CustomRadioButton
           size="large"
-          buttonStyle="solid"
-          options={switcherSettings}
+          options={switcherSettings()}
           defaultValue={viewModel.tabIndex}
           onChange={(e: RadioChangeEvent) => viewModel.onChangeTabIndex(e.target.value)}
         />
@@ -70,7 +68,6 @@ export const UserPermissions = observer(() => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: IPermission) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

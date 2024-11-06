@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Checkbox, Paper, Typography } from '@mui/material'
+import { Checkbox, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -72,7 +72,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey.Opportunities)}
           inputComponent={
-            <Paper className={styles.assetsPaper}>
+            <div className={styles.assetsPaper}>
               <div className={styles.assetInputWrapper}>
                 <Input
                   value={opportunities}
@@ -100,7 +100,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
                   </div>
                 </div>
               ))}
-            </Paper>
+            </div>
           }
         />
 
@@ -110,7 +110,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey.Risks)}
           inputComponent={
-            <Paper className={styles.assetsPaper}>
+            <div className={styles.assetsPaper}>
               <div className={styles.assetInputWrapper}>
                 <Input
                   value={risks}
@@ -138,7 +138,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
                   </div>
                 </div>
               ))}
-            </Paper>
+            </div>
           }
         />
 
@@ -148,7 +148,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey['Work and skills required'])}
           inputComponent={
-            <Paper className={styles.assetsPaper}>
+            <div className={styles.assetsPaper}>
               <div className={styles.assetInputWrapper}>
                 <Input
                   value={requiredSkills}
@@ -176,7 +176,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
                   </div>
                 </div>
               ))}
-            </Paper>
+            </div>
           }
         />
       </div>
@@ -188,7 +188,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey['Seller support includes'])}
           inputComponent={
-            <Paper className={styles.assetsPaper}>
+            <div className={styles.assetsPaper}>
               <div className={styles.assetInputWrapper}>
                 <Input
                   value={sellIncludes}
@@ -216,7 +216,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
                   </div>
                 </div>
               ))}
-            </Paper>
+            </div>
           }
         />
 
@@ -226,7 +226,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey['Reasons for sale'])}
           inputComponent={
-            <Paper className={styles.assetsPaper}>
+            <div className={styles.assetsPaper}>
               <div className={styles.assetInputWrapper}>
                 <Input
                   value={reasonForSale}
@@ -254,7 +254,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
                   </div>
                 </div>
               ))}
-            </Paper>
+            </div>
           }
         />
 
@@ -264,7 +264,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
           labelClasses={styles.spanLabelSmall}
           label={t(TranslationKey['Additional Information'])}
           inputComponent={
-            <Paper className={styles.assetsPaper}>
+            <div className={styles.assetsPaper}>
               <div className={styles.assetInputWrapper}>
                 <Input
                   value={additionalInfo}
@@ -292,7 +292,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
                   </div>
                 </div>
               ))}
-            </Paper>
+            </div>
           }
         />
       </div>

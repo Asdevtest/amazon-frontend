@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,7 +17,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { ClientAwaitingBatchesViewModel } from './client-awaiting-batches-view.model'
 
 export const ClientAwaitingBatchesView = observer(() => {
-  const [viewModel] = useState(() => new ClientAwaitingBatchesViewModel())
+  const viewModel = useMemo(() => new ClientAwaitingBatchesViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -35,7 +35,6 @@ export const ClientAwaitingBatchesView = observer(() => {
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }) => _id}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
@@ -87,9 +86,6 @@ export const ClientAwaitingBatchesView = observer(() => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}
       >
         <AddOrEditBatchForm
-          progressValue={viewModel.progressValue}
-          showProgress={viewModel.showProgress}
-          volumeWeightCoefficient={viewModel.platformSettings?.volumeWeightCoefficient}
           batchToEdit={viewModel.curBatch}
           boxesData={viewModel.boxesData}
           onClose={() => viewModel.onTriggerOpenModal('showAddOrEditBatchModal')}

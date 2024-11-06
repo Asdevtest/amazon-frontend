@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react'
+import { MdAdd, MdEdit } from 'react-icons/md'
 
-import AddIcon from '@mui/icons-material/Add'
-import EditIcon from '@mui/icons-material/Edit'
 import { Checkbox, MenuItem, Select, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -57,7 +56,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
     setValue(initValue)
   }, [orderPayments])
 
-  const EditIconToRender = () => <EditIcon className={styles.editIcon} />
+  const EditIconToRender = () => <MdEdit size={13} className={styles.editIcon} />
 
   const selectContentToRender = (valuesToRender: IPaymentMethod[], isReadOnly: boolean): JSX.Element => {
     if (valuesToRender.length) {
@@ -82,7 +81,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
           {!isReadOnly ? (
             <>
               <Typography className={styles.placeholderText}>{t(TranslationKey.Add)}</Typography>
-              <AddIcon className={styles.addIcon} />
+              <MdAdd size={13} className={styles.addIcon} />
             </>
           ) : (
             <Typography className={styles.placeholderText}>{t(TranslationKey.Missing)}</Typography>

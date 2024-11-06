@@ -26,6 +26,7 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
   const handleClickCloseButton = () => {
     onClose()
     setComment('')
+    setIsShowConfirmationModal(false)
   }
 
   const handleClickSendButton = () => {
@@ -78,10 +79,7 @@ export const FeedBackModal = memo(({ onSubmit, onClose, openModal }) => {
             successBtnText={t(TranslationKey.Yes)}
             message={t(TranslationKey['Are you sure you want to close this window?'])}
             cancelBtnText={t(TranslationKey.No)}
-            onClickSuccessBtn={() => {
-              handleClickCloseButton()
-              setIsShowConfirmationModal(false)
-            }}
+            onClickSuccessBtn={handleClickCloseButton}
             onClickCancelBtn={() => setIsShowConfirmationModal(false)}
           />
         ) : null}

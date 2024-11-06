@@ -2,10 +2,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    padding: '30px 40px',
+    padding: '30px',
     background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
-    borderRadius: 7,
+    borderRadius: 16,
   },
 
   userWrapper: {

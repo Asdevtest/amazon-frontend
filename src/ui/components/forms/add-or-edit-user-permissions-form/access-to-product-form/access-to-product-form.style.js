@@ -36,7 +36,6 @@ export const useStyles = makeStyles()(theme => ({
 
   searchInput: {
     width: '290px',
-    height: '40px',
   },
   tableWrapper: {
     display: 'flex',

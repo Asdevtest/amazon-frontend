@@ -1,6 +1,6 @@
 interface ColumnMenuSettings {
   [key: string]: {
-    currentFilterData: string[] | number[] | Array<Record<string, unknown>>
+    currentFilterData: string[] | number[] | Array<Record<string, unknown>> | boolean[]
   }
 }
 
@@ -18,18 +18,10 @@ type OperatorsSettingsType = {
 }
 
 const onlyDigitsRegex = /^\d+$/
-const onlyNumberColumns = ['humanFriendlyId', 'id', 'orderHumanFriendlyId', 'batchHumanFriendlyId']
+const onlyNumberColumns = ['xid', 'id', 'orderXid', 'batchXid', 'requestXid']
 
 const searchOperatorByColumn = {
-  $eq: [
-    'humanFriendlyId',
-    'id',
-    'orderHumanFriendlyId',
-    'orderHumanFriendlyId',
-    'productId',
-    'batchHumanFriendlyId',
-    'productCount',
-  ],
+  $eq: ['xid', 'id', 'orderXid', 'requestXid', 'productId', 'batchXid', 'productCount'],
 }
 const filterOperatorByColumn = {
   $any: ['tags', 'redFlags', 'buyer', 'createdBy'],

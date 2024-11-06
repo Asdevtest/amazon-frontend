@@ -3,7 +3,7 @@ import { IBox } from '../boxes/box'
 
 export interface IBatchByProduct {
   _id: string
-  humanFriendlyId: number
+  xid: number
   title: string
   archive: boolean
   boxes: Array<IBox>

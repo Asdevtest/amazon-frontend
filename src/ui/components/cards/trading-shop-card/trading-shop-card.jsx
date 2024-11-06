@@ -1,6 +1,5 @@
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import { MdArrowDropDown, MdArrowDropUp, MdOutlineFiberManualRecord } from 'react-icons/md'
+
 import { Grid, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -29,7 +28,7 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
 
             <div className={styles.statusWrapper}>
               <Typography className={styles.status}>{'Продается'}</Typography>
-              <FiberManualRecordRoundedIcon classes={{ root: styles.statusIcon }} fontSize="small" />
+              <MdOutlineFiberManualRecord className={styles.statusIcon} size={12} />
             </div>
           </div>
 
@@ -101,9 +100,9 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
                 inputComponent={
                   <div className={styles.percentWrapper}>
                     {item.statistics.monthlyPureProfitDiffPercentage < 0 ? (
-                      <ArrowDropDownIcon color="error" />
+                      <MdArrowDropDown size={22} className={styles.red} />
                     ) : (
-                      <ArrowDropUpIcon className={styles.green} />
+                      <MdArrowDropUp size={22} className={styles.green} />
                     )}
                     <Typography
                       className={cx(styles.green, {
@@ -121,9 +120,9 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
                 inputComponent={
                   <div className={styles.percentWrapper}>
                     {item.statistics.monthlyProfitDiffPercentage < 0 ? (
-                      <ArrowDropDownIcon color="error" />
+                      <MdArrowDropDown size={22} className={styles.red} />
                     ) : (
-                      <ArrowDropUpIcon className={styles.green} />
+                      <MdArrowDropUp size={22} className={styles.green} />
                     )}
                     <Typography
                       className={cx(styles.green, {
@@ -141,9 +140,9 @@ export const TradingShopCard = ({ item, onClickViewMore }) => {
                 inputComponent={
                   <div className={styles.percentWrapper}>
                     {item.statistics.webpageVisitsDiffPercentage < 0 ? (
-                      <ArrowDropDownIcon color="error" />
+                      <MdArrowDropDown size={22} className={styles.red} />
                     ) : (
-                      <ArrowDropUpIcon className={styles.green} />
+                      <MdArrowDropUp size={22} className={styles.green} />
                     )}
                     <Typography
                       className={cx(styles.green, {

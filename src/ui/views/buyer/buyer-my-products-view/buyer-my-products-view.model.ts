@@ -3,17 +3,18 @@ import { makeObservable } from 'mobx'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 
 import { BuyerModel } from '@models/buyer-model'
-import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
+import { DataGridTagsFilter } from '@models/data-grid-tags-filter'
 import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 
 import { IProduct } from '@typings/models/products/product'
+import { ITag } from '@typings/shared/tag'
 
 import { buyerProductsViewColumns } from './buyer-products-columns'
 import { observerConfig } from './observer-config'
 
-export class BuyerMyProductsViewModel extends DataGridFilterTableModel {
+export class BuyerMyProductsViewModel extends DataGridTagsFilter {
   productCardModal = false
 
   get userInfo() {
@@ -23,6 +24,7 @@ export class BuyerMyProductsViewModel extends DataGridFilterTableModel {
   constructor() {
     const rowHandlers = {
       onClickShowProduct: (row: IProduct) => this.onClickTableRow(row),
+      onClickTag: (tag: ITag) => this.setActiveProductsTagFromTable(tag),
     }
 
     const columnsModel = buyerProductsViewColumns(rowHandlers)

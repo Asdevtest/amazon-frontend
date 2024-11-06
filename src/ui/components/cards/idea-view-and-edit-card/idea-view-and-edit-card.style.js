@@ -5,11 +5,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    minHeight: 603,
-    padding: 20,
+    minHeight: 560,
+    padding: '10px',
     background: theme.palette.background.general,
     borderRadius: 20,
-    gap: '30px',
+    gap: '10px',
   },
 
   cardWrapper: {
@@ -57,6 +57,16 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     gap: '30px',
     width: '100%',
+  },
+
+  ideaID: {
+    color: theme.palette.text.second,
+    fontSize: '14px',
+  },
+
+  idText: {
+    color: theme.palette.text.main,
+    fontWeight: 700,
   },
 
   mediaBlock: {
@@ -280,8 +290,6 @@ export const useStyles = makeStyles()(theme => ({
 
   deleteBtn: {
     color: theme.palette.text.second,
-    width: '20px',
-    height: '20px',
   },
 
   ideaTitle: {
@@ -318,6 +326,9 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '10px',
     alignItems: 'center',
+  },
+  icon: {
+    color: theme.palette.primary.main,
   },
   iconBtn: {
     maxHeight: 40,
@@ -474,7 +485,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   modalContentWrapper: {
-    maxHeight: '560px',
+    maxHeight: '520px',
     overflowY: 'auto',
   },
 

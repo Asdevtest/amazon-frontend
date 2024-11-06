@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
-
-import { GridRowModel } from '@mui/x-data-grid-premium'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -22,8 +20,7 @@ import { ShopForm } from './components/shop-form'
 
 export const ClientShopsView = observer(() => {
   const { classes: styles } = useStyles()
-
-  const [viewModel] = useState(() => new ShopsViewModel())
+  const viewModel = useMemo(() => new ShopsViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -63,7 +60,6 @@ export const ClientShopsView = observer(() => {
         columnVisibilityModel={viewModel.columnVisibilityModel}
         rows={viewModel.currentData}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

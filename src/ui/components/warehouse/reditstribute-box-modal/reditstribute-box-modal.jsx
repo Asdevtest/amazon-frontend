@@ -7,10 +7,10 @@ import { BoxStatus } from '@constants/statuses/box-status'
 import { TaskPriorityStatus, mapTaskPriorityStatusEnumToKey } from '@constants/task/task-priority-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { PriorityForm } from '@components/forms/priority-form/priority-form'
 import { BoxSplit } from '@components/shared/boxes/box-split'
 import { Button } from '@components/shared/button'
 import { Field } from '@components/shared/field'
-import { PriorityForm } from '@components/shared/priority-form/priority-form'
 
 import { filterEmptyBoxes, filterEmptyOrders } from '@utils/filters'
 import { t } from '@utils/translations'
@@ -197,7 +197,7 @@ export const RedistributeBox = observer(
           <div className={styles.currentBox}>
             <div className={styles.currentBoxTitle}>
               <p className={styles.sectionTitle}>{t(TranslationKey.Redistribute)}</p>
-              <p className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${currentBox?.humanFriendlyId}`}</p>
+              <p className={styles.boxTitle}>{`${t(TranslationKey.Box)} № ${currentBox?.xid}`}</p>
             </div>
 
             <Box

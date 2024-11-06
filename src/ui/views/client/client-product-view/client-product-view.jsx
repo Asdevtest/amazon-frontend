@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -18,7 +18,7 @@ import { UseProductsPermissions } from '@hooks/use-products-permissions'
 import { ClientProductViewModel } from './client-product-view.model'
 
 export const ClientProductView = observer(({ history }) => {
-  const [viewModel] = useState(() => new ClientProductViewModel({ history }))
+  const viewModel = useMemo(() => new ClientProductViewModel({ history }), [])
 
   const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 

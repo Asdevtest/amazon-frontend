@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react'
+import { MdClear } from 'react-icons/md'
 
-import ClearIcon from '@mui/icons-material/Clear'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -62,9 +62,9 @@ export const TableAsinAndReason = observer(({ userRole, data, onClickRemoveCell 
                 )}
                 <TableCell className={cx(styles.clearCell)}>
                   {checkIsAdmin(userRole) ? (
-                    <ClearIcon classes={{ root: styles.icon }} onClick={() => onClickRemoveCell(item)} />
+                    <MdClear size={20} onClick={() => onClickRemoveCell(item)} />
                   ) : (
-                    <ClearIcon classes={{ root: styles.icon }} onClick={() => onClickRemoveCell(item.asin)} />
+                    <MdClear size={20} onClick={() => onClickRemoveCell(item.asin)} />
                   )}
                 </TableCell>
               </TableRow>

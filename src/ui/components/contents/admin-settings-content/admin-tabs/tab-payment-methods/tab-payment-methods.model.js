@@ -29,7 +29,6 @@ export class AdminSettingsPaymentMethodsModel {
 
   constructor() {
     this.getPaymentMethods()
-
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -62,7 +61,6 @@ export class AdminSettingsPaymentMethodsModel {
       toast.success(t(TranslationKey['Payment method successfully saved']))
       this.getPaymentMethods()
     } catch (error) {
-      console.error(error)
       toast.error(t(TranslationKey['Payment method is not saved']))
     }
   }
@@ -109,12 +107,12 @@ export class AdminSettingsPaymentMethodsModel {
   }
 
   async onSubmitPaymentMethod() {
-    const resolve = isString(this.method.iconImage)
+    const currentIcon = isString(this.method.iconImage)
       ? await uploadFileByUrl(this.method.iconImage)
       : await onPostImage(this.method.iconImage)
 
     runInAction(() => {
-      this.method.iconImage = resolve
+      this.method.iconImage = currentIcon
     })
 
     this.isEdit ? this.editPaymentMethod(this.editPaymentMethodId, this.method) : this.createPaymentMethod(this.method)

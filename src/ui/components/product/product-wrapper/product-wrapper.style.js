@@ -6,12 +6,11 @@ export const useStyles = makeStyles()(() => ({
     flexDirection: 'column',
     position: 'relative',
     height: '100%',
-    padding: 10,
   },
 
   customSwitcher: {
     position: 'sticky',
-    top: -10,
+    top: 0,
     left: 0,
     zIndex: 7,
   },

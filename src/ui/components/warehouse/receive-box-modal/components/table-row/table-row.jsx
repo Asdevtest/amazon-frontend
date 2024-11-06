@@ -1,8 +1,7 @@
 import { memo } from 'react'
 import { FiPlus } from 'react-icons/fi'
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdDeleteOutline } from 'react-icons/md'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -189,7 +188,7 @@ export const TableBodyBoxRow = memo(({ item, handlers }) => {
           danger
           size="large"
           shape="circle"
-          icon={<MdOutlineDelete size={20} />}
+          icon={<MdDeleteOutline size={20} />}
           onClick={() => handlers.onRemoveBox(item._id)}
         />
       </TableCell>

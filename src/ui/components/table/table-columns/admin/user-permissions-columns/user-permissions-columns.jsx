@@ -1,15 +1,12 @@
-import { MdOutlineDelete } from 'react-icons/md'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { UserRolePrettyMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, MultilineTextHeaderCell, NormDateCell } from '@components/data-grid/data-grid-cells'
-import { EditIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
-
-import { ButtonStyle } from '@typings/enums/button-style'
 
 export const userPermissionsColumns = handlers => [
   {
@@ -51,15 +48,15 @@ export const userPermissionsColumns = handlers => [
     renderCell: params => (
       <ActionButtonsCell
         row
-        iconButton
-        isFirstButton
-        isSecondButton
-        firstButtonElement={<EditIcon />}
-        firstButtonStyle={ButtonStyle.PRIMARY}
-        secondButtonElement={<MdOutlineDelete size={18} />}
-        secondButtonStyle={ButtonStyle.DANGER}
-        onClickFirstButton={() => handlers.onClickEditBtn(params.row)}
-        onClickSecondButton={() => handlers.onClickRemoveBtn(params.row)}
+        showFirst
+        showSecond
+        secondDanger
+        firstGhost
+        secondGhost
+        firstIcon={<MdOutlineEdit size={16} />}
+        secondIcon={<MdOutlineDelete size={16} />}
+        onClickFirst={() => handlers.onClickEditBtn(params.row)}
+        onClickSecond={() => handlers.onClickRemoveBtn(params.row)}
       />
     ),
     filterable: false,

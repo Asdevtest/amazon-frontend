@@ -1,23 +1,23 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  wrapper: {
-    padding: '10px 0px',
+  root: {
+    width: '100%',
+    padding: '5px 0',
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
-  },
-
-  flexColumn: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '3px',
+    gap: '5px',
   },
 
   text: {
     fontSize: '14px',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
+    lineHeight: '19px',
+  },
+
+  vertical: {
+    width: '100%',
+    minWidth: '0px',
+    display: 'flex',
+    flexDirection: 'column',
   },
 }))

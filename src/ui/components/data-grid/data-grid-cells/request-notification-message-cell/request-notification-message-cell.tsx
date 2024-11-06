@@ -27,7 +27,7 @@ export const RequestNotificationMessageCell: FC<RequestNotificationMessageCellPr
         <>
           {t(TranslationKey['Status of the proposal by request '])}{' '}
           <NavLink to={getUrlToRequest(notification?.request?._id)} className={styles.notificationId} target="_blank">
-            {`"${notification?.request?.humanFriendlyId}" `}
+            {`"${notification?.request?.xid}" `}
           </NavLink>
           {t(TranslationKey['changed to'])}
           <span style={{ color: RequestProposalStatusColor(notification?.status) }}>
@@ -45,7 +45,7 @@ export const RequestNotificationMessageCell: FC<RequestNotificationMessageCellPr
             className={styles.notificationId}
             target="_blank"
           >
-            {`"${notification?.humanFriendlyId || notification?.request?.humanFriendlyId}" `}
+            {`"${notification?.xid || notification?.request?.xid}" `}
           </NavLink>
           {t(TranslationKey.expires)} {formatNormDateTime(notification?.timeoutAt)}
         </>

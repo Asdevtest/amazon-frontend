@@ -1,7 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
-
-import { GridRowModel } from '@mui/x-data-grid-premium'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,7 +15,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { AdminFeedbackViewModel } from './admin-feedback-view.model'
 
 export const AdminFeedbackView = observer(() => {
-  const [viewModel] = useState(() => new AdminFeedbackViewModel())
+  const viewModel = useMemo(() => new AdminFeedbackViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -42,7 +40,6 @@ export const AdminFeedbackView = observer(() => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         getRowHeight={() => 'auto'}
-        getRowId={({ _id }: GridRowModel) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

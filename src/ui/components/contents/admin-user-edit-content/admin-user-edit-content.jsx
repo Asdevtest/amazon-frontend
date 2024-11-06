@@ -1,10 +1,8 @@
 import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
+import { MdCheckBox, MdVisibility, MdVisibilityOff } from 'react-icons/md'
 
-import CheckBoxIcon from '@mui/icons-material/CheckBox'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { Checkbox, ListItemText, MenuItem, Rating, Select, Typography } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
@@ -13,7 +11,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
-import { AddOrEditUserPermissionsForm } from '@components/forms/add-or-edit-user-permissions-form'
+import { PermissionsForm } from '@components/forms/permissions-form'
 import { Button } from '@components/shared/button'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { Field } from '@components/shared/field'
@@ -44,6 +42,7 @@ export const AdminUserEditContent = observer(
     groupPermissions,
     singlePermissions,
     changeFields,
+    onUpdateData,
   }) => {
     const { classes: styles, cx } = useStyles()
 
@@ -351,7 +350,7 @@ export const AdminUserEditContent = observer(
                 onChange={onChangeFormField('oldPassword')}
               />
               <div className={styles.visibilityIcon} onClick={() => setVisibilityOldPass(!visibilityOldPass)}>
-                {!visibilityOldPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                {!visibilityOldPass ? <MdVisibilityOff size={24} /> : <MdVisibility size={24} />}
               </div>
             </div>
 
@@ -369,7 +368,7 @@ export const AdminUserEditContent = observer(
                 onChange={onChangeFormField('password')}
               />
               <div className={styles.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
-                {!visibilityPass ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                {!visibilityPass ? <MdVisibilityOff size={24} /> : <MdVisibility size={24} />}
               </div>
               <div className={styles.validationMessage}>
                 {validationMessagesArray(
@@ -520,7 +519,7 @@ export const AdminUserEditContent = observer(
                   />
                 </div>
               </div>
-              {selectedRole ? <CheckBoxIcon fontSize="medium" onClick={() => addAllowedRole()} /> : null}
+              {selectedRole ? <MdCheckBox size={24} onClick={() => addAllowedRole()} /> : null}
             </div>
 
             <Field
@@ -671,16 +670,15 @@ export const AdminUserEditContent = observer(
           </Button>
         </div>
 
-        <Modal openModal={showPermissionModal} setOpenModal={() => setShowPermissionModal(!showPermissionModal)}>
-          <AddOrEditUserPermissionsForm
-            isWithoutProductPermissions
-            shops={[]}
-            specs={specs}
-            permissionsToSelect={permissionsToSelect}
-            permissionGroupsToSelect={permissionGroupsToSelect}
-            sourceData={formFields}
+        <Modal
+          missClickModalOn
+          openModal={showPermissionModal}
+          setOpenModal={() => setShowPermissionModal(!showPermissionModal)}
+        >
+          <PermissionsForm
+            subUser={editUserFormFields}
             onCloseModal={() => setShowPermissionModal(!showPermissionModal)}
-            onSubmit={onSubmitUserPermissionsForm}
+            onUpdateData={onUpdateData}
           />
         </Modal>
       </div>

@@ -55,18 +55,6 @@ export const getNewObjectWithDefaultValue = (target, defaultValue) =>
     return acc
   }, {})
 
-export const filterNullValues = obj => {
-  const result = {}
-
-  Object.keys(obj).forEach(key => {
-    if (obj[key] !== null) {
-      result[key] = obj[key]
-    }
-  })
-
-  return result
-}
-
 export const objectDeepCompare = (obj1, obj2) => {
   // Сравнение по ссылкам
   if (typeof obj1 !== typeof obj2) {

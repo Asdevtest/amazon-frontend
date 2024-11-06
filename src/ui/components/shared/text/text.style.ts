@@ -4,10 +4,14 @@ export const useStyles = makeStyles()(() => ({
   wrapper: {
     position: 'relative',
     width: '100%',
-    height: '100%',
+
+    '& > div': {
+      minHeight: '16px',
+    },
   },
 
   cell: {
+    height: '100%',
     padding: '5px 0 5px 5px',
   },
 
@@ -23,7 +27,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: '5px',
-    minHeight: '22px',
+    minHeight: '16px',
     height: '100%',
   },
 

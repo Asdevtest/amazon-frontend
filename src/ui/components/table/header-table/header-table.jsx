@@ -39,9 +39,9 @@ export const HeaderTable = ({ viewModel }) => {
 
           <CustomRadioButton
             size="large"
-            buttonStyle="solid"
             options={switcherSettings}
             defaultValue={viewModel.currentStorekeeperId}
+            style={{ whiteSpace: 'nowrap' }}
             onChange={viewModel.onClickStorekeeperBtn}
           />
         </div>
@@ -51,7 +51,7 @@ export const HeaderTable = ({ viewModel }) => {
           allowClear
           wrapperClassName={styles.searchInput}
           size="large"
-          placeholder="Search by ASIN, Title, Batch ID, Order ID"
+          placeholder="Search by ASIN, Title, Batch ID"
           onSearch={viewModel.onSearchSubmit}
         />
 

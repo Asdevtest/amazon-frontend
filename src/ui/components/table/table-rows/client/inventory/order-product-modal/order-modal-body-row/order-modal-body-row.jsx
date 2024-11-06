@@ -1,13 +1,13 @@
 import { isValid } from 'date-fns'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
+import { MdOutlineDelete } from 'react-icons/md'
 
-import DeleteIcon from '@material-ui/icons/Delete'
 import { Checkbox, IconButton, TableCell, TableRow, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ChangeChipCell, ProductCell } from '@components/data-grid/data-grid-cells'
+import { ChangeChipCell, ProductCell, StringListCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { Button } from '@components/shared/button'
@@ -18,6 +18,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { TruckIcon } from '@components/shared/svg-icons'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
+import { convertLocalDateToUTC } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -35,6 +36,7 @@ export const OrderModalBodyRow = ({
   storekeepers,
   item,
   itemIndex,
+  isPendingOrder,
   setOrderStateFiled,
   onClickBarcode,
   onClickExpressChinaDelivery,
@@ -86,8 +88,16 @@ export const OrderModalBodyRow = ({
 
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
-      setOrderStateFiled(nameInput)(isValid(event) ? event : null)
-      setDeadline(isValid(event) ? event : null)
+      let value
+
+      if (isValid(event)) {
+        value = new Date(convertLocalDateToUTC(new Date(event)))
+      } else {
+        value = null
+      }
+
+      setOrderStateFiled(nameInput)(value)
+      setDeadline(value)
     } else if (nameInput === 'tariff') {
       setOrderStateFiled(nameInput)(event)
     } else {
@@ -213,13 +223,15 @@ export const OrderModalBodyRow = ({
         <TableCell className={styles.cell}>
           <div className={styles.priceVariationsCell}>
             {priceVariations?.length > 0 ? (
-              priceVariations?.map((el, index) => (
-                <div key={index}>
-                  {el.quantity} {t(TranslationKey['pcs.'])}. /{' '}
-                  {toFixedWithDollarSign(el?.price / platformSettings?.yuanToDollarRate, 2)}{' '}
-                  {t(TranslationKey.Per).toLowerCase()} {t(TranslationKey['pcs.'])}
-                </div>
-              ))
+              <StringListCell
+                data={priceVariations?.map(
+                  el =>
+                    `${el.quantity} ${t(TranslationKey['pcs.'])}. / ${toFixedWithDollarSign(
+                      el?.price / platformSettings?.yuanToDollarRate,
+                      2,
+                    )} ${t(TranslationKey.Per).toLowerCase()} ${t(TranslationKey['pcs.'])}`,
+                )}
+              />
             ) : (
               <span>—</span>
             )}
@@ -319,7 +331,7 @@ export const OrderModalBodyRow = ({
           <div className={styles.datePickerWrapper}>
             <DatePicker
               disablePast
-              // error={!isValid(parsedDeadline) || isPast(parsedDeadline)}
+              error={isPendingOrder && !deadline}
               minDate={minDate}
               value={deadline}
               onChange={e => onChangeInput(e, 'deadline')}
@@ -330,7 +342,7 @@ export const OrderModalBodyRow = ({
         {withRemove && (
           <TableCell className={styles.deleteCell}>
             <IconButton onClick={() => onRemoveProduct(item._id)}>
-              <DeleteIcon />
+              <MdOutlineDelete size={24} />
             </IconButton>
           </TableCell>
         )}

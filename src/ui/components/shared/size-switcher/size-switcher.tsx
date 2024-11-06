@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useMemo } from 'react'
 
-import { CustomSwitcher } from '@components/shared/custom-switcher'
+import { CustomRadioButton } from '../custom-radio-button'
 
 import { sizeSwitcherSettings } from './size-switcher.config'
 
@@ -18,11 +18,11 @@ export const SizeSwitcher = <T,>({ condition, onChangeCondition }: SizeSwitcherP
   )
 
   return (
-    <CustomSwitcher
-      switchMode="small"
-      condition={condition}
-      switcherSettings={sizeSwitcherSettings}
-      changeConditionHandler={memoizedOnChangeCondition}
+    <CustomRadioButton
+      size="small"
+      options={sizeSwitcherSettings}
+      value={condition}
+      onChange={e => memoizedOnChangeCondition(e?.target?.value)}
     />
   )
 }

@@ -1,6 +1,6 @@
 import { memo } from 'react'
+import { MdFiberManualRecord } from 'react-icons/md'
 
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 import { Link, Typography } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -42,7 +42,7 @@ export const ShopInfo = memo(({ userInfo, data, onClickEditBtn }) => {
             <Typography className={styles.shopTitle}>{data.title}</Typography>
             <div className={styles.statusWrapper}>
               <Typography className={styles.cardTitle}>{t(TranslationKey['For sale'])}</Typography>
-              <FiberManualRecordRoundedIcon color="success" />
+              <MdFiberManualRecord size={16} className={styles.green} />
             </div>
           </div>
           <div>

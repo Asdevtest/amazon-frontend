@@ -265,6 +265,7 @@ class ChatModelStatic {
         this.simpleChats = plainToInstance(ChatContract, getSimpleChatsResult).map((chat: ChatContract) => ({
           ...chat,
           messages: [],
+          messagesToForward: [],
           pagination: {
             limit: 20,
             offset: 0,
@@ -347,7 +348,7 @@ class ChatModelStatic {
       video: this.loadedVideos,
     }
 
-    if (params.text || this.loadedImages.length || this.loadedVideos.length) {
+    if (params.text || this.loadedImages.length || this.loadedVideos.length || params?.forwardedMessageId) {
       await this.websocketChatService.sendMessage(messageWithoutFiles)
     }
 
@@ -805,6 +806,37 @@ class ChatModelStatic {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  public onClickForwardMessages(chatId: string, messagesToForward: ChatMessageContract[]) {
+    const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, chatId)
+
+    if (!chatTypeAndIndex || chatTypeAndIndex.chatType === 'chats') {
+      return
+    }
+
+    const { chatType, index } = chatTypeAndIndex
+
+    runInAction(() => {
+      this[chatType][index].messagesToForward = messagesToForward
+    })
+  }
+
+  public clearMessagesToForward(chatId: string) {
+    const chatTypeAndIndex = getTypeAndIndexOfChat.call(this, chatId)
+
+    if (!chatTypeAndIndex || chatTypeAndIndex.chatType === 'chats') {
+      return
+    }
+
+    const { chatType, index } = chatTypeAndIndex
+
+    runInAction(() => {
+      this[chatType][index] = {
+        ...this[chatType][index],
+        messagesToForward: [],
+      }
+    })
   }
 }
 

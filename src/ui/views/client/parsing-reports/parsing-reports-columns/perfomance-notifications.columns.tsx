@@ -1,7 +1,7 @@
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { MultilineTextHeaderCell, NormDateCell, UserLinkCell } from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
@@ -38,7 +38,9 @@ export const perfomanceNotificationsColumns = () => {
       headerName: t(TranslationKey['Created by']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
 
-      renderCell: params => <UserLinkCell blackText name={params.row.client?.name} userId={params.row.client?._id} />,
+      renderCell: params => (
+        <UserCell name={params.row.client?.name} id={params.row.client?._id} email={params.row.client?.email} />
+      ),
       width: 110,
 
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -67,8 +69,8 @@ export const perfomanceNotificationsColumns = () => {
 
     {
       field: 'amzId',
-      headerName: 'Amz id',
-      renderHeader: () => <MultilineTextHeaderCell text="Amz id" />,
+      headerName: 'AMZ ID',
+      renderHeader: () => <MultilineTextHeaderCell text="AMZ ID" />,
 
       renderCell: params => <Text isCell text={params.value?.replaceAll('_', ' ')} />,
       transformValueMethod: value => value?.replaceAll('_', ' '),

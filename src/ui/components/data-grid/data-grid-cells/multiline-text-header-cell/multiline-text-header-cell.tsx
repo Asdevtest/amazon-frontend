@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
+import { MdOutlineFilterAlt } from 'react-icons/md'
 
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined'
 import { Tooltip } from '@mui/material'
 
 import { useStyles } from './multiline-text-header-cell.style'
@@ -46,7 +46,8 @@ export const MultilineTextHeaderCell: FC<MultilineTextHeaderCellProps> = memo(pr
       </Tooltip>
       {component}
       {withIcon || isShowIconOnHover || isFilterActive ? (
-        <FilterAltOutlinedIcon
+        <MdOutlineFilterAlt
+          size={14}
           className={cx(styles.headerIcon, {
             [styles.headerIconBlue]: isFilterActive,
           })}

@@ -23,6 +23,8 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
     table,
     filtersData,
     filterRequestStatus,
+    additionalFilterSettings,
+    fieldNameFilter,
     onClose,
     onClickFilterBtn,
     onChangeFullFieldMenuItem,
@@ -50,6 +52,8 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
     field,
     table,
     filtersData,
+    additionalFilterSettings,
+    fieldNameFilter,
     onClickFilterBtn,
   })
 

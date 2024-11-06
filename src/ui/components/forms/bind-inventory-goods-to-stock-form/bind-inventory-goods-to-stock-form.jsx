@@ -6,7 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Button } from '@components/shared/button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { SearchInput } from '@components/shared/search-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
@@ -60,9 +60,9 @@ export const BindInventoryGoodsToStockForm = observer(props => {
     setSelectedGoods(model)
   }
   const onClickAdd = () => {
-    const curChosenGoodsIds = chosenGoods.map(el => el.id)
+    const curChosenGoodsIds = chosenGoods.map(el => el._id)
     const newRowIds = selectedGoods.filter(el => !curChosenGoodsIds.includes(el))
-    const newSelectedItems = stockData.filter(el => newRowIds.includes(el.id))
+    const newSelectedItems = stockData.filter(el => newRowIds.includes(el._id))
     setChosenGoods([...chosenGoods, ...newSelectedItems])
     setSelectedGoods([])
   }
@@ -131,11 +131,13 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           </Button>
         </div>
 
-        <SearchInput
+        <CustomInputSearch
+          allowClear
+          size="large"
           disabled={chipConfig === chipConfigSettings.RECOMMENDED}
           value={searchInputValue}
-          placeholder={t(TranslationKey.Search)}
-          onSubmit={setSearchInputValue}
+          placeholder="Search"
+          onChange={e => setSearchInputValue(e.target.value)}
         />
       </div>
 
@@ -157,7 +159,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
 
       <div className={styles.btnsWrapper}>
         <Button
-          disabled={selectedGoods.every(el => chosenGoods.map(el => el.id).includes(el)) || selectedGoods.length < 1}
+          disabled={selectedGoods.every(el => chosenGoods.map(el => el._id).includes(el)) || selectedGoods.length < 1}
           onClick={onClickAdd}
         >
           {t(TranslationKey.Add)}
@@ -174,7 +176,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
           paginationMode="client"
           rows={chosenGoods || []}
           columns={chosenGoodsColumns({ onClickTrash })}
-          rowHeight={40}
+          getRowHeight={() => 'auto'}
         />
       </div>
 

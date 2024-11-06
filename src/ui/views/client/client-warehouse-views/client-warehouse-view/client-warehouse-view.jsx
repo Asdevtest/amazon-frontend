@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -15,7 +15,7 @@ import { styles } from './client-warehouse-view.style'
 import { ClientWarehouseViewModel } from './client-warehouse-view.model'
 
 export const ClientWarehouseViewRaw = props => {
-  const [viewModel] = useState(() => new ClientWarehouseViewModel({ history: props.history }))
+  const viewModel = useMemo(() => new ClientWarehouseViewModel({ history: props.history }), [])
   const { classes: styles } = props
 
   return (

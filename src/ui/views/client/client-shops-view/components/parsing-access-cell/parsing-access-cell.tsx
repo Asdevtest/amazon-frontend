@@ -5,10 +5,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell } from '@components/data-grid/data-grid-cells'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
 import { ProfileStatus } from '@typings/enums/request/profile-request-status'
 
 import { useStyles } from './parsing-access-cell.style'
@@ -40,18 +38,14 @@ export const ParsingAccessCell: FC<ParsingAccessCellProps> = memo(props => {
 
   return (
     <ActionButtonsCell
-      isFirstButton
-      isSecondButton
-      fullWidth
-      buttonClassName={styles.button}
-      disabledFirstButton={disabledFirstButton}
-      disabledSecondButton={disabledSecondButton}
-      firstButtonElement={t(TranslationKey['Invitation sent'])}
-      firstButtonStyle={ButtonStyle.PRIMARY}
-      secondButtonElement={t(TranslationKey.Confirm)}
-      secondButtonStyle={ButtonStyle.PRIMARY}
-      onClickFirstButton={throttle(onParsingProfileInvited)}
-      onClickSecondButton={throttle(onAccess)}
+      showFirst
+      showSecond
+      firstDisabled={disabledFirstButton}
+      secondDisabled={disabledSecondButton}
+      firstContent={t(TranslationKey['Invitation sent'])}
+      secondContent={t(TranslationKey.Confirm)}
+      onClickFirst={onParsingProfileInvited}
+      onClickSecond={onAccess}
     />
   )
 })

@@ -1,6 +1,5 @@
 import { FC, memo } from 'react'
-
-import DoneIcon from '@mui/icons-material/Done'
+import { MdDone } from 'react-icons/md'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
 import { colorByStatus } from '@constants/requests/request-status'
@@ -33,6 +32,8 @@ interface RequestTermsProps {
   updatedAt: string
   status: string
   taskComplexity: number
+  ideaIds: { xid: string; _id: string }
+  onClickIdeaId: (ideaId: string) => void
 }
 
 export const RequestTerms: FC<RequestTermsProps> = memo(props => {
@@ -49,8 +50,9 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
     updatedAt,
     status,
     taskComplexity,
+    ideaIds,
+    onClickIdeaId,
   } = props
-
   return (
     <div className={styles.requestInformationWrapper}>
       <div className={styles.requestInformationTitleWrapper}>
@@ -58,7 +60,7 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
 
         {withoutConfirmation && (
           <div className={styles.confirmationWrapper}>
-            <DoneIcon className={styles.doneIcon} />
+            <MdDone size={19} className={styles.doneIcon} />
 
             <p
               title={t(TranslationKey['Allowed to the performer to take the application to work without confirmation'])}
@@ -78,6 +80,14 @@ export const RequestTerms: FC<RequestTermsProps> = memo(props => {
             {difficultyLevelTranslate(difficultyLevelByCode[taskComplexity])}
           </p>
         </div>
+        {ideaIds ? (
+          <>
+            <p className={styles.sectionTitle}>{t(TranslationKey.Idea) + ' №'}:</p>
+            <p className={styles.lnkTitle} onClick={() => onClickIdeaId(ideaIds._id)}>
+              {ideaIds.xid}
+            </p>
+          </>
+        ) : null}
       </div>
 
       <div className={styles.requestInfoWrapper}>

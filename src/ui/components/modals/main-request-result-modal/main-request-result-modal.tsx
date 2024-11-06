@@ -44,7 +44,7 @@ export const MainRequestResultModal: FC<MainRequestResultModalProps> = memo(prop
           isClient={isClient}
           asin={customProposal?.request?.asin}
           executionTime={getMinutesDifferenceFromNow(customProposal?.proposal?.timeoutAt)}
-          humanFriendlyId={customProposal?.request?.humanFriendlyId}
+          xid={customProposal?.request?.xid}
         />
 
         <Field

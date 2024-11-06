@@ -30,9 +30,12 @@ export const OwnerGeneralRequestInfo = props => {
     onClickAbortBtn,
     onRecoverRequest,
     onToggleUploadedToListing,
+    onClickIdeaId,
   } = props
 
   const [isRestoreModalOpen, setIsRestoreModalOpen] = useState(false)
+
+  const ideaIds = request?.request?.onCheckIdea || request?.request?.onFinishedIdea
 
   const newProductPrice =
     calcNumberMinusPercent(request?.request?.priceAmazon, request?.request?.cashBackInPercent) || null
@@ -58,7 +61,7 @@ export const OwnerGeneralRequestInfo = props => {
         requestProposals={requestProposals}
         title={request?.request?.title}
         asin={request?.request.asin}
-        humanFriendlyId={request?.request.humanFriendlyId}
+        xid={request?.request.xid}
         sub={request?.request?.sub}
         createdBy={request?.request?.createdBy}
       />
@@ -75,6 +78,8 @@ export const OwnerGeneralRequestInfo = props => {
           updatedAt={request?.request?.updatedAt}
           status={request?.request?.status}
           taskComplexity={request?.request?.taskComplexity}
+          ideaIds={ideaIds}
+          onClickIdeaId={onClickIdeaId}
         />
       )}
 

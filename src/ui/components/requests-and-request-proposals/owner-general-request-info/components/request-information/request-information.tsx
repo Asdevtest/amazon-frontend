@@ -21,7 +21,7 @@ interface RequestInformationProps {
   requestProposals: IProposal[]
   title: string
   asin: string
-  humanFriendlyId: string
+  xid: string
   sub: ICreatedBy
   createdBy: ICreatedBy
 }
@@ -29,7 +29,7 @@ interface RequestInformationProps {
 export const RequestInformation: FC<RequestInformationProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
-  const { priority, maxAmountOfProposals, requestProposals, title, asin, humanFriendlyId, sub, createdBy } = props
+  const { priority, maxAmountOfProposals, requestProposals, title, asin, xid, sub, createdBy } = props
 
   return (
     <div className={cx(styles.requestInformationWrapper, styles.firstBlock)}>
@@ -86,7 +86,7 @@ export const RequestInformation: FC<RequestInformationProps> = memo(props => {
           <div className={styles.moreInformationSection}>
             <p className={styles.sectionSubTitle}>{t(TranslationKey.ID) + ':'}</p>
 
-            <p className={styles.sectionText}>{humanFriendlyId || t(TranslationKey.Missing)}</p>
+            <p className={styles.infoText}>{xid || t(TranslationKey.Missing)}</p>
           </div>
         </div>
       </div>

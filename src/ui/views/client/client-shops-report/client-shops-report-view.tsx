@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { observer } from 'mobx-react'
-import { useState } from 'react'
-
-import { GridRowModel } from '@mui/x-data-grid-premium'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -12,7 +10,6 @@ import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
-import { addIdDataConverter } from '@utils/data-grid-data-converters'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
@@ -22,7 +19,7 @@ import { ClientShopsViewModel } from './client-shops-report-view.model'
 import { ControllButtons } from './controll-buttons/controll-buttons'
 
 export const ClientShopsReportView = observer(({ history }: { history: any }) => {
-  const [viewModel] = useState(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, history))
+  const viewModel = useMemo(() => new ClientShopsViewModel(ShopReportsTabsValues.PPC_ORGANIC_BY_DAY, history), [])
 
   return (
     <div className="viewWrapper">
@@ -88,7 +85,6 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
         rowSelectionModel={viewModel.selectedRows}
-        getRowId={({ _id }: GridRowModel) => _id}
         onRowSelectionModelChange={viewModel.onSelectionModel}
         onSortModelChange={viewModel.onChangeSortingModel}
         onColumnVisibilityModelChange={viewModel.onColumnVisibilityModelChange}
@@ -102,9 +98,7 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
         setOpenModal={() => viewModel.onTriggerOpenModal('showBindStockGoodsToInventoryModal')}
       >
         <BindStockGoodsToInventoryForm
-          goodsToSelect={addIdDataConverter(
-            viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id)),
-          )}
+          goodsToSelect={viewModel.currentData?.filter((item: any) => viewModel.selectedRows?.includes(item?._id))}
           inventoryData={viewModel.inventoryProducts}
           updateInventoryData={viewModel.getProductsMy}
           onSubmit={viewModel.submitBindStockGoodsHandler}

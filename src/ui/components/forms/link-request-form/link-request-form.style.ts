@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   root: {
+    width: '600px',
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
@@ -28,10 +29,5 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
     gap: 20,
-  },
-
-  dataGridRoot: {
-    '& .MuiDataGrid-columnHeaderTitleContainer': { padding: '0 !important' },
-    '& .MuiDataGrid-columnHeaderDraggableContainer': { padding: '0 !important' },
   },
 }))

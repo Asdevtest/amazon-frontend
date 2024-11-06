@@ -57,12 +57,6 @@ export const EditTaskPriorityModal: FC<EditTaskPriorityModalProps> = props => {
           <PrioritySelect setCurrentPriority={priority => setCurPriority(priority)} currentPriority={curPriority} />
         )}
       </div>
-      {/* <Typography className={styles.title}>
-        {t(TranslationKey['Change the priority to'])}{' '}
-        <span style={{color: colorByTaskPriorityStatus(mapTaskPriorityStatusEnum[data.newPriority])}}>
-          {taskPriorityStatusTranslate(mapTaskPriorityStatusEnum[data.newPriority])}
-        </span>
-      </Typography> */}
 
       <Field
         labelClasses={styles.reasonLabel}

@@ -1,5 +1,5 @@
 export const filtersFields = [
-  'humanFriendlyId',
+  'xid',
   'updatedAt',
   'createdAt',
   'client',

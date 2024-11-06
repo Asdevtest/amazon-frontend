@@ -10,7 +10,7 @@ import {
   NormDateCell,
   NotificationMessageCell,
   ProductCell,
-  UserMiniCell,
+  UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
@@ -30,7 +30,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
       renderCell: (params: GridCellParams) => (
         <ProductCell
-          sku={params.row.product?.skuByClient || params.row.parentProduct?.skuByClient}
+          sku={params.row.product?.skuByClient}
           image={params.row.product?.images?.[0]}
           title={params.row.product?.amazonTitle}
           asin={params.row.product?.asin}
@@ -108,11 +108,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       renderCell: (params: GridCellParams) => {
         const sub = params?.row?.sub
 
-        return sub ? (
-          <UserMiniCell userName={sub?.name} userId={sub?._id} />
-        ) : (
-          <Text isCell text={t(TranslationKey.Missing)} />
-        )
+        return sub ? <UserCell name={sub?.name} id={sub?._id} /> : <Text isCell text={t(TranslationKey.Missing)} />
       },
       width: 145,
     })

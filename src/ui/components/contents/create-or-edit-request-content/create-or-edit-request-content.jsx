@@ -18,7 +18,7 @@ import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { Button } from '@components/shared/button'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
-import { DatePicker, TimePicker } from '@components/shared/date-picker'
+import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
@@ -33,7 +33,7 @@ import { RequestSelect } from '@views/shared/create-or-edit-request-view/request
 
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
-import { formatDateForShowWithoutParseISO } from '@utils/date-time'
+import { convertLocalDateToUTC, formatDateForShowWithoutParseISO } from '@utils/date-time'
 import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -280,7 +280,9 @@ export const CreateOrEditRequestContent = memo(props => {
       if (['maxAmountOfProposals', 'timeLimitInMinutes'].includes(fieldName)) {
         newFormFields[section][fieldName] = parseInt(event.target.value) || ''
       } else if (['timeoutAt'].includes(fieldName)) {
-        newFormFields[section][fieldName] = event
+        const arrivalDate = convertLocalDateToUTC(new Date(event))
+
+        newFormFields[section][fieldName] = new Date(arrivalDate)
         setDeadlineError(false)
       } else if (
         ['needCheckBySupervisor', 'restrictMoreThanOneProposalFromOneAssignee', 'withoutConfirmation'].includes(
@@ -398,7 +400,7 @@ export const CreateOrEditRequestContent = memo(props => {
     const createdDefaultRequestTemplateSelectValue = {
       ...request,
       value: request?._id,
-      label: `${t(TranslationKey['Request ID'])}: ${request?.humanFriendlyId || t(TranslationKey.Missing)}`,
+      label: `${t(TranslationKey['Request ID'])}: ${request?.xid || t(TranslationKey.Missing)}`,
     }
     setDefaultRequestTemplateSelectValue(createdDefaultRequestTemplateSelectValue)
 
@@ -646,14 +648,14 @@ export const CreateOrEditRequestContent = memo(props => {
               </div>
 
               <div className={styles.stepContent}>
-                <div className={styles.fields}>
+                <div className={cx(styles.fields, styles.dateField)}>
                   <Field
                     tooltipInfoContent={t(TranslationKey['Indicate the date by which proposals may be received'])}
                     label={`${t(TranslationKey['When do you want results?'])}*`}
                     labelClasses={styles.label}
-                    containerClasses={styles.fieldContainer}
+                    containerClasses={cx(styles.fieldContainer, styles.dateBlock)}
                     inputComponent={
-                      <div>
+                      <div className={styles.datePickerContainer}>
                         <DatePicker
                           disablePast
                           minDate={minDate}
@@ -669,7 +671,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       </div>
                     }
                   />
-                  <Field
+                  {/* <Field
                     tooltipInfoContent={t(TranslationKey['Indicate the time until which offers may be received'])}
                     label={`${t(TranslationKey['What time do you want the result?'])}*`}
                     labelClasses={styles.label}
@@ -688,7 +690,7 @@ export const CreateOrEditRequestContent = memo(props => {
                         )}
                       </div>
                     }
-                  />
+                  /> */}
                 </div>
 
                 <div className={styles.fields}>

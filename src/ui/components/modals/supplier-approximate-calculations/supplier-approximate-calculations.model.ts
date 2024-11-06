@@ -11,7 +11,7 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { SortSettingsMode } from '@components/data-grid/data-grid-custom-components/sort-settings/sort-settings.type'
-import { ISwitcherSettings } from '@components/shared/custom-switcher/custom-switcher'
+import { ICustomRadioButtonOption } from '@components/shared/custom-radio-button/custom-radio-button'
 
 import { checkIsStorekeeper } from '@utils/checks'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
@@ -33,7 +33,7 @@ import { IVariationParams } from './supplier-approximate-calculations.type'
 export class SupplierApproximateCalculationsModel extends DataGridFilterTableModel {
   showConfirmModal: boolean = false
 
-  storekeepers: ISwitcherSettings[] = []
+  storekeepers: ICustomRadioButtonOption[] = []
 
   currentStorekeeperId: string = ''
 
@@ -167,7 +167,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
         this.storekeepers = (result as IStorekeeper[])
           .sort((a, b) => a?.name?.localeCompare(b?.name))
           .map(storekeeper => ({
-            label: () => storekeeper.name || '',
+            label: storekeeper.name || '',
             value: storekeeper._id,
           }))
 
@@ -305,7 +305,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
     this.initialDestinationId = destinationId
     this.currentLogicsTariffId = box?.logicsTariff?._id || box?.variationTariff?.storekeeperTariffLogisticsId
 
-    this.storekeepers = [{ label: () => box?.storekeeper?.name || '', value: box?.storekeeper?._id }]
+    this.storekeepers = [{ label: box?.storekeeper?.name || '', value: box?.storekeeper?._id }]
     this.boxItems = box?.items
     this.productId = productId
     this.supplierId = supplierId

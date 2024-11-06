@@ -20,21 +20,21 @@ interface NotificationMessageCellProps {
 export const NotificationMessageCell: FC<NotificationMessageCellProps> = memo(
   ({ notificationType, notification, navigateToHandler }) => (
     <>
-      {notificationType === Notification.Order && (
+      {notificationType === Notification.Order ? (
         <OrderNotificationMessageCell navigateToHandler={navigateToHandler} notification={notification} />
-      )}
+      ) : null}
 
-      {notificationType === Notification.Box && <BoxNotificationMessageCell notification={notification} />}
+      {notificationType === Notification.Box ? <BoxNotificationMessageCell notification={notification} /> : null}
 
-      {notificationType === Notification.Idea && (
+      {notificationType === Notification.Idea ? (
         <IdeaNotificationMessageCell navigateToHandler={navigateToHandler} notification={notification} />
-      )}
+      ) : null}
 
-      {[Notification.Request, Notification.Proposal].includes(notificationType) && (
+      {[Notification.Request, Notification.Proposal].includes(notificationType) ? (
         <RequestNotificationMessageCell notification={notification} />
-      )}
+      ) : null}
 
-      {notificationType === Notification.Shop && <ShopNotificationMessageCell notification={notification} />}
+      {notificationType === Notification.Shop ? <ShopNotificationMessageCell notification={notification} /> : null}
 
       {notificationType === Notification.Launch ? <ListingNotificationMessageCell notification={notification} /> : null}
     </>

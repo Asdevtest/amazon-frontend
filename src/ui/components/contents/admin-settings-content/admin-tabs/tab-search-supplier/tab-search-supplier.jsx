@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { useStyles } from '../../admin-settings.style'
@@ -50,7 +49,7 @@ export const TabSearchSupplier = memo(props => {
         onChange={e => onChangeField(fieldNameObject.deadlineForFindingSupplier, e)}
       />
 
-      <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={throttle(onSubmit)}>
+      <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={onSubmit}>
         {t(TranslationKey.Save)}
       </CustomButton>
     </div>

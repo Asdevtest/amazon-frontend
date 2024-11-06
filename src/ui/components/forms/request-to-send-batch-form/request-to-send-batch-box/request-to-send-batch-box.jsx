@@ -55,7 +55,7 @@ export const RequestToSendBatchBox = memo(
         }}
       >
         <div className={cx(tableCellClsx, styles.indexCell)}>
-          <Typography variant="subtitle2">{`№ ${box.humanFriendlyId}`}</Typography>
+          <Typography variant="subtitle2">{`№ ${box.xid}`}</Typography>
         </div>
 
         <div className={cx(tableCellClsx, styles.productCell)}>
@@ -116,7 +116,7 @@ export const RequestToSendBatchBox = memo(
                             !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                         })}
                       >
-                        {t(TranslationKey['Transparency Codes'])}
+                        Transparency Codes
                       </Typography>
 
                       <LabelWithCopy
@@ -197,7 +197,7 @@ export const RequestToSendBatchBox = memo(
                               !box.items?.[0]?.transparencyFile && box.items?.[0]?.product?.transparency,
                           })}
                         >
-                          {t(TranslationKey['Transparency Codes'])}
+                          Transparency Codes
                         </Typography>
 
                         <LabelWithCopy
@@ -281,7 +281,7 @@ export const RequestToSendBatchBox = memo(
         <td>
           <div className={styles.shippingLabelWrapper}>
             <Typography className={cx(styles.spanText, { [styles.alertSpan]: !box.shippingLabel })}>
-              {t(TranslationKey['Shipping label'])}
+              Shipping label
             </Typography>
 
             {box.shippingLabel ? (
@@ -293,9 +293,9 @@ export const RequestToSendBatchBox = memo(
                   href={getAmazonImageUrl(box.shippingLabel, true)}
                   className={styles.downloadLink}
                 >
-                  {t(TranslationKey.download)}
+                  {t(TranslationKey.View)}
                 </a>
-                <CopyValue text={box.shippingLabel} />
+                <CopyValue text={getAmazonImageUrl(box.shippingLabel)} />
               </div>
             ) : (
               <Typography className={styles.alertSpan}>{t(TranslationKey.Missing)}</Typography>

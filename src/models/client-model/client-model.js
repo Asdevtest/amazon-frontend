@@ -1,7 +1,5 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 class ClientModelStatic {
   getProductsVacant = async () => {
     const response = await restApiService.clientApi.apiV1ClientsProductsVacGet()
@@ -27,7 +25,7 @@ class ClientModelStatic {
   }
 
   getProductsMyFilteredByShopIdWithPag = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagV2Get(filterNullValues(data))
+    const response = await restApiService.clientApi.apiV1ClientsProductsMyWithPagV2Get(data)
     return response.data
   }
 
@@ -54,7 +52,7 @@ class ClientModelStatic {
   }
 
   getOrdersPag = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsPagOrdersGet(filterNullValues(data))
+    const response = await restApiService.clientApi.apiV1ClientsPagOrdersGet(data)
     return response.data
   }
 
@@ -77,9 +75,7 @@ class ClientModelStatic {
   }
 
   getTasks = async data => {
-    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet(
-      filterNullValues({ ...data, noCache: true }),
-    )
+    const response = await restApiService.clientApi.apiV1ClientsTasksByBoxesGet({ ...data, noCache: true })
     return response.data
   }
 

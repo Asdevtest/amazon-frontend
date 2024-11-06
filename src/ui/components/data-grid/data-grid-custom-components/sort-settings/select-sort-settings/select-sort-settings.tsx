@@ -1,11 +1,7 @@
 import { FC, memo } from 'react'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { Button } from '@components/shared/button'
-import { SearchInput } from '@components/shared/search-input'
-
-import { t } from '@utils/translations'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { ButtonStyle } from '@typings/enums/button-style'
 
@@ -36,10 +32,11 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
       </Button>
 
       <div className={cx(styles.menuContainer, { [styles.menuContainerAnimation]: isOpen })}>
-        <SearchInput
+        <CustomInputSearch
+          allowClear
           value={searchValue}
-          placeholder={t(TranslationKey.Search)}
-          inputClasses={styles.searchInput}
+          placeholder="Search"
+          wrapperClassName={styles.searchInput}
           onChange={e => setSearchValue(e.target.value)}
         />
 

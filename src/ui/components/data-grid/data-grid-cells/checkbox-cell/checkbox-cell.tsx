@@ -6,21 +6,21 @@ import { useStyles } from './checkbox-cell.style'
 
 interface CheckboxCellProps {
   checked: boolean
-  disabled: boolean
-  onClick: VoidFunction
+  disabled?: boolean
+  onClick?: VoidFunction
 }
 
 export const CheckboxCell: FC<CheckboxCellProps> = memo(({ checked, disabled, onClick }) => {
   const { classes: styles } = useStyles()
 
   return (
-    <div className={styles.checkboxWrapper}>
+    <div className={styles.root}>
       <Checkbox
         disabled={disabled}
         checked={checked}
         onClick={e => {
           e.stopPropagation()
-          onClick()
+          onClick?.()
         }}
       />
     </div>

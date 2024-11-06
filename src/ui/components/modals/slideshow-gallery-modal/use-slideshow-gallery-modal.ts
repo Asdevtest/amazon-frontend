@@ -3,7 +3,8 @@ import { ChangeEvent, useEffect, useState } from 'react'
 import { FIRST_SLIDE } from '@components/shared/slideshow-gallery/slideshow-gallery.constants'
 
 import { createUploadFile } from '@utils/create-upload-file'
-import { downloadFile, downloadFileByLink } from '@utils/upload-files'
+import { reversedFormatDateWithoutTime } from '@utils/date-time'
+import { downloadArchive, downloadFile, downloadFileByLink } from '@utils/upload-files'
 
 import { isArrayOfRequestMedia, isString, isUploadFileType } from '@typings/guards'
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -111,6 +112,10 @@ export const useSlideshowGalleryModal = ({
   const onDownloadFile = (file: UploadFileType) =>
     isString(file) ? downloadFileByLink(file) : downloadFile(file?.file)
 
+  const onDownloadFiles = async () => {
+    await downloadArchive(mediaFiles, reversedFormatDateWithoutTime(new Date()))
+  }
+
   return {
     mediaFiles,
     commentsByPerformer,
@@ -131,6 +136,7 @@ export const useSlideshowGalleryModal = ({
     onRemoveFile,
     onEditRotateFile,
     onDownloadFile,
+    onDownloadFiles,
     updateImagesForLoad,
   }
 }

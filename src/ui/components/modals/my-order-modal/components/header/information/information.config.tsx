@@ -29,7 +29,7 @@ export const getInfoItems = (formFields: IOrderWithAdditionalFields, blueBackgro
   {
     icon: <DiagramIcon className={blueBackgroundForIcon} />,
     title: t(TranslationKey['Order number']),
-    value: formFields?.id ? `№ ${formFields?.id}` : t(TranslationKey['No data']),
+    value: formFields?.xid ? `№ ${formFields?.xid}` : t(TranslationKey['No data']),
   },
   {
     icon: <CalendarIcon className={blueBackgroundForIcon} />,

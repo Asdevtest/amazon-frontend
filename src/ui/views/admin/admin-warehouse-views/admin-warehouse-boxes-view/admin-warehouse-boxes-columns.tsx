@@ -2,18 +2,13 @@ import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import {
-  MultilineTextHeaderCell,
-  NormDateCell,
-  OrderCell,
-  OrderManyItemsCell,
-  UserMiniCell,
-} from '@components/data-grid/data-grid-cells'
+import { MultilineTextHeaderCell, NormDateCell, ProductsCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
 import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { IBox } from '@typings/models/boxes/box'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { getProductColumnMenuItems, getProductColumnMenuValue } from '@config/data-grid-column-menu/product-column'
@@ -39,7 +34,7 @@ export const adminWarehouseBoxesColumns = () => {
     },
 
     {
-      field: 'humanFriendlyId',
+      field: 'xid',
       headerName: t(TranslationKey.ID),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
       renderCell: params => <Text isCell text={params.value} />,
@@ -52,9 +47,10 @@ export const adminWarehouseBoxesColumns = () => {
       headerName: t(TranslationKey.Client),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Client)} />,
       renderCell: params => (
-        <UserMiniCell
-          userName={params.row.items?.[0]?.product?.client?.name}
-          userId={params.row.items?.[0]?.product?.client?._id}
+        <UserCell
+          name={params.row.items?.[0]?.product?.client?.name}
+          id={params.row.items?.[0]?.product?.client?._id}
+          email={params.row.items?.[0]?.product?.client?.email}
         />
       ),
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
@@ -68,7 +64,11 @@ export const adminWarehouseBoxesColumns = () => {
       headerName: t(TranslationKey.Storekeeper),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Storekeeper)} />,
       renderCell: params => (
-        <UserMiniCell userName={params.row.storekeeper?.name} userId={params.row.storekeeper?._id} />
+        <UserCell
+          name={params.row.storekeeper?.name}
+          id={params.row.storekeeper?._id}
+          email={params.row.storekeeper?.email}
+        />
       ),
       width: 180,
       hideEmptyObject: true,
@@ -80,22 +80,12 @@ export const adminWarehouseBoxesColumns = () => {
       field: 'asin',
       headerName: t(TranslationKey.Product),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Product)} />,
-      renderCell: params =>
-        params.row?.items?.length > 1 ? (
-          <OrderManyItemsCell box={params?.row} />
-        ) : (
-          <OrderCell
-            box={params.row}
-            product={params.row?.items?.[0]?.product}
-            superbox={params.row?.amount > 1 && params.row?.amount}
-          />
-        ),
-
+      renderCell: params => <ProductsCell box={params?.row as IBox} />,
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue(),
       columnKey: columnnsKeys.shared.MULTIPLE,
       disableCustomSort: true,
-      width: 250,
+      width: 200,
     },
 
     {

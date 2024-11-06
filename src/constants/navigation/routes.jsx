@@ -3,15 +3,30 @@ import { lazy } from 'react'
 import { UserRole } from '@constants/keys/user-roles'
 import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 
-import { ParsingProdileView } from '@views/shared/parsing/parsing-profile-view'
-import { ParsingRequestsView } from '@views/shared/parsing/parsing-requests-view'
-import { ParsingView } from '@views/shared/parsing/parsing-view'
+import { BuyerIdeas } from '@views/buyer/buyer-ideas'
 
 import { t } from '@utils/translations'
+
+import { TaskStatus } from '@typings/enums/task/task-status'
 
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'
 
+const ParsingProfileView = lazy(() =>
+  import('@views/shared/parsing-view/parsing-profile-view').then(module => ({
+    default: module.ParsingProfileView,
+  })),
+)
+const ParsingView = lazy(() =>
+  import('@views/shared/parsing-view/parsing-view').then(module => ({
+    default: module.ParsingView,
+  })),
+)
+const ParsingRequestsView = lazy(() =>
+  import('@views/shared/parsing-view/parsing-requests-view').then(module => ({
+    default: module.ParsingRequestsView,
+  })),
+)
 const AdminAwaitingBatchesView = lazy(() =>
   import('@views/admin/admin-batches-views/admin-awaiting-batches-view').then(module => ({
     default: module.AdminAwaitingBatchesView,
@@ -92,6 +107,8 @@ const BuyerDashboardView = lazy(() =>
 const BuyerMyProductsView = lazy(() =>
   import('@views/buyer/buyer-my-products-view').then(module => ({ default: module.BuyerMyProductsView })),
 )
+
+const BuyerIdeasView = lazy(() => import('@views/buyer/buyer-ideas').then(module => ({ default: module.BuyerIdeas })))
 
 const BuyerFreeOrdersView = lazy(() =>
   import('@views/buyer/buyer-orders-views/buyer-free-orders-view').then(module => ({
@@ -386,7 +403,7 @@ const SourceFilesView = lazy(() =>
 )
 
 const ServiceDetailsView = lazy(() =>
-  import('@views/shared/services-detail-view').then(module => ({
+  import('@views/shared/services-details-view').then(module => ({
     default: module.ServiceDetailsView,
   })),
 )
@@ -465,19 +482,18 @@ const WarehouseMyWarehouseView = lazy(() =>
   import('@views/warehouse/warehouse-my-warehouse-view').then(module => ({ default: module.WarehouseMyWarehouseView })),
 )
 const WarehouseCanceledTasksView = lazy(() =>
-  import('@views/warehouse/warehouse-tasks-views/warehouse-canceled-tasks-view').then(module => ({
-    default: module.WarehouseCanceledTasksView,
-  })),
+  import('@views/warehouse/warehouse-tasks-views/warehouse-main-tasks-view').then(module => {
+    const Component = module.WarehouseMainTasksView
+
+    return { default: props => <Component status={TaskStatus.NOT_SOLVED} {...props} /> }
+  }),
 )
 const WarehouseCompletedTasksView = lazy(() =>
-  import('@views/warehouse/warehouse-tasks-views/warehouse-completed-tasks-view').then(module => ({
-    default: module.WarehouseCompletedTasksView,
-  })),
-)
-const WarehouseMyTasksView = lazy(() =>
-  import('@views/warehouse/warehouse-tasks-views/warehouse-my-tasks-view').then(module => ({
-    default: module.WarehouseMyTasksView,
-  })),
+  import('@views/warehouse/warehouse-tasks-views/warehouse-main-tasks-view').then(module => {
+    const Component = module.WarehouseMainTasksView
+
+    return { default: props => <Component status={TaskStatus.SOLVED} {...props} /> }
+  }),
 )
 const WarehouseTasksView = lazy(() =>
   import('@views/warehouse/warehouse-tasks-views/warehouse-tasks-view').then(module => ({
@@ -485,11 +501,19 @@ const WarehouseTasksView = lazy(() =>
   })),
 )
 const WarehouseVacantTasksView = lazy(() =>
-  import('@views/warehouse/warehouse-tasks-views/warehouse-vacant-tasks-view').then(module => ({
-    default: module.WarehouseVacantTasksView,
-  })),
-)
+  import('@views/warehouse/warehouse-tasks-views/warehouse-main-tasks-view').then(module => {
+    const Component = module.WarehouseMainTasksView
 
+    return { default: props => <Component status={TaskStatus.NEW} {...props} /> }
+  }),
+)
+const WarehouseMyTasksView = lazy(() =>
+  import('@views/warehouse/warehouse-tasks-views/warehouse-main-tasks-view').then(module => {
+    const Component = module.WarehouseMainTasksView
+
+    return { default: props => <Component status={TaskStatus.AT_PROCESS} {...props} /> }
+  }),
+)
 const CategoryRootView = lazy(() =>
   import('@views/shared/category-root-view/category-root-view').then(module => ({
     default: module.CategoryRootView,
@@ -680,6 +704,22 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       activeSubCategory: '',
       title: () => t(TranslationKey['My products']),
+    },
+  },
+
+  {
+    routePath: '/buyer/ideas',
+    component: BuyerIdeasView,
+    exact: true,
+    permission: [UserRole.BUYER],
+    permissionKey: permissionsKeys.buyer.SHOW_IDEAS_BUYER,
+
+    crumbNameKey: TranslationKey.Ideas,
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Ideas),
     },
   },
 
@@ -2504,7 +2544,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/admin/parsing/profiles',
-    component: ParsingProdileView,
+    component: ParsingProfileView,
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Profiles,
@@ -3162,8 +3202,23 @@ export const privateRoutesConfigs = [
     permissionKey: permissionsKeys.client.ideas.SHOW_IDEAS_CLIENT,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: '',
+      activeSubCategory: 0,
       title: () => t(TranslationKey.Ideas),
+    },
+  },
+
+  {
+    routePath: '/client/ideas/all',
+    component: ClientIdeasView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT,
+    crumbNameKey: t(TranslationKey.All),
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
+      activeSubCategory: 0,
+      title: () => t(TranslationKey.All),
     },
   },
 
@@ -3177,7 +3232,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: 0,
+      activeSubCategory: 1,
       title: () => t(TranslationKey['New ideas']),
     },
   },
@@ -3192,7 +3247,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: 1,
+      activeSubCategory: 2,
       title: () => t(TranslationKey['On checking']),
     },
   },
@@ -3207,7 +3262,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: 2,
+      activeSubCategory: 3,
       title: () => t(TranslationKey['Search for suppliers']),
     },
   },
@@ -3222,7 +3277,7 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: 3,
+      activeSubCategory: 4,
       title: () => t(TranslationKey['Creating a product card']),
     },
   },
@@ -3237,23 +3292,8 @@ export const privateRoutesConfigs = [
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
-      activeSubCategory: 4,
-      title: () => t(TranslationKey['Adding ASIN']),
-    },
-  },
-
-  {
-    routePath: '/client/ideas/realized',
-    component: ClientIdeasView,
-    exact: true,
-    permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT,
-    crumbNameKey: t(TranslationKey['Realized ideas']),
-
-    navigationInfo: {
-      activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
       activeSubCategory: 5,
-      title: () => t(TranslationKey['Realized ideas']),
+      title: () => t(TranslationKey['Adding ASIN']),
     },
   },
 
@@ -3273,17 +3313,17 @@ export const privateRoutesConfigs = [
   },
 
   {
-    routePath: '/client/ideas/all',
+    routePath: '/client/ideas/realized',
     component: ClientIdeasView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT,
-    crumbNameKey: t(TranslationKey.All),
+    permissionKey: permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT,
+    crumbNameKey: t(TranslationKey['Realized ideas']),
 
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_IDEAS,
       activeSubCategory: 7,
-      title: () => t(TranslationKey.All),
+      title: () => t(TranslationKey['Realized ideas']),
     },
   },
 ]

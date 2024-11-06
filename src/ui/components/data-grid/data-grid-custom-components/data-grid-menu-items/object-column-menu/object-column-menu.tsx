@@ -27,6 +27,8 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
     filterRequestStatus,
     hideEmptyObject,
     sortOptions,
+    additionalFilterSettings,
+    fieldNameFilter,
     onClose,
     onClickFilterBtn,
     onChangeFullFieldMenuItem,
@@ -48,6 +50,8 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
     filtersData,
     hideEmptyObject,
     sortOptions,
+    additionalFilterSettings,
+    fieldNameFilter,
     onClickFilterBtn,
   })
 

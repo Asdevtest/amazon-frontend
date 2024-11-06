@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -13,7 +13,7 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { ResearcherProductsViewModel } from './researcher-products-view.model'
 
 export const ResearcherProductsView = observer(() => {
-  const [viewModel] = useState(() => new ResearcherProductsViewModel())
+  const viewModel = useMemo(() => new ResearcherProductsViewModel(), [])
 
   return (
     <div className="viewWrapper">
@@ -31,7 +31,7 @@ export const ResearcherProductsView = observer(() => {
       <CustomDataGrid
         sortingMode="client"
         paginationMode="client"
-        rowHeight={50}
+        getRowHeight={() => 'auto'}
         columns={viewModel.columnsModel}
         rowCount={viewModel.rowCount}
         sortModel={viewModel.sortModel}
@@ -41,7 +41,6 @@ export const ResearcherProductsView = observer(() => {
         columnVisibilityModel={viewModel.columnVisibilityModel}
         rows={viewModel.currentData}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}
-        getRowId={({ _id }) => _id}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),

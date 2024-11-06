@@ -1,7 +1,5 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
-import { filterNullValues } from '@utils/object'
-
 class BuyerModelStatic {
   getProductsVacant = async data => {
     const response = await restApiService.buyerApi.apiV1BuyersProductsVacGet(data)
@@ -57,7 +55,7 @@ class BuyerModelStatic {
   }
 
   getOrdersMyPag = async data => {
-    const response = await restApiService.buyerApi.apiV1BuyersOrdersPagMyGet(filterNullValues(data))
+    const response = await restApiService.buyerApi.apiV1BuyersOrdersPagMyGet(data)
     return response.data
   }
 
