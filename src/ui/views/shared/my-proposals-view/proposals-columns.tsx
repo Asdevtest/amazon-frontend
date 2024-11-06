@@ -54,7 +54,6 @@ export const proposalsColumns = (handlers: IHandlers) => {
 
       width: 120,
       columnKey: columnnsKeys.shared.STRING_VALUE,
-      table: DataGridFilterTables.REQUESTS,
     },
 
     {

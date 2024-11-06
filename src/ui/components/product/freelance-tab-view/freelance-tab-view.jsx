@@ -19,10 +19,10 @@ import { useStyles } from './freelance-tab-view.style'
 
 import { FreelanceModel } from './freelance-tab-view.model'
 
-export const Freelance = observer(({ productId, modal }) => {
+export const Freelance = observer(({ productId, filterStatus, modal }) => {
   const { classes: styles, cx } = useStyles()
 
-  const viewModel = useMemo(() => new FreelanceModel(productId), [])
+  const viewModel = useMemo(() => new FreelanceModel(productId, filterStatus), [])
 
   useEffect(() => {
     viewModel.loadData()

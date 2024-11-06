@@ -370,7 +370,9 @@ export const clientInventoryColumns = ({
       field: 'requestsInWork',
       headerName: t(TranslationKey['Requests in progress']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Requests in progress'])} />,
-      renderCell: params => <Text isCell text={params.value} />,
+      renderCell: params => (
+        <Text isCell link text={params.value} onClick={() => otherHandlers.onClickRequestCell(params.row?._id)} />
+      ),
       width: 120,
       columnKey: columnnsKeys.shared.NUMBER,
     },
