@@ -12,6 +12,7 @@ import { AdminSettingsModel } from './admin-settings.model'
 import { TabLabels } from './admin-settings.type'
 import {
   Shutdown,
+  TabCategories,
   TabCountries,
   TabDestinations,
   TabFreelance,
@@ -100,6 +101,11 @@ export const AdminSettings = observer(() => {
       key: TabLabels.COUNTRIES,
       label: t(TranslationKey.Countries),
       children: <TabCountries />,
+    },
+    {
+      key: TabLabels.CATEGORIES,
+      label: t(TranslationKey.Categories),
+      children: <TabCategories />,
     },
     {
       key: TabLabels.TAGS,

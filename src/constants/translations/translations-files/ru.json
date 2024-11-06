@@ -2016,5 +2016,9 @@
   "Short country name": "Краткое название страны",
   "Are you sure you want to delete the country?": "Вы уверены, что хотите удалить страну?",
   "Proposal ID": "ID предложения",
-  "Search by Title, ASIN, SKU, ID, Proposal ID": "Поиск по Названию, ASIN, SKU, ID, ID предложения"
+  "Search by Title, ASIN, SKU, ID, Proposal ID": "Поиск по Названию, ASIN, SKU, ID, ID предложения",
+  "Categories": "Категории",
+  "Category successfully saved": "Категория успешно сохранена",
+  "Category is not saved": "Категория не сохранена",
+  "Are you sure you want to delete the category?": "Вы уверены, что хотите удалить категорию?"
 }

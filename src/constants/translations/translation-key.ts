@@ -2017,4 +2017,8 @@ export enum TranslationKey {
   'Are you sure you want to delete the country?' = 'Are you sure you want to delete the country?',
   'Proposal ID' = 'Proposal ID',
   'Search by Title, ASIN, SKU, ID, Proposal ID' = 'Search by Title, ASIN, SKU, ID, Proposal ID',
+  'Categories' = 'Categories',
+  'Category successfully saved' = 'Category successfully saved',
+  'Category is not saved' = 'Category is not saved',
+  'Are you sure you want to delete the category?' = 'Are you sure you want to delete the category?',
 }
