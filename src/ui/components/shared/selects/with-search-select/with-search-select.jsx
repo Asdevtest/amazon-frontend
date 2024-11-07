@@ -7,6 +7,7 @@ import { Checkbox, ClickAwayListener, Popover, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { MasterUserItem } from '@components/shared/master-user-item'
 
@@ -29,7 +30,7 @@ export const WithSearchSelect = memo(
     onClickNotChosen,
     placeholder,
     searchFields,
-    CustomButton,
+    customButton,
     isFlat,
     favourites,
     withoutSearch,
@@ -203,6 +204,7 @@ export const WithSearchSelect = memo(
                     <Tooltip followCursor title={t(TranslationKey['Not chosen'])}>
                       <CustomButton
                         ghoust
+                        type="text"
                         className={styles.button}
                         onClick={e => {
                           e.stopPropagation()
@@ -219,9 +221,10 @@ export const WithSearchSelect = memo(
                   {firstItems}
 
                   {dataToRenderSortedByFavourites?.map((el, index) =>
-                    CustomButton ? (
+                    customButton ? (
                       <CustomButton
                         key={index}
+                        type="text"
                         data={el}
                         checkbox={checkbox}
                         checkboxChecked={selectedData?.some(item => item?._id === el?._id)}
@@ -236,7 +239,7 @@ export const WithSearchSelect = memo(
                       <CustomButton
                         key={index}
                         ghoust
-                        className={cx(styles.button, buttonStyles)}
+                        type="text"
                         style={changeColorById && { color: changeColorById(el._id) }}
                         onClick={e => {
                           e.stopPropagation()
