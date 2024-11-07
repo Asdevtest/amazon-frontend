@@ -25,6 +25,11 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   defaultFilterParams: any = undefined
   operatorsSettings: any = undefined
 
+  oneTimeFilters: {
+    field: string
+    value: any
+  }[] = []
+
   get isSomeFilterOn() {
     return this.filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
   }
@@ -282,6 +287,9 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       }
 
       const parsedValue = this.parseQueryString(activePreset?.settings?.filters)
+
+      this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
+
       this.setFilterFromPreset(parsedValue)
 
       runInAction(() => {
@@ -308,6 +316,8 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         this.columnVisibilityModel = this.defaultColumnVisibilityModel || {}
       })
     }
+
+    this.useOneTimeFilter()
 
     this.getCurrentData()
   }
@@ -343,6 +353,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   setFilterFromPreset(presetFilters: Record<string, string | string[]>) {
+    if (this.oneTimeFilters?.length) {
+      return
+    }
+
     const keys = Object.keys(presetFilters)
 
     if (!presetFilters?.currentSearchValue) {
@@ -351,8 +365,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       this.currentSearchValue = presetFilters.currentSearchValue as string
     }
 
-    this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
-
     for (const key of keys) {
       if (key === 'currentSearchValue') {
         continue
@@ -360,5 +372,21 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         this.onChangeFullFieldMenuItem(presetFilters[key], key)
       }
     }
+  }
+
+  useOneTimeFilter() {
+    if (!this.oneTimeFilters?.length) {
+      return
+    }
+
+    for (const filter of this.oneTimeFilters) {
+      const { field, value } = filter
+
+      this.onChangeFullFieldMenuItem(value, field)
+    }
+
+    runInAction(() => {
+      this.oneTimeFilters = []
+    })
   }
 }
