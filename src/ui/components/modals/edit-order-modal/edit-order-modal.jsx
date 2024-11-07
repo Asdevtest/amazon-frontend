@@ -348,7 +348,7 @@ export const EditOrderModal = memo(
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
 
-        setOrderFields(initialState)
+        // setOrderFields(initialState)
 
         if (
           e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
