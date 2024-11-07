@@ -24,6 +24,7 @@ export const ControlButtonsColumnMenu: FC<ControlButtonsColumnMenuProps> = memo(
   return (
     <div className={styles.buttonsWrapper}>
       <CustomButton
+        type="primary"
         onClick={() => {
           onClose()
           onChangeFullFieldMenuItem()
