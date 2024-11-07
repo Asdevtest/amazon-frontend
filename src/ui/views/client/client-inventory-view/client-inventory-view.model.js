@@ -623,7 +623,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     ])
 
     if (this.pendingOrderQuantity === 0 || this.pendingOrderQuantity) {
-      dataForOrder[0].pendingOrderQuantity = this.pendingOrderQuantity
+      dataForOrder[0].pendingOrderQuantity = Math.ceil(this.pendingOrderQuantity / 100) * 100
       dataForOrder[0].isPending = true
     }
 
