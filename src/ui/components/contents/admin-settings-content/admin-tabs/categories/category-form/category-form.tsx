@@ -11,7 +11,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './category-form.style'
 
-import { CategoryTreeNode, CategoryValues } from '../tab-categories.config'
+import { CategoryTreeNode, CategoryValues } from '../categories.config'
 
 interface CategoryFormProps {
   categories: CategoryTreeNode[]

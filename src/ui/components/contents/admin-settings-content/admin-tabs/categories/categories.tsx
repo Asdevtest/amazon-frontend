@@ -10,14 +10,14 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { useStyles } from './tab-categories.style'
+import { useStyles } from './categories.style'
 
+import { CategoriesModel } from './categories.model'
 import { CategoryForm } from './category-form'
-import { AdminSettingsCategoriesModel } from './tab-categories.model'
 
-export const TabCategories = observer(() => {
+export const Categories = observer(() => {
   const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new AdminSettingsCategoriesModel(), [])
+  const viewModel = useMemo(() => new CategoriesModel(), [])
 
   return (
     <>

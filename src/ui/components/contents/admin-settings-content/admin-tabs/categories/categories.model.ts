@@ -12,9 +12,9 @@ import { t } from '@utils/translations'
 
 import { ICategory } from '@typings/models/others/category'
 
-import { CategoryTreeNode, CategoryValues, transformDataToTree } from './tab-categories.config'
+import { CategoryTreeNode, CategoryValues, transformDataToTree } from './categories.config'
 
-export class AdminSettingsCategoriesModel {
+export class CategoriesModel {
   categories: CategoryTreeNode[] = []
   categoryToEdit?: CategoryValues
   title: string = ''
