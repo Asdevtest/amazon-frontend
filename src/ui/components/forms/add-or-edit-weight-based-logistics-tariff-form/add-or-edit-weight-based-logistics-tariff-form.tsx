@@ -340,7 +340,6 @@ export const AddOrEditWeightBasedLogisticsTariffForm: FC<AddOrEditWeightBasedLog
               /* @ts-ignore */
               <WithSearchSelect
                 // @ts-ignore
-                grayBorder
                 blackSelectedItem
                 darkIcon
                 chosenItemNoHover
