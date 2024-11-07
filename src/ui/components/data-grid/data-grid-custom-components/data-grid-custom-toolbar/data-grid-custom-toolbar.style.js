@@ -40,5 +40,6 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: '100px',
     boxShadow: theme.palette.button.defaultBoxShadow,
     border: `1px solid ${theme.palette.input.customBorder}`,
+    textTransform: 'none',
   },
 }))
