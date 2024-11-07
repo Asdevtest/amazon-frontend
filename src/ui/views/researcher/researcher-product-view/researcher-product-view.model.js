@@ -432,6 +432,7 @@ export class ResearcherProductViewModel {
           ['suppliers'],
         ),
       )
+      toast.success(`${t(TranslationKey['Status changed'])}!`)
       this.setRequestStatus(loadingStatus.SUCCESS)
 
       !editingСontinues && this.history.push('/researcher/products')
