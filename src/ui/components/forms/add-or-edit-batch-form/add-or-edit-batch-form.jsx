@@ -223,7 +223,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
           item =>
             item.product.amazonTitle?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
             item.product.asin?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
-            String(item.order.id)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+            String(item.order.xid)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
         ) ||
         String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
@@ -237,7 +237,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
           item =>
             item.product.amazonTitle?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
             item.product.asin?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
-            String(item.order.id)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+            String(item.order.xid)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
         ) ||
         String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||

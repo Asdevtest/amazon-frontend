@@ -77,16 +77,6 @@ export const inventoryColumns = () => {
     },
 
     {
-      field: 'price',
-      headerName: 'Price',
-      renderHeader: () => <MultilineTextHeaderCell text="Price" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
       field: 'allFees',
       headerName: 'All fees',
       renderHeader: () => <MultilineTextHeaderCell text="All fees" />,
@@ -117,46 +107,6 @@ export const inventoryColumns = () => {
     },
 
     {
-      field: 'unitVolume',
-      headerName: 'Unit volume',
-      renderHeader: () => <MultilineTextHeaderCell text="Unit volume" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'available',
-      headerName: 'Available',
-      renderHeader: () => <MultilineTextHeaderCell text="Available" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'inbound',
-      headerName: 'Inbound',
-      renderHeader: () => <MultilineTextHeaderCell text="Inbound" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'reserved',
-      headerName: 'Reserved',
-      renderHeader: () => <MultilineTextHeaderCell text="Reserved" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
       field: 'soldBy',
       headerName: 'Sold by',
       renderHeader: () => <MultilineTextHeaderCell text="Sold by" />,
@@ -174,106 +124,6 @@ export const inventoryColumns = () => {
       width: 120,
 
       columnKey: columnnsKeys.shared.DATE,
-    },
-
-    {
-      field: 'historicalDaysOfSupply',
-      headerName: 'Historical days of supply',
-      renderHeader: () => <MultilineTextHeaderCell text="Historical days of supply" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'estimatedStorageCost',
-      headerName: 'Estimated storage cost',
-      renderHeader: () => <MultilineTextHeaderCell text="Estimated storage cost" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'estimatedAgedInventorySurcharge',
-      headerName: 'Estimated aged inventory surcharge',
-      renderHeader: () => <MultilineTextHeaderCell text="Estimated aged inventory surcharge" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'lowInventoryLevelFee',
-      headerName: 'Low inventory level fee',
-      renderHeader: () => <MultilineTextHeaderCell text="Low inventory level fee" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'inventoryAge0To90Days',
-      headerName: 'Inventory age 0 to 90 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Inventory age 0 to 90 days" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'inventoryAge91To180Days',
-      headerName: 'Inventory age 91 to 180 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Inventory age 91 to 180 days" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'inventoryAge181To270Days',
-      headerName: 'Inventory age 181 to 270 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Inventory age 181 to 270 days" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'inventoryAge271To365Days',
-      headerName: 'Inventory age 271 to 365 days',
-      renderHeader: () => <MultilineTextHeaderCell text="Inventory age 271 to 365 days" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'inventoryAge365PlusDays',
-      headerName: 'Inventory age 365 plus days',
-      renderHeader: () => <MultilineTextHeaderCell text="Inventory age 365 plus days" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'storageVolume',
-      headerName: 'Storage volume',
-      renderHeader: () => <MultilineTextHeaderCell text="Storage volume" />,
-
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
-      width: 115,
-      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {

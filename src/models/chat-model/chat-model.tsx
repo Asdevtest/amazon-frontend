@@ -27,6 +27,7 @@ import {
 } from '@services/websocket-chat-service/interfaces'
 
 import { getTypeAndIndexOfChat } from '@utils/chat'
+import { checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 import { checkIsChatMessageRemoveUsersFromGroupChatContract } from '@utils/ts-checks'
 
 import { PaginationDirection } from '@typings/enums/pagination-direction'
@@ -326,6 +327,16 @@ class ChatModelStatic {
     }
   }
 
+  public addFilesFromProduct(file: string) {
+    if (checkIsImageLink(file)) {
+      this.loadedImages.push(file)
+    } else if (checkIsVideoLink(file)) {
+      this.loadedVideos.push(file)
+    } else {
+      this.loadedFiles.push(file)
+    }
+  }
+
   public async sendMessage(params: SendMessageRequestParamsContract) {
     if (!this.websocketChatService) {
       throw websocketChatServiceIsNotInitializedError
@@ -335,6 +346,8 @@ class ChatModelStatic {
       for (const file of params.files) {
         if (typeof file === 'string') {
           this.loadedVideos.push(file)
+        } else if (file?.fromProduct) {
+          this.addFilesFromProduct(file?.file as unknown as string)
         } else {
           await this.onPostFile(file?.file)
         }
