@@ -47,6 +47,7 @@ export class ResearcherProductViewModel {
   curUpdateProductData = undefined
   imagesForLoad = []
   uploadedImages = []
+  saveWithoutStatus = false
   startParse = false
   showConfirmModal = false
   weightParserAmazon = 0
@@ -242,6 +243,7 @@ export class ResearcherProductViewModel {
       runInAction(() => {
         if (withoutStatus) {
           this.curUpdateProductData = getObjectFilteredByKeyArrayBlackList(curUpdateProductData, ['status'])
+          this.saveWithoutStatus = withoutStatus
         } else {
           this.curUpdateProductData = curUpdateProductData
         }
@@ -432,7 +434,9 @@ export class ResearcherProductViewModel {
           ['suppliers'],
         ),
       )
-      toast.success(`${t(TranslationKey['Status changed'])}!`)
+      this.saveWithoutStatus
+        ? toast.success(t(TranslationKey['Data was successfully saved']))
+        : toast.success(`${t(TranslationKey['Status changed'])}!`)
       this.setRequestStatus(loadingStatus.SUCCESS)
 
       !editingСontinues && this.history.push('/researcher/products')
@@ -487,7 +491,7 @@ export class ResearcherProductViewModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
       await ResearcherModel.removeProduct(this.product._id)
-
+      toast.error(`${t(TranslationKey['Data was successfully deleted'])}!`)
       this.setRequestStatus(loadingStatus.SUCCESS)
 
       this.history.goBack()
