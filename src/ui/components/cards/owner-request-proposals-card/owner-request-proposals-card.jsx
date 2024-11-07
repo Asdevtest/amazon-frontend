@@ -113,8 +113,12 @@ export const OwnerRequestProposalsCard = ({
                 </div>
               </div>
             </div>
-            <Typography className={styles.proposalTitle}>{item.proposal.title}</Typography>
-            <Typography className={styles.proposalDescription}>{item.proposal.comment}</Typography>
+            <p>
+              {`${t(TranslationKey['Proposal ID'])}: `}
+              <span className={styles.proposalTitle}>{item.proposal.xid}</span>
+            </p>
+            <p className={styles.proposalTitle}>{item.proposal.title}</p>
+            <p className={styles.proposalDescription}>{item.proposal.comment}</p>
           </div>
 
           <SlideshowGallery slidesToShow={2} files={item.proposal.linksToMediaFiles} />
