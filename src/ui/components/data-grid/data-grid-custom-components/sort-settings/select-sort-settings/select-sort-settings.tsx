@@ -27,9 +27,10 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
 
   return (
     <div ref={selectRef} className={styles.root}>
-      <div className={styles.buttonWrapper}>
-        <CustomButton onClick={onToggleSelect}>{selectedItemName}</CustomButton>
-      </div>
+      <CustomButton className={styles.selectButton} onClick={onToggleSelect}>
+        {selectedItemName}
+      </CustomButton>
+
       <div className={cx(styles.menuContainer, { [styles.menuContainerAnimation]: isOpen })}>
         <CustomInputSearch
           allowClear

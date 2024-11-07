@@ -29,10 +29,8 @@ export const useStyles = makeStyles()(theme => ({
     position: 'relative',
   },
 
-  buttonWrapper: {
-    '& .ant-btn': {
-      borderRadius: '0 16px 16px 0',
-    },
+  selectButton: {
+    borderRadius: '0 16px 16px 0',
   },
 
   menuContainer: {

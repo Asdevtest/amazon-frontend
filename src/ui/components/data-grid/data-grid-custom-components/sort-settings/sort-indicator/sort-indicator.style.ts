@@ -3,13 +3,14 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   root: {
     height: '100%',
-    '& .ant-btn': {
-      borderRadius: '16px 0 0 16px',
-      height: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
+  },
+
+  sortButton: {
+    borderRadius: '16px 0 0 16px',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   indicatorWrapper: {
