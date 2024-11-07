@@ -33,17 +33,16 @@ export const BindInventoryGoodsToStockForm = observer((props: BindInventoryGoods
           enterButton
           allowClear
           size="large"
-          value={viewModel.searchInputValue}
           placeholder="Search"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => viewModel.setSearchInputValue(e.target.value)}
+          onSearch={viewModel.onSearchSubmit}
         />
       </div>
 
       <TableTransfer
         dataSource={viewModel.dataWithKeys}
         targetKeys={viewModel.targetKeys}
-        leftColumns={bindInventoryColumns}
-        rightColumns={bindInventoryColumns}
+        leftColumns={viewModel.columnsModel}
+        rightColumns={viewModel.columnsModel}
         onChange={viewModel.onChange}
       />
 

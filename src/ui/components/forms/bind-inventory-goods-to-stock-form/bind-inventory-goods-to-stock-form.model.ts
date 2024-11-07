@@ -1,74 +1,67 @@
 import type { Key } from 'antd/es/table/interface'
-import { makeAutoObservable, runInAction, toJS } from 'mobx'
-import qs from 'qs'
+import { makeObservable } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 
 import { t } from '@utils/translations'
 
-export class BindInventoryGoodsToStockFormModel {
-  sellerBoard: any = []
-  searchInputValue: string = ''
+import { IGridColumn } from '@typings/shared/grid-column'
+
+import { bindInventoryColumns } from './bind-inventory-goods-to-stock.columns'
+import { bindInventoryGoodsToStockFormConfig, searchFields } from './bind-inventory-goods-to-stock.config'
+
+export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel {
   initialAsin: string
   productId: string
   targetKeys: Key[] = []
   onCloseModal: () => void
 
   constructor(asin: string, productId: string, onCloseModal: () => void) {
+    // const columnsModel: IGridColumn[] = bindInventoryColumns.map(column => {
+    //   const { dataIndex, ...rest } = column
+    //   return {
+    //     columnKey: dataIndex,
+    //     field: dataIndex,
+    //   }
+    // })
+    // console.log(columnsModel)
+    // const defaultFilterParams = () => {
+    //   if (this.currentSearchValue) {
+    //     return
+    //   }
+    //   return {
+    //     asin: {
+    //       $eq: this.initialAsin,
+    //     },
+    //   }
+    // }
+    super({
+      getMainDataMethod: SellerBoardModel.getStockGoodsByFilters,
+      columnsModel: [],
+      filtersFields: [],
+      mainMethodURL: '',
+      fieldsForSearch: searchFields,
+      // defaultFilterParams,
+    })
+
     this.initialAsin = asin
     this.productId = productId
     this.onCloseModal = onCloseModal
-    if (asin) {
-      const recFilter = this.constructFilter('')
-      this.getStockGoodsByFilters(recFilter)
-    }
-    makeAutoObservable(this, undefined, { autoBind: true })
+
+    this.getCurrentData()
+    makeObservable(this, bindInventoryGoodsToStockFormConfig)
   }
 
   get dataWithKeys() {
-    return this.sellerBoard.map((item: any) => ({ ...item, key: item._id }))
-  }
-
-  constructFilter(searchTerm: string) {
-    if (searchTerm) {
-      return qs
-        .stringify(
-          {
-            or: [
-              { asin: { $contains: searchTerm } },
-              { title: { $contains: searchTerm } },
-              { sku: { $contains: searchTerm } },
-            ],
-          },
-          { encode: false },
-        )
-        .replace(/&/g, ';')
-    } else return qs.stringify({ asin: { $contains: this.initialAsin } }, { encode: false }).replace(/&/g, ';')
+    return this.currentData.map((item: any) => ({ ...item, key: item._id }))
   }
 
   onChange = (nextTargetKeys: Key[]) => {
     this.targetKeys = nextTargetKeys
-  }
-
-  setSearchInputValue(value: string) {
-    this.searchInputValue = value
-    const filter = this.constructFilter(value)
-    this.getStockGoodsByFilters(filter)
-  }
-
-  async getStockGoodsByFilters(filter?: any) {
-    try {
-      const result = await SellerBoardModel.getStockGoodsByFilters(filter)
-
-      runInAction(() => {
-        this.sellerBoard = result?.rows
-      })
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async onSubmitBindStockGoods() {
