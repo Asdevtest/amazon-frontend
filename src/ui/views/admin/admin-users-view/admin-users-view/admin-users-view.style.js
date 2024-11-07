@@ -6,11 +6,12 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: '6px',
+    whiteSpace: 'nowrap',
   },
 
   usersOnlineWrapper: {
     position: 'relative',
-    minWidth: 205,
+    minWidth: '150px',
     '&:after': {
       content: '""',
       position: 'absolute',
