@@ -27,8 +27,9 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
 
   return (
     <div ref={selectRef} className={styles.root}>
-      <CustomButton onClick={onToggleSelect}>{selectedItemName}</CustomButton>
-
+      <div className={styles.buttonWrapper}>
+        <CustomButton onClick={onToggleSelect}>{selectedItemName}</CustomButton>
+      </div>
       <div className={cx(styles.menuContainer, { [styles.menuContainerAnimation]: isOpen })}>
         <CustomInputSearch
           allowClear
@@ -42,6 +43,7 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
           {filteredItems.map((item, index) => (
             <CustomButton
               key={index}
+              type="text"
               title={item.name}
               onClick={() => {
                 onClickField(item._id)
