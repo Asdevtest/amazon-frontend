@@ -470,7 +470,7 @@ export class ClientProductViewModel {
         ),
       )
       this.getProductById()
-
+      toast.success(t(TranslationKey['Data was successfully saved']))
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
