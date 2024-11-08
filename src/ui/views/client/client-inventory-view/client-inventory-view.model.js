@@ -317,8 +317,9 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       operatorsSettings,
       defaultSortModel: [{ field: 'sumStock', sort: 'desc' }],
     })
-
     makeObservable(this, observerConfig)
+
+    this.initHistory()
 
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive') || false
