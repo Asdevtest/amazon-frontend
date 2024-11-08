@@ -22,7 +22,7 @@ export const ppcOrganicColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -32,7 +32,7 @@ export const ppcOrganicColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -67,7 +67,7 @@ export const ppcOrganicColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -77,7 +77,7 @@ export const ppcOrganicColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -97,7 +97,7 @@ export const ppcOrganicColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {

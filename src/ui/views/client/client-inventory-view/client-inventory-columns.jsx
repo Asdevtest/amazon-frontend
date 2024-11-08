@@ -423,7 +423,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -432,7 +432,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {

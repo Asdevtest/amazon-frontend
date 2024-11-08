@@ -19,7 +19,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       width: 120,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -73,7 +73,7 @@ export const clientLast30DaySellerBoardColumns = () => {
       width: 115,
 
       table: DataGridFilterTables.SELLERBOARD_LAST_30_DAYS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
     {
       field: 'unitsorganic',

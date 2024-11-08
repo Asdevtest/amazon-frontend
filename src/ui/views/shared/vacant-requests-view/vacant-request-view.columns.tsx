@@ -144,7 +144,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: ({ row }) => <NormDateCell value={row.timeoutAt} />,
       width: 87,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -242,7 +242,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 105,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 
