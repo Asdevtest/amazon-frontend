@@ -10,6 +10,7 @@ import {
   OpenInNewTabCell,
   PaymentMethodsCell,
 } from '@components/data-grid/data-grid-cells'
+import { SupplierEmployeesCell } from '@components/data-grid/data-grid-cells/supplier-employees-cell'
 import { Text } from '@components/shared/text'
 
 import { checkIsMediaFileLink } from '@utils/checks'
@@ -71,6 +72,18 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
       renderCell: ({ row }) => <PaymentMethodsCell paymentMethods={row?.paymentMethods || []} />,
       valueGetter: ({ value }) => value?.map(({ title }: IPaymentMethod) => title).join(', '),
+      width: 180,
+      sortable: false,
+
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.PAYMENTS,
+    },
+
+    {
+      field: 'supplierEmployees',
+      headerName: t(TranslationKey.Employee),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Employee)} />,
+      renderCell: ({ row }) => <SupplierEmployeesCell employees={row?.supplierEmployees || []} />,
       width: 180,
       sortable: false,
 
