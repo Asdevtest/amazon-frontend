@@ -1,7 +1,5 @@
 import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
-import { width } from '@mui/system'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ActionButtonsCell, MultilineTextHeaderCell } from '@components/data-grid/data-grid-cells'
