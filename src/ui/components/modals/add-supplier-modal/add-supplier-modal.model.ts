@@ -17,7 +17,7 @@ import { ICountry } from '@typings/models/others/country'
 import { IPaymentMethod } from '@typings/shared/payment-method'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { CreateSupplier } from './add-supplier-modal.types'
+import { CreateSupplier, PostSupplier } from './add-supplier-modal.types'
 import { observerConfig } from './observer.config'
 
 export class AddSupplierModalModel extends DefaultModel {
@@ -70,15 +70,32 @@ export class AddSupplierModalModel extends DefaultModel {
     }
   }
 
+  async uploadFiles(files: UploadFileType[]) {
+    try {
+      const result: string[] = []
+
+      for (const file of files) {
+        if (isString(file)) {
+          const uploaddedFile = await uploadFileByUrl(file)
+          result.push(uploaddedFile)
+        } else {
+          const uploaddedFile = (await onPostImage(file)) as string
+          result.push(uploaddedFile)
+        }
+      }
+
+      return result
+    } catch (error) {
+      console.error(error)
+      return []
+    }
+  }
+
   async createSupplier(value: CreateSupplier) {
     try {
-      const imageToUpload = value?.companyLogo?.[0]
+      const images = await this.uploadFiles(value?.images)
 
-      const uploadedImage = isString(imageToUpload)
-        ? await uploadFileByUrl(imageToUpload)
-        : await onPostImage(imageToUpload)
-
-      const data = { ...value, companyLogo: uploadedImage }
+      const data: PostSupplier = { ...value, images }
 
       SupplierV2Model?.createSupplier(data)
     } catch (error) {

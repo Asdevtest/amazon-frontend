@@ -19,6 +19,7 @@ import { useStyles } from './add-supplier-modal.style'
 import { useStyles as useSharedStyles } from './shared.style'
 
 import { getRequiredRules } from './add-supplier-modal.config'
+import { emptyEmployee } from './add-supplier-modal.constants'
 import { AddSupplierModalModel } from './add-supplier-modal.model'
 import { CreateSupplier } from './add-supplier-modal.types'
 import { Contacts } from './components/contacts'
@@ -39,26 +40,19 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
   const viewModel = useMemo(() => new AddSupplierModalModel(), [])
 
   const handleUploadFiles = (images: UploadFileType[]) => {
-    form.setFieldValue('companyLogo', images)
-    form.validateFields(['companyLogo'])
+    form.setFieldValue('images', images)
+    form.validateFields(['images'])
   }
 
   const onFinish = async (value: CreateSupplier) => {
     await viewModel.createSupplier(value)
 
-    // setOpenModal(false)
+    setOpenModal(false)
   }
 
   useEffect(() => {
     form.setFieldsValue({
-      supplierEmployees: [
-        {
-          name: 'First',
-          contacts: ['UserName'],
-          links: [''],
-          phoneNumbers: [''],
-        },
-      ],
+      supplierEmployees: [emptyEmployee],
     })
   }, [])
 
@@ -69,7 +63,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
 
         <SupplierDetails countries={viewModel.countries} handleUploadFiles={handleUploadFiles} />
 
-        <Form.Item<CreateSupplier> name="paymentMethods" className={sharedStyles.field} rules={getRequiredRules()}>
+        <Form.Item<CreateSupplier> name="paymentMethodIds" className={sharedStyles.field} rules={getRequiredRules()}>
           <CustomSelect
             required
             allowClear

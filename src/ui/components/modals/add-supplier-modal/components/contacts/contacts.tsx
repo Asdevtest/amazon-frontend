@@ -12,7 +12,8 @@ import { t } from '@utils/translations'
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './contacts.style'
 
-import { getRequiredRules } from '../../add-supplier-modal.config'
+import { getRequiredEmailRules, getRequiredRules } from '../../add-supplier-modal.config'
+import { emptyEmployee } from '../../add-supplier-modal.constants'
 import { ContactInputList } from '../contact-input-list'
 import { ContactListHeader } from '../contact-list-header'
 
@@ -37,17 +38,7 @@ export const Contacts = memo(() => {
                       required
                       listTitle="Contact person"
                       Icon={(index > 0 ? FaMinus : undefined) as IconType}
-                      onClickButton={
-                        index > 0
-                          ? () => methods.remove(fieldName)
-                          : () =>
-                              methods.add({
-                                name: '',
-                                phones: [''],
-                                email: [''],
-                                optionals: [''],
-                              })
-                      }
+                      onClickButton={index > 0 ? () => methods.remove(fieldName) : () => methods.add(emptyEmployee)}
                     />
 
                     <Form.Item
@@ -68,13 +59,14 @@ export const Contacts = memo(() => {
                   />
 
                   <ContactInputList
+                    required={false}
                     listTitle="E-mail"
                     inputPlaceholder="E-mail"
-                    listName={[fieldName, 'email']}
-                    formItemRules={getRequiredRules}
+                    listName={[fieldName, 'emails']}
+                    formItemRules={getRequiredEmailRules}
                   />
 
-                  <ContactInputList required={false} listTitle="Optional" listName={[fieldName, 'optionals']} />
+                  <ContactInputList required={false} listTitle="Optional" listName={[fieldName, 'links']} />
                 </div>
               )
             })}

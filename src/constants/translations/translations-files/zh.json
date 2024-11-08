@@ -2028,5 +2028,6 @@
   "Country is not saved": "国家未保存",
   "Short country name": "国家简称",
   "Are you sure you want to delete the country?": "您确定要删除该国家吗?",
-  "Order ID": "订单 ID"
+  "Order ID": "订单 ID",
+  "Please enter a valid email!": "请输入有效的电子邮件!"
 }

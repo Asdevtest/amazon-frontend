@@ -13,7 +13,7 @@ import { UploadFileType } from '@typings/shared/upload-file'
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './supplier-details.style'
 
-import { getRequiredRules } from '../../add-supplier-modal.config'
+import { getRequiredLinkRules, getRequiredRules } from '../../add-supplier-modal.config'
 import { CreateSupplier } from '../../add-supplier-modal.types'
 
 interface SupplierDetailsProps {
@@ -64,7 +64,7 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ countries, hand
           />
         </Form.Item>
 
-        <Form.Item<CreateSupplier> name="link" className={sharedStyles.field} rules={getRequiredRules()}>
+        <Form.Item<CreateSupplier> name="link" className={sharedStyles.field} rules={getRequiredLinkRules()}>
           <CustomInput
             required
             allowClear
@@ -77,7 +77,7 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ countries, hand
       </div>
 
       <Form.Item<CreateSupplier>
-        name="companyLogo"
+        name="images"
         className={cx(sharedStyles.field, styles?.uploadFiles)}
         rules={getRequiredRules()}
         validateTrigger={['onChange', 'onBlur']}

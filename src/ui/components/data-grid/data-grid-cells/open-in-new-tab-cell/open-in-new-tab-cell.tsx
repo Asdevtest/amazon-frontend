@@ -25,7 +25,6 @@ export const OpenInNewTabCell: FC<OpenInNewTabCellProps> = memo(({ onClickOpenIn
       className={cx(styles.iconWrapper, { [styles.fullSizeIconWrapper]: isFullSize })}
       onClick={event => {
         event.stopPropagation()
-
         onClickOpenInNewTab()
       }}
       onMouseEnter={() => setIsShowTooltip(true)}
