@@ -353,6 +353,12 @@ export const OrderProductModal = memo(props => {
     (orderState.some(order => order.transparency && !order.transparencyFile && !order.tmpTransparencyFile.length) &&
       !isPendingOrder)
 
+  useEffect(() => {
+    if (productsForRender?.[0]?.isPending) {
+      setIsPendingOrder(true)
+    }
+  }, [])
+
   return (
     <div className={styles.wrapper}>
       <Typography className={styles.modalTitle}>{t(TranslationKey['Order products'])}</Typography>
@@ -494,7 +500,7 @@ export const OrderProductModal = memo(props => {
               </Tooltip>
             </div>
             <Checkbox
-              checked={productsForRender?.[0]?.isPending || isPendingOrder}
+              checked={isPendingOrder}
               color="primary"
               classes={{
                 root: styles.checkbox,
