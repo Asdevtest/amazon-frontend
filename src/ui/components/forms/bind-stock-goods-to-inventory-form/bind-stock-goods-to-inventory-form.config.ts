@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 export const bindStockGoodsToInventoryFormConfig = {
   choosenGoods: observable,
@@ -10,6 +10,9 @@ export const bindStockGoodsToInventoryFormConfig = {
   onSelectProduct: action.bound,
   onResetData: action.bound,
   onSubmitBindStockGoods: action.bound,
+
+  disableResetButton: computed,
+  disableBindButton: computed,
 }
 
 export const searchFields: string[] = ['asin', 'amazonTitle']

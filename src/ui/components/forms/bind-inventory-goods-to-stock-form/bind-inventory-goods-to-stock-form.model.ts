@@ -9,9 +9,6 @@ import { SellerBoardModel } from '@models/seller-board-model'
 
 import { t } from '@utils/translations'
 
-import { IGridColumn } from '@typings/shared/grid-column'
-
-import { bindInventoryColumns } from './bind-inventory-goods-to-stock.columns'
 import { bindInventoryGoodsToStockFormConfig, searchFields } from './bind-inventory-goods-to-stock.config'
 
 export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel {
@@ -20,37 +17,35 @@ export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel
   targetKeys: Key[] = []
   onCloseModal: () => void
 
-  constructor(asin: string, productId: string, onCloseModal: () => void) {
-    // const columnsModel: IGridColumn[] = bindInventoryColumns.map(column => {
-    //   const { dataIndex, ...rest } = column
-    //   return {
-    //     columnKey: dataIndex,
-    //     field: dataIndex,
-    //   }
-    // })
-    // console.log(columnsModel)
-    // const defaultFilterParams = () => {
-    //   if (this.currentSearchValue) {
-    //     return
-    //   }
-    //   return {
-    //     asin: {
-    //       $eq: this.initialAsin,
-    //     },
-    //   }
-    // }
+  constructor(props: { asin: string; productId: string; onCloseModal: () => void }) {
+    const defaultFilterParams = () => {
+      if (this.currentSearchValue) {
+        return
+      }
+      return {
+        asin: {
+          $eq: this.initialAsin,
+        },
+      }
+    }
+
+    const defaultGetCurrentDataOptions = () => ({
+      limit: 100,
+    })
+
     super({
       getMainDataMethod: SellerBoardModel.getStockGoodsByFilters,
       columnsModel: [],
       filtersFields: [],
       mainMethodURL: '',
       fieldsForSearch: searchFields,
-      // defaultFilterParams,
+      defaultFilterParams,
+      defaultGetCurrentDataOptions,
     })
 
-    this.initialAsin = asin
-    this.productId = productId
-    this.onCloseModal = onCloseModal
+    this.initialAsin = props.asin
+    this.productId = props.productId
+    this.onCloseModal = props.onCloseModal
 
     this.getCurrentData()
     makeObservable(this, bindInventoryGoodsToStockFormConfig)

@@ -1,4 +1,4 @@
-import { action, observable, override } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 export const bindInventoryGoodsToStockFormConfig = {
   initialAsin: observable,
@@ -9,7 +9,7 @@ export const bindInventoryGoodsToStockFormConfig = {
   onChange: action.bound,
   onSubmitBindStockGoods: action.bound,
 
-  // dataWithKeys: override,
+  dataWithKeys: computed,
 }
 
 export const searchFields: string[] = ['asin', 'title', 'sku']

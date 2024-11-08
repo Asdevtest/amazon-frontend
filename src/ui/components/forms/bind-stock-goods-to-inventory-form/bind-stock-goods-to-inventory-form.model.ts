@@ -9,21 +9,23 @@ import { SellerBoardModel } from '@models/seller-board-model'
 
 import { t } from '@utils/translations'
 
-import { stockGoodsColumns } from './bind-stock-goods-to-inventory-columns'
+import { IProduct } from '@typings/models/products/product'
+
 import { bindStockGoodsToInventoryFormConfig, searchFields } from './bind-stock-goods-to-inventory-form.config'
+import { stockGoodsColumns } from './columns/stock-goods-columns'
 
 export class BindStockGoodsToInventoryFormModel extends DataGridFilterTableModel {
-  choosenGoods: any
-  initialChoosenGoods: any
+  choosenGoods: IProduct[]
+  initialChoosenGoods: IProduct[]
   selectedProduct: string = ''
   onCloseModal: () => void
 
-  constructor(goodsToSelect: any, onCloseModal: () => void) {
+  constructor(goodsToSelect: IProduct[], onCloseModal: () => void) {
     const columnProps = {
-      onSelectProduct: (selectedRow: any) => this.onSelectProduct(selectedRow),
+      onSelectProduct: (selectedRow: IProduct) => this.onSelectProduct(selectedRow),
       selectedProduct: () => this.selectedProduct,
     }
-    const chosenGoodscolumnsModel = stockGoodsColumns(columnProps)
+    const columnsModel = stockGoodsColumns(columnProps)
 
     const defaultFilterParams = () => {
       if (this.currentSearchValue) {
@@ -37,7 +39,7 @@ export class BindStockGoodsToInventoryFormModel extends DataGridFilterTableModel
     }
     super({
       getMainDataMethod: ClientModel.getProductPermissionsData,
-      columnsModel: chosenGoodscolumnsModel,
+      columnsModel,
       filtersFields: searchFields,
       mainMethodURL: '/clients/products/light',
       fieldsForSearch: searchFields,
@@ -53,7 +55,15 @@ export class BindStockGoodsToInventoryFormModel extends DataGridFilterTableModel
     makeObservable(this, bindStockGoodsToInventoryFormConfig)
   }
 
-  onSelectProduct(selectedRow: any) {
+  get disableResetButton() {
+    return !this.selectedProduct && this.choosenGoods.length === this.initialChoosenGoods.length
+  }
+
+  get disableBindButton() {
+    return !this.selectedProduct || this.choosenGoods.length < 1
+  }
+
+  onSelectProduct(selectedRow: IProduct) {
     this.selectedProduct = selectedRow._id
   }
 

@@ -1,4 +1,3 @@
-import { Radio } from 'antd'
 import { MdDeleteOutline } from 'react-icons/md'
 
 import { GridCellParams } from '@mui/x-data-grid-premium'
@@ -13,10 +12,6 @@ import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
 
-interface IStockGoodsColumns {
-  selectedProduct: () => void
-  onSelectProduct: (selection: any) => void
-}
 export const chosenGoodsColumns = (onDeleteGoods: (id: string) => void) => {
   const columns: IGridColumn[] = [
     {
@@ -55,7 +50,7 @@ export const chosenGoodsColumns = (onDeleteGoods: (id: string) => void) => {
       headerName: t(TranslationKey.Reserved),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reserved)} />,
       renderCell: params => <Text isCell text={params.value} />,
-      width: 70,
+      width: 90,
     },
 
     {
@@ -67,7 +62,7 @@ export const chosenGoodsColumns = (onDeleteGoods: (id: string) => void) => {
     },
 
     {
-      field: ' ',
+      field: 'action',
       headerName: '',
       renderCell: params => (
         <CustomButton
@@ -85,38 +80,6 @@ export const chosenGoodsColumns = (onDeleteGoods: (id: string) => void) => {
     column.filterable = false
     column.disableColumnMenu = true
   }
-
-  return columns
-}
-
-export const stockGoodsColumns = ({ selectedProduct, onSelectProduct }: IStockGoodsColumns) => {
-  const columns: IGridColumn[] = [
-    {
-      field: '.',
-      headerName: '',
-      width: 40,
-      renderCell: params => (
-        <Radio checked={params.row._id === selectedProduct()} onChange={() => onSelectProduct(params.row)} />
-      ),
-      filterable: false,
-      sortable: false,
-    },
-    {
-      field: 'asin',
-      headerName: '',
-      renderCell: (params: GridCellParams) => (
-        <ProductCell
-          image={params.row?.images?.[0]}
-          title={params.row.amazonTitle}
-          asin={params.row.asin}
-          sku={params.row.skuByClient}
-        />
-      ),
-      flex: 1,
-      sortable: false,
-      filterable: false,
-    },
-  ]
 
   return columns
 }

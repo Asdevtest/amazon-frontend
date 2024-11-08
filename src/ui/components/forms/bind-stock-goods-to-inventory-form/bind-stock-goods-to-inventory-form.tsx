@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useMemo } from 'react'
+import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -9,22 +9,23 @@ import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
+import { IProduct } from '@typings/models/products/product'
+
 import { useStyles } from './bind-stock-goods-to-inventory-form.style'
 
-import { chosenGoodsColumns } from './bind-stock-goods-to-inventory-columns'
 import { BindStockGoodsToInventoryFormModel } from './bind-stock-goods-to-inventory-form.model'
+import { chosenGoodsColumns } from './columns/choosen-goods-columns'
 
 interface BindStockGoodsToInventoryFormProps {
-  goodsToSelect: any
+  goodsToSelect: IProduct[]
   onCloseModal: () => void
 }
 
-export const BindStockGoodsToInventoryForm = observer((props: BindStockGoodsToInventoryFormProps) => {
+export const BindStockGoodsToInventoryForm: FC<BindStockGoodsToInventoryFormProps> = observer(props => {
   const { goodsToSelect, onCloseModal } = props
   const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new BindStockGoodsToInventoryFormModel(goodsToSelect, onCloseModal), [])
 
-  const disableResetButton = !viewModel.selectedProduct && viewModel.choosenGoods.length === goodsToSelect.length
   return (
     <div className={styles.wrapper}>
       <div className={styles.flexContainer}>
@@ -63,14 +64,14 @@ export const BindStockGoodsToInventoryForm = observer((props: BindStockGoodsToIn
         </div>
       </div>
       <div className={styles.flexContainer}>
-        <CustomButton danger size="large" disabled={disableResetButton} onClick={viewModel.onResetData}>
+        <CustomButton danger size="large" disabled={viewModel.disableResetButton} onClick={viewModel.onResetData}>
           {t(TranslationKey.Reset)}
         </CustomButton>
         <div className={styles.buttonsWrapper}>
           <CustomButton
             type="primary"
             size="large"
-            disabled={!viewModel.selectedProduct || viewModel.choosenGoods.length < 1}
+            disabled={viewModel.disableBindButton}
             onClick={viewModel.onSubmitBindStockGoods}
           >
             {t(TranslationKey.Bind)}

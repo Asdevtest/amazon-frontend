@@ -1,13 +1,12 @@
-// TableTransfer.tsx
 import { Table, Transfer } from 'antd'
-import type { TransferProps } from 'antd'
+import type { TableColumnsType, TransferProps } from 'antd'
 import type { TableRowSelection } from 'antd/es/table/interface'
 
 import { useStyles } from './table-transfer.styles'
 
-interface TableTransferProps extends TransferProps<any> {
-  leftColumns: any[]
-  rightColumns: any[]
+interface TableTransferProps extends TransferProps {
+  leftColumns: TableColumnsType
+  rightColumns: TableColumnsType
   tableHeight?: number
 }
 
@@ -26,7 +25,7 @@ export const TableTransfer = ({ leftColumns, rightColumns, tableHeight = 500, ..
           disabled: listDisabled,
         }) => {
           const columns = direction === 'left' ? leftColumns : rightColumns
-          const rowSelection: TableRowSelection<any> = {
+          const rowSelection: TableRowSelection = {
             onSelectAll(selected, selectedRows) {
               const treeSelectedKeys = selectedRows.map(({ key }) => key)
               onItemSelectAll(treeSelectedKeys, selected)

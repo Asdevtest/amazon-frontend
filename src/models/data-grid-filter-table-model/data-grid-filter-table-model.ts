@@ -171,7 +171,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   }
 
   async getCurrentData(options?: any) {
-    console.log(this.getFilters())
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 

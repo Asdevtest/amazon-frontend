@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import React, { useMemo } from 'react'
+import React, { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -20,9 +20,12 @@ interface BindInventoryGoodsToStockFormProps {
   onCloseModal: () => void
 }
 
-export const BindInventoryGoodsToStockForm = observer((props: BindInventoryGoodsToStockFormProps) => {
+export const BindInventoryGoodsToStockForm: FC<BindInventoryGoodsToStockFormProps> = observer(props => {
   const { productAsin, productId, onCloseModal } = props
-  const viewModel = useMemo(() => new BindInventoryGoodsToStockFormModel(productAsin, productId, onCloseModal), [])
+  const viewModel = useMemo(
+    () => new BindInventoryGoodsToStockFormModel({ asin: productAsin, productId, onCloseModal }),
+    [],
+  )
   const { classes: styles } = useStyles()
 
   return (
@@ -41,8 +44,8 @@ export const BindInventoryGoodsToStockForm = observer((props: BindInventoryGoods
       <TableTransfer
         dataSource={viewModel.dataWithKeys}
         targetKeys={viewModel.targetKeys}
-        leftColumns={viewModel.columnsModel}
-        rightColumns={viewModel.columnsModel}
+        leftColumns={bindInventoryColumns}
+        rightColumns={bindInventoryColumns}
         onChange={viewModel.onChange}
       />
 
