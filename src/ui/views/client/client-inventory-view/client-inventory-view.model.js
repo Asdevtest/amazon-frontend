@@ -380,7 +380,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
 
   onClickInStock(boxId, storekeeper) {
     const win = window.open(
-      `${window.location.origin}/client/warehouse/in-stock?storekeeper-id=${storekeeper?._id}&search-text=${boxId}`,
+      `${window.location.origin}/client/warehouse/in-stock?storekeeper-id=${storekeeper?._id}&productId=${boxId}`,
       '_blank',
     )
 
