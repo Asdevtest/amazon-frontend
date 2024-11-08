@@ -2032,5 +2032,6 @@
   "Country name is required": "Назва країни обов'язкова",
   "Country code is required": "Код країни обов'язковий",
   "Country icon is required": "Іконка країни обов'язкова",
-  "Add category": "Додати категорію"
+  "Add category": "Додати категорію",
+  "Category name is required": "Назва категорії обов'язкова"
 }

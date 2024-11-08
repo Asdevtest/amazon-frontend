@@ -21,7 +21,7 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './countries.style'
 
-import { CountryValues, generateCountryFieldRules, generateCountryIconRules } from './countries.config'
+import { CountryValues, generateCountryIconRules, generateFieldRules } from './countries.config'
 import { CountriesModel } from './countries.model'
 
 export const Countries = observer(() => {
@@ -64,14 +64,14 @@ export const Countries = observer(() => {
         <Form.Item<CountryValues>
           name="title"
           validateTrigger="onBlur"
-          rules={generateCountryFieldRules('Country name is required')}
+          rules={generateFieldRules('Country name is required')}
         >
           <CustomInput required fullWidth allowClear label="Name" />
         </Form.Item>
         <Form.Item<CountryValues>
           name="shortTitle"
           validateTrigger="onBlur"
-          rules={generateCountryFieldRules('Country code is required')}
+          rules={generateFieldRules('Country code is required')}
         >
           <CustomInput required fullWidth allowClear label="Code" />
         </Form.Item>

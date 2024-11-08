@@ -2034,4 +2034,5 @@ export enum TranslationKey {
   'Country code is required' = 'Country code is required',
   'Country icon is required' = 'Country icon is required',
   'Add category' = 'Add category',
+  'Category name is required' = 'Category name is required',
 }

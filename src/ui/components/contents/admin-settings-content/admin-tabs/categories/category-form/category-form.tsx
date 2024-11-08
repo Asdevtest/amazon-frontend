@@ -11,6 +11,7 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './category-form.style'
 
+import { generateFieldRules } from '../../countries/countries.config'
 import { CategoryTreeNode, CategoryValues } from '../categories.config'
 
 interface CategoryFormProps {
@@ -51,18 +52,7 @@ export const CategoryForm: FC<CategoryFormProps> = memo(props => {
       <Form.Item<CategoryValues>
         name="title"
         validateTrigger="onBlur"
-        rules={[
-          { required: true, message: 'Category name is required' },
-          () => ({
-            validator(_, value) {
-              if (!value?.trim()) {
-                return Promise.reject()
-              }
-
-              return Promise.resolve()
-            },
-          }),
-        ]}
+        rules={generateFieldRules('Category name is required')}
       >
         <CustomInput allowClear required label="Category name" placeholder="Enter category name" />
       </Form.Item>

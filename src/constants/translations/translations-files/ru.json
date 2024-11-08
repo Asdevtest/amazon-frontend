@@ -2033,5 +2033,6 @@
   "Country name is required": "Название страны обязательно",
   "Country code is required": "Код страны обязателен",
   "Country icon is required": "Иконка страны обязательна",
-  "Add category": "Добавить категорию"
+  "Add category": "Добавить категорию",
+  "Category name is required": "Название категории обязательно"
 }

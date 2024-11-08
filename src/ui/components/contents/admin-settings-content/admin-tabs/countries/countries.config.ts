@@ -11,7 +11,7 @@ export interface CountryValues {
   id?: string
 }
 
-export const generateCountryFieldRules = (message: string): Rule[] => [
+export const generateFieldRules = (message: string): Rule[] => [
   { required: true, message: t(TranslationKey[message as TranslationKey]) },
   () => ({
     validator(_, value) {
