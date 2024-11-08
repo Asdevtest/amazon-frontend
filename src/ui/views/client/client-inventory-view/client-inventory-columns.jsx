@@ -115,7 +115,7 @@ export const clientInventoryColumns = ({
     {
       field: 'fbaFbmStockSum',
       headerName: 'Available',
-      renderHeader: () => <MultilineTextHeaderCell text={'Available'} />,
+      renderHeader: () => <MultilineTextHeaderCell text="Available" />,
       renderCell: params => <Text isCell text={String(params.value)} />,
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -218,28 +218,6 @@ export const clientInventoryColumns = ({
       ),
       width: 85,
       columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
-      field: 'boxAmounts',
-      headerName: 'In stock',
-      renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
-      renderCell: params => (
-        <InStockCell
-          boxAmounts={params.row?.boxAmounts}
-          boxId={params.row?._id}
-          onClickInStock={otherHandlers.onClickInStock}
-        />
-      ),
-      valueGetter: params => {
-        return params.row?.boxAmounts
-          ?.sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
-          ?.map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
-          ?.join(', ')
-      },
-      width: 145,
-      disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
     },
 
     {

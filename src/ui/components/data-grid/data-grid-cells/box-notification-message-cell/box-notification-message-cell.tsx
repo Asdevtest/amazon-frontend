@@ -19,7 +19,10 @@ export const BoxNotificationMessageCell: FC<BoxNotificationMessageCellProps> = m
   const xid = notification?.xid
 
   const goToBox = () => {
-    history.push(`/client/warehouse/in-stock?box-id=${xid}`)
+    history.push({
+      pathname: `/client/warehouse/in-stock`,
+      state: [{ field: 'xid', value: [xid] }],
+    })
   }
 
   return (
