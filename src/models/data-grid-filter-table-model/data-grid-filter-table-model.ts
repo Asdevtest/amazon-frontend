@@ -382,6 +382,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     for (const filter of this.oneTimeFilters) {
       const { field, value } = filter
 
+      if (field === 'currentSearchValue') {
+        this.currentSearchValue = value?.[0]
+      }
+
       this.onChangeFullFieldMenuItem(value, field)
     }
 
