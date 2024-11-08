@@ -1763,7 +1763,7 @@ export enum TranslationKey {
   'Patch notes not changed' = 'Patch notes not changed',
   'Send to find a supplier' = 'Send to find a supplier',
   'Export to file' = 'Export to file',
-  'Import permissions' = 'Import permissions',
+  'Import' = 'Import',
   'Permissions not exported' = 'Permissions not exported',
   'Data exported successfully' = 'Data exported successfully',
   'Permissions imported successfully' = 'Permissions imported successfully',
@@ -2032,4 +2032,5 @@ export enum TranslationKey {
   'Country name is required' = 'Country name is required',
   'Country code is required' = 'Country code is required',
   'Country icon is required' = 'Country icon is required',
+  'Add category' = 'Add category',
 }

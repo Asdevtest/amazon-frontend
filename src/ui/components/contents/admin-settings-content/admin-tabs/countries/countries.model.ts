@@ -13,9 +13,9 @@ import { isString } from '@typings/guards'
 import { ICountry } from '@typings/models/others/country'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { CountryValues } from './tab-countries.config'
+import { CountryValues } from './countries.config'
 
-export class AdminSettingsCountriesModel {
+export class CountriesModel {
   countries: ICountry[] = []
   images: UploadFileType[] = []
 

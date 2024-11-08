@@ -28,9 +28,9 @@ export const CategoryForm: FC<CategoryFormProps> = memo(props => {
   useEffect(() => {
     if (category) {
       form.setFieldsValue({
-        id: category?.id || '',
-        title: category?.title || '',
-        parentId: category?.parentId || '',
+        id: category?.id || undefined,
+        title: category?.title || undefined,
+        parentId: category?.parentId || null,
       })
     }
   }, [])
@@ -45,7 +45,9 @@ export const CategoryForm: FC<CategoryFormProps> = memo(props => {
   return (
     <Form name="categories-form" size="large" form={form} rootClassName={styles.form} onFinish={handleFinish}>
       <p className={styles.title}>{t(TranslationKey[title])}</p>
-      <Form.Item name="id" style={{ display: 'none' }} />
+      <Form.Item hidden name="id">
+        <CustomInput />
+      </Form.Item>
       <Form.Item<CategoryValues>
         name="title"
         validateTrigger="onBlur"

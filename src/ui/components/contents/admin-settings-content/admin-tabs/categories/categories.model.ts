@@ -1,6 +1,6 @@
 import { TreeProps } from 'antd/lib'
 import { makeAutoObservable, runInAction } from 'mobx'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, Key } from 'react'
 import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,14 +11,28 @@ import { OtherModel } from '@models/other-model'
 import { t } from '@utils/translations'
 
 import { ICategory } from '@typings/models/others/category'
+import { NullString } from '@typings/types/nullable-types'
 
-import { CategoryTreeNode, CategoryValues, transformDataToTree } from './categories.config'
+import {
+  CategoryTreeNode,
+  CategoryValues,
+  filterTreeNodesWithHighlight,
+  findTreeKeys,
+  transformDataToTree,
+} from './categories.config'
 
 export class CategoriesModel {
-  categories: CategoryTreeNode[] = []
+  categoriesNodes: CategoryTreeNode[] = []
   categoryToEdit?: CategoryValues
   title: string = ''
   showCategoryModal = false
+  expandedKeys: Key[] = []
+  searchValue: string = ''
+  autoExpandParent: boolean = true
+
+  get categories() {
+    return filterTreeNodesWithHighlight(this.categoriesNodes, this.searchValue)
+  }
 
   constructor() {
     this.getCategories()
@@ -33,12 +47,25 @@ export class CategoriesModel {
     this.showCategoryModal = !this.showCategoryModal
   }
 
+  onExpand(newExpandedKeys: Key[]) {
+    this.expandedKeys = newExpandedKeys
+    this.autoExpandParent = false
+  }
+
+  onChangeInputSearch(e: ChangeEvent<HTMLInputElement>) {
+    const { value } = e.target
+    const newExpandedKeys = value ? findTreeKeys(this.categoriesNodes, value) : []
+    this.expandedKeys = newExpandedKeys
+    this.searchValue = value
+    this.autoExpandParent = true
+  }
+
   async getCategories() {
     try {
       const response = (await OtherModel.getCategories()) as unknown as ICategory[]
 
       runInAction(() => {
-        this.categories = transformDataToTree(response, this.onSelectCategoryToEdit, this.onRemoveCategory)
+        this.categoriesNodes = transformDataToTree(response, this.onSelectCategoryToEdit, this.onRemoveCategory)
       })
     } catch (error) {
       console.error(error)
@@ -62,9 +89,13 @@ export class CategoriesModel {
     this.onToggleCategoryModal()
   }
 
-  async onEditCategory({ title, id, parentId }: CategoryValues) {
+  async onEditCategory({ title, id, parentId }: CategoryValues, toggleModal?: boolean) {
     try {
-      await AdministratorModel.editCategory(id, { title, parentId })
+      const data = {
+        title,
+        parentId: id === parentId ? undefined : parentId,
+      }
+      await AdministratorModel.editCategory(id, data)
       toast.success(t(TranslationKey['Category successfully saved']))
     } catch (error) {
       toast.error(t(TranslationKey['Category is not saved']))
@@ -72,13 +103,13 @@ export class CategoriesModel {
       runInAction(() => {
         this.categoryToEdit = undefined
       })
-      this.onToggleCategoryModal()
+      toggleModal && this.onToggleCategoryModal()
       this.getCategories()
     }
   }
 
   onSubmitCategoryModal(category: CategoryValues) {
-    this.categoryToEdit ? this.onEditCategory(category) : this.onCreateCategory(category)
+    this.categoryToEdit ? this.onEditCategory(category, true) : this.onCreateCategory(category)
   }
 
   async onRemoveCategory(id: string) {
@@ -94,6 +125,7 @@ export class CategoriesModel {
     const dropKey = info.node.key
     const dragKey = info.dragNode.key
     const dropPos = info.node.pos.split('-')
+    const dropDragPos = info.dragNode.pos.split('-')
     const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1])
 
     const loop = (
@@ -107,11 +139,11 @@ export class CategoriesModel {
         }
 
         if (data[i].children) {
-          loop(data[i].children!, key, callback)
+          loop(data[i].children, key, callback)
         }
       }
     }
-    const data = [...this.categories]
+    const data = [...this.categoriesNodes]
     let dragObj: CategoryTreeNode
 
     loop(data, dragKey, (item, index, arr) => {
@@ -141,11 +173,20 @@ export class CategoriesModel {
     }
 
     runInAction(() => {
-      this.categories = data
+      this.categoriesNodes = data
     })
-  }
 
-  onDragEnter: TreeProps['onDragEnter'] = info => {
-    console.log(info)
+    const isTopLevel = dropPos.length === 2 && info.dropToGap && (dropDragPos.length === 2 || dropDragPos.length === 3)
+    // @ts-ignore
+    const title = info.dragNode.title?.props?.children?.[0]?.props?.children?.[2] // from a custom node (since we're using not a listItem, but a listItem with buttons)
+
+    this.onEditCategory(
+      {
+        id: dragKey as string,
+        parentId: (isTopLevel ? null : dropKey) as NullString,
+        title,
+      },
+      false,
+    )
   }
 }

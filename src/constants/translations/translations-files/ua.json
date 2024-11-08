@@ -1761,7 +1761,7 @@
   "Patch notes not changed": "Оновлення не змінене",
   "Send to find a supplier": "Відправити на пошук постачальника",
   "Export to file": "Експорт у файл",
-  "Import permissions": "Імпорт з файлу",
+  "Import": "Імпорт",
   "Permissions not exported": "Файл не експортовано",
   "Data exported successfully": "Дані успішно експортовано",
   "Permissions imported successfully": "Файл успішно імпортовано",
@@ -2030,5 +2030,6 @@
   "Select parent category": "Оберіть батьківську категорію",
   "Country name is required": "Назва країни обов'язкова",
   "Country code is required": "Код країни обов'язковий",
-  "Country icon is required": "Іконка країни обов'язкова"
+  "Country icon is required": "Іконка країни обов'язкова",
+  "Add category": "Додати категорію"
 }

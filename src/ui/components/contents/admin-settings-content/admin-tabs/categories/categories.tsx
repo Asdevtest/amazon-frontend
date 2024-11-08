@@ -1,11 +1,11 @@
-import { Tree } from 'antd'
+import { Empty, Tree } from 'antd'
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomInput } from '@components/shared/custom-input'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
@@ -23,12 +23,14 @@ export const Categories = observer(() => {
     <>
       <div className="viewWrapper">
         <div className={styles.flexRow}>
-          <CustomInput allowClear size="large" placeholder="Search" />
+          <CustomInputSearch allowClear size="large" placeholder="Search" onChange={viewModel.onChangeInputSearch} />
 
           <div className={styles.flexRow}>
-            <CustomButton size="large">Import</CustomButton>
+            <CustomButton disabled size="large">
+              {t(TranslationKey.Import)}
+            </CustomButton>
             <CustomButton size="large" type="primary" onClick={viewModel.onToggleCategoryModal}>
-              Add category
+              {t(TranslationKey['Add category'])}
             </CustomButton>
           </div>
         </div>
@@ -36,22 +38,28 @@ export const Categories = observer(() => {
         <div className={styles.content}>
           <p className={styles.title}>{t(TranslationKey.Categories)}</p>
 
-          <Tree
-            draggable
-            blockNode
-            height={650}
-            className={styles.treeSelect}
-            treeData={viewModel.categories}
-            onDragEnter={viewModel.onDragEnter}
-            onDrop={viewModel.onDrop}
-          />
+          {viewModel.categoriesNodes.length ? (
+            <Tree
+              draggable
+              blockNode
+              height={650}
+              className={styles.treeSelect}
+              treeData={viewModel.categories}
+              expandedKeys={viewModel.expandedKeys}
+              autoExpandParent={viewModel.autoExpandParent}
+              onExpand={viewModel.onExpand}
+              onDrop={viewModel.onDrop}
+            />
+          ) : (
+            <Empty />
+          )}
         </div>
       </div>
 
       <Modal openModal={viewModel.showCategoryModal} setOpenModal={viewModel.onToggleCategoryModal}>
         <CategoryForm
           category={viewModel.categoryToEdit}
-          categories={viewModel.categories}
+          categories={viewModel.categoriesNodes}
           onSubmit={viewModel.onSubmitCategoryModal}
         />
       </Modal>

@@ -1760,7 +1760,7 @@
   "Patch notes not changed": "补丁说明未更改",
   "Send to find a supplier": "发送以寻找供应商",
   "Export to file": "导出到文件",
-  "Import permissions": "导入权限",
+  "Import": "导入",
   "Permissions not exported": "权限未导出",
   "Data exported successfully": "数据导出成功",
   "Permissions imported successfully": "权限导入成功",
@@ -2028,5 +2028,6 @@
   "Select parent category": "选择父类别",
   "Country name is required": "国家名称为必填项",
   "Country code is required": "国家代码为必填项",
-  "Country icon is required": "国家图标为必填项"
+  "Country icon is required": "国家图标为必填项",
+  "Add category": "添加类别"
 }

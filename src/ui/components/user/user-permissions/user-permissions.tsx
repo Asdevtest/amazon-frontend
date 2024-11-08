@@ -50,9 +50,7 @@ export const UserPermissions = observer(() => {
           <CustomButton onClick={viewModel.onClickExportPermissions}>
             {t(TranslationKey['Export to file'])}
           </CustomButton>
-          <CustomButton onClick={viewModel.onClickImportPermissions}>
-            {t(TranslationKey['Import permissions'])}
-          </CustomButton>
+          <CustomButton onClick={viewModel.onClickImportPermissions}>{t(TranslationKey.Import)}</CustomButton>
           <CustomButton type="primary" onClick={viewModel.onClickAddBtn}>
             {t(TranslationKey.Add)}
           </CustomButton>

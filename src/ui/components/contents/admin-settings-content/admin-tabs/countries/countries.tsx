@@ -19,14 +19,14 @@ import { t } from '@utils/translations'
 import { ICountry } from '@typings/models/others/country'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { useStyles } from './tab-countries.style'
+import { useStyles } from './countries.style'
 
-import { CountryValues, generateCountryFieldRules, generateCountryIconRules } from './tab-countries.config'
-import { AdminSettingsCountriesModel } from './tab-countries.model'
+import { CountryValues, generateCountryFieldRules, generateCountryIconRules } from './countries.config'
+import { CountriesModel } from './countries.model'
 
-export const TabCountries = observer(() => {
+export const Countries = observer(() => {
   const { classes: styles, cx } = useStyles()
-  const viewModel = useMemo(() => new AdminSettingsCountriesModel(), [])
+  const viewModel = useMemo(() => new CountriesModel(), [])
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -58,7 +58,9 @@ export const TabCountries = observer(() => {
       <p className={styles.title}>{t(TranslationKey['Adding a country'])}</p>
 
       <div className={cx(styles.flexRow, styles.flexStart)}>
-        <Form.Item name="id" style={{ display: 'none' }} />
+        <Form.Item hidden name="id">
+          <CustomInput />
+        </Form.Item>
         <Form.Item<CountryValues>
           name="title"
           validateTrigger="onBlur"

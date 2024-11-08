@@ -1763,7 +1763,7 @@
   "Patch notes not changed": "Обновление не изменено",
   "Send to find a supplier": "Отправить на поиск поставщика",
   "Export to file": "Экспорт в файл",
-  "Import permissions": "Импорт из файла",
+  "Import": "Импорт",
   "Permissions not exported": "Файл не экспортирован",
   "Data exported successfully": "Данные успешно экспортированы",
   "Permissions imported successfully": "Файл успешно импортирован",
@@ -2031,5 +2031,6 @@
   "Select parent category": "Выберите родительскую категорию",
   "Country name is required": "Название страны обязательно",
   "Country code is required": "Код страны обязателен",
-  "Country icon is required": "Иконка страны обязательна"
+  "Country icon is required": "Иконка страны обязательна",
+  "Add category": "Добавить категорию"
 }

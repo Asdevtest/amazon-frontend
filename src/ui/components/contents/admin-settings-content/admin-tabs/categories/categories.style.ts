@@ -35,4 +35,8 @@ export const useStyles = makeStyles()(theme => ({
       marginLeft: '10px',
     },
   },
+
+  highlight: {
+    color: theme.palette.text.highlight,
+  },
 }))
