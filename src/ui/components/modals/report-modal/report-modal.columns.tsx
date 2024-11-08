@@ -63,7 +63,10 @@ export const reportModalColumns = (props: ReportModalColumnsProps) => {
         <CustomRangeDatePicker
           isCell
           // minDate={dayjs()} // for a while for the business to bring in all the lunches
-          defaultValue={[row.dateFrom ? dayjs(row.dateFrom) : null, row.dateTo ? dayjs(row.dateTo) : null]}
+          defaultValue={[
+            row.dateFrom ? dayjs(row.dateFrom.split('T')[0]) : null,
+            row.dateTo ? dayjs(row.dateTo.split('T')[0]) : null,
+          ]}
           onChange={onChangeDateCellValue(row._id, 'dateFrom')} // or dateTo - same overall value
         />
       ),

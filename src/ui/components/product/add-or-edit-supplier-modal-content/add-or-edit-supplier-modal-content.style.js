@@ -95,7 +95,7 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16px',
-    maxWidth: 250,
+    maxWidth: '150px',
   },
 
   costBlock: {

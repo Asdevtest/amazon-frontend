@@ -5,6 +5,14 @@ export const useStyles = makeStyles()(theme => ({
     height: '100%',
   },
 
+  sortButton: {
+    borderRadius: '16px 0 0 16px',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   indicatorWrapper: {
     display: 'flex',
     flexDirection: 'column',

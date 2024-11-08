@@ -228,7 +228,7 @@ export const downloadArchive = async (files, folderName) => {
         fileMap[file.title] = 0
       }
 
-      const uniqueTitle = fileMap[file.title] > 0 ? `${file.title}(${fileMap[file.title]})` : file.title
+      const uniqueTitle = fileMap[file.title] > 0 ? `(${fileMap[file.title]})${file.title}` : file.title
 
       zip.file(uniqueTitle, file.blob, { base64: true })
     })
