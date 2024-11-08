@@ -94,6 +94,8 @@ export class BindStockGoodsToInventoryFormModel extends DataGridFilterTableModel
       toast.error(t(TranslationKey["You can't bind"]))
       this.setLoading(false)
       console.error(error)
+    } finally {
+      this.setLoading(false)
     }
   }
 }
