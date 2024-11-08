@@ -1,6 +1,12 @@
+import { Tooltip } from 'antd'
 import { FC, memo } from 'react'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { checkCurrentPeriodValid } from '@components/modals/report-modal/helpers/check-current-period-valid'
+
+import { formatDateWithoutTime } from '@utils/date-time'
+import { t } from '@utils/translations'
 
 import { ILaunch } from '@typings/shared/launch'
 
@@ -24,15 +30,15 @@ export const Launches: FC<LaunchesProps> = memo(props => {
     <div className={cx(styles.wrapper, { [styles.cell]: isCell })}>
       {launches.map((launch, index) => {
         const expired = checkCurrentPeriodValid(launch.dateTo)
+        const dateFrom = formatDateWithoutTime(launch.dateFrom) || t(TranslationKey.Missing)
+        const dateTo = formatDateWithoutTime(launch.dateTo) || t(TranslationKey.Missing)
 
         return (
-          <p
-            key={index}
-            style={getLaunchStyle(launch.type, theme)}
-            className={cx(styles.text, { [styles.expired]: expired })}
-          >
-            {`${getLaunchName(launch.type, true)} ${getLaunchValue(launch.value)}`}
-          </p>
+          <Tooltip key={index} title={`${dateFrom} - ${dateTo}`}>
+            <p style={getLaunchStyle(launch.type, theme)} className={cx(styles.text, { [styles.expired]: expired })}>
+              {`${getLaunchName(launch.type, true)} ${getLaunchValue(launch.value)}`}
+            </p>
+          </Tooltip>
         )
       })}
     </div>

@@ -29,7 +29,7 @@ export const Info: FC<InfoProps> = memo(({ product, activeLaunches }) => {
 
       <div className={styles.titleContainer}>
         <p className={styles.title}>{product?.amazonTitle}</p>
-        <div>
+        <div className={styles.infoWrapper}>
           <div className={styles.shopContainer}>
             <p className={cx(styles.textSecond, styles.text)}> {t(TranslationKey.Shop)}:</p>
             <p className={styles.text}>{shopName}</p>

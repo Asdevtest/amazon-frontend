@@ -28,7 +28,6 @@ export const AdminUsersView = observer(() => {
         </p>
 
         <CustomRadioButton
-          size="large"
           options={getSwitcherConfig()}
           defaultValue={viewModel.switcherCondition}
           onChange={viewModel.onClickChangeRole}
@@ -37,7 +36,6 @@ export const AdminUsersView = observer(() => {
         <CustomInputSearch
           enterButton
           allowClear
-          size="large"
           placeholder="Search by name, email"
           onSearch={viewModel.onSearchSubmit}
         />

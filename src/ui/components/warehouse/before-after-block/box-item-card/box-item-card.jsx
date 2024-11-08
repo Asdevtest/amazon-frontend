@@ -87,7 +87,7 @@ export const BoxItemCard = ({
 
               <div className={styles.countSubWrapper}>
                 <p className={styles.subTitle}>{t(TranslationKey['Order number'])}</p>
-                <p className={styles.subValue}>{item.order.id}</p>
+                <p className={styles.subValue}>{item.order.xid}</p>
               </div>
 
               <div className={styles.countSubWrapper}>
