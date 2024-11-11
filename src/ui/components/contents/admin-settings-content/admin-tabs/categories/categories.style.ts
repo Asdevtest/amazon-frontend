@@ -24,7 +24,12 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   treeSelect: {
+    '.ant-tree-list-holder-inner': {
+      paddingRight: '10px',
+    },
+
     '.ant-tree-title': {
+      minHeight: '24px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
