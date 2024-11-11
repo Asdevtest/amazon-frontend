@@ -1,5 +1,4 @@
 import { Avatar } from 'antd'
-import { useEffect, useRef, useState } from 'react'
 
 import { Rating } from '@mui/material'
 
@@ -22,19 +21,6 @@ export const MyServicesInfo = ({
   onClickReview,
 }) => {
   const { classes: styles, cx } = useStyles()
-  const descriptionRef = useRef()
-
-  const [showFullDescription, setShowFullDescription] = useState(false)
-  const [shopFullDescriptionButton, setShopFullDescriptionButton] = useState(false)
-
-  useEffect(() => {
-    const containerElement = descriptionRef?.current
-    const componentHeight = containerElement?.scrollHeight
-
-    if (componentHeight > 76) {
-      setShopFullDescriptionButton(componentHeight)
-    }
-  }, [announcementData])
 
   return (
     <div className={styles.root}>
@@ -42,7 +28,7 @@ export const MyServicesInfo = ({
         <div className={styles.userInfoAndFooterWrapper}>
           <div className={styles.userInfoWrapper}>
             {announcementData?.createdBy?._id && (
-              <Avatar src={getUserAvatarSrc(announcementData?.createdBy?._id)} className={styles.userAvatar} />
+              <Avatar src={getUserAvatarSrc(announcementData?.createdBy?._id)} size={60} />
             )}
 
             <div className={styles.userInfoSubWrapper}>
@@ -69,14 +55,8 @@ export const MyServicesInfo = ({
                 <p className={styles.announcementText}>{announcementData?.spec?.title}</p>
               </div>
             </div>
-            <div
-              className={cx(styles.descriptionTextWrapper, {
-                [styles.showFullDescription]: showFullDescription,
-              })}
-            >
-              <p ref={descriptionRef} className={cx(styles.regularText, styles.description)}>
-                {announcementData?.description}
-              </p>
+            <div className={styles.descriptionTextWrapper}>
+              <p className={cx(styles.regularText, styles.description)}>{announcementData?.description}</p>
             </div>
           </div>
         </div>
@@ -85,21 +65,18 @@ export const MyServicesInfo = ({
       </div>
 
       <div className={styles.footerWrapper}>
-        {shopFullDescriptionButton ? (
-          <CustomButton onClick={() => setShowFullDescription(prev => !prev)}>{t(TranslationKey.Close)}</CustomButton>
-        ) : (
-          <div />
-        )}
+        <CustomButton
+          danger
+          type="primary"
+          confirmText="Are you sure you want to delete the ad?"
+          onClick={onClickCloseAnnouncementBtn}
+        >
+          {t(TranslationKey['Delete ad'])}
+        </CustomButton>
 
-        <div className={styles.buttonsWrapper}>
-          <CustomButton danger type="primary" onClick={onClickCloseAnnouncementBtn}>
-            {t(TranslationKey['Delete ad'])}
-          </CustomButton>
+        <CustomButton onClick={onClickEditBtn}>{t(TranslationKey.Edit)}</CustomButton>
 
-          <CustomButton onClick={onClickEditBtn}>{t(TranslationKey.Edit)}</CustomButton>
-
-          <CustomButton onClick={onClickBackBtn}>{t(TranslationKey.Back)}</CustomButton>
-        </div>
+        <CustomButton onClick={onClickBackBtn}>{t(TranslationKey.Back)}</CustomButton>
       </div>
     </div>
   )

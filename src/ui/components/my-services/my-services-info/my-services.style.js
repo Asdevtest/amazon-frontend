@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    padding: '30px',
+    padding: '20px',
     background: theme.palette.background.general,
     boxShadow: theme.palette.boxShadow.paper,
     borderRadius: 16,
@@ -13,12 +13,10 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    marginBottom: 25,
+    marginBottom: 20,
   },
 
   userInfoAndFooterWrapper: {
-    height: '100%',
-    width: 1115,
     display: 'flex',
     flexDirection: 'column',
     gap: 20,
@@ -26,7 +24,7 @@ export const useStyles = makeStyles()(theme => ({
 
   userInfoWrapper: {
     display: 'flex',
-    gap: 15,
+    gap: 20,
   },
 
   userInfoSubWrapper: {
@@ -40,11 +38,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: 10,
-  },
-
-  userAvatar: {
-    width: 63,
-    height: 63,
   },
 
   announcementText: {
@@ -77,17 +70,7 @@ export const useStyles = makeStyles()(theme => ({
 
   footerWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-  },
-
-  statusWrapper: {
-    display: 'flex',
-    gap: 15,
-  },
-
-  buttonsWrapper: {
-    display: 'flex',
+    justifyContent: 'flex-end',
     gap: 10,
   },
 
@@ -95,9 +78,5 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     maxHeight: 76,
     overflowY: 'auto',
-  },
-
-  showFullDescription: {
-    maxHeight: 'none',
   },
 }))

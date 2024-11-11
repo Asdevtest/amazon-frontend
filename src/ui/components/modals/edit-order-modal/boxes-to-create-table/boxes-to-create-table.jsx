@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { MdOutlineClose, MdOutlineEdit } from 'react-icons/md'
 
 import { TableCell, TableRow } from '@mui/material'
 
@@ -9,7 +10,6 @@ import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { SizeSwitcher } from '@components/shared/size-switcher'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -160,9 +160,14 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
 
       <TableCell>
         <div className={styles.buttonCell}>
-          <CustomButton danger type="primary" icon={<CrossIcon />} onClick={() => handlers.onRemoveBox(itemIndex)} />
+          <CustomButton
+            danger
+            type="primary"
+            icon={<MdOutlineClose size={18} />}
+            onClick={() => handlers.onRemoveBox(itemIndex)}
+          />
 
-          <CustomButton icon={<EditIcon />} onClick={() => handlers.onEditBox()}></CustomButton>
+          <CustomButton icon={<MdOutlineEdit size={18} />} onClick={() => handlers.onEditBox()}></CustomButton>
         </div>
       </TableCell>
     </TableRow>

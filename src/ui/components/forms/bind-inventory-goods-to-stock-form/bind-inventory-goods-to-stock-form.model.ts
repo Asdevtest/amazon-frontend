@@ -9,7 +9,11 @@ import { SellerBoardModel } from '@models/seller-board-model'
 
 import { t } from '@utils/translations'
 
+import { IStockGood } from '@typings/models/seller-boards/stock-good'
+
 import { bindInventoryGoodsToStockFormConfig, searchFields } from './bind-inventory-goods-to-stock.config'
+
+type IStockGoodWithKey = IStockGood & { key: Key }
 
 export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel {
   initialAsin: string
@@ -51,8 +55,8 @@ export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel
     makeObservable(this, bindInventoryGoodsToStockFormConfig)
   }
 
-  get dataWithKeys() {
-    return this.currentData.map((item: any) => ({ ...item, key: item._id }))
+  get dataWithKeys(): IStockGoodWithKey[] {
+    return this.currentData.map((item: IStockGood) => ({ ...item, key: item._id }))
   }
 
   onChange = (nextTargetKeys: Key[]) => {
@@ -61,9 +65,9 @@ export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel
 
   async onSubmitBindStockGoods() {
     try {
-      const selectedItems = this.dataWithKeys.filter((item: any) => this.targetKeys.includes(item.key))
+      const selectedItems = this.dataWithKeys.filter((item: IStockGoodWithKey) => this.targetKeys.includes(item.key))
 
-      const warehouseStocks = selectedItems.map((el: any) => ({
+      const warehouseStocks = selectedItems.map((el: IStockGoodWithKey) => ({
         sku: el.sku,
         shopId: el.shop?._id,
       }))

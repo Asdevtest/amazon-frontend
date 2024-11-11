@@ -1,5 +1,6 @@
 import { memo, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
+import { MdOutlineEdit } from 'react-icons/md'
 
 import { Box, Grid, Link, MenuItem, Radio, Select } from '@mui/material'
 
@@ -305,7 +306,7 @@ export const FieldsAndSuppliers = memo(props => {
               <p className={styles.subUsersTitle}>{t(TranslationKey['Product tags'])}</p>
 
               {showActionBtns && !checkIsSupervisor(curUserRole) && !checkIsBuyer(curUserRole) ? (
-                <CustomButton icon={<EditIcon />} onClick={() => setShowEditProductTagsModal(true)} />
+                <CustomButton icon={<MdOutlineEdit size={18} />} onClick={() => setShowEditProductTagsModal(true)} />
               ) : null}
             </div>
 

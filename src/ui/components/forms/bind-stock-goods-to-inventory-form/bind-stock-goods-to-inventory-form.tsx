@@ -9,7 +9,7 @@ import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
 
-import { IProduct } from '@typings/models/products/product'
+import { IStockGood } from '@typings/models/seller-boards/stock-good'
 
 import { useStyles } from './bind-stock-goods-to-inventory-form.style'
 
@@ -17,7 +17,7 @@ import { BindStockGoodsToInventoryFormModel } from './bind-stock-goods-to-invent
 import { chosenGoodsColumns } from './columns/choosen-goods-columns'
 
 interface BindStockGoodsToInventoryFormProps {
-  goodsToSelect: IProduct[]
+  goodsToSelect: IStockGood[]
   onCloseModal: () => void
 }
 

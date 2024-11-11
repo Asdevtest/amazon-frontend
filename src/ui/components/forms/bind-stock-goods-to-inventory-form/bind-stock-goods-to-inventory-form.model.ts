@@ -9,20 +9,21 @@ import { SellerBoardModel } from '@models/seller-board-model'
 
 import { t } from '@utils/translations'
 
-import { IProduct } from '@typings/models/products/product'
+import { IStockGood } from '@typings/models/seller-boards/stock-good'
 
 import { bindStockGoodsToInventoryFormConfig, searchFields } from './bind-stock-goods-to-inventory-form.config'
 import { stockGoodsColumns } from './columns/stock-goods-columns'
 
 export class BindStockGoodsToInventoryFormModel extends DataGridFilterTableModel {
-  choosenGoods: IProduct[]
-  initialChoosenGoods: IProduct[]
+  choosenGoods: IStockGood[]
+  initialChoosenGoods: IStockGood[]
   selectedProduct: string = ''
   onCloseModal: () => void
 
-  constructor(goodsToSelect: IProduct[], onCloseModal: () => void) {
+  constructor(goodsToSelect: IStockGood[], onCloseModal: () => void) {
+    console.log(goodsToSelect)
     const columnProps = {
-      onSelectProduct: (selectedRow: IProduct) => this.onSelectProduct(selectedRow),
+      onSelectProduct: (selectedRow: IStockGood) => this.onSelectProduct(selectedRow),
       selectedProduct: () => this.selectedProduct,
     }
     const columnsModel = stockGoodsColumns(columnProps)
@@ -63,12 +64,12 @@ export class BindStockGoodsToInventoryFormModel extends DataGridFilterTableModel
     return !this.selectedProduct || this.choosenGoods.length < 1
   }
 
-  onSelectProduct(selectedRow: IProduct) {
+  onSelectProduct(selectedRow: IStockGood) {
     this.selectedProduct = selectedRow._id
   }
 
   onDeleteGoods(id: string) {
-    const filteredArray = this.choosenGoods.filter((el: any) => el._id !== id)
+    const filteredArray = this.choosenGoods.filter(el => el._id !== id)
     this.choosenGoods = filteredArray
   }
   onResetData() {
@@ -79,20 +80,18 @@ export class BindStockGoodsToInventoryFormModel extends DataGridFilterTableModel
   async onSubmitBindStockGoods() {
     this.setLoading(true)
     try {
-      const warehouseStocks = this.choosenGoods.map((el: any) => ({ sku: el.sku, shopId: el.shop._id }))
+      const warehouseStocks = this.choosenGoods.map((el: IStockGood) => ({ sku: el.sku, shopId: el.shop._id }))
 
       const data = {
         productId: this.selectedProduct,
         warehouseStocks,
       }
       await SellerBoardModel.bindStockProductsBySku(data)
-      this.setLoading(false)
       this.onCloseModal()
 
       toast.success(t(TranslationKey['Goods are bound']))
     } catch (error) {
       toast.error(t(TranslationKey["You can't bind"]))
-      this.setLoading(false)
       console.error(error)
     } finally {
       this.setLoading(false)

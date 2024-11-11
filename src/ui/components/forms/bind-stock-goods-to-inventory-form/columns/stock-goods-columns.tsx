@@ -5,11 +5,12 @@ import { GridCellParams, GridRowModel } from '@mui/x-data-grid-premium'
 
 import { ProductCell } from '@components/data-grid/data-grid-cells'
 
+import { IStockGood } from '@typings/models/seller-boards/stock-good'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 interface IStockGoodsColumns {
   selectedProduct: () => void
-  onSelectProduct: (selection: any) => void
+  onSelectProduct: (selection: IStockGood) => void
 }
 
 export const stockGoodsColumns = ({ selectedProduct, onSelectProduct }: IStockGoodsColumns) => {

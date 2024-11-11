@@ -312,6 +312,19 @@ export const EditMultipleBoxesForm = observer(
                       ...el,
                       isBarCodeAlreadyAttachedByTheSupplier: sharedFields.isBarCodeAlreadyAttachedByTheSupplier,
                       isBarCodeAttachedByTheStorekeeper: sharedFields.isBarCodeAttachedByTheStorekeeper,
+                    }))
+                  : [],
+              }
+            : newBox,
+        )
+      } else if (field === 'isTransparencyFileAttached') {
+        updatedNewBoxes = newBoxes.map(newBox =>
+          visibleBoxesIds.includes(newBox._id)
+            ? {
+                ...newBox,
+                items: newBox?.items
+                  ? newBox.items.map(el => ({
+                      ...el,
                       isTransparencyFileAttachedByTheStorekeeper:
                         sharedFields.isTransparencyFileAttachedByTheStorekeeper,
                       isTransparencyFileAlreadyAttachedByTheSupplier:
@@ -599,6 +612,29 @@ export const EditMultipleBoxesForm = observer(
                       t(TranslationKey.Apply)
                     )}
                   </CustomButton>
+
+                  <div className={styles.transparencyWrapper}>
+                    <CustomCheckbox
+                      disabled={isAnyBoxMissingTransparencyFile}
+                      checked={sharedFields.isTransparencyFileAlreadyAttachedByTheSupplier}
+                      onChange={e => onChangeSharedFields(e, 'isTransparencyFileAlreadyAttachedByTheSupplier')}
+                    >
+                      Transparency Codes glued by the supplier
+                    </CustomCheckbox>
+                    <CustomCheckbox
+                      disabled={isAnyBoxMissingTransparencyFile}
+                      checked={sharedFields.isTransparencyFileAttachedByTheStorekeeper}
+                      onChange={e => onChangeSharedFields(e, 'isTransparencyFileAttachedByTheStorekeeper')}
+                    >
+                      Transparency Codes are glued by storekeeper
+                    </CustomCheckbox>
+                    <CustomButton
+                      disabled={disabledApplyBtn}
+                      onClick={() => onApplySharedValuesToAllBoxes('isTransparencyFileAttached')}
+                    >
+                      {applyBtnsClicked.isTransparencyFileAttached ? <MdDone size={18} /> : t(TranslationKey.Apply)}
+                    </CustomButton>
+                  </div>
                 </div>
               ) : null}
 
@@ -619,20 +655,6 @@ export const EditMultipleBoxesForm = observer(
                     onChange={e => onChangeSharedFields(e, 'isBarCodeAttachedByTheStorekeeper')}
                   >
                     The barcode is glued by the Storekeeper
-                  </CustomCheckbox>
-                  <CustomCheckbox
-                    disabled={isAnyBoxMissingTransparencyFile}
-                    checked={sharedFields.isTransparencyFileAlreadyAttachedByTheSupplier}
-                    onChange={e => onChangeSharedFields(e, 'isTransparencyFileAlreadyAttachedByTheSupplier')}
-                  >
-                    Transparency Codes glued by the supplier
-                  </CustomCheckbox>
-                  <CustomCheckbox
-                    disabled={isAnyBoxMissingTransparencyFile}
-                    checked={sharedFields.isTransparencyFileAttachedByTheStorekeeper}
-                    onChange={e => onChangeSharedFields(e, 'isTransparencyFileAttachedByTheStorekeeper')}
-                  >
-                    Transparency Codes are glued by storekeeper
                   </CustomCheckbox>
 
                   <CustomButton

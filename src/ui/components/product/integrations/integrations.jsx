@@ -93,7 +93,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
         setOpenModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
       >
         <BindInventoryGoodsToStockForm
-          productAsin={product?.asin}
+          asin={product?.asin}
           productId={product?._id}
           onCloseModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
         />

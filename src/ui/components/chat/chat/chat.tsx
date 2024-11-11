@@ -325,7 +325,7 @@ export const Chat: FC<ChatProps> = memo(
 
           {isShowChatInfo ? null : (
             <div className={styles.hideAndShowIconWrapper}>
-              <CustomButton icon={<FaArrowLeft />} onClick={onClickOpenChatInfo} />
+              <CustomButton icon={<FaArrowLeft size={18} />} onClick={onClickOpenChatInfo} />
             </div>
           )}
 

@@ -15,17 +15,14 @@ import { BindInventoryGoodsToStockFormModel } from './bind-inventory-goods-to-st
 import { bindInventoryColumns } from './bind-inventory-goods-to-stock.columns'
 
 interface BindInventoryGoodsToStockFormProps {
-  productAsin: string
+  asin: string
   productId: string
   onCloseModal: () => void
 }
 
 export const BindInventoryGoodsToStockForm: FC<BindInventoryGoodsToStockFormProps> = observer(props => {
-  const { productAsin, productId, onCloseModal } = props
-  const viewModel = useMemo(
-    () => new BindInventoryGoodsToStockFormModel({ asin: productAsin, productId, onCloseModal }),
-    [],
-  )
+  const { asin, productId, onCloseModal } = props
+  const viewModel = useMemo(() => new BindInventoryGoodsToStockFormModel({ asin, productId, onCloseModal }), [])
   const { classes: styles } = useStyles()
 
   return (
