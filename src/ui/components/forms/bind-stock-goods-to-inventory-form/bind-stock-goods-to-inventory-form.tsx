@@ -43,7 +43,6 @@ export const BindStockGoodsToInventoryForm: FC<BindStockGoodsToInventoryFormProp
         <div className={styles.tableWrapper}>
           <CustomDataGrid
             disableColumnMenu
-            columnHeaderHeight={40}
             sortingMode="client"
             paginationMode="client"
             rows={viewModel.choosenGoods}
