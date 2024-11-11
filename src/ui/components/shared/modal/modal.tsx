@@ -51,6 +51,7 @@ export const Modal: FC<ModalProps> = memo(props => {
         className={cx(styles.dialogWrapper, { [styles.openModal]: openModal })}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
+        onContextMenu={e => e.stopPropagation()}
       >
         <div className={cx(styles.contentWrapper, { [styles.alternativeBackground]: isSecondBackground })}>
           <MdClose className={styles.closeIcon} size={30} onClick={handleCloseModal} />
