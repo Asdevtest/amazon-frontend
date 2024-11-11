@@ -32,9 +32,9 @@ export const LinkRequestForm: FC<LinkRequestFormProps> = observer(props => {
   const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new LinkRequestModel(product, idea), [])
 
-  const handleSave = useCallback(() => {
+  const handleSave = useCallback(async () => {
     if (idea) {
-      viewModel.onBindIdeaToRequest()
+      await viewModel.onBindIdeaToRequest()
       onUpdateData?.()
     } else {
       onAddRequest?.(viewModel.selectedRequest)
