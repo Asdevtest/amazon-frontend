@@ -53,9 +53,9 @@ export const ClientInventoryView = observer(({ history }) => {
   const apiRef = useGridApiRef()
 
   const getCellClassName = params => {
-    if (clickableCells.includes(params.field) || params.field?.includes('counter')) {
-      return styles.clickableCell
-    }
+    // if (clickableCells.includes(params.field) || params.field?.includes('counter')) {
+    //   return styles.clickableCell
+    // }
   }
 
   return (
@@ -78,6 +78,7 @@ export const ClientInventoryView = observer(({ history }) => {
       <CustomDataGrid
         checkboxSelection
         disableRowSelectionOnClick
+        rowBufferPx={500}
         apiRef={apiRef}
         disableVirtualization={false}
         getCellClassName={getCellClassName}
