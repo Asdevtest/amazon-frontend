@@ -21,13 +21,17 @@ export const RequestNotificationMessageCell: FC<RequestNotificationMessageCellPr
   const isStatusChanged = !!notification?.status
   const isDeadlineExpires = !!notification?.timeoutAt
 
+  const request = notification?.request
+  const requestId = request?._id
+  const requestXid = request?.xid || request?.humanFriendlyId
+
   return (
     <p>
       {isStatusChanged && !isDeadlineExpires && (
         <>
           {t(TranslationKey['Status of the proposal by request '])}{' '}
-          <NavLink to={getUrlToRequest(notification?.request?._id)} className={styles.notificationId} target="_blank">
-            {`"${notification?.request?.xid}" `}
+          <NavLink to={getUrlToRequest(requestId)} className={styles.notificationId} target="_blank">
+            {`"${requestXid}" `}
           </NavLink>
           {t(TranslationKey['changed to'])}
           <span style={{ color: RequestProposalStatusColor(notification?.status) }}>
@@ -41,11 +45,11 @@ export const RequestNotificationMessageCell: FC<RequestNotificationMessageCellPr
         <>
           {t(TranslationKey['Deadline for request'])}{' '}
           <NavLink
-            to={getUrlToRequest(notification?.request?._id || notification?._id)}
+            to={getUrlToRequest(requestId || notification?._id)}
             className={styles.notificationId}
             target="_blank"
           >
-            {`"${notification?.xid || notification?.request?.xid}" `}
+            {`"${notification?.xid || notification?.humanFriendlyId || requestXid}" `}
           </NavLink>
           {t(TranslationKey.expires)} {formatNormDateTime(notification?.timeoutAt)}
         </>
