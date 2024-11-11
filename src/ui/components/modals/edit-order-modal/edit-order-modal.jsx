@@ -118,6 +118,7 @@ export const EditOrderModal = memo(
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
     const [isStatusChange, setStatusChange] = useState(false)
+    const [showPhotosModal, setShowPhotosModal] = useState(false)
 
     const initialState = {
       ...order,
@@ -645,10 +646,12 @@ export const EditOrderModal = memo(
             setOrderField={setOrderField}
             orderFields={orderFields}
             showProgress={showProgress}
+            showPhotosModal={showPhotosModal}
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
             setPaymentMethodsModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
+            setShowPhotosModal={() => setShowPhotosModal(!showPhotosModal)}
             onClickUpdateButton={onClickUpdateButton}
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
