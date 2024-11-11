@@ -43,6 +43,7 @@ export const SelectFields = ({
   setOrderField,
   orderFields,
   showProgress,
+  showPhotosModal,
   progressValue,
   setPhotosToLoad,
   hsCode,
@@ -52,6 +53,7 @@ export const SelectFields = ({
   onClickUpdateButton,
   onClickSupplierPaymentButton,
   setPaymentMethodsModal,
+  setShowPhotosModal,
   orderPayments,
   deliveredQuantity,
 }) => {
@@ -63,7 +65,6 @@ export const SelectFields = ({
     OrderStatusByKey[OrderStatus.IN_STOCK],
   ].includes(orderFields.status)
 
-  const [showPhotosModal, setShowPhotosModal] = useState(false)
   const onChangeHsField = fieldName => event => {
     const newFormFields = { ...hsCode }
     newFormFields[fieldName] = event.target.value
@@ -403,7 +404,7 @@ export const SelectFields = ({
           <div className={styles.supplierPaymentButtonWrapper}>
             <Button
               variant={editPaymentDetailsPhotos.length ? ButtonVariant.CONTAINED : ButtonVariant.OUTLINED}
-              onClick={isOrderInactive ? () => setShowPhotosModal(!showPhotosModal) : onClickSupplierPaymentButton}
+              onClick={isOrderInactive ? setShowPhotosModal : onClickSupplierPaymentButton}
             >
               {t(TranslationKey[`${editPaymentDetailsPhotos.length ? 'Document added' : 'Add payment document'}`])}
               {editPaymentDetailsPhotos.length ? ` (${editPaymentDetailsPhotos.length})` : ''}
@@ -579,7 +580,7 @@ export const SelectFields = ({
       <SlideshowGalleryModal
         openModal={showPhotosModal}
         files={editPaymentDetailsPhotos}
-        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+        onOpenModal={setShowPhotosModal}
       />
     </Grid>
   )
