@@ -2,13 +2,14 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
+    width: '400px',
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
   },
 
   cell: {
-    padding: '10px 0',
+    padding: '5px 0',
   },
 
   row: {

@@ -36,10 +36,6 @@ export const useStyles = makeStyles()(theme => ({
         marginLeft: '20px',
       },
     },
-
-    '.ant-tree-list-holder': {
-      height: '650px !important',
-    },
   },
 
   highlight: {

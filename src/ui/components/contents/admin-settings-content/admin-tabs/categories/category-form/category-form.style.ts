@@ -23,7 +23,11 @@ export const useStyles = makeStyles()(() => ({
   },
 
   treeSelect: {
+    width: '400px',
+
     '.ant-select-tree-title, .ant-select-selection-item': {
+      wordBreak: 'break-word',
+
       span: {
         display: 'none',
       },
