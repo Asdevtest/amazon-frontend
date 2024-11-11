@@ -1,10 +1,11 @@
+import { MdDeleteOutline } from 'react-icons/md'
+
 import { Radio } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { MediaContentCell } from '@components/data-grid/data-grid-cells'
 import { CustomButton } from '@components/shared/custom-button'
-import { DeleteIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
@@ -109,7 +110,9 @@ export const chosenGoodsColumns = handlers => [
   {
     field: ' ',
     headerName: '',
-    renderCell: params => <CustomButton icon={<DeleteIcon />} onClick={() => handlers.onClickTrash(params.row.asin)} />,
+    renderCell: params => (
+      <CustomButton icon={<MdDeleteOutline size={18} />} onClick={() => handlers.onClickTrash(params.row.asin)} />
+    ),
     width: 60,
     filterable: false,
     sortable: false,

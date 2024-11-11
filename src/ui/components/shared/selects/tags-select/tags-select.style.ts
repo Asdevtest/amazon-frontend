@@ -16,11 +16,6 @@ export const useStyles = makeStyles()(theme => ({
     flex: 1,
   },
 
-  crossIcon: {
-    height: '10px !important',
-    width: '10px !important',
-  },
-
   buttonsWrapper: {
     display: 'flex',
     gap: '5px',

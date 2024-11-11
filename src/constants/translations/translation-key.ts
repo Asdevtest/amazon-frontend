@@ -2034,4 +2034,5 @@ export enum TranslationKey {
   'Order ID' = 'Order ID',
   'Please enter a valid email!' = 'Please enter a valid email!',
   'Employee' = 'Employee',
+  'Are you sure you want to delete the ad?' = 'Are you sure you want to delete the ad?',
 }

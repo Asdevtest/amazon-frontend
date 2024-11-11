@@ -2031,7 +2031,8 @@
   "Country is not saved": "Страна не сохранена",
   "Short country name": "Краткое название страны",
   "Are you sure you want to delete the country?": "Вы уверены, что хотите удалить страну?",
-  "Order ID": "ID заказа",
   "Please enter a valid email!": "Пожалуйста, введите валидный e-mail!",
-  "Employee": "Сотрудник"
+  "Employee": "Сотрудник",
+  "Order ID": "ID заказа",
+  "Are you sure you want to delete the ad?": "Вы уверены, что хотите удалить объявление?"
 }

@@ -30,7 +30,7 @@ export const ClientExchangeView = observer(() => {
         paginationModel={viewModel.paginationModel}
         pinnedColumns={viewModel.pinnedColumns}
         rows={viewModel.currentData}
-        getRowHeight={() => 'auto'}
+        rowHeight={130}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
         loading={viewModel.requestStatus === loadingStatus.IS_LOADING}

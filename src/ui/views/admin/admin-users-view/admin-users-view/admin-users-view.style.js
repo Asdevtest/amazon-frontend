@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(() => ({
 
   usersOnlineWrapper: {
     position: 'relative',
-    minWidth: '150px',
+    minWidth: '200px',
     '&:after': {
       content: '""',
       position: 'absolute',

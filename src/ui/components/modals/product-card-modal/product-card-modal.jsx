@@ -140,17 +140,13 @@ export const ProductCardModal = observer(props => {
             onClickNextButton={viewModel.bindUnbindProducts}
             onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
             onClickGetProductsToBind={option =>
-              useProductsPermissions.getPermissionsData(
-                option === ProductVariation.PARENT
-                  ? { isChild: false, offset: 0, filters: '' }
-                  : {
-                      isChild: false,
-                      isParent: false,
-                      shopId: viewModel.product?.shopId,
-                      offset: 0,
-                      filters: '',
-                    },
-              )
+              useProductsPermissions.getPermissionsData({
+                isChild: false,
+                isParent: option === ProductVariation.CHILD ? false : undefined,
+                shopId: viewModel.product?.shopId,
+                offset: 0,
+                filters: '',
+              })
             }
             onClickSaveSupplierBtn={viewModel?.onClickSaveSupplierBtn}
             onRemoveSupplier={viewModel?.onRemoveSupplier}

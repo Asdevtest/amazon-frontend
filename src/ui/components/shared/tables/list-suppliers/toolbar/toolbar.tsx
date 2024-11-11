@@ -1,13 +1,14 @@
 import { FC, memo } from 'react'
+import { FaEye } from 'react-icons/fa'
 import { FiPlus } from 'react-icons/fi'
 import { IoMdCheckmark, IoMdClose } from 'react-icons/io'
+import { MdDeleteOutline, MdOutlineEdit } from 'react-icons/md'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { DeleteIcon, EditIcon, EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -153,21 +154,21 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
         </CustomButton>
 
         <CustomButton
-          icon={<FiPlus size={16} />}
+          icon={<FiPlus size={18} />}
           className={styles.button}
           disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea || !showAddSupplierButton}
           onClick={() => onSupplierActions(ModalModes.ADD)}
         />
 
         <CustomButton
-          icon={<EditIcon />}
+          icon={<MdOutlineEdit size={18} />}
           className={styles.button}
           disabled={disabledEditSupplierButton || !showEditSupplierButton}
           onClick={() => onSupplierActions(ModalModes.EDIT)}
         ></CustomButton>
 
         <CustomButton
-          icon={<EyeIcon />}
+          icon={<FaEye size={18} />}
           disabled={!isSupplerSelected}
           className={styles.button}
           onClick={() => onSupplierActions(ModalModes.VIEW)}
@@ -192,7 +193,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
 
         <CustomButton
           danger
-          icon={<DeleteIcon />}
+          icon={<MdDeleteOutline size={18} />}
           disabled={!showRemoveCurrentSupplierButton}
           type="primary"
           className={styles.button}

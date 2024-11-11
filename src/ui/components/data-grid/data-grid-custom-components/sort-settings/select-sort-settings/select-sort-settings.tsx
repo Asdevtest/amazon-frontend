@@ -46,6 +46,7 @@ export const SelectSortSettings: FC<SelectSortSettingsProps> = memo(({ sortField
               key={index}
               type="text"
               title={item.name}
+              className={styles.itemButton}
               onClick={() => {
                 onClickField(item._id)
                 onToggleSelect()
