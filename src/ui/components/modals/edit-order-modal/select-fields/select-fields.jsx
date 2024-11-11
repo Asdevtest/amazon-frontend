@@ -299,6 +299,7 @@ export const SelectFields = ({
               value={toFixedWithDollarSign(orderFields.totalPrice, 2)}
             />
           </div>
+
           <div className={styles.checkboxWithButton}>
             <Field
               oneLine
