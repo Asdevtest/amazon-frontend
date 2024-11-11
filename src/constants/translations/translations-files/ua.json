@@ -2022,7 +2022,6 @@
   "Category successfully saved": "Категорію успішно збережено",
   "Category is not saved": "Категорію не збережено",
   "Are you sure you want to delete the category?": "Ви впевнені, що хочете видалити категорію?",
-  "Order ID": "ID замовлення",
   "Adding a category": "Додавання категорії",
   "Editing a category": "Редагування категорії",
   "Parent category": "Батьківська категорія",
@@ -2033,5 +2032,7 @@
   "Country code is required": "Код країни обов'язковий",
   "Country icon is required": "Іконка країни обов'язкова",
   "Add category": "Додати категорію",
-  "Category name is required": "Назва категорії обов'язкова"
+  "Category name is required": "Назва категорії обов'язкова",
+  "Order ID": "ID замовлення",
+  "Are you sure you want to delete the ad?": "Ви впевнені, що хочете видалити оголошення?"
 }

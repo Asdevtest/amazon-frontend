@@ -2023,7 +2023,6 @@
   "Category successfully saved": "Category successfully saved",
   "Category is not saved": "Category is not saved",
   "Are you sure you want to delete the category?": "Are you sure you want to delete the category?",
-  "Order ID": "Order ID",
   "Adding a category": "Adding a category",
   "Editing a category": "Editing a category",
   "Parent category": "Parent category",
@@ -2034,5 +2033,7 @@
   "Country code is required": "Country code is required",
   "Country icon is required": "Country icon is required",
   "Add category": "Add category",
-  "Category name is required": "Category name is required"
+  "Category name is required": "Category name is required",
+  "Order ID": "Order ID",
+  "Are you sure you want to delete the ad?": "Are you sure you want to delete the ad?"
 }

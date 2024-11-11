@@ -27,6 +27,7 @@ export const FinancesView = observer(() => {
     <div className="viewWrapper">
       <div className={styles.header}>
         <CustomRadioButton
+          size="large"
           options={getPaymentTypeConfig()}
           defaultValue={viewModel.paymentType}
           onChange={viewModel.onSetPaymentType}
@@ -35,11 +36,13 @@ export const FinancesView = observer(() => {
         <CustomInputSearch
           enterButton
           allowClear
+          size="large"
           placeholder="Search by SKU, ASIN, Title"
           onSearch={viewModel.onSearchSubmit}
         />
 
         <CustomRadioButton
+          size="large"
           options={getEntityTypeConfig(checkIsAdmin(UserRoleCodeMap[viewModel?.userRole]))}
           defaultValue={viewModel.entityType}
           onChange={viewModel.onSetEntityType}

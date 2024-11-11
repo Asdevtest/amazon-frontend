@@ -185,7 +185,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: params =>
         params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <Text isCell text={'-'} />,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 100,
     },
 
@@ -290,7 +290,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 100,
     },
 
@@ -300,7 +300,7 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
 
       renderCell: params => <NormDateCell value={params.value} />,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 100,
     },
   ]

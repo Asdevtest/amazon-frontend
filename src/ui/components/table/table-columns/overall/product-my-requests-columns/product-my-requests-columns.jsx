@@ -27,7 +27,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     ),
     renderCell: params => <NormDateCell value={params.value} />,
     width: 120,
-    columnKey: columnnsKeys.shared.DATE,
+    columnKey: columnnsKeys.shared.DATE_VALUE,
   },
 
   {
@@ -124,7 +124,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     width: 115,
-    columnKey: columnnsKeys.shared.DATE,
+    columnKey: columnnsKeys.shared.DATE_VALUE,
   },
 
   {

@@ -2023,7 +2023,6 @@
   "Category successfully saved": "Категория успешно сохранена",
   "Category is not saved": "Категория не сохранена",
   "Are you sure you want to delete the category?": "Вы уверены, что хотите удалить категорию?",
-  "Order ID": "ID заказа",
   "Adding a category": "Добавление категории",
   "Editing a category": "Редактирование категории",
   "Parent category": "Родительская категория",
@@ -2034,5 +2033,7 @@
   "Country code is required": "Код страны обязателен",
   "Country icon is required": "Иконка страны обязательна",
   "Add category": "Добавить категорию",
-  "Category name is required": "Название категории обязательно"
+  "Category name is required": "Название категории обязательно",
+  "Order ID": "ID заказа",
+  "Are you sure you want to delete the ad?": "Вы уверены, что хотите удалить объявление?"
 }

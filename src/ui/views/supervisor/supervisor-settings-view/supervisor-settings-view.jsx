@@ -29,6 +29,7 @@ export const SupervisorSettingsView = observer(() => {
     <div className="viewWrapper">
       <div className={styles.flexContainer}>
         <CustomRadioButton
+          size="large"
           options={switcherSettings}
           defaultValue={viewModel.condition}
           onChange={event => viewModel.onChangeСondition(event.target.value)}
@@ -37,6 +38,7 @@ export const SupervisorSettingsView = observer(() => {
         <CustomInputSearch
           enterButton
           allowClear
+          size="large"
           placeholder="Search by ASIN, Reason"
           onSearch={viewModel.onChangeUnserverSearchValue}
         />
@@ -44,6 +46,7 @@ export const SupervisorSettingsView = observer(() => {
         <div className={styles.flexContainer}>
           <CustomButton
             danger
+            size="large"
             type="primary"
             disabled={!viewModel.selectedRows.length}
             confirmText="Are you sure you want to delete the selected ASINs?"
@@ -52,7 +55,11 @@ export const SupervisorSettingsView = observer(() => {
             {t(TranslationKey['Delete selected ASINs'])}
           </CustomButton>
 
-          <CustomButton type="primary" onClick={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}>
+          <CustomButton
+            size="large"
+            type="primary"
+            onClick={() => viewModel.onTriggerOpenModal('showAsinCheckerModal')}
+          >
             ASIN checker
           </CustomButton>
         </div>

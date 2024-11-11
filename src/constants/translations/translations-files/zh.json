@@ -2020,7 +2020,6 @@
   "Category successfully saved": "类别已成功保存",
   "Category is not saved": "类别未保存",
   "Are you sure you want to delete the category?": "您确定要删除该类别吗?",
-  "Order ID": "订单 ID",
   "Adding a category": "添加类别",
   "Editing a category": "编辑类别",
   "Parent category": "父类别",
@@ -2031,5 +2030,7 @@
   "Country code is required": "国家代码为必填项",
   "Country icon is required": "国家图标为必填项",
   "Add category": "添加类别",
-  "Category name is required": "类别名称为必填项"
+  "Category name is required": "类别名称为必填项",
+  "Order ID": "订单 ID",
+  "Are you sure you want to delete the ad?": "您确定要删除该广告吗?"
 }

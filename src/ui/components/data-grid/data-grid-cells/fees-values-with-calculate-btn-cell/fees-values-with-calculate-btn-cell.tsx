@@ -33,7 +33,7 @@ export const FeesValuesWithCalculateBtnCell: FC<FeesValuesWithCalculateBtnCellPr
         <span className={styles.typoSpan}>{toFixedWithDollarSign(reffee, 2)}</span>
       </p>
       {!noCalculate && (
-        <CustomButton icon={<MdOutlineCalculate />} onClick={() => onClickCalculate?.(productId)}>
+        <CustomButton icon={<MdOutlineCalculate size={18} />} onClick={() => onClickCalculate?.(productId)}>
           Calculate fees
         </CustomButton>
       )}

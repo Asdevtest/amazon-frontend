@@ -216,7 +216,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow, onClickTag }: S
       renderCell: ({ row }) => <NormDateCell value={row?.createdAt} />,
       valueFormatter: ({ row }: GridRowModel) => formatNormDateTime(row?.createdAt),
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -226,7 +226,7 @@ export const supervisorProductsViewColumns = ({ onClickTableRow, onClickTag }: S
       renderCell: ({ row }) => <NormDateCell value={row?.updatedAt} />,
       valueFormatter: ({ row }: GridRowModel) => formatNormDateTime(row?.updatedAt),
       width: 115,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

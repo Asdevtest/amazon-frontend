@@ -16,14 +16,13 @@ export const DataGridResetFilterButton = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   return (
-    <div>
-      <CustomButton
-        icon={<MdOutlineFilterAltOff size={20} />}
-        onClick={resetFiltersBtnSettings.onClickResetFilters}
-        {...restProps}
-      >
-        {t(TranslationKey['Reset filters'])}
-      </CustomButton>
-    </div>
+    <CustomButton
+      className={styles.resetButton}
+      icon={<MdOutlineFilterAltOff size={16} />}
+      onClick={resetFiltersBtnSettings.onClickResetFilters}
+      {...restProps}
+    >
+      {t(TranslationKey['Reset filters'])}
+    </CustomButton>
   )
 })

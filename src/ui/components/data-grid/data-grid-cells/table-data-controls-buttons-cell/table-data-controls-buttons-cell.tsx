@@ -1,7 +1,9 @@
 import { FC, memo } from 'react'
+import { FaRegSave } from 'react-icons/fa'
+import { FaArrowUpLong, FaDownLong } from 'react-icons/fa6'
+import { MdOutlineClose, MdOutlineEdit } from 'react-icons/md'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { CrossIcon, EditIcon, ReturnArrowIcon, SaveIcon, SendArrowIcon } from '@components/shared/svg-icons'
 
 import '@typings/enums/button-style'
 
@@ -31,17 +33,29 @@ export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps>
   return (
     <div className={styles.buttonsWrapper}>
       {onClickSaveButton ? (
-        <CustomButton icon={<SaveIcon />} type="primary" disabled={disableButton} onClick={onClickSaveButton} />
+        <CustomButton
+          size="small"
+          icon={<FaRegSave size={16} />}
+          type="primary"
+          disabled={disableButton}
+          onClick={onClickSaveButton}
+        />
       ) : null}
 
       {onClickEditButton ? (
-        <CustomButton icon={<EditIcon />} disabled={disableButton} onClick={onClickEditButton} />
+        <CustomButton
+          size="small"
+          icon={<MdOutlineEdit size={16} />}
+          disabled={disableButton}
+          onClick={onClickEditButton}
+        />
       ) : null}
 
       {onClickCancelButton ? (
         <CustomButton
           danger
-          icon={<CrossIcon />}
+          size="small"
+          icon={<MdOutlineClose size={16} />}
           type="primary"
           disabled={disableButton}
           onClick={onClickCancelButton}
@@ -51,7 +65,8 @@ export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps>
       {onClickSendButton ? (
         <CustomButton
           danger
-          icon={<ReturnArrowIcon />}
+          size="small"
+          icon={<FaDownLong size={16} />}
           type="primary"
           disabled={disableButton}
           onClick={onClickSendButton}
@@ -59,7 +74,13 @@ export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps>
       ) : null}
 
       {onClickReturnButton ? (
-        <CustomButton icon={<SendArrowIcon />} type="primary" disabled={disableButton} onClick={onClickReturnButton} />
+        <CustomButton
+          size="small"
+          icon={<FaArrowUpLong size={16} />}
+          type="primary"
+          disabled={disableButton}
+          onClick={onClickReturnButton}
+        />
       ) : null}
     </div>
   )

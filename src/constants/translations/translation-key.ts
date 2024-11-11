@@ -2035,4 +2035,5 @@ export enum TranslationKey {
   'Country icon is required' = 'Country icon is required',
   'Add category' = 'Add category',
   'Category name is required' = 'Category name is required',
+  'Are you sure you want to delete the ad?' = 'Are you sure you want to delete the ad?',
 }

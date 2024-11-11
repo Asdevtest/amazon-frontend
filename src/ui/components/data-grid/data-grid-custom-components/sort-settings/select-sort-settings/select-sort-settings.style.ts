@@ -68,9 +68,11 @@ export const useStyles = makeStyles()(theme => ({
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
+  },
 
-    '& .ant-btn': {
-      borderRadius: '7px',
-    },
+  itemButton: {
+    display: 'flex',
+    justifyContent: 'start',
+    borderRadius: '7px',
   },
 }))
