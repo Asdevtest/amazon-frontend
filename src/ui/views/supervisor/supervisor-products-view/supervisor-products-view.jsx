@@ -69,7 +69,7 @@ export const SupervisorProductsView = observer(() => {
         paginationModel={viewModel.paginationModel}
         columnVisibilityModel={viewModel.columnVisibilityModel}
         rows={viewModel.currentData}
-        getRowHeight={() => 'auto'}
+        rowHeight={130}
         slotProps={{
           baseTooltip: {
             title: t(TranslationKey.Filter),
