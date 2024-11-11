@@ -239,13 +239,17 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const url = new URL(window.location.href)
 
     const storekeeperId = url.searchParams.get('storekeeper-id')
-
     if (storekeeperId) {
       this.currentStorekeeperId = storekeeperId
     }
 
+    const productId = url.searchParams.get('productId')
+    if (productId) {
+      this.oneTimeFilters?.push({ field: 'productId', value: [productId] })
+    }
+
     if (history.location.state) {
-      this.oneTimeFilters = history.location.state
+      this.oneTimeFilters?.push(...history.location.state)
       history.replace({ ...this.history.location, state: null })
     }
 
