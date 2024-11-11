@@ -27,6 +27,8 @@ export const useStyles = makeStyles()(theme => ({
   treeSelect: {
     '.ant-tree-list-holder-inner': {
       paddingRight: '10px',
+      maxHeight: '650px !important',
+      overflow: 'auto',
     },
 
     '.ant-tree-title': {

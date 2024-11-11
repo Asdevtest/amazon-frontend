@@ -41,7 +41,6 @@ export const Categories = observer(() => {
           <Tree
             draggable
             blockNode
-            height={650}
             className={styles.treeSelect}
             treeData={viewModel.categories}
             expandedKeys={viewModel.expandedKeys}
