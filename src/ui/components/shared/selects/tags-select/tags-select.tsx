@@ -1,11 +1,11 @@
 import { FC, MouseEvent, memo } from 'react'
 import { FiPlus } from 'react-icons/fi'
+import { MdOutlineClose } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CircleSpinner } from '@components/shared/circle-spinner'
 import { CustomButton } from '@components/shared/custom-button'
-import { CrossIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -66,7 +66,7 @@ export const TagsSelect: FC<TagsSelectProps> = memo(props => {
         {searchValue ? (
           <div className={styles.buttonsWrapper}>
             <CustomButton
-              icon={<CrossIcon className={styles.crossIcon} />}
+              icon={<MdOutlineClose size={18} />}
               onClick={() => {
                 setSearchValue('')
               }}

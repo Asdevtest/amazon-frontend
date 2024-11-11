@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { FaEye } from 'react-icons/fa'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import {
@@ -10,7 +11,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
-import { EyeIcon } from '@components/shared/svg-icons'
 
 import { checkIsAdmin } from '@utils/checks'
 import { t } from '@utils/translations'
@@ -172,7 +172,7 @@ export const AsinProxyCheckerForm = ({ user, strategy, onSubmit, onClose }) => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <CustomButton icon={<EyeIcon />} onClick={onClickPreviewButton} />
+        <CustomButton icon={<FaEye size={18} />} onClick={onClickPreviewButton} />
 
         <div className={styles.actionsButtonsContainer}>
           <CustomButton
