@@ -56,7 +56,7 @@ export const Categories = observer(() => {
         </div>
       </div>
 
-      <Modal openModal={viewModel.showCategoryModal} setOpenModal={viewModel.onToggleCategoryModal}>
+      <Modal openModal={viewModel.showCategoryModal} setOpenModal={viewModel.onCloseCategoryModal}>
         <CategoryForm
           category={viewModel.categoryToEdit}
           categories={viewModel.categoriesNodes}

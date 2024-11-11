@@ -25,18 +25,20 @@ export const useStyles = makeStyles()(theme => ({
 
   treeSelect: {
     '.ant-tree-title': {
-      paddingRight: '10px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
+      wordBreak: 'break-word',
+
+      '& > span:nth-of-type(2)': {
+        display: 'flex',
+        gap: '5px',
+        marginLeft: '20px',
+      },
     },
 
     '.ant-tree-list-holder': {
       height: '650px !important',
-    },
-
-    button: {
-      marginLeft: '10px',
     },
   },
 

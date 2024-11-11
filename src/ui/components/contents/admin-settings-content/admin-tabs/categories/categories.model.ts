@@ -47,6 +47,11 @@ export class CategoriesModel {
     this.showCategoryModal = !this.showCategoryModal
   }
 
+  onCloseCategoryModal() {
+    this.categoryToEdit = undefined
+    this.onToggleCategoryModal()
+  }
+
   onExpand(newExpandedKeys: Key[]) {
     this.expandedKeys = newExpandedKeys
     this.autoExpandParent = false
