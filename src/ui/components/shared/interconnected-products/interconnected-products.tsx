@@ -1,8 +1,10 @@
 import { observer } from 'mobx-react'
 import { FC } from 'react'
+import { CiShare1 } from 'react-icons/ci'
+import { FaMinus } from 'react-icons/fa6'
 
 import { SourceProduct } from '@components/cards/idea-view-and-edit-card/source-product'
-import { MinusIcon, ParentProductIcon, ShareIcon, VariationIcon } from '@components/shared/svg-icons'
+import { ParentProductIcon, VariationIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
@@ -45,12 +47,13 @@ export const InterconnectedProducts: FC<InterconnectedProductsProps> = observer(
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <CustomButton icon={<ShareIcon />} size="small" onClick={() => navigateToProduct(_id)} />
+        <CustomButton icon={<CiShare1 size={16} />} size="small" onClick={() => navigateToProduct(_id)} />
 
         {showRemoveButton && (
           <CustomButton
             danger
-            icon={<MinusIcon />}
+            size="small"
+            icon={<FaMinus size={16} />}
             type="primary"
             onClick={() => !!unbindProductHandler && productId && unbindProductHandler(isParent ? productId : _id)}
           />

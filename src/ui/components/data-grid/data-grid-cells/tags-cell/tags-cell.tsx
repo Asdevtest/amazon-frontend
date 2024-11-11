@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
+import { MdOutlineEdit } from 'react-icons/md'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomTag } from '@components/shared/custom-tag'
-import { EditIcon } from '@components/shared/svg-icons'
 
 import { ITag } from '@typings/shared/tag'
 
@@ -33,7 +33,7 @@ export const TagsCell: FC<TagsCellProps> = memo(({ tags, onClickTag, onClickEdit
         ))}
       </div>
 
-      {onClickEdit ? <CustomButton icon={<EditIcon />} onClick={onClickEdit} /> : null}
+      {onClickEdit ? <CustomButton icon={<MdOutlineEdit size={18} />} onClick={onClickEdit} /> : null}
     </div>
   )
 })

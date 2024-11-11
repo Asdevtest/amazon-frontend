@@ -51,7 +51,7 @@ export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = m
       {
         key: 'reply',
         label: (
-          <CustomButton icon={<MdReply />} onClick={onClickReply}>
+          <CustomButton icon={<MdReply size={18} />} onClick={onClickReply}>
             {t(TranslationKey.Reply)}
           </CustomButton>
         ),
@@ -73,7 +73,7 @@ export const ChatMessageControlsOverlay: FC<ChatMessageControlsOverlayProps> = m
       {
         key: 'copy',
         label: (
-          <CustomButton icon={<MdOutlineContentCopy />} onClick={onClickCopyMessageText}>
+          <CustomButton icon={<MdOutlineContentCopy size={18} />} onClick={onClickCopyMessageText}>
             {t(TranslationKey['Copy text'])}
           </CustomButton>
         ),
