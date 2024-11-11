@@ -22,7 +22,7 @@ export const supervisorSettingsViewColumns = props => {
       headerName: t(TranslationKey.Reason),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Reason)} />,
       renderCell: params => <Text isCell text={params.value} />,
-      flex: 1,
+      width: 400,
     },
     {
       field: 'action',
