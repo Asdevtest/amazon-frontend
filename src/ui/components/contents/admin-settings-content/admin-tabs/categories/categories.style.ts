@@ -31,6 +31,10 @@ export const useStyles = makeStyles()(theme => ({
       justifyContent: 'space-between',
     },
 
+    '.ant-tree-list-holder': {
+      height: '650px !important',
+    },
+
     button: {
       marginLeft: '10px',
     },
