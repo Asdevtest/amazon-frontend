@@ -83,6 +83,7 @@ export const Text: FC<TextCellProps> = memo(props => {
           target="_blank"
           onClick={e => {
             e.stopPropagation()
+            e.preventDefault()
             onClick?.(e)
           }}
         >
