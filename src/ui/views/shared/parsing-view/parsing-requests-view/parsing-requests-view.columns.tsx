@@ -62,7 +62,7 @@ export const parsingRequestsViewColumns = ({ onOpenProfileModal, onRejectProfile
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 115,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
     {
       field: 'createdAt',
@@ -70,7 +70,7 @@ export const parsingRequestsViewColumns = ({ onOpenProfileModal, onRejectProfile
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: ({ row }) => <NormDateCell value={row.createdAt} />,
       width: 115,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
     {
       field: 'actions',
