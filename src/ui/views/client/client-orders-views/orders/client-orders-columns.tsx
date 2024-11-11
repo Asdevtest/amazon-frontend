@@ -289,7 +289,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
         params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <Text isCell text={'-'} />,
       width: 100,
       valueGetter: params => (params.value ? formatDate(params.value) : ''),
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -353,7 +353,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       valueFormatter: params => formatNormDateTime(params.value),
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -364,7 +364,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       valueFormatter: params => formatNormDateTime(params.value),
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

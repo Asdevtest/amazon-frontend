@@ -119,7 +119,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 115,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
     {
       field: 'createdAt',
@@ -127,7 +127,7 @@ export const parsingProfileViewColumns = (props: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
       width: 110,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
     {
       field: 'action',

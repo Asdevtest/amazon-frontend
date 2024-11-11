@@ -23,7 +23,7 @@ export const ppcSalesDaysColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -427,7 +427,7 @@ export const ppcSalesDaysColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -438,7 +438,7 @@ export const ppcSalesDaysColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -449,7 +449,7 @@ export const ppcSalesDaysColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.PPC_SALES_DAYS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

@@ -209,7 +209,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: (params: GridCellParams) => <NormDateCell value={params.row?.request.timeoutAt as string} />,
       width: 80,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       table: DataGridFilterTables.REQUESTS,
     },
 
@@ -292,7 +292,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: (params: GridCellParams) => <NormDateCell value={params?.row?.updatedAt} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

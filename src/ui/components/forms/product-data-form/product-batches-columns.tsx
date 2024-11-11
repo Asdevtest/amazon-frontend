@@ -97,7 +97,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       ),
       width: 110,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -109,7 +109,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       ),
       width: 110,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -121,7 +121,7 @@ export const productBatchesColumns = ({ onClickChangeVariation }: IProductInTran
       ),
       width: 110,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
