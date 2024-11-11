@@ -49,7 +49,7 @@ export const boxesToOrderColumn = (platformSettings: IPlatformSettings) => [
     renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} />,
     filterable: false,
     sortable: false,
-    width: 60,
+    width: 90,
     align: 'center',
   },
 
