@@ -55,7 +55,7 @@ export const WarehouseManagementView = observer(() => {
         />
 
         {viewModel.tabIndex === WarehouseTabs.WAREHOUSE_SERVICES ? (
-          <CustomButton type="primary" onClick={viewModel.onClickAddWarehouseTariff}>
+          <CustomButton size="large" type="primary" onClick={viewModel.onClickAddWarehouseTariff}>
             {t(TranslationKey['Create a tariff'])}
           </CustomButton>
         ) : (
