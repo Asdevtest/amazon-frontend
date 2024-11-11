@@ -122,4 +122,8 @@ export const useStyles = makeStyles()(theme => ({
     lineHeight: '19px',
     color: theme.palette.text.second,
   },
+
+  transparencyWrapper: {
+    marginTop: '20px',
+  },
 }))
