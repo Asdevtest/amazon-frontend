@@ -2010,5 +2010,6 @@
   "SKU, Shipment ID, Reference ID, Ship to, Tracking number": "SKU, Shipment ID, Reference ID, Ship to, Tracking number",
   "Proposal ID": "ID пропозиції",
   "Search by Title, ASIN, SKU, ID, Proposal ID": "Пошук по Назві, ASIN, SKU, ID, ID пропозиції",
-  "Order ID": "ID замовлення"
+  "Order ID": "ID замовлення",
+  "Are you sure you want to delete the ad?": "Ви впевнені, що хочете видалити оголошення?"
 }

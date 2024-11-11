@@ -2012,4 +2012,5 @@ export enum TranslationKey {
   'Proposal ID' = 'Proposal ID',
   'Search by Title, ASIN, SKU, ID, Proposal ID' = 'Search by Title, ASIN, SKU, ID, Proposal ID',
   'Order ID' = 'Order ID',
+  'Are you sure you want to delete the ad?' = 'Are you sure you want to delete the ad?',
 }
