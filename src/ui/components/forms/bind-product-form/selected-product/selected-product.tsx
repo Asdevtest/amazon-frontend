@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react'
 import { FC } from 'react'
+import { FaMinus } from 'react-icons/fa6'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { MinusIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'
 
@@ -28,7 +28,7 @@ export const SelectedProduct: FC<SelectedProductProps> = observer(props => {
         {t(TranslationKey.ASIN) + ': '}
         <span className={styles.asin}>{product.asin || t(TranslationKey.Missing)}</span>
       </p>
-      <CustomButton danger icon={<MinusIcon />} type="primary" onClick={() => onClickDeleteButton(product)} />
+      <CustomButton danger icon={<FaMinus size={18} />} type="primary" onClick={() => onClickDeleteButton(product)} />
     </div>
   )
 })
