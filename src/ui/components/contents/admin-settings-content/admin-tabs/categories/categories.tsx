@@ -21,39 +21,37 @@ export const Categories = observer(() => {
 
   return (
     <>
-      <div className="viewWrapper">
+      <div className={styles.flexRow}>
+        <CustomInputSearch allowClear size="large" placeholder="Search" onChange={viewModel.onChangeInputSearch} />
+
         <div className={styles.flexRow}>
-          <CustomInputSearch allowClear size="large" placeholder="Search" onChange={viewModel.onChangeInputSearch} />
-
-          <div className={styles.flexRow}>
-            <CustomButton disabled size="large">
-              {t(TranslationKey.Import)}
-            </CustomButton>
-            <CustomButton size="large" type="primary" onClick={viewModel.onToggleCategoryModal}>
-              {t(TranslationKey['Add category'])}
-            </CustomButton>
-          </div>
+          <CustomButton disabled size="large">
+            {t(TranslationKey.Import)}
+          </CustomButton>
+          <CustomButton size="large" type="primary" onClick={viewModel.onToggleCategoryModal}>
+            {t(TranslationKey['Add category'])}
+          </CustomButton>
         </div>
+      </div>
 
-        <div className={styles.content}>
-          <p className={styles.title}>{t(TranslationKey.Categories)}</p>
+      <div className={styles.content}>
+        <p className={styles.title}>{t(TranslationKey.Categories)}</p>
 
-          {viewModel.categoriesNodes.length ? (
-            <Tree
-              draggable
-              blockNode
-              height={650}
-              className={styles.treeSelect}
-              treeData={viewModel.categories}
-              expandedKeys={viewModel.expandedKeys}
-              autoExpandParent={viewModel.autoExpandParent}
-              onExpand={viewModel.onExpand}
-              onDrop={viewModel.onDrop}
-            />
-          ) : (
-            <Empty />
-          )}
-        </div>
+        {viewModel.categoriesNodes.length ? (
+          <Tree
+            draggable
+            blockNode
+            height={650}
+            className={styles.treeSelect}
+            treeData={viewModel.categories}
+            expandedKeys={viewModel.expandedKeys}
+            autoExpandParent={viewModel.autoExpandParent}
+            onExpand={viewModel.onExpand}
+            onDrop={viewModel.onDrop}
+          />
+        ) : (
+          <Empty />
+        )}
       </div>
 
       <Modal openModal={viewModel.showCategoryModal} setOpenModal={viewModel.onCloseCategoryModal}>

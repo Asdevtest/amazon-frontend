@@ -8,6 +8,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   content: {
+    marginTop: '20px',
     padding: '20px',
     display: 'flex',
     flexDirection: 'column',
