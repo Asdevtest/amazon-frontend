@@ -1,9 +1,12 @@
+import { useState } from 'react'
+
 import { Box, Checkbox, Grid, Typography } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserCell } from '@components/data-grid/data-grid-cells'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
@@ -60,6 +63,7 @@ export const SelectFields = ({
     OrderStatusByKey[OrderStatus.IN_STOCK],
   ].includes(orderFields.status)
 
+  const [showPhotosModal, setShowPhotosModal] = useState(false)
   const onChangeHsField = fieldName => event => {
     const newFormFields = { ...hsCode }
     newFormFields[fieldName] = event.target.value
@@ -398,9 +402,8 @@ export const SelectFields = ({
           </Box>
           <div className={styles.supplierPaymentButtonWrapper}>
             <Button
-              disabled={isOrderInactive}
               variant={editPaymentDetailsPhotos.length ? ButtonVariant.CONTAINED : ButtonVariant.OUTLINED}
-              onClick={onClickSupplierPaymentButton}
+              onClick={isOrderInactive ? () => setShowPhotosModal(!showPhotosModal) : onClickSupplierPaymentButton}
             >
               {t(TranslationKey[`${editPaymentDetailsPhotos.length ? 'Document added' : 'Add payment document'}`])}
               {editPaymentDetailsPhotos.length ? ` (${editPaymentDetailsPhotos.length})` : ''}
@@ -572,6 +575,12 @@ export const SelectFields = ({
       {showProgress && (
         <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
       )}
+
+      <SlideshowGalleryModal
+        openModal={showPhotosModal}
+        files={editPaymentDetailsPhotos}
+        onOpenModal={() => setShowPhotosModal(!showPhotosModal)}
+      />
     </Grid>
   )
 }
