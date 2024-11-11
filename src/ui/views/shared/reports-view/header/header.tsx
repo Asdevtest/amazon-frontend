@@ -1,4 +1,3 @@
-import { Dayjs } from 'dayjs'
 import { FC, memo, useCallback } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
@@ -14,16 +13,26 @@ import { loadingStatus } from '@typings/enums/loading-status'
 
 import { useStyles } from './header.style'
 
+import { RangeDateType } from '../reports-view-copy.types'
+
 interface HeaderProps {
   requestStatus: loadingStatus
-  onChangeRangeDate: (dates: null | (Dayjs | null)[]) => void
+  dateRangeValue: RangeDateType
+  onChangeRangeDate: (dates: RangeDateType) => void
   onSearchSubmit: (value: string) => void
   onToggleReportModalEditMode: (reportId?: string) => void
   subView?: boolean
 }
 
 export const Header: FC<HeaderProps> = memo(props => {
-  const { requestStatus, onChangeRangeDate, onSearchSubmit, onToggleReportModalEditMode, subView = false } = props
+  const {
+    requestStatus,
+    dateRangeValue,
+    onChangeRangeDate,
+    onSearchSubmit,
+    onToggleReportModalEditMode,
+    subView = false,
+  } = props
 
   const { classes: styles } = useStyles()
 
@@ -34,7 +43,12 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   return (
     <div className={styles.header}>
-      <CustomRangeDatePicker size="large" className={styles.datePicker} onChange={onChangeRangeDate} />
+      <CustomRangeDatePicker
+        size="large"
+        value={dateRangeValue}
+        className={styles.datePicker}
+        onChange={onChangeRangeDate}
+      />
 
       {subView ? (
         <CustomInputSearch

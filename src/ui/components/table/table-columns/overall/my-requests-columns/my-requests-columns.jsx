@@ -351,6 +351,7 @@ export const myRequestsViewColumns = rowHandlers => {
       column.table = DataGridFilterTables.REQUESTS
     }
     column.sortable = false
+    column.filterable = false
   }
 
   return columns
