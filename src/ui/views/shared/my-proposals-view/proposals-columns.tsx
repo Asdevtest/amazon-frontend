@@ -301,6 +301,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       column.table = DataGridFilterTables.PROPOSALS
     }
     column.sortable = false
+    column.filterable = false
   }
 
   return columns
