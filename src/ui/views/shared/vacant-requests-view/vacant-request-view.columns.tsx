@@ -162,6 +162,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }) => <Text isCell text={row.product?.shop?.name || t(TranslationKey.Missing)} />,
       width: 110,
+      table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 

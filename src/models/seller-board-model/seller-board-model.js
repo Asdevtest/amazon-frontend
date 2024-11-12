@@ -15,7 +15,7 @@ class SellerBoardModelStatic {
   }
 
   getStockGoodsByFilters = async filters => {
-    const response = await restApiService.integrationsApi.apiV1IntegrationsWarehouseReportGet({ filters })
+    const response = await restApiService.integrationsApi.apiV1IntegrationsWarehouseReportGet(filters)
     return response.data
   }
 

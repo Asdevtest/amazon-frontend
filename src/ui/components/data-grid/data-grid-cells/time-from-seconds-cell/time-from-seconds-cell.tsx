@@ -41,6 +41,6 @@ export const TimeFromSecondsCell: FC<TimeFromSecondsCellProps> = memo(({ seconds
       )}
     </div>
   ) : (
-    <Text isCell color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : `${0}`} />
+    <Text color={color} text={time.seconds > 0 ? `${time.seconds} ${t(TranslationKey.sec)}` : `${0}`} />
   )
 })
