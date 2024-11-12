@@ -69,7 +69,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
 
   useEffect(() => {
     if (chipConfig === chipConfigSettings.RECOMMENDED) {
-      const recFilter = qs.stringify({ asin: { $contains: product.asin } }, { encode: false }).replace(/&/, ';')
+      const recFilter = qs.stringify({ asin: { $contains: product?.asin } }, { encode: false }).replace(/&/, ';')
       const isRecCall = true
 
       updateStockData(recFilter, isRecCall)
@@ -87,7 +87,7 @@ export const BindInventoryGoodsToStockForm = observer(props => {
   const onClickSubmit = () => {
     const selectedWarehouseStocks = chosenGoods.map(el => ({ sku: el.sku, shopId: el.shop._id }))
 
-    onSubmit({ productId: product._id, warehouseStocks: selectedWarehouseStocks })
+    onSubmit({ productId: product?._id, warehouseStocks: selectedWarehouseStocks })
   }
 
   return (
