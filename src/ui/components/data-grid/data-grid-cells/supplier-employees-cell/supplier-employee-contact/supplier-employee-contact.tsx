@@ -8,15 +8,24 @@ import { useStyles } from './supplier-employee-contact.style'
 
 interface SupplierEmployeeContactProps {
   Icon: IconType
+  contacts: string[]
 }
 
 export const SupplierEmployeeContact: FC<SupplierEmployeeContactProps> = memo(({ Icon, contacts }) => {
   const { classes: styles } = useStyles()
 
-  const tooltipMessage = <div></div>
+  const tooltipMessage = useMemo(() => {
+    return (
+      <ul>
+        {contacts?.map((contact, index) => (
+          <li key={index}>{contact}</li>
+        ))}
+      </ul>
+    )
+  }, [contacts])
 
   return (
-    <Tooltip className={styles.tooltip}>
+    <Tooltip className={styles.tooltip} title={tooltipMessage}>
       <CustomButton icon={<Icon size={12} />} type="default" size="small" />
     </Tooltip>
   )

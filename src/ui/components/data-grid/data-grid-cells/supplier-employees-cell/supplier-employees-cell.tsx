@@ -14,7 +14,7 @@ export const SupplierEmployeesCell: FC<SupplierEmployeesCellProps> = memo(({ emp
   const { classes: styles } = useStyles()
 
   return (
-    <div>
+    <div className={styles.root}>
       {employees?.map(employee => (
         <SupplierEmployee key={employee._id} employee={employee} />
       ))}

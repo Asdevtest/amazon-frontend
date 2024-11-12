@@ -1,14 +1,13 @@
-import { Avatar } from 'antd'
 import { FC, memo } from 'react'
 import { BsThreeDots } from 'react-icons/bs'
 import { FaRegEnvelope } from 'react-icons/fa6'
 import { SlPhone } from 'react-icons/sl'
 
-import { CustomButton } from '@components/shared/custom-button'
-
 import { ISupplierEmployee } from '@typings/models/suppliers/supplier-employee'
 
 import { useStyles } from './supplier-employee.style'
+
+import { SupplierEmployeeContact } from '../supplier-employee-contact'
 
 interface SupplierEmployeProps {
   employee: ISupplierEmployee
@@ -22,12 +21,12 @@ export const SupplierEmployee: FC<SupplierEmployeProps> = memo(props => {
 
   return (
     <div className={styles.employeeWrapper}>
-      <p>{name}</p>
+      <p className={styles.name}>{name}</p>
 
       <div className={styles.contacts}>
-        <CustomButton icon={<SlPhone size={12} />} type="default" size="small" />
-        <CustomButton icon={<FaRegEnvelope size={12} />} type="default" size="small" />
-        <CustomButton icon={<BsThreeDots size={12} />} type="default" size="small" />
+        {phoneNumbers?.length ? <SupplierEmployeeContact Icon={SlPhone} contacts={phoneNumbers} /> : null}
+        {emails?.length ? <SupplierEmployeeContact Icon={FaRegEnvelope} contacts={emails} /> : null}
+        {links?.length ? <SupplierEmployeeContact Icon={BsThreeDots} contacts={links} /> : null}
       </div>
     </div>
   )

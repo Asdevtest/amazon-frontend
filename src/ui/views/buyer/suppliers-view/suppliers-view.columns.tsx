@@ -1,19 +1,23 @@
 import { Avatar } from 'antd'
+import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
+
+import { GridRowModel } from '@mui/x-data-grid-premium'
 
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
+  ActionButtonsCell,
   MediaContentCell,
   MultilineTextHeaderCell,
   OpenInNewTabCell,
   PaymentMethodsCell,
+  RatingCell,
 } from '@components/data-grid/data-grid-cells'
 import { SupplierEmployeesCell } from '@components/data-grid/data-grid-cells/supplier-employees-cell'
 import { Text } from '@components/shared/text'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
@@ -35,6 +39,14 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
 
       filterable: false,
       disableCustomSort: true,
+    },
+
+    {
+      field: 'xid',
+      headerName: t(TranslationKey.ID),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      renderCell: ({ value }) => <Text isCell text={value} />,
+      width: 100,
     },
 
     {
@@ -88,7 +100,52 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
       sortable: false,
 
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.PAYMENTS,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
+      field: 'comment',
+      headerName: t(TranslationKey.Comment),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 200,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+      disableCustomSort: true,
+    },
+
+    {
+      field: 'action',
+      headerName: t(TranslationKey.Action),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <ActionButtonsCell
+          row
+          showFirst
+          showSecond
+          secondDanger
+          firstGhost
+          secondGhost
+          firstIcon={<MdOutlineEdit size={16} />}
+          secondIcon={<MdOutlineDelete size={16} />}
+          secondConfirmText="Are you sure?"
+          onClickFirst={() => handlers?.onClickEdit(row?._id)}
+          onClickSecond={() => handlers?.onClickDelete(row._id)}
+        />
+      ),
+      width: 100,
+      disableCustomSort: true,
+    },
+
+    {
+      field: 'avgRating',
+      headerName: t(TranslationKey.Rating),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rating)} />,
+
+      renderCell: ({ value }) => <RatingCell disabled rating={value} />,
+      width: 170,
+      columnKey: columnnsKeys.shared.NUMBER,
+      disableCustomSort: true,
     },
   ]
 

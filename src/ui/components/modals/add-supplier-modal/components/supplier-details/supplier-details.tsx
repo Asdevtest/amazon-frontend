@@ -1,5 +1,5 @@
 import { Avatar, Form } from 'antd'
-import { FC, memo, useState } from 'react'
+import { FC, memo } from 'react'
 
 import { CustomInput } from '@components/shared/custom-input'
 import { CustomSelect } from '@components/shared/custom-select'
@@ -17,20 +17,14 @@ import { getRequiredLinkRules, getRequiredRules } from '../../add-supplier-modal
 import { CreateSupplier } from '../../add-supplier-modal.types'
 
 interface SupplierDetailsProps {
+  images: UploadFileType[]
   countries: ICountry[]
   handleUploadFiles: (images: UploadFileType[]) => void
 }
 
-export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ countries, handleUploadFiles }) => {
+export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ images = [], countries, handleUploadFiles }) => {
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
-
-  const [images, setImages] = useState<UploadFileType[]>([])
-
-  const onUploadFiles = (uploadedImages: UploadFileType[]) => {
-    setImages(uploadedImages)
-    handleUploadFiles(uploadedImages)
-  }
 
   return (
     <div className={styles.root}>
@@ -82,7 +76,7 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ countries, hand
         rules={getRequiredRules()}
         validateTrigger={['onChange', 'onBlur']}
       >
-        <UploadFilesInput dragAndDropButtonHeight={50} images={images} setImages={onUploadFiles} />
+        <UploadFilesInput dragAndDropButtonHeight={50} images={images} setImages={handleUploadFiles} />
       </Form.Item>
     </div>
   )

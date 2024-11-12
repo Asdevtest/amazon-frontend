@@ -1,13 +1,9 @@
-import { Form, FormInstance } from 'antd'
 import { makeObservable, runInAction } from 'mobx'
 
-import { DataGridTableModel } from '@models/data-grid-table-model'
 import { DefaultModel } from '@models/default-model'
 import { OtherModel } from '@models/other-model'
 import { SupplierModel } from '@models/supplier-model'
 import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
-
-import { FieldType } from '@views/shared/parsing-view/parsing-profile-view/parsing-profile-form/product-data-form.type'
 
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
@@ -27,12 +23,24 @@ export class AddSupplierModalModel extends DefaultModel {
   countriesRequestStatus: loadingStatus = loadingStatus.SUCCESS
   paymentMethodsRequestStatus: loadingStatus = loadingStatus.SUCCESS
 
-  constructor() {
-    super({ getMainDataMethod: () => console.log('call :>> ') })
+  images: UploadFileType[] = []
+
+  constructor(supplierId?: string) {
+    const defaultGetCurrentDataOptions = () => supplierId
+
+    super({
+      getMainDataMethod: SupplierModel?.getSupplier,
+      defaultGetCurrentDataOptions,
+    })
+
     makeObservable(this, observerConfig)
 
     this.getCountries()
     this.getSuppliersPaymentMethods()
+
+    if (supplierId) {
+      this.getCurrentData()
+    }
   }
 
   async getCountries() {
@@ -73,18 +81,23 @@ export class AddSupplierModalModel extends DefaultModel {
   async uploadFiles(files: UploadFileType[]) {
     try {
       const result: string[] = []
+      const alreadyUploadedFiles: string[] = []
 
       for (const file of files) {
         if (isString(file)) {
-          const uploaddedFile = await uploadFileByUrl(file)
-          result.push(uploaddedFile)
+          if (file?.includes('/uploads/')) {
+            alreadyUploadedFiles.push(file)
+          } else {
+            const uploaddedFile = await uploadFileByUrl(file)
+            result.push(uploaddedFile)
+          }
         } else {
           const uploaddedFile = (await onPostImage(file)) as string
           result.push(uploaddedFile)
         }
       }
 
-      return result
+      return result?.concat(alreadyUploadedFiles)
     } catch (error) {
       console.error(error)
       return []
@@ -101,5 +114,23 @@ export class AddSupplierModalModel extends DefaultModel {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  async editSupplier(supplierId: string, value: CreateSupplier) {
+    try {
+      const images = await this.uploadFiles(value?.images)
+
+      const data: PostSupplier = { ...value, images }
+
+      SupplierV2Model?.editSupplier(supplierId, data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  setImages(images: UploadFileType[]) {
+    runInAction(() => {
+      this.images = images
+    })
   }
 }

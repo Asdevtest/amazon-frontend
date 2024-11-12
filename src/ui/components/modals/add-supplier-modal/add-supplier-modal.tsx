@@ -13,55 +13,77 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { ISupplierV2 } from '@typings/models/suppliers/supplier-v2'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './add-supplier-modal.style'
 import { useStyles as useSharedStyles } from './shared.style'
 
 import { getRequiredRules } from './add-supplier-modal.config'
-import { emptyEmployee } from './add-supplier-modal.constants'
 import { AddSupplierModalModel } from './add-supplier-modal.model'
 import { CreateSupplier } from './add-supplier-modal.types'
 import { Contacts } from './components/contacts'
 import { SupplierDetails } from './components/supplier-details'
+import { getInitialFormState } from './helpers/get-initial-form-state'
 
 interface AddSupplierModalProps {
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
+  supplierId?: string
 }
 
 export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
-  const { openModal, setOpenModal } = props
+  const { supplierId, openModal, setOpenModal } = props
+
   const { classes: styles } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
+  const title = supplierId ? 'Editing supplier' : 'Add a supplier'
+
   const [form] = Form.useForm<CreateSupplier>()
 
-  const viewModel = useMemo(() => new AddSupplierModalModel(), [])
+  const viewModel = useMemo(() => new AddSupplierModalModel(supplierId), [])
+
+  const onCloseModal = () => {
+    form.resetFields()
+    setOpenModal(false)
+  }
 
   const handleUploadFiles = (images: UploadFileType[]) => {
     form.setFieldValue('images', images)
     form.validateFields(['images'])
+    viewModel.setImages(images)
   }
 
   const onFinish = async (value: CreateSupplier) => {
-    await viewModel.createSupplier(value)
+    if (supplierId) {
+      viewModel?.editSupplier(supplierId, value)
+    } else {
+      await viewModel.createSupplier(value)
+    }
 
-    setOpenModal(false)
+    onCloseModal()
   }
 
   useEffect(() => {
-    form.setFieldsValue({
-      supplierEmployees: [emptyEmployee],
-    })
-  }, [])
+    const currentSupplier = viewModel.currentData as unknown as ISupplierV2
+
+    if (currentSupplier) {
+      form.setFieldsValue(getInitialFormState(currentSupplier))
+      viewModel.setImages(currentSupplier?.images || [])
+    }
+  }, [viewModel?.currentData])
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <Form clearOnDestroy name="supplier" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
-        <p className={styles.title}>{t(TranslationKey['Add a supplier'])}</p>
+        <p className={styles.title}>{t(TranslationKey[title])}</p>
 
-        <SupplierDetails countries={viewModel.countries} handleUploadFiles={handleUploadFiles} />
+        <SupplierDetails
+          images={viewModel.images}
+          countries={viewModel.countries}
+          handleUploadFiles={handleUploadFiles}
+        />
 
         <Form.Item<CreateSupplier> name="paymentMethodIds" className={sharedStyles.field} rules={getRequiredRules()}>
           <CustomSelect
@@ -91,7 +113,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
         </Form.Item>
 
         <div className={styles.footerWrapper}>
-          <CustomButton>{t(TranslationKey['Import products'])}</CustomButton>
+          <CustomButton disabled={!supplierId}>{t(TranslationKey['Import products'])}</CustomButton>
 
           <div className={styles.buttons}>
             <Form.Item shouldUpdate className={sharedStyles.field}>
@@ -100,13 +122,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
               </CustomButton>
             </Form.Item>
 
-            <CustomButton
-            // type={editUser ? 'default' : 'link'}
-            // className={editUser ? undefined : styles.link}
-            // onClick={onRedirect}
-            >
-              {t(TranslationKey.Close)}
-            </CustomButton>
+            <CustomButton onClick={onCloseModal}>{t(TranslationKey.Close)}</CustomButton>
           </div>
         </div>
       </Form>
