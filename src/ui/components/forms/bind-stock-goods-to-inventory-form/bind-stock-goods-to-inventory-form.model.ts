@@ -21,7 +21,6 @@ export class BindStockGoodsToInventoryFormModel extends DataGridFilterTableModel
   onCloseModal: () => void
 
   constructor(goodsToSelect: IStockGood[], onCloseModal: () => void) {
-    console.log(goodsToSelect)
     const columnProps = {
       onSelectProduct: (selectedRow: IStockGood) => this.onSelectProduct(selectedRow),
       selectedProduct: () => this.selectedProduct,
