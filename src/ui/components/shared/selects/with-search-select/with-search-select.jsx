@@ -91,6 +91,7 @@ export const WithSearchSelect = memo(
 
     const handleClose = () => {
       setAnchorEl(null)
+      setNameSearchValue('')
     }
 
     useEffect(() => {

@@ -206,6 +206,7 @@ export const SelectFields = ({
                 )}
               />
             </div>
+
             <div className={styles.yuanToDollarRate}>
               <Field
                 disabled={checkIsPlanningPrice}
