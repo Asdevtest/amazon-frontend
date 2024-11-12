@@ -47,6 +47,7 @@ export const AsinSelect: FC<AsinSelectProps> = observer(props => {
   return (
     <CustomSelect
       {...restProps}
+      showSearch
       filterOption={false}
       defaultActiveFirstOption={false}
       options={options}
@@ -55,7 +56,7 @@ export const AsinSelect: FC<AsinSelectProps> = observer(props => {
         <ProductCell isCell={false} image={data?.images?.[0]} asin={data?.asin} sku={data?.skuByClient} />
       )}
       onDropdownVisibleChange={handleDropdownVisibleChange}
-      // onSearch={viewModel.onClickSubmitSearch}
+      onSearch={viewModel.onClickSubmitSearch}
       onPopupScroll={handlePopupScroll}
       onSelect={(_, option) => onChangeData(option)}
     />
