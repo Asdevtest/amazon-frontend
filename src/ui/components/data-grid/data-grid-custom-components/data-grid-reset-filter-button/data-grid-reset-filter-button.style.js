@@ -4,5 +4,6 @@ export const useStyles = makeStyles()(theme => ({
   resetButton: {
     height: '32px',
     padding: '10px',
+    boxShadow: theme.palette.button.defaultBoxShadow,
   },
 }))

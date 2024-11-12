@@ -2,10 +2,10 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    width: 920,
+    width: 1200,
     display: 'flex',
     flexDirection: 'column',
-    gap: 15,
+    gap: '20px',
   },
 
   title: {
@@ -18,7 +18,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 10,
+    gap: '20px',
   },
 
   text: {
@@ -26,12 +26,18 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   tableWrapper: {
+    flex: '1 1 45%',
+    minWidth: '300px',
     display: 'flex',
-    height: 230,
+    height: '600px',
+    '& .MuiDataGrid-columnHeaderCheckbox': {
+      display: 'none !important',
+    },
   },
 
-  buttons: {
+  buttonsWrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    gap: '20px',
   },
 }))

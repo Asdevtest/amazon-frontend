@@ -1430,7 +1430,6 @@ export enum TranslationKey {
   'Open result' = 'Open result',
   'Search by Title, ID' = 'Search by Title, ID',
   'Executed' = 'Executed',
-  'Select a product card for the order' = 'Select a product card for the order',
   'Requests in progress' = 'Requests in progress',
   'Completed requests' = 'Completed requests',
   'EXECUTED_IN_PLURAL_KEY' = 'EXECUTED_IN_PLURAL_KEY',
