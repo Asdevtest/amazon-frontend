@@ -24,7 +24,6 @@ import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { FireIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -41,6 +40,8 @@ import '@typings/enums/button-style'
 import { Specs } from '@typings/enums/specs'
 
 import { useStyles } from './create-or-edit-request-content.style'
+
+import { AsinSelect } from '../../shared/asin-select'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -519,35 +520,15 @@ export const CreateOrEditRequestContent = memo(props => {
                     }
                   />
 
-                  <Field
-                    tooltipInfoContent={t(TranslationKey['Select a product card for the order'])}
-                    label={t(TranslationKey.ASIN) + '*'}
-                    labelClasses={styles.label}
-                    containerClasses={styles.fieldContainer}
-                    inputComponent={
-                      <WithSearchSelect
-                        grayBorder
-                        blackSelectedItem
-                        darkIcon
-                        chosenItemNoHover
-                        CustomButton={componentProps => <SelectProductButton {...componentProps} />}
-                        data={permissionsData || []}
-                        width="100%"
-                        selectedItemName={
-                          formFields?.request?.asin === '' || formFields?.request?.asin === 'undefined'
-                            ? t(TranslationKey.Missing)
-                            : formFields?.request?.asin
-                            ? formFields.request.asin
-                            : t(TranslationKey['Select ASIN'])
-                        }
-                        onScrollItemList={loadMorePermissionsDataHadler}
-                        onClickSubmitSearch={onClickSubmitSearch}
-                        onClickSelect={el => {
-                          onChangeField('request')('asin')(el.asin)
-                          onChangeField('request')('productId')(el._id)
-                        }}
-                      />
-                    }
+                  <AsinSelect
+                    required
+                    size="large"
+                    label="ASIN"
+                    placeholder="Select ASIN"
+                    onChangeData={data => {
+                      onChangeField('request')('asin')(data.asin)
+                      onChangeField('request')('productId')(data._id)
+                    }}
                   />
 
                   <Field
@@ -629,6 +610,8 @@ export const CreateOrEditRequestContent = memo(props => {
 
                 <div className={styles.defaultMarginTop}>
                   <CustomButton
+                    type="primary"
+                    size="large"
                     disabled={!formFields.request?.productId}
                     icon={<FiPlus size={16} />}
                     onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
