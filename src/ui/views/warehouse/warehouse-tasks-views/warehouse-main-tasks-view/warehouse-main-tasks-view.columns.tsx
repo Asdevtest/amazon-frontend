@@ -150,15 +150,9 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
       width: 160,
       disableCustomSort: true,
     },
-    {
-      field: 'item',
-      headerName: 'item',
-      renderHeader: () => <MultilineTextHeaderCell text="item" />,
-      renderCell: ({ row }) => <StringListCell data={row.boxesBeforeOrderItems} />,
-      width: 160,
-      disableCustomSort: true,
-    },
+
     isBarCodeAttachedColumn as IGridColumn,
+
     {
       field: 'createdAt',
       headerName: t(TranslationKey.Created),

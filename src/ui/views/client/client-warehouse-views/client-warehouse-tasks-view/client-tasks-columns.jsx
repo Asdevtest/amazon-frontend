@@ -153,18 +153,6 @@ export const clientTasksViewColumns = handlers => {
     },
 
     {
-      field: 'item',
-      headerName: 'item',
-      renderHeader: () => <MultilineTextHeaderCell text="item" />,
-
-      renderCell: params => (
-        <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.item))} />
-      ),
-      disableCustomSort: true,
-      width: 160,
-    },
-
-    {
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
