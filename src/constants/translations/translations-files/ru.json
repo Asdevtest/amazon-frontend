@@ -2033,5 +2033,6 @@
   "Please enter a valid email!": "Пожалуйста, введите валидный e-mail!",
   "Employee": "Сотрудник",
   "Order ID": "ID заказа",
-  "Are you sure you want to delete the ad?": "Вы уверены, что хотите удалить объявление?"
+  "Are you sure you want to delete the ad?": "Вы уверены, что хотите удалить объявление?",
+  "Editing supplier": "Редактирование поставщика"
 }
