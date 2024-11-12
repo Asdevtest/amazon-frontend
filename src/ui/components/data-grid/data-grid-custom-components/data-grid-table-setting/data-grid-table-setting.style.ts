@@ -1,12 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  parametersButtonTitle: {
-    fontSize: '14px',
-    fontWeight: 600,
-  },
-
-  parametersButtonIcon: {
+  settingsButton: {
+    boxShadow: theme.palette.button.defaultBoxShadow,
     color: theme.palette.primary.main,
   },
 
