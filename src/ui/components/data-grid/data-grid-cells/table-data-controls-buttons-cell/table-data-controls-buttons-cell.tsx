@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import { FaRegSave } from 'react-icons/fa'
-import { FaArrowUpLong, FaDownLong } from 'react-icons/fa6'
+import { FaDownLong, FaUpLong } from 'react-icons/fa6'
 import { MdOutlineClose, MdOutlineEdit } from 'react-icons/md'
 
 import { CustomButton } from '@components/shared/custom-button'
@@ -76,7 +76,7 @@ export const TableDataControlsButtonsCell: FC<TableDataControlsButtonsCellProps>
       {onClickReturnButton ? (
         <CustomButton
           size="small"
-          icon={<FaArrowUpLong size={16} />}
+          icon={<FaUpLong size={16} />}
           type="primary"
           disabled={disableButton}
           onClick={onClickReturnButton}
