@@ -115,7 +115,7 @@ export const clientInventoryColumns = ({
     {
       field: 'fbaFbmStockSum',
       headerName: 'Available',
-      renderHeader: () => <MultilineTextHeaderCell text={'Available'} />,
+      renderHeader: () => <MultilineTextHeaderCell text="Available" />,
       renderCell: params => <Text isCell text={String(params.value)} />,
       width: 85,
       columnKey: columnnsKeys.shared.QUANTITY,
@@ -221,28 +221,6 @@ export const clientInventoryColumns = ({
     },
 
     {
-      field: 'boxAmounts',
-      headerName: 'In stock',
-      renderHeader: () => <MultilineTextHeaderCell text={'In stock'} />,
-      renderCell: params => (
-        <InStockCell
-          boxAmounts={params.row?.boxAmounts}
-          boxId={params.row?._id}
-          onClickInStock={otherHandlers.onClickInStock}
-        />
-      ),
-      valueGetter: params => {
-        return params.row?.boxAmounts
-          ?.sort((x, y) => x?.storekeeper?.name?.localeCompare(y?.storekeeper?.name))
-          ?.map(el => `${el?.storekeeper?.name}: ${el?.amountInBoxes}`)
-          ?.join(', ')
-      },
-      width: 145,
-      disableCustomSort: true,
-      columnKey: columnnsKeys.client.INVENTORY_IN_STOCK,
-    },
-
-    {
       field: 'sumStock',
       headerName: t(TranslationKey['Stock sum']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Stock sum'])} />,
@@ -277,7 +255,7 @@ export const clientInventoryColumns = ({
           minValue={100}
           maxValue={99999}
           onClick={fourMonthesStockHandlers.onClickSaveFourMonthsStock}
-          onClickRepurchase={fourMonthesStockHandlers.onClickRepurchase}
+          onClickRepurchase={params.value ? fourMonthesStockHandlers.onClickRepurchase : null}
         />
       ),
 
@@ -445,7 +423,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -454,7 +432,7 @@ export const clientInventoryColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {

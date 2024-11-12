@@ -23,7 +23,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -111,7 +111,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -122,7 +122,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -133,7 +133,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -144,7 +144,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -166,7 +166,7 @@ export const clientIntegrationsReportReturnsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_RETURNS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

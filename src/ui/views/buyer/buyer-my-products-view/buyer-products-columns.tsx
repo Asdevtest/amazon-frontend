@@ -271,7 +271,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       valueFormatter: params => formatNormDateTime(params.value),
       renderCell: params => <NormDateCell value={params.value} />,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -283,7 +283,7 @@ export const buyerProductsViewColumns = (handlers: IHandlers) => {
       // flex: 1,
       renderCell: params => <NormDateCell value={params.value} />,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

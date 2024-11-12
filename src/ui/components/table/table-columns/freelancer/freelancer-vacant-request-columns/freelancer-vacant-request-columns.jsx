@@ -156,7 +156,7 @@ export const freelancerVacantRequestColumns = handlers => [
     renderCell: params => <NormDateCell value={params.value} />,
     width: 87,
 
-    columnKey: columnnsKeys.shared.DATE,
+    columnKey: columnnsKeys.shared.DATE_VALUE,
   },
 
   {
@@ -284,6 +284,6 @@ export const freelancerVacantRequestColumns = handlers => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
     renderCell: params => <NormDateCell value={params.value} />,
     width: 105,
-    columnKey: columnnsKeys.shared.DATE,
+    columnKey: columnnsKeys.shared.DATE_VALUE,
   },
 ]

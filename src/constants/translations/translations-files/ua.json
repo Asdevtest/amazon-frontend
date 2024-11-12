@@ -1428,7 +1428,6 @@
   "Open result": "Відкрити результат",
   "Search by Title, ID": "Пошук по Назві, ID",
   "Executed": "Виконано",
-  "Select a product card for the order": "Виберіть картку товару для заявки",
   "Requests in progress": "Заявки в обробці",
   "Completed requests": "Виконані заявки",
   "EXECUTED_IN_PLURAL_KEY": "Виконані",
@@ -1659,6 +1658,7 @@
   "Are you sure you want to send the result for rework?": "Ви впевнені, що хочете відправити результат на доопрацювання?",
   "Are you sure you want to close this window?": "Ви впевнені, що хочете закрити це вікно?",
   "Status changed": "Статус змінено",
+  "Data was successfully deleted": "Дані успішно видалено",
   "Mark as completed": "Позначити як виконане",
   "Number of rework": "Кількість доопрацювань",
   "Are you sure?": "Ви впевнені?",
@@ -2015,5 +2015,6 @@
   "Moderator": "Модератор",
   "Proposal ID": "ID пропозиції",
   "Search by Title, ASIN, SKU, ID, Proposal ID": "Пошук по Назві, ASIN, SKU, ID, ID пропозиції",
-  "Order ID": "ID замовлення"
+  "Order ID": "ID замовлення",
+  "Are you sure you want to delete the ad?": "Ви впевнені, що хочете видалити оголошення?"
 }

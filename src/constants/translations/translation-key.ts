@@ -1429,7 +1429,6 @@ export enum TranslationKey {
   'Open result' = 'Open result',
   'Search by Title, ID' = 'Search by Title, ID',
   'Executed' = 'Executed',
-  'Select a product card for the order' = 'Select a product card for the order',
   'Requests in progress' = 'Requests in progress',
   'Completed requests' = 'Completed requests',
   'EXECUTED_IN_PLURAL_KEY' = 'EXECUTED_IN_PLURAL_KEY',
@@ -1659,6 +1658,7 @@ export enum TranslationKey {
   'Are you sure you want to send the result for rework?' = 'Are you sure you want to send the result for rework?',
   'Are you sure you want to close this window?' = 'Are you sure you want to close this window?',
   'Status changed' = 'Status changed',
+  'Data was successfully deleted' = 'Data was successfully deleted',
   'Mark as completed' = 'Mark as completed',
   'Number of rework' = 'Number of rework',
   'Are you sure?' = 'Are you sure?',
@@ -2017,4 +2017,5 @@ export enum TranslationKey {
   'Proposal ID' = 'Proposal ID',
   'Search by Title, ASIN, SKU, ID, Proposal ID' = 'Search by Title, ASIN, SKU, ID, Proposal ID',
   'Order ID' = 'Order ID',
+  'Are you sure you want to delete the ad?' = 'Are you sure you want to delete the ad?',
 }

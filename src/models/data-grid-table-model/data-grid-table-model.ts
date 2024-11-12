@@ -306,7 +306,7 @@ export class DataGridTableModel extends DefaultModel {
   }
 
   getActivePreset() {
-    return this.presetsTableData?.find(preset => preset?.activeSetting) as ITablePreset
+    return this.presetsTableData?.find(preset => preset?.activeSetting)
   }
 
   async handleSetActivePreset(presetId: string) {

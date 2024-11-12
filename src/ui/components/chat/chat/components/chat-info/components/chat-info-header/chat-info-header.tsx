@@ -45,7 +45,7 @@ export const ChatInfoHeader: FC<Props> = memo(props => {
       <div className={styles.chatInfoHeader}>
         <p className={styles.chatInfoTitle}>{t(TranslationKey['Chat info'])}</p>
 
-        <CustomButton icon={<IoClose />} onClick={onClickCloseChatInfo} />
+        <CustomButton icon={<IoClose size={18} />} onClick={onClickCloseChatInfo} />
       </div>
 
       <div className={styles.chatHeaderContent}>

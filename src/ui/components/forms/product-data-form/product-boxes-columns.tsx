@@ -120,7 +120,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['CLS (batch closing date)'])} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={formatDate(row?.logicsTariff?.cls) || '-'} />,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 110,
     },
 
@@ -130,7 +130,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETD (date of shipment)'])} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={formatDate(row?.logicsTariff?.etd) || '-'} />,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 110,
     },
 
@@ -140,7 +140,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['ETA (arrival date)'])} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={formatDate(row?.logicsTariff?.eta) || '-'} />,
       table: DataGridFilterTables.BOXES,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 110,
     },
 
@@ -150,7 +150,7 @@ export const productBoxesColumns = ({ onClickChangeVariation }: IProductInTransf
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Arrival date'])} />,
       renderCell: ({ row }: GridRowModel) => <Text isCell text={formatDate(row?.batch?.arrivalDate) || '-'} />,
       table: DataGridFilterTables.BATCHES,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 110,
     },
 

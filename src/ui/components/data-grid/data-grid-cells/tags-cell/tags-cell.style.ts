@@ -7,7 +7,6 @@ export const useStyles = makeStyles()(() => ({
     flexDirection: 'column',
     gap: '5px',
     padding: '10px 3px',
-
     flex: 1,
     overflow: 'auto',
   },
@@ -15,6 +14,8 @@ export const useStyles = makeStyles()(() => ({
   tagsWrapper: {
     width: '100%',
     height: '100%',
+    maxHeight: '90px',
+    overlow: 'auto',
     display: 'flex',
     alignItems: 'center',
     gap: '10px',

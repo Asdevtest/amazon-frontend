@@ -207,7 +207,7 @@ export const clientCreateCardIdeasColumns = rowHandlers => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 91,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

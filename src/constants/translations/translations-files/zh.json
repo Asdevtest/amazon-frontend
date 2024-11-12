@@ -1427,7 +1427,6 @@
   "Open result": "打开结果",
   "Search by Title, ID": "按标题, ID搜索",
   "Executed": "已执行",
-  "Select a product card for the order": "为订单选择产品卡",
   "Requests in progress": "进行中的请求",
   "Completed requests": "已完成的请求",
   "EXECUTED_IN_PLURAL_KEY": "已执行",
@@ -1657,6 +1656,7 @@
   "Are you sure you want to send the result for rework?": "您确定要将结果发送返工吗?",
   "Are you sure you want to close this window?": "您确定要关闭这个窗口吗?",
   "Status changed": "状态已更改",
+  "Data was successfully deleted": "数据已成功删除",
   "Mark as completed": "标记为已完成",
   "Number of rework": "返工次数",
   "Are you sure?": "您确定吗?",
@@ -2013,5 +2013,6 @@
   "Moderator": "管理员",
   "Proposal ID": "提案 ID",
   "Search by Title, ASIN, SKU, ID, Proposal ID": "按标题, ASIN, SKU, ID, 提案 ID",
-  "Order ID": "订单 ID"
+  "Order ID": "订单 ID",
+  "Are you sure you want to delete the ad?": "您确定要删除该广告吗?"
 }

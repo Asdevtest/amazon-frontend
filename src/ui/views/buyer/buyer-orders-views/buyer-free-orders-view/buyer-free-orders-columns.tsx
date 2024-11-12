@@ -185,7 +185,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
 
       valueGetter: params => formatDate(params.row.deadline) || '',
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 100,
     },
 
@@ -264,7 +264,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 115,
     },
   ]

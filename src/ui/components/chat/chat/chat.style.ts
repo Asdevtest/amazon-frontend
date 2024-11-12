@@ -92,7 +92,7 @@ export const useStyles = makeStyles()(theme => ({
   inputWrapper: {
     width: '100%',
     display: 'flex',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     gap: 20,
   },
 

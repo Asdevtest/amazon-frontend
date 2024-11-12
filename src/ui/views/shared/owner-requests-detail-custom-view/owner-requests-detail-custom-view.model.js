@@ -643,7 +643,10 @@ export class OwnerRequestDetailCustomViewModel {
       name: UserModel.userInfo.name,
     }
 
-    const files = filesToAdd.map(file => file?.fileLink)
+    const files = filesToAdd.map(file => ({
+      fromProduct: true,
+      file: file?.fileLink,
+    }))
 
     const messageParams = {
       chatId: this.chatSelectedId,

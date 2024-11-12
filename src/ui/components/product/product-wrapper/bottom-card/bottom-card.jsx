@@ -13,7 +13,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Field } from '@components/shared/field'
 
-import { checkIsClient } from '@utils/checks'
+import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { errorMessagesTranslate } from '@utils/validation'
@@ -38,12 +38,13 @@ export const BottomCard = observer(
   ({ curUserRole, product, productBase, onChangeField, formFieldsValidationErrors }) => {
     const { classes: styles } = useStyles()
 
-    const defaultFieldDisable = !(
-      checkIsClient(curUserRole) ||
-      product.isCreatedByClient ||
-      clientToEditStatuses.includes(productBase.status) ||
-      !product.archive
-    )
+    const defaultFieldDisable =
+      !(
+        checkIsClient(curUserRole) ||
+        product.isCreatedByClient ||
+        clientToEditStatuses.includes(productBase.status) ||
+        !product.archive
+      ) || checkIsBuyer(curUserRole)
 
     return (
       <>

@@ -266,7 +266,7 @@ export const buyerOrdersColumns = ({
       valueGetter: params => (params.row.deadline ? formatDate(params.row.deadline) : ''),
       width: 100,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -290,7 +290,7 @@ export const buyerOrdersColumns = ({
       valueGetter: params => formatDate(params.row.paymentDateToSupplier) ?? '',
       width: 115,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -388,7 +388,7 @@ export const buyerOrdersColumns = ({
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -399,7 +399,7 @@ export const buyerOrdersColumns = ({
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 
