@@ -55,7 +55,7 @@ export const BuyerMyProductsView = observer(() => {
         columnVisibilityModel={viewModel.columnVisibilityModel}
         paginationModel={viewModel.paginationModel}
         rows={viewModel.currentData}
-        rowHeight={130}
+        getRowHeight={() => 'auto'}
         rowSelectionModel={viewModel.selectedRows}
         density={viewModel.densityModel}
         columns={viewModel.columnsModel}
