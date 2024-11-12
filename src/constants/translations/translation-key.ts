@@ -2013,4 +2013,5 @@ export enum TranslationKey {
   'Order ID' = 'Order ID',
   'Are you sure you want to delete the ad?' = 'Are you sure you want to delete the ad?',
   'Top products' = 'Top products',
+  'Suppliers' = 'Suppliers',
 }

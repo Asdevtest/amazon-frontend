@@ -19,7 +19,7 @@ export class WholesaleViewModel extends UseProductsPermissions {
       sortField: 'updatedAt',
       sortType: 'DESC',
     }
-    super(ClientModel.getSuppliersExchange, requestOptions, [])
+    super(ClientModel.getSuppliersExchange, requestOptions, ['xid'])
     this.permissionsData = []
     this.isCanLoadMore = true
     this.getPermissionsData()

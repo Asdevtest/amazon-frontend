@@ -9,10 +9,16 @@ export const useStyles = makeStyles()(() => ({
   },
 
   content: {
+    height: '100%',
     padding: '5px',
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
     overflowY: 'auto',
+
+    '& > div': {
+      height: '100%',
+      alignContent: 'center',
+    },
   },
 }))
