@@ -4,6 +4,7 @@ export const observerConfig = {
   filtersFields: observable,
   mainMethodURL: observable,
   columnMenuSettings: observable,
+  oneTimeFilters: observable,
 
   additionalPropertiesColumnMenuSettings: observable,
   additionalPropertiesGetFilters: observable,
@@ -17,6 +18,7 @@ export const observerConfig = {
   onClickFilterBtn: action.bound,
   setFilterRequestStatus: action.bound,
   setFilterFromPreset: action.bound,
+  useOneTimeFilter: action.bound,
 
   getCurrentData: override,
   isSomeFilterOn: override,

@@ -28,18 +28,23 @@ export const getColumn = ({
 }) => {
   const { name, type } = column
 
-  let headerName = formatCamelCaseString(name)
+  const formedColumnName = formatCamelCaseString(name)
+  const formedTableName = formatSnakeCaseString(table)
+
+  let headerName = formedColumnName
+  let columnTooltipText = `${formedTableName}: ${formedColumnName}`
 
   if (isCounter) {
-    const tableName = formatSnakeCaseString(table)
-    headerName = tableName
+    columnTooltipText = formedTableName
+    headerName = formedTableName
   }
+
   const columnKey = getColumnKey(type)
 
   return {
     field: `${table}:${name}`,
     headerName,
-    renderHeader: () => <MultilineTextHeaderCell text={headerName} />,
+    renderHeader: () => <MultilineTextHeaderCell withTooltip tooltipText={columnTooltipText} text={headerName} />,
     valueGetter: (params: GridRenderCellParams) => {
       return getColumnValue({ params, table, name, type, isCounter: !!isCounter })
     },

@@ -4,6 +4,8 @@ import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserCell } from '@components/data-grid/data-grid-cells'
+import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
+import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
@@ -38,6 +40,7 @@ export const SelectFields = ({
   setOrderField,
   orderFields,
   showProgress,
+  showPhotosModal,
   progressValue,
   setPhotosToLoad,
   hsCode,
@@ -47,6 +50,7 @@ export const SelectFields = ({
   onClickUpdateButton,
   onClickSupplierPaymentButton,
   setPaymentMethodsModal,
+  setShowPhotosModal,
   orderPayments,
   deliveredQuantity,
 }) => {
@@ -201,6 +205,7 @@ export const SelectFields = ({
                 )}
               />
             </div>
+
             <div className={styles.yuanToDollarRate}>
               <Field
                 disabled={checkIsPlanningPrice}
@@ -294,6 +299,7 @@ export const SelectFields = ({
               value={toFixedWithDollarSign(orderFields.totalPrice, 2)}
             />
           </div>
+
           <div className={styles.checkboxWithButton}>
             <Field
               oneLine
@@ -398,7 +404,7 @@ export const SelectFields = ({
             <CustomButton
               disabled={isOrderInactive}
               variant={editPaymentDetailsPhotos.length ? 'filled' : 'outlined'}
-              onClick={onClickSupplierPaymentButton}
+              onClick={isOrderInactive ? setShowPhotosModal : onClickSupplierPaymentButton}
             >
               {t(TranslationKey[`${editPaymentDetailsPhotos.length ? 'Document added' : 'Add payment document'}`])}
               {editPaymentDetailsPhotos.length ? ` (${editPaymentDetailsPhotos.length})` : ''}
@@ -570,6 +576,12 @@ export const SelectFields = ({
       {showProgress && (
         <CircularProgressWithLabel value={progressValue} title={t(TranslationKey['Uploading Photos...'])} />
       )}
+
+      <SlideshowGalleryModal
+        openModal={showPhotosModal}
+        files={editPaymentDetailsPhotos}
+        onOpenModal={setShowPhotosModal}
+      />
     </Grid>
   )
 }

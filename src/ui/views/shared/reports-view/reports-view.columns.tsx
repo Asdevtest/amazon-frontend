@@ -110,7 +110,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       renderCell: ({ row }) => <NormDateCell value={row.createdAt} />,
       valueGetter: (row: GridRowModel) => formatShortDateTime(row?.createdAt),
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -222,7 +222,7 @@ export const reportsViewColumns = (props: ReportsViewColumnsProps) => {
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       valueGetter: (row: GridRowModel) => formatShortDateTime(row?.updatedAt),
       width: 105,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

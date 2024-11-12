@@ -153,7 +153,7 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 120,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

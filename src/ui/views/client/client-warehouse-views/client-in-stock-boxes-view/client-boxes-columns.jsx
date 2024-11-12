@@ -338,7 +338,7 @@ export const clientBoxesViewColumns = (
       renderCell: params => <NormDateCell value={params.value} />,
       valueFormatter: params => formatNormDateTime(params.value),
       width: 115,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -348,7 +348,7 @@ export const clientBoxesViewColumns = (
       valueFormatter: params => formatNormDateTime(params.value),
       renderCell: params => <NormDateCell value={params.value} />,
       width: 115,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

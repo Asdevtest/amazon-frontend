@@ -130,7 +130,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) => <FilesCell files={row.images} />,
     filterable: false,
     sortable: false,
-    width: 80,
+    width: 90,
     align: 'center',
   },
 

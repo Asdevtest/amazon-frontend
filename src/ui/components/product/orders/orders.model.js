@@ -147,7 +147,7 @@ export class OrdersModel {
   }
 
   get isSomeFilterOn() {
-    return { isActiveFilter: Object.values(this.isCheckedStatusByFilter).includes(false) }
+    return Object.values(this.isCheckedStatusByFilter).includes(false)
   }
 
   getCurrentData() {

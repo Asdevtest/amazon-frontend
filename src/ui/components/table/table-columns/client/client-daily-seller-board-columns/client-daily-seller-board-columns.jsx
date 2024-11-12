@@ -19,7 +19,7 @@ export const clientDailySellerBoardColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.SELLERBOARD_WAREHOUSE_EVERY_DAY,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {

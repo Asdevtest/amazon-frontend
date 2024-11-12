@@ -144,7 +144,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: ({ row }) => <NormDateCell value={row.timeoutAt} />,
       width: 87,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -162,6 +162,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }) => <Text isCell text={row.product?.shop?.name || t(TranslationKey.Missing)} />,
       width: 110,
+      table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
@@ -242,7 +243,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 105,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

@@ -54,13 +54,11 @@ export const addOrEditBatchDataConverter = (
 ) =>
   data.map(item => ({
     originalData: item,
+    ...item,
     id: item._id,
     _id: item._id,
-
     qty: item.items?.reduce((acc, cur) => (acc += cur.amount), 0),
-
     amazonPrice: calcPriceForBox(item),
-
     finalWeight: getBatchWeightCalculationMethodForBox
       ? getBatchWeightCalculationMethodForBox(
           calculationMethod,
@@ -68,20 +66,14 @@ export const addOrEditBatchDataConverter = (
         )(item, volumeWeightCoefficient) * item.amount
       : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount,
     grossWeight: item.weighGrossKgWarehouse,
-
     destination: item.destination?.name,
-    storekeeper: item.storekeeper?.name,
-    // storekeeper: item.storekeeper,
+    storekeeper: item.storekeeper,
     logicsTariff: getNewTariffTextForBoxOrOrder(item),
-    client: item.client?.name,
-
+    client: item.client,
     isDraft: item.isDraft,
     isFormed: item.isFormed,
-
     createdAt: item.createdAt,
-
     updatedAt: item.updatedAt,
-
     xid: item.xid,
     deliveryTotalPrice:
       getTariffRateForBoxOrOrder(item) *
@@ -91,13 +83,10 @@ export const addOrEditBatchDataConverter = (
             checkActualBatchWeightGreaterVolumeBatchWeight([item], volumeWeightCoefficient),
           )(item, volumeWeightCoefficient) * item.amount
         : finalWeightCalculationMethod(item, volumeWeightCoefficient) * item.amount),
-
     deliveryTotalPriceChanged: item.deliveryTotalPriceChanged,
-
     shippingLabel: item.shippingLabel,
     fbaShipment: item.fbaShipment,
     volumeWeightCoefficient,
-
     orderIdsItems: `${t(TranslationKey.Order)} №: ${item.items
       ?.reduce((acc, cur) => (acc += cur.order?.xid + ', '), '')
       .slice(0, -2)}  item №: ${item.items
@@ -234,7 +223,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
           item =>
             item.product.amazonTitle?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
             item.product.asin?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
-            String(item.order.id)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
+            String(item.order.xid)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()),
         ) ||
         String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueBoxesToAddData.toLowerCase()) ||
@@ -248,7 +237,7 @@ export const AddOrEditBatchForm = observer(({ boxesData, onClose, onSubmit, batc
           item =>
             item.product.amazonTitle?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
             item.product.asin?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
-            String(item.order.id)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
+            String(item.order.xid)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||
             String(item.order.item)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()),
         ) ||
         String(el.originalData.xid)?.toLowerCase().includes(nameSearchValueChosenBoxes.toLowerCase()) ||

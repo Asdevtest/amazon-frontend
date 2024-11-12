@@ -23,9 +23,9 @@ export const sourceFilesColumns = rowHandlers => [
 
   {
     field: 'xid',
-    headerName: 'ID',
-    renderHeader: () => <MultilineTextHeaderCell text="ID" />,
-    renderCell: params => <Text isCell text={params.row.proposal?.xid} />,
+    headerName: t(TranslationKey.ID),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    renderCell: params => <Text isCell text={params.row.proposal.request?.xid} />,
     width: 90,
     headerAlign: 'center',
     align: 'center',
