@@ -3,14 +3,10 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   wrapper: {
     position: 'relative',
-    width: '100%',
-
-    '& > div': {
-      minHeight: '16px',
-    },
   },
 
   cell: {
+    width: '100%',
     height: '100%',
     padding: '5px 0 5px 5px',
   },

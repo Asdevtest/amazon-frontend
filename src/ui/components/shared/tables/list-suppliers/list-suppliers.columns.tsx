@@ -6,12 +6,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   FilesCell,
   MultilineTextHeaderCell,
-  PaymentMethodsCell,
   PriceVariationsCell,
   SupplierWithIconsCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
+import { PaymentMethods } from '@components/shared/payment-methods'
 import { Text } from '@components/shared/text'
 
 import { formatNormDateTime } from '@utils/date-time'
@@ -117,7 +117,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'paymentMethods',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
-    renderCell: ({ row }: GridRowModel) => <PaymentMethodsCell paymentMethods={row.paymentMethods} />,
+    renderCell: ({ row }: GridRowModel) => <PaymentMethods isCell paymentMethods={row.paymentMethods} />,
     filterable: false,
     sortable: false,
     width: 125,
