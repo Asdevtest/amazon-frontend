@@ -2,6 +2,8 @@ import { Avatar } from 'antd'
 import he from 'he'
 import { FC, memo } from 'react'
 import Highlighter from 'react-highlight-words'
+// @ts-ignore
+import Linkify from 'react-linkify-always-blank'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -54,19 +56,25 @@ export const ChatMessageBasicText: FC<ChatMessageBasicTextProps> = memo(props =>
           <Highlighter
             autoEscape
             highlightClassName="YourHighlightClass"
-            searchWords={searchPhrase ? ['http', '.com', '.ru', searchPhrase] : ['http', '.com', '.ru']}
+            searchWords={
+              searchPhrase ? ['http', 'https', '.com', '.ru', searchPhrase] : ['http', 'https', '.com', '.ru']
+            }
             textToHighlight={he.decode(message.text)}
             className={styles.messageText}
             findChunks={findChunks}
-            highlightTag={({ children }: HighlightTag) => (
-              <span
-                className={cx({
-                  [styles.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
-                })}
-              >
-                {children}
-              </span>
-            )}
+            highlightTag={({ children }: HighlightTag) => {
+              return (
+                <Linkify>
+                  <span
+                    className={cx({
+                      [styles.highlight]: searchPhrase ? children?.toLowerCase().includes(searchPhrase) : false,
+                    })}
+                  >
+                    {children}
+                  </span>
+                </Linkify>
+              )
+            }}
           />
         )}
 
