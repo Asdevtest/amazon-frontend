@@ -2042,4 +2042,9 @@ export enum TranslationKey {
   'Are you sure you want to delete the ad?' = 'Are you sure you want to delete the ad?',
   'Top products' = 'Top products',
   'Suppliers' = 'Suppliers',
+  'Yesterday' = 'Yesterday',
+  'Tomorrow' = 'Tomorrow',
+  'This week' = 'This week',
+  'This month' = 'This month',
+  'Last 30 Days' = 'Last 30 Days',
 }

@@ -2038,5 +2038,10 @@
   "Order ID": "订单 ID",
   "Are you sure you want to delete the ad?": "您确定要删除该广告吗?",
   "Top products": "热门产品",
-  "Suppliers": "供应商"
+  "Suppliers": "供应商",
+  "Yesterday": "昨天",
+  "Tomorrow": "明天",
+  "This week": "本周",
+  "This month": "本月",
+  "Last 30 Days": "过去 30 天"
 }

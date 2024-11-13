@@ -2040,5 +2040,10 @@
   "Order ID": "ID замовлення",
   "Are you sure you want to delete the ad?": "Ви впевнені, що хочете видалити оголошення?",
   "Top products": "Топ товари",
-  "Suppliers": "Постачальники"
+  "Suppliers": "Постачальники",
+  "Yesterday": "Вчора",
+  "Tomorrow": "Завтра",
+  "This week": "Цей тиждень",
+  "This month": "Цей місяць",
+  "Last 30 Days": "Останні 30 днів"
 }

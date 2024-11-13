@@ -2041,5 +2041,10 @@
   "Order ID": "ID заказа",
   "Are you sure you want to delete the ad?": "Вы уверены, что хотите удалить объявление?",
   "Top products": "Топ товары",
-  "Suppliers": "Поставщики"
+  "Suppliers": "Поставщики",
+  "Yesterday": "Вчера",
+  "Tomorrow": "Завтра",
+  "This week": "Эта неделя",
+  "This month": "Этот месяц",
+  "Last 30 Days": "Последние 30 дней"
 }
