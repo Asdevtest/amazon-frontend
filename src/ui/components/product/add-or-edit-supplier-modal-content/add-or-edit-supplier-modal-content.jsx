@@ -88,7 +88,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     minProductionTerm: supplier?.minProductionTerm || '',
     maxProductionTerm: supplier?.maxProductionTerm || '',
     paymentMethods: supplier?.paymentMethods || [],
-    yuanRate: supplier?.yuanRate || platformSettings?.yuanToDollarRate,
+    yuanToDollarRate: supplier?.yuanRate || platformSettings?.yuanToDollarRate,
     priceInYuan: supplier?.priceInYuan || '',
     batchDeliveryCostInDollar:
       supplier?.batchDeliveryCostInYuan / (supplier?.yuanRate || platformSettings?.yuanToDollarRate) || 0,
@@ -354,7 +354,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
       setTmpSupplier({
         ...tmpSupplier,
         [fieldName]: event.target.value,
-        priceInYuan: event.target.value * tmpSupplier?.yuanRate,
+        priceInYuan: event.target.value * tmpSupplier?.yuanToDollarRate,
       })
     } else if (['priceInYuan'].includes(fieldName)) {
       setTmpSupplier({
@@ -362,14 +362,16 @@ export const AddOrEditSupplierModalContent = memo(props => {
         [fieldName]: event.target.value,
         price:
           event.target.value /
-          (tmpSupplier?.yuanRate === '' || parseFloat(tmpSupplier?.yuanRate) === 0 ? 1 : tmpSupplier?.yuanRate),
+          (tmpSupplier?.yuanToDollarRate === '' || parseFloat(tmpSupplier?.yuanToDollarRate) === 0
+            ? 1
+            : tmpSupplier?.yuanToDollarRate),
       })
     } else if (['batchDeliveryCostInDollar'].includes(fieldName)) {
       setTmpSupplier({
         ...tmpSupplier,
         [fieldName]: event.target.value,
         batchDeliveryCostInYuan:
-          event.target.value * (tmpSupplier?.yuanRate === ('' || '0') ? 1 : tmpSupplier?.yuanRate),
+          event.target.value * (tmpSupplier?.yuanToDollarRate === ('' || '0') ? 1 : tmpSupplier?.yuanToDollarRate),
       })
     } else if (['batchDeliveryCostInYuan'].includes(fieldName)) {
       setTmpSupplier({
@@ -377,7 +379,9 @@ export const AddOrEditSupplierModalContent = memo(props => {
         [fieldName]: event.target.value,
         batchDeliveryCostInDollar:
           event.target.value /
-          (tmpSupplier?.yuanRate === '' || parseFloat(tmpSupplier?.yuanRate) === 0 ? 1 : tmpSupplier?.yuanRate),
+          (tmpSupplier?.yuanToDollarRate === '' || parseFloat(tmpSupplier?.yuanToDollarRate) === 0
+            ? 1
+            : tmpSupplier?.yuanToDollarRate),
       })
     } else {
       setTmpSupplier({ ...tmpSupplier, [fieldName]: event.target.value })
@@ -388,7 +392,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
       setTmpSupplier({
         ...tmpSupplier,
-        yuanRate: e.target.value,
+        yuanToDollarRate: e.target.value,
         batchDeliveryCostInDollar:
           tmpSupplier.batchDeliveryCostInYuan /
           (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
@@ -454,8 +458,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
     '' === tmpSupplier.priceInYuan ||
     '' === tmpSupplier.batchDeliveryCostInDollar ||
     '' === tmpSupplier.batchDeliveryCostInYuan ||
-    '' === tmpSupplier?.yuanRate ||
-    '0' === tmpSupplier?.yuanRate ||
+    '' === tmpSupplier?.yuanToDollarRate ||
+    '0' === tmpSupplier?.yuanToDollarRate ||
     0 === parseFloat(tmpSupplier.price) ||
     0 === parseInt(tmpSupplier.amount) ||
     0 === parseInt(tmpSupplier.minlot) ||
@@ -594,7 +598,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
           <Field
             oneLine
-            error={`${platformSettings?.yuanToDollarRate}` !== `${tmpSupplier?.yuanRate}`}
+            error={`${platformSettings?.yuanToDollarRate}` !== `${tmpSupplier?.yuanToDollarRate}`}
             disabled={onlyRead}
             tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
             label={t(TranslationKey['Current supplier course'])}
@@ -602,7 +606,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
             containerClasses={styles.rateContainer}
             labelClasses={styles.rateLabel}
             inputClasses={styles.courseInput}
-            value={tmpSupplier?.yuanRate}
+            value={tmpSupplier?.yuanToDollarRate}
             onChange={onChangeYuanToDollarRate}
           />
         </div>
