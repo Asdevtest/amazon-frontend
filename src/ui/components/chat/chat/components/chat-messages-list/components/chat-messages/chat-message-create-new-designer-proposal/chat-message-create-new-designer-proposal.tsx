@@ -34,7 +34,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
 
             {message.xid ? (
               <div className={styles.idWrapper}>
-                <p className={cx(styles.idText, styles.idTitle)}>{t(TranslationKey.ID)}</p>
+                <p className={cx(styles.idText, styles.idTitle)}>ID</p>
                 <p className={styles.idText}>{message.xid}</p>
               </div>
             ) : null}

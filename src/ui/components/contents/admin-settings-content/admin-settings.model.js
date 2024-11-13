@@ -11,6 +11,7 @@ import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/check
 import { t } from '@utils/translations'
 
 import { fieldsWithoutCharsAfterDote, startValueFields } from './admin-settings.constants'
+import { TabLabels } from './admin-settings.type'
 
 export class AdminSettingsModel {
   showAsinCheckerModal = false
@@ -24,7 +25,7 @@ export class AdminSettingsModel {
   serverProxy = []
   formFields = startValueFields
   prevFormFields = undefined
-  tabIndex = 0
+  tab = TabLabels.MAIN
   isFormFieldsChanged = false
   isProxyServersChanged = false
 
@@ -89,8 +90,8 @@ export class AdminSettingsModel {
     this.isFormFieldsChanged = this.prevFormFields[fieldName] !== Number(event.target.value)
   }
 
-  onChangeTab(_, selectedTab) {
-    this.tabIndex = selectedTab
+  onChangeTab(key) {
+    this.tab = key
 
     if (this.isFormFieldsChanged) {
       this.confirmModalSettings = {

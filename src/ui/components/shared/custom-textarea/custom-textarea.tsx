@@ -10,8 +10,6 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-textarea.style'
 
-const { TextArea } = Input
-
 interface CustomTextareaProps extends TextAreaProps, IDefaultPropsExtensionAntdComponent {
   resize?: boolean
   placeholder?: string
@@ -23,7 +21,9 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
     isCell,
     label,
     resize,
+    rows = 3,
     required,
+    readOnly,
     placeholder,
     className,
     labelClassName,
@@ -33,19 +33,22 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
+  const placeholderText = placeholder
+    ? `${t(TranslationKey[placeholder as TranslationKey])}${required ? '*' : ''}`
+    : undefined
+  const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
+
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
-      {label ? (
-        <p className={cx(styles.label, labelClassName)}>
-          {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>*</span> : null}
-        </p>
-      ) : null}
-      <TextArea
+      {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
+      <Input.TextArea
         {...restProps}
-        className={cx(styles.textarea, className)}
+        rows={rows}
+        readOnly={readOnly}
+        autoSize={readOnly && { maxRows: rows, minRows: 1 }}
+        className={cx(className, { [styles.readOnly]: readOnly })}
         style={{ resize: resize ? 'vertical' : 'none' }}
-        placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
+        placeholder={placeholderText}
         onKeyDown={event => event.stopPropagation()}
       />
     </div>

@@ -50,7 +50,7 @@ export const IdeaRequestCard: FC<IdeaRequestCardProps> = props => {
             <p className={styles.categoryTitle}>{requestTitle}</p>
           </div>
           <div className={styles.categoryContainer}>
-            <p className={styles.categoryText}>{`${t(TranslationKey.ID)}:`}</p>
+            <p className={styles.categoryText}>ID:</p>
             <button
               className={cx(styles.categoryTitle, styles.linkStyles)}
               onClick={e => {

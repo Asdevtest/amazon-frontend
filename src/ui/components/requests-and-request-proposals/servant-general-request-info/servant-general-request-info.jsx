@@ -70,7 +70,7 @@ export const ServantGeneralRequestInfo = memo(({ userRole, request, onSubmit, re
                 <img src="/assets/icons/fire.svg" className={styles.urgentIconSmall} />
               </div>
             )}
-            <p className={styles.idText}>{t(TranslationKey.ID) + ':'}</p>
+            <p className={styles.idText}>ID:</p>
             <p className={cx(styles.idText, styles.idTextDark)}>{request?.request?.xid || t(TranslationKey.Missing)}</p>
           </div>
         </div>

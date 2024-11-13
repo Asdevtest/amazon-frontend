@@ -49,6 +49,6 @@ export const sharedFieldsWhiteList = [
   'isBarCodeAttachedByTheStorekeeper',
 ]
 
-export const additionalFilterFields = ['orderXid', 'item', 'skuByClient', 'amazonTitle', 'destination', 'logicsTariff']
+export const additionalFilterFields = ['orderXid', 'skuByClient', 'amazonTitle', 'destination', 'logicsTariff']
 
-export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'item', 'orderXid', 'xid', 'prepId']
+export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'orderXid', 'xid', 'prepId']
