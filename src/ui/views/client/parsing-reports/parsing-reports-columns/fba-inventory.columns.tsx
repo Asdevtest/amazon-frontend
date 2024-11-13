@@ -69,7 +69,7 @@ export const fbaInventoryColumns = () => {
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
         isSimpleSku: true,
-        table: ParsingReportsType.ORDERS,
+        table: ParsingReportsType.FBA_INVENTORY,
         customTitleField: 'productName',
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
