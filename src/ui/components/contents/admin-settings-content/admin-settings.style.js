@@ -1,42 +1,16 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  rootTabs: {
-    minHeight: 0,
-  },
-
-  indicator: {
-    height: 1,
-  },
-
-  flexContainerTabs: {
-    gap: 25,
-  },
-
-  rootTab: {
-    minHeight: 0,
-    padding: '9px 15px',
-    fontSize: 18,
-    fontWeight: 600,
-    lineHeight: 1.4,
-    textTransform: 'none',
-    color: theme.palette.text.second,
-  },
-
-  contentWrapper: {
-    width: 'max-content',
-    padding: 40,
-    borderRadius: 4,
-    backgroundColor: theme.palette.background.general,
-    boxShadow: theme.palette.boxShadow.paper,
-  },
-
   // common styles for orders and supplier search
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
     gap: 20,
+    background: theme.palette.background.general,
+    padding: 20,
+    borderRadius: 16,
+    width: 'max-content',
 
     '> div': {
       margin: 0,

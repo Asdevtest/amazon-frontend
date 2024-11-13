@@ -4,10 +4,6 @@ export const useStyles = makeStyles()(() => ({
   wrapper: {
     position: 'relative',
     width: '100%',
-
-    '& > div': {
-      minHeight: '16px',
-    },
   },
 
   cell: {

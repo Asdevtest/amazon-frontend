@@ -69,8 +69,8 @@ export const warehouseMyBatchesViewColumns = (columnsProps: ColumnsProps) => {
 
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: ({ row }) => <Text isCell text={row.xid} />,
       type: 'number',
       width: 80,

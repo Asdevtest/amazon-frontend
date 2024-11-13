@@ -33,7 +33,10 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
   } = props
 
   const { classes: styles, cx } = useStyles()
-  const placeholderText = placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined
+  const placeholderText = placeholder
+    ? `${t(TranslationKey[placeholder as TranslationKey])}${required ? '*' : ''}`
+    : undefined
+  const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
   const Component = password ? Password : Input
 
   return (
@@ -44,12 +47,7 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
         wrapperClassName,
       )}
     >
-      {label ? (
-        <p className={cx(styles.label, labelClassName)}>
-          {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>*</span> : null}
-        </p>
-      ) : null}
+      {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
       <Component
         {...restProps}
         title={placeholderText}
