@@ -49,10 +49,6 @@ export const useStyles = makeStyles()(theme => ({
     transition: '.3s ease',
   },
 
-  modalSpanText: {
-    color: theme.palette.text.second,
-  },
-
   itemInput: {
     width: 125,
     height: 40,

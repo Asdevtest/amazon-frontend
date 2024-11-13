@@ -21,8 +21,8 @@ export const clientTasksViewColumns = handlers => {
   const columns = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.row?.xid} />,
 
       width: 120,
@@ -150,18 +150,6 @@ export const clientTasksViewColumns = handlers => {
       renderCell: params => <CheckboxCell disabled checked={params.value} />,
       width: 160,
       type: 'boolean',
-    },
-
-    {
-      field: 'item',
-      headerName: 'item',
-      renderHeader: () => <MultilineTextHeaderCell text="item" />,
-
-      renderCell: params => (
-        <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.item))} />
-      ),
-      disableCustomSort: true,
-      width: 160,
     },
 
     {

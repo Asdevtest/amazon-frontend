@@ -84,7 +84,7 @@ export const RequestInformation: FC<RequestInformationProps> = memo(props => {
             <AsinOrSkuLink withCopyValue link={asin} />
           </div>
           <div className={styles.moreInformationSection}>
-            <p className={styles.sectionSubTitle}>{t(TranslationKey.ID) + ':'}</p>
+            <p className={styles.sectionSubTitle}>ID:</p>
 
             <p className={styles.infoText}>{xid || t(TranslationKey.Missing)}</p>
           </div>

@@ -40,43 +40,15 @@ export const warehouseBoxesViewColumns = (handlers, getUnitsOption) => {
     },
 
     {
-      field: 'orderIdsItems',
-      headerName: t(TranslationKey['№ Order/ № Item']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
-
-      valueGetter: ({ row }) => {
-        const orderNumbers = row?.items.map(cur => cur.order?.xid).join(', ')
-        const itemNumbers = row?.items.map(cur => cur.order?.item).join(', ')
-        return `${t(TranslationKey.Order)} ${orderNumbers} | Item: ${itemNumbers}`
-      },
-
+      field: 'orderXid',
+      headerName: t(TranslationKey['№ Order']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
+      valueGetter: ({ row }) => row?.items.map(cur => cur.order?.xid).join(', '),
       renderCell: params => {
-        return <StringListCell data={params.value.split('|')} />
+        return <StringListCell data={params.row?.items.map(cur => cur.order?.xid)} />
       },
-      fields: [
-        {
-          label: '№ Order',
-          value: 0,
-        },
-        {
-          label: '№ Item',
-          value: 1,
-        },
-      ],
-
-      columnMenuConfig: [
-        {
-          field: 'orderXid',
-          table: DataGridFilterTables.ORDERS,
-          columnKey: ColumnMenuKeys.NUMBER,
-        },
-        {
-          field: 'item',
-          table: DataGridFilterTables.ORDERS,
-          columnKey: ColumnMenuKeys.NUMBER,
-        },
-      ],
-      columnKey: columnnsKeys.shared.MULTIPLE,
+      table: DataGridFilterTables.ORDERS,
+      columnKey: columnnsKeys.shared.NUMBER,
       disableCustomSort: true,
       width: 150,
     },

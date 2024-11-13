@@ -1,6 +1,6 @@
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 
-export const fieldsForSearch = ['amazonTitle', 'asin', 'xid', 'item', 'skuByClient']
+export const fieldsForSearch = ['amazonTitle', 'asin', 'xid', 'skuByClient']
 
 export const updateOrderKeys = [
   'deliveryMethod',

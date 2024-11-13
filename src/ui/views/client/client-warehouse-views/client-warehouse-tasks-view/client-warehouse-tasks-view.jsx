@@ -34,7 +34,7 @@ export const ClientWarehouseTasksView = observer(() => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by ASIN, Order ID, Item, ID"
+          placeholder="Search by ASIN, Order ID, ID"
           onSearch={viewModel.onSearchSubmit}
         />
 

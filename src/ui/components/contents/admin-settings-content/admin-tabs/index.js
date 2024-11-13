@@ -1,3 +1,5 @@
+export { Categories } from './categories/categories'
+export { Countries } from './countries/countries'
 export { Shutdown } from './shutdown'
 export { TabDestinations } from './tab-destinations/tab-destinations'
 export { TabFreelance } from './tab-freelance/tab-freelance'

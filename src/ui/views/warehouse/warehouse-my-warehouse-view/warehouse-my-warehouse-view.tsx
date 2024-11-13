@@ -59,7 +59,7 @@ export const WarehouseMyWarehouseView = observer(() => {
           allowClear
           size="large"
           wrapperClassName={styles.searchInput}
-          placeholder="Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box"
+          placeholder="Search by SKU, ASIN, Title, Order, Prep Id, ID Box"
           onSearch={viewModel.onSearchSubmit}
         />
       </div>

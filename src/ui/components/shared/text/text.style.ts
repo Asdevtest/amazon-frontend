@@ -3,6 +3,10 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   wrapper: {
     position: 'relative',
+<<<<<<< HEAD
+=======
+    width: '100%',
+>>>>>>> dev
   },
 
   cell: {

@@ -173,10 +173,12 @@ class OtherModelStatic {
     const response = await restApiService.otherApi.apiV1OtherCheckAsinsGet({ noCache: true })
     return response.data
   }
+
   editAsins = async (guid, body) => {
     const response = await restApiService.otherApi.apiV1OtherCheckAsinsGuidPatch({ guid, body })
     return response.data
   }
+
   removeAsin = async guid => {
     const response = await restApiService.otherApi.apiV1OtherCheckAsinsGuidDelete({ guid })
     return response.data
@@ -199,6 +201,41 @@ class OtherModelStatic {
 
   getFinancesPag = async options => {
     const response = await restApiService.otherApi.apiV1OtherPaymentsPagMyGet(options)
+    return response.data
+  }
+
+  getCountries = async () => {
+    const response = await restApiService.otherApi.apiV1OtherCountriesGet()
+    return response.data
+  }
+
+  getCategories = async body => {
+    const response = await restApiService.otherApi.apiV1OtherCategoriesGet({ ...body, noCache: true })
+    return response.data
+  }
+
+  getFeedbacks = async body => {
+    const response = await restApiService.otherApi.apiV1OtherFeedbackGet({ ...body, noCache: true })
+    return response.data
+  }
+
+  createFeedback = async body => {
+    const response = await restApiService.otherApi.apiV1OtherFeedbackPost({ body })
+    return response.data
+  }
+
+  removeFeedback = async guid => {
+    const response = await restApiService.otherApi.apiV1OtherFeedbackGuidDelete({ guid })
+    return response.data
+  }
+
+  updateFeedback = async (guid, body) => {
+    const response = await restApiService.otherApi.apiV1OtherFeedbackGuidPatch({ guid, body })
+    return response.data
+  }
+
+  getFeedback = async guid => {
+    const response = await restApiService.otherApi.apiV1OtherFeedbackGuidGet({ guid })
     return response.data
   }
 }
