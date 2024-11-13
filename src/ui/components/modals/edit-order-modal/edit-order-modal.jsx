@@ -141,7 +141,6 @@ export const EditOrderModal = memo(
       batchPrice: 0,
       totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
       yuanToDollarRate: order?.yuanToDollarRate || platformSettings?.yuanToDollarRate,
-      item: order?.item || 0,
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order?.totalPriceChanged * order?.yuanToDollarRate,
       paymentDetails: order?.paymentDetails || [],
@@ -312,7 +311,6 @@ export const EditOrderModal = memo(
           'totalPriceChanged',
           'deliveryCostToTheWarehouse',
           'yuanToDollarRate',
-          'item',
           'tmpRefundToClient',
           'priceInYuan',
         ].includes(filedName)

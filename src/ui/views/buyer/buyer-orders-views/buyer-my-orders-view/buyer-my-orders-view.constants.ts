@@ -15,7 +15,6 @@ export const updateOrderKeys = [
   'paymentDetails',
   'amount',
   'orderSupplierId',
-  'item',
   'priceInYuan',
   'priceBatchDeliveryInYuan',
   'partialPaymentAmountRmb',
@@ -25,7 +24,6 @@ export const updateOrderKeys = [
 
 export const filtersFields = [
   'id',
-  'item',
   'priority',
   'asin',
   'skuByClient',
