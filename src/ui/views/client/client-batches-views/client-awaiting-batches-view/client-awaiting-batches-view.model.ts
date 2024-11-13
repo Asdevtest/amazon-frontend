@@ -242,6 +242,7 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
           calculationMethod: batchFields.calculationMethod,
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
+        await BatchesModel.editAttachedDocuments(batchToEdit._id, this.uploadedFiles)
 
         if (newBoxesIds?.length) {
           await BatchesModel.addBoxToBatch(batchToEdit._id, newBoxesIds)
@@ -249,8 +250,6 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
         if (boxesToRemoveIds?.length) {
           await BatchesModel.removeBoxFromBatch(batchToEdit._id, boxesToRemoveIds)
         }
-
-        await BatchesModel.editAttachedDocuments(batchToEdit._id, this.uploadedFiles)
       }
 
       this.getCurrentData()
