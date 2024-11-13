@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   cell: {
-    padding: '10px 0',
+    padding: '5px 0',
   },
 
   row: {
@@ -17,13 +17,18 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'row',
   },
 
-  textarea: {
-    width: '100%',
-  },
-
   label: {
     fontSize: 12,
     lineHeight: '16px',
     color: theme.palette.text.secondary,
+  },
+
+  readOnly: {
+    padding: 0,
+    borderRadius: 0,
+    border: 'none',
+    borderColor: 'transparent !important',
+    boxShadow: 'none !important',
+    backgroundColor: 'transparent !important',
   },
 }))

@@ -69,8 +69,8 @@ class AdministratorModelStatic {
     return response.data
   }
 
-  getFeedback = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGet()
+  getFeedbacks = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGet({ ...body, noCache: true })
     return response.data
   }
 
@@ -207,6 +207,39 @@ class AdministratorModelStatic {
 
   patchLaunchPreDeadlineValue = async body => {
     const response = await restApiService.administratorApi.apiV1AdminsSetLaunchPreDeadlineValuePatch(body)
+    return response.data
+  }
+
+  rejectedFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidRejectedPatch({ guid })
+    return response.data
+  }
+
+  getFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidGet({ guid })
+    return response.data
+  }
+
+  approveFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidAcceptedPatch({ guid })
+    return response.data
+  }
+
+  rejectFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidRejectedPatch({ guid })
+    return response.data
+  }
+
+  inProcessFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidInProcessPatch({ guid })
+    return response.data
+  }
+
+  sendReplyToFeedback = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidResponseToAnAppealPatch({
+      guid,
+      body,
+    })
     return response.data
   }
 }

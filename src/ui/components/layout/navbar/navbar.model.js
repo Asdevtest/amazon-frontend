@@ -1,15 +1,12 @@
 import { makeObservable, reaction, runInAction } from 'mobx'
-import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChatModel } from '@models/chat-model'
-import { OtherModel } from '@models/other-model'
 import { SettingsModel } from '@models/settings-model'
 import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
-import { onSubmitPostImages } from '@utils/upload-files'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
@@ -18,7 +15,6 @@ import { navbarObserverConfig } from './navbar.config'
 export class NavbarModel extends UseProductsPermissions {
   patchNote = undefined
 
-  showFeedbackModal = false
   showConfirmModal = false
   showVersionHistoryModal = false
 
@@ -64,18 +60,6 @@ export class NavbarModel extends UseProductsPermissions {
         }
       },
     )
-  }
-
-  async sendFeedbackAboutPlatform(comment, photos) {
-    try {
-      await onSubmitPostImages.call(this, { images: photos, type: 'readyImages' })
-      await OtherModel.sendFeedback({ text: comment, media: this.readyImages })
-      this.onTriggerOpenModal('showFeedbackModal')
-      toast.success(`${t(TranslationKey['Your message has been sent'])}.
-    ${t(TranslationKey['Thank you for your feedback'])}!`)
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async submitResetLocalStorageAndCach() {

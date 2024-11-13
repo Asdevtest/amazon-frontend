@@ -35,8 +35,8 @@ export const adminWarehouseBoxesColumns = () => {
 
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.value} />,
       width: 60,
       columnKey: columnnsKeys.shared.STRING_VALUE,
