@@ -4,22 +4,29 @@ export const useStyles = makeStyles()(() => ({
   header: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     gap: '20px',
   },
 
   content: {
     height: '100%',
     padding: '5px',
-    display: 'flex',
-    flexDirection: 'column',
+    display: 'grid',
+    gridTemplateColumns: '1fr',
     gap: '10px',
     overflowY: 'auto',
+  },
 
-    '.ant-empty': {
-      height: '100%',
-      alignContent: 'center',
-    },
+  products: {
+    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+  },
+
+  empty: {
+    alignContent: 'center',
+  },
+
+  emptyProducts: {
+    gridTemplateColumns: '1fr',
   },
 
   loading: {

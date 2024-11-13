@@ -9,11 +9,8 @@ import { ClientModel } from '@models/client-model'
 import { DataGridTableModel } from '@models/data-grid-table-model'
 import { ProductModel } from '@models/product-model'
 import { SettingsModel } from '@models/settings-model'
-import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
-
-import { IShop } from '@components/data-grid/data-grid-cells/shop-notification-message-cell/shop-notification.type'
 
 import { getObjectFilteredByKeyArrayBlackList } from '@utils/object'
 import { toFixedWithDollarSign } from '@utils/text'
@@ -32,7 +29,6 @@ import { observerConfig } from './observer-config'
 export class ClientExchangeViewModel extends DataGridTableModel {
   productsVacant: IProduct[] = []
   storekeepers: IStorekeeper[] = []
-  shopsData: IShop[] = []
 
   destinations: IDestination[] = []
 
@@ -68,7 +64,6 @@ export class ClientExchangeViewModel extends DataGridTableModel {
 
     makeObservable(this, observerConfig)
 
-    this.getShops()
     this.getTableSettingsPreset()
   }
 
@@ -110,17 +105,6 @@ export class ClientExchangeViewModel extends DataGridTableModel {
     }
 
     this.onTriggerOpenModal('showSelectShopsModal')
-  }
-
-  async getShops() {
-    try {
-      const result = await ShopModel.getMyShops()
-      runInAction(() => {
-        this.shopsData = result as unknown as IShop[]
-      })
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async createOrder(orderObject: any) {
@@ -217,12 +201,12 @@ export class ClientExchangeViewModel extends DataGridTableModel {
     }
   }
 
-  async onClickBuyProductBtn(shop?: IShop) {
+  async onClickBuyProductBtn(id?: string) {
     try {
       await ClientModel.makePayments([this.selectedProduct?._id])
 
       runInAction(() => {
-        this.selectedShopId = shop?._id || ''
+        this.selectedShopId = id || ''
       })
 
       await this.onSaveProductData()

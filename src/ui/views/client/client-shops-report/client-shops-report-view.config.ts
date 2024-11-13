@@ -12,7 +12,6 @@ export const observerConfig = {
   showBindStockGoodsToInventoryModal: observable,
   showConfirmModal: observable,
   showSelectShopsModal: observable,
-  shopsData: observable,
 
   onChangeTab: action.bound,
   moveGoodsToInventoryHandler: action.bound,
@@ -22,7 +21,6 @@ export const observerConfig = {
   getProductsMy: action.bound,
   submitBindStockGoodsHandler: action.bound,
   initUserSettings: action.bound,
-  getShopsData: action.bound,
   bindReportInventoryHandler: action.bound,
 }
 
