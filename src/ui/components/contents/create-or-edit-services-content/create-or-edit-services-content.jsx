@@ -17,7 +17,7 @@ import '@typings/enums/button-style'
 import { useStyles } from './create-or-edit-services-content.style'
 
 export const CreateOrEditServiceContent = memo(props => {
-  const { data, pathname, specs, onClickCreateBtn, onClickEditBtn, onClickBackBtn } = props
+  const { data, pathname, specs, requestLoading, onClickCreateBtn, onClickEditBtn, onClickBackBtn } = props
 
   const { classes: styles } = useStyles()
 
@@ -120,7 +120,7 @@ export const CreateOrEditServiceContent = memo(props => {
       <div className={styles.buttonsWrapper}>
         <CustomButton onClick={onClickBackBtn}>{t(TranslationKey.Close)}</CustomButton>
 
-        <CustomButton type="primary" disabled={disabledSubmitButton} onClick={handleSubmit}>
+        <CustomButton type="primary" disabled={disabledSubmitButton} loading={requestLoading} onClick={handleSubmit}>
           {isEdit ? t(TranslationKey.Edit) : t(TranslationKey.Create)}
         </CustomButton>
       </div>

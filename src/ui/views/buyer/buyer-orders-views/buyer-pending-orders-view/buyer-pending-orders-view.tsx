@@ -31,7 +31,7 @@ export const BuyerPendingOrdersView = observer(() => {
         allowClear
         wrapperClassName={styles.searchInput}
         size="large"
-        placeholder="Search by SKU, ASIN, Title, Order, item"
+        placeholder="Search by SKU, ASIN, Title, Order"
         onSearch={viewModel.onSearchSubmit}
       />
 

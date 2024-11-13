@@ -22,7 +22,7 @@ export interface ISupplier {
   boxProperties: IBoxProperties
   productionTerm: number
   createdBy: ICreatedBy
-  paymentMethods: IPaymentMethod
+  paymentMethods: IPaymentMethod[]
   priceVariations: Array<object>
   createdAt: string
   updatedAt: string

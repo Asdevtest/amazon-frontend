@@ -90,11 +90,6 @@ export const BoxItemCard = ({
                 <p className={styles.subValue}>{item.order.xid}</p>
               </div>
 
-              <div className={styles.countSubWrapper}>
-                <p className={styles.subTitle}>{'item'}</p>
-                <p className={styles.subValue}>{item.order.item}</p>
-              </div>
-
               {taskType === TaskOperationType.RECEIVE ? (
                 <div className={styles.priorityWrapper}>
                   <p className={styles.countSubWrapper}>{`${t(TranslationKey.Priority)}:`}</p>

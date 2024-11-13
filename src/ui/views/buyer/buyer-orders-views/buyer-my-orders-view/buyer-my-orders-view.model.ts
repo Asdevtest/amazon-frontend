@@ -67,7 +67,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
 
   constructor({ pathname }: { pathname: string }) {
     const rowHandlers = {
-      onClickPaymentMethodsCell: (row: IOrder) => this.onClickPaymentMethodsCell(row),
+      onClickPaymentMethods: (row: IOrder) => this.onClickPaymentMethods(row),
     }
 
     const isShowPartialPayment = getShowPartialPayment(pathname)
@@ -284,7 +284,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  onClickPaymentMethodsCell(row: IOrder) {
+  onClickPaymentMethods(row: IOrder) {
     this.currentOrder = row
     this.onTriggerOpenModal('showPaymentMethodsModal')
   }

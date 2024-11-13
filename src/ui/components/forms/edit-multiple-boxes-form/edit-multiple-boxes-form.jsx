@@ -584,6 +584,7 @@ export const EditMultipleBoxesForm = observer(
                     />
                   }
                 />
+
                 <CustomButton
                   disabled={disabledApplyBtn || isStorekeeper(userInfo.role)}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}

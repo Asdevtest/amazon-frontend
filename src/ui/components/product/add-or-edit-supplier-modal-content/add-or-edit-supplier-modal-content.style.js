@@ -83,6 +83,10 @@ export const useStyles = makeStyles()(theme => ({
 
   middleContainer: {
     width: '190px !important',
+    height: '74px !important',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
 
   shortContainer: {

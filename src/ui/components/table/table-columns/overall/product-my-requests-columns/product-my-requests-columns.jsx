@@ -131,7 +131,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     field: 'allProposals',
     headerName: t(TranslationKey['Total proposals']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total proposals'])} />,
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row?.countProposalsByStatuses?.allProposals} />,
     width: 115,
   },
 
@@ -139,7 +139,7 @@ export const productMyRequestsViewColumns = (handlers, getColumnMenuSettings, ge
     field: 'acceptedProposals',
     headerName: t(TranslationKey.Accepted),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Accepted)} />,
-    renderCell: params => <Text isCell text={params.value} />,
+    renderCell: params => <Text isCell text={params.row?.countProposalsByStatuses?.acceptedProposals} />,
     width: 90,
   },
 

@@ -14,7 +14,7 @@ import { UserModel } from '@models/user-model'
 import { t } from '@utils/translations'
 import { dataURLtoFile } from '@utils/upload-files'
 
-import { IFeedback } from '@typings/models/feedbacks/feedback'
+import { IFeedback } from '@typings/models/administrators/feedback'
 import { IActiveSession } from '@typings/shared/active-session'
 import { IFullUser } from '@typings/shared/full-user'
 import { UploadFileType } from '@typings/shared/upload-file'
