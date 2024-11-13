@@ -61,8 +61,8 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
 
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID) + ' / item',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
+      headerName: 'ID/item',
+      renderHeader: () => <MultilineTextHeaderCell text="ID/item" />,
       valueGetter: params => params.row.xid,
       renderCell: params => <Text isCell text={`${params.row.xid || '-'} / ${params.row.item || '-'}`} />,
       width: 100,

@@ -10,6 +10,11 @@ import { TaskStatus } from '@typings/enums/task/task-status'
 import { permissionsKeys } from '../keys/permissions'
 import { TranslationKey } from '../translations/translation-key'
 
+const FeedbackView = lazy(() =>
+  import('@views/shared/feedback-view/feedback-view').then(module => ({
+    default: module.FeedbackView,
+  })),
+)
 const ParsingProfileView = lazy(() =>
   import('@views/shared/parsing-view/parsing-profile-view').then(module => ({
     default: module.ParsingProfileView,
@@ -43,9 +48,6 @@ const AdminDashboardView = lazy(() =>
 )
 const AdminExchangeViews = lazy(() =>
   import('@views/admin/admin-exchange-views').then(module => ({ default: module.AdminExchangeViews })),
-)
-const AdminFeedbackView = lazy(() =>
-  import('@views/admin/admin-feedback-view').then(module => ({ default: module.AdminFeedbackView })),
 )
 const AdminInventoryView = lazy(() =>
   import('@views/admin/admin-inventory-view').then(module => ({ default: module.AdminInventoryView })),
@@ -287,7 +289,6 @@ const ModeratorAppealView = lazy(() =>
     default: module.ModeratorAppealView,
   })),
 )
-// const rt ModeratorAppealView} from '@views/moderator/moderator-appeal-view'
 const ModeratorAppealsView = lazy(() =>
   import('@views/moderator/moderator-appeals-view/moderator-appeals-view').then(module => ({
     default: module.ModeratorAppealsView,
@@ -942,6 +943,19 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/buyer/feedback',
+    component: FeedbackView,
+    exact: false,
+    permission: [UserRole.BUYER],
+    crumbNameKey: TranslationKey.Feedback,
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Feedback),
+    },
+  },
+
+  {
     routePath: '/researcher/dashboard',
     component: ResearcherDashboardView,
     exact: false,
@@ -1047,6 +1061,19 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
       title: () => t(TranslationKey.Messages),
+    },
+  },
+
+  {
+    routePath: '/researcher/feedback',
+    component: FeedbackView,
+    exact: false,
+    permission: [UserRole.RESEARCHER],
+    crumbNameKey: TranslationKey.Feedback,
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Feedback),
     },
   },
 
@@ -1709,21 +1736,6 @@ export const privateRoutesConfigs = [
     },
   },
 
-  // {
-  //   routePath: "/client/settings",
-  //   component: ClientSettingsView,
-  //   exact: true,
-  //   permission: [UserRole.CLIENT],
-  //
-  //   crumbNameKey: TranslationKey.Profile,
-  //
-  //   navigationInfo: {
-  //     activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
-  //     activeSubCategory: "",
-  //     title: () =>  t(TranslationKey.Profile)
-  //   }
-  // },
-
   {
     routePath: '/client/my-orders/orders/order',
     component: ClientOrderView,
@@ -1918,6 +1930,19 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
       title: () => t(TranslationKey.Messages),
+    },
+  },
+
+  {
+    routePath: '/client/feedback',
+    component: FeedbackView,
+    exact: false,
+    permission: [UserRole.CLIENT],
+    crumbNameKey: TranslationKey.Feedback,
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Feedback),
     },
   },
 
@@ -2132,6 +2157,19 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_SETTINGS,
       activeSubCategory: '',
       title: () => t(TranslationKey.Settings),
+    },
+  },
+
+  {
+    routePath: '/supervisor/feedback',
+    component: FeedbackView,
+    exact: false,
+    permission: [UserRole.SUPERVISOR],
+    crumbNameKey: TranslationKey.Feedback,
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Feedback),
     },
   },
 
@@ -2363,6 +2401,19 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_MESSAGES,
       activeSubCategory: '',
       title: () => t(TranslationKey.Messages),
+    },
+  },
+
+  {
+    routePath: '/warehouse/feedback',
+    component: FeedbackView,
+    exact: false,
+    permission: [UserRole.STOREKEEPER],
+    crumbNameKey: TranslationKey.Feedback,
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Feedback),
     },
   },
 
@@ -2667,11 +2718,10 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/admin/feedback',
-    component: AdminFeedbackView,
+    component: FeedbackView,
     exact: false,
     permission: [UserRole.ADMIN],
     crumbNameKey: TranslationKey.Feedback,
-
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
@@ -2765,8 +2815,6 @@ export const privateRoutesConfigs = [
       title: () => t(TranslationKey.Finances),
     },
   },
-
-  // ////////////////////////////////////////////////////////////////////////////////////////////////////
 
   {
     routePath: '/freelancer/freelance',
@@ -3050,6 +3098,19 @@ export const privateRoutesConfigs = [
   },
 
   {
+    routePath: '/freelancer/feedback',
+    component: FeedbackView,
+    exact: false,
+    permission: [UserRole.FREELANCER],
+    crumbNameKey: TranslationKey.Feedback,
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
+      activeSubCategory: '',
+      title: () => t(TranslationKey.Feedback),
+    },
+  },
+
+  {
     routePath: '/moderator/dashboard',
     component: ModeratorDashboardView,
     exact: false,
@@ -3163,11 +3224,10 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/moderator/feedback',
-    component: AdminFeedbackView,
+    component: FeedbackView,
     exact: false,
     permission: [UserRole.MODERATOR],
     crumbNameKey: TranslationKey.Feedback,
-
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
@@ -3188,8 +3248,6 @@ export const privateRoutesConfigs = [
       title: () => t(TranslationKey.Messages),
     },
   },
-
-  // * Client Ideas
 
   {
     routePath: '/client/ideas',
