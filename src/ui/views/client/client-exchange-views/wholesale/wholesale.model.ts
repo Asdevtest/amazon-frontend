@@ -3,6 +3,7 @@ import { UIEvent } from 'react'
 
 import { ClientModel } from '@models/client-model'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { ISupplierExchange } from '@typings/models/suppliers/supplier-exchange'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
@@ -12,6 +13,9 @@ import { wholesaleConfig } from './wholesale.config'
 export class WholesaleViewModel extends UseProductsPermissions {
   get suppliers() {
     return this.currentPermissionsData as unknown as ISupplierExchange[]
+  }
+  get loading() {
+    return this.requestStatus === loadingStatus.IS_LOADING
   }
 
   constructor() {

@@ -16,9 +16,16 @@ export const useStyles = makeStyles()(() => ({
     gap: '10px',
     overflowY: 'auto',
 
-    '& > div': {
+    '.ant-empty': {
       height: '100%',
       alignContent: 'center',
     },
+  },
+
+  loading: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
   },
 }))

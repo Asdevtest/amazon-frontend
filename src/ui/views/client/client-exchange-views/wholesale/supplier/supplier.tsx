@@ -33,15 +33,19 @@ export const Supplier: FC<SupplierCardProps> = memo(props => {
     <div className={styles.root}>
       <div className={cx(styles.flexColumn, styles.infoBlock)}>
         <div className={styles.flexRow}>
-          <CustomImage preview={false} src={supplier.originCountry?.image} height={20} width={30} />
+          {supplier.originCountry?.image ? (
+            <CustomImage preview={false} src={supplier.originCountry?.image} height={20} width={30} />
+          ) : null}
           <Text copyable={false} text={xidText} rows={1} />
           <Rate disabled value={supplier.avgRating} />
         </div>
 
-        <div className={styles.payments}>
-          <Text type="secondary" copyable={false} text={t(TranslationKey['Payment methods'])} rows={1} />
-          <PaymentMethods paymentMethods={supplier.paymentMethods} />
-        </div>
+        {supplier.paymentMethods.length ? (
+          <div className={styles.payments}>
+            <Text type="secondary" copyable={false} text={t(TranslationKey['Payment methods'])} rows={1} />
+            <PaymentMethods paymentMethods={supplier.paymentMethods} />
+          </div>
+        ) : null}
 
         <CustomButton ghost type="primary">
           {t(TranslationKey['View more'])}

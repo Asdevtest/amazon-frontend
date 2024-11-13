@@ -1,8 +1,13 @@
-import { Empty } from 'antd'
+import { Empty, Spin } from 'antd'
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
+
+import { t } from '@utils/translations'
 
 import { useStyles } from './wholesale.style'
 
@@ -23,14 +28,14 @@ export const WholesaleView = observer(() => {
           placeholder="Search"
           onSearch={viewModel.onClickSubmitSearch}
         />
-        {/* <CustomRadioButton
+        <CustomRadioButton
           size="large"
           options={[
             { label: t(TranslationKey.Suppliers), value: '1' },
             { label: t(TranslationKey.Products), value: '2' },
           ]}
           value="1"
-        /> */}
+        />
       </div>
 
       <div className={styles.content} onScroll={viewModel.onScroll}>
@@ -40,6 +45,8 @@ export const WholesaleView = observer(() => {
           <Empty />
         )}
       </div>
+
+      <Spin spinning={viewModel.loading} size="large" className={styles.loading} />
     </div>
   )
 })
