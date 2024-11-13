@@ -4,7 +4,7 @@ import { MdDeleteOutline, MdEdit } from 'react-icons/md'
 
 import { CustomButton } from '@components/shared/custom-button'
 
-import { ICategory } from '@typings/models/others/category'
+import { ICategory } from '@typings/shared/category'
 import { NullString } from '@typings/types/nullable-types'
 
 export interface CategoryTreeNode extends TreeDataNode {
