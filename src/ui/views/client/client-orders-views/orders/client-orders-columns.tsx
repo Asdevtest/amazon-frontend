@@ -61,13 +61,12 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
 
     {
       field: 'xid',
-      headerName: 'ID/item',
-      renderHeader: () => <MultilineTextHeaderCell text="ID/item" />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       valueGetter: params => params.row.xid,
-      renderCell: params => <Text isCell text={`${params.row.xid || '-'} / ${params.row.item || '-'}`} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 100,
-
-      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {

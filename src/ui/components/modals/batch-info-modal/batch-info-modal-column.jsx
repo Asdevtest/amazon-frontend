@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
   MultilineTextHeaderCell,
-  OrdersIdsItemsCell,
   ProductsCell,
   StringListCell,
   UserCell,
@@ -85,12 +84,19 @@ export const batchInfoModalColumn = (
     },
 
     {
-      field: 'orderIdsItems',
-      headerName: t(TranslationKey['№ Order/ № Item']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
-      renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
-      valueGetter: ({ row }) => row?.orderIdsItems || t(TranslationKey.Missing),
-      width: 140,
+      field: 'orderXid',
+      headerName: t(TranslationKey['№ Order']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
+      renderCell: ({ row }) => (
+        <StringListCell
+          ref={refs[2]}
+          maxVisibleLines={5}
+          data={row.items?.map(item => item?.order?.xid)}
+          onScroll={onScroll}
+        />
+      ),
+      valueGetter: ({ row }) => row.items?.map(item => item?.order?.xid || t(TranslationKey.Missing)).join(', '),
+      width: 100,
       sortable: false,
     },
 
@@ -157,7 +163,7 @@ export const batchInfoModalColumn = (
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per unit'])} />,
       renderCell: ({ row }) => (
         <StringListCell
-          ref={refs[2]}
+          ref={refs[3]}
           maxVisibleLines={5}
           data={row.items?.map(item => toFixedWithDollarSign(item.order?.totalPrice / item.order?.amount, 2))}
           onScroll={onScroll}
@@ -180,7 +186,7 @@ export const batchInfoModalColumn = (
 
         return (
           <StringListCell
-            ref={refs[3]}
+            ref={refs[4]}
             maxVisibleLines={5}
             data={row.items?.map(item =>
               toFixedWithDollarSign(
@@ -235,7 +241,7 @@ export const batchInfoModalColumn = (
 
         return (
           <StringListCell
-            ref={refs[4]}
+            ref={refs[5]}
             maxVisibleLines={5}
             data={row.items?.map(item => (!!actualShippingCost && toFixedWithDollarSign(getTotalCost(item), 2)) || '-')}
             onScroll={onScroll}
@@ -289,7 +295,7 @@ export const batchInfoModalColumn = (
 
         return (
           <StringListCell
-            ref={refs[5]}
+            ref={refs[6]}
             maxVisibleLines={5}
             data={row.items?.map(item => toFixedWithDollarSign(getTotalCost(item), 2) || '-')}
             onScroll={onScroll}
@@ -322,7 +328,7 @@ export const batchInfoModalColumn = (
       renderHeader: () => <MultilineTextHeaderCell text="Account" />,
       renderCell: ({ row }) => (
         <StringListCell
-          ref={refs[6]}
+          ref={refs[7]}
           maxVisibleLines={5}
           data={row.items?.map(item => item?.product?.shop?.name)}
           onScroll={onScroll}

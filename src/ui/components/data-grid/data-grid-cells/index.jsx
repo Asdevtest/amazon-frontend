@@ -34,7 +34,6 @@ export { NormDateFromUnixCell } from './norm-date-from-unix-cell/norm-date-from-
 export { NotificationMessageCell } from './notification-message-cell/notification-message-cell'
 export { OpenInNewTabCell } from './open-in-new-tab-cell/open-in-new-tab-cell'
 export { OrderNotificationMessageCell } from './order-notification-message-cell/order-notification-message-cell'
-export { OrdersIdsItemsCell } from './orders-ids-items-cell/orders-ids-items-cell'
 export { PaymentMethodsCell } from './payment-methods-cell/payment-methods-cell'
 export { PriceVariationsCell } from './price-variations-cell/price-variations-cell'
 export { PriorityAndChinaDeliverCell } from './priority-and-china-deliver-cell/priority-and-china-deliver-cell'

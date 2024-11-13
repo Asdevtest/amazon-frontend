@@ -3,8 +3,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import {
   MultilineTextHeaderCell,
   NormDateCell,
-  OrdersIdsItemsCell,
   ProductsCell,
+  StringListCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
@@ -22,11 +22,12 @@ export const addOrEditBatchFormColumns = isClient => [
   },
 
   {
-    field: 'orderIdsItems',
-    headerName: t(TranslationKey['№ Order/ № Item']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
-    renderCell: params => <OrdersIdsItemsCell value={params.value} />,
-    width: 150,
+    field: 'orderXid',
+    headerName: t(TranslationKey['№ Order']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
+    renderCell: ({ row }) => <StringListCell data={row.items?.map(item => item?.order?.xid)} />,
+    valueGetter: ({ row }) => row.items?.map(item => item?.order?.xid || t(TranslationKey.Missing)).join(', '),
+    width: 100,
   },
 
   {
