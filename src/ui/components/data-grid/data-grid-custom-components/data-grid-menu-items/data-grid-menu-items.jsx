@@ -22,8 +22,8 @@ import { chosenStatusesByFilter } from '@constants/statuses/inventory-product-or
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridSelectAllFilters } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { DatePicker } from '@components/shared/date-picker'
 import { Input } from '@components/shared/input'
@@ -98,10 +98,9 @@ export const IsFormedMenuItem = memo(
             <div className={styles.shopsWrapper}>
               <div className={styles.shopsBody}>
                 <div className={styles.shop}>
-                  <Checkbox
-                    color="primary"
+                  <CustomCheckbox
                     checked={isFormedData.isFormed || isFormedData.isFormed === undefined}
-                    onClick={() =>
+                    onChange={() =>
                       isFormedData.onChangeIsFormed(
                         isFormedData.isFormed !== undefined
                           ? isFormedData.isFormed
@@ -110,16 +109,15 @@ export const IsFormedMenuItem = memo(
                           : false,
                       )
                     }
-                  />
-
-                  <p title={t(TranslationKey.Formed)}>{t(TranslationKey.Formed)}</p>
+                  >
+                    Formed
+                  </CustomCheckbox>
                 </div>
 
                 <div className={styles.shop}>
-                  <Checkbox
-                    color="primary"
+                  <CustomCheckbox
                     checked={!isFormedData.isFormed || isFormedData.isFormed === undefined}
-                    onClick={() =>
+                    onChange={() =>
                       isFormedData.onChangeIsFormed(
                         isFormedData.isFormed !== undefined
                           ? !isFormedData.isFormed
@@ -128,9 +126,9 @@ export const IsFormedMenuItem = memo(
                           : true,
                       )
                     }
-                  />
-
-                  <p title={t(TranslationKey['Not formed'])}>{t(TranslationKey['Not formed'])}</p>
+                  >
+                    Not formed
+                  </CustomCheckbox>
                 </div>
               </div>
             </div>
@@ -219,10 +217,9 @@ export const IsNeedPurchaseFilterMenuItem = memo(
               <div className={styles.isFormedSubWrapper}>
                 <p title={t(TranslationKey['Not need refills'])}>{t(TranslationKey['Not need refills'])}</p>
 
-                <Checkbox
-                  color="primary"
+                <CustomCheckbox
                   checked={isNeedPurchaseFilterData.isNotNeedPurchaseFilter}
-                  onClick={() => {
+                  onChange={() => {
                     if (isNeedPurchaseFilterData.isNotNeedPurchaseFilter) {
                       isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(false, true)
                     } else {
@@ -235,10 +232,9 @@ export const IsNeedPurchaseFilterMenuItem = memo(
               <div className={styles.isFormedSubWrapper}>
                 <p title={t(TranslationKey['Need refills'])}>{t(TranslationKey['Need refills'])}</p>
 
-                <Checkbox
-                  color="primary"
+                <CustomCheckbox
                   checked={isNeedPurchaseFilterData.isNeedPurchaseFilter}
-                  onClick={() => {
+                  onChange={() => {
                     if (isNeedPurchaseFilterData.isNeedPurchaseFilter) {
                       isNeedPurchaseFilterData.onChangeIsNeedPurchaseFilter(true, false)
                     } else {
@@ -279,12 +275,11 @@ export const IsHaveBarCodeFilterMenuItem = memo(
         <div className={styles.isFormedSubWrapper}>
           <p title={t(TranslationKey['Got barcode'])}>{t(TranslationKey['Got barcode'])}</p>
 
-          <Checkbox
-            color="primary"
+          <CustomCheckbox
             checked={
               !isHaveBarCodeFilterData.isHaveBarCodeFilter || isHaveBarCodeFilterData.isHaveBarCodeFilter === null
             }
-            onClick={() =>
+            onChange={() =>
               isHaveBarCodeFilterData.onChangeIsHaveBarCodeFilter(
                 isHaveBarCodeFilterData.isHaveBarCodeFilter !== null
                   ? !isHaveBarCodeFilterData.isHaveBarCodeFilter
@@ -299,12 +294,11 @@ export const IsHaveBarCodeFilterMenuItem = memo(
         <div className={styles.isFormedSubWrapper}>
           <p title={t(TranslationKey['No barcode'])}>{t(TranslationKey['No barcode'])}</p>
 
-          <Checkbox
-            color="primary"
+          <CustomCheckbox
             checked={
               isHaveBarCodeFilterData.isHaveBarCodeFilter || isHaveBarCodeFilterData.isHaveBarCodeFilter === null
             }
-            onClick={() =>
+            onChange={() =>
               isHaveBarCodeFilterData.onChangeIsHaveBarCodeFilter(
                 isHaveBarCodeFilterData.isHaveBarCodeFilter !== null
                   ? isHaveBarCodeFilterData.isHaveBarCodeFilter
@@ -360,8 +354,7 @@ export const OrderStatusMenuItem = memo(
         {checkboxes.map(item => (
           <div key={item.name} className={styles.isFormedSubWrapper}>
             <p title={item.label}>{item.label}</p>
-
-            <Checkbox color="primary" name={item.name} checked={item.checked} onChange={onCheckboxChange} />
+            <CustomCheckbox name={item.name} checked={item.checked} onChange={onCheckboxChange} />
           </div>
         ))}
 
@@ -428,7 +421,7 @@ export const MyRequestsStatusMenuItem = memo(
 
                     return (
                       <div key={index} className={styles.shop}>
-                        <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                        <CustomCheckbox checked={valueChecked} onChange={() => onClickItem(el)} />
                         <div title={value} className={styles.shopName}>
                           {value}
                         </div>
@@ -520,10 +513,9 @@ export const FreelanceRequestType = memo(
                     return (
                       freelanceRequestType.DEFAULT !== el && (
                         <div key={index} className={styles.shop}>
-                          <Checkbox
-                            color="primary"
+                          <CustomCheckbox
                             checked={valueChecked}
-                            onClick={() => onClickItem(freelanceRequestType[el])}
+                            onChange={() => onClickItem(freelanceRequestType[el])}
                           />
                           <div title={value} className={styles.shopName}>
                             {value}
@@ -643,7 +635,7 @@ export const CreatedByMenuItem = memo(
 
                         return (
                           <div key={obj?._id} className={styles.shop}>
-                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
+                            <CustomCheckbox checked={valueChecked} onChange={() => onClickItem(obj)} />
                             <div title={value} className={styles.shopName}>
                               {value}
                             </div>
@@ -803,7 +795,7 @@ export const ObJectFieldMenuItem = memo(
                         return (
                           obj && (
                             <div key={obj._id} className={styles.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
+                              <CustomCheckbox checked={valueChecked} onChange={() => onClickItem(obj)} />
                               {rowContent ? (
                                 rowContent(obj)
                               ) : (
@@ -952,7 +944,7 @@ export const IdeaShopsFieldMenuItem = memo(
                         return (
                           obj && (
                             <div key={obj._id} className={styles.shop}>
-                              <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
+                              <CustomButton checked={valueChecked} onChange={() => onClickItem(obj)} />
                               {rowContent ? (
                                 rowContent(obj)
                               ) : (
@@ -1043,7 +1035,7 @@ export const BoxestatusMenuItem = memo(
       <div title="" className={styles.shopsDataWrapper}>
         <div className={styles.orderStatusDataBody}>
           <div className={styles.orderStatus} onClick={() => onClickItem('ALL')}>
-            <Checkbox color="primary" checked={choosenItems.length === 4 || !choosenItems.length} />
+            <CustomCheckbox checked={choosenItems.length === 4 || !choosenItems.length} />
             <div className={styles.orderStatusName}>{t(TranslationKey.All)}</div>
           </div>
           {[
@@ -1055,7 +1047,7 @@ export const BoxestatusMenuItem = memo(
             BoxStatus.NEED_TO_UPDATE_THE_TARIFF,
           ].map(item => (
             <div key={item} className={styles.orderStatus} onClick={() => onClickItem(item)}>
-              <Checkbox color="primary" checked={choosenItems?.some(status => status === item)} />
+              <CustomCheckbox checked={choosenItems?.some(status => status === item)} />
               <div title={boxStatusTranslateKey(item)} className={styles.orderStatusName}>
                 {boxStatusTranslateKey(item)}
               </div>
@@ -1186,7 +1178,7 @@ export const NormalFieldMenuItem = memo(
 
                       return (
                         <div key={index} className={styles.shop}>
-                          <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                          <CustomCheckbox checked={valueChecked} onChange={() => onClickItem(el)} />
                           <Text text={value} />
                         </div>
                       )
@@ -1266,10 +1258,9 @@ export const PriorityMenuItem = memo(
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
               <div className={styles.shop}>
-                <Checkbox
-                  color="primary"
+                <CustomCheckbox
                   checked={choosenItems.some(item => urgentPriority.includes(Number(item)))}
-                  onClick={() => onClickItem(urgentPriority)}
+                  onChange={() => onClickItem(urgentPriority)}
                 />
                 <div title={shopName} className={styles.shopName}>
                   {t(TranslationKey[`${shopName}`])} <img src="/assets/icons/fire.svg" />
@@ -1277,16 +1268,15 @@ export const PriorityMenuItem = memo(
               </div>
 
               <div className={styles.shop}>
-                <Checkbox
-                  type="primary"
+                <CustomCheckbox
                   checked={choosenItems.some(item => withoutPriority.includes(Number(item)))}
-                  onClick={() => {
+                  labelClassName={styles.shopName}
+                  onChange={() => {
                     onClickItem(withoutPriority)
                   }}
-                />
-                <div title={'Without Priority'} className={styles.shopName}>
-                  {t(TranslationKey['Without Priority'])}
-                </div>
+                >
+                  Without Priority
+                </CustomCheckbox>
               </div>
             </div>
           </div>
@@ -1336,25 +1326,23 @@ export const FreelancerToWorkConfirmationMenuItem = memo(
           <div className={styles.shopsWrapper}>
             <div className={styles.shopsBody}>
               <div className={styles.shop}>
-                <Checkbox
-                  color="primary"
+                <CustomCheckbox
                   checked={choosenItems.some(item => item === true)}
-                  onClick={() => onClickItem(true)}
-                />
-                <div title={t(TranslationKey.Yes)} className={styles.shopName}>
-                  {t(TranslationKey.Yes)}
-                </div>
+                  labelClassName={styles.shopName}
+                  onChange={() => onClickItem(true)}
+                >
+                  Yes
+                </CustomCheckbox>
               </div>
 
               <div className={styles.shop}>
-                <Checkbox
-                  color="primary"
+                <CustomCheckbox
                   checked={choosenItems.some(item => item === false)}
-                  onClick={() => onClickItem(false)}
-                />
-                <div title={t(TranslationKey.No)} className={styles.shopName}>
-                  {t(TranslationKey.No)}
-                </div>
+                  labelClassName={styles.shopName}
+                  onChange={() => onClickItem(false)}
+                >
+                  No
+                </CustomCheckbox>
               </div>
             </div>
           </div>
@@ -1497,7 +1485,7 @@ export const OrderOrItemMenuItem = memo(
 
                         return (
                           <div key={index} className={styles.shop}>
-                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <CustomCheckbox checked={valueChecked} onChange={() => onClickItem(el)} />
                             <div title={value} className={styles.shopName}>
                               {value}
                             </div>
@@ -1664,7 +1652,7 @@ export const DestinationMenuItem = memo(
 
                       return (
                         <div key={obj?._id} className={styles.shop}>
-                          <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(obj)} />
+                          <CustomCheckbox checked={valueChecked} onChange={() => onClickItem(obj)} />
                           <div title={value} className={styles.shopName}>
                             {value}
                           </div>
@@ -1816,7 +1804,7 @@ export const FromToDateMenuItem = memo(
                         const valueChecked = choosenItems?.some(item => item === el)
                         return (
                           <div key={index} className={styles.shop}>
-                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <CustomCheckbox checked={valueChecked} onChange={() => onClickItem(el)} />
                             <div title={value} className={styles.shopName}>
                               {value}
                             </div>
@@ -2105,7 +2093,7 @@ export const NumberFieldMenuItem = memo(
 
                         return (
                           <div key={index} className={styles.shop}>
-                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <CustomCheckbox checked={valueChecked} onChange={() => onClickItem(el)} />
                             <div title={value} className={styles.shopName}>
                               {value}
                             </div>
@@ -2241,7 +2229,7 @@ export const InStockMenuItem = memo(
 
                         return (
                           <div key={index} className={styles.shop}>
-                            <Checkbox color="primary" checked={valueChecked} onClick={() => onClickItem(el)} />
+                            <CustomCheckbox checked={valueChecked} onChange={() => onClickItem(el)} />
                             <div title={el} className={styles.shopName}>
                               {el}
                             </div>
@@ -2326,35 +2314,33 @@ export const OnListingCellMenuItem = memo(
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
             <div className={styles.shop}>
-              <Checkbox
-                color="primary"
+              <CustomCheckbox
                 checked={data.onListingFiltersData.onListing}
-                onClick={() => {
+                onChange={() => {
                   if (data.onListingFiltersData.onListing) {
                     data.onListingFiltersData.handleListingFilters(false, true)
                   } else {
                     data.onListingFiltersData.handleListingFilters(true, true)
                   }
                 }}
-              />
-
-              <p title={t(TranslationKey.Yes)}>{t(TranslationKey.Yes)}</p>
+              >
+                Yes
+              </CustomCheckbox>
             </div>
 
             <div className={styles.shop}>
-              <Checkbox
-                color="primary"
+              <CustomCheckbox
                 checked={data.onListingFiltersData.notOnListing}
-                onClick={() => {
+                onChange={() => {
                   if (data.onListingFiltersData.notOnListing) {
                     data.onListingFiltersData.handleListingFilters(true, false)
                   } else {
                     data.onListingFiltersData.handleListingFilters(true, true)
                   }
                 }}
-              />
-
-              <p title={t(TranslationKey.No)}>{t(TranslationKey.No)}</p>
+              >
+                No
+              </CustomCheckbox>
             </div>
           </div>
         </div>
@@ -2381,10 +2367,10 @@ export const YesNoCellMenuItem = memo(
         <div className={styles.shopsWrapper}>
           <div className={styles.shopsBody}>
             <div className={styles.shop}>
-              <Checkbox
+              <CustomCheckbox
                 color="primary"
                 checked={condition.yes}
-                onClick={() => {
+                onChange={() => {
                   if (condition.yes) {
                     setCondition({
                       yes: false,
@@ -2403,10 +2389,9 @@ export const YesNoCellMenuItem = memo(
             </div>
 
             <div className={styles.shop}>
-              <Checkbox
-                color="primary"
+              <CustomCheckbox
                 checked={condition.no}
-                onClick={() => {
+                onChange={() => {
                   if (condition.no) {
                     setCondition({
                       yes: true,
@@ -2716,10 +2701,9 @@ export const SecondsCellMenuItem = memo(
                     />
                     {itemsForRender?.map((el, index) => (
                       <div key={index} className={styles.shop}>
-                        <Checkbox
-                          color="primary"
+                        <CustomCheckbox
                           checked={choosenItems?.some(item => item === el)}
-                          onClick={() => onClickItem(el)}
+                          onChange={() => onClickItem(el)}
                         />
                         <div className={styles.shopName}>{minsToTime(el / 60)}</div>
                       </div>
