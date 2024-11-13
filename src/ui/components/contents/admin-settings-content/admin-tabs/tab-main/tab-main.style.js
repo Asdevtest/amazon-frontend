@@ -3,7 +3,11 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
-    gap: 30,
+    gap: 20,
+    background: theme.palette.background.general,
+    padding: 20,
+    borderRadius: 16,
+    width: 'max-content',
   },
 
   textFileds: {

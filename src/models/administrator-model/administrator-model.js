@@ -210,6 +210,36 @@ class AdministratorModelStatic {
     return response.data
   }
 
+  removeCountry = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsCountriesGuidDelete({ guid })
+    return response.data
+  }
+
+  addCountry = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsCountriesPost({ body })
+    return response.data
+  }
+
+  editCountry = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsCountriesGuidPatch({ guid, body })
+    return response.data
+  }
+
+  addCategory = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsCategoriesPost({ body })
+    return response.data
+  }
+
+  editCategory = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsCategoriesGuidPatch({ guid, body })
+    return response.data
+  }
+
+  removeCategory = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsCategoriesGuidDelete({ guid })
+    return response.data
+  }
+
   rejectedFeedback = async guid => {
     const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidRejectedPatch({ guid })
     return response.data

@@ -3,8 +3,6 @@ import { lazy } from 'react'
 import { UserRole } from '@constants/keys/user-roles'
 import { navBarActiveCategory, navBarActiveSubCategory } from '@constants/navigation/navbar-active-category'
 
-import { BuyerIdeas } from '@views/buyer/buyer-ideas'
-
 import { t } from '@utils/translations'
 
 import { TaskStatus } from '@typings/enums/task/task-status'
@@ -64,7 +62,7 @@ const AdminProductView = lazy(() =>
   import('@views/admin/admin-product-view').then(module => ({ default: module.AdminProductView })),
 )
 const AdminSettingsView = lazy(() =>
-  import('@views/admin/admin-settings-view').then(module => ({ default: module.AdminSettingsView })),
+  import('@components/contents/admin-settings-content').then(module => ({ default: module.AdminSettings })),
 )
 const AdminUserPermissionsView = lazy(() =>
   import('@views/admin/admin-user-permissions-view').then(module => ({ default: module.AdminUserPermissionsView })),

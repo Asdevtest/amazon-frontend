@@ -204,6 +204,16 @@ class OtherModelStatic {
     return response.data
   }
 
+  getCountries = async () => {
+    const response = await restApiService.otherApi.apiV1OtherCountriesGet()
+    return response.data
+  }
+
+  getCategories = async body => {
+    const response = await restApiService.otherApi.apiV1OtherCategoriesGet({ ...body, noCache: true })
+    return response.data
+  }
+
   getFeedbacks = async body => {
     const response = await restApiService.otherApi.apiV1OtherFeedbackGet({ ...body, noCache: true })
     return response.data
