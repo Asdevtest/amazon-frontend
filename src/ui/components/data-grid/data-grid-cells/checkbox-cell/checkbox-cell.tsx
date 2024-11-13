@@ -2,6 +2,8 @@ import { FC, memo } from 'react'
 
 import { Checkbox } from '@mui/material'
 
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
+
 import { useStyles } from './checkbox-cell.style'
 
 interface CheckboxCellProps {
@@ -15,10 +17,10 @@ export const CheckboxCell: FC<CheckboxCellProps> = memo(({ checked, disabled, on
 
   return (
     <div className={styles.root}>
-      <Checkbox
+      <CustomCheckbox
         disabled={disabled}
         checked={checked}
-        onClick={e => {
+        onChange={e => {
           e.stopPropagation()
           onClick?.()
         }}
