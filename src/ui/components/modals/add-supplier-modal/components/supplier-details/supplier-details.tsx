@@ -10,10 +10,12 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { ICountry } from '@typings/models/others/country'
 import { UploadFileType } from '@typings/shared/upload-file'
 
+import { getRequiredRules } from '@config/form-rules/get-required-rules'
+
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './supplier-details.style'
 
-import { getRequiredLinkRules, getRequiredRules } from '../../add-supplier-modal.config'
+import { getRequiredLinkRules } from '../../add-supplier-modal.config'
 import { CreateSupplier } from '../../add-supplier-modal.types'
 
 interface SupplierDetailsProps {

@@ -33,7 +33,7 @@ export interface ISupplier {
   weighUnit: number
 }
 
-interface IBoxProperties {
+export interface IBoxProperties {
   amountInBox: number
   boxLengthCm: number
   boxWidthCm: number

@@ -16,10 +16,11 @@ import { loadingStatus } from '@typings/enums/loading-status'
 import { ISupplierV2 } from '@typings/models/suppliers/supplier-v2'
 import { UploadFileType } from '@typings/shared/upload-file'
 
+import { getRequiredRules } from '@config/form-rules/get-required-rules'
+
 import { useStyles } from './add-supplier-modal.style'
 import { useStyles as useSharedStyles } from './shared.style'
 
-import { getRequiredRules } from './add-supplier-modal.config'
 import { AddSupplierModalModel } from './add-supplier-modal.model'
 import { CreateSupplier } from './add-supplier-modal.types'
 import { Contacts } from './components/contacts'
