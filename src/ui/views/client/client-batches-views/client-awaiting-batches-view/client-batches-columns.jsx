@@ -157,6 +157,7 @@ export const clientBatchesViewColumns = rowHandlers => {
           trackingNumber={params.row?.trackingNumber}
         />
       ),
+
       width: 200,
       filterable: false,
       sortable: false,
