@@ -211,6 +211,14 @@ export const navbarConfig = {
             checkGroupPermissions(permissionsKeys.client.SHOW_COMEXCHANGE_PRLABEL_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_COMEXCHANGE_PRLABEL_CLIENT),
         },
+        {
+          subtitle: () => 'Wholesale',
+          subRoute: '/client/product-exchange/wholesale',
+          checkHideSubBlock: user =>
+            !isHaveMasterUser(user) ||
+            checkGroupPermissions(permissionsKeys.client.SHOW_COMEXCHANGE_WHOLESALE_CLIENT) ||
+            user?.permissions?.some(item => item === permissionsKeys.client.SHOW_COMEXCHANGE_WHOLESALE_CLIENT),
+        },
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
       checkHideBlock: user =>

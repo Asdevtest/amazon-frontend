@@ -299,6 +299,11 @@ class ClientModelStatic {
     })
     return response.data
   }
+
+  getSuppliersExchange = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsSuppliersExchangeGet(body)
+    return response.data
+  }
 }
 
 export const ClientModel = new ClientModelStatic()

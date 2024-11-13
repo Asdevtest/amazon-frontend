@@ -21,7 +21,7 @@ interface PaymentMethodCardProps {
   readOnly?: boolean
 }
 
-export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, setSelectedPayments, readOnly }) => {
+export const PaymentMethod: FC<PaymentMethodCardProps> = memo(({ payment, setSelectedPayments, readOnly }) => {
   const { classes: styles, cx } = useStyles()
 
   const handleFieldChange = (field: string, value: string | UploadFileType[] | boolean) => {

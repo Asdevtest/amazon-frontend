@@ -177,6 +177,11 @@ const ClientExchangeView = lazy(() =>
     default: module.ClientExchangeView,
   })),
 )
+const WholesaleView = lazy(() =>
+  import('@views/client/client-exchange-views/wholesale').then(module => ({
+    default: module.WholesaleView,
+  })),
+)
 const ClientFreelanceView = lazy(() =>
   import('@views/client/client-freelance-view').then(module => ({ default: module.ClientFreelanceView })),
 )
@@ -1508,6 +1513,23 @@ export const privateRoutesConfigs = [
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
       activeSubCategory: 1,
       title: () => t(TranslationKey['Private Label']),
+    },
+  },
+
+  {
+    routePath: '/client/product-exchange/wholesale',
+    component: WholesaleView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+
+    permissionKey: permissionsKeys.client.SHOW_COMEXCHANGE_WHOLESALE_CLIENT,
+
+    crumbNameKey: TranslationKey['Research exchange'],
+
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
+      activeSubCategory: 2,
+      title: () => 'Wholesale',
     },
   },
 

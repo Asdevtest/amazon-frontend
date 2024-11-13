@@ -2039,5 +2039,7 @@
   "Add category": "Добавить категорию",
   "Category name is required": "Название категории обязательно",
   "Order ID": "ID заказа",
-  "Are you sure you want to delete the ad?": "Вы уверены, что хотите удалить объявление?"
+  "Are you sure you want to delete the ad?": "Вы уверены, что хотите удалить объявление?",
+  "Top products": "Топ товары",
+  "Suppliers": "Поставщики"
 }

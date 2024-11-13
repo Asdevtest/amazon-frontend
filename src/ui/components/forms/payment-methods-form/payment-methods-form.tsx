@@ -11,7 +11,7 @@ import { IPayment } from '@typings/shared/payment'
 
 import { useStyles } from './payment-methods-form.style'
 
-import { PaymentMethodCard } from './payment-method-card'
+import { PaymentMethod } from './payment-method-card'
 
 interface PaymentMethodsFormProps {
   orderPayments: IPayment[]
@@ -60,7 +60,7 @@ export const PaymentMethodsForm: FC<PaymentMethodsFormProps> = memo(props => {
       <div className={styles.payments}>
         {selectedPayments?.length ? (
           selectedPayments.map((payment, paymentMethodIndex) => (
-            <PaymentMethodCard
+            <PaymentMethod
               key={paymentMethodIndex}
               readOnly={readOnly}
               payment={payment}
