@@ -71,7 +71,6 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
         validateTrigger="onBlur"
         rules={[
           { required: true, message: '' },
-          { max: 512, message: '' },
           () => ({
             validator(_, value) {
               if (!value?.trim()) {
@@ -83,7 +82,7 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
           }),
         ]}
       >
-        <CustomInput fullWidth required placeholder="Title" />
+        <CustomInput fullWidth required showCount allowClear maxLength={512} placeholder="Title" />
       </Form.Item>
 
       <Form.Item<EditorFormFieldData>
@@ -91,7 +90,6 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
         validateTrigger="onBlur"
         rules={[
           { required: true, message: '' },
-          { max: 2048, message: '' },
           () => ({
             validator(_, value) {
               if (!value?.trim()) {
@@ -103,7 +101,7 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
           }),
         ]}
       >
-        <CustomTextarea required rows={6} placeholder="Description" />
+        <CustomTextarea required showCount allowClear rows={6} maxLength={2048} placeholder="Description" />
       </Form.Item>
 
       {showMediaBlock ? (
