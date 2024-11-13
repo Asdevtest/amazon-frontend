@@ -218,10 +218,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
   const [editPhotosOfUnit, setEditPhotosOfUnit] = useState([])
 
   useEffect(() => {
-    if (supplier?.images.length > 0) {
+    if (supplier?.images?.length > 0) {
       setEditPhotosOfSupplier(supplier?.images)
     }
-    if (supplier?.imageUnit.length > 0) {
+    if (supplier?.imageUnit?.length > 0) {
       setEditPhotosOfUnit(supplier?.imageUnit)
     }
   }, [supplier])
