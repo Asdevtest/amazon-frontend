@@ -16,7 +16,7 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
-import { ICountry } from '@typings/models/others/country'
+import { ICountry } from '@typings/shared/country'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './countries.style'

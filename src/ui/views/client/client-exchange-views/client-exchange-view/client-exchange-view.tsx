@@ -3,9 +3,9 @@ import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { SelectShopsForm } from '@components/forms/select-shops-form/select-shops-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
-import { SelectShopsModal } from '@components/modals/select-shops-modal/select-shops-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -97,14 +97,11 @@ export const ClientExchangeView = observer(() => {
         openModal={viewModel.showSelectShopsModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
       >
-        <SelectShopsModal
-          // @ts-ignore
-          isNotDisabled
+        <SelectShopsForm
           title={viewModel.confirmModalSettings.title}
           message={viewModel.confirmModalSettings.message}
-          shops={viewModel.shopsData}
-          onClickSuccessBtn={viewModel.onClickBuyProductBtn}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
+          onSubmit={viewModel.onClickBuyProductBtn}
+          onClose={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
         />
       </Modal>
 

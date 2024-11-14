@@ -1,33 +1,24 @@
 import { makeObservable } from 'mobx'
 import { UIEvent } from 'react'
 
-import { UserModel } from '@models/user-model'
-
-import { IFullUser } from '@typings/shared/full-user'
+import { ShopModel } from '@models/shop-model'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
-import { getDefaultUserOption, getUserOptions, usersSelectConfig } from './users-select.config'
+import { generateItems, shopsSelectConfig } from './select-shops-form.config'
 
-export class UsersSelectModel extends UseProductsPermissions {
-  defaultUser?: IFullUser
-
-  get defaultUserOption() {
-    return getDefaultUserOption(this.defaultUser)
-  }
-  get userOptions() {
-    return getUserOptions(this.currentPermissionsData, this.defaultUser)
+export class SelectShopFormModel extends UseProductsPermissions {
+  get items() {
+    return generateItems(this.currentPermissionsData)
   }
 
-  constructor(defaultUser?: IFullUser) {
-    super(UserModel.getMySubUsers)
+  constructor() {
+    super(ShopModel.getMyShops)
 
-    this.defaultUser = defaultUser
-
-    makeObservable(this, usersSelectConfig)
+    makeObservable(this, shopsSelectConfig)
   }
 
-  onGetUsers = () => {
+  onGetData = () => {
     this.permissionsData = []
     this.isCanLoadMore = true
     this.setOptions({ offset: 0, filters: '' })
@@ -47,7 +38,7 @@ export class UsersSelectModel extends UseProductsPermissions {
 
   onDropdownVisibleChange = (isOpen: boolean) => {
     if (isOpen) {
-      this.onGetUsers()
+      this.onGetData()
     }
   }
 }

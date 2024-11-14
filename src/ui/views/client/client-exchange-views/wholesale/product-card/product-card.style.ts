@@ -2,43 +2,30 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    padding: '20px',
+    padding: '10px',
     display: 'flex',
-    alignItems: 'flex-start',
+    flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '20px',
+    gap: '5px',
     borderRadius: '16px',
     boxShadow: theme.palette.boxShadow.paper,
   },
 
-  infoBlock: {
-    height: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-  },
-
   flexRow: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: '10px',
   },
 
   flexColumn: {
-    flex: 1,
     display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-
-  payments: {
-    display: 'flex',
+    alignItems: 'center',
     flexDirection: 'column',
     gap: '5px',
   },
 
-  imagesBlock: {
-    width: '260px',
-    display: 'flex',
-    justifyContent: 'flex-end',
+  divider: {
+    height: '100%',
   },
 }))

@@ -3,7 +3,6 @@ import { action, computed, observable } from 'mobx'
 export const observerConfig = {
   productsVacant: observable,
   storekeepers: observable,
-  shopsData: observable,
   destinations: observable,
   ordersDataStateToSubmit: observable,
   showConfirmModal: observable,
@@ -20,7 +19,6 @@ export const observerConfig = {
   setDestinationsFavouritesItem: action.bound,
   getProductById: action.bound,
   onClickLaunchPrivateLabelBtn: action.bound,
-  getShops: action.bound,
   createOrder: action.bound,
   onLaunchPrivateLabel: action.bound,
   openCreateOrder: action.bound,

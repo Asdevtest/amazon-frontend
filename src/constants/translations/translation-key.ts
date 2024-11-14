@@ -2047,4 +2047,5 @@ export enum TranslationKey {
   'This week' = 'This week',
   'This month' = 'This month',
   'Last 30 Days' = 'Last 30 Days',
+  'Add to inventory' = 'Add to inventory',
 }
