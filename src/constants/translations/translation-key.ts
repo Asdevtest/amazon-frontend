@@ -2048,4 +2048,5 @@ export enum TranslationKey {
   'This month' = 'This month',
   'Last 30 Days' = 'Last 30 Days',
   'Add to inventory' = 'Add to inventory',
+  'There was an error loading media files' = 'There was an error loading media files',
 }

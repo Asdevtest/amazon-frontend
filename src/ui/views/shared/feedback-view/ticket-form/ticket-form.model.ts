@@ -85,7 +85,7 @@ export class TicketFormModel {
     try {
       const data = {
         responseText: this.responseText,
-        responseMedia: this.responseMedia,
+        responseMedia: await OtherModel.getFileUrls(this.responseMedia),
       }
       await AdministratorModel.sendReplyToFeedback(this.feedback?._id, data)
       this.onClose?.()
