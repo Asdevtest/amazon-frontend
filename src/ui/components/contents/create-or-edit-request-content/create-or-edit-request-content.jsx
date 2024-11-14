@@ -27,6 +27,7 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { FireIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { RequestSelect } from '@views/shared/create-or-edit-request-view/request-select/request-select'
@@ -567,8 +568,8 @@ export const CreateOrEditRequestContent = memo(props => {
                         </MenuItem>
 
                         {specs.map(spec => (
-                          <MenuItem key={spec._id} value={spec?._id} className={styles.capitalize}>
-                            {spec?.title}
+                          <MenuItem key={spec._id} value={spec?._id} className={styles.requestItem}>
+                            <Text text={spec?.title} copyable={false} rows={1} />
                           </MenuItem>
                         ))}
                       </Select>
