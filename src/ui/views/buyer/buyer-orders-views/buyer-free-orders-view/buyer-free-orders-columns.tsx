@@ -159,12 +159,12 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
-        const currentSupplier = params.row?.orderSupplier
+        const currentSupplier = params.row?.orderSupplierCard
 
         return <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
       },
       valueGetter: params => {
-        const currentSupplier = params.row?.orderSupplier
+        const currentSupplier = params.row?.orderSupplierCard
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
