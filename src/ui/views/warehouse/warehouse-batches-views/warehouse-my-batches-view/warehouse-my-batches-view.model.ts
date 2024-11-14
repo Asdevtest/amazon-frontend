@@ -179,14 +179,14 @@ export class WarehouseAwaitingBatchesViewModel extends DataGridFilterTableModel 
           volumeWeightDivide: batchFields.volumeWeightDivide,
         })
 
+        await BatchesModel.editAttachedDocuments(batchToEdit._id, this.uploadedFiles)
+
         if (newBoxesIds.length) {
           await BatchesModel.addBoxToBatch(batchToEdit._id, newBoxesIds)
         }
         if (boxesToRemoveIds.length) {
           await BatchesModel.removeBoxFromBatch(batchToEdit._id, boxesToRemoveIds)
         }
-
-        await BatchesModel.editAttachedDocuments(batchToEdit._id, this.uploadedFiles)
       }
 
       this.onTriggerOpenModal('showAddOrEditBatchModal')
