@@ -1,6 +1,8 @@
 import { makeObservable } from 'mobx'
+import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { OtherModel } from '@models/other-model'
@@ -9,6 +11,7 @@ import { UserModel } from '@models/user-model'
 import { EditorFormFieldData } from '@components/forms/content-editor-form'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
+import { t } from '@utils/translations'
 
 import { isAdmin, isModerator } from '@typings/guards/roles'
 import { IFeedback } from '@typings/models/administrators/feedback'
@@ -72,19 +75,21 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
   async onRemoveFeedback(id: string) {
     try {
       await OtherModel.removeFeedback(id)
+      toast.success(t(TranslationKey['The request has been successfully deleted.']))
       this.getCurrentData()
     } catch (error) {
-      console.error(error)
+      toast.error(t(TranslationKey['There was an error deleting the request. Try again.']))
     }
   }
 
   async onCreateFeedback(data: EditorFormFieldData) {
     try {
       await OtherModel.createFeedback(data)
+      toast.success(t(TranslationKey['Your request has been sent. Thank you for your feedback!']))
       this.onToggleContentEditorForm()
       this.getCurrentData()
     } catch (error) {
-      console.error(error)
+      toast.error(t(TranslationKey['There was an error sending the request. Try again.']))
     }
   }
 
@@ -96,10 +101,11 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
         media: data.media,
       }
       await OtherModel.updateFeedback(this.feedback?._id, body)
+      toast.success(t(TranslationKey['The request has been successfully edited.']))
       this.onToggleContentEditorForm()
       this.getCurrentData()
     } catch (error) {
-      console.error(error)
+      toast.error(t(TranslationKey['There was an error editing the request. Try again.']))
     }
   }
 }
