@@ -16,6 +16,7 @@ export const useStyles = makeStyles()(theme => ({
 
   linkInputWrapperMinimazed: {
     width: '65%',
+    height: '40px',
   },
 
   linkInputContainer: {
@@ -31,5 +32,6 @@ export const useStyles = makeStyles()(theme => ({
   linkInput: {
     border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 20,
+    height: '40px',
   },
 }))
