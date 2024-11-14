@@ -2,28 +2,40 @@ import { Form, FormInstance } from 'antd'
 import { FC, memo } from 'react'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomInput } from '@components/shared/custom-input'
-import { CustomInputNumber } from '@components/shared/custom-input-number'
 
-import { useStyles as useSharedStyles } from '../../shared.style'
+import { toFixed } from '@utils/text'
+
 import { useStyles } from './delivery-costs.style'
 
 import { ICreateSupplierProduct, SupplierCurrency } from '../../add-supplier-product-modal.type'
+import { DeliveryCostsInputs } from '../delivery-costs-inputs'
 
 interface IDeliveryCostsProps {
-  currency?: SupplierCurrency
   form: FormInstance<ICreateSupplierProduct>
+  currency: SupplierCurrency
+
+  getBatchPrice: (values: ICreateSupplierProduct) => number
+  getPriceWithDeliveryPerUnit: (values: ICreateSupplierProduct) => number
 }
 
 export const DeliveryCosts: FC<IDeliveryCostsProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
-  const { classes: sharedStyles } = useSharedStyles()
+  const { currency, form, getBatchPrice, getPriceWithDeliveryPerUnit } = props
 
-  const { currency = SupplierCurrency.CNY, form } = props
+  const deliveryPerUnitName = currency === SupplierCurrency.CNY ? 'priceInYuan' : 'priceInUsd'
+  const batchDelivery = currency === SupplierCurrency.CNY ? 'batchDeliveryCostInYuan' : 'batchDeliveryCostInDollar'
 
-  const customValue = Form.useWatch(values => values.priceInYuan * 10 || '', form)
+  const priceWithDeliveryPerUnit = Form.useWatch(values => {
+    const result = getPriceWithDeliveryPerUnit(values)
 
-  console.log('customValue :>> ', customValue)
+    return result ? toFixed(result) : ''
+  }, form)
+
+  const batchPrice = Form.useWatch(values => {
+    const result = getBatchPrice(values)
+
+    return result ? toFixed(result) : ''
+  }, form)
 
   return (
     <div className={styles.root}>
@@ -34,29 +46,19 @@ export const DeliveryCosts: FC<IDeliveryCostsProps> = memo(props => {
         className={cx(styles.currency, { [styles.alignLeft]: currency === SupplierCurrency.USD })}
       />
 
-      <div className={styles.inputWrapper}>
-        <Form.Item<ICreateSupplierProduct>
-          name="priceInYuan" /* priceInUsd */
-          className={sharedStyles.field} /* rules={getRequiredRules()} */
-        >
-          <CustomInputNumber
-            size="large"
-            label="Price per unit"
-            placeholder="Price per unit"
-            precision={2}
-            wrapperClassName={sharedStyles.input}
-          />
-        </Form.Item>
+      <DeliveryCostsInputs
+        controllItemName={deliveryPerUnitName}
+        controllInputTitle="Price per unit"
+        uncontrollInputTitle="Price with delivery per unit"
+        uncontrollInputValue={priceWithDeliveryPerUnit}
+      />
 
-        <CustomInputNumber
-          disabled
-          size="large"
-          label="Price with delivery per unit"
-          placeholder="Price with delivery per unit"
-          wrapperClassName={sharedStyles.input}
-          value={customValue}
-        />
-      </div>
+      <DeliveryCostsInputs
+        controllItemName={batchDelivery}
+        controllInputTitle="Batch delivery"
+        uncontrollInputTitle="Batch price"
+        uncontrollInputValue={batchPrice}
+      />
     </div>
   )
 })
