@@ -2,7 +2,7 @@ import { action, computed } from 'mobx'
 
 import { IPermissionsData } from '@hooks/use-products-permissions'
 
-export const requestSelectConfig = {
+export const shopsSelectConfig = {
   items: computed,
   onGetData: action.bound,
   onScroll: action.bound,

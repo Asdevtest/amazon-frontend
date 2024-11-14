@@ -9,7 +9,7 @@ import { ISpec } from '@typings/shared/spec'
 
 import { IPermissionsData } from '@hooks/use-products-permissions'
 
-export const requestSelectConfig = {
+export const performersSelectConfig = {
   onGetUsers: action.bound,
 }
 

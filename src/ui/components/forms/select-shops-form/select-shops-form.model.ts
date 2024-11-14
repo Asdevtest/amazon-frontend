@@ -5,7 +5,7 @@ import { ShopModel } from '@models/shop-model'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
-import { generateItems, requestSelectConfig } from './select-shops-form.config'
+import { generateItems, shopsSelectConfig } from './select-shops-form.config'
 
 export class SelectShopFormModel extends UseProductsPermissions {
   get items() {
@@ -15,7 +15,7 @@ export class SelectShopFormModel extends UseProductsPermissions {
   constructor() {
     super(ShopModel.getMyShops)
 
-    makeObservable(this, requestSelectConfig)
+    makeObservable(this, shopsSelectConfig)
   }
 
   onGetData = () => {
