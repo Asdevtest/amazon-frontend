@@ -111,8 +111,8 @@ export const useSupplierInfo = ({
     },
     {
       title: t(TranslationKey['Production time']),
-      text: formFields?.orderSupplier
-        ? `${formFields?.orderSupplier?.minProductionTerm} - ${formFields?.orderSupplier?.maxProductionTerm}`
+      text: formFields?.product
+        ? `${formFields?.product?.currentSupplierCard?.minProductionTerm} - ${formFields?.product?.currentSupplierCard?.maxProductionTerm}`
         : t(TranslationKey['No data']),
       element: undefined,
     },

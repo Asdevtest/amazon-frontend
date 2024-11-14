@@ -84,7 +84,12 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
 
   async onCreateFeedback(data: EditorFormFieldData) {
     try {
-      await OtherModel.createFeedback(data)
+      const body = {
+        title: data.title,
+        text: data.text,
+        media: await OtherModel.getFileUrls(data.media),
+      }
+      await OtherModel.createFeedback(body)
       toast.success(t(TranslationKey['Your request has been sent. Thank you for your feedback!']))
       this.onToggleContentEditorForm()
       this.getCurrentData()
@@ -98,7 +103,7 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
       const body = {
         title: data.title,
         text: data.text,
-        media: data.media,
+        media: await OtherModel.getFileUrls(data.media),
       }
       await OtherModel.updateFeedback(this.feedback?._id, body)
       toast.success(t(TranslationKey['The request has been successfully edited.']))

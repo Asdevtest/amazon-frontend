@@ -225,7 +225,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Production time, days']),
 
       renderCell: ({ row }) => {
-        const supplier = row.suppliers?.[0]
+        const supplier = row.suppliers?.[0]?.supplierCards?.[0]
 
         return (
           <Text

@@ -93,7 +93,7 @@ export class TicketFormModel {
     try {
       const data = {
         responseText: this.responseText,
-        responseMedia: this.responseMedia,
+        responseMedia: await OtherModel.getFileUrls(this.responseMedia),
       }
       await AdministratorModel.sendReplyToFeedback(this.feedback?._id, data)
       toast.success(t(TranslationKey['The response to the request has been successfully sent!']))
