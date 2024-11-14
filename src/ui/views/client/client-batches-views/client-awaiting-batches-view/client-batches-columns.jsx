@@ -157,6 +157,7 @@ export const clientBatchesViewColumns = rowHandlers => {
           trackingNumber={params.row?.trackingNumber}
         />
       ),
+
       width: 200,
       filterable: false,
       sortable: false,
@@ -175,7 +176,7 @@ export const clientBatchesViewColumns = rowHandlers => {
     },
 
     {
-      field: 'deliveryTotalPrice',
+      field: 'totalPriceFromOrderSupplier',
       headerName: t(TranslationKey['Delivery cost']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
       renderCell: params => <Text isCell text={toFixedWithDollarSign(params.row?.totalPriceFromOrderSupplier, 2)} />,
@@ -183,7 +184,7 @@ export const clientBatchesViewColumns = rowHandlers => {
       width: 110,
       sortable: false,
       columnKey: columnnsKeys.shared.NUMBER,
-      table: DataGridFilterTables.BOXES,
+      table: DataGridFilterTables.BATCHES,
       disableCustomSort: true,
     },
 
