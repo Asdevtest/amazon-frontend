@@ -6,7 +6,7 @@ import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTreeSelect } from '@components/shared/custom-tree-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { ICategory } from '@typings/models/others/category'
+import { ICategory } from '@typings/shared/category'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { getRequiredRules } from '@config/form-rules/get-required-rules'

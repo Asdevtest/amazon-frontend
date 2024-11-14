@@ -5,7 +5,7 @@ import { OtherModel } from '@models/other-model'
 import { UserModel } from '@models/user-model'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { ICategory } from '@typings/models/others/category'
+import { ICategory } from '@typings/shared/category'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { UploadFileType } from '@typings/shared/upload-file'
 

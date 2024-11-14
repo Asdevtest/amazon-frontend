@@ -9,7 +9,7 @@ import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { isString } from '@typings/guards'
-import { ICountry } from '@typings/models/others/country'
+import { ICountry } from '@typings/shared/country'
 import { IPaymentMethod } from '@typings/shared/payment-method'
 import { UploadFileType } from '@typings/shared/upload-file'
 
