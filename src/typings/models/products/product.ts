@@ -10,7 +10,8 @@ export interface IProduct {
   asin: string
   skuByClient: string
   suppliers: ISupplier[]
-  currentSupplier?: ISupplier
+  currentSupplier?: ISupplier // remove after back update
+  currentSupplierCard?: ISupplier
   currentSupplierId: string | null
   parentProductId: string
   hasChildren: boolean

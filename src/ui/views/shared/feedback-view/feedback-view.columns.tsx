@@ -21,6 +21,7 @@ import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
 
+import { FeedbackStatus } from '@typings/enums/feedback-status'
 import { isAdmin, isModerator } from '@typings/guards/roles'
 import { IFullUser } from '@typings/shared/full-user'
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -81,8 +82,8 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Actions)} />,
       renderCell: ({ row }: GridRowModel) => {
         const isResponse = !!row.responseText || !!row.responseMedia?.length
-        const showFirst = !isResponse || creator
-        const showSecond = !isResponse && !creator
+        const showFirst = (!isResponse && row.status === FeedbackStatus.CREATED) || creator
+        const showSecond = !isResponse && !creator && row.status === FeedbackStatus.CREATED
         const firstIcon = isResponse && creator ? <FaEye size={16} /> : <MdOutlineEdit size={16} />
 
         return (
@@ -114,6 +115,7 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       ),
       width: 110,
       columnKey: columnnsKeys.shared.STRING_VALUE,
+      transformValueMethod: getStatusText,
     },
     {
       field: 'title',

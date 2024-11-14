@@ -41,7 +41,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   uploadButtonMinimized: {
-    height: 32,
+    height: '40px',
     padding: '0 20px',
     display: 'flex',
     alignItems: 'center',
