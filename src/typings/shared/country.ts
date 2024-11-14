@@ -3,4 +3,6 @@ export interface ICountry {
   title: string
   shortTitle: string
   image: string
+  createdAt: string
+  updatedAt: string
 }

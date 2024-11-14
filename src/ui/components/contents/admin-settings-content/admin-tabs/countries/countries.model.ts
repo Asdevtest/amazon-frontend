@@ -10,7 +10,7 @@ import { t } from '@utils/translations'
 import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 import { isString } from '@typings/guards'
-import { ICountry } from '@typings/models/others/country'
+import { ICountry } from '@typings/shared/country'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { CountryValues } from './countries.config'

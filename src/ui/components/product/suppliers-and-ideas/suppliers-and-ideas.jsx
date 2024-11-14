@@ -8,12 +8,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { IdeaViewAndEditCard } from '@components/cards/idea-view-and-edit-card'
 import { LinkRequestForm } from '@components/forms/link-request-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { SelectShopsForm } from '@components/forms/select-shops-form'
 import { CommentsModal } from '@components/modals/comments-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { MainRequestResultModal } from '@components/modals/main-request-result-modal'
 import { OrderProductModal } from '@components/modals/order-product-modal'
 import { RequestResultModal } from '@components/modals/request-result-modal'
-import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { SelectionSupplierModal } from '@components/modals/selection-supplier-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
@@ -85,7 +85,6 @@ export const SuppliersAndIdeas = observer(props => {
     currentData,
     showCommentsModal,
     showSelectShopsModal,
-    shopsData,
     setRejectStatusHandler,
     onClickToOrder,
     onClickSaveBarcode,
@@ -357,13 +356,10 @@ export const SuppliersAndIdeas = observer(props => {
       ) : null}
 
       <Modal openModal={showSelectShopsModal} setOpenModal={() => onTriggerOpenModal('showSelectShopsModal')}>
-        <SelectShopsModal
-          // @ts-ignore
-          isNotDisabled
+        <SelectShopsForm
           title={t(TranslationKey['Link a store to a product'])}
-          shops={shopsData}
-          onClickSuccessBtn={onSaveProductData}
-          onClickCancelBtn={onClickCancelBtn}
+          onSubmit={onSaveProductData}
+          onClose={onClickCancelBtn}
         />
       </Modal>
 

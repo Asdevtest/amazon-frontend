@@ -79,6 +79,9 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
         {creator || viewModel.showResponseBlock ? (
           <div className={cx(styles.block, { [styles.response]: viewModel.showResponseBlock })}>
             <CustomTextarea
+              showCount
+              allowClear
+              maxLength={2048}
               readOnly={viewModel.showResponseBlock}
               rows={6}
               placeholder="Response"
@@ -102,7 +105,12 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
 
       <div className={cx(styles.flexRow, styles.flexEnd)}>
         {creator && !viewModel.showResponseBlock ? (
-          <CustomButton type="primary" size="large" onClick={viewModel.onSendReplyToFeedback}>
+          <CustomButton
+            type="primary"
+            size="large"
+            disabled={!viewModel.responseText.trim()}
+            onClick={viewModel.onSendReplyToFeedback}
+          >
             {t(TranslationKey.Send)}
           </CustomButton>
         ) : null}

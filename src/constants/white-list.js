@@ -40,7 +40,7 @@ export const creatSupplier = [
   'imageUnit',
   'images',
   'comment',
-  'yuanRate',
+  'yuanToDollarRate',
   'priceInYuan',
   'batchDeliveryCostInDollar',
   'batchDeliveryCostInYuan',

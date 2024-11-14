@@ -4,13 +4,13 @@ import { UserModel } from '@models/user-model'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
-import { requestSelectConfig } from './performer-select.config'
+import { performersSelectConfig } from './performer-select.config'
 
 export class PerformerSelectModel extends UseProductsPermissions {
   constructor() {
     super(UserModel.getMySubUsers)
 
-    makeObservable(this, requestSelectConfig)
+    makeObservable(this, performersSelectConfig)
   }
 
   onGetUsers = () => {

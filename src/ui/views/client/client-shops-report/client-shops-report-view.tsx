@@ -5,8 +5,8 @@ import { useMemo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BindStockGoodsToInventoryForm } from '@components/forms/bind-stock-goods-to-inventory-form'
+import { SelectShopsForm } from '@components/forms/select-shops-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
-import { SelectShopsModal } from '@components/modals/select-shops-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
 
@@ -107,12 +107,11 @@ export const ClientShopsReportView = observer(({ history }: { history: any }) =>
         openModal={viewModel.showSelectShopsModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
       >
-        <SelectShopsModal
+        <SelectShopsForm
           // @ts-ignore
           title={t(TranslationKey['Choose a store for integration'])}
-          shops={viewModel.shopsData}
-          onClickSuccessBtn={viewModel.bindReportInventoryHandler}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
+          onSubmit={viewModel.bindReportInventoryHandler}
+          onClose={() => viewModel.onTriggerOpenModal('showSelectShopsModal')}
         />
       </Modal>
 

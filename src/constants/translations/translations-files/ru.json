@@ -2056,5 +2056,11 @@
   "Country icon is required": "Иконка страны обязательна",
   "Add category": "Добавить категорию",
   "Category name is required": "Название категории обязательно",
-  "Top products": "Топ товары"
+  "Top products": "Топ товары",
+  "Yesterday": "Вчера",
+  "Tomorrow": "Завтра",
+  "This week": "Эта неделя",
+  "This month": "Этот месяц",
+  "Last 30 Days": "Последние 30 дней",
+  "Add to inventory": "Добавить в инвентарь"
 }

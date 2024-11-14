@@ -1,14 +1,10 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  wrapper: {
-    width: 'fit-content',
+  root: {
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
-    gap: 10,
-  },
-
-  leftPreviews: {
-    flexDirection: 'row-reverse',
+    gap: '5px',
   },
 }))

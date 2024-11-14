@@ -2056,4 +2056,10 @@ export enum TranslationKey {
   'Add category' = 'Add category',
   'Category name is required' = 'Category name is required',
   'Top products' = 'Top products',
+  'Yesterday' = 'Yesterday',
+  'Tomorrow' = 'Tomorrow',
+  'This week' = 'This week',
+  'This month' = 'This month',
+  'Last 30 Days' = 'Last 30 Days',
+  'Add to inventory' = 'Add to inventory',
 }

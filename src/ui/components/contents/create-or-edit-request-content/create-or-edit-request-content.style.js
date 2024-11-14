@@ -91,6 +91,10 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
+  requestItem: {
+    maxWidth: '250px',
+  },
+
   dateField: {
     justifyContent: 'flex-end',
   },

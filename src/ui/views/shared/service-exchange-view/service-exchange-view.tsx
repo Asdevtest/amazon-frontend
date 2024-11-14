@@ -63,7 +63,7 @@ export const ServiceExchangeView = observer(({ history }: { history: HistoryType
         <Empty className={styles.empty} />
       )}
 
-      {viewModel.loading ? <Spin size="large" className={styles.loading} /> : null}
+      <Spin spinning={viewModel.loading} size="large" className={styles.loading} />
     </div>
   )
 })
