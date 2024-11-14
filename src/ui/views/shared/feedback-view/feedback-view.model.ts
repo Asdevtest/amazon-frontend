@@ -80,7 +80,13 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
 
   async onCreateFeedback(data: EditorFormFieldData) {
     try {
-      await OtherModel.createFeedback(data)
+      const body = {
+        title: data.title,
+        text: data.text,
+        media: await OtherModel.getFileUrls(data.media),
+      }
+
+      await OtherModel.createFeedback(body)
       this.onToggleContentEditorForm()
       this.getCurrentData()
     } catch (error) {
@@ -93,7 +99,7 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
       const body = {
         title: data.title,
         text: data.text,
-        media: data.media,
+        media: await OtherModel.getFileUrls(data.media),
       }
       await OtherModel.updateFeedback(this.feedback?._id, body)
       this.onToggleContentEditorForm()

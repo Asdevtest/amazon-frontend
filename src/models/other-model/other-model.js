@@ -1,17 +1,11 @@
+import { t } from 'i18n-js'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 class OtherModelStatic {
-  getImage = async guid => {
-    const response = await restApiService.axiosInstance({
-      method: 'get',
-      url: `/api/v1/other/img/${guid}`,
-      headers: {
-        'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
-      },
-    })
-    return response.data
-  }
-
   postImage = async dataForm => {
     const response = await restApiService.axiosInstance({
       method: 'post',
@@ -132,18 +126,6 @@ class OtherModelStatic {
       })
   }
 
-  getAllImages = async () => {
-    const response = await restApiService.axiosInstance({
-      method: 'get',
-      url: `/images/`,
-      headers: {
-        'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
-      },
-    })
-
-    return response.data
-  }
-
   uploadFileByUrl = async url => {
     const response = await restApiService.otherApi.apiV1OtherUploadFileByUrlPost({ body: { fileUrl: url } })
     return response.data
@@ -237,6 +219,42 @@ class OtherModelStatic {
   getFeedback = async guid => {
     const response = await restApiService.otherApi.apiV1OtherFeedbackGuidGet({ guid })
     return response.data
+  }
+
+  getFileUrls = async (mediaFiles, previewAsOriginal) => {
+    try {
+      const formData = new FormData()
+      // for speed you can use map + Promise.all
+
+      mediaFiles.forEach(mediaFile => {
+        if (typeof mediaFile === 'string') {
+          formData.append('url', mediaFile)
+        } else {
+          const fileName = mediaFile.file.name.replace(/\s+/g, '')
+          const fileWithoutSpaces = new File([mediaFile.file], fileName, {
+            type: mediaFile.file.type || '',
+            lastModified: mediaFile.file.lastModified,
+          })
+
+          formData.append('file', fileWithoutSpaces)
+        }
+      })
+
+      const response = await restApiService.otherApi.apiV1OtherUploadFilesPost(
+        { previewAsOriginal },
+        {
+          data: formData,
+          headers: {
+            'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
+          },
+        },
+      )
+
+      return response.data || []
+    } catch (error) {
+      toast.warning(t(TranslationKey['There was an error loading media files']))
+      return []
+    }
   }
 }
 
