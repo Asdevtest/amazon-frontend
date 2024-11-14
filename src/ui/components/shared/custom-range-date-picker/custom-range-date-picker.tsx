@@ -29,7 +29,7 @@ export const CustomRangeDatePicker: FC<CustomRangeDatePickerProps> = memo(props 
           {required ? <span>*</span> : null}
         </p>
       ) : null}
-      <RangePicker allowClear presets={rangePresets} {...restProps} className={cx(styles.datePicker, className)} />
+      <RangePicker allowClear presets={rangePresets()} {...restProps} className={cx(styles.datePicker, className)} />
     </div>
   )
 })
