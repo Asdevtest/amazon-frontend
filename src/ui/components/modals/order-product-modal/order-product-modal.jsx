@@ -288,10 +288,10 @@ export const OrderProductModal = memo(props => {
     const ordersData = orderState.map((el, i) => ({
       ...el,
       destinationId: el.destinationId ? el.destinationId : null,
-      totalPrice: productsForRender[i]?.currentSupplier?.price
-        ? (productsForRender[i]?.currentSupplier.price +
-            productsForRender[i]?.currentSupplier.batchDeliveryCostInDollar /
-              productsForRender[i]?.currentSupplier.amount) *
+      totalPrice: productsForRender[i]?.currentSupplierCard?.price
+        ? (productsForRender[i]?.currentSupplierCard.price +
+            productsForRender[i]?.currentSupplierCard.batchDeliveryCostInDollar /
+              productsForRender[i]?.currentSupplierCard.amount) *
           el?.amount
         : 0,
 
@@ -313,7 +313,7 @@ export const OrderProductModal = memo(props => {
     order => order?.storekeeperId === destinations?.find(el => el?._id === order?.destinationId)?.storekeeper?._id,
   )
 
-  const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplier)
+  const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplierCard)
 
   const disabledSubmit =
     orderState.some((order, index) => {
@@ -322,7 +322,7 @@ export const OrderProductModal = memo(props => {
         (isPast(new Date(order.deadline)) || isToday(new Date(order.deadline)) || isTomorrow(new Date(order.deadline)))
 
       return (
-        (productsForRender[index].currentSupplier &&
+        (productsForRender[index].currentSupplierCard &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
             platformSettings?.orderAmountLimit) ||
         !order.storekeeperId ||
@@ -331,9 +331,9 @@ export const OrderProductModal = memo(props => {
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
         ((!!isInventory || !!reorderOrdersData?.length) && isDeadlineTodayOrTomorrow) ||
-        (productsForRender[index].currentSupplier?.multiplicity &&
-          productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
-          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
+        (productsForRender[index].currentSupplierCard?.multiplicity &&
+          productsForRender[index].currentSupplierCard?.boxProperties?.amountInBox &&
+          order.amount % productsForRender[index].currentSupplierCard?.boxProperties?.amountInBox !== 0)
       )
     }) ||
     storekeeperEqualsDestination ||

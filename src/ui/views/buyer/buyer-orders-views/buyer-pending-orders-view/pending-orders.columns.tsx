@@ -161,12 +161,12 @@ export const pendingOrdersColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
       renderCell: params => {
-        const currentSupplier = params.row?.orderSupplier
+        const currentSupplier = params.row?.orderSupplierCard
 
         return <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
       },
       valueGetter: params => {
-        const currentSupplier = params.row?.orderSupplier
+        const currentSupplier = params.row?.orderSupplierCard
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
