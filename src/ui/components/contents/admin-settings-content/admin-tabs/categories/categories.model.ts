@@ -10,7 +10,7 @@ import { OtherModel } from '@models/other-model'
 
 import { t } from '@utils/translations'
 
-import { ICategory } from '@typings/models/others/category'
+import { ICategory } from '@typings/shared/category'
 import { NullString } from '@typings/types/nullable-types'
 
 import {

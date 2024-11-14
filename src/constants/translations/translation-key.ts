@@ -2042,4 +2042,5 @@ export enum TranslationKey {
   'Are you sure you want to delete the ad?' = 'Are you sure you want to delete the ad?',
   'Top products' = 'Top products',
   'Suppliers' = 'Suppliers',
+  'Add to inventory' = 'Add to inventory',
 }

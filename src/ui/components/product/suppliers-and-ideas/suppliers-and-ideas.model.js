@@ -19,7 +19,6 @@ import { IdeaModel } from '@models/ideas-model'
 import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
-import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
@@ -56,7 +55,6 @@ export class SuppliersAndIdeasModel {
   readyFiles = []
   progressValue = 0
   showProgress = false
-  shopsData = []
   isCreate = false
   showConfirmModal = false
   showRequestDesignerResultModal = false
@@ -261,10 +259,6 @@ export class SuppliersAndIdeasModel {
         )
         await this.getIdea(createdIdeaId)
 
-        if (!isBuyer(this.userInfo?.role)) {
-          await this.getShops()
-        }
-
         if (!this.currentProduct) {
           this.onTriggerOpenModal('showSelectShopsModal')
         } else {
@@ -283,26 +277,14 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onSaveProductData(shop) {
+  async onSaveProductData(id) {
     try {
-      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: shop._id })
+      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: id })
     } catch (error) {
       console.error(error)
     } finally {
       this.closeModalHandler()
       this.updateData?.()
-    }
-  }
-
-  async getShops() {
-    try {
-      const result = await ShopModel.getMyShops()
-
-      runInAction(() => {
-        this.shopsData = result
-      })
-    } catch (error) {
-      console.error(error)
     }
   }
 

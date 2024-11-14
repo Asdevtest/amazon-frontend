@@ -1,6 +1,5 @@
-import { ICategory } from '@typings/shared/category'
-import { ICountry } from '@typings/shared/country'
-
+import { ICategory } from '../../shared/category'
+import { ICountry } from '../../shared/country'
 import { IPaymentMethod } from '../../shared/payment-method'
 
 export interface ISupplierExchange {

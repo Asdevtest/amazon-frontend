@@ -8,7 +8,6 @@ import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model/data-grid-filter-table-model'
 import { filterModelInitialValue, paginationModelInitialValue } from '@models/data-grid-table-model'
 import { SellerBoardModel } from '@models/seller-board-model'
-import { ShopModel } from '@models/shop-model'
 
 import { t } from '@utils/translations'
 
@@ -26,7 +25,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
   showBindStockGoodsToInventoryModal = false
   showConfirmModal = false
   showSelectShopsModal = false
-  shopsData: any = []
 
   constructor(currentTabsValues: ShopReportsTabsValues, history: any) {
     const { getMainDataMethod, columnsModel, filtersFields, mainMethodURL, fieldsForSearch, tableKey } =
@@ -171,8 +169,6 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
 
   async bindStockGoodsToInventoryHandler() {
     if (this.tabValue === ShopReportsTabsValues.INVENTORY) {
-      await this.getShopsData()
-
       this.onTriggerOpenModal('showSelectShopsModal')
     } else {
       this.onTriggerOpenModal('showBindStockGoodsToInventoryModal')
@@ -222,37 +218,15 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async getShopsData() {
+  async bindReportInventoryHandler(id: string) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
+      await SellerBoardModel.patchReportInventoryProductsLinkSku({ shopIds: [id] })
 
-      const result = await ShopModel.getMyShopNames()
-      runInAction(() => {
-        this.shopsData = result
-      })
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
+      toast.success(`${t(TranslationKey['Integration for'])} ${t(TranslationKey['has been created'])}`)
     } catch (error) {
-      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
-    }
-  }
-
-  async bindReportInventoryHandler(shop: { _id: string; name: string }) {
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      await SellerBoardModel.patchReportInventoryProductsLinkSku({ shopIds: [shop._id] })
-
+    } finally {
       this.onTriggerOpenModal('showSelectShopsModal')
-
-      toast.success(`${t(TranslationKey['Integration for'])} ${shop.name} ${t(TranslationKey['has been created'])}`)
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
-    } catch (error) {
-      this.onTriggerOpenModal('showSelectShopsModal')
-      this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
     }
   }
 }
