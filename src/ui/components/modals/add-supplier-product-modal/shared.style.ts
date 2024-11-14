@@ -25,6 +25,7 @@ export const useStyles = makeStyles()(() => ({
 
   input: {
     width: 'unset',
+    flex: 1,
   },
 
   selectOption: {

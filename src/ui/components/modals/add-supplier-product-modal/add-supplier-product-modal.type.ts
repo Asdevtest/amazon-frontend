@@ -27,3 +27,8 @@ export interface ICreateSupplierProduct {
   imageUnit: string[]
   multiplicity: boolean
 }
+
+export enum SupplierCurrency {
+  USD = '$',
+  CNY = '¥',
+}

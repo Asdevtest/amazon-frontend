@@ -12,10 +12,10 @@ import {
   MediaContentCell,
   MultilineTextHeaderCell,
   OpenInNewTabCell,
-  PaymentMethodsCell,
   RatingCell,
 } from '@components/data-grid/data-grid-cells'
 import { SupplierEmployeesCell } from '@components/data-grid/data-grid-cells/supplier-employees-cell'
+import { PaymentMethods } from '@components/shared/payment-methods'
 import { Text } from '@components/shared/text'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -43,8 +43,8 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
 
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: ({ value }) => <Text isCell text={value} />,
       width: 100,
     },
@@ -82,7 +82,7 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
       field: 'paymentMethods',
       headerName: t(TranslationKey['Payment methods']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
-      renderCell: ({ row }) => <PaymentMethodsCell paymentMethods={row?.paymentMethods || []} />,
+      renderCell: ({ row }) => <PaymentMethods paymentMethods={row?.paymentMethods || []} />,
       valueGetter: ({ value }) => value?.map(({ title }: IPaymentMethod) => title).join(', '),
       width: 180,
       sortable: false,

@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react'
-import { FC, useCallback, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddSupplierModal } from '@components/modals/add-supplier-modal'
+import { AddSupplierProductModal } from '@components/modals/add-supplier-product-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -23,12 +24,7 @@ export const SuppliersView: FC = observer(() => {
   const { classes: styles } = useStyles()
 
   const viewModel = useMemo(() => new SuppliersViewModel(), [])
-
   const options = useMemo(() => getRadioButtonOptions(), [])
-
-  const onCloseAddSupplierModal = useCallback(() => {
-    viewModel.onTriggerOpenModal('showAddSupplierModal', false)
-  }, [])
 
   return (
     <div className="viewWrapper">
@@ -49,7 +45,7 @@ export const SuppliersView: FC = observer(() => {
         />
 
         <div className={styles.headerButtons}>
-          <CustomButton size="large" type="primary" onClick={() => console.log('Add product')}>
+          <CustomButton size="large" type="primary" onClick={viewModel?.onClickAddSupplierProduct}>
             {t(TranslationKey['Add product'])}
           </CustomButton>
 
@@ -119,7 +115,14 @@ export const SuppliersView: FC = observer(() => {
         <AddSupplierModal
           supplierId={viewModel.supplierIdToEdit}
           openModal={viewModel.showAddSupplierModal}
-          setOpenModal={onCloseAddSupplierModal}
+          setOpenModal={viewModel.onCloseAddSupplierModal}
+        />
+      ) : null}
+
+      {viewModel.showAddSupplierProductModal ? (
+        <AddSupplierProductModal
+          openModal={viewModel.showAddSupplierProductModal}
+          setOpenModal={viewModel.onCloseAddSupplierProductModal}
         />
       ) : null}
     </div>

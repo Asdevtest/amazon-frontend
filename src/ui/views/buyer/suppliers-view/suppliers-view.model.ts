@@ -19,6 +19,7 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
   supplierIdToEdit: string = ''
 
   showAddSupplierModal: boolean = false
+  showAddSupplierProductModal: boolean = false
 
   constructor() {
     const handlers: IHandlers = {
@@ -66,5 +67,16 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
   async onClickDelete(id: string) {
     await SupplierModel?.removeSupplier(id)
     this.getCurrentData()
+  }
+
+  onCloseAddSupplierModal() {
+    this.onTriggerOpenModal('showAddSupplierModal', false)
+  }
+
+  onClickAddSupplierProduct() {
+    this.onTriggerOpenModal('showAddSupplierProductModal', true)
+  }
+  onCloseAddSupplierProductModal() {
+    this.onTriggerOpenModal('showAddSupplierProductModal', false)
   }
 }

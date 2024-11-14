@@ -5,6 +5,6 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    width: '800px',
+    width: '900px',
   },
 }))
