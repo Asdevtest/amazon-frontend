@@ -5,16 +5,14 @@ import { useEffect, useMemo, useState } from 'react'
 import { BsDownload } from 'react-icons/bs'
 import { CiCircleQuestion } from 'react-icons/ci'
 
-import { Typography } from '@mui/material'
-
 import { BatchWeightCalculationMethodTranslateKey } from '@constants/statuses/batch-weight-calculations-method'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { OtherModel } from '@models/other-model'
 
 import { ChangeInputCell, UserCell } from '@components/data-grid/data-grid-cells'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { Field } from '@components/shared/field/field'
@@ -33,13 +31,13 @@ import { formatDateWithoutTime } from '@utils/date-time'
 import { getNewTariffTextForBoxOrOrder, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { ButtonStyle } from '@typings/enums/button-style'
+import '@typings/enums/button-style'
 
 import { useStyles } from './batch-info-modal.style'
 
 import { BoxModal } from '../box-modal'
 
-import { batchInfoModalColumn } from './batch-info-modal-column'
+import { batchInfoModalColumn } from './temp.columns'
 
 export const BatchInfoModal = observer(
   ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, patchActualShippingCostBatch }) => {
@@ -290,12 +288,10 @@ export const BatchInfoModal = observer(
                 },
                 children: (
                   <div className={styles.boxCounterWrapper}>
-                    <Typography className={styles.boxCounterText}>
-                      {t(TranslationKey['Quantity of boxes in batch']) + ': '}
-                    </Typography>
-                    <Typography className={styles.boxCounterText}>
+                    <p className={styles.boxCounterText}>{t(TranslationKey['Quantity of boxes in batch']) + ': '}</p>
+                    <p className={styles.boxCounterText}>
                       {'x ' + currentBatch?.boxes?.reduce((ac, cur) => (ac += cur.amount), 0)}
-                    </Typography>
+                    </p>
                   </div>
                 ),
               },
@@ -316,14 +312,11 @@ export const BatchInfoModal = observer(
 
           <div className={styles.filesAndButtonWrapper}>
             <div className={styles.buttonsWrapper}>
-              <Button onClick={uploadTemplateFile}>
-                <BsDownload size={16} />
+              <CustomButton icon={<BsDownload size={16} />} onClick={uploadTemplateFile}>
                 {t(TranslationKey['Download the batch file'])}
-              </Button>
+              </CustomButton>
 
-              <Button styleType={ButtonStyle.CASUAL} onClick={setOpenModal}>
-                {t(TranslationKey.Close)}
-              </Button>
+              <CustomButton onClick={setOpenModal}>{t(TranslationKey.Close)}</CustomButton>
             </div>
           </div>
 

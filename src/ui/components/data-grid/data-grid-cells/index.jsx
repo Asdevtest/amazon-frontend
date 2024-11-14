@@ -1,3 +1,7 @@
+export { PricePerUnitCell } from './price-per-unit-cell/price-per-unit-cell'
+export { FinalPricePerUnitCell } from './final-price-per-unit-cell/final-price-per-unit-cell'
+export { ActualCostWithDeliveryPerUnit } from './actual-cost-with-delivery-per-unit/actual-cost-with-delivery-per-unit'
+export { ActualCostWithDelivery } from './actual-cost-with-delivery/actual-cost-with-delivery'
 export { ActionButtonsCell } from './action-buttons-cell/action-buttons-cell'
 export { AllIdeasActionsCell } from './all-ideas-actions-cell/all-ideas-actions-cell'
 export { BatchBoxesCell } from './batch-boxes-cell/batch-boxes-cell'
