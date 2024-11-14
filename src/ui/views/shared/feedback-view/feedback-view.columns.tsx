@@ -114,6 +114,7 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       ),
       width: 110,
       columnKey: columnnsKeys.shared.STRING_VALUE,
+      transformValueMethod: getStatusText,
     },
     {
       field: 'title',
