@@ -20,6 +20,7 @@ export interface ISupplier {
   batchTotalCostInDollar: number
   batchTotalCostInYuan: number
   boxProperties: IBoxProperties
+  supplier: IAdditionalSupplierData
   productionTerm: number
   createdBy: ICreatedBy
   paymentMethods: IPaymentMethod[]
@@ -39,4 +40,12 @@ export interface IBoxProperties {
   boxWidthCm: number
   boxHeightCm: number
   boxWeighGrossKg: number
+}
+interface IAdditionalSupplierData {
+  companyName: string
+  link: string
+  paymentMethods: IPaymentMethod[]
+  xid: number
+  _id: string
+  createdBy: ICreatedBy
 }
