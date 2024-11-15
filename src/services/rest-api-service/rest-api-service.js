@@ -27,6 +27,7 @@ import { ShopSellApi } from './codegen/api/shop-sell-api'
 import { StorekeepersApi } from './codegen/api/storekeepers-api'
 import { SupervisorApi } from './codegen/api/supervisor-api'
 import { SupplierApi } from './codegen/api/supplier-api'
+import { SupplierV2Api } from './codegen/api/supplier-v2-api'
 import { UserApi } from './codegen/api/user-api'
 
 class RestApiService {
@@ -61,6 +62,7 @@ class RestApiService {
     this.orderApi = new OrderApi(this.openapiConfig, undefined, this.axiosInstance)
     this.generalApi = new GeneralApi(this.openapiConfig, undefined, this.axiosInstance)
     this.parserApi = new ParserApi(this.openapiConfig, undefined, this.axiosInstance)
+    this.supplierV2Api = new SupplierV2Api(this.openapiConfig, undefined, this.axiosInstance)
   }
 }
 

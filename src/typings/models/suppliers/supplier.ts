@@ -34,6 +34,13 @@ export interface ISupplier {
   weighUnit: number
 }
 
+export interface IBoxProperties {
+  amountInBox: number
+  boxLengthCm: number
+  boxWidthCm: number
+  boxHeightCm: number
+  boxWeighGrossKg: number
+}
 interface IAdditionalSupplierData {
   companyName: string
   link: string
@@ -41,12 +48,4 @@ interface IAdditionalSupplierData {
   xid: number
   _id: string
   createdBy: ICreatedBy
-}
-
-interface IBoxProperties {
-  amountInBox: number
-  boxLengthCm: number
-  boxWidthCm: number
-  boxHeightCm: number
-  boxWeighGrossKg: number
 }

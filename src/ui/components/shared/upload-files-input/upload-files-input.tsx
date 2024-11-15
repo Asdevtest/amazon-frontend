@@ -86,7 +86,7 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
           />
         ) : null}
 
-        {showImages ? (
+        {showImages && files?.length ? (
           <Files
             files={files}
             maxHeight={maxHeight}

@@ -36,6 +36,7 @@ export const navBarActiveCategory = {
   NAVBAR_PENDING_ORDERS: 'NAVBAR_PENDING_ORDERS',
   NAVBAR_UPDATED: 'NAVBAR_UPDATED',
   NAVBAR_PARSING: 'NAVBAR_PARSING',
+  NAVBAR_SUPPLIERS: 'NAVBAR_SUPPLIERS',
 }
 
 export const navBarActiveSubCategory = {
