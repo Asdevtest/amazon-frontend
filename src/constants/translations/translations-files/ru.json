@@ -2058,5 +2058,6 @@
   "There was an error changing the request status. Try again.": "Произошла ошибка при изменении статуса обращения. Попробуйте снова.",
   "The response to the request has been successfully sent!": "Ответ на обращение успешно отправлен!",
   "There was an error sending the response to the request. Try again.": "Произошла ошибка при отправке ответа на обращение. Попробуйте снова.",
-  "There was an error loading media files": "Произошла ошибка при загрузке медиафайлов"
+  "There was an error loading media files": "Произошла ошибка при загрузке медиафайлов",
+  "Wholesale": "Wholesale"
 }

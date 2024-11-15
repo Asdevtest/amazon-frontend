@@ -4,15 +4,15 @@ import { FC, memo } from 'react'
 import { CustomImage } from '@components/shared/custom-image'
 import { Text } from '@components/shared/text'
 
-import { useStyles } from './supplier-details.style'
+import { useStyles } from './supplier-details-info.style.'
 
-interface SupplierDitailsProps {
+interface SupplierDitailsInfoProps {
   xid?: number
   rate?: number
   image?: string
 }
 
-export const SupplierDitails: FC<SupplierDitailsProps> = memo(porps => {
+export const SupplierDitailsInfo: FC<SupplierDitailsInfoProps> = memo(porps => {
   const { image, xid, rate = 0 } = porps
 
   const { classes: styles } = useStyles()

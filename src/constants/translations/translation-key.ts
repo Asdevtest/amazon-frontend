@@ -2059,4 +2059,5 @@ export enum TranslationKey {
   'The response to the request has been successfully sent!' = 'The response to the request has been successfully sent!',
   'There was an error sending the response to the request. Try again.' = 'There was an error sending the response to the request. Try again.',
   'There was an error loading media files' = 'There was an error loading media files',
+  'Wholesale' = 'Wholesale',
 }
