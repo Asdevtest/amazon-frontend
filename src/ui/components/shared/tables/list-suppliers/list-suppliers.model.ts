@@ -104,17 +104,18 @@ export class ListSuppliersModel {
 
   onGetSuppliers() {
     if (this.product) {
-      const currentSupplierId: string | undefined = this.product.currentSupplier?._id
+      const currentSupplierId: string | undefined = this.product.currentSupplierCard?._id
 
-      const foundCurrentSupplier = this.product?.suppliers?.find(
-        (supplier: ISupplier) => supplier._id === currentSupplierId,
+      const foundCurrentSupplier = this.product?.supplierCards?.find(
+        (supplier: ISupplier) => supplier.supplier._id === currentSupplierId,
       )
-      const filteringSuppliers = this.product?.suppliers?.filter(
-        (supplier: ISupplier) => supplier._id !== currentSupplierId,
+      const filteringSuppliers = this.product?.supplierCards?.filter(
+        (supplier: ISupplier) => supplier.supplier._id !== currentSupplierId,
       )
+
       const resultSuppliers = foundCurrentSupplier
         ? [foundCurrentSupplier, ...filteringSuppliers]
-        : this.product?.suppliers
+        : this.product?.supplierCards
 
       this.suppliers = resultSuppliers?.map((supplier: ISupplier) => ({ ...supplier, id: supplier._id })) || []
     }
@@ -228,7 +229,7 @@ export class ListSuppliersModel {
 
   removeSupplier() {
     if (this.onRemoveSupplier && this.currentSupplier) {
-      this.onRemoveSupplier(this.currentSupplier?._id, this.product?._id)
+      this.onRemoveSupplier(this.currentSupplier?.supplier._id, this.product?._id)
     }
   }
 

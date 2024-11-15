@@ -32,11 +32,11 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
     renderCell: ({ row }: GridRowModel) => (
       <SupplierWithIconsCell
-        supplierName={row.name}
+        supplierName={row.cardName}
         orderCreatedAt={orderCreatedAt}
         orderSupplierId={orderSupplierId}
         supplierCreatedAt={row.createdAt}
-        supplierId={row._id}
+        supplierId={row.supplier._id}
         supplierMultiplicity={row.multiplicity}
         supplierAmountInBox={row.boxProperties?.amountInBox}
       />
@@ -68,7 +68,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     field: 'price',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <Text isCell text={toFixedWithDollarSign(row.price + row.batchDeliveryCostInDollar / row.amount, 2)} />
+      <Text isCell text={toFixedWithDollarSign(row.priceInUsd + row.batchDeliveryCostInDollar / row.amount, 2)} />
     ),
     filterable: false,
     sortable: false,
@@ -106,7 +106,10 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     field: 'priceVariations',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price variations'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <PriceVariationsCell variations={row.priceVariations} yuanToDollarRate={platformSettings?.yuanToDollarRate} />
+      <PriceVariationsCell
+        variations={row.supplier.priceVariations}
+        yuanToDollarRate={platformSettings?.yuanToDollarRate}
+      />
     ),
     filterable: false,
     sortable: false,
@@ -117,7 +120,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'paymentMethods',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
-    renderCell: ({ row }: GridRowModel) => <PaymentMethods isCell paymentMethods={row.paymentMethods} />,
+    renderCell: ({ row }: GridRowModel) => <PaymentMethods isCell paymentMethods={row.supplier.paymentMethods} />,
     filterable: false,
     sortable: false,
     width: 125,
@@ -147,7 +150,11 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     field: 'createdBy',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <UserCell name={row.createdBy.name} id={row.createdBy._id} email={row.createdBy.email} />
+      <UserCell
+        name={row.supplier?.createdBy?.name}
+        id={row.supplier?.createdBy?._id}
+        email={row.supplier?.createdBy?.email}
+      />
     ),
     filterable: false,
     sortable: false,
