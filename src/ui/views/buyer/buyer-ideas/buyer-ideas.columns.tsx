@@ -120,6 +120,8 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
             firstDisabled={disable || !params.row?.suppliers?.length}
             secondContent={t(TranslationKey['Supplier not found'])}
             secondDisabled={disable}
+            firstConfirmText="The status will be changed"
+            secondConfirmText="The status will be changed"
             onClickFirst={() => rowHandlers.onClickSupplierFound(params.row._id)}
             onClickSecond={() => rowHandlers.onClickSupplierNotFound(params.row._id)}
           />
