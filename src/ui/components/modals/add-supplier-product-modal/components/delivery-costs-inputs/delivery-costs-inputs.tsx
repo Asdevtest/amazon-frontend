@@ -3,6 +3,8 @@ import { FC, memo } from 'react'
 
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 
+import { getRequiredRules } from '@config/form-rules/get-required-rules'
+
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './delivery-costs-inputs.style'
 
@@ -16,15 +18,20 @@ interface DeliveryCostsInputsProps {
 }
 
 export const DeliveryCostsInputs: FC<DeliveryCostsInputsProps> = memo(props => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
   const { controllItemName, controllInputTitle, uncontrollInputTitle, uncontrollInputValue } = props
 
   return (
     <div className={styles.inputWrapper}>
-      <Form.Item<ICreateSupplierProduct> name={controllItemName} className={sharedStyles.field}>
+      <Form.Item<ICreateSupplierProduct>
+        name={controllItemName}
+        className={cx(sharedStyles.field, styles.deliveryField)}
+        rules={getRequiredRules()}
+      >
         <CustomInputNumber
+          required
           size="large"
           label={controllInputTitle}
           placeholder={controllInputTitle}

@@ -71,6 +71,7 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
 
   onCloseAddSupplierModal() {
     this.onTriggerOpenModal('showAddSupplierModal', false)
+    this.supplierIdToEdit = ''
   }
 
   onClickAddSupplierProduct() {

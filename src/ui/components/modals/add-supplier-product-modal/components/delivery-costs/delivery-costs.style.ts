@@ -4,6 +4,8 @@ export const useStyles = makeStyles()(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+    flex: 1,
+    gap: '10px',
   },
 
   currency: {

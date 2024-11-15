@@ -1,17 +1,15 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  wrapper: {
-    width: '100%',
+  deliveryPeriodWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap: '10px',
+    justifyContent: 'flex-end',
   },
 
-  minimazed: {
+  deliveryPeriodInputsWrapper: {
     display: 'flex',
-    alignItems: 'flex-end',
-    flexDirection: 'row',
-    gap: '20px',
+    gap: '10px',
   },
 }))
