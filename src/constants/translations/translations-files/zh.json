@@ -2060,5 +2060,15 @@
   "This month": "本月",
   "Last 30 Days": "过去 30 天",
   "Add to inventory": "添加到库存",
+  "Your request has been sent. Thank you for your feedback!": "您的反馈已发送.感谢您的反馈!",
+  "There was an error sending the request. Try again.": "发送反馈时出错.请再试一次.",
+  "The request has been successfully edited.": "反馈已成功编辑.",
+  "There was an error editing the request. Try again.": "编辑反馈时出错.请再试一次.",
+  "The request has been successfully deleted.": "反馈已成功删除.",
+  "There was an error deleting the request. Try again.": "删除反馈时出错.请再试一次.",
+  "The request status has been successfully changed.": "反馈状态已成功更改.",
+  "There was an error changing the request status. Try again.": "更改反馈状态时出错.请再试一次.",
+  "The response to the request has been successfully sent!": "反馈的回复已成功发送!",
+  "There was an error sending the response to the request. Try again.": "发送反馈的回复时出错.请再试一次.",
   "There was an error loading media files": "加载媒体文件时出错"
 }
