@@ -1,8 +1,13 @@
 import { makeAutoObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { OtherModel } from '@models/other-model'
+
+import { t } from '@utils/translations'
 
 import { FeedbackStatus, FeedbackStatusConst } from '@typings/enums/feedback-status'
 import { IFeedback } from '@typings/models/administrators/feedback'
@@ -60,24 +65,27 @@ export class TicketFormModel {
   async onInProcessFeedback() {
     try {
       await AdministratorModel.inProcessFeedback(this.feedback?._id)
+      toast.success(t(TranslationKey['The request status has been successfully changed.']))
     } catch (error) {
-      console.error(error)
+      toast.error(t(TranslationKey['There was an error changing the request status. Try again.']))
     }
   }
 
   async onApproveFeedback() {
     try {
       await AdministratorModel.approveFeedback(this.feedback?._id)
+      toast.success(t(TranslationKey['The request status has been successfully changed.']))
     } catch (error) {
-      console.error(error)
+      toast.error(t(TranslationKey['There was an error changing the request status. Try again.']))
     }
   }
 
   async onRejectFeedback() {
     try {
       await AdministratorModel.rejectFeedback(this.feedback?._id)
+      toast.success(t(TranslationKey['The request status has been successfully changed.']))
     } catch (error) {
-      console.error(error)
+      toast.error(t(TranslationKey['There was an error changing the request status. Try again.']))
     }
   }
 
@@ -88,10 +96,11 @@ export class TicketFormModel {
         responseMedia: await OtherModel.getFileUrls(this.responseMedia),
       }
       await AdministratorModel.sendReplyToFeedback(this.feedback?._id, data)
+      toast.success(t(TranslationKey['The response to the request has been successfully sent!']))
       this.onClose?.()
       this.onUdateData?.()
     } catch (error) {
-      console.error(error)
+      toast.error(t(TranslationKey['There was an error sending the response to the request. Try again.']))
     }
   }
 

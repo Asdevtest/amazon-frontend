@@ -2047,5 +2047,15 @@
   "This month": "Цей місяць",
   "Last 30 Days": "Останні 30 днів",
   "Add to inventory": "Додати в інвентар",
+  "Your request has been sent. Thank you for your feedback!": "Ваше звернення надіслано. Дякуємо за ваш відгук!",
+  "There was an error sending the request. Try again.": "Сталася помилка при надсиланні звернення. Спробуйте ще раз.",
+  "The request has been successfully edited.": "Звернення успішно відредаговано.",
+  "There was an error editing the request. Try again.": "Сталася помилка при редагуванні звернення. Спробуйте ще раз.",
+  "The request has been successfully deleted.": "Звернення успішно видалено.",
+  "There was an error deleting the request. Try again.": "Сталася помилка при видаленні звернення. Спробуйте ще раз.",
+  "The request status has been successfully changed.": "Статус звернення успішно змінено.",
+  "There was an error changing the request status. Try again.": "Сталася помилка при зміні статусу звернення. Спробуйте ще раз.",
+  "The response to the request has been successfully sent!": "Відповідь на звернення успішно надіслано!",
+  "There was an error sending the response to the request. Try again.": "Сталася помилка при надсиланні відповіді на звернення. Спробуйте ще раз.",
   "There was an error loading media files": "Сталася помилка при завантаженні медіафайлів"
 }

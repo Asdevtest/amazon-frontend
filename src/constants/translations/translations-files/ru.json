@@ -2048,5 +2048,15 @@
   "This month": "Этот месяц",
   "Last 30 Days": "Последние 30 дней",
   "Add to inventory": "Добавить в инвентарь",
+  "Your request has been sent. Thank you for your feedback!": "Ваше обращение отправлено. Спасибо за ваш отзыв!",
+  "There was an error sending the request. Try again.": "Произошла ошибка при отправке обращения. Попробуйте снова.",
+  "The request has been successfully edited.": "Обращение успешно отредактировано.",
+  "There was an error editing the request. Try again.": "Произошла ошибка при редактировании обращения. Попробуйте снова.",
+  "The request has been successfully deleted.": "Обращение успешно удалено.",
+  "There was an error deleting the request. Try again.": "Произошла ошибка при удалении обращения. Попробуйте снова.",
+  "The request status has been successfully changed.": "Статус обращения успешно изменен.",
+  "There was an error changing the request status. Try again.": "Произошла ошибка при изменении статуса обращения. Попробуйте снова.",
+  "The response to the request has been successfully sent!": "Ответ на обращение успешно отправлен!",
+  "There was an error sending the response to the request. Try again.": "Произошла ошибка при отправке ответа на обращение. Попробуйте снова.",
   "There was an error loading media files": "Произошла ошибка при загрузке медиафайлов"
 }
