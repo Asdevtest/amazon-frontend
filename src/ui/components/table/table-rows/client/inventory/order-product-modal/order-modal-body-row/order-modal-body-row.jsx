@@ -58,7 +58,7 @@ export const OrderModalBodyRow = ({
 
   const [pricePerUnit, setPerPriceUnit] = useState(null)
 
-  const priceVariations = item?.currentSupplierCard?.priceVariations
+  const priceVariations = item?.currentSupplierCard?.supplier?.priceVariations
 
   const { tariffName, tariffRate } = useGetDestinationTariffInfo(
     destinations,
@@ -168,7 +168,7 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <p className={styles.standartText}>
-            {item.currentSupplierCard ? toFixed(item.currentSupplierCard?.price, 2) : <span>—</span>}
+            {item.currentSupplierCard ? toFixed(item.currentSupplierCard?.priceInUsd, 2) : <span>—</span>}
           </p>
         </TableCell>
 
@@ -403,7 +403,9 @@ export const OrderModalBodyRow = ({
               labelClasses={styles.labelField}
               label={t(TranslationKey['Batch delivery cost']) + ',$'}
               inputComponent={
-                <p className={styles.sumText}>{toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}</p>
+                <p className={styles.sumText}>
+                  {toFixed(item.currentSupplierCard.batchDeliveryCostInDollar, 2) || t(TranslationKey['No data'])}
+                </p>
               }
             />
 
