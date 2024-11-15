@@ -35,21 +35,6 @@ export const feedbackViewColumns = (props: ColumnProps) => {
   const creator = isAdmin(user?.role) || isModerator(user?.role)
   const admin = isAdmin(user?.role)
 
-  const userColumn = (
-    creator
-      ? {
-          field: 'user',
-          headerName: t(TranslationKey.User),
-          renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
-          renderCell: ({ row }: GridRowModel) => (
-            <UserCell name={row.user?.name} id={row.user?._id} email={row.user?.email} />
-          ),
-          width: 180,
-          disableCustomSort: true,
-          columnKey: columnnsKeys.shared.OBJECT_VALUE,
-        }
-      : null
-  ) as IGridColumn
   const moderatorColumn = (
     admin
       ? {
@@ -75,7 +60,17 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       width: 90,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
-    userColumn,
+    {
+      field: 'user',
+      headerName: t(TranslationKey.User),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.User)} />,
+      renderCell: ({ row }: GridRowModel) => (
+        <UserCell name={row.user?.name} id={row.user?._id} email={row.user?.email} />
+      ),
+      width: 180,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+    },
     {
       field: 'action',
       headerName: t(TranslationKey.Actions),
