@@ -149,7 +149,7 @@ export const OrderModalBodyRow = ({
   const productionTerm = item.currentSupplierCard
     ? `${item.currentSupplierCard.minProductionTerm} - ${item.currentSupplierCard.maxProductionTerm}`
     : t(TranslationKey['No data'])
-  console.log('item', item)
+
   return (
     <>
       <TableRow
