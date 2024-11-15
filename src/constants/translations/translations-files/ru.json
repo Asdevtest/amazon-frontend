@@ -2077,5 +2077,9 @@
   "Wholesale": "Wholesale",
   "Days": "Дни",
   "Min production term": "Минимальный срок производства",
-  "Max production term": "Максимальный срок производства"
+  "Max production term": "Максимальный срок производства",
+  "Filters": "Фильтры",
+  "MOQ": "Минимальный заказ",
+  "min": "мин.",
+  "max": "макс."
 }

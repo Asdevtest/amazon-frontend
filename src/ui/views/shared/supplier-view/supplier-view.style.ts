@@ -9,6 +9,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   content: {
+    position: 'relative',
     height: '100%',
     padding: '5px',
     display: 'grid',
@@ -18,8 +19,44 @@ export const useStyles = makeStyles()(() => ({
     overflowY: 'auto',
   },
 
-  empty: {
-    alignContent: 'center',
-    gridTemplateColumns: '1fr',
+  filterButton: {
+    position: 'absolute',
+    top: '20px',
+    right: '0px',
+    width: '40px',
+    overflow: 'hidden',
+    transition: 'width 0.3s ease',
+    gap: 0,
+
+    '& span:not(.ant-btn-icon)': {
+      visibility: 'hidden',
+      opacity: 0,
+      whiteSpace: 'nowrap',
+      transition: 'opacity 0.3s ease, visibility 0.3s ease',
+    },
+
+    '&:hover': {
+      width: '125px',
+      gap: 8,
+
+      '& span:not(.ant-btn-icon)': {
+        visibility: 'visible',
+        opacity: 1,
+      },
+    },
+  },
+
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+
+    '.ant-form-item': {
+      margin: 0,
+    },
+  },
+
+  space: {
+    alignItems: 'flex-end',
   },
 }))
