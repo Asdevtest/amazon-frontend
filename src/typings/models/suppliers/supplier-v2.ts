@@ -1,4 +1,7 @@
+import { ICountry } from '@typings/shared/country'
 import { ICreatedBy } from '@typings/shared/created-by'
+
+import { ISupplierEmployee } from './supplier-employee'
 
 export interface ISupplierV2 {
   _id: string
@@ -17,6 +20,8 @@ export interface ISupplierV2 {
   paymentMethods: IPaymentMethod[]
   createdAt: string
   updatedAt: string
+  supplierEmployees: ISupplierEmployee[]
+  originCountry: ICountry
 }
 
 export interface IPaymentMethod {

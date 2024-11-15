@@ -13,7 +13,10 @@ class SupplierV2ModelStatic {
   }
 
   getSuppliers = async (params: ParamsGetPagRequest) => {
-    const response = await restApiService.supplierV2Api.apiV2SuppliersGet(params)
+    const response = await restApiService.supplierV2Api.apiV2SuppliersGet({
+      ...params,
+      noCache: true,
+    })
     return response.data
   }
 

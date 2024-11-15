@@ -30,11 +30,12 @@ import { getInitialFormState } from './helpers/get-initial-form-state'
 interface AddSupplierModalProps {
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
+  updateHandler?: () => void
   supplierId?: string
 }
 
 export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
-  const { supplierId, openModal, setOpenModal } = props
+  const { supplierId, openModal, setOpenModal, updateHandler } = props
 
   const { classes: styles } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
@@ -63,6 +64,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
       await viewModel.createSupplier(value)
     }
 
+    updateHandler?.()
     onCloseModal()
   }
 

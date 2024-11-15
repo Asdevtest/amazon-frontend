@@ -116,6 +116,7 @@ export const SuppliersView: FC = observer(() => {
           supplierId={viewModel.supplierIdToEdit}
           openModal={viewModel.showAddSupplierModal}
           setOpenModal={viewModel.onCloseAddSupplierModal}
+          updateHandler={viewModel.getCurrentData}
         />
       ) : null}
 

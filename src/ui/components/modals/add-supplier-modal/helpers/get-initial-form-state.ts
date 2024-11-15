@@ -4,7 +4,7 @@ import { emptyEmployee } from '../add-supplier-modal.constants'
 import { CreateSupplier } from '../add-supplier-modal.types'
 
 export const getInitialFormState = (supplier: ISupplierV2): CreateSupplier => {
-  const { companyName, link, images, comment } = supplier
+  const { companyName, link, images, comment, supplierEmployees, originCountry } = supplier
 
   const paymentMethodIds = supplier?.paymentMethods?.map(({ _id }) => _id)
 
@@ -12,9 +12,9 @@ export const getInitialFormState = (supplier: ISupplierV2): CreateSupplier => {
     companyName,
     link,
     images,
-    countryId: '',
+    countryId: originCountry?._id || '',
     comment,
     paymentMethodIds,
-    supplierEmployees: [emptyEmployee],
+    supplierEmployees: supplierEmployees || [emptyEmployee],
   }
 }
