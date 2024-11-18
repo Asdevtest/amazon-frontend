@@ -2082,4 +2082,5 @@ export enum TranslationKey {
   'MOQ' = 'MOQ',
   'min' = 'min',
   'max' = 'max',
+  'Select category' = 'Select category',
 }

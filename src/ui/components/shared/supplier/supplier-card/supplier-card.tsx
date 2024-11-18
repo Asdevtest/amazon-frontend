@@ -1,5 +1,4 @@
 import { FC, memo } from 'react'
-import { useHistory } from 'react-router-dom'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,51 +16,61 @@ import { SupplierDitailsInfo } from '../supplier-details-info/supplier-details-i
 import { SupplierProductShortCard } from '../supplier-product-short-card/supplier-product-short-card'
 
 interface SupplierCardProps {
-  supplier: ISupplierExchange
+  supplier?: ISupplierExchange
+  showViewMore?: boolean
 }
 
 export const SupplierCard: FC<SupplierCardProps> = memo(props => {
-  const { supplier } = props
+  const { supplier, showViewMore = true } = props
 
   const { classes: styles, cx } = useStyles()
-  const history = useHistory()
-  const maxTopPropductCards = supplier.supplierCards.slice(0, 3)
+  const maxTopPropductCards = supplier?.supplierCards?.slice(0, 3) || []
+  const commentRows = showViewMore ? 4 : 6
 
-  const handleSupplier = () => history.push(`/client/product-exchange/wholesale/supplier?${supplier._id}`)
+  const handleViewMore = () => {
+    const url = `/client/product-exchange/wholesale/supplier?${supplier?._id}`
+    window.open(url, '_blank')
+  }
 
   return (
     <div className={styles.root}>
       <div className={cx(styles.flexColumn, styles.infoBlock)}>
-        <SupplierDitailsInfo image={supplier.originCountry?.image} xid={supplier.xid} rate={supplier.avgRating} />
+        <SupplierDitailsInfo
+          image={supplier?.originCountry?.image}
+          xid={supplier?.xid}
+          rate={supplier?.avgRating}
+          userId={supplier?._id}
+          totalCountFeedback={supplier?.totalCountFeedback}
+        />
 
-        <Text copyable={false} text={supplier.comment} rows={4} />
+        <Text copyable={false} text={supplier?.comment || ''} rows={commentRows} />
 
-        <CustomButton ghost type="primary" onClick={handleSupplier}>
-          {t(TranslationKey['View more'])}
-        </CustomButton>
+        {showViewMore ? (
+          <CustomButton ghost type="primary" className={styles.viewMore} onClick={handleViewMore}>
+            {t(TranslationKey['View more'])}
+          </CustomButton>
+        ) : null}
       </div>
 
       <div className={styles.flexColumn}>
-        {supplier.paymentMethods.length ? (
-          <div className={styles.payments}>
-            <Text type="secondary" copyable={false} text={t(TranslationKey['Payment methods'])} rows={1} />
-            <PaymentMethods paymentMethods={supplier.paymentMethods} />
-          </div>
-        ) : null}
+        <div className={styles.payments}>
+          <Text type="secondary" copyable={false} text={t(TranslationKey['Payment methods'])} rows={1} />
+          <PaymentMethods paymentMethods={supplier?.paymentMethods || []} />
+        </div>
       </div>
 
       <div className={styles.flexColumn}>
         <Text type="secondary" copyable={false} text={t(TranslationKey['Top products'])} rows={1} />
 
         <div className={styles.flexRow}>
-          {maxTopPropductCards.map(supplierCard => (
+          {maxTopPropductCards?.map(supplierCard => (
             <SupplierProductShortCard key={supplierCard._id} supplierCard={supplierCard} />
           ))}
         </div>
       </div>
 
       <div className={styles.imagesBlock}>
-        <SlideshowGallery slidesToShow={2} files={supplier?.images} />
+        <SlideshowGallery slidesToShow={2} files={supplier?.images || []} />
       </div>
     </div>
   )
