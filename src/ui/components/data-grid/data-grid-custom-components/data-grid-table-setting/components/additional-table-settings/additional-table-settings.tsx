@@ -1,6 +1,7 @@
 import { FC, memo, useEffect, useState } from 'react'
 
 import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 
 import { formatCamelCaseString } from '@utils/text'
 
@@ -65,13 +66,13 @@ export const AdditionalTableSettings: FC<AdditionalTableSettingsProps> = memo(
               <p>{formatCamelCaseString(preset.table)}</p>
 
               {preset.fields.map((field, fieldIndex) => (
-                <Checkbox
-                  key={fieldIndex}
-                  checked={field?.checked}
-                  onChange={event => onClickItem(presetIndex, fieldIndex, event.target.checked)}
-                >
-                  {field.name}
-                </Checkbox>
+                <div key={fieldIndex} className={styles.checkboxWrapper}>
+                  <CustomCheckbox
+                    checked={field?.checked}
+                    onChange={event => onClickItem(presetIndex, fieldIndex, event.target.checked)}
+                  />
+                  <p>{field.name}</p>
+                </div>
               ))}
             </div>
           ))}
