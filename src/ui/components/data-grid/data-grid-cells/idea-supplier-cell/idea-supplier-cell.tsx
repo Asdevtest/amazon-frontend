@@ -17,10 +17,11 @@ interface IdeaSupplierCellProps {
 
 export const IdeaSupplierCell: FC<IdeaSupplierCellProps> = memo(({ onClickAddSupplier, suppliers }) => {
   const { classes: styles } = useStyles()
+  console.log(suppliers)
 
   return (
     <div className={styles.ideaSupplier}>
-      {!!suppliers.length && <p>{suppliers[0].name}</p>}
+      {!!suppliers.length && <p>{suppliers[0]?.cardName}</p>}
       {!suppliers.length && (
         <CustomButton type="primary" size="small" icon={<FiPlus size={16} />} onClick={onClickAddSupplier}>
           {t(TranslationKey.Add)}
