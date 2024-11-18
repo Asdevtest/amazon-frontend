@@ -84,13 +84,12 @@ export const batchInfoModalColumn = (
   },
 
   {
-    field: 'orderIdsItems',
-    headerName: t(TranslationKey['№ Order/ № Item']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order/ № Item'])} />,
-
-    renderCell: params => params.value && <OrdersIdsItemsCell value={params.value} />,
-    valueGetter: ({ row }) => row?.orderIdsItems || t(TranslationKey.Missing),
-    width: 140,
+    field: 'orderXid',
+    headerName: t(TranslationKey['№ Order']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
+    renderCell: ({ row }) => <StringListCell maxVisibleLines={5} data={row.items?.map(item => item?.order?.xid)} />,
+    valueGetter: ({ row }) => row.items?.map(item => item?.order?.xid || t(TranslationKey.Missing)).join(', '),
+    width: 100,
     sortable: false,
   },
 
