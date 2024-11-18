@@ -26,9 +26,10 @@ export const roundHalf = num => {
 }
 
 export const calcProductsPriceWithDelivery = (product, order) =>
-  ((parseFloat(product.currentSupplier && product.currentSupplier.price) || 0) +
+  ((parseFloat(product.currentSupplierCard && product.currentSupplierCard.priceInUsd) || 0) +
     (parseFloat(
-      product.currentSupplier && product.currentSupplier.batchDeliveryCostInDollar / product.currentSupplier.amount,
+      product.currentSupplier &&
+        product.currentSupplierCard.batchDeliveryCostInDollar / product.currentSupplierCard.amount,
     ) || 0)) *
   (parseInt(order?.amount) || 0)
 

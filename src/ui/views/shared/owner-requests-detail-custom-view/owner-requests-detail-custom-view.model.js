@@ -448,6 +448,7 @@ export class OwnerRequestDetailCustomViewModel {
   onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request/edit-request`,
+      { requestId: this.requestId },
     )
   }
 

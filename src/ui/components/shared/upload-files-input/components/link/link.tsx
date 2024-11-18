@@ -54,7 +54,7 @@ export const Link: FC<LinkProps> = memo(props => {
         onPaste={onPasteFile}
       />
 
-      <CustomButton disabled={disabledLoadButton} onClick={onLoadFile}>
+      <CustomButton size="large" disabled={disabledLoadButton} onClick={onLoadFile}>
         {t(TranslationKey.Load)}
       </CustomButton>
     </div>
