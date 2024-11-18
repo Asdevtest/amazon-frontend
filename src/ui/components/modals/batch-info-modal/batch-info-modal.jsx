@@ -37,7 +37,7 @@ import { useStyles } from './batch-info-modal.style'
 
 import { BoxModal } from '../box-modal'
 
-import { batchInfoModalColumn } from './batch-info-modal-column'
+import { batchInfoModalColumn } from './temp.columns'
 
 export const BatchInfoModal = observer(
   ({ openModal, setOpenModal, batch, onSubmitChangeBoxFields, patchActualShippingCostBatch }) => {
