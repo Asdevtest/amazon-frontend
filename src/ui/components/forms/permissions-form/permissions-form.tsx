@@ -40,6 +40,7 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
         sku={option.sku}
         image={option.image}
         subOption={option.subOption}
+        searchValue={viewModel.searchValue}
       />
     )
   }
