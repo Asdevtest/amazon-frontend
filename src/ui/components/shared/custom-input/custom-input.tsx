@@ -1,5 +1,5 @@
-import { Input, InputProps } from 'antd'
-import { FC, memo } from 'react'
+import { Input, InputProps, InputRef } from 'antd'
+import { FC, forwardRef, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,46 +16,49 @@ interface CustomInputProps extends InputProps, IDefaultPropsExtensionAntdCompone
   fullWidth?: boolean
 }
 
-export const CustomInput: FC<CustomInputProps> = memo(props => {
-  const {
-    password,
-    isRow,
-    isCell,
-    label,
-    required,
-    placeholder,
-    className,
-    labelClassName,
-    wrapperClassName,
-    fullWidth,
-    maxLength = 255,
-    ...restProps
-  } = props
+export const CustomInput: FC<CustomInputProps> = memo(
+  forwardRef<InputRef, CustomInputProps>((props, ref) => {
+    const {
+      password,
+      isRow,
+      isCell,
+      label,
+      required,
+      placeholder,
+      className,
+      labelClassName,
+      wrapperClassName,
+      fullWidth,
+      maxLength = 255,
+      ...restProps
+    } = props
 
-  const { classes: styles, cx } = useStyles()
-  const placeholderText = placeholder
-    ? `${t(TranslationKey[placeholder as TranslationKey])}${required ? '*' : ''}`
-    : undefined
-  const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
-  const Component = password ? Password : Input
+    const { classes: styles, cx } = useStyles()
+    const placeholderText = placeholder
+      ? `${t(TranslationKey[placeholder as TranslationKey])}${required ? '*' : ''}`
+      : undefined
+    const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
+    const Component = password ? Password : Input
 
-  return (
-    <div
-      className={cx(
-        styles.root,
-        { [styles.cell]: isCell, [styles.row]: isRow, [styles.input]: fullWidth },
-        wrapperClassName,
-      )}
-    >
-      {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
-      <Component
-        {...restProps}
-        title={placeholderText}
-        className={cx(styles.input, className)}
-        placeholder={placeholderText}
-        maxLength={maxLength}
-        onKeyDown={e => e.stopPropagation()}
-      />
-    </div>
-  )
-})
+    return (
+      <div
+        className={cx(
+          styles.root,
+          { [styles.cell]: isCell, [styles.row]: isRow, [styles.input]: fullWidth },
+          wrapperClassName,
+        )}
+      >
+        {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
+        <Component
+          {...restProps}
+          ref={ref}
+          title={placeholderText}
+          className={cx(styles.input, className)}
+          placeholder={placeholderText}
+          maxLength={maxLength}
+          onKeyDown={e => e.stopPropagation()}
+        />
+      </div>
+    )
+  }),
+)
