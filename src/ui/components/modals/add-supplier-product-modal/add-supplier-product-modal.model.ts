@@ -13,12 +13,18 @@ import { observerConfig } from './observer.config'
 
 export class AddSupplierProductModalModel extends DefaultModel {
   categories: ICategory[] = []
+
   images: UploadFileType[] = []
+  unitImages: UploadFileType[] = []
 
   categoriesLoadingStatus = loadingStatus.SUCCESS
 
   get systemYuanToDollarRate() {
     return (UserModel.platformSettings as unknown as IPlatformSettings)?.yuanToDollarRate
+  }
+
+  get volumeWeightCoefficient() {
+    return (UserModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient
   }
 
   constructor() {
@@ -51,6 +57,12 @@ export class AddSupplierProductModalModel extends DefaultModel {
   setImages(images: UploadFileType[]) {
     runInAction(() => {
       this.images = images
+    })
+  }
+
+  setUnitImages(images: UploadFileType[]) {
+    runInAction(() => {
+      this.unitImages = images
     })
   }
 }

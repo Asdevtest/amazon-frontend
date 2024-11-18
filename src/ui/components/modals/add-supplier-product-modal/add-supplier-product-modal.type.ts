@@ -1,8 +1,10 @@
+import { Dimensions } from '@typings/enums/dimensions'
 import { IBoxProperties } from '@typings/models/suppliers/supplier'
 
 export interface ICreateSupplierProduct {
   supplierId: string
   cardName: string
+  comment: string
   categoryId: string
   link: string
   price: number
@@ -13,7 +15,7 @@ export interface ICreateSupplierProduct {
   images: string[]
   yuanToDollarRate: number
   isPrime: boolean
-  boxProperties: IBoxProperties
+  boxProperties: IBoxPropertiesDimensionType
   batchDeliveryCostInDollar: number
   batchDeliveryCostInYuan: number
   batchTotalCostInDollar: number
@@ -24,12 +26,15 @@ export interface ICreateSupplierProduct {
   widthUnit: number
   lengthUnit: number
   weighUnit: number
+  unitDimensionType: Dimensions
   imageUnit: string[]
   multiplicity: boolean
   prices: IPrice[]
 }
 
-
+interface IBoxPropertiesDimensionType extends IBoxProperties {
+  dimensionType: Dimensions
+}
 
 export interface IPrice {
   amount: number
