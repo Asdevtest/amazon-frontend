@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { useStyles } from '@components/data-grid/data-grid-custom-components/data-grid-select-all-filters/data-grid-select-all-filters.style'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
-
-import { t } from '@utils/translations'
 
 interface DataGridSelectAllFiltersProps<T> {
   choosenItems: T[]

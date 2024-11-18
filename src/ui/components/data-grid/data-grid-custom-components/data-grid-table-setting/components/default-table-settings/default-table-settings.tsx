@@ -1,11 +1,6 @@
 import { FC, memo } from 'react'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
-
-import { t } from '@utils/translations'
 
 import { useStyles } from './default-table-settings.style'
 

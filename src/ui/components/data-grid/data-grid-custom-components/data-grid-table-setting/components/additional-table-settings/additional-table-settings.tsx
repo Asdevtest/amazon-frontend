@@ -1,6 +1,5 @@
 import { FC, memo, useEffect, useState } from 'react'
 
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 
 import { formatCamelCaseString } from '@utils/text'
