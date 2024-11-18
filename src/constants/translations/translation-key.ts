@@ -1897,6 +1897,7 @@ export enum TranslationKey {
   'End date' = 'End date',
   'Idea status changed successfully' = 'Idea status changed successfully',
   'The box will be returned to warehouse' = 'The box will be returned to warehouse',
+  'The status will be changed' = 'The status will be changed',
   'Number of units' = 'Number of units',
   'Stocks' = 'Stocks',
   'Boxes x units' = 'Boxes x units',
