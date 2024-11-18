@@ -146,11 +146,6 @@ export const OrderContent = ({
           </div>
 
           <div className={styles.orderItemWrapper}>
-            <p className={styles.orderTitle}>{'item'}</p>
-            <p className={styles.orderText}>{updatedOrder.item || '-'}</p>
-          </div>
-
-          <div className={styles.orderItemWrapper}>
             <p className={styles.orderTitle}>{t(TranslationKey.Created)}</p>
             <p className={styles.orderText}>{formatShortDateTime(updatedOrder.createdAt)}</p>
           </div>

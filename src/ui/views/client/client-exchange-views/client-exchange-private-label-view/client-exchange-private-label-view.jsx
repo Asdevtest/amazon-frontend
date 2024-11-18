@@ -1,11 +1,11 @@
 import { observer } from 'mobx-react'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { withStyles } from 'tss-react/mui'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { PrivateLabelCard } from '@components/cards/private-label-card'
-import { SelectShopsModal } from '@components/modals/select-shops-modal'
+import { SelectShopsForm } from '@components/forms/select-shops-form'
 import { Modal } from '@components/shared/modal'
 
 import { toFixedWithDollarSign } from '@utils/text'
@@ -16,12 +16,8 @@ import { styles } from './client-exchange-private-label-view.style'
 import { ClientExchangePrivateLabelViewModel } from './client-exchange-private-label-view.model'
 
 export const ClientExchangePrivateLabelViewRaw = props => {
-  const viewModel = useMemo(() => new ClientExchangePrivateLabelViewModel({ history: props.history }), [])
+  const viewModel = useMemo(() => new ClientExchangePrivateLabelViewModel(), [])
   const { classes: styles } = props
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   const renderProductsVacant = () => {
     const { productsVacant, setProductToPay } = viewModel
@@ -49,16 +45,13 @@ export const ClientExchangePrivateLabelViewRaw = props => {
         openModal={viewModel.showConfirmPayModal}
         setOpenModal={() => viewModel.onTriggerOpenModal('showConfirmPayModal')}
       >
-        <SelectShopsModal
-          isNotDisabled
+        <SelectShopsForm
           title={t(TranslationKey['You buy a product card, are you sure?'])}
           message={`${t(TranslationKey['You will be charged'])} (${
             viewModel.productToPay && toFixedWithDollarSign(viewModel.productToPay.priceForClient, 2)
           })`}
-          shops={viewModel.shopsData}
-          product={viewModel.productToPay}
-          onClickSuccessBtn={viewModel.onClickBuyProductBtn}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showConfirmPayModal')}
+          onSubmit={viewModel.onClickBuyProductBtn}
+          onClose={() => viewModel.onTriggerOpenModal('showConfirmPayModal')}
         />
       </Modal>
     </>

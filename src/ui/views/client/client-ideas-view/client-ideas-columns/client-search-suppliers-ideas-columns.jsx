@@ -49,8 +49,8 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
   const columns = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.row.xid} />,
       width: 100,
       type: 'number',
@@ -225,7 +225,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey['Production time, days']),
 
       renderCell: ({ row }) => {
-        const supplier = row.suppliers?.[0]
+        const supplier = row.suppliers?.[0]?.supplierCards?.[0]
 
         return (
           <Text

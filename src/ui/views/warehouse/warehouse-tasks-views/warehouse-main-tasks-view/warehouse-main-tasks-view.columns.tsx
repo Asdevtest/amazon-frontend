@@ -61,8 +61,8 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
   const columns: IGridColumn[] = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: (params: GridCellParams) => <Text isCell text={params.row?.xid} />,
 
       width: 120,
@@ -150,15 +150,9 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
       width: 160,
       disableCustomSort: true,
     },
-    {
-      field: 'item',
-      headerName: 'item',
-      renderHeader: () => <MultilineTextHeaderCell text="item" />,
-      renderCell: ({ row }) => <StringListCell data={row.boxesBeforeOrderItems} />,
-      width: 160,
-      disableCustomSort: true,
-    },
+
     isBarCodeAttachedColumn as IGridColumn,
+
     {
       field: 'createdAt',
       headerName: t(TranslationKey.Created),

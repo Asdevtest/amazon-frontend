@@ -19,11 +19,11 @@ import {
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  PaymentMethodsCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
+import { PaymentMethods } from '@components/shared/payment-methods'
 import { Text } from '@components/shared/text'
 
 import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -42,7 +42,7 @@ import { payColumnMenuItems, payColumnMenuValue } from '@config/data-grid-column
 
 interface buyerOrdersColumnsParams {
   rowHandlers: {
-    onClickPaymentMethodsCell: (row: IOrder) => void
+    onClickPaymentMethods: (row: IOrder) => void
   }
   isShowPartialPayment: boolean
   isDisableCustomSort: boolean
@@ -56,8 +56,8 @@ export const buyerOrdersColumns = ({
   const columns: IGridColumn[] = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.value} />,
 
       sortable: true,
@@ -167,9 +167,10 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey['Payment methods']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
       renderCell: params => (
-        <PaymentMethodsCell
+        <PaymentMethods
+          isCell
           paymentMethods={params.row.payments?.map((payment: any) => payment.paymentMethod)}
-          onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row as IOrder)}
+          onClick={() => rowHandlers.onClickPaymentMethods(params.row as IOrder)}
         />
       ),
       valueGetter: params => params.row.payments.map((payment: any) => payment?.paymentMethod?.title).join(', '),
@@ -239,12 +240,12 @@ export const buyerOrdersColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
       renderCell: params => {
-        const currentSupplier = params.row.orderSupplier
+        const currentSupplier = params.row.orderSupplierCard
 
         return <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
       },
       valueGetter: params => {
-        const currentSupplier = params.row.orderSupplier
+        const currentSupplier = params.row.orderSupplierCard
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },

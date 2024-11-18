@@ -13,8 +13,8 @@ import { OrderStatus } from '@typings/enums/order/order-status'
 export const aboutProductsColumns = [
   {
     field: 'xid',
-    headerName: t(TranslationKey.ID),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    headerName: 'ID',
+    renderHeader: () => <MultilineTextHeaderCell text="ID" />,
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.xid} />,
     width: 80,
   },

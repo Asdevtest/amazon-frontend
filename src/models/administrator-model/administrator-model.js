@@ -69,8 +69,8 @@ class AdministratorModelStatic {
     return response.data
   }
 
-  getFeedback = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGet()
+  getFeedbacks = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGet({ ...body, noCache: true })
     return response.data
   }
 
@@ -207,6 +207,69 @@ class AdministratorModelStatic {
 
   patchLaunchPreDeadlineValue = async body => {
     const response = await restApiService.administratorApi.apiV1AdminsSetLaunchPreDeadlineValuePatch(body)
+    return response.data
+  }
+
+  removeCountry = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsCountriesGuidDelete({ guid })
+    return response.data
+  }
+
+  addCountry = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsCountriesPost({ body })
+    return response.data
+  }
+
+  editCountry = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsCountriesGuidPatch({ guid, body })
+    return response.data
+  }
+
+  addCategory = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsCategoriesPost({ body })
+    return response.data
+  }
+
+  editCategory = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsCategoriesGuidPatch({ guid, body })
+    return response.data
+  }
+
+  removeCategory = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsCategoriesGuidDelete({ guid })
+    return response.data
+  }
+
+  rejectedFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidRejectedPatch({ guid })
+    return response.data
+  }
+
+  getFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidGet({ guid })
+    return response.data
+  }
+
+  approveFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidAcceptedPatch({ guid })
+    return response.data
+  }
+
+  rejectFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidRejectedPatch({ guid })
+    return response.data
+  }
+
+  inProcessFeedback = async guid => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidInProcessPatch({ guid })
+    return response.data
+  }
+
+  sendReplyToFeedback = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsFeedbackGuidResponseToAnAppealPatch({
+      guid,
+      body,
+    })
     return response.data
   }
 }

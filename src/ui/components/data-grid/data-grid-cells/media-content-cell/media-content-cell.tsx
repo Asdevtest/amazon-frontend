@@ -6,10 +6,15 @@ import { useStyles } from './media-content-cell.style'
 
 interface SmallRowImageCellProps {
   image: string
+  isEmpty?: boolean
 }
 
-export const MediaContentCell: FC<SmallRowImageCellProps> = memo(({ image }) => {
+export const MediaContentCell: FC<SmallRowImageCellProps> = memo(({ image, isEmpty }) => {
   const { classes: styles } = useStyles()
+
+  if (isEmpty) {
+    return null
+  }
 
   return (
     <div className={styles.wrapper}>

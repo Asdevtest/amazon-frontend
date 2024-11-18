@@ -23,6 +23,7 @@ export const UsersSelect: FC<UsersSelectProps> = observer(props => {
   return (
     <CustomSelect
       {...restProps}
+      showSearch
       filterOption={false}
       defaultActiveFirstOption={false}
       style={{ width: '330px' }}

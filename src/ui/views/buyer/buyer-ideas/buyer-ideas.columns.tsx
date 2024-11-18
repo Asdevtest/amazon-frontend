@@ -55,8 +55,8 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
   const columns: IGridColumn[] = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.row.xid} />,
       width: 100,
       type: 'number',
@@ -221,7 +221,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min batch'])} />,
       headerName: t(TranslationKey['Min batch']),
 
-      renderCell: params => <Text isCell text={params.row.suppliers?.[0]?.minlot} />,
+      renderCell: params => <Text isCell text={params.row.suppliers?.[0]?.supplierCards?.[0].minlot} />,
       width: 80,
       type: 'number',
       columnKey: columnnsKeys.shared.NUMBER,
@@ -235,7 +235,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       headerName: t(TranslationKey['Production time, days']),
 
       renderCell: ({ row }) => {
-        const supplier = row.suppliers?.[0]
+        const supplier = row.suppliers?.[0]?.supplierCards?.[0]
 
         return (
           <Text

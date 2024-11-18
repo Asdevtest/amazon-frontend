@@ -25,7 +25,7 @@ import {
   getPasswordValidationRules,
 } from './rules'
 
-interface AuthFormFormProps {
+interface AuthFormProps {
   onSubmit: (values: FieldData) => void
   onRedirect: () => void
   auth?: boolean
@@ -34,7 +34,7 @@ interface AuthFormFormProps {
   data?: FieldData
 }
 
-export const AuthForm: FC<AuthFormFormProps> = memo(props => {
+export const AuthForm: FC<AuthFormProps> = memo(props => {
   const { onSubmit, onRedirect, auth, editUser, loading, data } = props
 
   const { classes: styles, cx } = useStyles()

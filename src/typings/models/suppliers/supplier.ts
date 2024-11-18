@@ -20,9 +20,10 @@ export interface ISupplier {
   batchTotalCostInDollar: number
   batchTotalCostInYuan: number
   boxProperties: IBoxProperties
+  supplier: IAdditionalSupplierData
   productionTerm: number
   createdBy: ICreatedBy
-  paymentMethods: IPaymentMethod
+  paymentMethods: IPaymentMethod[]
   priceVariations: Array<object>
   createdAt: string
   updatedAt: string
@@ -33,10 +34,18 @@ export interface ISupplier {
   weighUnit: number
 }
 
-interface IBoxProperties {
+export interface IBoxProperties {
   amountInBox: number
   boxLengthCm: number
   boxWidthCm: number
   boxHeightCm: number
   boxWeighGrossKg: number
+}
+interface IAdditionalSupplierData {
+  companyName: string
+  link: string
+  paymentMethods: IPaymentMethod[]
+  xid: number
+  _id: string
+  createdBy: ICreatedBy
 }
