@@ -973,6 +973,7 @@ export const privateRoutesConfigs = [
     component: FeedbackView,
     exact: false,
     permission: [UserRole.BUYER],
+    permissionKey: permissionsKeys.buyer.SHOW_FEEDBACK_BUYER,
     crumbNameKey: TranslationKey.Feedback,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -1095,6 +1096,7 @@ export const privateRoutesConfigs = [
     component: FeedbackView,
     exact: false,
     permission: [UserRole.RESEARCHER],
+    permissionKey: permissionsKeys.researcher.SHOW_FEEDBACK_RESEARCHER,
     crumbNameKey: TranslationKey.Feedback,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -1981,6 +1983,7 @@ export const privateRoutesConfigs = [
     component: FeedbackView,
     exact: false,
     permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_FEEDBACK_CLIENT,
     crumbNameKey: TranslationKey.Feedback,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -2208,6 +2211,7 @@ export const privateRoutesConfigs = [
     component: FeedbackView,
     exact: false,
     permission: [UserRole.SUPERVISOR],
+    permissionKey: permissionsKeys.supervisor.SHOW_FEEDBACK_SUPERVISOR,
     crumbNameKey: TranslationKey.Feedback,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -2452,6 +2456,7 @@ export const privateRoutesConfigs = [
     component: FeedbackView,
     exact: false,
     permission: [UserRole.STOREKEEPER],
+    permissionKey: permissionsKeys.storekeeper.SHOW_FEEDBACK_STOREKEEPER,
     crumbNameKey: TranslationKey.Feedback,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -3145,6 +3150,7 @@ export const privateRoutesConfigs = [
     component: FeedbackView,
     exact: false,
     permission: [UserRole.FREELANCER],
+    permissionKey: permissionsKeys.freelancer.SHOW_FEEDBACK_FREELANCER,
     crumbNameKey: TranslationKey.Feedback,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -3270,6 +3276,7 @@ export const privateRoutesConfigs = [
     component: FeedbackView,
     exact: false,
     permission: [UserRole.MODERATOR],
+    permissionKey: permissionsKeys.moderator.SHOW_FEEDBACK_MODERATOR,
     crumbNameKey: TranslationKey.Feedback,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
