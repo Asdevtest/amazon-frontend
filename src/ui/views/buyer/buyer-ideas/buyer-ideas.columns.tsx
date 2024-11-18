@@ -117,7 +117,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
             showSecond
             secondDanger
             firstContent={t(TranslationKey['Supplier found'])}
-            firstDisabled={disable || !params.row?.suppliers?.length}
+            firstDisabled={disable || !params.row?.supplierCards?.length}
             secondContent={t(TranslationKey['Supplier not found'])}
             secondDisabled={disable}
             firstConfirmText="The status will be changed"
@@ -166,7 +166,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
 
       renderCell: params => (
         <IdeaSupplierCell
-          suppliers={params.value}
+          suppliers={params.row.supplierCards}
           onClickAddSupplier={() => rowHandlers.onClickAddSupplierButton(params.row._id)}
         />
       ),
@@ -181,7 +181,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
 
       renderCell: params => {
-        const suppliers = params.row.suppliers
+        const suppliers = params.row.supplierCards
 
         if (!suppliers.length) {
           return <Text isCell text="" />
@@ -208,8 +208,8 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       headerName: t(TranslationKey['Price with delivery']) + '$',
 
       renderCell: params => {
-        const supplier = params.row.suppliers?.[0]
-        const priceWithDelivery = supplier?.price + supplier?.batchDeliveryCostInDollar / supplier?.amount
+        const supplier = params.row.supplierCards?.[0]
+        const priceWithDelivery = supplier?.priceInUsd + supplier?.batchDeliveryCostInDollar / supplier?.amount
 
         return <Text isCell text={toFixed(priceWithDelivery || 0, 2)} />
       },
@@ -223,11 +223,11 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Min batch'])} />,
       headerName: t(TranslationKey['Min batch']),
 
-      renderCell: params => <Text isCell text={params.row.suppliers?.[0]?.supplierCards?.[0].minlot} />,
+      renderCell: params => <Text isCell text={params.row.supplierCards?.[0]?.minlot} />,
       width: 80,
       type: 'number',
       columnKey: columnnsKeys.shared.NUMBER,
-      table: DataGridFilterTables.SUPPLIERS,
+      table: DataGridFilterTables.SUPPLIER_CARDS,
       disableCustomSort: true,
     },
 
@@ -237,7 +237,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       headerName: t(TranslationKey['Production time, days']),
 
       renderCell: ({ row }) => {
-        const supplier = row.suppliers?.[0]?.supplierCards?.[0]
+        const supplier = row?.supplierCards?.[0]
 
         return (
           <Text
@@ -261,7 +261,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Files)} />,
       headerName: t(TranslationKey.Files),
 
-      renderCell: params => <FilesCell files={params.row?.suppliers[0]?.images} />,
+      renderCell: params => <FilesCell files={params.row?.supplierCards[0]?.images} />,
       width: 80,
       align: 'center',
       disableCustomSort: true,
