@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   field: {
     margin: 0,
   },
@@ -32,5 +32,16 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'center',
     gap: '5px',
+  },
+
+  divider: {
+    height: '100%',
+  },
+
+  sectionWrapper: {
+    borderRadius: '20px',
+    padding: '10px',
+    backgroundColor: theme?.palette?.background?.general,
+    boxShadow: theme?.palette?.boxShadow?.paper,
   },
 }))

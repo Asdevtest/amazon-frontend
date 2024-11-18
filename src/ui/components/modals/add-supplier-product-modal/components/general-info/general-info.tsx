@@ -30,7 +30,7 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
   const { classes: sharedStyles } = useSharedStyles()
 
   return (
-    <div className={styles.root}>
+    <div className={cx(styles.root, sharedStyles.sectionWrapper)}>
       <div className={styles.productInfoWrapper}>
         <div className={styles.selectsWrapper}>
           <Form.Item<ICreateSupplierProduct>

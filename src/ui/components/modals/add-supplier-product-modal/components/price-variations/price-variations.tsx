@@ -31,7 +31,7 @@ export const PriceVariations = memo(() => {
   }
 
   return (
-    <div>
+    <div className={sharedStyles.sectionWrapper}>
       <Form.Item<ICreateSupplierProduct> name="prices" className={sharedStyles.field} rules={getRequiredRules()}>
         <CustomSelect
           required
@@ -41,11 +41,11 @@ export const PriceVariations = memo(() => {
           label="Payment methods"
           options={[]}
           fieldNames={{ value: 'amount', label: 'amount' }}
-          tagRender={props => {
-            console.log('props :>> ', props)
+          // tagRender={props => {
+          //   console.log('props :>> ', props)
 
-            return <>{'22223'}</>
-          }}
+          //   return <>{'22223'}</>
+          // }}
           dropdownRender={() => (
             <div className={styles.addPriceVariations}>
               <CustomInputNumber

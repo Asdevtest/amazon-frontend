@@ -1,6 +1,7 @@
-import { FormInstance } from 'antd'
+import { Divider, FormInstance } from 'antd'
 import { FC, memo } from 'react'
 
+import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './delivery-params.style'
 
 import { ICreateSupplierProduct, SupplierCurrency } from '../../add-supplier-product-modal.type'
@@ -17,10 +18,11 @@ interface IDeliveryParamsProps {
 }
 
 export const DeliveryParams: FC<IDeliveryParamsProps> = memo(({ form }) => {
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
+  const { classes: sharedStyles } = useSharedStyles()
 
   return (
-    <div className={styles.deliveryParamsWrapper}>
+    <div className={cx(styles.deliveryParamsWrapper, sharedStyles.sectionWrapper)}>
       <div className={styles.supplierCourseWrapper}>
         <SupplierCourse />
 
@@ -32,6 +34,8 @@ export const DeliveryParams: FC<IDeliveryParamsProps> = memo(({ form }) => {
             getPriceWithDeliveryPerUnit={getPriceWithDeliveryPerUnit}
           />
 
+          <Divider type="vertical" className={sharedStyles.divider} />
+
           <DeliveryCosts
             currency={SupplierCurrency.USD}
             form={form}
@@ -39,6 +43,10 @@ export const DeliveryParams: FC<IDeliveryParamsProps> = memo(({ form }) => {
             getPriceWithDeliveryPerUnit={getPriceWithDeliveryPerUnitUsd}
           />
         </div>
+      </div>
+
+      <div>
+        <Divider type="vertical" className={sharedStyles.divider} />
       </div>
 
       <DeliveryPeriod />
