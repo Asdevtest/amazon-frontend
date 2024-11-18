@@ -30,6 +30,7 @@ export const DimensionsCell: FC<DimensionsCellProps> = memo(props => {
     sizeSetting: transmittedSizeSetting || DimensionsEnum.EU,
     calculationField,
   })
+  
 
   const isLessWeight = isTotalWeight && Number(finalWeight) < Number(totalWeight)
   const attentionText = isLessWeight

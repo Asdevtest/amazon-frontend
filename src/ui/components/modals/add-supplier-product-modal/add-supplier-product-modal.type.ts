@@ -26,6 +26,14 @@ export interface ICreateSupplierProduct {
   weighUnit: number
   imageUnit: string[]
   multiplicity: boolean
+  prices: IPrice[]
+}
+
+
+
+export interface IPrice {
+  amount: number
+  price: number
 }
 
 export enum SupplierCurrency {

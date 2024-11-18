@@ -15,8 +15,10 @@ import { useStyles as useSharedStyles } from './shared.style'
 
 import { AddSupplierProductModalModel } from './add-supplier-product-modal.model'
 import { ICreateSupplierProduct } from './add-supplier-product-modal.type'
+import { BoxDimentions } from './components/box-dimentions'
 import { DeliveryParams } from './components/delivery-params'
 import { GeneralInfo } from './components/general-info/general-info'
+import { PriceVariations } from './components/price-variations'
 
 interface AddSupplierProductModalProps {
   openModal: boolean
@@ -45,6 +47,8 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
   //   })
   // }, [])
 
+  console.log('form :>> ', form?.getFieldsValue())
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <Form
@@ -53,6 +57,15 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
         size="large"
         form={form}
         rootClassName={styles.form}
+        initialValues={{
+          prices: [
+            { label: 'Default', amount: 0, price: 0 },
+            { amount: 1, price: 1 },
+          ],
+          boxProperties: {
+            boxHeightCm: 123,
+          },
+        }}
         onFinish={value => console.log('value :>> ', value)}
       >
         <GeneralInfo
@@ -63,6 +76,10 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
         />
 
         <DeliveryParams form={form} />
+
+        <PriceVariations />
+
+        <BoxDimentions form={form} />
       </Form>
     </Modal>
   )
