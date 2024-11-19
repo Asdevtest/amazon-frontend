@@ -222,37 +222,41 @@ class OtherModelStatic {
   }
 
   getFileUrls = async (mediaFiles, previewAsOriginal) => {
-    try {
-      const formData = new FormData()
-      // for speed you can use map + Promise.all
+    if (mediaFiles?.length > 0) {
+      try {
+        const formData = new FormData()
+        // for speed you can use map + Promise.all
 
-      mediaFiles.forEach(mediaFile => {
-        if (typeof mediaFile === 'string') {
-          formData.append('url', mediaFile)
-        } else {
-          const fileName = mediaFile.file.name.replace(/\s+/g, '')
-          const fileWithoutSpaces = new File([mediaFile.file], fileName, {
-            type: mediaFile.file.type || '',
-            lastModified: mediaFile.file.lastModified,
-          })
+        mediaFiles?.forEach(mediaFile => {
+          if (typeof mediaFile === 'string') {
+            formData.append('url', mediaFile)
+          } else {
+            const fileName = mediaFile.file.name.replace(/\s+/g, '')
+            const fileWithoutSpaces = new File([mediaFile.file], fileName, {
+              type: mediaFile.file.type || '',
+              lastModified: mediaFile.file.lastModified,
+            })
 
-          formData.append('file', fileWithoutSpaces)
-        }
-      })
+            formData.append('file', fileWithoutSpaces)
+          }
+        })
 
-      const response = await restApiService.otherApi.apiV1OtherUploadFilesPost(
-        { previewAsOriginal },
-        {
-          data: formData,
-          headers: {
-            'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
+        const response = await restApiService.otherApi.apiV1OtherUploadFilesPost(
+          { previewAsOriginal },
+          {
+            data: formData,
+            headers: {
+              'Content-Type': `multipart/form-data; boundary=WebAppBoundary`,
+            },
           },
-        },
-      )
+        )
 
-      return response.data || []
-    } catch (error) {
-      toast.warning(t(TranslationKey['There was an error loading media files']))
+        return response.data || []
+      } catch (error) {
+        toast.warning(t(TranslationKey['There was an error loading media files']))
+        return []
+      }
+    } else {
       return []
     }
   }

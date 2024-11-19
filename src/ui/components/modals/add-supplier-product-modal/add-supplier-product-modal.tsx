@@ -1,14 +1,11 @@
 import { Form } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useEffect, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 
-import { CustomSelect } from '@components/shared/custom-select'
 import { Modal } from '@components/shared/modal'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { UploadFileType } from '@typings/shared/upload-file'
-
-import { getRequiredRules } from '@config/form-rules/get-required-rules'
 
 import { useStyles } from './add-supplier-product-modal.styles'
 import { useStyles as useSharedStyles } from './shared.style'

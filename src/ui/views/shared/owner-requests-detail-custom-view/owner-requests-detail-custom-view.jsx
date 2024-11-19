@@ -158,7 +158,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
                               type="primary"
                               onClick={() => viewModel.onClickProposalResultAccept(idForCurrentChat)}
                             >
-                              {t(TranslationKey.Receive)}
+                              {t(TranslationKey.Accept)}
                             </CustomButton>
                           </div>
                         )}
