@@ -4,44 +4,44 @@ import { getVolumeWeight } from '@utils/calculation'
 
 import { Dimensions } from '@typings/enums/dimensions'
 
-import { ICreateSupplierProduct } from '../add-supplier-product-modal.type'
-import { getCoefficients } from '../helpers/get-coefficients'
+import { ICreateSupplierProductModal } from '../add-supplier-product-modal.type'
+import { convertBoxProperties } from '../helpers/convert-box-properties'
 import { getVolumeCoefficient } from '../helpers/get-volume-coefficient'
 
-export const useBoxInfo = (form: FormInstance<ICreateSupplierProduct>, volumeWeightCoefficient: number) => {
-  const boxInfoVolumeWeight = Form.useWatch<ICreateSupplierProduct, number>(values => {
-    const volumeCoefficient = getVolumeCoefficient(values?.boxProperties?.dimensionType, volumeWeightCoefficient)
+export const useBoxInfo = (form: FormInstance<ICreateSupplierProductModal>, volumeWeightCoefficient: number) => {
+  const boxInfoVolumeWeight = Form.useWatch<ICreateSupplierProductModal, number>(({ boxProperties }) => {
+    const volumeCoefficient = getVolumeCoefficient(boxProperties?.dimensionType, volumeWeightCoefficient)
 
     return getVolumeWeight(
       {
-        length: values?.boxProperties?.boxLengthCm,
-        width: values?.boxProperties?.boxWidthCm,
-        height: values?.boxProperties?.boxHeightCm,
+        length: boxProperties?.boxLengthCm,
+        width: boxProperties?.boxWidthCm,
+        height: boxProperties?.boxHeightCm,
       },
       volumeCoefficient,
     )
   }, form)
 
-  const packageVolumeWeight = Form.useWatch<ICreateSupplierProduct, number>(values => {
-    const volumeCoefficient = getVolumeCoefficient(values?.boxProperties?.dimensionType, volumeWeightCoefficient)
+  const packageVolumeWeight = Form.useWatch<ICreateSupplierProductModal, number>(
+    ({ lengthUnit, widthUnit, heightUnit, boxProperties }) => {
+      const volumeCoefficient = getVolumeCoefficient(boxProperties?.dimensionType, volumeWeightCoefficient)
 
-    return getVolumeWeight(
-      {
-        length: values?.lengthUnit,
-        width: values?.widthUnit,
-        height: values?.heightUnit,
-      },
-      volumeCoefficient,
-    )
-  }, form)
-
-  const sizeSettingBoxInfo = Form.useWatch<ICreateSupplierProduct, Dimensions>(
-    values => values?.boxProperties?.dimensionType,
-    form,
+      return getVolumeWeight(
+        {
+          length: lengthUnit,
+          width: widthUnit,
+          height: heightUnit,
+        },
+        volumeCoefficient,
+      )
+    },
   )
-  const sizeSettingPackage = Form.useWatch<ICreateSupplierProduct, Dimensions>(
-    values => values?.unitDimensionType,
-    form,
+
+  const sizeSettingBoxInfo = Form.useWatch<ICreateSupplierProductModal, Dimensions>(
+    ({ boxProperties }) => boxProperties?.dimensionType,
+  )
+  const sizeSettingPackage = Form.useWatch<ICreateSupplierProductModal, Dimensions>(
+    ({ unitDimensionType }) => unitDimensionType,
   )
 
   const onChangeUnitsOption = (option: RadioChangeEvent) => {
@@ -52,17 +52,22 @@ export const useBoxInfo = (form: FormInstance<ICreateSupplierProduct>, volumeWei
       return
     }
 
-    const { multiplier, weightMultiplier } = getCoefficients(newDimensionType)
+    currentForm?.boxProperties
 
-    const currentBoxProperties = currentForm?.boxProperties
+    const { length, width, height, weigh } = convertBoxProperties(newDimensionType, {
+      length: currentForm?.boxProperties?.boxLengthCm,
+      width: currentForm?.boxProperties?.boxWidthCm,
+      height: currentForm?.boxProperties?.boxHeightCm,
+      weigh: currentForm?.boxProperties?.boxWeighGrossKg,
+    })
 
     form.setFieldsValue({
       boxProperties: {
         dimensionType: newDimensionType,
-        boxLengthCm: currentBoxProperties?.boxLengthCm * multiplier || 0,
-        boxWidthCm: currentBoxProperties?.boxWidthCm * multiplier || 0,
-        boxHeightCm: currentBoxProperties?.boxHeightCm * multiplier || 0,
-        boxWeighGrossKg: currentBoxProperties?.boxWeighGrossKg * weightMultiplier || 0,
+        boxLengthCm: length,
+        boxWidthCm: width,
+        boxHeightCm: height,
+        boxWeighGrossKg: weigh,
       },
     })
   }
@@ -71,18 +76,23 @@ export const useBoxInfo = (form: FormInstance<ICreateSupplierProduct>, volumeWei
     const newDimensionType = option.target.value
     const currentForm = form.getFieldsValue()
 
-    if (newDimensionType === currentForm?.boxProperties?.dimensionType) {
+    if (newDimensionType === currentForm?.unitDimensionType) {
       return
     }
 
-    const { multiplier, weightMultiplier } = getCoefficients(newDimensionType)
+    const { length, width, height, weigh } = convertBoxProperties(newDimensionType, {
+      length: currentForm?.lengthUnit,
+      width: currentForm?.widthUnit,
+      height: currentForm?.heightUnit,
+      weigh: currentForm?.weighUnit,
+    })
 
     form.setFieldsValue({
       unitDimensionType: newDimensionType,
-      lengthUnit: currentForm?.lengthUnit * multiplier || 0,
-      widthUnit: currentForm?.widthUnit * multiplier || 0,
-      heightUnit: currentForm?.heightUnit * multiplier || 0,
-      weighUnit: currentForm?.weighUnit * weightMultiplier || 0,
+      lengthUnit: length,
+      widthUnit: width,
+      heightUnit: height,
+      weighUnit: weigh,
     })
   }
 
