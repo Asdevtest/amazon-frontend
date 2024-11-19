@@ -1,8 +1,8 @@
 import { FC, memo } from 'react'
 
-import Checkbox from '@mui/material/Checkbox'
-
 import { TranslationKey } from '@constants/translations/translation-key'
+
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 
 import { getGroupDataByDestinationId } from '@utils/array'
 import { toFixed } from '@utils/text'
@@ -62,11 +62,11 @@ export const DestinationVariationsSpanningCell: FC<DestinationVariationsSpanning
               return (
                 <div key={variantIndex} className={styles.variantWrapper}>
                   {!!showCheckbox && (
-                    <Checkbox
+                    <CustomCheckbox
                       disabled={isNotValidDestination && !isRemovedDestinationRestriction}
                       checked={activeDedestinationVariationt === variant._id}
-                      classes={{ root: styles.checkboxRoot }}
-                      onClick={() =>
+                      className={styles.checkboxRoot}
+                      onChange={() =>
                         selectVariationTariff?.(variant._id, variant?.destination?._id, isNotValidDestination)
                       }
                     />

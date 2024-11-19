@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 
 import { IconButton, Input, MenuItem, Select, Tooltip } from '@mui/material'
-import Checkbox from '@mui/material/Checkbox'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
 
@@ -11,6 +10,7 @@ import { UserRole, UserRoleCodeMap, UserRolePrettyMap, mapUserRoleEnumToKey } fr
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSelect } from '@components/shared/custom-select'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
@@ -132,7 +132,7 @@ export const AddOrEditGroupPermissionForm = observer(
 
     const renderMenuItem = per => (
       <MenuItem key={per._id} value={per._id}>
-        <Checkbox checked={formFields.permissions.includes(per._id)} />
+        <CustomCheckbox checked={formFields.permissions.includes(per._id)} />
         <ListItemText className={styles.standartText} primary={`${per.title}`} />
       </MenuItem>
     )

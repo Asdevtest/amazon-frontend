@@ -5,7 +5,7 @@ import { FiPlus } from 'react-icons/fi'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { IMediaRework } from '@components/modals/main-request-result-modal/main-request-result-modal.type'
-import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 
 import { t } from '@utils/translations'
 
@@ -66,7 +66,7 @@ export const File: FC<FileProps & RefAttributes<HTMLDivElement | null>> = memo(
     return (
       <div ref={ref} className={styles.fileContainer}>
         {clientOrReadOnly ? (
-          <Checkbox
+          <CustomCheckbox
             checked={checked}
             className={styles.checkbox}
             wrapperClassName={styles.checkboxWrapper}

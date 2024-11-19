@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import { Checkbox, Divider, Tooltip } from '@mui/material'
+import { Divider, Tooltip } from '@mui/material'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -9,6 +9,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { SettingsModel } from '@models/settings-model'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Dimensions } from '@components/shared/dimensions'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
@@ -220,8 +221,7 @@ const Box = memo(props => {
                 labelClasses={styles.label}
                 label={t(TranslationKey['Shipping label was glued to the warehouse'])}
                 inputComponent={
-                  <Checkbox
-                    color="primary"
+                  <CustomCheckbox
                     disabled={!box.shippingLabel || !isNewBox || readOnly}
                     checked={box.isShippingLabelAttachedByStorekeeper}
                     onClick={() =>

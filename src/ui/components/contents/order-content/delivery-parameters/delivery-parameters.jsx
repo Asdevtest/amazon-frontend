@@ -1,7 +1,5 @@
 import dayjs from 'dayjs'
 
-import { Checkbox } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserCell } from '@components/data-grid/data-grid-cells'

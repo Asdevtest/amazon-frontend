@@ -1,4 +1,4 @@
-import { Box, Checkbox, Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 
 import { OrderStatus, OrderStatusByKey } from '@constants/orders/order-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -8,6 +8,7 @@ import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-moda
 import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
@@ -313,12 +314,11 @@ export const SelectFields = ({
               containerClasses={styles.checkboxContainer}
               inputComponent={
                 <div className={styles.checkboxWithLabelWrapper}>
-                  <Checkbox
+                  <CustomCheckbox
                     disabled={
                       ![OrderStatusByKey[OrderStatus.AT_PROCESS]].includes(orderFields.status) || !checkIsPlanningPrice
                     }
                     checked={checkIsPlanningPrice}
-                    color="primary"
                     className={styles.checkbox}
                     onChange={() => setCheckIsPlanningPrice(!checkIsPlanningPrice)}
                   />
@@ -387,15 +387,15 @@ export const SelectFields = ({
                     />
                   </div>
 
-                  <div className={styles.researchWrapper}>
-                    <Checkbox
-                      disabled
-                      className={styles.checkbox}
-                      checked={orderFields.needsResearch}
-                      color="primary"
-                    />
-                    <p className={styles.researchLabel}>{t(TranslationKey['Re-search supplier'])}</p>
-                  </div>
+                  <CustomCheckbox
+                    disabled
+                    wrapperClassName={styles.researchWrapper}
+                    labelClassName={styles.researchLabel}
+                    className={styles.checkbox}
+                    checked={orderFields.needsResearch}
+                  >
+                    Re-search supplier
+                  </CustomCheckbox>
                 </div>
               </div>
             </Box>
@@ -414,16 +414,15 @@ export const SelectFields = ({
 
         <Box my={3} className={cx(styles.formItem, styles.noFlex)} alignItems="flex-end">
           <div className={styles.partialPaymentWrapper}>
-            <div className={styles.partialPaymentCheckbox}>
-              <Checkbox
-                disabled={isOrderInactive}
-                className={styles.checkbox}
-                checked={orderFields.partialPayment}
-                color="primary"
-                onChange={() => setOrderField('partialPayment')({ target: { value: !orderFields.partialPayment } })}
-              />
-              <p className={styles.label}>{t(TranslationKey['Partial payment'])}</p>
-            </div>
+            <CustomCheckbox
+              disabled={isOrderInactive}
+              className={styles.checkbox}
+              labelClassName={styles.label}
+              checked={orderFields.partialPayment}
+              onChange={() => setOrderField('partialPayment')({ target: { value: !orderFields.partialPayment } })}
+            >
+              partialPayment
+            </CustomCheckbox>
 
             <div className={styles.partialPaymentFields}>
               <Field

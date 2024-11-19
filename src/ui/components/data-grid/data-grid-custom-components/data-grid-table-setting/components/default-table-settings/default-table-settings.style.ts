@@ -25,4 +25,9 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     gap: '8px',
   },
+
+  wrapperAll: {
+    display: 'flex',
+    gap: '16px',
+  },
 }))

@@ -1,12 +1,13 @@
 import { isPast, isToday, isTomorrow } from 'date-fns'
 import { memo, useEffect, useState } from 'react'
 
-import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Modal } from '@components/shared/modal'
 import { TooltipAttentionIcon } from '@components/shared/svg-icons'
 import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
@@ -467,16 +468,15 @@ export const OrderProductModal = memo(props => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <div className={styles.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
-          <Checkbox
-            checked={isResearchSupplier}
-            color="primary"
-            classes={{
-              root: styles.checkbox,
-            }}
-          />
-          <p className={styles.sumText}>{t(TranslationKey['Re-search supplier'])}</p>
-        </div>
+        <CustomCheckbox
+          checked={isResearchSupplier}
+          wrapperClassName={styles.pendingOrderWrapper}
+          className={styles.checkbox}
+          labelClassName={styles.sumText}
+          onChange={() => setIsResearchSupplier(!isResearchSupplier)}
+        >
+          Re-search supplier
+        </CustomCheckbox>
 
         {!isPendingOrdering ? (
           <div className={styles.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
@@ -489,14 +489,9 @@ export const OrderProductModal = memo(props => {
                 </div>
               </Tooltip>
             </div>
-            <Checkbox
-              checked={isPendingOrder}
-              color="primary"
-              classes={{
-                root: styles.checkbox,
-              }}
-            />
-            <p className={styles.sumText}>{t(TranslationKey['Pending order'])}</p>
+            <CustomCheckbox checked={isPendingOrder} labelClassName={styles.sumText} className={styles.checkbox}>
+              Pending order
+            </CustomCheckbox>
           </div>
         ) : null}
 

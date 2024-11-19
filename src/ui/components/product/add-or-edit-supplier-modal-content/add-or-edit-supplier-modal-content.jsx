@@ -15,9 +15,9 @@ import { SupplierModel } from '@models/supplier-model'
 
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
-import { Checkbox } from '@components/shared/checkbox'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -805,15 +805,14 @@ export const AddOrEditSupplierModalContent = memo(props => {
                   [styles.disabledCheckboxWrapper]: onlyRead || !boxPropertiesIsFull,
                 })}
               >
-                <Checkbox
+                <CustomCheckbox
                   disabled={onlyRead || !boxPropertiesIsFull}
                   className={styles.checkbox}
                   checked={tmpSupplier.multiplicity}
-                  color="primary"
                   onChange={onChangeField('multiplicity')}
                 >
-                  <p>{t(TranslationKey['Use multiples of items when creating boxes'])}</p>
-                </Checkbox>
+                  Use multiples of items when creating boxes
+                </CustomCheckbox>
               </div>
 
               <div className={styles.boxInfoExtraSubWrapper}>
@@ -933,11 +932,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           label={t(TranslationKey['Make the main supplier'])}
           containerClasses={styles.makeMainSupplierСheckboxWrapper}
           inputComponent={
-            <Checkbox
-              color="primary"
-              checked={makeMainSupplier}
-              onChange={() => setMakeMainSupplier(!makeMainSupplier)}
-            />
+            <CustomCheckbox checked={makeMainSupplier} onChange={() => setMakeMainSupplier(!makeMainSupplier)} />
           }
         />
       )}

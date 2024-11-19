@@ -44,6 +44,7 @@ export const DefaultTableSettings: FC<DefaultTableSettingsProps> = memo(({ colum
       <CustomCheckbox
         checked={!columnVisibilityModel || !isSomeItemChecked}
         labelClassName={styles.parameterTitle}
+        wrapperClassName={styles.wrapperAll}
         onChange={onClickAllItemBtn}
       >
         All

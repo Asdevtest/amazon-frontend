@@ -23,8 +23,8 @@ import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -639,9 +639,9 @@ export const EditOrderModal = memo(
           />
 
           <div className={styles.supplierCheckboxWrapper} onClick={() => setUpdateSupplierData?.(!updateSupplierData)}>
-            <Checkbox checked={updateSupplierData} color="primary">
-              <p className={styles.checkboxTitle}>{t(TranslationKey['Update supplier data'])}</p>
-            </Checkbox>
+            <CustomCheckbox checked={updateSupplierData} labelClassName={styles.checkboxTitle}>
+              Update supplier data
+            </CustomCheckbox>
           </div>
 
           <ListSuppliers

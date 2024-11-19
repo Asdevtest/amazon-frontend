@@ -2,12 +2,12 @@
 import { FC, MouseEvent, memo, useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
-import Checkbox from '@mui/material/Checkbox'
 import Menu from '@mui/material/Menu'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
 import { PencilIcon } from '@components/shared/svg-icons'
@@ -59,10 +59,9 @@ export const Slot: FC<SlotProps> = memo(props => {
   return (
     <div className={styles.imageObjWrapper}>
       <div className={styles.imageObjSubWrapper}>
-        <Checkbox
-          color="primary"
+        <CustomCheckbox
           checked={imagesForDownload.some((el: any) => el._id === item._id)}
-          onClick={() => onClickAddDownload(item)}
+          onChange={() => onClickAddDownload(item)}
         />
 
         <p className={styles.imageObjIndex}>{index + 1}</p>

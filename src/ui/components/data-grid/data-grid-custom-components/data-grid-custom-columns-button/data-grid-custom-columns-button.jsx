@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { IoSettingsOutline } from 'react-icons/io5'
 
-import { Checkbox, Menu } from '@mui/material'
+import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 

@@ -3,7 +3,7 @@ import { memo, useEffect, useRef, useState } from 'react'
 import { FiArrowRight, FiPlus } from 'react-icons/fi'
 import { useHistory } from 'react-router-dom'
 
-import { Checkbox, Link, MenuItem, Select } from '@mui/material'
+import { Link, MenuItem, Select } from '@mui/material'
 
 import { MAX_COMMENT_LEGTH } from '@constants/requests/request'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'

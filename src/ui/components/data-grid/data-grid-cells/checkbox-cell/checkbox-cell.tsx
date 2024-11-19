@@ -1,7 +1,5 @@
 import { FC, memo } from 'react'
 
-import { Checkbox } from '@mui/material'
-
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 
 import { useStyles } from './checkbox-cell.style'

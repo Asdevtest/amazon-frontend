@@ -4,7 +4,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
