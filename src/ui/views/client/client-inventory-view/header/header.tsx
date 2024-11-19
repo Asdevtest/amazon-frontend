@@ -80,7 +80,7 @@ export const Header: FC<HeaderProps> = memo(props => {
               disabled={isSelectedRowsNotEqualOne}
               onClick={onClickBindInventoryGoodsToStockBtn}
             >
-              {t(TranslationKey['Bind an product from Amazon'])}
+              {t(TranslationKey['Bind a product from Amazon'])}
             </CustomButton>
 
             <CustomButton type="primary" size="large" disabled={isNoSelectedRows} onClick={onClickAddSupplierBtn}>
