@@ -2076,13 +2076,10 @@
   "Days": "天",
   "Min production term": "最小生产期",
   "Max production term": "最大生产期",
-<<<<<<< HEAD
-  "Mark as top": "标记为热门"
-=======
+  "Mark as top": "标记为热门",
   "Filters": "筛选器",
   "MOQ": "最低订购量",
   "min": "最小值",
   "max": "最大值",
   "Select category": "选择类别"
->>>>>>> dev
 }
