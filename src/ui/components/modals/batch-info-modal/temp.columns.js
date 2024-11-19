@@ -74,8 +74,8 @@ export const batchInfoModalColumn = (
 
   {
     field: 'xid',
-    headerName: t(TranslationKey.ID),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+    headerName: 'ID',
+    renderHeader: () => <MultilineTextHeaderCell text="ID" />,
 
     renderCell: params => <Text isCell text={params.value} />,
     valueGetter: ({ row }) => row?.xid,
