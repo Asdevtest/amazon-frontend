@@ -28,7 +28,7 @@ export const BindInventoryGoodsToStockForm: FC<BindInventoryGoodsToStockFormProp
   return (
     <div className={styles.wrapper}>
       <div className={styles.titleContainer}>
-        <p className={styles.title}>{t(TranslationKey['Bind an product from Amazon'])}</p>
+        <p className={styles.title}>{t(TranslationKey['Bind a product from Amazon'])}</p>
         <CustomInputSearch
           enterButton
           allowClear

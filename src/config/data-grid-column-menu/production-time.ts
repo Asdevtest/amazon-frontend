@@ -15,12 +15,12 @@ export const productionTimeColumnMenuItems = [
 export const productionTimeColumnMenuValue = [
   {
     field: 'minProductionTerm',
-    table: DataGridFilterTables.SUPPLIERS,
+    table: DataGridFilterTables.SUPPLIER_CARDS,
     columnKey: ColumnMenuKeys.NUMBER,
   },
   {
     field: 'maxProductionTerm',
-    table: DataGridFilterTables.SUPPLIERS,
+    table: DataGridFilterTables.SUPPLIER_CARDS,
     columnKey: ColumnMenuKeys.NUMBER,
   },
 ]

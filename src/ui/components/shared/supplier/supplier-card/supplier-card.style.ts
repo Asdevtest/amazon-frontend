@@ -10,11 +10,11 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
     borderRadius: '16px',
     boxShadow: theme.palette.boxShadow.paper,
+    background: theme.palette.background.general,
   },
 
   infoBlock: {
     height: '100%',
-    justifyContent: 'space-between',
     alignItems: 'flex-start',
   },
 
@@ -29,6 +29,10 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
+  },
+
+  viewMore: {
+    marginTop: 'auto',
   },
 
   payments: {
