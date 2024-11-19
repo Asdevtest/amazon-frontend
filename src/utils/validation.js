@@ -124,7 +124,7 @@ export const validationMessagesArray = (
     error: '',
   },
   {
-    name: `${t(TranslationKey.minimum)} 6 ${t(TranslationKey.characters)},`,
+    name: `${t(TranslationKey.minimum)} 8 ${t(TranslationKey.characters)},`,
     error: errorMinLength,
   },
 
