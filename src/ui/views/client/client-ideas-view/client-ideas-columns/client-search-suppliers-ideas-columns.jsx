@@ -215,7 +215,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       width: 80,
       type: 'number',
       columnKey: columnnsKeys.shared.QUANTITY,
-      table: DataGridFilterTables.SUPPLIERS,
+      table: DataGridFilterTables.SUPPLIER_CARDS,
       disableCustomSort: true,
     },
 
