@@ -100,7 +100,6 @@ export const EditOrderModal = memo(
     setUpdateSupplierData,
   }) => {
     const { classes: styles, cx } = useStyles()
-    console.log(order)
     const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
     const [usePriceInDollars, setUsePriceInDollars] = useState(false)
     const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
