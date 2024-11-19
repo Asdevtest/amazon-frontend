@@ -3,25 +3,24 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomButton } from '@components/shared/custom-button'
-import { SlideshowGallery } from '@components/shared/slideshow-gallery'
-import { Text } from '@components/shared/text'
-
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { ISupplierCard } from '@typings/models/suppliers/supplier-exchange'
 
-import { useStyles } from './product-card.style'
+import { CustomButton } from '../../custom-button'
+import { SlideshowGallery } from '../../slideshow-gallery'
+import { Text } from '../../text'
+import { SupplierDitailsInfo } from '../supplier-details-info/supplier-details-info'
 
-import { SupplierDitails } from '../supplier-details'
+import { useStyles } from './supplier-product-card.style.'
 
-interface ProductCardProps {
+interface SupplierProductCardProps {
   product: ISupplierCard
   onSubmit: (id: string) => void
 }
 
-export const ProductCard: FC<ProductCardProps> = memo(props => {
+export const SupplierProductCard: FC<SupplierProductCardProps> = memo(props => {
   const { product } = props
 
   const { classes: styles } = useStyles()
@@ -34,7 +33,7 @@ export const ProductCard: FC<ProductCardProps> = memo(props => {
     <div className={styles.root}>
       <SlideshowGallery slidesToShow={2} customGapBetweenSlideAndPreviews={0} files={product?.images} />
       <Text copyable={false} text={product?.cardName} />
-      <SupplierDitails rate={3.5} />
+      <SupplierDitailsInfo rate={3.5} />
       <div className={styles.flexRow}>
         <div className={styles.flexColumn}>
           <Text type="secondary" copyable={false} text={t(TranslationKey.Price)} />

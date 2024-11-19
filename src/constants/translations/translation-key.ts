@@ -2074,7 +2074,13 @@ export enum TranslationKey {
   'The response to the request has been successfully sent!' = 'The response to the request has been successfully sent!',
   'There was an error sending the response to the request. Try again.' = 'There was an error sending the response to the request. Try again.',
   'There was an error loading media files' = 'There was an error loading media files',
+  'Wholesale' = 'Wholesale',
   'Days' = 'Days',
   'Min production term' = 'Min production term',
   'Max production term' = 'Max production term',
+  'Filters' = 'Filters',
+  'MOQ' = 'MOQ',
+  'min' = 'min',
+  'max' = 'max',
+  'Select category' = 'Select category',
 }

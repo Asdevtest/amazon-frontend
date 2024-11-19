@@ -2074,7 +2074,13 @@
   "The response to the request has been successfully sent!": "Відповідь на звернення успішно надіслано!",
   "There was an error sending the response to the request. Try again.": "Сталася помилка при надсиланні відповіді на звернення. Спробуйте ще раз.",
   "There was an error loading media files": "Сталася помилка при завантаженні медіафайлів",
+  "Wholesale": "Wholesale",
   "Days": "Дні",
   "Min production term": "Мінімальний термін виробництва",
-  "Max production term": "Максимальний термін виробництва"
+  "Max production term": "Максимальний термін виробництва",
+  "Filters": "Фільтри",
+  "MOQ": "Мінімальне замовлення",
+  "min": "мін.",
+  "max": "макс.",
+  "Select category": "Виберіть категорію"
 }

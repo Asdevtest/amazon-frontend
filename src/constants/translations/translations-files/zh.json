@@ -2072,7 +2072,13 @@
   "The response to the request has been successfully sent!": "反馈的回复已成功发送!",
   "There was an error sending the response to the request. Try again.": "发送反馈的回复时出错.请再试一次.",
   "There was an error loading media files": "加载媒体文件时出错",
+  "Wholesale": "Wholesale",
   "Days": "天",
   "Min production term": "最小生产期",
-  "Max production term": "最大生产期"
+  "Max production term": "最大生产期",
+  "Filters": "筛选器",
+  "MOQ": "最低订购量",
+  "min": "最小值",
+  "max": "最大值",
+  "Select category": "选择类别"
 }

@@ -187,6 +187,11 @@ const WholesaleView = lazy(() =>
     default: module.WholesaleView,
   })),
 )
+const SupplerView = lazy(() =>
+  import('@views/shared/supplier-view').then(module => ({
+    default: module.SupplierView,
+  })),
+)
 const ClientFreelanceView = lazy(() =>
   import('@views/client/client-freelance-view').then(module => ({ default: module.ClientFreelanceView })),
 )
@@ -1544,15 +1549,26 @@ export const privateRoutesConfigs = [
     component: WholesaleView,
     exact: true,
     permission: [UserRole.CLIENT],
-
     permissionKey: permissionsKeys.client.SHOW_COMEXCHANGE_WHOLESALE_CLIENT,
-
-    crumbNameKey: TranslationKey['Research exchange'],
-
+    crumbNameKey: TranslationKey.Wholesale,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
       activeSubCategory: 2,
-      title: () => 'Wholesale',
+      title: () => t(TranslationKey.Wholesale),
+    },
+  },
+
+  {
+    routePath: '/client/product-exchange/wholesale/supplier',
+    component: SupplerView,
+    exact: true,
+    permission: [UserRole.CLIENT],
+    permissionKey: permissionsKeys.client.SHOW_SUPPLIER_CLIENT,
+    crumbNameKey: TranslationKey.Supplier,
+    navigationInfo: {
+      activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
+      activeSubCategory: 2,
+      title: () => t(TranslationKey.Wholesale),
     },
   },
 

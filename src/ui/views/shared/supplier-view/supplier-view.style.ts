@@ -1,33 +1,21 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    gap: '20px',
-  },
-
   content: {
-    height: '100%',
+    position: 'relative',
     padding: '5px',
+    width: '100%',
+    height: '100%',
     display: 'grid',
-    gridTemplateColumns: '1fr',
+    gridAutoRows: 'min-content',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
     gap: '10px',
     overflowY: 'auto',
   },
 
-  products: {
-    gridAutoRows: 'min-content',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-  },
-
-  empty: {
-    alignContent: 'center',
-  },
-
   emptyProducts: {
     gridTemplateColumns: '1fr',
+    alignContent: 'center',
   },
 
   loading: {
