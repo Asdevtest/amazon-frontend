@@ -199,7 +199,7 @@ export enum TranslationKey {
   'On orders' = 'On orders',
   'On boxes' = 'On boxes',
   'To order' = 'To order',
-  'Bind an product from Amazon' = 'Bind an product from Amazon',
+  'Bind a product from Amazon' = 'Bind a product from Amazon',
   'Supplier search' = 'Supplier search',
   'Open inventory' = 'Open inventory',
   'Open archive' = 'Open archive',
@@ -2074,8 +2074,17 @@ export enum TranslationKey {
   'The response to the request has been successfully sent!' = 'The response to the request has been successfully sent!',
   'There was an error sending the response to the request. Try again.' = 'There was an error sending the response to the request. Try again.',
   'There was an error loading media files' = 'There was an error loading media files',
+  'Wholesale' = 'Wholesale',
   'Days' = 'Days',
   'Min production term' = 'Min production term',
   'Max production term' = 'Max production term',
+<<<<<<< HEAD
   'Mark as top' = 'Mark as top',
+=======
+  'Filters' = 'Filters',
+  'MOQ' = 'MOQ',
+  'min' = 'min',
+  'max' = 'max',
+  'Select category' = 'Select category',
+>>>>>>> dev
 }

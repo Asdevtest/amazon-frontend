@@ -1,6 +1,7 @@
 import { Empty, Skeleton } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
+import { MdOutlineAttachFile } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -90,33 +91,44 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
             />
             {viewModel.showResponseBlock ? (
               <CustomPreviewGroup size={50} data={viewModel.responseMedia} />
-            ) : (
+            ) : viewModel.showMediaBlock ? (
               <UploadFilesInput
                 minimized
                 images={viewModel.responseMedia}
                 setImages={viewModel.onChangeResponseMedia}
               />
-            )}
+            ) : null}
           </div>
         ) : (
           <Empty />
         )}
       </Skeleton>
 
-      <div className={cx(styles.flexRow, styles.flexEnd)}>
-        {creator && !viewModel.showResponseBlock ? (
+      <div className={cx(styles.flexRow, { [styles.flexEnd]: viewModel.showResponseBlock })}>
+        {!viewModel.showResponseBlock ? (
           <CustomButton
-            type="primary"
             size="large"
-            disabled={!viewModel.responseText.trim()}
-            onClick={viewModel.onSendReplyToFeedback}
-          >
-            {t(TranslationKey.Send)}
-          </CustomButton>
+            type={viewModel.showMediaBlock ? 'primary' : 'default'}
+            icon={<MdOutlineAttachFile />}
+            onClick={viewModel.onToggleResponseBlock}
+          />
         ) : null}
-        <CustomButton size="large" onClick={onClose}>
-          {t(TranslationKey.Close)}
-        </CustomButton>
+
+        <div className={styles.flexRow}>
+          {creator && !viewModel.showResponseBlock ? (
+            <CustomButton
+              type="primary"
+              size="large"
+              disabled={!viewModel.responseText.trim()}
+              onClick={viewModel.onSendReplyToFeedback}
+            >
+              {t(TranslationKey.Send)}
+            </CustomButton>
+          ) : null}
+          <CustomButton size="large" onClick={onClose}>
+            {t(TranslationKey.Close)}
+          </CustomButton>
+        </div>
       </div>
     </div>
   )

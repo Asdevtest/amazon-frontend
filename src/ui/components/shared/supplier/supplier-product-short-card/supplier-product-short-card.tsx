@@ -8,13 +8,13 @@ import { toFixedWithDollarSign } from '@utils/text'
 
 import { ISupplierCard } from '@typings/models/suppliers/supplier-exchange'
 
-import { useStyles } from './supplier-product-card.style'
+import { useStyles } from './supplier-product-short-card.style'
 
-interface SupplierProductCardProps {
+interface SupplierProductShortCardProps {
   supplierCard: ISupplierCard
 }
 
-export const SupplierProductCard: FC<SupplierProductCardProps> = memo(({ supplierCard }) => {
+export const SupplierProductShortCard: FC<SupplierProductShortCardProps> = memo(({ supplierCard }) => {
   const { classes: styles } = useStyles()
 
   const price = toFixedWithDollarSign(supplierCard?.priceInUsd)

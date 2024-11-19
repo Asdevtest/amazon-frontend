@@ -29,7 +29,7 @@ export const calcProductsPriceWithDelivery = (product, order) =>
   ((parseFloat(product.currentSupplierCard && product.currentSupplierCard.priceInUsd) || 0) +
     (parseFloat(
       product.currentSupplier &&
-        product.currentSupplierCard.batchDeliveryCostInDollar / product.currentSupplierCard.amount,
+        product.currentSupplierCard.batchTotalCostInDollar / product.currentSupplierCard.amount,
     ) || 0)) *
   (parseInt(order?.amount) || 0)
 

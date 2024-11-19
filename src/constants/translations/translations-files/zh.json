@@ -201,7 +201,7 @@
   "On orders": "订单",
   "On boxes": "箱子",
   "To order": "预订",
-  "Bind an product from Amazon": "绑定亚马逊的产品",
+  "Bind a product from Amazon": "绑定亚马逊的产品",
   "Supplier search": "供应商搜索",
   "Open inventory": "打开库存",
   "Open archive": "打开 存档",
@@ -2072,8 +2072,17 @@
   "The response to the request has been successfully sent!": "反馈的回复已成功发送!",
   "There was an error sending the response to the request. Try again.": "发送反馈的回复时出错.请再试一次.",
   "There was an error loading media files": "加载媒体文件时出错",
+  "Wholesale": "Wholesale",
   "Days": "天",
   "Min production term": "最小生产期",
   "Max production term": "最大生产期",
+<<<<<<< HEAD
   "Mark as top": "标记为热门"
+=======
+  "Filters": "筛选器",
+  "MOQ": "最低订购量",
+  "min": "最小值",
+  "max": "最大值",
+  "Select category": "选择类别"
+>>>>>>> dev
 }

@@ -7,4 +7,9 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'space-between',
     gap: '10px',
   },
+
+  feedback: {
+    gap: '3px',
+    padding: 0,
+  },
 }))

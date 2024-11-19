@@ -201,7 +201,7 @@
   "On orders": "По замовленням",
   "On boxes": "По коробкам",
   "To order": "Замовити",
-  "Bind an product from Amazon": "Прив'язати товар з Amazon",
+  "Bind a product from Amazon": "Прив'язати товар з Amazon",
   "Supplier search": "Пошук постачальника",
   "Open inventory": "Відкрити інвентар",
   "Open archive": "Відкрити архів",
@@ -2074,8 +2074,17 @@
   "The response to the request has been successfully sent!": "Відповідь на звернення успішно надіслано!",
   "There was an error sending the response to the request. Try again.": "Сталася помилка при надсиланні відповіді на звернення. Спробуйте ще раз.",
   "There was an error loading media files": "Сталася помилка при завантаженні медіафайлів",
+  "Wholesale": "Wholesale",
   "Days": "Дні",
   "Min production term": "Мінімальний термін виробництва",
   "Max production term": "Максимальний термін виробництва",
+<<<<<<< HEAD
   "Mark as top": "Позначити як топ"
+=======
+  "Filters": "Фільтри",
+  "MOQ": "Мінімальне замовлення",
+  "min": "мін.",
+  "max": "макс.",
+  "Select category": "Виберіть категорію"
+>>>>>>> dev
 }
