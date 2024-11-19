@@ -7,7 +7,6 @@ export interface ICreateSupplierProduct {
   comment: string
   categoryId: string
   link: string
-  price: number
   priceInUsd: number
   amount: number
   minlot: number
@@ -15,7 +14,7 @@ export interface ICreateSupplierProduct {
   images: string[]
   yuanToDollarRate: number
   isPrime: boolean
-  boxProperties: IBoxPropertiesDimensionType
+  boxProperties: IBoxProperties
   batchDeliveryCostInDollar: number
   batchDeliveryCostInYuan: number
   batchTotalCostInDollar: number
@@ -26,10 +25,14 @@ export interface ICreateSupplierProduct {
   widthUnit: number
   lengthUnit: number
   weighUnit: number
-  unitDimensionType: Dimensions
   imageUnit: string[]
   multiplicity: boolean
   prices: IPrice[]
+}
+
+export interface ICreateSupplierProductModal extends ICreateSupplierProduct {
+  unitDimensionType: Dimensions
+  boxProperties: IBoxPropertiesDimensionType
 }
 
 interface IBoxPropertiesDimensionType extends IBoxProperties {

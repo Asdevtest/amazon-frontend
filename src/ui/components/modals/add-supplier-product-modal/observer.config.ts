@@ -13,4 +13,7 @@ export const observerConfig = {
 
   setImages: action.bound,
   setUnitImages: action.bound,
+
+  createSupplierCard: action.bound,
+  uploadFiles: action.bound,
 }

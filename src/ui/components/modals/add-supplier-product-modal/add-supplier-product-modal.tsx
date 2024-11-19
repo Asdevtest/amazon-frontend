@@ -1,6 +1,6 @@
 import { Form } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useMemo } from 'react'
+import { FC, useCallback, useMemo } from 'react'
 import { FaStar } from 'react-icons/fa6'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,7 +20,7 @@ import { useStyles } from './add-supplier-product-modal.styles'
 import { useStyles as useSharedStyles } from './shared.style'
 
 import { AddSupplierProductModalModel } from './add-supplier-product-modal.model'
-import { ICreateSupplierProduct, SupplierCurrency } from './add-supplier-product-modal.type'
+import { ICreateSupplierProductModal, IPrice, SupplierCurrency } from './add-supplier-product-modal.type'
 import { BoxDimentions } from './components/box-dimentions'
 import { DeliveryParams } from './components/delivery-params'
 import { GeneralInfo } from './components/general-info/general-info'
@@ -37,7 +37,7 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
-  const [form] = Form.useForm<ICreateSupplierProduct>()
+  const [form] = Form.useForm<ICreateSupplierProductModal>()
 
   const viewModel = useMemo(() => new AddSupplierProductModalModel(), [])
 
@@ -58,13 +58,18 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
     setOpenModal(false)
   }
 
-  // useEffect(() => {
-  //   form.setFieldsValue({
-  //     systemYuanToDollarRate: viewModel.systemYuanToDollarRate,
-  //   })
-  // }, [])
+  const onAddPriceVariations = useCallback((priceVariation: IPrice) => {
+    const prices = form.getFieldValue('prices') || []
 
-  console.log('form :>> ', form?.getFieldsValue())
+    const variationToAdd = {
+      ...priceVariation,
+      label: `${priceVariation.amount} / ${priceVariation.price}${SupplierCurrency.CNY}`,
+    }
+
+    form.setFieldsValue({
+      prices: prices?.concat([variationToAdd]),
+    })
+  }, [])
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
@@ -75,22 +80,20 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
         form={form}
         rootClassName={styles.form}
         initialValues={{
-          prices: [
-            { label: `0 / 5${SupplierCurrency.CNY}`, amount: 0, price: 0 },
-            { label: `1 / 1${SupplierCurrency.CNY}`, amount: 1, price: 1 },
-          ],
           boxProperties: {
             dimensionType: Dimensions.EU,
           },
           unitDimensionType: Dimensions.EU,
+          yuanToDollarRate: viewModel.systemYuanToDollarRate,
+          supplierId: 'ea71c82d-12e2-4080-a22e-37407f01c633',
         }}
-        onFinish={value => console.log('value :>> ', value)}
+        onFinish={viewModel?.createSupplierCard}
       >
         <div className={styles.header}>
           <p className={styles.title}>{t(TranslationKey['Add product'])}</p>
 
-          <Form.Item<ICreateSupplierProduct> name="isPrime" className={cx(sharedStyles.field, styles.markAsTop)}>
-            <CustomCheckbox>{'Mark as top'}</CustomCheckbox>
+          <Form.Item<ICreateSupplierProductModal> name="isPrime" className={cx(sharedStyles.field, styles.markAsTop)}>
+            <CustomCheckbox>Mark as top</CustomCheckbox>
             <FaStar className={styles.icon} />
           </Form.Item>
         </div>
@@ -103,9 +106,9 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
             categories={viewModel.categories}
           />
 
-          <DeliveryParams form={form} />
+          <DeliveryParams form={form} systemYuanToDollarRate={viewModel.systemYuanToDollarRate} />
 
-          <PriceVariations />
+          <PriceVariations form={form} onAddPriceVariations={onAddPriceVariations} />
 
           <BoxDimentions
             form={form}
@@ -114,7 +117,7 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
             volumeWeightCoefficient={viewModel.volumeWeightCoefficient}
           />
 
-          <Form.Item<ICreateSupplierProduct> name="comment" className={sharedStyles.field}>
+          <Form.Item<ICreateSupplierProductModal> name="comment" className={sharedStyles.field}>
             <CustomTextarea size="large" rows={4} label="Comment" placeholder="Comment" maxLength={512} />
           </Form.Item>
         </div>

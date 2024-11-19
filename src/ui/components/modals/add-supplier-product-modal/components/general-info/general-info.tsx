@@ -14,7 +14,7 @@ import { getRequiredRules } from '@config/form-rules/get-required-rules'
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './general-info.style'
 
-import { ICreateSupplierProduct } from '../../add-supplier-product-modal.type'
+import { ICreateSupplierProductModal } from '../../add-supplier-product-modal.type'
 
 interface GeneralInfoProps {
   categoriesLoading: boolean
@@ -33,7 +33,7 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
     <div className={cx(styles.root, sharedStyles.sectionWrapper)}>
       <div className={styles.productInfoWrapper}>
         <div className={styles.selectsWrapper}>
-          <Form.Item<ICreateSupplierProduct>
+          <Form.Item<ICreateSupplierProductModal>
             name="supplierId"
             className={cx(sharedStyles.field, 'select')}
             rules={getRequiredRules()}
@@ -52,7 +52,7 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
             />
           </Form.Item>
 
-          <Form.Item<ICreateSupplierProduct>
+          <Form.Item<ICreateSupplierProductModal>
             name="categoryId"
             className={cx(sharedStyles.field, 'select')}
             rules={getRequiredRules()}
@@ -70,19 +70,22 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
           </Form.Item>
         </div>
 
-        <Form.Item<ICreateSupplierProduct> name="cardName" className={sharedStyles.field} rules={getRequiredRules()}>
+        <Form.Item<ICreateSupplierProductModal>
+          name="cardName"
+          className={sharedStyles.field}
+          rules={getRequiredRules()}
+        >
           <CustomInput required size="large" label="Title" placeholder="Title" wrapperClassName={sharedStyles.input} />
         </Form.Item>
 
-        <Form.Item<ICreateSupplierProduct> name="link" className={sharedStyles.field} rules={getRequiredRules()}>
+        <Form.Item<ICreateSupplierProductModal> name="link" className={sharedStyles.field} rules={getRequiredRules()}>
           <CustomInput required size="large" label="Link" placeholder="Link" wrapperClassName={sharedStyles.input} />
         </Form.Item>
       </div>
 
-      <Form.Item<ICreateSupplierProduct>
+      <Form.Item<ICreateSupplierProductModal>
         name="images"
         className={cx(sharedStyles.field, styles?.uploadFiles)}
-        rules={getRequiredRules()}
         validateTrigger={['onChange', 'onBlur']}
       >
         <UploadFilesInput dragAndDropButtonHeight={50} images={images} setImages={handleUploadFiles} />

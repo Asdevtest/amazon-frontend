@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Form, RadioChangeEvent } from 'antd'
+import { Rule } from 'antd/es/form'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -13,10 +14,12 @@ import { getRequiredRules } from '@config/form-rules/get-required-rules'
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './box-info.style'
 
-import { ICreateSupplierProduct } from '../../add-supplier-product-modal.type'
+import { ICreateSupplierProductModal } from '../../add-supplier-product-modal.type'
 import { DimentionsHeader } from '../dimentions-header'
 
 interface IBoxDimentionsProps {
+  required: boolean
+
   volumeWeight: number
   sizeSetting: Dimensions
   dimentionsHeaderTitle: keyof typeof TranslationKey
@@ -28,6 +31,7 @@ interface IBoxDimentionsProps {
   amountName?: any
   dimentionName: any
 
+  getRules: () => Rule[]
   onChangeUnitsOption: (option: RadioChangeEvent) => void
 }
 
@@ -35,10 +39,11 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
   const {
+    required,
+
     volumeWeight,
     sizeSetting,
     dimentionsHeaderTitle,
-    onChangeUnitsOption,
 
     heightName,
     widthName,
@@ -46,11 +51,14 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
     weighGrossName,
     amountName,
     dimentionName,
+
+    getRules,
+    onChangeUnitsOption,
   } = props
 
   return (
     <div className={styles.boxInfoWrapper}>
-      <Form.Item<ICreateSupplierProduct> name={dimentionName} className={cx(sharedStyles.field)}>
+      <Form.Item<ICreateSupplierProductModal> name={dimentionName} className={cx(sharedStyles.field)}>
         <DimentionsHeader
           data={{
             height: 0,
@@ -65,13 +73,13 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
       </Form.Item>
 
       <div className={styles.boxInfoInputsWrapper}>
-        <Form.Item<ICreateSupplierProduct>
+        <Form.Item<ICreateSupplierProductModal>
           name={heightName}
           className={cx(sharedStyles.field, styles.deliveryField)}
-          rules={getRequiredRules()}
+          rules={getRules()}
         >
           <CustomInputNumber
-            required
+            required={required}
             size="large"
             label="Height"
             placeholder="Height"
@@ -80,13 +88,13 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           />
         </Form.Item>
 
-        <Form.Item<ICreateSupplierProduct>
+        <Form.Item<ICreateSupplierProductModal>
           name={widthName}
           className={cx(sharedStyles.field, styles.deliveryField)}
-          rules={getRequiredRules()}
+          rules={getRules()}
         >
           <CustomInputNumber
-            required
+            required={required}
             size="large"
             label="Width"
             placeholder="Width"
@@ -95,13 +103,13 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           />
         </Form.Item>
 
-        <Form.Item<ICreateSupplierProduct>
+        <Form.Item<ICreateSupplierProductModal>
           name={lengthName}
           className={cx(sharedStyles.field, styles.deliveryField)}
-          rules={getRequiredRules()}
+          rules={getRules()}
         >
           <CustomInputNumber
-            required
+            required={required}
             size="large"
             label="Length"
             placeholder="Length"
@@ -110,13 +118,13 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           />
         </Form.Item>
 
-        <Form.Item<ICreateSupplierProduct>
+        <Form.Item<ICreateSupplierProductModal>
           name={weighGrossName}
           className={cx(sharedStyles.field, styles.deliveryField)}
-          rules={getRequiredRules()}
+          rules={getRules()}
         >
           <CustomInputNumber
-            required
+            required={required}
             size="large"
             label="Weight"
             placeholder="Weight"
@@ -136,7 +144,10 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
         />
 
         {amountName ? (
-          <Form.Item<ICreateSupplierProduct> name={amountName} className={cx(sharedStyles.field, styles.deliveryField)}>
+          <Form.Item<ICreateSupplierProductModal>
+            name={amountName}
+            className={cx(sharedStyles.field, styles.deliveryField)}
+          >
             <CustomInputNumber
               size="large"
               label="Number of units in box"

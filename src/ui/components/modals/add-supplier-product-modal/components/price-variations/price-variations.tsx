@@ -1,5 +1,5 @@
-import { Form } from 'antd'
-import { memo, useState } from 'react'
+import { Form, FormInstance } from 'antd'
+import { FC, memo, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
 
 import { CustomButton } from '@components/shared/custom-button'
@@ -11,9 +11,14 @@ import { getRequiredRules } from '@config/form-rules/get-required-rules'
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './price-variations.style'
 
-import { ICreateSupplierProduct, IPrice, SupplierCurrency } from '../../add-supplier-product-modal.type'
+import { ICreateSupplierProductModal, IPrice, SupplierCurrency } from '../../add-supplier-product-modal.type'
 
-export const PriceVariations = memo(() => {
+interface IPriceVariationsProps {
+  form: FormInstance<ICreateSupplierProductModal>
+  onAddPriceVariations: (priceVariation: IPrice) => void
+}
+
+export const PriceVariations: FC<IPriceVariationsProps> = memo(({ onAddPriceVariations }) => {
   const { classes: styles } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
@@ -30,22 +35,21 @@ export const PriceVariations = memo(() => {
     setPriceVariation({ ...priceVariation, price: value })
   }
 
+  const onAddPriceVariation = () => {
+    onAddPriceVariations(priceVariation)
+    setPriceVariation({ amount: 0, price: 0 })
+  }
+
   return (
     <div className={sharedStyles.sectionWrapper}>
-      <Form.Item<ICreateSupplierProduct> name="prices" className={sharedStyles.field} rules={getRequiredRules()}>
+      <Form.Item<ICreateSupplierProductModal> name="prices" className={sharedStyles.field}>
         <CustomSelect
-          required
           allowClear
           mode="tags"
           wrapperClassName={sharedStyles.input}
           label="Payment methods"
+          placeholder="Payment methods"
           options={[]}
-          fieldNames={{ value: 'amount', label: 'amount' }}
-          // tagRender={props => {
-          //   console.log('props :>> ', props)
-
-          //   return <>{'22223'}</>
-          // }}
           dropdownRender={() => (
             <div className={styles.addPriceVariations}>
               <CustomInputNumber
@@ -68,7 +72,13 @@ export const PriceVariations = memo(() => {
                 onChange={value => onChangePrice(value as number)}
               />
 
-              <CustomButton size="middle" shape="circle" icon={<FaPlus size={16} />} />
+              <CustomButton
+                size="middle"
+                shape="circle"
+                icon={<FaPlus size={16} />}
+                disabled={!priceVariation.amount || !priceVariation.price}
+                onClick={onAddPriceVariation}
+              />
             </div>
           )}
         />
