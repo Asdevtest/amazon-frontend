@@ -89,7 +89,12 @@ export const BoxDimentions: FC<IBoxDimentionsProps> = memo(props => {
           validateTrigger={['onChange', 'onBlur']}
           rules={getUnitImagesRules()}
         >
-          <UploadFilesInput dragAndDropButtonHeight={50} images={unitImages} setImages={handleUploadUnitFiles} />
+          <UploadFilesInput
+            wrapperClassName={sharedStyles.uploadFilesInputWrapper}
+            dragAndDropButtonHeight={50}
+            images={unitImages}
+            setImages={handleUploadUnitFiles}
+          />
         </Form.Item>
       </div>
     </div>

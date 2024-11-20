@@ -44,4 +44,9 @@ export const useStyles = makeStyles()(theme => ({
     backgroundColor: theme?.palette?.background?.general,
     boxShadow: theme?.palette?.boxShadow?.paper,
   },
+
+  uploadFilesInputWrapper: {
+    marginTop: '0px',
+    gap: '10px',
+  },
 }))

@@ -88,7 +88,12 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
         className={cx(sharedStyles.field, styles?.uploadFiles)}
         validateTrigger={['onChange', 'onBlur']}
       >
-        <UploadFilesInput dragAndDropButtonHeight={50} images={images} setImages={handleUploadFiles} />
+        <UploadFilesInput
+          wrapperClassName={sharedStyles.uploadFilesInputWrapper}
+          dragAndDropButtonHeight={50}
+          images={images}
+          setImages={handleUploadFiles}
+        />
       </Form.Item>
     </div>
   )
