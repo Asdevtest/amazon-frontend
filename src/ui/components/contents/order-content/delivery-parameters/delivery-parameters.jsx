@@ -1,13 +1,12 @@
 import dayjs from 'dayjs'
 
-import { Checkbox } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
@@ -126,34 +125,31 @@ export const DeliveryParameters = ({
         }
       />
 
-      <div
-        className={cx(styles.expressWrapper, { [styles.disabledExpressWrapper]: !isCanChange })}
-        onClick={() =>
-          isCanChange && onChangeField('priority')({ target: { value: formFields.priority === '30' ? '40' : '30' } })
-        }
-      >
-        <Checkbox
+      <div className={cx(styles.expressWrapper, { [styles.disabledExpressWrapper]: !isCanChange })}>
+        <CustomCheckbox
           disabled={!isCanChange}
-          className={styles.checkbox}
+          wrapperClassName={styles.checkbox}
           checked={formFields.priority === '40'}
-          color="primary"
-        />
-        <p>{t(TranslationKey['Mark an order as urgent'])}</p>
+          onChange={() =>
+            isCanChange && onChangeField('priority')({ target: { value: formFields.priority === '30' ? '40' : '30' } })
+          }
+        >
+          Mark an order as urgent
+        </CustomCheckbox>
         <img className={styles.deliveryImg} src="/assets/icons/fire.svg" alt="" />
       </div>
-      <div
-        className={cx(styles.expressWrapper, { [styles.disabledExpressWrapper]: !isCanChange })}
-        onClick={() =>
-          isCanChange && onChangeField('expressChinaDelivery')({ target: { value: !formFields.expressChinaDelivery } })
-        }
-      >
-        <Checkbox
+      <div className={cx(styles.expressWrapper, { [styles.disabledExpressWrapper]: !isCanChange })}>
+        <CustomCheckbox
           disabled={!isCanChange}
           className={styles.checkbox}
           checked={formFields.expressChinaDelivery}
-          color="primary"
-        />
-        <p>{t(TranslationKey['Order express delivery in China'])}</p>
+          onChange={() =>
+            isCanChange &&
+            onChangeField('expressChinaDelivery')({ target: { value: !formFields.expressChinaDelivery } })
+          }
+        >
+          Order express delivery in China
+        </CustomCheckbox>
         <TruckIcon className={styles.deliveryImg} />
       </div>
 
@@ -161,13 +157,16 @@ export const DeliveryParameters = ({
         className={cx(styles.expressWrapper, { [styles.disabledExpressWrapper]: !isCanChange })}
         onClick={() => isCanChange && onChangeField('needsResearch')({ target: { value: !formFields.needsResearch } })}
       >
-        <Checkbox
+        <CustomCheckbox
           disabled={!isCanChange}
           className={styles.checkbox}
           checked={formFields.needsResearch}
-          color="primary"
-        />
-        <p>{t(TranslationKey['Re-search supplier'])}</p>
+          onChange={() =>
+            isCanChange && onChangeField('needsResearch')({ target: { value: !formFields.needsResearch } })
+          }
+        >
+          Re-search supplier
+        </CustomCheckbox>
       </div>
 
       <div className={styles.buyerWrapper}>

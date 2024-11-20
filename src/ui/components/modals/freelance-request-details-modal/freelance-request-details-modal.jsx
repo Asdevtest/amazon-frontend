@@ -4,8 +4,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -124,11 +124,13 @@ export const FreelanceRequestDetailsModal = memo(props => {
                   {t(TranslationKey.Result)}
                 </CustomButton>
 
-                <CustomButton onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}>
-                  <Checkbox checked={request?.uploadedToListing} className={styles.listingButton} />
+                <CustomCheckbox
+                  checked={request?.uploadedToListing}
+                  className={styles.listingButton}
+                  onChange={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
+                />
 
-                  <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
-                </CustomButton>
+                <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
               </div>
             )}
           </div>

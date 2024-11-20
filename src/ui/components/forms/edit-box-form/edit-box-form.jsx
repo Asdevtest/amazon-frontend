@@ -14,8 +14,8 @@ import { SetFilesModal } from '@components/modals/set-files-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { BoxEdit } from '@components/shared/boxes/box-edit'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSlider } from '@components/shared/custom-slider'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -365,10 +365,9 @@ export const EditBoxForm = memo(
                                   )}
                                   label={t(TranslationKey['Change in inventory'])}
                                   inputComponent={
-                                    <Checkbox
-                                      color="primary"
+                                    <CustomCheckbox
                                       checked={item.changeBarCodInInventory}
-                                      onClick={() =>
+                                      onChange={() =>
                                         onClickBarcodeInventoryCheckbox(item.product._id, !item.changeBarCodInInventory)
                                       }
                                     />

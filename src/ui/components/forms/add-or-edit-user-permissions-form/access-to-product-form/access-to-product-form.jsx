@@ -5,7 +5,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Checkbox,
   FormControl,
   FormControlLabel,
   Radio,
@@ -14,6 +13,7 @@ import {
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
@@ -176,8 +176,7 @@ export const AccessToProductForm = memo(props => {
           classes={{ root: styles.accordionSummary, expanded: styles.accordionExpanded }}
         >
           <div className={styles.accardionTitleWrapper}>
-            <Checkbox
-              color="primary"
+            <CustomCheckbox
               checked={chooseAllCheck}
               indeterminate={chosenGoods.length && !chooseAllCheck}
               onClick={onClickChooseAllCheck}

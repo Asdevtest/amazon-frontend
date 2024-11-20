@@ -1,9 +1,10 @@
 import { FC, useEffect, useState } from 'react'
 
-import { Box, Checkbox, FormControlLabel } from '@mui/material'
+import { Box, FormControlLabel } from '@mui/material'
 
 import { ProductModel } from '@models/product-model'
 
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.style'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -63,7 +64,10 @@ export const RedFlags: FC<RedFlagsProps> = props => {
                 </Box>
               }
               control={
-                <Checkbox checked={selectedFlags.some(val => val._id === flag._id)} onChange={() => handleFlag(flag)} />
+                <CustomCheckbox
+                  checked={selectedFlags.some(val => val._id === flag._id)}
+                  onChange={() => handleFlag(flag)}
+                />
               }
             />
           </div>

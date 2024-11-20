@@ -1,9 +1,8 @@
 import { useState } from 'react'
 
-import { Checkbox } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 
@@ -301,9 +300,7 @@ export const ThirdStep = ({ formFields, setFormFields, renderBackNextBtns, makeE
         label={t(TranslationKey['Make an estimate of the cost?'])}
         labelClasses={styles.spanLabelSmall}
         containerClasses={styles.checkboxWrapper}
-        inputComponent={
-          <Checkbox color="primary" checked={makeEstimate} onChange={() => setMakeEstimate(!makeEstimate)} />
-        }
+        inputComponent={<CustomCheckbox checked={makeEstimate} onChange={() => setMakeEstimate(!makeEstimate)} />}
       />
 
       {renderBackNextBtns()}

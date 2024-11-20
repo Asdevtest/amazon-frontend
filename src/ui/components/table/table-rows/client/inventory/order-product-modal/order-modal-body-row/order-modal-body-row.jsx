@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { MdOutlineDelete } from 'react-icons/md'
 
-import { Checkbox, IconButton, TableCell, TableRow } from '@mui/material'
+import { IconButton, TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,6 +11,7 @@ import { ChangeChipCell, ProductCell, StringListCell } from '@components/data-gr
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
@@ -420,12 +421,17 @@ export const OrderModalBodyRow = ({
           <div className={styles.mainCheckboxWrapper}>
             <div className={styles.checkboxWrapper}>
               <div className={styles.expressWrapper} onClick={onClickPriority}>
-                <Checkbox className={styles.checkbox} checked={item.priority === '40'} color="primary" />
-                <p className={styles.sumText}>{t(TranslationKey['Mark an order as urgent'])}</p>
+                <CustomCheckbox
+                  className={styles.checkbox}
+                  labelClassName={styles.sumText}
+                  checked={item.priority === '40'}
+                >
+                  Mark an order as urgent
+                </CustomCheckbox>
                 <img className={styles.deliveryImg} src="/assets/icons/fire.svg" alt="" />
               </div>
               <div className={styles.expressWrapper} onClick={onClickExpressChinaDelivery}>
-                <Checkbox className={styles.checkbox} checked={item.expressChinaDelivery} color="primary" />
+                <CustomCheckbox className={styles.checkbox} checked={item.expressChinaDelivery} />
                 <p className={styles.sumText}>{t(TranslationKey['Order express delivery in China'])}</p>
                 <TruckIcon className={styles.deliveryImg} />
               </div>

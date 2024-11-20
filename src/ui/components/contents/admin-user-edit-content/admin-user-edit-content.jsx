@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdCheckBox, MdVisibility, MdVisibilityOff } from 'react-icons/md'
 
-import { Checkbox, ListItemText, MenuItem, Rating, Select } from '@mui/material'
+import { ListItemText, MenuItem, Rating, Select } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
@@ -495,8 +495,7 @@ export const AdminUserEditContent = observer(
                             Number(role) === Number(formFields.role)
                           }
                         >
-                          <Checkbox
-                            color="primary"
+                          <CustomCheckbox
                             checked={
                               selectedAllowedRoles.includes(Number(role)) || Number(role) === Number(formFields.role)
                             }
@@ -538,7 +537,7 @@ export const AdminUserEditContent = observer(
                 >
                   {Object.keys(productStrategyStatusesEnum).map((strategy, index) => (
                     <MenuItem key={index} className={styles.standartText} value={Number(strategy)}>
-                      <Checkbox color="primary" checked={formFields.allowedStrategies.includes(Number(strategy))} />
+                      <CustomCheckbox checked={formFields.allowedStrategies.includes(Number(strategy))} />
                       <ListItemText primary={humanFriendlyStategyStatus(productStrategyStatusesEnum[strategy])} />
                     </MenuItem>
                   ))}
@@ -566,7 +565,7 @@ export const AdminUserEditContent = observer(
                   >
                     {specs?.map(spec => (
                       <MenuItem key={spec?._id} value={spec?.type} className={styles.capitalize}>
-                        <Checkbox checked={formFields.allowedSpec?.includes(spec?.type)} />
+                        <CustomCheckbox checked={formFields.allowedSpec?.includes(spec?.type)} />
                         {spec?.title}
                       </MenuItem>
                     ))}
@@ -611,7 +610,6 @@ export const AdminUserEditContent = observer(
             )}
             <div className={styles.checkboxWrapper}>
               <CustomCheckbox
-                color="primary"
                 disabled={
                   editUserFormFields?.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]
                 }
@@ -622,8 +620,7 @@ export const AdminUserEditContent = observer(
             </div>
 
             <div className={styles.checkboxWrapper}>
-              <Checkbox
-                color="primary"
+              <CustomCheckbox
                 disabled={
                   editUserFormFields?.masterUser ||
                   Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
@@ -636,8 +633,7 @@ export const AdminUserEditContent = observer(
             </div>
 
             <div className={styles.checkboxWrapper}>
-              <Checkbox
-                color="primary"
+              <CustomCheckbox
                 disabled={Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
                 checked={formFields.hideSuppliers}
                 onChange={onChangeFormField('hideSuppliers')}
@@ -646,8 +642,7 @@ export const AdminUserEditContent = observer(
             </div>
 
             <div className={styles.checkboxWrapper}>
-              <Checkbox
-                color="primary"
+              <CustomCheckbox
                 disabled={Number(formFields.role) !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
                 checked={formFields.isUserPreprocessingCenterUSA}
                 onChange={onChangeFormField('isUserPreprocessingCenterUSA')}

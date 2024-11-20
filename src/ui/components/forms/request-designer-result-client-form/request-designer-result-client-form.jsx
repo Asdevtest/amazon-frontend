@@ -1,7 +1,7 @@
 import { memo, useState } from 'react'
 import { MdOutlineDownload } from 'react-icons/md'
 
-import { Checkbox, Link } from '@mui/material'
+import { Link } from '@mui/material'
 
 import { RequestProposalStatus } from '@constants/requests/request-proposal-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,6 +10,7 @@ import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-moda
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CopyValue } from '@components/shared/copy-value'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration/set-duration'
 import { DownloadArchiveIcon } from '@components/shared/svg-icons'
@@ -232,7 +233,7 @@ export const RequestDesignerResultClientForm = memo(props => {
 
           <div className={styles.downloadsWrapper}>
             <div className={styles.downloadsCheckWrapper} onClick={onClickAllAddDownload}>
-              <Checkbox color="primary" checked={imagesForDownload.length === imagesData.length} />
+              <CustomCheckbox checked={imagesForDownload.length === imagesData.length} />
               <p>{t(TranslationKey['Select all'])}</p>
             </div>
 
