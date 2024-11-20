@@ -23,14 +23,15 @@ export interface FilterValues {
 
 interface CardsFilterProps {
   showFilter: boolean
+  filtersCount: number
   onSubmit: (values: any) => void
   onReset: () => void
 }
 
 export const CardsFilter: FC<CardsFilterProps> = memo(props => {
-  const { showFilter, onSubmit, onReset } = props
+  const { showFilter, filtersCount, onSubmit, onReset } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
   const viewModel = useMemo(() => new CategoriesModel(), [])
   const [form] = Form.useForm()
   const [openFilter, setOpenFilter] = useState(false)
@@ -46,7 +47,7 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
     const filterOptions = {
       ...createFilterCondition('priceMin', '$gte', Number(values.priceMin)),
       ...createFilterCondition('priceMax', '$lte', Number(values.priceMax)),
-      ...createFilterCondition('categories', '$eq', values.categories.join(',')),
+      ...createFilterCondition('categories', '$eq', values.categories?.join(',')),
       ...createFilterCondition('moqMin', '$gte', Number(values.moqMin)),
       ...createFilterCondition('moqMax', '$lte', Number(values.moqMax)),
     }
@@ -62,13 +63,16 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
   return showFilter ? (
     <>
       <CustomButton
+        color={filtersCount > 0 ? 'primary' : undefined}
+        variant="outlined"
         size="large"
         icon={<FaArrowRight />}
         iconPosition="end"
-        className={styles.filterButton}
+        className={cx(styles.filterButton, { [styles.filterButtonActive]: filtersCount > 0 })}
         onClick={showDrawer}
       >
-        {t(TranslationKey.Filters)}
+        {filtersCount > 0 ? <p className="filtersCount">{`(${filtersCount})`}</p> : null}
+        <span>{t(TranslationKey.Filters)}</span>
       </CustomButton>
 
       <Drawer title={t(TranslationKey.Filters)} placement="left" open={openFilter} onClose={onClose}>

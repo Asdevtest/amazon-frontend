@@ -85,7 +85,6 @@ export const dataGridFiltersConverter = (
   operatorsSettings?: OperatorsSettingsType,
   defaultFilterParams?: Record<string, unknown>,
 ): FilterList => {
-  console.log('additionalOptions', additionalOptions)
   // * Проходимся по списку колонок для поиска и создаем фильтр для каждой
   const searchFieldsArray: FilterObject[] = searchValue
     ? searchFields

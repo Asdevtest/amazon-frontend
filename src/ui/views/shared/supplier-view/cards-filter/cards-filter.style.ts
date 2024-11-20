@@ -3,14 +3,14 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   filterButton: {
     position: 'absolute',
-    top: '10px',
+    top: '5px',
     left: '10px',
     width: '40px',
     overflow: 'hidden',
     transition: 'width 0.3s ease',
     gap: 0,
 
-    '& span:not(.ant-btn-icon)': {
+    '& span:not(.ant-btn-icon, .filtersCount)': {
       visibility: 'hidden',
       opacity: 0,
       whiteSpace: 'nowrap',
@@ -18,14 +18,27 @@ export const useStyles = makeStyles()(() => ({
     },
 
     '&:hover': {
-      width: '125px',
-      gap: 8,
+      width: '120px',
+      gap: '3px',
 
-      '& span:not(.ant-btn-icon)': {
+      '& span:not(.ant-btn-icon, .filtersCount)': {
         visibility: 'visible',
         opacity: 1,
       },
     },
+  },
+
+  filterButtonActive: {
+    width: '60px',
+    gap: '3px',
+
+    '&:hover': {
+      width: '150px',
+    },
+  },
+
+  filtersCount: {
+    opacity: 1,
   },
 
   form: {

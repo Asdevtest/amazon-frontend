@@ -8,26 +8,18 @@ export const useStyles = makeStyles()(() => ({
     gap: '20px',
   },
 
-  content: {
+  suppliers: {
     padding: '5px',
     display: 'grid',
     gridTemplateColumns: '1fr',
+    gap: '10px',
   },
 
   products: {
+    padding: '5px',
+    display: 'grid',
     gridAutoRows: 'min-content',
     gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-  },
-
-  empty: {
-    alignContent: 'center',
-    gridTemplateColumns: '1fr',
-  },
-
-  loading: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    gap: '10px',
   },
 }))

@@ -15,6 +15,7 @@ const observableConfig = {
   hasMore: observable,
   requestStatus: observable,
   searchValue: observable,
+  filtersCount: observable,
 
   loading: computed,
 
@@ -28,7 +29,7 @@ const observableConfig = {
 
 const DEFAULT_OPTIONS = {
   offset: 0,
-  limit: 15,
+  limit: 25,
   sortField: 'updatedAt',
   sortType: 'DESC',
   filters: '',
@@ -55,6 +56,7 @@ export class InfiniteScrollModel<T, M = any> {
   filterFields: string[] = []
   requestStatus = loadingStatus.SUCCESS
   searchValue = ''
+  filtersCount = 0
 
   get loading() {
     return this.requestStatus === loadingStatus.IS_LOADING
@@ -167,6 +169,7 @@ export class InfiniteScrollModel<T, M = any> {
       await this.getData()
 
       runInAction(() => {
+        this.filtersCount = Object.keys(filtersOtions).length
         this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {

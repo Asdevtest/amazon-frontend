@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
+    height: '100%',
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
@@ -16,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   flexRow: {
     display: 'flex',
     alignItems: 'flex-start',
-    gap: '10px',
+    justifyContent: 'space-between',
   },
 
   flexColumn: {
@@ -27,6 +28,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   divider: {
-    height: '100%',
+    height: '49px',
   },
 }))
