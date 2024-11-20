@@ -1321,7 +1321,10 @@ export const navbarConfig = {
       route: '/moderator/updated',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_UPDATED,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.moderator.SHOW_PATCHNOTES_MODERATOR) ||
+        user?.permissions?.some(item => item === permissionsKeys.moderator.SHOW_PATCHNOTES_MODERATOR),
     },
     {
       icon: MyUsersIcon,
@@ -1331,8 +1334,8 @@ export const navbarConfig = {
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
         !isHaveMasterUser(user) ||
-        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER) ||
-        user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER),
+        checkGroupPermissions(permissionsKeys.moderator.SHOW_USERS_MODERATOR) ||
+        user?.permissions?.some(item => item === permissionsKeys.moderator.SHOW_USERS_MODERATOR),
     },
     {
       icon: SettingsIcon,
@@ -1348,7 +1351,10 @@ export const navbarConfig = {
       subtitles: null,
       route: '/moderator/feedback',
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.moderator.SHOW_FEEDBACK_MODERATOR) ||
+        user?.permissions?.some(item => item === permissionsKeys.moderator.SHOW_FEEDBACK_MODERATOR),
     },
     {
       icon: MessageIcon,
@@ -1356,7 +1362,10 @@ export const navbarConfig = {
       route: '/moderator/messages',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.moderator.SHOW_CHAT_MODERATOR) ||
+        user?.permissions?.some(item => item === permissionsKeys.moderator.SHOW_CHAT_MODERATOR),
     },
   ],
 } as NavbarConfigTypes.RootObject
