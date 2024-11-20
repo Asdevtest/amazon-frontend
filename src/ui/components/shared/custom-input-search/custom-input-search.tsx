@@ -10,9 +10,7 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-input-search.style'
 
-interface CustomInputSearchProps extends SearchProps, IDefaultPropsExtensionAntdComponent {
-  placeholder?: string
-}
+interface CustomInputSearchProps extends SearchProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomInputSearch: FC<CustomInputSearchProps> = memo(props => {
   const { isRow, isCell, label, required, placeholder, className, labelClassName, wrapperClassName, ...restProps } =

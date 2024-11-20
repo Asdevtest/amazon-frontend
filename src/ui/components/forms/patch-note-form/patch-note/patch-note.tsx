@@ -76,12 +76,12 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
           />
 
           <CustomAutoComplete
+            fullWidth
             label="Version"
             placeholder="Version"
             maxLength={64}
             labelClassName={styles.fieldLabel}
-            wrapperClassName={styles.fieldContainer}
-            className={styles.versionField}
+            rootClassName={styles.versionField}
             options={versionOptions}
             value={patchNote.version}
             onChange={onChangePatchNote(patchNoteIndex, 'version')}

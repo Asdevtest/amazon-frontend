@@ -13,7 +13,6 @@ const { Password } = Input
 
 interface CustomInputProps extends InputProps, IDefaultPropsExtensionAntdComponent {
   password?: boolean
-  fullWidth?: boolean
 }
 
 export const CustomInput: FC<CustomInputProps> = memo(props => {

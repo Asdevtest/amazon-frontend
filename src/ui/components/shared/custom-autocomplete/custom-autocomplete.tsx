@@ -1,4 +1,4 @@
-import { AutoComplete, AutoCompleteProps, Input } from 'antd'
+import { AutoComplete, AutoCompleteProps } from 'antd'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -9,9 +9,7 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-autocomplete.style'
 
-interface CustomAutoCompleteProps extends AutoCompleteProps, IDefaultPropsExtensionAntdComponent {
-  fullWidth?: boolean
-}
+interface CustomAutoCompleteProps extends AutoCompleteProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomAutoComplete: FC<CustomAutoCompleteProps> = memo(props => {
   const {
@@ -38,14 +36,12 @@ export const CustomAutoComplete: FC<CustomAutoCompleteProps> = memo(props => {
     <div
       className={cx(
         styles.root,
-        { [styles.cell]: isCell, [styles.row]: isRow, [styles.input]: fullWidth },
+        { [styles.cell]: isCell, [styles.row]: isRow, [styles.fullWidth]: fullWidth },
         wrapperClassName,
       )}
     >
       {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
-      <AutoComplete {...restProps} options={options}>
-        <Input placeholder={placeholderText} title={placeholderText} className={cx(styles.input, className)} />
-      </AutoComplete>
+      <AutoComplete {...restProps} placeholder={placeholderText} options={options} />
     </div>
   )
 })
