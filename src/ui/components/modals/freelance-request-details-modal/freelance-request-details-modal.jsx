@@ -9,6 +9,7 @@ import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
@@ -55,12 +56,12 @@ export const FreelanceRequestDetailsModal = memo(props => {
         <div className={styles.header}>
           <div className={styles.headerDetails}>
             <p>ID: {request?.xid}</p>
-            <p className={cx(styles.textBold, styles.headerTitle)}>{request?.title}</p>
+            <Text className={cx(styles.textBold, styles.headerTitle)} rows={2} text={request?.title} />
           </div>
           <div className={styles.headerDetails}>
             <div className={styles.flexContainer}>
               <p className={styles.headerText}>{t(TranslationKey['Request type'])}</p>
-              <p className={cx(styles.headerText, styles.textBold)}>{request?.spec?.title}</p>
+              <Text className={cx(styles.headerText, styles.textBold)} text={request?.spec?.title} rows={2} />
             </div>
 
             <div className={styles.flexContainer}>

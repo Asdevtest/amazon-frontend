@@ -12,6 +12,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { VacantRequestPriceCell } from '@components/data-grid/data-grid-cells'
 import { useStyles } from '@components/requests-and-request-proposals/requests/request-terms-list/request-terms-list.style'
 import { Field } from '@components/shared/field'
+import { Text } from '@components/shared/text'
 
 import { formatNormDateTime, formatNormDateTimeWithParseISO, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
@@ -109,7 +110,7 @@ export const RequestTermsList = props => {
           labelClasses={styles.fieldLabel}
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey['Request type'])}
-          inputComponent={<p className={styles.accentText}>{request?.spec?.title}</p>}
+          inputComponent={<Text className={styles.accentText} text={request?.spec?.title} rows={1} />}
         />
       </div>
 
