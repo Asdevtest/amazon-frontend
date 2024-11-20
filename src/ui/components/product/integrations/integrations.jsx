@@ -52,7 +52,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
     <div className={cx(styles.mainWrapper, { [styles.modalWrapper]: modal })}>
       <div className={styles.addProductBtnsWrapper}>
         <CustomButton disabled={isAdmin} onClick={onClickBindInventoryGoodsToStockBtn}>
-          {t(TranslationKey['Bind an product from Amazon'])}
+          {t(TranslationKey['Bind a product from Amazon'])}
         </CustomButton>
 
         <CustomButton disabled={isDisabledUnlinkButton} onClick={onUnlinkSkuSProduct}>

@@ -8,13 +8,12 @@ import { SelectShopsForm } from '@components/forms/select-shops-form'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
+import { SupplierCard, SupplierProductCard } from '@components/shared/supplier'
 
 import { t } from '@utils/translations'
 
 import { useStyles } from './wholesale.style'
 
-import { ProductCard } from './product-card'
-import { SupplierCard } from './supplier-card'
 import { generateWholesaleTabs } from './wholesale.config'
 import { WholesaleViewModel } from './wholesale.model'
 
@@ -63,7 +62,7 @@ export const WholesaleView = observer(() => {
             viewModel.suppliers.map(supplier => <SupplierCard key={supplier._id} supplier={supplier} />)
           ) : (
             viewModel.products.map(product => (
-              <ProductCard key={product._id} product={product} onSubmit={viewModel.onSelectSupplierCard} />
+              <SupplierProductCard key={product._id} product={product} onSubmit={viewModel.onSelectSupplierCard} />
             ))
           )}
         </div>

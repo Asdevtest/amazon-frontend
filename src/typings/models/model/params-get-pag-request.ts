@@ -6,4 +6,5 @@ export interface ParamsGetPagRequest {
   sortType?: 'ASC' | 'DESC'
   noCache?: boolean
   acceptEncoding?: string
+  guid: string
 }

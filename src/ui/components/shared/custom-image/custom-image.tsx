@@ -19,7 +19,7 @@ export const CustomImage: FC<CustomImageProps> = memo(props => {
   return (
     <div className={cx(styles.root, wrapperClassName)} onClick={e => e.stopPropagation()}>
       <Image
-        preview={!!src && { maskClassName: cx(styles.maskClassNameRoot, maskClassName) }}
+        preview={!!src && { maskClassName: cx(styles.maskClassNameRoot, maskClassName), destroyOnClose: true }}
         src={getAmazonImageUrl(src, fullImage)}
         className={cx(styles.image, className)}
         {...restProps}

@@ -10,6 +10,7 @@ export const useStyles = makeStyles()(theme => ({
     gap: '5px',
     borderRadius: '16px',
     boxShadow: theme.palette.boxShadow.paper,
+    background: theme.palette.background.general,
   },
 
   flexRow: {

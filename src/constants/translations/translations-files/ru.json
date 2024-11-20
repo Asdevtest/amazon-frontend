@@ -201,7 +201,7 @@
   "On orders": "По заказам",
   "On boxes": "По коробкам",
   "To order": "Заказать",
-  "Bind an product from Amazon": "Привязать товар с Амазона",
+  "Bind a product from Amazon": "Привязать товар с Амазона",
   "Supplier search": "Поиск поставщика",
   "Open inventory": "Открыть инвентарь",
   "Open archive": "Открыть архив",
@@ -2075,7 +2075,13 @@
   "The response to the request has been successfully sent!": "Ответ на обращение успешно отправлен!",
   "There was an error sending the response to the request. Try again.": "Произошла ошибка при отправке ответа на обращение. Попробуйте снова.",
   "There was an error loading media files": "Произошла ошибка при загрузке медиафайлов",
+  "Wholesale": "Wholesale",
   "Days": "Дни",
   "Min production term": "Минимальный срок производства",
-  "Max production term": "Максимальный срок производства"
+  "Max production term": "Максимальный срок производства",
+  "Filters": "Фильтры",
+  "MOQ": "Минимальный заказ",
+  "min": "мин.",
+  "max": "макс.",
+  "Select category": "Выберите категорию"
 }
