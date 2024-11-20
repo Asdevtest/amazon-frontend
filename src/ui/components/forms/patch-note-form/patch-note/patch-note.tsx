@@ -1,4 +1,3 @@
-import { AutoComplete } from 'antd'
 import { FC, memo } from 'react'
 
 import { MenuItem, Select } from '@mui/material'
@@ -6,7 +5,7 @@ import { MenuItem, Select } from '@mui/material'
 import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomInput } from '@components/shared/custom-input'
+import { CustomAutoComplete } from '@components/shared/custom-autocomplete'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -76,20 +75,17 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
             onChange={onChangePatchNote(patchNoteIndex, 'title')}
           />
 
-          <AutoComplete
+          <CustomAutoComplete
+            label="Version"
+            placeholder="Version"
+            maxLength={64}
+            labelClassName={styles.fieldLabel}
+            wrapperClassName={styles.fieldContainer}
+            className={styles.versionField}
             options={versionOptions}
-            value={patchNote.version as unknown as EventType}
+            value={patchNote.version}
             onChange={onChangePatchNote(patchNoteIndex, 'version')}
-          >
-            <CustomInput
-              label="Version"
-              placeholder="Version"
-              maxLength={64}
-              labelClassName={styles.fieldLabel}
-              wrapperClassName={styles.fieldContainer}
-              className={styles.versionField}
-            />
-          </AutoComplete>
+          />
         </>
       ) : null}
 

@@ -5,9 +5,9 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    '& .ant-select': {
-      height: 'fit-content',
-    },
+    // '& .ant-select': {
+    //   height: 'fit-content',
+    // },
   },
 
   emptySelectValue: {
