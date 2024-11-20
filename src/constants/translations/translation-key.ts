@@ -2084,4 +2084,5 @@ export enum TranslationKey {
   'min' = 'min',
   'max' = 'max',
   'Select category' = 'Select category',
+  'Download template' = 'Download template',
 }
