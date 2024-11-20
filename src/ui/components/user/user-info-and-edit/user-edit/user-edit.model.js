@@ -9,7 +9,7 @@ import { userPermissionsColumns } from '@components/table/table-columns/admin/us
 export class UserEditModel {
   history = undefined
 
-  changeFields = { email: '', name: '', oldPassword: '', newPassword: '', confirmNewPassword: '' }
+  changeFields = { email: '', name: '', newPassword: '', confirmNewPassword: '' }
   editUserFormFields = undefined
 
   wrongPassword = null
@@ -17,6 +17,7 @@ export class UserEditModel {
   userData = undefined
 
   submitEditData = undefined
+  newPassword = undefined
 
   groupPermissions = undefined
   singlePermissions = undefined
@@ -65,7 +66,9 @@ export class UserEditModel {
   async finalStepSubmitEditUserForm() {
     try {
       await AdministratorModel.updateUser(this.userData._id, this.submitEditData)
-
+      if (this.newPassword) {
+        await AdministratorModel.changePasswordById(this.userData._id, { password: this.newPassword })
+      }
       runInAction(() => {
         this.changeFields = { email: '', name: '' }
       })
@@ -93,10 +96,10 @@ export class UserEditModel {
     this.onTriggerOpenModal('showVerticalChoicesModal')
   }
 
-  async submitEditUserForm(data, sourceData) {
+  async submitEditUserForm(data, sourceData, passwords) {
     try {
       this.submitEditData = { ...data, permissions: data.active && data.active !== 'false' ? data.permissions : [] } // удаляем пермишены если баним юзера
-
+      this.newPassword = passwords?.password
       this.availableSubUsers = undefined
 
       if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {
