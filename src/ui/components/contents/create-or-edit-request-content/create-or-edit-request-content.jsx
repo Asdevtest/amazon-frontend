@@ -3,7 +3,7 @@ import { memo, useEffect, useRef, useState } from 'react'
 import { FiArrowRight, FiPlus } from 'react-icons/fi'
 import { useHistory } from 'react-router-dom'
 
-import { Checkbox, Link, MenuItem, Select } from '@mui/material'
+import { Link, MenuItem, Select } from '@mui/material'
 
 import { MAX_COMMENT_LEGTH } from '@constants/requests/request'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
@@ -17,6 +17,7 @@ import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-m
 import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
@@ -709,39 +710,30 @@ export const CreateOrEditRequestContent = memo(props => {
                 </div>
 
                 <div className={styles.fields}>
-                  <div className={styles.checkbox}>
-                    <Checkbox
-                      color="primary"
-                      checked={formFields.request.withoutConfirmation}
-                      onChange={onChangeField('request')('withoutConfirmation')}
-                    />
-                    <p title={t(TranslationKey['Allow execution without confirmation'])} className={styles.subTitle}>
-                      {t(TranslationKey['Allow execution without confirmation'])}
-                    </p>
-                  </div>
+                  <CustomCheckbox
+                    checked={formFields.request.withoutConfirmation}
+                    wrapperClassName={styles.checkbox}
+                    labelClassName={styles.subTitle}
+                    onChange={onChangeField('request')('withoutConfirmation')}
+                  >
+                    Allow execution without confirmation
+                  </CustomCheckbox>
 
-                  <div className={styles.checkbox}>
-                    <Checkbox
-                      color="primary"
-                      checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
-                      onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
-                    />
-                    <p
-                      className={styles.subTitle}
-                      title={t(
-                        TranslationKey['After providing the result, the same performer may make a new proposal'],
-                      )}
-                    >
-                      {t(TranslationKey['Disable multiple execution'])}
-                    </p>
-                  </div>
+                  <CustomCheckbox
+                    checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                    wrapperClassName={styles.checkbox}
+                    labelClassName={styles.subTitle}
+                    onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                  >
+                    Disable multiple execution
+                  </CustomCheckbox>
                 </div>
 
                 <div className={styles.fields}>
                   <div className={cx(styles.checkbox, styles.defaultMarginTop)}>
-                    <Checkbox
-                      color="primary"
+                    <CustomCheckbox
                       checked={formFields.request.priority === 30}
+                      labelClassName={styles.subTitle}
                       onChange={() => {
                         if (formFields.request.priority === 20) {
                           onChangeField('request')('priority')({ target: { value: 30 } })
@@ -749,8 +741,9 @@ export const CreateOrEditRequestContent = memo(props => {
                           onChangeField('request')('priority')({ target: { value: 20 } })
                         }
                       }}
-                    />
-                    <p className={styles.subTitle}>{t(TranslationKey['Set urgent priority'])}</p>
+                    >
+                      Set urgent priority
+                    </CustomCheckbox>
                     <FireIcon className={styles.fireIcon} />
                   </div>
                 </div>
@@ -1057,26 +1050,36 @@ export const CreateOrEditRequestContent = memo(props => {
                       ) : null}
 
                       {formFields.request.needCheckBySupervisor && (
-                        <div className={styles.checkbox}>
-                          <Checkbox checked disabled color="primary" />
-                          <p className={styles.subTitle}>{t(TranslationKey['A supervisor check is necessary'])}</p>
-                        </div>
+                        <CustomCheckbox
+                          checked
+                          disabled
+                          wrapperClassName={styles.checkbox}
+                          labelClassName={styles.subTitle}
+                        >
+                          A supervisor check is necessary
+                        </CustomCheckbox>
                       )}
 
                       {formFields.request.restrictMoreThanOneProposalFromOneAssignee && (
-                        <div className={styles.checkbox}>
-                          <Checkbox checked disabled color="primary" />
-                          <p className={styles.subTitle}>
-                            {t(TranslationKey['Multiple performances by the same performer are prohibited'])}
-                          </p>
-                        </div>
+                        <CustomCheckbox
+                          checked
+                          disabled
+                          wrapperClassName={styles.checkbox}
+                          labelClassName={styles.subTitle}
+                        >
+                          Multiple performances by the same performer are prohibited
+                        </CustomCheckbox>
                       )}
 
                       {formFields.request.withoutConfirmation && (
-                        <div className={styles.checkbox}>
-                          <Checkbox checked disabled color="primary" />
-                          <p className={styles.subTitle}>{t(TranslationKey['Allow execution without confirmation'])}</p>
-                        </div>
+                        <CustomCheckbox
+                          checked
+                          disabled
+                          wrapperClassName={styles.checkbox}
+                          labelClassName={styles.subTitle}
+                        >
+                          Allow execution without confirmation
+                        </CustomCheckbox>
                       )}
                     </div>
                   </div>

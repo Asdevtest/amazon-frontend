@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
@@ -79,12 +79,12 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
           const valueChecked = chosenItems?.some(item => item === el)
 
           return (
-            <Checkbox
-              key={index}
-              checked={valueChecked}
-              wrapperClassName={sharedStyles.filterWrapper}
-              onClick={() => onClickItem(el)}
-            >
+            <div key={index} className={sharedStyles.filterWrapper}>
+              <CustomCheckbox
+                checked={valueChecked}
+                wrapperClassName={sharedStyles.filterWrapper}
+                onClick={() => onClickItem(el)}
+              />
               <p
                 title={value}
                 className={cx(sharedStyles.filterTitle, {
@@ -93,7 +93,7 @@ export const StringColumnMenu: FC<StringColumnMenuProps> = memo(props => {
               >
                 {value || t(TranslationKey.Empty)}
               </p>
-            </Checkbox>
+            </div>
           )
         })}
       </DataWrapperColumnMenu>

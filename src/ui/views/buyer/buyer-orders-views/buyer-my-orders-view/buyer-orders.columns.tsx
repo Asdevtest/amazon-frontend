@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Checkbox } from '@mui/material'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import {
@@ -23,6 +21,7 @@ import {
   ProductCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { PaymentMethods } from '@components/shared/payment-methods'
 import { Text } from '@components/shared/text'
 
@@ -113,7 +112,9 @@ export const buyerOrdersColumns = ({
       field: 'paymentDetailsAttached',
       headerName: t(TranslationKey['Payment documents']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment documents'])} />,
-      renderCell: params => <Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.paymentDetailsAttached} />,
+      renderCell: params => (
+        <CustomCheckbox style={{ pointerEvents: 'none' }} checked={params.row.paymentDetailsAttached} />
+      ),
       valueGetter: params => params.row.paymentDetailsAttached,
       width: 120,
       align: 'center',

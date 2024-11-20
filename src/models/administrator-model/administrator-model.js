@@ -272,6 +272,14 @@ class AdministratorModelStatic {
     })
     return response.data
   }
+
+  changePasswordById = async (guid, body) => {
+    const response = await restApiService.administratorApi.apiV1AdminsUsersChangePasswordGuidPatch({
+      guid,
+      body,
+    })
+    return response.data
+  }
 }
 
 export const AdministratorModel = new AdministratorModelStatic()

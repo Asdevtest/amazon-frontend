@@ -1,12 +1,13 @@
 import { parseISO } from 'date-fns/esm'
 import { useState } from 'react'
 
-import { Button, Checkbox, ListItemText, MenuItem, Select, TextareaAutosize } from '@mui/material'
+import { Button, ListItemText, MenuItem, Select, TextareaAutosize } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap } from '@constants/keys/user-roles'
 import { RequestStatus } from '@constants/requests/request-status'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
 
@@ -112,7 +113,7 @@ export const CustomSearchRequestForm = ({ onSubmit, setOpenModal, isEdit, reques
                 .filter(role => UserRoleCodeMap[role] !== UserRole.CANDIDATE)
                 .map((role, index) => (
                   <MenuItem key={index} value={Number(role)}>
-                    <Checkbox color="primary" checked={formFields.request.roles.includes(Number(role))} />
+                    <CustomCheckbox checked={formFields.request.roles.includes(Number(role))} />
                     <ListItemText primary={UserRoleCodeMap[role]} />
                   </MenuItem>
                 ))}

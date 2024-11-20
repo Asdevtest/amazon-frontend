@@ -3,7 +3,6 @@ import { memo, useEffect, useMemo, useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
 import { Box, Divider, ListItemText, MenuItem, Select, Tabs } from '@mui/material'
-import Checkbox from '@mui/material/Checkbox'
 import Tooltip from '@mui/material/Tooltip'
 import Zoom from '@mui/material/Zoom'
 
@@ -11,6 +10,7 @@ import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { ITab } from '@components/shared/i-tab'
 import { TabPanel } from '@components/shared/tab-panel'
 import { UserLink } from '@components/user/user-link'
@@ -237,8 +237,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                   </div>
 
                   <div className={styles.permissionGroupsToSelectCheckboxWrapper}>
-                    <Checkbox
-                      color="primary"
+                    <CustomCheckbox
                       checked={!!item.permissions.length && item.permissions.every(el => formFields.includes(el._id))}
                       indeterminate={
                         item.permissions.some(el => formFields.includes(el._id)) &&
@@ -270,7 +269,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                     TransitionProps={{ timeout: 900 }}
                   >
                     <Box className={styles.permissionWrapper} onClick={() => onChangePermissionCheckbox(item._id)}>
-                      <Checkbox color="primary" checked={formFields.includes(item._id)} />
+                      <CustomCheckbox checked={formFields.includes(item._id)} />
                       <p
                         className={cx(styles.standartText, {
                           [styles.keyPermission]: item.key.startsWith('SHOW_'),
@@ -291,8 +290,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                   <div className={styles.permissionGroupsToSelectItemWrapper} onClick={() => onSetRightSide(item)}>
                     <div className={styles.permissionGroupsToSelectItemSubWrapper}>
                       <div className={cx(styles.permissionGroupsToSelectCheckboxWrapper)}>
-                        <Checkbox
-                          color="primary"
+                        <CustomCheckbox
                           checked={item.permissions.every(el => formFields.includes(el._id))}
                           indeterminate={
                             item.permissions.some(el => formFields.includes(el._id)) &&
@@ -334,7 +332,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
                               className={styles.permissionWrapper}
                               onClick={() => onChangePermissionCheckbox(item._id)}
                             >
-                              <Checkbox color="primary" checked={formFields.includes(item._id)} />
+                              <CustomCheckbox checked={formFields.includes(item._id)} />
                               <p className={cx({ [styles.keyPermission]: item.key.startsWith('SHOW_') })}>
                                 {item.title}
                               </p>
@@ -354,11 +352,10 @@ export const AddOrEditUserPermissionsForm = memo(props => {
         <div className={styles.accordionWrapper}>
           {!isWithoutShopsDepends ? (
             <div className={styles.accardionTitleWrapper}>
-              <Checkbox
-                color="primary"
+              <CustomCheckbox
                 checked={isChoosenAll}
                 indeterminate={isSomeChoosenAll && !isChoosenAll}
-                onClick={onClickChooseAllProductCheck}
+                onChange={onClickChooseAllProductCheck}
               />
 
               <p className={styles.title}>{t(TranslationKey['Select all'])}</p>
@@ -408,7 +405,7 @@ export const AddOrEditUserPermissionsForm = memo(props => {
 
               {specs?.map(spec => (
                 <MenuItem key={spec?._id} value={spec?.type}>
-                  <Checkbox checked={currentSpecs.includes(spec?.type)} />
+                  <CustomCheckbox checked={currentSpecs.includes(spec?.type)} />
                   {spec?.title}
                 </MenuItem>
               ))}

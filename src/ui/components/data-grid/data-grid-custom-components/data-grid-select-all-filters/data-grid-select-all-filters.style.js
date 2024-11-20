@@ -1,16 +1,11 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  body: {
+  wrapper: {
     display: 'flex',
-    alignItems: 'center',
+    gap: '8px',
   },
   title: {
-    width: '100%',
-    textAlign: 'left',
-
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    fontSize: '14px',
   },
 }))

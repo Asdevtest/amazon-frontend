@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { IoSettingsOutline } from 'react-icons/io5'
 
-import { Checkbox, Menu } from '@mui/material'
+import { Menu } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { t } from '@utils/translations'
@@ -85,11 +86,7 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
 
             <div className={styles.shopsBody}>
               <div className={styles.shop}>
-                <Checkbox
-                  color="primary"
-                  checked={!columnVisibilityModel || !isSomeItemChecked}
-                  onClick={onClickAllItemBtn}
-                />
+                <CustomCheckbox checked={!columnVisibilityModel || !isSomeItemChecked} onChange={onClickAllItemBtn} />
                 <div title={t(TranslationKey.All)} className={styles.shopName}>
                   {t(TranslationKey.All)}
                 </div>
@@ -99,12 +96,11 @@ export const DataGridCustomColumnsButton = ({ className, columsBtnSettings }) =>
 
                 return (
                   <div key={index} className={styles.shop}>
-                    <Checkbox
-                      color="primary"
+                    <CustomCheckbox
                       checked={
                         !columnVisibilityModel || (columnVisibilityModel && columnVisibilityModel?.[el.field] !== false)
                       }
-                      onClick={() => onClickItem(el.field)}
+                      onChange={() => onClickItem(el.field)}
                     />
                     <div title={title} className={styles.shopName}>
                       {title}

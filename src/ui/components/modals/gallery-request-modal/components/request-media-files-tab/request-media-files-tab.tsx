@@ -3,7 +3,7 @@ import { FC, memo, useEffect, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { VideoPreloader } from '@components/shared/video-preloader'
 
 import { checkIsVideoLink } from '@utils/checks'
@@ -67,7 +67,7 @@ export const RequestMediaFilesTab: FC<RequestMediaFilesTabProps> = memo(props =>
                         <img src={getAmazonImageUrl(file)} alt={`Slide-${index + 1}`} className={styles.image} />
                       )}
 
-                      <Checkbox
+                      <CustomCheckbox
                         checked={getCheckboxState(file)}
                         disabled={getDisabledCheckbox(file)}
                         className={styles.checkbox}

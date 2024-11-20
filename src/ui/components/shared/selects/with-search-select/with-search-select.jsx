@@ -3,11 +3,12 @@ import { Fragment, memo, useEffect, useState } from 'react'
 import { IoMdStar } from 'react-icons/io'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
-import { Checkbox, ClickAwayListener, Popover, Tooltip } from '@mui/material'
+import { ClickAwayListener, Popover, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { MasterUserItem } from '@components/shared/master-user-item'
 
@@ -258,7 +259,7 @@ export const WithSearchSelect = memo(
                           {searchFields?.map((fieldName, index) => (
                             <Fragment key={index}>
                               {checkbox && (
-                                <Checkbox checked={currentShops?.some(shop => shop?._id === el?._id)} color="primary" />
+                                <CustomCheckbox checked={currentShops?.some(shop => shop?._id === el?._id)} />
                               )}
                               {!isWithoutItemsTooltip ? (
                                 <Tooltip followCursor title={getRowValue ? getRowValue(el) : el[fieldName]}>
@@ -277,13 +278,12 @@ export const WithSearchSelect = memo(
                           {isFlat && !searchFields?.length && (
                             <>
                               {checkbox && (
-                                <Checkbox
+                                <CustomCheckbox
                                   checked={
                                     isFlat
                                       ? currentShops.includes(el)
                                       : currentShops?.some(shop => shop?._id === el?._id)
                                   }
-                                  color="primary"
                                 />
                               )}
                               <Tooltip key={index} followCursor title={getRowValue ? getRowValue(el) : el}>

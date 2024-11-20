@@ -3,7 +3,7 @@ import { ChangeEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Dimensions } from '@components/shared/dimensions'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { NoPhotoIcon } from '@components/shared/svg-icons'
@@ -47,7 +47,7 @@ export const Box: FC<BoxProps> = memo(props => {
 
             <div className={styles.checkboxes}>
               <div className={styles.checkboxContainer}>
-                <Checkbox disabled className={styles.checkbox} checked={formFields?.isFormed} />
+                <CustomCheckbox disabled className={styles.checkbox} checked={formFields?.isFormed} />
                 {formFields?.sub ? (
                   <img
                     src={getUserAvatarSrc(formFields?.sub._id)}
@@ -70,7 +70,7 @@ export const Box: FC<BoxProps> = memo(props => {
               />
 
               <div className={styles.checkboxContainer}>
-                <Checkbox
+                <CustomCheckbox
                   disabled
                   className={styles.checkbox}
                   checked={formFields?.isShippingLabelAttachedByStorekeeper}

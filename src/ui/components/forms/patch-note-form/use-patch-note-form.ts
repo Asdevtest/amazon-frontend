@@ -27,14 +27,15 @@ export const usePatchNoteForm = ({ onUpdatePatchNote, onCreatePatchNotes, editPa
   const [disabledAddButton, setDisabledAddButton] = useState(false)
   const patchNotesRef = useRef<HTMLDivElement | null>(null)
 
-  const handleChangePatchNote = (patchNoteIndex: number, field: string) => (e: EventType) => {
+  const handleChangePatchNote = (patchNoteIndex: number, field: string) => (e: EventType | string) => {
+    const value = field === 'version' ? (e as string) : (e as EventType).target.value
+
     setPatchNotes(prevPatchNotes => {
       const updatedPatchNotes = [...prevPatchNotes]
       updatedPatchNotes[patchNoteIndex] = {
         ...updatedPatchNotes[patchNoteIndex],
-        [field]: e.target.value,
+        [field]: value,
       }
-
       return updatedPatchNotes
     })
   }

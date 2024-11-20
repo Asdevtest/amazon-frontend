@@ -13,7 +13,7 @@ import { useStyles } from './custom-checkbox.style'
 interface CustomCheckboxProps extends CheckboxProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomCheckbox: FC<CustomCheckboxProps> = memo(props => {
-  const { isCell, className, wrapperClassName, label, tooltip, labelClassName, children, ...restProps } = props
+  const { isCell, className, wrapperClassName, tooltip, labelClassName, children, ...restProps } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -23,7 +23,7 @@ export const CustomCheckbox: FC<CustomCheckboxProps> = memo(props => {
       className={cx({ [styles.cell]: isCell }, wrapperClassName)}
     >
       <Checkbox {...restProps} className={cx(styles.checkbox, className)}>
-        {t(TranslationKey[children as TranslationKey])}
+        {children ? <span className={labelClassName}>{t(TranslationKey[children as TranslationKey])} </span> : null}
       </Checkbox>
     </Tooltip>
   )

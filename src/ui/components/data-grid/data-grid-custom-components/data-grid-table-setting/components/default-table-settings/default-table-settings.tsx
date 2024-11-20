@@ -1,10 +1,6 @@
 import { FC, memo } from 'react'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
-import { Checkbox } from '@components/shared/checkbox'
-
-import { t } from '@utils/translations'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 
 import { useStyles } from './default-table-settings.style'
 
@@ -45,20 +41,23 @@ export const DefaultTableSettings: FC<DefaultTableSettingsProps> = memo(({ colum
 
   return (
     <div className={styles.parametersWrapper}>
-      <Checkbox checked={!columnVisibilityModel || !isSomeItemChecked} onChange={onClickAllItemBtn}>
-        <p title={t(TranslationKey.All)} className={styles.parameterTitle}>
-          {t(TranslationKey.All)}
-        </p>
-      </Checkbox>
+      <CustomCheckbox
+        checked={!columnVisibilityModel || !isSomeItemChecked}
+        labelClassName={styles.parameterTitle}
+        wrapperClassName={styles.wrapperAll}
+        onChange={onClickAllItemBtn}
+      >
+        All
+      </CustomCheckbox>
 
       {itemsForRender.map((el, index) => (
-        <Checkbox
-          key={index}
-          checked={columnVisibilityModel?.[el?.field] !== false}
-          onChange={event => onClickChangeVisibility(el.field, event.target.checked)}
-        >
-          {el?.headerName}
-        </Checkbox>
+        <div key={index} className={styles.checkboxWrapper}>
+          <CustomCheckbox
+            checked={columnVisibilityModel?.[el?.field] !== false}
+            onChange={event => onClickChangeVisibility(el.field, event.target.checked)}
+          />
+          <p className={styles.parameterTitle}> {el?.headerName}</p>
+        </div>
       ))}
     </div>
   )

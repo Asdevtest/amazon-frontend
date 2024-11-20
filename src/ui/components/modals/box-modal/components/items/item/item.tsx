@@ -5,8 +5,8 @@ import { Tooltip } from '@mui/material'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { FireIcon, ShareIcon, TruckIcon } from '@components/shared/svg-icons'
@@ -138,18 +138,16 @@ export const Item: FC<ItemProps> = memo(props => {
             <div className={styles.checkboxWrapper}>
               {barcodeText ? (
                 <div className={styles.checkboxContainer}>
-                  <Checkbox disabled className={styles.checkbox} checked={barcodeChecked}>
-                    <p className={styles.text}>{barcodeText}</p>
-                  </Checkbox>
+                  <CustomCheckbox disabled className={styles.checkbox} checked={barcodeChecked} />
+                  <p className={styles.text}>{barcodeText}</p>
                   {item.barCode && <LabelWithCopy labelValue={item.barCode} lableLinkTitle={t(TranslationKey.View)} />}
                 </div>
               ) : null}
 
               {transparencyText ? (
                 <div className={styles.checkboxContainer}>
-                  <Checkbox disabled className={styles.checkbox} checked={transparencyChecked}>
-                    <p className={styles.text}>{transparencyText}</p>
-                  </Checkbox>
+                  <CustomCheckbox disabled className={styles.checkbox} checked={transparencyChecked}></CustomCheckbox>
+                  <p className={styles.text}>{transparencyText}</p>
                   {item.transparencyFile && (
                     <LabelWithCopy labelValue={item.transparencyFile} lableLinkTitle={t(TranslationKey.View)} />
                   )}

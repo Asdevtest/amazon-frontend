@@ -5,6 +5,7 @@ import { MenuItem, Select } from '@mui/material'
 import { MIDDLE_COMMENT_VALUE } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomAutoComplete } from '@components/shared/custom-autocomplete'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -35,7 +36,7 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
     patchNote,
     patchNoteIndex,
     patchNotesRoles,
-    /* patchNoteVersions, */
+    patchNoteVersions,
     onRemovePatchNote,
     onChangePatchNote,
     onChangePatchNoteDescription,
@@ -44,6 +45,11 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
 
   const isNotFirstPatchNote = patchNoteIndex > 0
+
+  const versionOptions = patchNoteVersions.map(version => ({
+    value: version,
+    label: version,
+  }))
 
   return (
     <div className={cx(styles.wrapper)}>
@@ -69,44 +75,19 @@ export const PatchNote: FC<PatchNoteProps> = memo(props => {
             onChange={onChangePatchNote(patchNoteIndex, 'title')}
           />
 
-          <Field
-            label={t(TranslationKey.Version)}
-            placeholder={t(TranslationKey.Version)}
-            value={patchNote.version}
-            error={error}
+          <CustomAutoComplete
+            fullWidth
+            label="Version"
+            placeholder="Version"
             maxLength={64}
-            labelClasses={styles.fieldLabel}
-            containerClasses={styles.fieldContainer}
+            labelClassName={styles.fieldLabel}
+            rootClassName={styles.versionField}
+            options={versionOptions}
+            value={patchNote.version}
             onChange={onChangePatchNote(patchNoteIndex, 'version')}
           />
         </>
       ) : null}
-
-      {/* <Field
-        label={t(TranslationKey.Version)}
-        labelClasses={styles.fieldLabel}
-        containerClasses={styles.fieldContainer}
-        inputComponent={
-          <Select
-            displayEmpty
-            // @ts-ignore
-            value={patchNote.version}
-            input={
-              <Input fullWidth classes={{ input: patchNote.version.length === 0 ? styles.emptySelectValue : '' }} />
-            }
-            onChange={onChangePatchNote(patchNoteIndex, 'version')}
-          >
-            <MenuItem disabled value="">
-              {t(TranslationKey.Version)}
-            </MenuItem>
-            {patchNoteVersions.map((version, index) => (
-              <MenuItem key={index} value={version}>
-                {version}
-              </MenuItem>
-            ))}
-          </Select>
-        }
-      /> */}
 
       <Field
         label={t(TranslationKey.Role)}
