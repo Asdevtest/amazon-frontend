@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from 'react'
 import { MdAdd, MdEdit } from 'react-icons/md'
 
-import { Checkbox, MenuItem, Select } from '@mui/material'
+import { MenuItem, Select } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -139,8 +140,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
           >
             {!onlyRead && ( // @ts-ignore
               <MenuItem value={{ _id: 'SELECT_ALL' }}>
-                <Checkbox color="primary" checked={value?.length === allPayments?.length} />
-                <p>{t(TranslationKey.All)}</p>
+                <CustomCheckbox checked={value?.length === allPayments?.length}>All</CustomCheckbox>
               </MenuItem>
             )}
 
@@ -148,7 +148,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
               allPayments?.map((paymentMethod, paymentMethodIndex) => (
                 // @ts-ignore
                 <MenuItem key={paymentMethodIndex} value={paymentMethod} className={styles.paymentMethod}>
-                  <Checkbox color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
+                  <CustomCheckbox checked={value?.some(item => item?._id === paymentMethod?._id)} />
                   <img
                     src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
                     alt={paymentMethod?.title}
@@ -162,7 +162,7 @@ export const CustomSelectPaymentDetails: FC<CustomSelectPaymentDetailsProps> = p
               value?.map((paymentMethod, paymentMethodIndex) => (
                 // @ts-ignore
                 <MenuItem key={paymentMethodIndex} value={paymentMethod} className={styles.paymentMethod}>
-                  <Checkbox disabled color="primary" checked={value?.some(item => item?._id === paymentMethod?._id)} />
+                  <CustomCheckbox disabled checked={value?.some(item => item?._id === paymentMethod?._id)} />
                   <img
                     src={getAmazonImageUrl(paymentMethod?.iconImage, false)}
                     alt={paymentMethod?.title}

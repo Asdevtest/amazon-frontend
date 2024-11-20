@@ -3,12 +3,13 @@ import { useState } from 'react'
 import { FiPlus } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 
-import { Checkbox, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -101,7 +102,7 @@ export const AddOwnProductForm = observer(({ onSubmit, showProgress, progressVal
         label={t(TranslationKey.No) + ' ASIN'}
         labelClasses={styles.fieldLabel}
         inputComponent={
-          <Checkbox
+          <CustomCheckbox
             color="primary"
             checked={isNoAsin}
             className={styles.checkbox}

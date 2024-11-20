@@ -1,12 +1,11 @@
 import { memo, useState } from 'react'
 
-import { Checkbox } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 
 import { calcFinalWeightForBox, calcVolumeWeightForBox, calculateDeliveryCostPerPcs } from '@utils/calculation'
@@ -94,9 +93,8 @@ export const RequestToSendBatchBox = memo(
                       <div className={styles.checkboxWrapper}>
                         <p className={cx({ [styles.alertSpan]: isNoBarCodGlued })}>{t(TranslationKey.glued)}</p>
 
-                        <Checkbox
+                        <CustomCheckbox
                           disabled
-                          color="primary"
                           checked={
                             box.items[0].isBarCodeAlreadyAttachedByTheSupplier ||
                             box.items[0].isBarCodeAttachedByTheStorekeeper
@@ -123,9 +121,8 @@ export const RequestToSendBatchBox = memo(
                       <div className={styles.checkboxWrapper}>
                         <p className={cx({ [styles.alertSpan]: isNoTransparencyGlued })}>{t(TranslationKey.glued)}</p>
 
-                        <Checkbox
+                        <CustomCheckbox
                           disabled
-                          color="primary"
                           checked={
                             box.items[0].isTransparencyFileAlreadyAttachedByTheSupplier ||
                             box.items[0].isTransparencyFileAttachedByTheStorekeeper
@@ -169,9 +166,8 @@ export const RequestToSendBatchBox = memo(
                         <div className={styles.checkboxWrapper}>
                           <p className={cx({ [styles.alertSpan]: isNoBarCodGlued })}>{t(TranslationKey.glued)}</p>
 
-                          <Checkbox
+                          <CustomCheckbox
                             disabled
-                            color="primary"
                             checked={
                               box.items[0].isBarCodeAlreadyAttachedByTheSupplier ||
                               box.items[0].isBarCodeAttachedByTheStorekeeper
@@ -198,9 +194,8 @@ export const RequestToSendBatchBox = memo(
                         <div className={styles.checkboxWrapper}>
                           <p className={cx({ [styles.alertSpan]: isNoTransparencyGlued })}>{t(TranslationKey.glued)}</p>
 
-                          <Checkbox
+                          <CustomCheckbox
                             disabled
-                            color="primary"
                             checked={
                               box.items[0].isTransparencyFileAlreadyAttachedByTheSupplier ||
                               box.items[0].isTransparencyFileAttachedByTheStorekeeper

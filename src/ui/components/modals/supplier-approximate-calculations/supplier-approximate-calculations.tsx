@@ -5,8 +5,8 @@ import { DataGridPremiumProps, GridCellParams, GridRowClassNameParams } from '@m
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
@@ -196,12 +196,12 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
               children: (
                 <>
                   {isTariffsSelect ? (
-                    <Checkbox
+                    <CustomCheckbox
                       checked={!viewModel.isStrictVariationSelect}
                       onChange={e => viewModel.handleChangeStrictVariation(!e.target.checked)}
                     >
-                      {t(TranslationKey['Remove destination restriction'])}
-                    </Checkbox>
+                      Remove destination restriction
+                    </CustomCheckbox>
                   ) : null}
                 </>
               ),

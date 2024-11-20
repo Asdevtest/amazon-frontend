@@ -44,6 +44,7 @@ export class PermissionsFormModel {
   subUser?: IFullUser
   onCloseModal?: () => void
   onUpdateData?: () => void
+  searchValue: string = ''
 
   get userInfo() {
     return UserModel?.userInfo as unknown as IFullUser
@@ -461,6 +462,8 @@ export class PermissionsFormModel {
   }
 
   searchFilter(inputValue: string, path: DefaultOptionType[]) {
+    this.searchValue = inputValue
+
     if (this.isAssignPermissions) {
       return path.some(option => (option.label as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
     } else {

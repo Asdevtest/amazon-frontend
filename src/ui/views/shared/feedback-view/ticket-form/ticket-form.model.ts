@@ -24,6 +24,7 @@ export class TicketFormModel {
   onUdateData?: VoidFunction
   onClose?: VoidFunction
   loading = false
+  showMediaBlock = false
 
   get showResponseBlock() {
     return !!this.feedback?.responseText || !!this.feedback?.responseMedia?.length
@@ -110,6 +111,10 @@ export class TicketFormModel {
 
   onChangeResponseMedia(media: UploadFileType[]) {
     this.responseMedia = media
+  }
+
+  onToggleResponseBlock() {
+    this.showMediaBlock = !this.showMediaBlock
   }
 
   onChangeStatus(status: FeedbackStatus) {

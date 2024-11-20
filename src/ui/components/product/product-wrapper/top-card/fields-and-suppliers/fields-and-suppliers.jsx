@@ -15,9 +15,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserCell } from '@components/data-grid/data-grid-cells'
 import { EditProductTags } from '@components/modals/edit-product-tags-modal'
-import { Checkbox } from '@components/shared/checkbox'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
@@ -520,13 +520,13 @@ export const FieldsAndSuppliers = memo(props => {
           </div>
 
           {(checkIsClient(curUserRole) || checkIsBuyer(curUserRole)) && (
-            <Checkbox
+            <CustomCheckbox
               disabled={checkIsBuyer(curUserRole)}
               checked={product?.transparency}
               onChange={e => onChangeField?.('transparency')(e.target.checked)}
             >
               Transparency Codes
-            </Checkbox>
+            </CustomCheckbox>
           )}
         </div>
       </Box>

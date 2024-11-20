@@ -12,7 +12,6 @@ import { useStyles } from './custom-textarea.style'
 
 interface CustomTextareaProps extends TextAreaProps, IDefaultPropsExtensionAntdComponent {
   resize?: boolean
-  placeholder?: string
 }
 
 export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {

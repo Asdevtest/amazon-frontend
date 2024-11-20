@@ -10,9 +10,7 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-input-number.style'
 
-interface CustomInputNumberProps extends InputNumberProps, IDefaultPropsExtensionAntdComponent {
-  placeholder?: string
-}
+interface CustomInputNumberProps extends InputNumberProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomInputNumber: FC<CustomInputNumberProps> = memo(props => {
   const { isRow, isCell, label, required, placeholder, className, labelClassName, wrapperClassName, ...restProps } =

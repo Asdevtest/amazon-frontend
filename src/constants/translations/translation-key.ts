@@ -199,7 +199,7 @@ export enum TranslationKey {
   'On orders' = 'On orders',
   'On boxes' = 'On boxes',
   'To order' = 'To order',
-  'Bind an product from Amazon' = 'Bind an product from Amazon',
+  'Bind a product from Amazon' = 'Bind a product from Amazon',
   'Supplier search' = 'Supplier search',
   'Open inventory' = 'Open inventory',
   'Open archive' = 'Open archive',

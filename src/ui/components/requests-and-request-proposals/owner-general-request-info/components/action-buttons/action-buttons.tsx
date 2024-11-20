@@ -3,8 +3,8 @@ import { FC, memo } from 'react'
 import { RequestStatus } from '@constants/requests/request-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 
 import { t } from '@utils/translations'
 
@@ -48,8 +48,13 @@ export const ActionButtons: FC<ActionButtonsProps> = memo(props => {
   return (
     <div className={styles.btnsBlockWrapper}>
       <CustomButton onClick={() => onToggleUploadedToListing(id, uploadedToListing)}>
-        <Checkbox color="primary" checked={uploadedToListing} className={styles.listingCheckbox} />
-        <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
+        <CustomCheckbox
+          checked={uploadedToListing}
+          labelClassName={styles.listingText}
+          className={styles.listingCheckbox}
+        >
+          Uploaded by on listing
+        </CustomCheckbox>
       </CustomButton>
       {isDisplayingMarkAsCompletedButton && (
         <CustomButton disabled={disableMarkAsCompletedButton} type="primary" onClick={onClickMarkAsCompletedBtn}>
