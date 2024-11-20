@@ -9,6 +9,7 @@ export const useStyles = makeStyles()(() => ({
     overflow: 'hidden',
     transition: 'width 0.3s ease',
     gap: 0,
+    alignItems: 'center',
 
     '& span:not(.ant-btn-icon, .filtersCount)': {
       visibility: 'hidden',
