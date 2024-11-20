@@ -23,10 +23,13 @@ export interface FilterValues {
 
 interface CardsFilterProps {
   showFilter: boolean
-  onSubmit: (values: FilterValues) => void
+  onSubmit: (values: any) => void
+  onReset: () => void
 }
 
-export const CardsFilter: FC<CardsFilterProps> = memo(({ showFilter, onSubmit }) => {
+export const CardsFilter: FC<CardsFilterProps> = memo(props => {
+  const { showFilter, onSubmit, onReset } = props
+
   const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new CategoriesModel(), [])
   const [form] = Form.useForm()
@@ -38,8 +41,22 @@ export const CardsFilter: FC<CardsFilterProps> = memo(({ showFilter, onSubmit })
     setOpenFilter(false)
   }
   const handleFinish = (values: FilterValues) => {
-    onSubmit(values)
+    const createFilterCondition = (key: string, operator: string, value: any) =>
+      value ? { [key]: { [operator]: value } } : {}
+    const filterOptions = {
+      ...createFilterCondition('priceMin', '$gte', Number(values.priceMin)),
+      ...createFilterCondition('priceMax', '$lte', Number(values.priceMax)),
+      ...createFilterCondition('categories', '$eq', values.categories.join(',')),
+      ...createFilterCondition('moqMin', '$gte', Number(values.moqMin)),
+      ...createFilterCondition('moqMax', '$lte', Number(values.moqMax)),
+    }
+    onSubmit(filterOptions)
     onClose()
+  }
+
+  const handleReset = () => {
+    onReset()
+    form.resetFields()
   }
 
   return showFilter ? (
@@ -91,7 +108,7 @@ export const CardsFilter: FC<CardsFilterProps> = memo(({ showFilter, onSubmit })
 
           <Form.Item shouldUpdate>
             <div className={styles.buttons}>
-              <CustomButton onClick={() => form.resetFields()}>{t(TranslationKey.Reset)}</CustomButton>
+              <CustomButton onClick={handleReset}>{t(TranslationKey.Reset)}</CustomButton>
               <CustomButton type="primary" htmlType="submit">
                 {t(TranslationKey.Apply)}
               </CustomButton>

@@ -9,12 +9,9 @@ export const useStyles = makeStyles()(() => ({
   },
 
   content: {
-    height: '100%',
     padding: '5px',
     display: 'grid',
     gridTemplateColumns: '1fr',
-    gap: '10px',
-    overflowY: 'auto',
   },
 
   products: {
@@ -24,9 +21,6 @@ export const useStyles = makeStyles()(() => ({
 
   empty: {
     alignContent: 'center',
-  },
-
-  emptyProducts: {
     gridTemplateColumns: '1fr',
   },
 

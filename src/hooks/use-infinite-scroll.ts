@@ -1,12 +1,18 @@
 import { MutableRefObject, useEffect, useRef } from 'react'
 
 export interface UseInfiniteScrollOptions {
+  callback?: () => void
   triggerRef: MutableRefObject<HTMLElement>
   wrapperRef: MutableRefObject<HTMLElement>
-  callback?: () => void
+  marginTopTrigger?: number
 }
 
-export const useInfiniteScroll = ({ callback, wrapperRef, triggerRef }: UseInfiniteScrollOptions) => {
+export const useInfiniteScroll = ({
+  callback,
+  wrapperRef,
+  triggerRef,
+  marginTopTrigger = 50,
+}: UseInfiniteScrollOptions) => {
   const observer = useRef<IntersectionObserver | null>(null)
 
   useEffect(() => {
@@ -16,7 +22,7 @@ export const useInfiniteScroll = ({ callback, wrapperRef, triggerRef }: UseInfin
     if (callback) {
       const options = {
         root: wrapperElement,
-        rootMargin: '0px',
+        rootMargin: `${marginTopTrigger}px 0px 0px 0px`,
         threshold: 1.0,
       }
 

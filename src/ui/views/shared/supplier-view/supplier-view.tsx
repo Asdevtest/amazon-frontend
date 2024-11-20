@@ -1,4 +1,4 @@
-import { Empty, Spin } from 'antd'
+import { Spin } from 'antd'
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectShopsForm } from '@components/forms/select-shops-form'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { InfiniteScroll } from '@components/shared/infinite-scroll'
 import { Modal } from '@components/shared/modal'
 import { SupplierCard, SupplierProductCard } from '@components/shared/supplier'
 
@@ -30,27 +31,24 @@ export const SupplierView = observer(({ history }: { history: HistoryType }) => 
           enterButton
           size="large"
           placeholder="Search"
-          onSearch={viewModel.onClickSubmitSearch}
+          onSearch={viewModel.onSearchSubmit}
         />
 
         <SupplierCard supplier={viewModel.supplier} showViewMore={false} />
 
-        <div
-          className={cx(styles.content, { [styles.emptyProducts]: !viewModel.products.length })}
-          onScroll={viewModel.onScroll}
+        <InfiniteScroll
+          className={styles.products}
+          data={viewModel.products}
+          itemContent={({ item }) => <SupplierProductCard product={item} onSubmit={viewModel.onSelectSupplierCard} />}
+          onScrollEnd={viewModel.loadMoreData}
         >
-          {viewModel.products.length ? (
-            viewModel.products.map(product => (
-              <SupplierProductCard key={product._id} product={product} onSubmit={viewModel.onSelectSupplierCard} />
-            ))
-          ) : (
-            <Empty />
-          )}
-
-          <CardsFilter showFilter={!!viewModel.products.length} onSubmit={viewModel.onSubmitFilters} />
-
+          <CardsFilter
+            showFilter={!!viewModel.products.length}
+            onSubmit={viewModel.onFilterSubmit}
+            onReset={viewModel.onResetOptions}
+          />
           <Spin spinning={viewModel.loading} size="large" className={styles.loading} />
-        </div>
+        </InfiniteScroll>
       </div>
 
       <Modal openModal={viewModel.showSelectShopsModal} setOpenModal={viewModel.onToggleSelectShopsModal}>

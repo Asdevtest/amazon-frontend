@@ -85,6 +85,7 @@ export const dataGridFiltersConverter = (
   operatorsSettings?: OperatorsSettingsType,
   defaultFilterParams?: Record<string, unknown>,
 ): FilterList => {
+  console.log('additionalOptions', additionalOptions)
   // * Проходимся по списку колонок для поиска и создаем фильтр для каждой
   const searchFieldsArray: FilterObject[] = searchValue
     ? searchFields
@@ -102,7 +103,8 @@ export const dataGridFiltersConverter = (
 
   // * Проходимся по всем колонкам, получаем фильтра для каждой и генерируем итоговый объект
   const columnFilters: FilterObject = columns.reduce((acc, column) => {
-    const filterList = exclusion !== column ? columnMenuSettings[column].currentFilterData : []
+    const filterList =
+      exclusion === column || !columnMenuSettings[column] ? [] : columnMenuSettings[column].currentFilterData
 
     if (filterList.length === 0) {
       return acc
