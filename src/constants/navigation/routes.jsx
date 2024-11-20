@@ -3236,6 +3236,7 @@ export const privateRoutesConfigs = [
     component: PatchNoutesView,
     exact: false,
     permission: [UserRole.MODERATOR],
+    permissionKey: permissionsKeys.moderator.SHOW_PATCHNOTES_MODERATOR,
     crumbNameKey: TranslationKey['Patch notes'],
 
     navigationInfo: {
@@ -3264,6 +3265,7 @@ export const privateRoutesConfigs = [
     component: SubUsersView,
     exact: true,
     permission: [UserRole.MODERATOR],
+    permissionKey: permissionsKeys.moderator.SHOW_USERS_MODERATOR,
     crumbNameKey: TranslationKey['My users'],
 
     navigationInfo: {
@@ -3306,6 +3308,7 @@ export const privateRoutesConfigs = [
     component: MessagesView,
     exact: false,
     permission: [UserRole.MODERATOR],
+    permissionKey: permissionsKeys.moderator.SHOW_CHAT_MODERATOR,
     crumbNameKey: TranslationKey.Messages,
 
     navigationInfo: {
