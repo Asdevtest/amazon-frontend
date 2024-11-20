@@ -41,7 +41,7 @@ export const CustomAutoComplete: FC<CustomAutoCompleteProps> = memo(props => {
       )}
     >
       {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
-      <AutoComplete {...restProps} placeholder={placeholderText} options={options} />
+      <AutoComplete {...restProps} options={options} placeholder={placeholderText} />
     </div>
   )
 })
