@@ -66,6 +66,14 @@ export const calcVolumeWeightForBox = (box, coefficient) => {
   }
 }
 
+export const getVolumeWeight = (sizes, coefficient) => {
+  if (!sizes) {
+    return 0
+  }
+
+  return (sizes.length * sizes.width * sizes.height) / coefficient || 0
+}
+
 export const getTariffRateForBoxOrOrder = box => {
   if (!box || (!box.destination && !box.logicsTariff)) {
     return 0

@@ -10,7 +10,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    flex: 1,
+    width: 'calc(60% - 25px)',
   },
 
   selectsWrapper: {
@@ -19,7 +19,7 @@ export const useStyles = makeStyles()(() => ({
     width: '100%',
 
     '.select': {
-      flex: 1,
+      width: 'calc(100% / 2 - 5px)',
     },
   },
 

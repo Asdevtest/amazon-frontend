@@ -1,4 +1,4 @@
-import { Form, FormInstance } from 'antd'
+import { Form } from 'antd'
 import { FC, memo } from 'react'
 
 import { CustomButton } from '@components/shared/custom-button'
@@ -7,20 +7,22 @@ import { toFixed } from '@utils/text'
 
 import { useStyles } from './delivery-costs.style'
 
-import { ICreateSupplierProduct, SupplierCurrency } from '../../add-supplier-product-modal.type'
+import { ICreateSupplierProductModal, SupplierCurrency } from '../../add-supplier-product-modal.type'
 import { DeliveryCostsInputs } from '../delivery-costs-inputs'
 
 interface IDeliveryCostsProps {
-  form: FormInstance<ICreateSupplierProduct>
   currency: SupplierCurrency
 
-  getBatchPrice: (values: ICreateSupplierProduct) => number
-  getPriceWithDeliveryPerUnit: (values: ICreateSupplierProduct) => number
+  getBatchPrice: (values: ICreateSupplierProductModal) => number
+  getPriceWithDeliveryPerUnit: (values: ICreateSupplierProductModal) => number
+
+  onChangePricePerUnit: (value: number) => void
+  onChangeBatchDelivery: (value: number) => void
 }
 
 export const DeliveryCosts: FC<IDeliveryCostsProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
-  const { currency, form, getBatchPrice, getPriceWithDeliveryPerUnit } = props
+  const { currency, getBatchPrice, getPriceWithDeliveryPerUnit, onChangePricePerUnit, onChangeBatchDelivery } = props
 
   const deliveryPerUnitName = currency === SupplierCurrency.CNY ? 'priceInYuan' : 'priceInUsd'
   const batchDelivery = currency === SupplierCurrency.CNY ? 'batchDeliveryCostInYuan' : 'batchDeliveryCostInDollar'
@@ -29,13 +31,13 @@ export const DeliveryCosts: FC<IDeliveryCostsProps> = memo(props => {
     const result = getPriceWithDeliveryPerUnit(values)
 
     return result ? toFixed(result) : ''
-  }, form)
+  })
 
   const batchPrice = Form.useWatch(values => {
     const result = getBatchPrice(values)
 
     return result ? toFixed(result) : ''
-  }, form)
+  })
 
   return (
     <div className={styles.root}>
@@ -51,6 +53,7 @@ export const DeliveryCosts: FC<IDeliveryCostsProps> = memo(props => {
         controllInputTitle="Price per unit"
         uncontrollInputTitle="Price with delivery per unit"
         uncontrollInputValue={priceWithDeliveryPerUnit}
+        onChangeDelivery={onChangePricePerUnit}
       />
 
       <DeliveryCostsInputs
@@ -58,6 +61,7 @@ export const DeliveryCosts: FC<IDeliveryCostsProps> = memo(props => {
         controllInputTitle="Batch delivery"
         uncontrollInputTitle="Batch price"
         uncontrollInputValue={batchPrice}
+        onChangeDelivery={onChangeBatchDelivery}
       />
     </div>
   )

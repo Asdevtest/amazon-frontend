@@ -17,4 +17,9 @@ export const useStyles = makeStyles()(() => ({
   uploadFiles: {
     flex: 1,
   },
+
+  uploadFilesWrapper: {
+    marginTop: '0px',
+    gap: '10px',
+  },
 }))
