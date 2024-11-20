@@ -100,7 +100,6 @@ export const EditOrderModal = memo(
     setUpdateSupplierData,
   }) => {
     const { classes: styles, cx } = useStyles()
-
     const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
     const [usePriceInDollars, setUsePriceInDollars] = useState(false)
     const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
@@ -697,9 +696,9 @@ export const EditOrderModal = memo(
               orderGoodsAmount={orderFields?.amount}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={
-                userInfo._id !== order.orderSupplier.createdBy?._id &&
+                userInfo._id !== order?.orderSupplier?.createdBy?._id &&
                 userInfo?.masterUser?._id !== order.orderSupplier?.createdBy?._id &&
-                order.orderSupplier.createdBy
+                order?.orderSupplier?.createdBy
               }
               newBoxes={boxesForCreation}
               onRemoveBox={onRemoveForCreationBox}
