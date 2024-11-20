@@ -36,7 +36,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
         orderCreatedAt={orderCreatedAt}
         orderSupplierId={orderSupplierId}
         supplierCreatedAt={row.createdAt}
-        supplierId={row.supplier._id}
+        supplierId={row.supplier?._id}
         supplierMultiplicity={row.multiplicity}
         supplierAmountInBox={row.boxProperties?.amountInBox}
       />
@@ -107,7 +107,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price variations'])} />,
     renderCell: ({ row }: GridRowModel) => (
       <PriceVariationsCell
-        variations={row.supplier.priceVariations}
+        variations={row.supplier?.priceVariations}
         yuanToDollarRate={platformSettings?.yuanToDollarRate}
       />
     ),
@@ -120,7 +120,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'paymentMethods',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
-    renderCell: ({ row }: GridRowModel) => <PaymentMethods isCell paymentMethods={row.supplier.paymentMethods} />,
+    renderCell: ({ row }: GridRowModel) => <PaymentMethods isCell paymentMethods={row.supplier?.paymentMethods} />,
     filterable: false,
     sortable: false,
     width: 125,
