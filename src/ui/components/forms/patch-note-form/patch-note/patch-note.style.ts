@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 20,
+    gap: 10,
   },
 
   emptySelectValue: {
@@ -45,6 +45,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fieldLabel: {
+    color: theme.palette.text.general,
     marginBottom: 5,
     fontSize: 14,
     lineHeight: '19px',
@@ -56,9 +57,18 @@ export const useStyles = makeStyles()(theme => ({
 
   fieldContainer: {
     margin: 0,
+    marginTop: '5px',
+    width: '100%',
   },
 
   editor: {
     maxHeight: 154,
+  },
+
+  versionField: {
+    '.ant-select-selector': {
+      borderRadius: '4px',
+      background: `${theme.palette.background.second} !important`,
+    },
   },
 }))

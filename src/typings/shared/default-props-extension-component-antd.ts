@@ -6,4 +6,5 @@ export interface IDefaultPropsExtensionAntdComponent {
   tooltip?: string
   labelClassName?: string
   wrapperClassName?: string
+  fullWidth?: boolean
 }

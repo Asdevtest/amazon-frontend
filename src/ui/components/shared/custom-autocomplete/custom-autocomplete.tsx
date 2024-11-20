@@ -1,4 +1,4 @@
-import { Input, InputProps } from 'antd'
+import { AutoComplete, AutoCompleteProps } from 'antd'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -7,17 +7,12 @@ import { t } from '@utils/translations'
 
 import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-props-extension-component-antd'
 
-import { useStyles } from './custom-input.style'
+import { useStyles } from './custom-autocomplete.style'
 
-const { Password } = Input
+interface CustomAutoCompleteProps extends AutoCompleteProps, IDefaultPropsExtensionAntdComponent {}
 
-interface CustomInputProps extends InputProps, IDefaultPropsExtensionAntdComponent {
-  password?: boolean
-}
-
-export const CustomInput: FC<CustomInputProps> = memo(props => {
+export const CustomAutoComplete: FC<CustomAutoCompleteProps> = memo(props => {
   const {
-    password,
     isRow,
     isCell,
     label,
@@ -27,7 +22,7 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
     labelClassName,
     wrapperClassName,
     fullWidth,
-    maxLength = 255,
+    options = [],
     ...restProps
   } = props
 
@@ -36,25 +31,17 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
     ? `${t(TranslationKey[placeholder as TranslationKey])}${required ? '*' : ''}`
     : undefined
   const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
-  const Component = password ? Password : Input
 
   return (
     <div
       className={cx(
         styles.root,
-        { [styles.cell]: isCell, [styles.row]: isRow, [styles.input]: fullWidth },
+        { [styles.cell]: isCell, [styles.row]: isRow, [styles.fullWidth]: fullWidth },
         wrapperClassName,
       )}
     >
       {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
-      <Component
-        {...restProps}
-        title={placeholderText}
-        className={cx(styles.input, className)}
-        placeholder={placeholderText}
-        maxLength={maxLength}
-        onKeyDown={e => e.stopPropagation()}
-      />
+      <AutoComplete {...restProps} options={options} placeholder={placeholderText} />
     </div>
   )
 })

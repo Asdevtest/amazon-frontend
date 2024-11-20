@@ -10,9 +10,7 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-tree-select.style'
 
-export interface CustomTreeSelectProps extends TreeSelectProps, IDefaultPropsExtensionAntdComponent {
-  placeholder?: string
-}
+export interface CustomTreeSelectProps extends TreeSelectProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomTreeSelect: FC<CustomTreeSelectProps> = memo(props => {
   const { isRow, isCell, label, required, placeholder, className, labelClassName, wrapperClassName, ...restProps } =
