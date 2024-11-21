@@ -1,4 +1,5 @@
-const CACHE_NAME = 'media_cache_v1'
+const CACHE_NAME = 'media_cache_v4.23.3730' //
+const CACHE_LIFETIME = 30 * 24 * 60 * 60 * 1000 // 30 дней в миллисекундах
 
 // Событие установки + добавляем изначальный кэш
 self.addEventListener('install', event => {
@@ -19,16 +20,34 @@ self.addEventListener('install', event => {
 
       await cache.addAll(fallbackCache) // Добавляем изначальный кэш
 
+      // Сохраняем время установки кэша
+      const cacheMetadata = {
+        installedAt: Date.now(),
+      }
+      await cache.put('/cache-metadata', new Response(JSON.stringify(cacheMetadata))) // Добавляем мета-данные в кэш
+
       self.skipWaiting() // активирует Service Worker минуя фазу ожидания активации
     })(),
   )
 })
 
-// Событие активации
+// Событие активации + очистка старых кэшей по времени и версиям
 self.addEventListener('activate', event => {
   event.waitUntil(
     (async () => {
-      self.clients.claim() // Подтверждаем, что Service Worker активирован);
+      self.clients.claim() // Подтверждаем, что Service Worker активирован
+
+      const cache = await caches.open(CACHE_NAME) // Открываем кэш
+      const metadataResponse = await cache.match('/cache-metadata') // Получаем мета-данные
+
+      if (metadataResponse) {
+        const metadata = await metadataResponse.json()
+
+        // Проверяем, если кэш старше месяца, очищаем его
+        if (Date.now() - metadata.installedAt > CACHE_LIFETIME) {
+          await caches.delete(CACHE_NAME) // Очищаем старый кэш
+        }
+      }
 
       const cacheNames = await caches.keys() // Получаем список всех кэшей
 

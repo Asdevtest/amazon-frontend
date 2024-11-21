@@ -8,17 +8,7 @@ import { reportWebVitals } from '@utils/report-web-vitals'
 
 import { App } from './app'
 import './config/sentry'
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('/service-worker.js')
-    .then(registration => {
-      console.log('Service Worker зарегистрирован: ', registration)
-    })
-    .catch(error => {
-      console.log('Service Worker регистрация не удалась: ', error)
-    })
-}
+import './config/service-worker'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
