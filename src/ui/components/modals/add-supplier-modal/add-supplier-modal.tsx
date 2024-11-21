@@ -121,8 +121,9 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
 
         <ProductList
           disabled={!supplierId}
-          isLoading={viewModel.productIsloading}
-          products={viewModel.products}
+          isLoading={viewModel.productsInfinityModel?.loading || false}
+          products={viewModel.productsInfinityModel?.data || []}
+          loadMoreProducts={viewModel.productsInfinityModel?.loadMoreData}
           onOpenAddProductModal={viewModel.onOpenAddSupplierProductModal}
         />
 
@@ -146,7 +147,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
       {viewModel.showImportTemplateModal ? (
         <ImportTemplateModal
           supplierId={supplierId as string}
-          updateHandler={() => viewModel.onImportProducts(supplierId as string)}
+          updateHandler={viewModel.onImportProducts}
           openModal={viewModel.showImportTemplateModal}
           setOpenModal={viewModel.onCloseImportTemplateModal}
         />
@@ -155,7 +156,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
       {viewModel.showAddSupplierProductModal ? (
         <AddSupplierProductModal
           supplierId={supplierId as string}
-          handleUpdate={() => viewModel.getProductsCards(supplierId as string)}
+          handleUpdate={viewModel.onImportProducts}
           openModal={viewModel.showAddSupplierProductModal}
           setOpenModal={viewModel.onCloseAddSupplierProductModal}
         />

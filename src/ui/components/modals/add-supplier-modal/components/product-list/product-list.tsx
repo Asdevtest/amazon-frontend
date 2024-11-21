@@ -1,5 +1,5 @@
 import { Empty, Spin } from 'antd'
-import { FC, memo } from 'react'
+import { FC, UIEvent, memo } from 'react'
 import { FaPlus, FaStar } from 'react-icons/fa'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -19,52 +19,61 @@ interface ProductListProps {
   disabled: boolean
   products: ISupplierCard[]
   onOpenAddProductModal: () => void
+  loadMoreProducts?: () => void
 }
 
 export const ProductList: FC<ProductListProps> = memo(props => {
   const { classes: styles } = useStyles()
 
-  const { products, isLoading, disabled, onOpenAddProductModal } = props
+  const { products, isLoading, disabled, onOpenAddProductModal, loadMoreProducts } = props
 
   return (
     <div className={styles.productsWrapper}>
       <Text type="secondary" copyable={false} text={t(TranslationKey.Products)} rows={1} />
 
-      <div className={styles.productsList}>
-        {isLoading ? (
-          <Spin spinning={isLoading} size="large" className={styles.loading} />
-        ) : (
-          <>
-            <CustomButton
-              size="large"
-              type="dashed"
-              disabled={disabled}
-              icon={<FaPlus />}
-              className={styles.addButton}
-              onClick={onOpenAddProductModal}
-            />
+      <div
+        className={styles.productsList}
+        onScroll={(event: UIEvent<HTMLDivElement>) => {
+          if (loadMoreProducts) {
+            const isScrolledToRight =
+              event.currentTarget.scrollLeft + event.currentTarget.clientWidth === event.currentTarget.scrollWidth
 
-            {products?.length ? (
-              products?.map(supplierCard => (
-                <SupplierProductShortCard
-                  key={supplierCard._id}
-                  Icon={
-                    supplierCard.isPrime ? (
-                      <CustomButton
-                        size="small"
-                        type="default"
-                        icon={<FaStar className={styles.startIcon} />}
-                        className={styles.startIconButton}
-                      />
-                    ) : undefined
-                  }
-                  supplierCard={supplierCard}
-                />
-              ))
-            ) : (
-              <Empty className={styles.loading} />
-            )}
-          </>
+            if (isScrolledToRight) {
+              loadMoreProducts()
+            }
+          }
+        }}
+      >
+        <CustomButton
+          size="large"
+          type="dashed"
+          disabled={disabled}
+          icon={<FaPlus />}
+          className={styles.addButton}
+          onClick={onOpenAddProductModal}
+        />
+
+        {isLoading ? <Spin spinning={isLoading} size="large" className={styles.loading} /> : null}
+
+        {products?.length ? (
+          products?.map(supplierCard => (
+            <SupplierProductShortCard
+              key={supplierCard._id}
+              Icon={
+                supplierCard.isPrime ? (
+                  <CustomButton
+                    size="small"
+                    type="default"
+                    icon={<FaStar className={styles.startIcon} />}
+                    className={styles.startIconButton}
+                  />
+                ) : undefined
+              }
+              supplierCard={supplierCard}
+            />
+          ))
+        ) : (
+          <Empty className={styles.loading} />
         )}
       </div>
     </div>

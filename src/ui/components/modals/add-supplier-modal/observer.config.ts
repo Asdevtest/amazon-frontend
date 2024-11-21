@@ -4,7 +4,6 @@ export const observerConfig = {
   countries: observable,
   paymentMethods: observable,
   images: observable,
-  products: observable,
 
   showImportTemplateModal: observable,
   showAddSupplierProductModal: observable,
@@ -12,16 +11,14 @@ export const observerConfig = {
   countriesRequestStatus: observable,
   paymentMethodsRequestStatus: observable,
   productsRequestStatus: observable,
-  importProductsRequestStatus: observable,
+  productsInfinityModel: observable,
 
   productIsloading: computed,
-  importProductsIsloading: computed,
 
   getSuppliersPaymentMethods: action.bound,
   getCountries: action.bound,
   createSupplier: action.bound,
   setImages: action.bound,
-  getProductsCards: action.bound,
 
   onOpenImportTemplateModal: action.bound,
   onCloseImportTemplateModal: action.bound,
