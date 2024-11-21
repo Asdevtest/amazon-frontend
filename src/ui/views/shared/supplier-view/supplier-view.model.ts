@@ -1,26 +1,20 @@
 import { makeObservable, runInAction } from 'mobx'
-import { UIEvent } from 'react'
 import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
 
-import { dataGridFiltersConverter } from '@utils/data-grid-filters'
-import { objectToUrlQs } from '@utils/text'
 import { t } from '@utils/translations'
 
-import { loadingStatus } from '@typings/enums/loading-status'
 import { ISupplierCard, ISupplierExchange } from '@typings/models/suppliers/supplier-exchange'
 import { HistoryType } from '@typings/types/history'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
-
-import { FilterValues } from './cards-filter/cards-filter'
 import { supplierConfig } from './supplier-view.config'
 
-export class SupplierViewModel extends UseProductsPermissions {
+export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
   showSelectShopsModal = false
   supplierCardId?: string
 
@@ -28,36 +22,26 @@ export class SupplierViewModel extends UseProductsPermissions {
     return this.meta?.supplier
   }
   get products() {
-    return this.currentPermissionsData as unknown as ISupplierCard[]
+    return this.data
   }
-  get loading() {
-    return this.requestStatus === loadingStatus.IS_LOADING
+  get showFilter() {
+    return this.products?.length > 1 || this.filtersCount > 0
   }
 
   constructor(history: HistoryType) {
-    const requestOptions = {
+    const options = {
       guid: history.location.search.slice(1),
-      sortField: 'updatedAt',
-      sortType: 'DESC',
-      limit: 15,
     }
-    // @ts-ignore
-    super(SupplierV2Model.getSupplierCards, requestOptions, ['cardName'])
-    this.permissionsData = []
-    this.isCanLoadMore = true
-    this.getPermissionsData()
+
+    super({
+      method: SupplierV2Model.getSupplierCards,
+      options,
+      searchFields: ['cardName'],
+      filterFields: ['priceMin', 'priceMax', 'categories', 'moqMin', 'moqMax'],
+    })
+
+    this.getData()
     makeObservable(this, supplierConfig)
-  }
-
-  onScroll = (e: UIEvent<HTMLElement>) => {
-    const element = e.target as HTMLElement
-    const scrollTop = element?.scrollTop
-    const containerHeight = element?.clientHeight
-    const contentHeight = element?.scrollHeight
-
-    if (contentHeight - (scrollTop + containerHeight) < 650) {
-      this.loadMoreDataHadler()
-    }
   }
 
   onToggleSelectShopsModal() {
@@ -85,15 +69,5 @@ export class SupplierViewModel extends UseProductsPermissions {
         this.supplierCardId = undefined
       })
     }
-  }
-
-  async onSubmitFilters(values: FilterValues) {
-    console.log('values', values)
-    this.setOptions({
-      offset: 0,
-      filters: objectToUrlQs(dataGridFiltersConverter({}, this.searchValue, '', [], this.searchFields || ['cardName'])),
-    })
-
-    await this.getPermissionsData()
   }
 }

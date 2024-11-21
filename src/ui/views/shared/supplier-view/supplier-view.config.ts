@@ -5,10 +5,8 @@ export const supplierConfig = {
   supplierCardId: observable,
   supplier: computed,
   products: computed,
-  loading: computed,
-  onScroll: action.bound,
+  showFilter: computed,
   onToggleSelectShopsModal: action.bound,
   onSelectSupplierCard: action.bound,
   onAddToInventory: action.bound,
-  onSubmitFilters: action.bound,
 }

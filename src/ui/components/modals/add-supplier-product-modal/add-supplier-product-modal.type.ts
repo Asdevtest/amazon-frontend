@@ -10,6 +10,7 @@ export interface ICreateSupplierProduct {
   priceInUsd: number
   amount: number
   minlot: number
+  price: number
   priceInYuan: number
   images: string[]
   yuanToDollarRate: number

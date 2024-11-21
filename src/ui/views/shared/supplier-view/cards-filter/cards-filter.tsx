@@ -4,6 +4,8 @@ import { FaArrowRight } from 'react-icons/fa'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { FilterOptionsType } from '@models/infinite-scroll-model/infinite-scroll.model'
+
 import { CategoriesModel } from '@components/contents/admin-settings-content/admin-tabs/categories/categories.model'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
@@ -14,20 +16,24 @@ import { t } from '@utils/translations'
 import { useStyles } from './cards-filter.style'
 
 export interface FilterValues {
-  priceMin: string
-  priceMax: string
-  categories: string[]
-  moqMin: string
-  moqMax: string
+  priceInUsdMin: string
+  priceInUsdMax: string
+  category: string[]
+  minlotMin: string
+  minlotMax: string
 }
 
 interface CardsFilterProps {
   showFilter: boolean
-  onSubmit: (values: FilterValues) => void
+  filtersCount: number
+  onSubmit: (values: FilterOptionsType) => void
+  onReset: () => void
 }
 
-export const CardsFilter: FC<CardsFilterProps> = memo(({ showFilter, onSubmit }) => {
-  const { classes: styles } = useStyles()
+export const CardsFilter: FC<CardsFilterProps> = memo(props => {
+  const { showFilter, filtersCount, onSubmit, onReset } = props
+
+  const { classes: styles, cx } = useStyles()
   const viewModel = useMemo(() => new CategoriesModel(), [])
   const [form] = Form.useForm()
   const [openFilter, setOpenFilter] = useState(false)
@@ -38,34 +44,51 @@ export const CardsFilter: FC<CardsFilterProps> = memo(({ showFilter, onSubmit })
     setOpenFilter(false)
   }
   const handleFinish = (values: FilterValues) => {
-    onSubmit(values)
+    const createFilterCondition = (key: string, operator: string, value: string | number) =>
+      value ? { [key]: { [operator]: value } } : {}
+    const filterOptions = {
+      ...createFilterCondition('priceInUsd', '$gte', Number(values.priceInUsdMin)),
+      ...createFilterCondition('priceInUsd', '$lte', Number(values.priceInUsdMax)),
+      ...createFilterCondition('category', '$eq', values.category?.join(',')),
+      ...createFilterCondition('minlot', '$gte', Number(values.minlotMin)),
+      ...createFilterCondition('minlot', '$lte', Number(values.minlotMax)),
+    }
+    onSubmit(filterOptions)
     onClose()
+  }
+
+  const handleReset = () => {
+    onReset()
+    form.resetFields()
   }
 
   return showFilter ? (
     <>
       <CustomButton
+        color={filtersCount > 0 ? 'primary' : undefined}
+        variant="outlined"
         size="large"
         icon={<FaArrowRight />}
         iconPosition="end"
-        className={styles.filterButton}
+        className={cx(styles.filterButton, { [styles.filterButtonActive]: filtersCount > 0 })}
         onClick={showDrawer}
       >
-        {t(TranslationKey.Filters)}
+        {filtersCount > 0 ? <p className="filtersCount">{`(${filtersCount})`}</p> : null}
+        <span>{t(TranslationKey.Filters)}</span>
       </CustomButton>
 
       <Drawer title={t(TranslationKey.Filters)} placement="left" open={openFilter} onClose={onClose}>
         <Form name="categories-form" size="large" form={form} rootClassName={styles.form} onFinish={handleFinish}>
           <Space.Compact rootClassName={styles.space}>
-            <Form.Item<FilterValues> name="priceMin">
+            <Form.Item<FilterValues> name="priceInUsdMin">
               <CustomInput fullWidth addonBefore={t(TranslationKey.min)} label="Price" />
             </Form.Item>
-            <Form.Item<FilterValues> name="priceMax">
+            <Form.Item<FilterValues> name="priceInUsdMax">
               <CustomInput fullWidth addonBefore={t(TranslationKey.max)} />
             </Form.Item>
           </Space.Compact>
 
-          <Form.Item<FilterValues> name="categories">
+          <Form.Item<FilterValues> name="category">
             <CustomTreeSelect
               allowClear
               showSearch
@@ -81,17 +104,17 @@ export const CardsFilter: FC<CardsFilterProps> = memo(({ showFilter, onSubmit })
           </Form.Item>
 
           <Space.Compact rootClassName={styles.space}>
-            <Form.Item<FilterValues> name="moqMin">
+            <Form.Item<FilterValues> name="minlotMin">
               <CustomInput fullWidth label="MOQ" addonBefore={t(TranslationKey.min)} />
             </Form.Item>
-            <Form.Item<FilterValues> name="moqMax">
+            <Form.Item<FilterValues> name="minlotMax">
               <CustomInput fullWidth addonBefore={t(TranslationKey.max)} />
             </Form.Item>
           </Space.Compact>
 
           <Form.Item shouldUpdate>
             <div className={styles.buttons}>
-              <CustomButton onClick={() => form.resetFields()}>{t(TranslationKey.Reset)}</CustomButton>
+              <CustomButton onClick={handleReset}>{t(TranslationKey.Reset)}</CustomButton>
               <CustomButton type="primary" htmlType="submit">
                 {t(TranslationKey.Apply)}
               </CustomButton>

@@ -17,7 +17,6 @@ interface IdeaSupplierCellProps {
 
 export const IdeaSupplierCell: FC<IdeaSupplierCellProps> = memo(({ onClickAddSupplier, suppliers }) => {
   const { classes: styles } = useStyles()
-  console.log(suppliers)
 
   return (
     <div className={styles.ideaSupplier}>
