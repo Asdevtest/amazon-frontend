@@ -182,8 +182,8 @@ export class InfiniteScrollModel<T, M = any> {
 
   async onResetOptions() {
     this.hasMore = true
-    this.options = DEFAULT_OPTIONS
-    this.searchValue = ''
+    this.setOptions(DEFAULT_OPTIONS)
+    this.filtersCount = 0
 
     await this.getData()
   }
