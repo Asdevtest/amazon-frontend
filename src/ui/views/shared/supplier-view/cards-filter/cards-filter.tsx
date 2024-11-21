@@ -4,6 +4,8 @@ import { FaArrowRight } from 'react-icons/fa'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { FilterOptionsType } from '@models/infinite-scroll-model/infinite-scroll.model'
+
 import { CategoriesModel } from '@components/contents/admin-settings-content/admin-tabs/categories/categories.model'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
@@ -24,7 +26,7 @@ export interface FilterValues {
 interface CardsFilterProps {
   showFilter: boolean
   filtersCount: number
-  onSubmit: (values: any) => void
+  onSubmit: (values: FilterOptionsType) => void
   onReset: () => void
 }
 
@@ -42,14 +44,14 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
     setOpenFilter(false)
   }
   const handleFinish = (values: FilterValues) => {
-    const createFilterCondition = (key: string, operator: string, value: any) =>
+    const createFilterCondition = (key: string, operator: string, value: string | number) =>
       value ? { [key]: { [operator]: value } } : {}
     const filterOptions = {
-      ...createFilterCondition('priceMin', '$gte', Number(values.priceMin)),
-      ...createFilterCondition('priceMax', '$lte', Number(values.priceMax)),
-      ...createFilterCondition('categories', '$eq', values.categories?.join(',')),
-      ...createFilterCondition('moqMin', '$gte', Number(values.moqMin)),
-      ...createFilterCondition('moqMax', '$lte', Number(values.moqMax)),
+      ...createFilterCondition('priceInUsd', '$gte', Number(values.priceMin)),
+      ...createFilterCondition('priceInUsd', '$lte', Number(values.priceMax)),
+      ...createFilterCondition('category', '$eq', values.categories?.join(',')),
+      ...createFilterCondition('minlot', '$gte', Number(values.moqMin)),
+      ...createFilterCondition('minlot', '$lte', Number(values.moqMax)),
     }
     onSubmit(filterOptions)
     onClose()

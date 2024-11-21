@@ -24,6 +24,9 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
   get products() {
     return this.data
   }
+  get showFilter() {
+    return this.products?.length > 1 || this.filtersCount > 0
+  }
 
   constructor(history: HistoryType) {
     const options = {

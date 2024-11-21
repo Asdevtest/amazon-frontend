@@ -35,6 +35,8 @@ const DEFAULT_OPTIONS = {
   filters: '',
 }
 
+export type FilterOptionsType = Record<string, Record<string, string | number>>
+
 interface InfiniteScrollModelProps {
   method: ICallback
   options?: any
@@ -151,7 +153,7 @@ export class InfiniteScrollModel<T, M = any> {
     }
   }
 
-  async onFilterSubmit(filtersOtions: any) {
+  async onFilterSubmit(filtersOtions: FilterOptionsType) {
     if (!this.method || this.requestStatus !== loadingStatus.SUCCESS) {
       return
     }
@@ -169,7 +171,7 @@ export class InfiniteScrollModel<T, M = any> {
       await this.getData()
 
       runInAction(() => {
-        this.filtersCount = Object.keys(filtersOtions).length
+        this.filtersCount = new Set(Object.keys(filtersOtions)).size
         this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {

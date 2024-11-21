@@ -45,7 +45,7 @@ export const SupplierView = observer(({ history }: { history: HistoryType }) => 
           />
 
           <CardsFilter
-            showFilter={viewModel.products.length > 1}
+            showFilter={viewModel.showFilter}
             filtersCount={viewModel.filtersCount}
             onSubmit={viewModel.onFilterSubmit}
             onReset={viewModel.onResetOptions}
