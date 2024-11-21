@@ -59,15 +59,15 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
   }
 
   const onAddPriceVariations = useCallback((priceVariation: IPrice) => {
-    const prices = form.getFieldValue('prices') || []
+    const prices = form.getFieldValue('priceVariations') || []
 
     const variationToAdd = {
       ...priceVariation,
-      label: `${priceVariation.amount} / ${priceVariation.price}${SupplierCurrency.CNY}`,
+      label: `${priceVariation.quantity} / ${priceVariation.price}${SupplierCurrency.CNY}`,
     }
 
     form.setFieldsValue({
-      prices: prices?.concat([variationToAdd]),
+      priceVariations: prices?.concat([variationToAdd]),
     })
   }, [])
 
@@ -85,7 +85,6 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
           },
           unitDimensionType: Dimensions.EU,
           yuanToDollarRate: viewModel.systemYuanToDollarRate,
-          supplierId: 'ea71c82d-12e2-4080-a22e-37407f01c633',
         }}
         onFinish={viewModel?.createSupplierCard}
       >
@@ -100,6 +99,9 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
 
         <div className={styles.contentWrapper}>
           <GeneralInfo
+            isSuppliersLoading={viewModel?.suppliersInfinityModel?.loading}
+            suppliers={viewModel?.suppliersInfinityModel?.data}
+            loadMoreSuppliers={viewModel?.suppliersInfinityModel?.loadMoreData}
             images={viewModel.images}
             handleUploadFiles={handleUploadFiles}
             categoriesLoading={viewModel.categoriesLoadingStatus === loadingStatus.IS_LOADING}

@@ -1,11 +1,12 @@
 import { Form } from 'antd'
-import { FC, memo } from 'react'
+import { FC, UIEvent, memo } from 'react'
 
 import { CustomInput } from '@components/shared/custom-input'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTreeSelect } from '@components/shared/custom-tree-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { ISupplierV2Light } from '@typings/models/suppliers/supplier-v2'
 import { ICategory } from '@typings/shared/category'
 import { UploadFileType } from '@typings/shared/upload-file'
 
@@ -17,14 +18,18 @@ import { useStyles } from './general-info.style'
 import { ICreateSupplierProductModal } from '../../add-supplier-product-modal.type'
 
 interface GeneralInfoProps {
+  suppliers: ISupplierV2Light[]
   categoriesLoading: boolean
+  isSuppliersLoading: boolean
   categories: ICategory[]
   images: UploadFileType[]
   handleUploadFiles: (images: UploadFileType[]) => void
+  loadMoreSuppliers: () => void
 }
 
 export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
-  const { categoriesLoading, categories, images, handleUploadFiles } = props
+  const { suppliers, isSuppliersLoading, categoriesLoading, categories, images, handleUploadFiles, loadMoreSuppliers } =
+    props
 
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
@@ -33,22 +38,23 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
     <div className={cx(styles.root, sharedStyles.sectionWrapper)}>
       <div className={styles.productInfoWrapper}>
         <div className={styles.selectsWrapper}>
-          <Form.Item<ICreateSupplierProductModal>
-            name="supplierId"
-            className={cx(sharedStyles.field, 'select')}
-            rules={getRequiredRules()}
-          >
+          <Form.Item<ICreateSupplierProductModal> name="supplierId" className={cx(sharedStyles.field, 'select')}>
             <CustomSelect
-              required
               allowClear
-              mode="tags"
-              // loading={viewModel.paymentMethodsRequestStatus === loadingStatus.IS_LOADING}
+              loading={isSuppliersLoading}
               wrapperClassName={sharedStyles.input}
               label="Supplier"
               placeholder="Supplier"
-              // options={viewModel.paymentMethods}
-              options={[{ label: 'test', value: 'test' }]}
-              // fieldNames={{ label: 'title', value: '_id' }}
+              options={suppliers}
+              fieldNames={{ label: 'companyName', value: '_id' }}
+              onPopupScroll={(event: UIEvent<HTMLElement>) => {
+                const isEndScroll =
+                  event.currentTarget.scrollHeight - event.currentTarget.scrollTop === event.currentTarget.clientHeight
+
+                if (isEndScroll) {
+                  loadMoreSuppliers()
+                }
+              }}
             />
           </Form.Item>
 

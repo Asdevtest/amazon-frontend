@@ -7,6 +7,7 @@ export const observerConfig = {
   unitImages: observable,
 
   categoriesLoadingStatus: observable,
+  suppliersInfinityModel: observable,
 
   systemYuanToDollarRate: computed,
   volumeWeightCoefficient: computed,
@@ -14,6 +15,7 @@ export const observerConfig = {
   setImages: action.bound,
   setUnitImages: action.bound,
 
+  transformValueToCreateSupplier: action.bound,
   createSupplierCard: action.bound,
   uploadFiles: action.bound,
 }

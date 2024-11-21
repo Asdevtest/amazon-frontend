@@ -21,6 +21,14 @@ class SupplierV2ModelStatic {
     return response.data
   }
 
+  getSuppliersLight = async (params: ParamsGetPagRequest) => {
+    const response = await restApiService.supplierV2Api.apiV2SuppliersLightGet({
+      ...params,
+      noCache: true,
+    })
+    return response.data
+  }
+
   editSupplier = async (guid: string, body: PostSupplier) => {
     const response = await restApiService.supplierV2Api.apiV2SuppliersGuidPatch({
       guid,
