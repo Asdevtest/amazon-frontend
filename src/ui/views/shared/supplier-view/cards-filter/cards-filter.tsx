@@ -16,11 +16,11 @@ import { t } from '@utils/translations'
 import { useStyles } from './cards-filter.style'
 
 export interface FilterValues {
-  priceMin: string
-  priceMax: string
-  categories: string[]
-  moqMin: string
-  moqMax: string
+  priceInUsdMin: string
+  priceInUsdMax: string
+  category: string[]
+  minlotMin: string
+  minlotMax: string
 }
 
 interface CardsFilterProps {
@@ -47,11 +47,11 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
     const createFilterCondition = (key: string, operator: string, value: string | number) =>
       value ? { [key]: { [operator]: value } } : {}
     const filterOptions = {
-      ...createFilterCondition('priceInUsd', '$gte', Number(values.priceMin)),
-      ...createFilterCondition('priceInUsd', '$lte', Number(values.priceMax)),
-      ...createFilterCondition('category', '$eq', values.categories?.join(',')),
-      ...createFilterCondition('minlot', '$gte', Number(values.moqMin)),
-      ...createFilterCondition('minlot', '$lte', Number(values.moqMax)),
+      ...createFilterCondition('priceInUsd', '$gte', Number(values.priceInUsdMin)),
+      ...createFilterCondition('priceInUsd', '$lte', Number(values.priceInUsdMax)),
+      ...createFilterCondition('category', '$eq', values.category?.join(',')),
+      ...createFilterCondition('minlot', '$gte', Number(values.minlotMin)),
+      ...createFilterCondition('minlot', '$lte', Number(values.minlotMax)),
     }
     onSubmit(filterOptions)
     onClose()
@@ -80,15 +80,15 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
       <Drawer title={t(TranslationKey.Filters)} placement="left" open={openFilter} onClose={onClose}>
         <Form name="categories-form" size="large" form={form} rootClassName={styles.form} onFinish={handleFinish}>
           <Space.Compact rootClassName={styles.space}>
-            <Form.Item<FilterValues> name="priceMin">
+            <Form.Item<FilterValues> name="priceInUsdMin">
               <CustomInput fullWidth addonBefore={t(TranslationKey.min)} label="Price" />
             </Form.Item>
-            <Form.Item<FilterValues> name="priceMax">
+            <Form.Item<FilterValues> name="priceInUsdMax">
               <CustomInput fullWidth addonBefore={t(TranslationKey.max)} />
             </Form.Item>
           </Space.Compact>
 
-          <Form.Item<FilterValues> name="categories">
+          <Form.Item<FilterValues> name="category">
             <CustomTreeSelect
               allowClear
               showSearch
@@ -104,10 +104,10 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
           </Form.Item>
 
           <Space.Compact rootClassName={styles.space}>
-            <Form.Item<FilterValues> name="moqMin">
+            <Form.Item<FilterValues> name="minlotMin">
               <CustomInput fullWidth label="MOQ" addonBefore={t(TranslationKey.min)} />
             </Form.Item>
-            <Form.Item<FilterValues> name="moqMax">
+            <Form.Item<FilterValues> name="minlotMax">
               <CustomInput fullWidth addonBefore={t(TranslationKey.max)} />
             </Form.Item>
           </Space.Compact>
