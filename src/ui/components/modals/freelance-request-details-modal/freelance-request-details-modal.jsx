@@ -56,12 +56,12 @@ export const FreelanceRequestDetailsModal = memo(props => {
         <div className={styles.header}>
           <div className={styles.headerDetails}>
             <p>ID: {request?.xid}</p>
-            <Text className={cx(styles.textBold, styles.headerTitle)} rows={2} text={request?.title} />
+            <Text textBold rows={2} text={request?.title} />
           </div>
           <div className={styles.headerDetails}>
             <div className={styles.flexContainer}>
               <p className={styles.headerText}>{t(TranslationKey['Request type'])}</p>
-              <Text className={cx(styles.headerText, styles.textBold)} text={request?.spec?.title} rows={2} />
+              <Text text={request?.spec?.title} rows={2} />
             </div>
 
             <div className={styles.flexContainer}>

@@ -110,7 +110,7 @@ export const RequestTermsList = props => {
           labelClasses={styles.fieldLabel}
           containerClasses={styles.fieldContainer}
           label={t(TranslationKey['Request type'])}
-          inputComponent={<Text className={styles.accentText} text={request?.spec?.title} rows={1} />}
+          inputComponent={<Text text={request?.spec?.title} rows={1} />}
         />
       </div>
 
