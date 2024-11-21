@@ -30,6 +30,7 @@ export class AddSupplierModalModel extends DefaultModel {
   images: UploadFileType[] = []
 
   showImportTemplateModal = false
+  showAddSupplierProductModal = false
 
   get productIsloading() {
     return this.productsRequestStatus === loadingStatus.IS_LOADING
@@ -151,7 +152,6 @@ export class AddSupplierModalModel extends DefaultModel {
   onOpenImportTemplateModal() {
     this.onTriggerOpenModal('showImportTemplateModal', true)
   }
-
   onCloseImportTemplateModal() {
     this.onTriggerOpenModal('showImportTemplateModal', false)
   }
@@ -182,5 +182,12 @@ export class AddSupplierModalModel extends DefaultModel {
     } finally {
       this.setRequestStatus(loadingStatus.SUCCESS, requestField)
     }
+  }
+
+  onOpenAddSupplierProductModal() {
+    this.onTriggerOpenModal('showAddSupplierProductModal', true)
+  }
+  onCloseAddSupplierProductModal() {
+    this.onTriggerOpenModal('showAddSupplierProductModal', false)
   }
 }

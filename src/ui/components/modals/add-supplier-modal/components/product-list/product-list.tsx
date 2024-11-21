@@ -18,12 +18,13 @@ interface ProductListProps {
   isLoading: boolean
   disabled: boolean
   products: ISupplierCard[]
+  onOpenAddProductModal: () => void
 }
 
 export const ProductList: FC<ProductListProps> = memo(props => {
   const { classes: styles } = useStyles()
 
-  const { products, isLoading, disabled } = props
+  const { products, isLoading, disabled, onOpenAddProductModal } = props
 
   return (
     <div className={styles.productsWrapper}>
@@ -40,6 +41,7 @@ export const ProductList: FC<ProductListProps> = memo(props => {
               disabled={disabled}
               icon={<FaPlus />}
               className={styles.addButton}
+              onClick={onOpenAddProductModal}
             />
 
             {products?.length ? (

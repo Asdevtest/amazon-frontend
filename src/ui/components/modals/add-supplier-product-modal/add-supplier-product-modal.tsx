@@ -1,6 +1,6 @@
 import { Form } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useCallback, useMemo } from 'react'
+import { FC, useCallback, useEffect, useMemo } from 'react'
 import { FaStar } from 'react-icons/fa6'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -29,10 +29,11 @@ import { PriceVariations } from './components/price-variations'
 interface AddSupplierProductModalProps {
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
+  handleUpdate: () => void
 }
 
 export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observer(props => {
-  const { openModal, setOpenModal } = props
+  const { openModal, setOpenModal, handleUpdate } = props
 
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
@@ -71,6 +72,14 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
     })
   }, [])
 
+  const handleFinish = async (values: ICreateSupplierProductModal) => {
+    await viewModel.createSupplierCard(values)
+    handleUpdate()
+    onCloseModal()
+  }
+
+  useEffect(() => {}, [])
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <Form
@@ -86,7 +95,7 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
           unitDimensionType: Dimensions.EU,
           yuanToDollarRate: viewModel.systemYuanToDollarRate,
         }}
-        onFinish={viewModel?.createSupplierCard}
+        onFinish={handleFinish}
       >
         <div className={styles.header}>
           <p className={styles.title}>{t(TranslationKey['Add product'])}</p>

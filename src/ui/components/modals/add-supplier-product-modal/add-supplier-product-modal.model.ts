@@ -48,6 +48,7 @@ export class AddSupplierProductModalModel extends DefaultModel {
 
     this.suppliersInfinityModel = new InfiniteScrollModel({
       method: SupplierV2Model.getSuppliersLight,
+      searchFields: [],
     })
 
     this.getCategories()

@@ -7,6 +7,7 @@ export const observerConfig = {
   products: observable,
 
   showImportTemplateModal: observable,
+  showAddSupplierProductModal: observable,
 
   countriesRequestStatus: observable,
   paymentMethodsRequestStatus: observable,
@@ -25,4 +26,6 @@ export const observerConfig = {
   onOpenImportTemplateModal: action.bound,
   onCloseImportTemplateModal: action.bound,
   onImportProducts: action.bound,
+  onOpenAddSupplierProductModal: action.bound,
+  onCloseAddSupplierProductModal: action.bound,
 }

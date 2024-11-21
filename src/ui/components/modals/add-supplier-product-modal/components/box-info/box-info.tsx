@@ -9,8 +9,6 @@ import { CustomInputNumber } from '@components/shared/custom-input-number'
 
 import { Dimensions } from '@typings/enums/dimensions'
 
-import { getRequiredRules } from '@config/form-rules/get-required-rules'
-
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './box-info.style'
 
@@ -18,8 +16,6 @@ import { ICreateSupplierProductModal } from '../../add-supplier-product-modal.ty
 import { DimentionsHeader } from '../dimentions-header'
 
 interface IBoxDimentionsProps {
-  required: boolean
-
   volumeWeight: number
   sizeSetting: Dimensions
   dimentionsHeaderTitle: keyof typeof TranslationKey
@@ -39,8 +35,6 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
   const {
-    required,
-
     volumeWeight,
     sizeSetting,
     dimentionsHeaderTitle,
@@ -79,7 +73,6 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           rules={getRules()}
         >
           <CustomInputNumber
-            required={required}
             size="large"
             label="Height"
             placeholder="Height"
@@ -94,7 +87,6 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           rules={getRules()}
         >
           <CustomInputNumber
-            required={required}
             size="large"
             label="Width"
             placeholder="Width"
@@ -109,7 +101,6 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           rules={getRules()}
         >
           <CustomInputNumber
-            required={required}
             size="large"
             label="Length"
             placeholder="Length"
@@ -124,7 +115,6 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           rules={getRules()}
         >
           <CustomInputNumber
-            required={required}
             size="large"
             label="Weight"
             placeholder="Weight"
