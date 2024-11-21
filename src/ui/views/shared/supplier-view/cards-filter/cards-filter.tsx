@@ -15,20 +15,8 @@ import { t } from '@utils/translations'
 
 import { useStyles } from './cards-filter.style'
 
-export interface FilterValues {
-  priceInUsdMin: string
-  priceInUsdMax: string
-  category: string[]
-  minlotMin: string
-  minlotMax: string
-}
-
-interface CardsFilterProps {
-  showFilter: boolean
-  filtersCount: number
-  onSubmit: (values: FilterOptionsType) => void
-  onReset: () => void
-}
+import { createFilterCondition, getFilterOptions, maxValueRules, minValueRules } from './cards-filter.config'
+import { CardsFilterProps, FilterValues } from './cards-filter.type'
 
 export const CardsFilter: FC<CardsFilterProps> = memo(props => {
   const { showFilter, filtersCount, onSubmit, onReset } = props
@@ -44,22 +32,24 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
     setOpenFilter(false)
   }
   const handleFinish = (values: FilterValues) => {
-    const createFilterCondition = (key: string, operator: string, value: string | number) =>
-      value ? { [key]: { [operator]: value } } : {}
-    const filterOptions = {
-      ...createFilterCondition('priceInUsd', '$gte', Number(values.priceInUsdMin)),
-      ...createFilterCondition('priceInUsd', '$lte', Number(values.priceInUsdMax)),
-      ...createFilterCondition('category', '$eq', values.category?.join(',')),
-      ...createFilterCondition('minlot', '$gte', Number(values.minlotMin)),
-      ...createFilterCondition('minlot', '$lte', Number(values.minlotMax)),
-    }
+    const filterOptionsArray = [
+      createFilterCondition('priceInUsd', '$gte', Number(values.priceInUsdMin)),
+      createFilterCondition('priceInUsd', '$lte', Number(values.priceInUsdMax)),
+      createFilterCondition('category', '$eq', values.category?.join(',')),
+      createFilterCondition('minlot', '$gte', Number(values.minlotMin)),
+      createFilterCondition('minlot', '$lte', Number(values.minlotMax)),
+    ].filter(Boolean) as FilterOptionsType[]
+
+    const filterOptions = getFilterOptions(filterOptionsArray)
+
     onSubmit(filterOptions)
     onClose()
   }
 
   const handleReset = () => {
-    onReset()
     form.resetFields()
+    onReset()
+    onClose()
   }
 
   return showFilter ? (
@@ -80,10 +70,10 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
       <Drawer title={t(TranslationKey.Filters)} placement="left" open={openFilter} onClose={onClose}>
         <Form name="categories-form" size="large" form={form} rootClassName={styles.form} onFinish={handleFinish}>
           <Space.Compact rootClassName={styles.space}>
-            <Form.Item<FilterValues> name="priceInUsdMin">
+            <Form.Item<FilterValues> name="priceInUsdMin" rules={minValueRules()}>
               <CustomInput fullWidth addonBefore={t(TranslationKey.min)} label="Price" />
             </Form.Item>
-            <Form.Item<FilterValues> name="priceInUsdMax">
+            <Form.Item<FilterValues> name="priceInUsdMax" rules={maxValueRules('priceInUsdMin')}>
               <CustomInput fullWidth addonBefore={t(TranslationKey.max)} />
             </Form.Item>
           </Space.Compact>
@@ -104,10 +94,10 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
           </Form.Item>
 
           <Space.Compact rootClassName={styles.space}>
-            <Form.Item<FilterValues> name="minlotMin">
+            <Form.Item<FilterValues> name="minlotMin" rules={minValueRules()}>
               <CustomInput fullWidth label="MOQ" addonBefore={t(TranslationKey.min)} />
             </Form.Item>
-            <Form.Item<FilterValues> name="minlotMax">
+            <Form.Item<FilterValues> name="minlotMax" rules={maxValueRules('minlotMin')}>
               <CustomInput fullWidth addonBefore={t(TranslationKey.max)} />
             </Form.Item>
           </Space.Compact>
