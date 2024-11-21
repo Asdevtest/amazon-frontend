@@ -225,20 +225,27 @@ class OtherModelStatic {
     if (mediaFiles?.length > 0) {
       try {
         const formData = new FormData()
-        // for speed you can use map + Promise.all
 
-        mediaFiles?.forEach(mediaFile => {
-          if (typeof mediaFile === 'string') {
-            formData.append('url', mediaFile)
-          } else {
-            const fileName = mediaFile.file.name.replace(/\s+/g, '')
-            const fileWithoutSpaces = new File([mediaFile.file], fileName, {
-              type: mediaFile.file.type || '',
-              lastModified: mediaFile.file.lastModified,
-            })
+        const processedFiles = await Promise.all(
+          mediaFiles.map(async fileOrUrl => {
+            if (typeof fileOrUrl === 'string') {
+              const response = await fetch(fileOrUrl)
+              const blob = await response.blob()
+              const fileName = fileOrUrl.split('/').pop()?.replace(/\s+/g, '') || 'file'
 
-            formData.append('file', fileWithoutSpaces)
-          }
+              return new File([blob], fileName, { type: blob.type })
+            } else {
+              const fileName = fileOrUrl.file.name.replace(/\s+/g, '')
+
+              return new File([fileOrUrl.file], fileName, {
+                type: fileOrUrl.file.type || '',
+                lastModified: fileOrUrl.file.lastModified,
+              })
+            }
+          }),
+        )
+        processedFiles.forEach(file => {
+          formData.append('file', file)
         })
 
         const response = await restApiService.otherApi.apiV1OtherUploadFilesPost(

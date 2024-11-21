@@ -20,7 +20,7 @@ export const PaymentMethods: FC<PaymentMethodsProps> = memo(props => {
 
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell })} onClick={onClick}>
-      {paymentMethods.map(paymentMethod => (
+      {paymentMethods?.map(paymentMethod => (
         <PaymentMethod key={paymentMethod._id} paymentMethod={paymentMethod} />
       ))}
     </div>
