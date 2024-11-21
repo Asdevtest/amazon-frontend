@@ -154,6 +154,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
 
       {viewModel.showAddSupplierProductModal ? (
         <AddSupplierProductModal
+          supplierId={supplierId as string}
           handleUpdate={() => viewModel.getProductsCards(supplierId as string)}
           openModal={viewModel.showAddSupplierProductModal}
           setOpenModal={viewModel.onCloseAddSupplierProductModal}

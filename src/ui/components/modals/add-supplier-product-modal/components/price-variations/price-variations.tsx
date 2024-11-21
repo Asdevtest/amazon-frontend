@@ -46,7 +46,6 @@ export const PriceVariations: FC<IPriceVariationsProps> = memo(({ onAddPriceVari
           mode="tags"
           wrapperClassName={sharedStyles.input}
           label="Price variations"
-          placeholder="Price variations"
           options={[]}
           dropdownRender={() => (
             <div className={styles.addPriceVariations}>

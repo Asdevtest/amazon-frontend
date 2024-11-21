@@ -6,8 +6,6 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { getRequiredRules } from '@config/form-rules/get-required-rules'
-
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './box-dimentions.style'
 

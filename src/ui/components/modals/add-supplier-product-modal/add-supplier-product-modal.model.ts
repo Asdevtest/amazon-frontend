@@ -40,7 +40,7 @@ export class AddSupplierProductModalModel extends DefaultModel {
     return (UserModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient
   }
 
-  constructor() {
+  constructor(supplierId?: string) {
     super({
       getMainDataMethod: () => {},
     })
@@ -48,8 +48,14 @@ export class AddSupplierProductModalModel extends DefaultModel {
 
     this.suppliersInfinityModel = new InfiniteScrollModel({
       method: SupplierV2Model.getSuppliersLight,
-      searchFields: [],
+      searchFields: ['companyName'],
     })
+
+    if (supplierId) {
+      this.suppliersInfinityModel.setOptions({
+        filters: `supplier[$eq]=${supplierId}`,
+      })
+    }
 
     this.getCategories()
     this.suppliersInfinityModel?.getData()

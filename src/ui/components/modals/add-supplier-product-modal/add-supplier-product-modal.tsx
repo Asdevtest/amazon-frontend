@@ -30,17 +30,18 @@ interface AddSupplierProductModalProps {
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
   handleUpdate: () => void
+  supplierId?: string
 }
 
 export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observer(props => {
-  const { openModal, setOpenModal, handleUpdate } = props
+  const { supplierId, openModal, setOpenModal, handleUpdate } = props
 
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
   const [form] = Form.useForm<ICreateSupplierProductModal>()
 
-  const viewModel = useMemo(() => new AddSupplierProductModalModel(), [])
+  const viewModel = useMemo(() => new AddSupplierProductModalModel(supplierId), [])
 
   const handleUploadFiles = (images: UploadFileType[]) => {
     form.setFieldValue('images', images)
@@ -78,25 +79,20 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
     onCloseModal()
   }
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    form.setFieldsValue({
+      supplierId,
+      boxProperties: {
+        dimensionType: Dimensions.EU,
+      },
+      unitDimensionType: Dimensions.EU,
+      yuanToDollarRate: viewModel.systemYuanToDollarRate,
+    })
+  }, [])
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <Form
-        clearOnDestroy
-        name="supplier"
-        size="large"
-        form={form}
-        rootClassName={styles.form}
-        initialValues={{
-          boxProperties: {
-            dimensionType: Dimensions.EU,
-          },
-          unitDimensionType: Dimensions.EU,
-          yuanToDollarRate: viewModel.systemYuanToDollarRate,
-        }}
-        onFinish={handleFinish}
-      >
+      <Form clearOnDestroy name="supplier" size="large" form={form} rootClassName={styles.form} onFinish={handleFinish}>
         <div className={styles.header}>
           <p className={styles.title}>{t(TranslationKey['Add product'])}</p>
 
@@ -111,6 +107,7 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
             isSuppliersLoading={viewModel?.suppliersInfinityModel?.loading}
             suppliers={viewModel?.suppliersInfinityModel?.data}
             loadMoreSuppliers={viewModel?.suppliersInfinityModel?.loadMoreData}
+            searchSuppliers={viewModel.suppliersInfinityModel?.onSearchSubmit}
             images={viewModel.images}
             handleUploadFiles={handleUploadFiles}
             categoriesLoading={viewModel.categoriesLoadingStatus === loadingStatus.IS_LOADING}
