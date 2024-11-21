@@ -2078,9 +2078,11 @@ export enum TranslationKey {
   'Days' = 'Days',
   'Min production term' = 'Min production term',
   'Max production term' = 'Max production term',
+  'Mark as top' = 'Mark as top',
   'Filters' = 'Filters',
   'MOQ' = 'MOQ',
   'min' = 'min',
   'max' = 'max',
   'Select category' = 'Select category',
+  'Download template' = 'Download template',
 }

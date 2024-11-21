@@ -26,6 +26,7 @@ export interface ISupplierCard {
   priceInUsd: number
   images: string[]
   boxProperties: IBoxProperties
+  isPrime: boolean
 }
 
 interface IBoxProperties {

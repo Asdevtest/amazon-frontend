@@ -78,7 +78,12 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ images = [], co
         rules={getRequiredRules()}
         validateTrigger={['onChange', 'onBlur']}
       >
-        <UploadFilesInput dragAndDropButtonHeight={50} images={images} setImages={handleUploadFiles} />
+        <UploadFilesInput
+          wrapperClassName={styles?.uploadFilesWrapper}
+          dragAndDropButtonHeight={50}
+          images={images}
+          setImages={handleUploadFiles}
+        />
       </Form.Item>
     </div>
   )

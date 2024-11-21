@@ -18,4 +18,5 @@ export interface UploadFilesInputProps {
   withoutLinks?: boolean
   withoutTitles?: boolean
   withoutActionsButtons?: boolean
+  wrapperClassName?: string
 }

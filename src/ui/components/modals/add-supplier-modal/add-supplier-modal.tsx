@@ -21,9 +21,12 @@ import { getRequiredRules } from '@config/form-rules/get-required-rules'
 import { useStyles } from './add-supplier-modal.style'
 import { useStyles as useSharedStyles } from './shared.style'
 
+import { ImportTemplateModal } from '../import-template-modal'
+
 import { AddSupplierModalModel } from './add-supplier-modal.model'
 import { CreateSupplier } from './add-supplier-modal.types'
 import { Contacts } from './components/contacts'
+import { ProductList } from './components/product-list'
 import { SupplierDetails } from './components/supplier-details'
 import { getInitialFormState } from './helpers/get-initial-form-state'
 
@@ -115,8 +118,12 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
           <CustomTextarea size="large" rows={4} label="Description" placeholder="Description" />
         </Form.Item>
 
+        <ProductList disabled={!supplierId} isLoading={viewModel.productIsloading} products={viewModel.products} />
+
         <div className={styles.footerWrapper}>
-          <CustomButton disabled={!supplierId}>{t(TranslationKey['Import products'])}</CustomButton>
+          <CustomButton disabled={!supplierId} onClick={viewModel.onOpenImportTemplateModal}>
+            {t(TranslationKey['Import products'])}
+          </CustomButton>
 
           <div className={styles.buttons}>
             <Form.Item shouldUpdate className={sharedStyles.field}>
@@ -129,6 +136,15 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
           </div>
         </div>
       </Form>
+
+      {viewModel.showImportTemplateModal ? (
+        <ImportTemplateModal
+          supplierId={supplierId as string}
+          updateHandler={() => viewModel.onImportProducts(supplierId as string)}
+          openModal={viewModel.showImportTemplateModal}
+          setOpenModal={viewModel.onCloseImportTemplateModal}
+        />
+      ) : null}
     </Modal>
   )
 })

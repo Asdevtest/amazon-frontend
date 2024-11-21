@@ -1,11 +1,12 @@
+import { Dimensions } from '@typings/enums/dimensions'
 import { IBoxProperties } from '@typings/models/suppliers/supplier'
 
 export interface ICreateSupplierProduct {
   supplierId: string
   cardName: string
+  comment: string
   categoryId: string
   link: string
-  price: number
   priceInUsd: number
   amount: number
   minlot: number
@@ -26,6 +27,21 @@ export interface ICreateSupplierProduct {
   weighUnit: number
   imageUnit: string[]
   multiplicity: boolean
+  prices: IPrice[]
+}
+
+export interface ICreateSupplierProductModal extends ICreateSupplierProduct {
+  unitDimensionType: Dimensions
+  boxProperties: IBoxPropertiesDimensionType
+}
+
+interface IBoxPropertiesDimensionType extends IBoxProperties {
+  dimensionType: Dimensions
+}
+
+export interface IPrice {
+  amount: number
+  price: number
 }
 
 export enum SupplierCurrency {

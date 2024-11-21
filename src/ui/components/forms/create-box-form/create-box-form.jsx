@@ -150,7 +150,9 @@ export const CreateBoxForm = observer(
     const handleChange = newAlignment => {
       if (newAlignment !== sizeSetting) {
         const convertedFormFieldsArr = formFieldsArr.map(editingBox => {
+
           const multiplier = newAlignment === unitsOfChangeOptions.US ? 1 / inchesCoefficient : inchesCoefficient
+          
           const weightMultiplier =
             newAlignment === unitsOfChangeOptions.US ? 1 / poundsWeightCoefficient : poundsWeightCoefficient
 
@@ -167,6 +169,7 @@ export const CreateBoxForm = observer(
         setSizeSetting(newAlignment)
       }
     }
+
 
     const onSubmit = () => {
       const newArr = formFieldsArr.map(editingBox => ({
