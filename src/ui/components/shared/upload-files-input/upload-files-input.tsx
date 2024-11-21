@@ -22,6 +22,7 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
     withoutTitles,
     withoutActionsButtons,
     dragAndDropButtonHeight,
+    wrapperClassName,
   } = props
 
   const { classes: styles, cx } = useStyles()
@@ -48,8 +49,8 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
 
   return (
     <>
-      <div className={styles.wrapper}>
-        <div className={cx(styles.wrapper, { [styles.minimazed]: minimized })}>
+      <div className={cx(styles.wrapper, wrapperClassName)}>
+        <div className={cx(styles.wrapper, wrapperClassName, { [styles.minimazed]: minimized })}>
           {!withoutLinks ? (
             <Link
               linkInput={linkInput}

@@ -12,9 +12,10 @@ import { useStyles } from './supplier-product-short-card.style'
 
 interface SupplierProductShortCardProps {
   supplierCard: ISupplierCard
+  Icon?: JSX.Element
 }
 
-export const SupplierProductShortCard: FC<SupplierProductShortCardProps> = memo(({ supplierCard }) => {
+export const SupplierProductShortCard: FC<SupplierProductShortCardProps> = memo(({ supplierCard, Icon }) => {
   const { classes: styles } = useStyles()
 
   const price = toFixedWithDollarSign(supplierCard?.priceInUsd)
@@ -22,6 +23,7 @@ export const SupplierProductShortCard: FC<SupplierProductShortCardProps> = memo(
 
   return (
     <Tooltip title={supplierCard.cardName || ''} className={styles.root}>
+      {Icon ? Icon : null}
       <CustomImage preview={false} src={supplierCard?.images?.[0]} width={72} height={72} />
       <Text copyable={false} rows={1} text={price} />
       <Text copyable={false} rows={1} text={minlot} />

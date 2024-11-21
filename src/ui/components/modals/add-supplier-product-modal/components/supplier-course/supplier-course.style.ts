@@ -12,6 +12,10 @@ export const useStyles = makeStyles()(() => ({
     },
   },
 
+  inputNumber: {
+    width: '70px',
+  },
+
   systemCourseWrapper: {
     display: 'flex',
     alignItems: 'center',

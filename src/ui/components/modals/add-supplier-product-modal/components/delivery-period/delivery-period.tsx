@@ -8,7 +8,9 @@ import { getRequiredRules } from '@config/form-rules/get-required-rules'
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './delivery-period.style'
 
-import { ICreateSupplierProduct } from '../../add-supplier-product-modal.type'
+import { ICreateSupplierProductModal } from '../../add-supplier-product-modal.type'
+import { getMaxProductionTermRules } from '../../rules/get-max-production-term-rules'
+import { getMinProductionRermRules } from '../../rules/get-min-production-term-rules'
 
 export const DeliveryPeriod = memo(() => {
   const { classes: styles } = useStyles()
@@ -17,10 +19,10 @@ export const DeliveryPeriod = memo(() => {
   return (
     <div className={styles.deliveryPeriodWrapper}>
       <div className={styles.deliveryPeriodInputsWrapper}>
-        <Form.Item<ICreateSupplierProduct>
+        <Form.Item<ICreateSupplierProductModal>
           name="minProductionTerm"
           className={sharedStyles.field}
-          rules={getRequiredRules()}
+          rules={getMinProductionRermRules()}
         >
           <CustomInputNumber
             required
@@ -31,10 +33,10 @@ export const DeliveryPeriod = memo(() => {
           />
         </Form.Item>
 
-        <Form.Item<ICreateSupplierProduct>
+        <Form.Item<ICreateSupplierProductModal>
           name="maxProductionTerm"
           className={sharedStyles.field}
-          rules={getRequiredRules()}
+          rules={getMaxProductionTermRules()}
         >
           <CustomInputNumber
             required
@@ -46,7 +48,7 @@ export const DeliveryPeriod = memo(() => {
         </Form.Item>
       </div>
 
-      <Form.Item<ICreateSupplierProduct> name="amount" className={sharedStyles.field} rules={getRequiredRules()}>
+      <Form.Item<ICreateSupplierProductModal> name="amount" className={sharedStyles.field} rules={getRequiredRules()}>
         <CustomInputNumber
           required
           size="large"
@@ -57,7 +59,7 @@ export const DeliveryPeriod = memo(() => {
         />
       </Form.Item>
 
-      <Form.Item<ICreateSupplierProduct> name="minlot" className={sharedStyles.field} rules={getRequiredRules()}>
+      <Form.Item<ICreateSupplierProductModal> name="minlot" className={sharedStyles.field} rules={getRequiredRules()}>
         <CustomInputNumber
           required
           size="large"

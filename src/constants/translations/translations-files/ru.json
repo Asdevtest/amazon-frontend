@@ -2079,9 +2079,11 @@
   "Days": "Дни",
   "Min production term": "Минимальный срок производства",
   "Max production term": "Максимальный срок производства",
+  "Mark as top": "Отметить как топ",
   "Filters": "Фильтры",
   "MOQ": "Минимальный заказ",
   "min": "мин.",
   "max": "макс.",
-  "Select category": "Выберите категорию"
+  "Select category": "Выберите категорию",
+  "Download template": "Скачать шаблон"
 }

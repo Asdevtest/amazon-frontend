@@ -1,34 +1,50 @@
-import { Form } from 'antd'
-import { memo } from 'react'
+import { Form, FormItemProps } from 'antd'
+import { FC, memo } from 'react'
 
-import { CustomInput } from '@components/shared/custom-input'
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { CustomInputNumber } from '@components/shared/custom-input-number'
+
+import { t } from '@utils/translations'
 
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './supplier-course.style'
 
-import { ICreateSupplierProduct } from '../../add-supplier-product-modal.type'
+import { ICreateSupplierProductModal } from '../../add-supplier-product-modal.type'
 
-export const SupplierCourse = memo(() => {
+interface ISupplierCourseProps {
+  systemYuanToDollarRate: number
+  onChangeSupplierCourse: (value: number) => void
+}
+
+export const SupplierCourse: FC<ISupplierCourseProps> = memo(({ systemYuanToDollarRate, onChangeSupplierCourse }) => {
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
+
+  const checkYuanToDollarRate = Form.useWatch<
+    ICreateSupplierProductModal,
+    FormItemProps<ICreateSupplierProductModal>['validateStatus']
+  >(({ yuanToDollarRate }) => (systemYuanToDollarRate !== yuanToDollarRate ? 'warning' : ''))
 
   return (
     <div className={styles.root}>
       <div className={styles.systemCourseWrapper}>
-        <p>Current supplier course</p>
-        <p className={styles.systemCourse}>{123132}</p>
+        <p>{t(TranslationKey['Current supplier course'])}</p>
+        <p className={styles.systemCourse}>{systemYuanToDollarRate}</p>
       </div>
 
-      <Form.Item<ICreateSupplierProduct>
+      <Form.Item<ICreateSupplierProductModal>
         name="yuanToDollarRate"
-        className={sharedStyles.field} /* rules={getRequiredRules()} */
+        className={sharedStyles.field}
+        validateStatus={checkYuanToDollarRate}
       >
         <CustomInputNumber
           size="large"
           label="Current supplier course"
           placeholder="Current supplier course"
+          className={styles.inputNumber}
           wrapperClassName={cx(sharedStyles.input, 'rowInput')}
+          onChange={value => onChangeSupplierCourse(value as number)}
         />
       </Form.Item>
     </div>
