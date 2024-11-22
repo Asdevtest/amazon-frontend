@@ -24,6 +24,14 @@ export interface ISupplierV2 {
   originCountry: ICountry
 }
 
+export interface ISupplierV2Light {
+  _id: string
+  companyName: string
+  xid: number
+  images: string[]
+  avgRating: number
+}
+
 export interface IPaymentMethod {
   _id: string
   title: string

@@ -1,6 +1,6 @@
 import { Form } from 'antd'
 import { observer } from 'mobx-react'
-import { FC, useCallback, useMemo } from 'react'
+import { FC, useCallback, useEffect, useMemo } from 'react'
 import { FaStar } from 'react-icons/fa6'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -29,17 +29,19 @@ import { PriceVariations } from './components/price-variations'
 interface AddSupplierProductModalProps {
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
+  handleUpdate: () => void
+  supplierId?: string
 }
 
 export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observer(props => {
-  const { openModal, setOpenModal } = props
+  const { supplierId, openModal, setOpenModal, handleUpdate } = props
 
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
   const [form] = Form.useForm<ICreateSupplierProductModal>()
 
-  const viewModel = useMemo(() => new AddSupplierProductModalModel(), [])
+  const viewModel = useMemo(() => new AddSupplierProductModalModel(supplierId), [])
 
   const handleUploadFiles = (images: UploadFileType[]) => {
     form.setFieldValue('images', images)
@@ -59,36 +61,38 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
   }
 
   const onAddPriceVariations = useCallback((priceVariation: IPrice) => {
-    const prices = form.getFieldValue('prices') || []
+    const prices = form.getFieldValue('priceVariations') || []
 
     const variationToAdd = {
       ...priceVariation,
-      label: `${priceVariation.amount} / ${priceVariation.price}${SupplierCurrency.CNY}`,
+      label: `${priceVariation.quantity} / ${priceVariation.price}${SupplierCurrency.CNY}`,
     }
 
     form.setFieldsValue({
-      prices: prices?.concat([variationToAdd]),
+      priceVariations: prices?.concat([variationToAdd]),
+    })
+  }, [])
+
+  const handleFinish = async (values: ICreateSupplierProductModal) => {
+    await viewModel.createSupplierCard(values)
+    handleUpdate()
+    onCloseModal()
+  }
+
+  useEffect(() => {
+    form.setFieldsValue({
+      supplierId,
+      boxProperties: {
+        dimensionType: Dimensions.EU,
+      },
+      unitDimensionType: Dimensions.EU,
+      yuanToDollarRate: viewModel.systemYuanToDollarRate,
     })
   }, [])
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
-      <Form
-        clearOnDestroy
-        name="supplier"
-        size="large"
-        form={form}
-        rootClassName={styles.form}
-        initialValues={{
-          boxProperties: {
-            dimensionType: Dimensions.EU,
-          },
-          unitDimensionType: Dimensions.EU,
-          yuanToDollarRate: viewModel.systemYuanToDollarRate,
-          supplierId: 'ea71c82d-12e2-4080-a22e-37407f01c633',
-        }}
-        onFinish={viewModel?.createSupplierCard}
-      >
+      <Form clearOnDestroy name="supplier" size="large" form={form} rootClassName={styles.form} onFinish={handleFinish}>
         <div className={styles.header}>
           <p className={styles.title}>{t(TranslationKey['Add product'])}</p>
 
@@ -100,6 +104,10 @@ export const AddSupplierProductModal: FC<AddSupplierProductModalProps> = observe
 
         <div className={styles.contentWrapper}>
           <GeneralInfo
+            isSuppliersLoading={viewModel?.suppliersInfinityModel?.loading}
+            suppliers={viewModel?.suppliersInfinityModel?.data}
+            loadMoreSuppliers={viewModel?.suppliersInfinityModel?.loadMoreData}
+            searchSuppliers={viewModel.suppliersInfinityModel?.onSearchSubmit}
             images={viewModel.images}
             handleUploadFiles={handleUploadFiles}
             categoriesLoading={viewModel.categoriesLoadingStatus === loadingStatus.IS_LOADING}

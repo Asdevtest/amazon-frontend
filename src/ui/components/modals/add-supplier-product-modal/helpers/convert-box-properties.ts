@@ -15,9 +15,9 @@ export const convertBoxProperties = (
   const { length, width, height, weigh } = properties
 
   return {
-    length: length * multiplier || 0,
-    width: width * multiplier || 0,
-    height: height * multiplier || 0,
-    weigh: weigh * weightMultiplier || 0,
+    length: length * multiplier || undefined,
+    width: width * multiplier || undefined,
+    height: height * multiplier || undefined,
+    weigh: weigh * weightMultiplier || undefined,
   }
 }

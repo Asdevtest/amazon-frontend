@@ -1,6 +1,7 @@
 import { makeObservable, runInAction } from 'mobx'
 
 import { DefaultModel } from '@models/default-model'
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { OtherModel } from '@models/other-model'
 import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
 import { UserModel } from '@models/user-model'
@@ -9,15 +10,22 @@ import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { isString } from '@typings/guards'
+import { ISupplierV2Light } from '@typings/models/suppliers/supplier-v2'
 import { ICategory } from '@typings/shared/category'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { ICreateSupplierProductModal } from './add-supplier-product-modal.type'
+import {
+  IBoxPropertiesDimensionType,
+  ICreateSupplierProduct,
+  ICreateSupplierProductModal,
+} from './add-supplier-product-modal.type'
 import { observerConfig } from './observer.config'
 
 export class AddSupplierProductModalModel extends DefaultModel {
   categories: ICategory[] = []
+
+  suppliersInfinityModel: InfiniteScrollModel<ISupplierV2Light>
 
   images: UploadFileType[] = []
   unitImages: UploadFileType[] = []
@@ -32,13 +40,25 @@ export class AddSupplierProductModalModel extends DefaultModel {
     return (UserModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient
   }
 
-  constructor() {
+  constructor(supplierId?: string) {
     super({
       getMainDataMethod: () => {},
     })
     makeObservable(this, observerConfig)
 
+    this.suppliersInfinityModel = new InfiniteScrollModel({
+      method: SupplierV2Model.getSuppliersLight,
+      searchFields: ['companyName'],
+    })
+
+    if (supplierId) {
+      this.suppliersInfinityModel.setOptions({
+        filters: `supplier[$eq]=${supplierId}`,
+      })
+    }
+
     this.getCategories()
+    this.suppliersInfinityModel?.getData()
   }
 
   async getCategories() {
@@ -97,19 +117,35 @@ export class AddSupplierProductModalModel extends DefaultModel {
     }
   }
 
+  transformValueToCreateSupplier(
+    value: ICreateSupplierProductModal,
+    propsToAdd: Partial<ICreateSupplierProduct>,
+  ): ICreateSupplierProduct {
+    const transformedData = { ...value, ...propsToAdd }
+
+    if (transformedData.priceVariations?.length) {
+      for (const priceVariation of transformedData.priceVariations) {
+        delete priceVariation.label
+      }
+    }
+
+    delete (transformedData.boxProperties as Partial<IBoxPropertiesDimensionType>)?.dimensionType
+    delete (transformedData as Partial<ICreateSupplierProductModal>).unitDimensionType
+    delete (transformedData as Partial<ICreateSupplierProductModal>).yuanToDollarRate
+
+    return transformedData
+  }
+
   async createSupplierCard(values: ICreateSupplierProductModal) {
     try {
-      console.log('values :>> ', values)
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       const images = await this.uploadFiles(values?.images)
       const imageUnit = await this.uploadFiles(values?.imageUnit)
 
-      const body = { ...values, images, imageUnit }
+      const body = this.transformValueToCreateSupplier(values, { images, imageUnit })
 
-      console.log('body :>> ', body)
-
-      const result = SupplierV2Model?.createSupplierCard(values)
+      const result = SupplierV2Model?.createSupplierCard(body)
 
       return result
     } catch (error) {
