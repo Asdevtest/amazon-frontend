@@ -8,6 +8,7 @@ import { t } from '@utils/translations'
 
 import { HookParams } from '../../column-menu.type'
 import { getItemKey } from '../helpers/get-item-key'
+import { getValueToCompare } from '../helpers/get-value-to-compare'
 
 export interface ObjectItemColumnMenu {
   _id: string | null
@@ -73,8 +74,8 @@ export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
   const onClickItem = useCallback(
     (selectedItem: T) =>
       setChosenItems(prev => {
-        if (prev.some(item => item?._id === selectedItem?._id)) {
-          return prev.filter(item => item?._id !== selectedItem?._id)
+        if (prev.some(item => getValueToCompare(item) === selectedItem?._id)) {
+          return prev.filter(item => getValueToCompare(item) !== selectedItem?._id)
         } else {
           return [...prev, selectedItem]
         }

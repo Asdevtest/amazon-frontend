@@ -10,6 +10,7 @@ import { ColumnMenuProps } from '../column-menu.type'
 import { ControlButtonsColumnMenu } from '../control-buttons-column-menu'
 import { DataWrapperColumnMenu } from '../data-wrapper-column-menu'
 
+import { getValueToCompare } from './helpers/get-value-to-compare'
 import { useObjectColumnMenu } from './hooks/use-object-column-menu'
 
 interface IObjectColumnMenuProps extends ColumnMenuProps<any> {
@@ -73,11 +74,7 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
       >
         {dataforRender?.map((el, index) => {
           const value = 'name' in el ? el?.name : 'title' in el ? el?.title : ''
-          const valueChecked = chosenItems?.some(item => {
-            const valueToCompare = item?._id || item
-
-            return valueToCompare === el?._id
-          })
+          const valueChecked = chosenItems?.some(item => getValueToCompare(item) === el?._id)
 
           return (
             <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
