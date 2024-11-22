@@ -1,5 +1,7 @@
 import { makeStyles } from 'tss-react/mui'
 
+import { width } from '@mui/system'
+
 export const useStyles = makeStyles()(theme => ({
   box: {
     width: 527,
@@ -164,5 +166,9 @@ export const useStyles = makeStyles()(theme => ({
 
   blue: {
     color: theme.palette.text.main,
+  },
+
+  tariffButton: {
+    maxWidth: '230px',
   },
 }))
