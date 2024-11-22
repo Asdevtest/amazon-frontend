@@ -1,6 +1,7 @@
 import { makeObservable, runInAction } from 'mobx'
 
 import { DefaultModel } from '@models/default-model'
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { OtherModel } from '@models/other-model'
 import { SupplierModel } from '@models/supplier-model'
 import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
@@ -20,9 +21,9 @@ import { observerConfig } from './observer.config'
 export class AddSupplierModalModel extends DefaultModel {
   countries: ICountry[] = []
   paymentMethods: IPaymentMethod[] = []
-  products: ISupplierCard[] = []
 
-  importProductsRequestStatus: loadingStatus = loadingStatus.SUCCESS
+  productsInfinityModel?: InfiniteScrollModel<ISupplierCard>
+
   productsRequestStatus: loadingStatus = loadingStatus.SUCCESS
   countriesRequestStatus: loadingStatus = loadingStatus.SUCCESS
   paymentMethodsRequestStatus: loadingStatus = loadingStatus.SUCCESS
@@ -30,12 +31,10 @@ export class AddSupplierModalModel extends DefaultModel {
   images: UploadFileType[] = []
 
   showImportTemplateModal = false
+  showAddSupplierProductModal = false
 
   get productIsloading() {
     return this.productsRequestStatus === loadingStatus.IS_LOADING
-  }
-  get importProductsIsloading() {
-    return this.importProductsRequestStatus === loadingStatus.IS_LOADING
   }
 
   constructor(supplierId?: string) {
@@ -52,8 +51,12 @@ export class AddSupplierModalModel extends DefaultModel {
     this.getSuppliersPaymentMethods()
 
     if (supplierId) {
+      this.productsInfinityModel = new InfiniteScrollModel({
+        method: SupplierV2Model.getSupplierCards,
+        options: { guid: supplierId },
+      })
       this.getCurrentData()
-      this.getProductsCards(supplierId)
+      this.productsInfinityModel?.getData()
     }
   }
 
@@ -151,36 +154,28 @@ export class AddSupplierModalModel extends DefaultModel {
   onOpenImportTemplateModal() {
     this.onTriggerOpenModal('showImportTemplateModal', true)
   }
-
   onCloseImportTemplateModal() {
     this.onTriggerOpenModal('showImportTemplateModal', false)
   }
 
-  async getProductsCards(guid: string) {
-    const requestField = 'productsRequestStatus'
+  async onImportProducts() {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING, requestField)
-      const result = await SupplierV2Model.getSupplierCards({ guid })
+      if (!this.productsInfinityModel) {
+        return
+      }
 
-      runInAction(() => {
-        this.products = result?.rows as unknown as ISupplierCard[]
-      })
+      this.productsInfinityModel.hasMore = true
+      this.productsInfinityModel?.setOptions({ offset: 0 })
+      await this.productsInfinityModel?.getData()
     } catch (error) {
       console.error(error)
-    } finally {
-      this.setRequestStatus(loadingStatus.SUCCESS, requestField)
     }
   }
 
-  async onImportProducts(guid: string) {
-    const requestField = 'importProductsRequestStatus'
-    try {
-      this.setRequestStatus(loadingStatus.IS_LOADING, requestField)
-      await this.getProductsCards(guid)
-    } catch (error) {
-      console.error(error)
-    } finally {
-      this.setRequestStatus(loadingStatus.SUCCESS, requestField)
-    }
+  onOpenAddSupplierProductModal() {
+    this.onTriggerOpenModal('showAddSupplierProductModal', true)
+  }
+  onCloseAddSupplierProductModal() {
+    this.onTriggerOpenModal('showAddSupplierProductModal', false)
   }
 }

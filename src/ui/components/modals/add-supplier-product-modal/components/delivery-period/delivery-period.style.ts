@@ -6,10 +6,11 @@ export const useStyles = makeStyles()(() => ({
     flexDirection: 'column',
     gap: '10px',
     justifyContent: 'flex-end',
+    width: '45%',
   },
 
   deliveryPeriodInputsWrapper: {
     display: 'flex',
-    gap: '10px',
+    alignItems: 'flex-end',
   },
 }))

@@ -28,7 +28,7 @@ export interface ICreateSupplierProduct {
   weighUnit: number
   imageUnit: string[]
   multiplicity: boolean
-  prices: IPrice[]
+  priceVariations: IPrice[]
 }
 
 export interface ICreateSupplierProductModal extends ICreateSupplierProduct {
@@ -36,13 +36,14 @@ export interface ICreateSupplierProductModal extends ICreateSupplierProduct {
   boxProperties: IBoxPropertiesDimensionType
 }
 
-interface IBoxPropertiesDimensionType extends IBoxProperties {
+export interface IBoxPropertiesDimensionType extends IBoxProperties {
   dimensionType: Dimensions
 }
 
 export interface IPrice {
-  amount: number
+  label?: string
   price: number
+  quantity: number
 }
 
 export enum SupplierCurrency {

@@ -9,8 +9,6 @@ import { CustomInputNumber } from '@components/shared/custom-input-number'
 
 import { Dimensions } from '@typings/enums/dimensions'
 
-import { getRequiredRules } from '@config/form-rules/get-required-rules'
-
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './box-info.style'
 
@@ -18,8 +16,6 @@ import { ICreateSupplierProductModal } from '../../add-supplier-product-modal.ty
 import { DimentionsHeader } from '../dimentions-header'
 
 interface IBoxDimentionsProps {
-  required: boolean
-
   volumeWeight: number
   sizeSetting: Dimensions
   dimentionsHeaderTitle: keyof typeof TranslationKey
@@ -39,8 +35,6 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
   const {
-    required,
-
     volumeWeight,
     sizeSetting,
     dimentionsHeaderTitle,
@@ -78,14 +72,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           className={cx(sharedStyles.field, styles.deliveryField)}
           rules={getRules()}
         >
-          <CustomInputNumber
-            required={required}
-            size="large"
-            label="Height"
-            placeholder="Height"
-            precision={2}
-            wrapperClassName={sharedStyles.input}
-          />
+          <CustomInputNumber size="large" label="Height" precision={2} wrapperClassName={sharedStyles.input} />
         </Form.Item>
 
         <Form.Item<ICreateSupplierProductModal>
@@ -93,14 +80,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           className={cx(sharedStyles.field, styles.deliveryField)}
           rules={getRules()}
         >
-          <CustomInputNumber
-            required={required}
-            size="large"
-            label="Width"
-            placeholder="Width"
-            precision={2}
-            wrapperClassName={sharedStyles.input}
-          />
+          <CustomInputNumber size="large" label="Width" precision={2} wrapperClassName={sharedStyles.input} />
         </Form.Item>
 
         <Form.Item<ICreateSupplierProductModal>
@@ -108,14 +88,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           className={cx(sharedStyles.field, styles.deliveryField)}
           rules={getRules()}
         >
-          <CustomInputNumber
-            required={required}
-            size="large"
-            label="Length"
-            placeholder="Length"
-            precision={2}
-            wrapperClassName={sharedStyles.input}
-          />
+          <CustomInputNumber size="large" label="Length" precision={2} wrapperClassName={sharedStyles.input} />
         </Form.Item>
 
         <Form.Item<ICreateSupplierProductModal>
@@ -123,14 +96,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           className={cx(sharedStyles.field, styles.deliveryField)}
           rules={getRules()}
         >
-          <CustomInputNumber
-            required={required}
-            size="large"
-            label="Weight"
-            placeholder="Weight"
-            precision={2}
-            wrapperClassName={sharedStyles.input}
-          />
+          <CustomInputNumber size="large" label="Weight" precision={2} wrapperClassName={sharedStyles.input} />
         </Form.Item>
 
         <CustomInputNumber
@@ -138,7 +104,6 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           value={volumeWeight}
           size="large"
           label="Volume weight"
-          placeholder="Volume weight"
           precision={2}
           wrapperClassName={sharedStyles.input}
         />
@@ -151,7 +116,6 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
             <CustomInputNumber
               size="large"
               label="Number of units in box"
-              placeholder="Number of units in box"
               precision={2}
               wrapperClassName={sharedStyles.input}
             />
