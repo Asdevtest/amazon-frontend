@@ -37,18 +37,6 @@ self.addEventListener('activate', event => {
     (async () => {
       self.clients.claim() // Подтверждаем, что Service Worker активирован
 
-      const cache = await caches.open(CACHE_NAME) // Открываем кэш
-      const metadataResponse = await cache.match('/cache-metadata') // Получаем мета-данные
-
-      if (metadataResponse) {
-        const metadata = await metadataResponse.json()
-
-        // Проверяем, если кэш старше месяца, очищаем его
-        if (Date.now() - metadata.installedAt > CACHE_LIFETIME) {
-          await caches.delete(CACHE_NAME) // Очищаем старый кэш
-        }
-      }
-
       const cacheNames = await caches.keys() // Получаем список всех кэшей
 
       await Promise.all(
