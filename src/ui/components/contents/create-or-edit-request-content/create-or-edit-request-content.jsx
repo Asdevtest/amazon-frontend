@@ -36,6 +36,7 @@ import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/cal
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { convertLocalDateToUTC, formatDateForShowWithoutParseISO } from '@utils/date-time'
 import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -1166,7 +1167,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   <Button
                     styleType={ButtonStyle.SUCCESS}
                     disabled={disableSubmit}
-                    onClick={() => onClickCreate({ withPublish: true })}
+                    onClick={throttle(() => onClickCreate({ withPublish: true }))}
                   >
                     {t(TranslationKey['Create and publish a request'])}
                   </Button>
@@ -1228,7 +1229,7 @@ export const CreateOrEditRequestContent = memo(props => {
           asin={formFields?.request?.asin}
           specTitle={currentSpec?.title}
           onClickRequest={onClickExistingRequest}
-          onClickContinue={() => onCreateSubmit(formFields, images, withPublish, announcement)}
+          onClickContinue={throttle(() => onCreateSubmit(formFields, images, withPublish, announcement))}
           onClickCancel={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
         />
       </Modal>
