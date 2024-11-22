@@ -97,7 +97,6 @@ export class InfiniteScrollModel<T, M = any> {
         this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
-      console.error(error)
       this.setErrorState()
     }
   }
@@ -124,7 +123,6 @@ export class InfiniteScrollModel<T, M = any> {
         this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
-      console.error(error)
       this.setErrorState()
     }
   }
@@ -137,7 +135,6 @@ export class InfiniteScrollModel<T, M = any> {
     }
 
     try {
-      this.setLoadingState()
       this.hasMore = true
       this.setOptions({
         offset: 0,
@@ -145,12 +142,7 @@ export class InfiniteScrollModel<T, M = any> {
       })
 
       await this.getData()
-
-      runInAction(() => {
-        this.requestStatus = loadingStatus.SUCCESS
-      })
     } catch (error) {
-      console.error(error)
       this.setErrorState()
     }
   }
@@ -161,7 +153,6 @@ export class InfiniteScrollModel<T, M = any> {
     }
 
     try {
-      this.setLoadingState()
       this.hasMore = true
       this.setOptions({
         offset: 0,
@@ -174,10 +165,8 @@ export class InfiniteScrollModel<T, M = any> {
 
       runInAction(() => {
         this.filtersCount = new Set(Object.keys(filtersOtions)).size
-        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
-      console.error(error)
       this.setErrorState()
     }
   }
