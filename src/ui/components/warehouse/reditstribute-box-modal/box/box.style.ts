@@ -1,7 +1,5 @@
 import { makeStyles } from 'tss-react/mui'
 
-import { width } from '@mui/system'
-
 export const useStyles = makeStyles()(theme => ({
   box: {
     width: 527,
