@@ -248,6 +248,7 @@ export enum TranslationKey {
   'Quantity (pcs.)' = 'Quantity (pcs.)',
   'Supplier' = 'Supplier',
   'Country' = 'Country',
+  'Marketplace' = 'Marketplace',
   'City' = 'City',
   'State' = 'State',
   'Address' = 'Address',

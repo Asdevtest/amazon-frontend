@@ -162,6 +162,15 @@ export const useStyles = makeStyles()(theme => ({
 
   shopsWrapper: {
     marginBottom: '30px',
+    display: 'flex',
+    gap: '20px',
+    alignItems: 'flex-end',
+    maxHeight: '70px',
+  },
+
+  allowedRoleContainer: {
+    width: 'fit-content',
+    margin: 0,
   },
 
   inputAsin: {
