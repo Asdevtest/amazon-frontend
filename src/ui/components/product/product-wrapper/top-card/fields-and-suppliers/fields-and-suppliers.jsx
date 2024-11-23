@@ -72,7 +72,7 @@ export const FieldsAndSuppliers = memo(props => {
 
   const [edit, setEdit] = useState(true)
   const [showEditProductTagsModal, setShowEditProductTagsModal] = useState(false)
-  const [boxFields, setBoxFields] = useState() // ! change logic
+  const [boxFields, setBoxFields] = useState() // ! change logic   // mainTariffVariationId
   console.log(boxFields)
 
   const {
@@ -97,7 +97,6 @@ export const FieldsAndSuppliers = memo(props => {
 
   const onChangeMarketPlace = marketplace => {
     onChangeField?.('marketPlaceCountryId')({ target: { value: marketplace._id } })
-    // mainTariffVariationId
     console.log(marketplace._id)
   }
 
