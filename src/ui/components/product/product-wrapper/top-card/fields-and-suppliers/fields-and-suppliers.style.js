@@ -186,6 +186,11 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
+  flexWrap: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+
   inputLink: {
     width: '100%',
     maxWidth: '600px',
