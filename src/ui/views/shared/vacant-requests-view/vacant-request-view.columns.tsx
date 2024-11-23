@@ -154,6 +154,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderCell: ({ row }) => <Text isCell text={timeToDeadlineInDaysAndHours({ date: row.timeoutAt })} />,
       width: 80,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {

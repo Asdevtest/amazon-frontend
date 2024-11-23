@@ -21,6 +21,7 @@ import { getRequiredRules } from '@config/form-rules/get-required-rules'
 import { useStyles } from './add-supplier-modal.style'
 import { useStyles as useSharedStyles } from './shared.style'
 
+import { AddSupplierProductModal } from '../add-supplier-product-modal'
 import { ImportTemplateModal } from '../import-template-modal'
 
 import { AddSupplierModalModel } from './add-supplier-modal.model'
@@ -118,7 +119,13 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
           <CustomTextarea size="large" rows={4} label="Description" placeholder="Description" />
         </Form.Item>
 
-        <ProductList disabled={!supplierId} isLoading={viewModel.productIsloading} products={viewModel.products} />
+        <ProductList
+          disabled={!supplierId}
+          isLoading={viewModel.productsInfinityModel?.loading || false}
+          products={viewModel.productsInfinityModel?.data || []}
+          loadMoreProducts={viewModel.productsInfinityModel?.loadMoreData}
+          onOpenAddProductModal={viewModel.onOpenAddSupplierProductModal}
+        />
 
         <div className={styles.footerWrapper}>
           <CustomButton disabled={!supplierId} onClick={viewModel.onOpenImportTemplateModal}>
@@ -140,9 +147,18 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
       {viewModel.showImportTemplateModal ? (
         <ImportTemplateModal
           supplierId={supplierId as string}
-          updateHandler={() => viewModel.onImportProducts(supplierId as string)}
+          updateHandler={viewModel.onImportProducts}
           openModal={viewModel.showImportTemplateModal}
           setOpenModal={viewModel.onCloseImportTemplateModal}
+        />
+      ) : null}
+
+      {viewModel.showAddSupplierProductModal ? (
+        <AddSupplierProductModal
+          supplierId={supplierId as string}
+          handleUpdate={viewModel.onImportProducts}
+          openModal={viewModel.showAddSupplierProductModal}
+          setOpenModal={viewModel.onCloseAddSupplierProductModal}
         />
       ) : null}
     </Modal>

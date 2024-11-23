@@ -29,7 +29,7 @@ export const useStyles = makeStyles()(theme => ({
   fieldContainer: {
     minHeight: 40,
     marginBottom: '25px !important',
-
+    maxWidth: '100px',
     '&:last-child': {
       marginBottom: '0px !important',
     },
@@ -39,6 +39,7 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: 14,
     lineHeight: '19px',
     fontWeight: 600,
+
     color: theme.palette.text.general,
   },
 

@@ -13,7 +13,7 @@ import { objectToUrlQs } from '@utils/text'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { DataGridFilterTableModelParams } from './data-grid-filter-table-model.type'
+import { DataGridFilterTableModelParams, IFilter } from './data-grid-filter-table-model.type'
 import { observerConfig } from './observer-config'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
@@ -322,13 +322,13 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     this.getCurrentData()
   }
 
-  parseQueryString(queryString?: string): Record<string, string | string[]> {
+  parseQueryString(queryString?: string): IFilter {
     if (!queryString) {
       return {}
     }
 
     const params = queryString.split(';')
-    const result: Record<string, string | string[]> = {}
+    const result: IFilter = {}
 
     params.forEach(param => {
       const [key, value] = param.split('=')
@@ -339,10 +339,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         const decodedKey = decodeURIComponent(key).replace(/\[.*?\]/, '')
         const decodedValue = decodeURIComponent(value)
 
-        let valueArray: string[] = []
+        let valueArray: (string | null)[] = []
 
         if (decodedValue) {
-          valueArray = decodedValue.split(',').map(item => item.replace(/"/g, ''))
+          valueArray = decodedValue.split(',').map(item => (item === '"null"' ? null : item.replace(/"/g, '')))
         }
 
         result[decodedKey] = valueArray
@@ -352,7 +352,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     return result
   }
 
-  setFilterFromPreset(presetFilters: Record<string, string | string[]>) {
+  setFilterFromPreset(presetFilters: IFilter) {
     if (this.oneTimeFilters?.length) {
       return
     }

@@ -5,6 +5,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+
 class OtherModelStatic {
   postImage = async dataForm => {
     const response = await restApiService.axiosInstance({
@@ -229,7 +231,7 @@ class OtherModelStatic {
         const processedFiles = await Promise.all(
           mediaFiles.map(async fileOrUrl => {
             if (typeof fileOrUrl === 'string') {
-              const response = await fetch(fileOrUrl)
+              const response = await fetch(getAmazonImageUrl(fileOrUrl))
               const blob = await response.blob()
               const fileName = fileOrUrl.split('/').pop()?.replace(/\s+/g, '') || 'file'
 

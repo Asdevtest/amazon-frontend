@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { action, computed, makeObservable, observable, runInAction } from 'mobx'
 
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
@@ -111,11 +112,12 @@ export class InfiniteScrollModel<T, M = any> {
       this.options.offset += this.options.limit
 
       const response = await this.method(this.options)
+      const dataToAdd = response.rows || response
 
       runInAction(() => {
-        this.data = [...this.data, ...response.rows]
+        this.data = [...this.data, ...dataToAdd]
 
-        if (response.rows.length < this.options.limit) {
+        if (dataToAdd?.length < this.options.limit) {
           this.hasMore = false
         }
 

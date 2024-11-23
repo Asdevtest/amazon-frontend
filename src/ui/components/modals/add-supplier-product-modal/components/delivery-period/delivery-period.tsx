@@ -1,7 +1,11 @@
-import { Form } from 'antd'
+import { Form, Space } from 'antd'
 import { memo } from 'react'
 
+import { TranslationKey } from '@constants/translations/translation-key'
+
 import { CustomInputNumber } from '@components/shared/custom-input-number'
+
+import { t } from '@utils/translations'
 
 import { getRequiredRules } from '@config/form-rules/get-required-rules'
 
@@ -18,7 +22,7 @@ export const DeliveryPeriod = memo(() => {
 
   return (
     <div className={styles.deliveryPeriodWrapper}>
-      <div className={styles.deliveryPeriodInputsWrapper}>
+      <Space.Compact rootClassName={styles.deliveryPeriodInputsWrapper}>
         <Form.Item<ICreateSupplierProductModal>
           name="minProductionTerm"
           className={sharedStyles.field}
@@ -27,9 +31,9 @@ export const DeliveryPeriod = memo(() => {
           <CustomInputNumber
             required
             size="large"
-            label="Min production term"
-            placeholder="Days"
+            label="Production term"
             wrapperClassName={sharedStyles.input}
+            addonBefore={t(TranslationKey.min)}
           />
         </Form.Item>
 
@@ -41,19 +45,17 @@ export const DeliveryPeriod = memo(() => {
           <CustomInputNumber
             required
             size="large"
-            label="Max production term"
-            placeholder="Days"
             wrapperClassName={sharedStyles.input}
+            addonBefore={t(TranslationKey.max)}
           />
         </Form.Item>
-      </div>
+      </Space.Compact>
 
       <Form.Item<ICreateSupplierProductModal> name="amount" className={sharedStyles.field} rules={getRequiredRules()}>
         <CustomInputNumber
           required
           size="large"
           label="Purchase quantity for the current price"
-          placeholder="Purchase quantity for the current price"
           precision={2}
           wrapperClassName={sharedStyles.input}
         />
@@ -64,7 +66,6 @@ export const DeliveryPeriod = memo(() => {
           required
           size="large"
           label="Minimum batch"
-          placeholder="Minimum batch"
           precision={2}
           wrapperClassName={sharedStyles.input}
         />

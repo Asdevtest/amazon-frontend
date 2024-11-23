@@ -36,7 +36,6 @@ export const DeliveryCostsInputs: FC<DeliveryCostsInputsProps> = memo(props => {
           required
           size="large"
           label={controllInputTitle}
-          placeholder={controllInputTitle}
           precision={2}
           wrapperClassName={sharedStyles.input}
           onChange={value => onChangeDelivery(value as number)}
@@ -47,7 +46,6 @@ export const DeliveryCostsInputs: FC<DeliveryCostsInputsProps> = memo(props => {
         disabled
         size="large"
         label={uncontrollInputTitle}
-        placeholder={uncontrollInputTitle}
         wrapperClassName={sharedStyles.input}
         value={uncontrollInputValue}
       />

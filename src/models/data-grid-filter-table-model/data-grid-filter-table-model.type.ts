@@ -11,3 +11,5 @@ export interface DataGridFilterTableModelParams extends DataGridTableModelParams
   }
   defaultFilterParams?: any
 }
+
+export type IFilter = Record<string, string | (string | null)[]>

@@ -1,3 +1,4 @@
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { BatchStatus } from '@constants/statuses/batch-status'
@@ -161,8 +162,32 @@ export const clientBatchesViewColumns = rowHandlers => {
       width: 200,
       filterable: false,
       sortable: false,
-      columnKey: columnnsKeys.shared.BATCHES_TRACKING,
       disableCustomSort: true,
+
+      fields: [
+        {
+          label: 'Track number',
+          value: 0,
+        },
+        {
+          label: 'Arrival date',
+          value: 1,
+        },
+      ],
+      columnMenuConfig: [
+        {
+          field: 'trackingNumber',
+          table: DataGridFilterTables.BATCHES,
+          columnKey: ColumnMenuKeys.STRING,
+        },
+        {
+          field: 'arrivalDate',
+          table: DataGridFilterTables.BATCHES,
+          columnKey: ColumnMenuKeys.DATA,
+        },
+      ],
+
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {

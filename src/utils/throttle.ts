@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const throttle = (callback?: (...args: any[]) => void, delay: number = 2000) => {
   let throttleFlag = false
 

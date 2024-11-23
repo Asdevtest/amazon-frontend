@@ -6,13 +6,12 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { getRequiredRules } from '@config/form-rules/get-required-rules'
-
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './box-dimentions.style'
 
 import { ICreateSupplierProductModal } from '../../add-supplier-product-modal.type'
 import { useBoxInfo } from '../../hooks/use-box-info'
+import { getBoxDimentionsRules } from '../../rules/get-box-dimentions-rules'
 import { getUnitImagesRules } from '../../rules/get-unit-images-rules'
 import { getUnitRules } from '../../rules/get-unit-rules'
 import { BoxInfo } from '../box-info'
@@ -45,7 +44,6 @@ export const BoxDimentions: FC<IBoxDimentionsProps> = memo(props => {
     <div className={cx(styles.boxDimentionsWrapper, sharedStyles.sectionWrapper)}>
       <div className={styles.dimentionsWrapper}>
         <BoxInfo
-          required
           volumeWeight={boxInfoVolumeWeight}
           sizeSetting={sizeSettingBoxInfo}
           dimentionsHeaderTitle="Box info"
@@ -55,7 +53,7 @@ export const BoxDimentions: FC<IBoxDimentionsProps> = memo(props => {
           lengthName={['boxProperties', 'boxLengthCm']}
           amountName={['boxProperties', 'amountInBox']}
           weighGrossName={['boxProperties', 'boxWeighGrossKg']}
-          getRules={getRequiredRules}
+          getRules={getBoxDimentionsRules}
           onChangeUnitsOption={onChangeUnitsOption}
         />
 
@@ -70,7 +68,6 @@ export const BoxDimentions: FC<IBoxDimentionsProps> = memo(props => {
 
       <div className={styles.dimentionsWrapper}>
         <BoxInfo
-          required={false}
           volumeWeight={packageVolumeWeight}
           sizeSetting={sizeSettingPackage}
           dimentionsHeaderTitle="Package dimensions"

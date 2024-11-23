@@ -2086,4 +2086,5 @@ export enum TranslationKey {
   'max' = 'max',
   'Select category' = 'Select category',
   'Download template' = 'Download template',
+  'Production term' = 'Production term',
 }
