@@ -7,6 +7,7 @@ export const countrySelectConfig = {
   onChangeData: observable,
 
   getCountriesOption: computed,
+  getDefaultCountryOption: computed,
 
   onSelectCountry: action.bound,
   onGetCounriers: action.bound,
@@ -21,9 +22,18 @@ export const getCounryOptions = (coutries: any[], defaultPerformer?: ICountry) =
     value: coutry?._id,
     label: coutry?.title,
   }))
-  // const defaultUserOption = { value: null, label: t(TranslationKey['Select user']) }
 
-  return generatedUsetOptions /* [defaultUserOption, ...generatedUsetOptions] */
+  return generatedUsetOptions
+}
+
+export const getDefaultCountryOption = (defaultPerformer?: ICountry) => {
+  if (defaultPerformer) {
+    return {
+      ...defaultPerformer,
+      value: defaultPerformer?._id,
+      label: defaultPerformer?.title,
+    }
+  }
 }
 
 export type IChangeData = (data: ICountry) => void

@@ -62,5 +62,6 @@ export const fieldsOfProductAllowedToUpdate = [
   'redFlags',
   'tags',
   'shopId',
-  // 'totalFba'
+  'marketPlaceCountryId',
+  'mainTariffVariationId',
 ]

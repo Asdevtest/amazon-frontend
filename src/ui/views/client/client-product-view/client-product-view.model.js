@@ -233,6 +233,8 @@ export class ClientProductViewModel {
           'category',
           'lamazon',
           'clientComment',
+          'marketPlaceCountryId',
+          'mainTariffVariationId',
           'amazonTitle',
           'amazonDescription',
           'amazonDetail',
@@ -455,7 +457,7 @@ export class ClientProductViewModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-
+      console.log(this.curUpdateProductData)
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayBlackList(

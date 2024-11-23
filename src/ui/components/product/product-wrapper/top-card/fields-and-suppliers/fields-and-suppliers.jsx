@@ -96,8 +96,9 @@ export const FieldsAndSuppliers = memo(props => {
   }
 
   const onChangeMarketPlace = marketplace => {
-    onChangeField?.('marketPlaceCountry')({ target: { value: marketplace._id } })
-    console.log(marketplace) // ?not work
+    onChangeField?.('marketPlaceCountryId')({ target: { value: marketplace._id } })
+    // mainTariffVariationId
+    console.log(marketplace._id)
   }
 
   const isEditRedFlags =
@@ -607,7 +608,11 @@ export const FieldsAndSuppliers = memo(props => {
             }
           />
 
-          <CountrySelect labelClassName={styles.spanLabelSmall} onChange={e => onChangeMarketPlace(e)} />
+          <CountrySelect
+            labelClassName={styles.spanLabelSmall}
+            defaultCountry={product.marketPlaceCountry}
+            onChangeData={onChangeMarketPlace}
+          />
 
           <CustomButton
             type="primary"
