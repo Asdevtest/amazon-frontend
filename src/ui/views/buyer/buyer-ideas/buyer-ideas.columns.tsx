@@ -187,10 +187,10 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
           return <Text isCell text="" />
         }
 
-        return suppliers[0].link ? (
+        return suppliers[0]?.supplier?.link ? (
           <LinkWithCopy
-            url={checkAndMakeAbsoluteUrl(suppliers[0].link)}
-            valueToCopy={suppliers[0].link}
+            url={checkAndMakeAbsoluteUrl(suppliers[0]?.supplier?.link)}
+            valueToCopy={suppliers[0]?.supplier?.link}
             title={t(TranslationKey.Site)}
           />
         ) : (
