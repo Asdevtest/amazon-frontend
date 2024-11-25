@@ -2084,5 +2084,11 @@
   "Select category": "选择类别",
   "Download template": "下载模板",
   "Production term": "生产期",
-  "Cards": "卡片"
+  "Cards": "卡片",
+  "Cards total": "总卡片数",
+  "Commodity": "商品",
+  "Commodity USD": "商品 USD",
+  "Commodity CNY": "商品 CNY",
+  "Total orders": "总订单数",
+  "Actual cards": "实际卡片"
 }

@@ -4,6 +4,7 @@ export const observerConfig = {
   currentTable: observable,
 
   supplierIdToEdit: observable,
+  isSupplierCardsActive: observable,
   supplierCardIdToEdit: observable,
   tablesHandlers: observable,
 
@@ -18,4 +19,6 @@ export const observerConfig = {
   onCloseAddSupplierProductModal: action.bound,
   onClickAddSupplierProduct: action.bound,
   onClickEditSupplierCard: action.bound,
+  onClickDeleteSupplierCard: action.bound,
+  onTriggerArchive: action.bound,
 }

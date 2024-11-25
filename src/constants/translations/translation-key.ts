@@ -2087,4 +2087,10 @@ export enum TranslationKey {
   'Download template' = 'Download template',
   'Production term' = 'Production term',
   'Cards' = 'Cards',
+  'Cards total' = 'Cards total',
+  'Commodity' = 'Commodity',
+  'Commodity USD' = 'Commodity USD',
+  'Commodity CNY' = 'Commodity CNY',
+  'Total orders' = 'Total orders',
+  'Actual cards' = 'Actual cards',
 }
