@@ -12,7 +12,6 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ISupplierCardFull } from '@typings/models/suppliers/supplier-card'
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -21,12 +20,13 @@ import { useStyles } from './add-supplier-card-modal.styles'
 import { useStyles as useSharedStyles } from './shared.style'
 
 import { AddSupplierProductModalModel } from './add-supplier-card-modal.model'
-import { ICreateSupplierPrice, ICreateSupplierProductModal, SupplierCurrency } from './add-supplier-card-modal.type'
+import { ICreateSupplierPrice, ICreateSupplierProductModal } from './add-supplier-card-modal.type'
 import { BoxDimentions } from './components/box-dimentions'
 import { DeliveryParams } from './components/delivery-params'
 import { GeneralInfo } from './components/general-info/general-info'
 import { PriceVariations } from './components/price-variations'
 import { getInitialFormState } from './helpers/get-initial-form-state'
+import { getPriceVariation } from './helpers/get-price-variation'
 
 interface AddSupplierCardModalProps {
   supplierCardId?: string
@@ -68,7 +68,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
 
     const variationToAdd = {
       ...priceVariation,
-      label: `${priceVariation.quantity} / ${priceVariation.price}${SupplierCurrency.CNY}`,
+      label: getPriceVariation(priceVariation),
     }
 
     form.setFieldsValue({
@@ -77,7 +77,12 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
   }, [])
 
   const handleFinish = async (values: ICreateSupplierProductModal) => {
-    await viewModel.createSupplierCard(values)
+    if (supplierId) {
+      await viewModel.editSupplierCard(supplierId, values)
+    } else {
+      await viewModel.createSupplierCard(values)
+    }
+
     handleUpdate()
     onCloseModal()
   }
@@ -90,8 +95,6 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
         systemYuanToDollarRate: viewModel.systemYuanToDollarRate,
       }),
     )
-
-    console.log('form :>> ', form?.getFieldsValue())
   }, [[viewModel?.currentData]])
 
   return (

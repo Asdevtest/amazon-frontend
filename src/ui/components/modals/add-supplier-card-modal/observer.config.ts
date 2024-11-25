@@ -17,5 +17,6 @@ export const observerConfig = {
 
   transformValueToCreateSupplier: action.bound,
   createSupplierCard: action.bound,
+  editSupplierCard: action.bound,
   uploadFiles: action.bound,
 }

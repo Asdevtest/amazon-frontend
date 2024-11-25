@@ -2092,4 +2092,5 @@ export enum TranslationKey {
   'Commodity USD' = 'Commodity USD',
   'Commodity CNY' = 'Commodity CNY',
   'Total orders' = 'Total orders',
+  'Actual cards' = 'Actual cards',
 }

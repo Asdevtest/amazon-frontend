@@ -159,4 +159,23 @@ export class AddSupplierProductModalModel extends DefaultModel {
       this.setRequestStatus(loadingStatus.SUCCESS)
     }
   }
+
+  async editSupplierCard(supplierId: string, values: ICreateSupplierProductModal) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      const images = await this.uploadFiles(values?.images)
+      const imageUnit = await this.uploadFiles(values?.imageUnit)
+
+      const body = this.transformValueToCreateSupplier(values, { images, imageUnit })
+
+      const result = SupplierV2Model?.editSupplierCard(supplierId, body)
+
+      return result
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    }
+  }
 }

@@ -196,15 +196,6 @@ export const suppliersViewColumns = (handlers: IHandlersSuppliers) => {
     },
 
     {
-      field: 'totalCountInOrder',
-      headerName: t(TranslationKey['Total orders']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total orders'])} />,
-      renderCell: ({ value }) => <Text isCell text={value} />,
-      width: 100,
-      columnKey: columnnsKeys.shared.NUMBER,
-    },
-
-    {
       field: 'avgRating',
       headerName: t(TranslationKey.Rating),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rating)} />,

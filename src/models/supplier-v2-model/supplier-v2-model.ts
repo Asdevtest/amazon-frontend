@@ -66,6 +66,21 @@ class SupplierV2ModelStatic {
     })
     return response.data
   }
+
+  editSupplierCard = async (guid: string, body: ICreateSupplierCard) => {
+    const response = await restApiService.supplierV2Api.apiV2SuppliersCardGuidPatch({
+      guid,
+      body,
+    })
+    return response.data
+  }
+
+  deleteSupplierCard = async (guid: string) => {
+    const response = await restApiService.supplierV2Api.apiV2SuppliersCardsGuidDelete({
+      guid,
+    })
+    return response.data
+  }
 }
 
 export const SupplierV2Model = new SupplierV2ModelStatic()

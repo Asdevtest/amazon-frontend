@@ -1,6 +1,8 @@
 import { Dimensions } from '@typings/enums/dimensions'
 import { ISupplierCardFull } from '@typings/models/suppliers/supplier-card'
 
+import { getPriceVariation } from './get-price-variation'
+
 export const getInitialFormState = ({
   supplierCard,
   supplierId,
@@ -10,8 +12,6 @@ export const getInitialFormState = ({
   supplierId?: string
   systemYuanToDollarRate: number
 }) => {
-  console.log('supplierCard :>> ', supplierCard)
-
   const body = {
     supplierId,
     boxProperties: {
@@ -22,11 +22,21 @@ export const getInitialFormState = ({
   }
 
   if (supplierCard) {
+    const priceVariations = supplierCard?.priceVariations?.map(priceVariation => ({
+      label: getPriceVariation(priceVariation),
+      ...priceVariation,
+    }))
+
     return {
       ...body,
       ...supplierCard,
+      priceVariations,
       supplierId: supplierCard?.supplier?._id || supplierId,
       categoryId: supplierCard?.category?._id,
+      heightUnit: supplierCard?.heightUnit || undefined,
+      lengthUnit: supplierCard?.lengthUnit || undefined,
+      widthUnit: supplierCard?.widthUnit || undefined,
+      weighUnit: supplierCard?.weighUnit || undefined,
     }
   }
 

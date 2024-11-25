@@ -72,6 +72,16 @@ export const supplierCardsViewColumns = (handlers: IHandlersCards) => {
     },
 
     {
+      field: 'supplier',
+      headerName: t(TranslationKey.Supplier),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
+      renderCell: ({ value }) => <Text isCell text={value} />,
+      valueGetter: ({ row }) => row.supplier?.companyName,
+      width: 150,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+    },
+
+    {
       field: 'minlot',
       headerName: 'MOQ, pcs',
       renderHeader: () => <MultilineTextHeaderCell text="MOQ, pcs" />,

@@ -4,6 +4,7 @@ import { makeObservable, runInAction } from 'mobx'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { paginationModelInitialValue } from '@models/data-grid-table-model'
 import { SupplierModel } from '@models/supplier-model'
+import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
 
 import { getModelSettings } from './helpers/get-model-settings'
 import { observerConfig } from './observer.config'
@@ -11,6 +12,8 @@ import { IHandlers, IHandlersCards, IHandlersSuppliers, TableView } from './supp
 
 export class SuppliersViewModel extends DataGridFilterTableModel {
   currentTable: TableView = TableView.SUPLLIERS
+
+  isSupplierCardsActive: boolean = false
 
   tablesHandlers: Record<TableView, IHandlers>
 
@@ -28,11 +31,25 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
     }
     const cardHandlers: IHandlersCards = {
       onClickEdit: (id: string) => this.onClickEditSupplierCard(id),
-      onClickDelete: (id: string) => this.onClickEditSupplierCard(id),
+      onClickDelete: (id: string) => this.onClickDeleteSupplierCard(id),
     }
 
     const { getMainDataMethod, mainMethodURL, columnsModel, tableKey, filtersFields, sortModel, fieldsForSearch } =
       getModelSettings(TableView.SUPLLIERS, supplierHandlers)
+
+    const defaultFilterParams = () => {
+      const isArchive = this.isSupplierCardsActive && this.currentTable === TableView.CARDS
+
+      if (isArchive) {
+        return {
+          archive: {
+            $eq: true,
+          },
+        }
+      }
+
+      return {}
+    }
 
     super({
       getMainDataMethod,
@@ -42,6 +59,7 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey,
       defaultSortModel: sortModel,
+      defaultFilterParams,
     })
     makeObservable(this, observerConfig)
 
@@ -64,16 +82,19 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
     const { getMainDataMethod, mainMethodURL, columnsModel, tableKey, filtersFields, sortModel, fieldsForSearch } =
       getModelSettings(value, this.tablesHandlers[value])
 
-    this.getMainDataMethod = getMainDataMethod
-    this.tableKey = tableKey
-    this.columnsModel = columnsModel
-    this.defaultColumnsModel = columnsModel
-    this.filtersFields = filtersFields
-    this.mainMethodURL = mainMethodURL
-    this.fieldsForSearch = fieldsForSearch
-    this.setColumnMenuSettings(filtersFields)
-    this.defaultSortModel = sortModel
-    this.paginationModel = paginationModelInitialValue
+    runInAction(() => {
+      this.getMainDataMethod = getMainDataMethod
+      this.tableKey = tableKey
+      this.columnsModel = columnsModel
+      this.defaultColumnsModel = columnsModel
+      this.filtersFields = filtersFields
+      this.mainMethodURL = mainMethodURL
+      this.fieldsForSearch = fieldsForSearch
+      this.setColumnMenuSettings(filtersFields)
+      this.defaultSortModel = sortModel
+      this.paginationModel = paginationModelInitialValue
+      this.isSupplierCardsActive = false
+    })
     this.setDefaultPinnedColumns()
     this.getTableSettingsPreset()
   }
@@ -92,8 +113,12 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
   }
 
   async onClickDelete(id: string) {
-    await SupplierModel?.removeSupplier(id)
-    this.getCurrentData()
+    try {
+      await SupplierModel?.removeSupplier(id)
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   onClickEditSupplierCard(id: string) {
@@ -112,5 +137,21 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
   onCloseAddSupplierProductModal() {
     this.onTriggerOpenModal('showAddSupplierProductModal', false)
     this.supplierCardIdToEdit = ''
+  }
+
+  async onClickDeleteSupplierCard(id: string) {
+    try {
+      await SupplierV2Model?.deleteSupplierCard(id)
+      this.getCurrentData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onTriggerArchive() {
+    runInAction(() => {
+      this.isSupplierCardsActive = !this.isSupplierCardsActive
+    })
+    this.getCurrentData()
   }
 }
