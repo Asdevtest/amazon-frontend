@@ -3,8 +3,8 @@ import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AddSupplierCardModal } from '@components/modals/add-supplier-card-modal'
 import { AddSupplierModal } from '@components/modals/add-supplier-modal'
-import { AddSupplierProductModal } from '@components/modals/add-supplier-product-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -121,9 +121,9 @@ export const SuppliersView: FC = observer(() => {
       ) : null}
 
       {viewModel.showAddSupplierProductModal ? (
-        <AddSupplierProductModal
-          supplierId={''}
-          handleUpdate={() => console.log('object :>> ')}
+        <AddSupplierCardModal
+          supplierCardId={viewModel.supplierCardIdToEdit}
+          handleUpdate={viewModel.getCurrentData}
           openModal={viewModel.showAddSupplierProductModal}
           setOpenModal={viewModel.onCloseAddSupplierProductModal}
         />

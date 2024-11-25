@@ -1,7 +1,7 @@
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
+import { ICreateSupplierCard } from '@components/modals/add-supplier-card-modal/add-supplier-card-modal.type'
 import { PostSupplier } from '@components/modals/add-supplier-modal/add-supplier-modal.types'
-import { ICreateSupplierProduct } from '@components/modals/add-supplier-product-modal/add-supplier-product-modal.type'
 
 import { ParamsGetPagRequest } from '@typings/models/model/params-get-pag-request'
 
@@ -45,7 +45,22 @@ class SupplierV2ModelStatic {
     return response.data
   }
 
-  createSupplierCard = async (body: ICreateSupplierProduct) => {
+  getAllSuppliersCards = async (params: ParamsGetPagRequest) => {
+    const response = await restApiService.supplierV2Api.apiV2SuppliersCardsGet({
+      ...params,
+      noCache: true,
+    })
+    return response.data
+  }
+
+  getSupplierCardByGuid = async (guid: string) => {
+    const response = await restApiService.supplierV2Api.apiV2SuppliersCardGuidGet({
+      guid,
+    })
+    return response.data
+  }
+
+  createSupplierCard = async (body: ICreateSupplierCard) => {
     const response = await restApiService.supplierV2Api.apiV2SuppliersCardPost({
       body,
     })

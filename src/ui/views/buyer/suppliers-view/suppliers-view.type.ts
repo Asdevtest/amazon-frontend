@@ -1,10 +1,14 @@
 export enum TableView {
   SUPLLIERS = 'Suppliers',
-  PRODUCTS = 'Products',
+  CARDS = 'Cards',
 }
 
-export interface IHandlers {
-  onClickOpenInNewTab: (link: string) => void
+export type IHandlers = IHandlersCards | IHandlersSuppliers
+
+export interface IHandlersCards {
   onClickEdit: (id: string) => void
   onClickDelete: (id: string) => void
+}
+export interface IHandlersSuppliers extends IHandlersCards {
+  onClickOpenInNewTab: (link: string) => void
 }

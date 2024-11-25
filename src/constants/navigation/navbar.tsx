@@ -1,4 +1,5 @@
 import { GiCardExchange } from 'react-icons/gi'
+import { IoFileTrayFull } from 'react-icons/io5'
 
 import { UserRole } from '@constants/keys/user-roles'
 
@@ -787,7 +788,7 @@ export const navbarConfig = {
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PENDING_ORDERS_BUYER),
     },
     {
-      icon: ClockIcon,
+      icon: IoFileTrayFull,
       title: () => t(TranslationKey.Suppliers),
       route: '/buyer/suppliers',
       subtitles: null,
