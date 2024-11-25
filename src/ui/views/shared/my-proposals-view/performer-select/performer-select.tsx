@@ -53,6 +53,7 @@ export const PerformerSelect: FC<PerformerSelectProps> = observer(props => {
     <div onClick={e => e.stopPropagation()}>
       <CustomSelect
         {...restProps}
+        showSearch
         filterOption={false}
         defaultActiveFirstOption={false}
         placeholder="Select performer"

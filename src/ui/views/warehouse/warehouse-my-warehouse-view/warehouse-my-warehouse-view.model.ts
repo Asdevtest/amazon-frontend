@@ -19,7 +19,11 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
-import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
+import {
+  buildFilteredObject,
+  getObjectFilteredByKeyArrayBlackList,
+  getObjectFilteredByKeyArrayWhiteList,
+} from '@utils/object'
 import { t } from '@utils/translations'
 import { onSubmitPostFilesInData, onSubmitPostImages } from '@utils/upload-files'
 
@@ -315,8 +319,7 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
       }
 
       const boxesToSend = {
-        ...getObjectFilteredByKeyArrayWhiteList(sharedFields, sharedFieldsWhiteList),
-        ...(sharedFields.shippingLabel && { shippingLabel: sharedFields.shippingLabel }),
+        ...buildFilteredObject(sharedFields, sharedFieldsWhiteList),
         boxes: updatedBoxes,
       }
 

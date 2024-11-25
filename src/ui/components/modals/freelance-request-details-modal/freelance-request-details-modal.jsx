@@ -4,11 +4,12 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { getShortenStringIfLongerThanCount } from '@utils/text'
@@ -54,15 +55,13 @@ export const FreelanceRequestDetailsModal = memo(props => {
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <div className={styles.headerDetails}>
-            <p>
-              {t(TranslationKey.ID)}: {request?.xid}
-            </p>
-            <p className={cx(styles.textBold, styles.headerTitle)}>{request?.title}</p>
+            <p>ID: {request?.xid}</p>
+            <Text strong rows={2} text={request?.title} />
           </div>
           <div className={styles.headerDetails}>
             <div className={styles.flexContainer}>
               <p className={styles.headerText}>{t(TranslationKey['Request type'])}</p>
-              <p className={cx(styles.headerText, styles.textBold)}>{request?.spec?.title}</p>
+              <Text strong text={request?.spec?.title} rows={2} />
             </div>
 
             <div className={styles.flexContainer}>
@@ -126,11 +125,13 @@ export const FreelanceRequestDetailsModal = memo(props => {
                   {t(TranslationKey.Result)}
                 </CustomButton>
 
-                <CustomButton onClick={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}>
-                  <Checkbox checked={request?.uploadedToListing} className={styles.listingButton} />
+                <CustomCheckbox
+                  checked={request?.uploadedToListing}
+                  className={styles.listingButton}
+                  onChange={() => onToggleUploadedToListing(request?._id, request?.uploadedToListing)}
+                />
 
-                  <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
-                </CustomButton>
+                <p className={styles.listingText}>{t(TranslationKey['Uploaded by on listing'])}</p>
               </div>
             )}
           </div>

@@ -30,6 +30,8 @@ export const useStyles = makeStyles()(theme => ({
 
   searchInput: {
     width: '100%',
+    borderRadius: '16px',
+    boxShadow: theme.palette.button.defaultBoxShadow,
   },
 
   mainButton: {

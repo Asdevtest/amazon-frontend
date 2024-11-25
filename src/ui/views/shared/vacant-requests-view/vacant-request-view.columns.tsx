@@ -90,8 +90,8 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
 
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: ({ row }) => <Text isCell text={row.xid} />,
       width: 70,
       columnKey: columnnsKeys.shared.NUMBER,
@@ -144,7 +144,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: ({ row }) => <NormDateCell value={row.timeoutAt} />,
       width: 87,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -154,6 +154,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderCell: ({ row }) => <Text isCell text={timeToDeadlineInDaysAndHours({ date: row.timeoutAt })} />,
       width: 80,
       filterable: false,
+      disableCustomSort: true,
     },
 
     {
@@ -162,6 +163,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Shop)} />,
       renderCell: ({ row }) => <Text isCell text={row.product?.shop?.name || t(TranslationKey.Missing)} />,
       width: 110,
+      table: DataGridFilterTables.PRODUCTS,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
@@ -242,7 +244,7 @@ export const vacantRequestColumns = ({ onClickOpenInNewTab }: ColumnsProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 105,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

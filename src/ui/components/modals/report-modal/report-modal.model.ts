@@ -238,8 +238,8 @@ export class ReportModalModel extends UseProductsPermissions {
 
     if (foundLaunchIndex !== -1 && (field === 'dateFrom' || field === 'dateTo')) {
       const transformedDatesToISOString = [
-        dates?.[0] ? dayjs(dates?.[0]).toISOString() : null,
-        dates?.[1] ? dayjs(dates?.[1]).toISOString() : null,
+        dates?.[0] ? dayjs(dates?.[0]).format() : null,
+        dates?.[1] ? dayjs(dates?.[1]).format() : null,
       ]
       const updatedLaunches = [...this.listingLaunches]
 

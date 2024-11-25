@@ -11,6 +11,11 @@ export const useStyles = makeStyles()(theme => ({
     borderRadius: 20,
   },
 
+  infoWrapper: {
+    maxWidth: '1000px',
+    overflow: 'hidden',
+  },
+
   shopContainer: {
     display: 'flex',
     gap: 5,
@@ -18,11 +23,15 @@ export const useStyles = makeStyles()(theme => ({
 
   text: {
     fontSize: 14,
+    maxWidth: '1000px',
     lineHeight: '19px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 
   textSecond: {
     color: theme.palette.text.second,
+    minWidth: '40px',
   },
 
   titleContainer: {
@@ -31,12 +40,12 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: 15,
+    flexShrink: 1,
+    minWidth: 0,
   },
 
   title: {
-    display: '-webkit-box',
-    overflow: 'hidden',
     WebkitLineClamp: 2,
-    WebkitBoxOrient: 'vertical',
+    textOverflow: 'ellipsis',
   },
 }))

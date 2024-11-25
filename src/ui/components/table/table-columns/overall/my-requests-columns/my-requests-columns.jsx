@@ -116,8 +116,8 @@ export const myRequestsViewColumns = rowHandlers => {
 
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
@@ -304,7 +304,7 @@ export const myRequestsViewColumns = rowHandlers => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -332,7 +332,7 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -342,7 +342,7 @@ export const myRequestsViewColumns = rowHandlers => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 
@@ -351,6 +351,7 @@ export const myRequestsViewColumns = rowHandlers => {
       column.table = DataGridFilterTables.REQUESTS
     }
     column.sortable = false
+    column.filterable = false
   }
 
   return columns

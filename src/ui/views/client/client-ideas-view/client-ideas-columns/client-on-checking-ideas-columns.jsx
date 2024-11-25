@@ -35,8 +35,8 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
   const columns = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.row.xid} />,
       width: 100,
       type: 'number',
@@ -146,7 +146,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 91,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {

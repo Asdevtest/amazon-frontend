@@ -1,10 +1,9 @@
-import { Checkbox } from '@mui/material'
-
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 import { LabelWithCopy } from '@components/shared/label-with-copy'
 import { Text } from '@components/shared/text'
@@ -87,12 +86,7 @@ export const BoxItemCard = ({
 
               <div className={styles.countSubWrapper}>
                 <p className={styles.subTitle}>{t(TranslationKey['Order number'])}</p>
-                <p className={styles.subValue}>{item.order.id}</p>
-              </div>
-
-              <div className={styles.countSubWrapper}>
-                <p className={styles.subTitle}>{'item'}</p>
-                <p className={styles.subValue}>{item.order.item}</p>
+                <p className={styles.subValue}>{item.order.xid}</p>
               </div>
 
               {taskType === TaskOperationType.RECEIVE ? (
@@ -149,11 +143,10 @@ export const BoxItemCard = ({
                       label={t(TranslationKey['BarCode is glued by supplier'])}
                       tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
                       inputComponent={
-                        <Checkbox
+                        <CustomCheckbox
                           disabled={disableBarCodeCheckbox}
-                          color="primary"
                           checked={item.isBarCodeAlreadyAttachedByTheSupplier}
-                          onClick={() =>
+                          onChange={() =>
                             onChangeBarCode(
                               !item.isBarCodeAlreadyAttachedByTheSupplier,
                               'isBarCodeAlreadyAttachedByTheSupplier',
@@ -175,11 +168,10 @@ export const BoxItemCard = ({
                         TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
                       )}
                       inputComponent={
-                        <Checkbox
+                        <CustomCheckbox
                           disabled={disableBarCodeCheckbox}
-                          color="primary"
                           checked={item.isBarCodeAttachedByTheStorekeeper}
-                          onClick={() =>
+                          onChange={() =>
                             onChangeBarCode(
                               !item.isBarCodeAttachedByTheStorekeeper,
                               'isBarCodeAttachedByTheStorekeeper',
@@ -198,8 +190,7 @@ export const BoxItemCard = ({
                       label={t(TranslationKey['Transparency Codes glued by the supplier'])}
                       labelClasses={cx(styles.label, styles.redText)}
                       inputComponent={
-                        <Checkbox
-                          color="primary"
+                        <CustomCheckbox
                           disabled={disableTransparencyCheckbox}
                           checked={item.isTransparencyFileAlreadyAttachedByTheSupplier}
                           onChange={e =>
@@ -217,8 +208,7 @@ export const BoxItemCard = ({
                       label={t(TranslationKey['Transparency Codes are glued by storekeeper'])}
                       labelClasses={cx(styles.label, styles.redText)}
                       inputComponent={
-                        <Checkbox
-                          color="primary"
+                        <CustomCheckbox
                           disabled={disableTransparencyCheckbox}
                           checked={item.isTransparencyFileAttachedByTheStorekeeper}
                           onChange={e =>
@@ -340,11 +330,10 @@ export const BoxItemCard = ({
                     label={t(TranslationKey['BarCode is glued by supplier'])}
                     tooltipInfoContent={t(TranslationKey['The supplier has glued the barcode before shipment'])}
                     inputComponent={
-                      <Checkbox
+                      <CustomCheckbox
                         disabled={!isNewBox || readOnly}
-                        color="primary"
                         checked={item.isBarCodeAlreadyAttachedByTheSupplier}
-                        onClick={() =>
+                        onChange={() =>
                           onChangeBarCode(
                             !item.isBarCodeAlreadyAttachedByTheSupplier,
                             'isBarCodeAlreadyAttachedByTheSupplier',
@@ -366,11 +355,10 @@ export const BoxItemCard = ({
                       TranslationKey['The barcode was glued on when the box was accepted at the prep center'],
                     )}
                     inputComponent={
-                      <Checkbox
+                      <CustomCheckbox
                         disabled={!isNewBox || readOnly}
-                        color="primary"
                         checked={item.isBarCodeAttachedByTheStorekeeper}
-                        onClick={() =>
+                        onChange={() =>
                           onChangeBarCode(
                             !item.isBarCodeAttachedByTheStorekeeper,
                             'isBarCodeAttachedByTheStorekeeper',

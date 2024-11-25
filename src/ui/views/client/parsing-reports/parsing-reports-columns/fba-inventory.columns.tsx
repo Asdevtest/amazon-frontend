@@ -47,7 +47,7 @@ export const fbaInventoryColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -57,7 +57,7 @@ export const fbaInventoryColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -69,7 +69,7 @@ export const fbaInventoryColumns = () => {
       fields: getProductColumnMenuItems(),
       columnMenuConfig: getProductColumnMenuValue<ParsingReportsType>({
         isSimpleSku: true,
-        table: ParsingReportsType.ORDERS,
+        table: ParsingReportsType.FBA_INVENTORY,
         customTitleField: 'productName',
       }),
       columnKey: columnnsKeys.shared.MULTIPLE,
@@ -803,7 +803,7 @@ export const fbaInventoryColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

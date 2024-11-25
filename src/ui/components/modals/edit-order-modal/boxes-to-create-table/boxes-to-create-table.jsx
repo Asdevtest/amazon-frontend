@@ -1,15 +1,15 @@
 import { useState } from 'react'
+import { MdOutlineClose, MdOutlineEdit } from 'react-icons/md'
 
 import { TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { SizeSwitcher } from '@components/shared/size-switcher'
-import { CrossIcon, EditIcon } from '@components/shared/svg-icons'
 import { Table } from '@components/shared/table'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -113,40 +113,39 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
       </TableCell>
 
       <TableCell>
-        <Checkbox
-          color="primary"
+        <CustomCheckbox
           disabled={!restProps.barcodeIsExist}
           checked={item.isBarCodeAlreadyAttachedByTheSupplier}
           onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
-        >
-          <Field
-            tooltipInfoContent={t(TranslationKey["Label the box as labeled with the supplier's barcode"])}
-            label={t(TranslationKey['Supplier glued the barcode'])}
-            inputClasses={styles.hidden}
-            labelClasses={styles.label}
-            containerClasses={styles.labelWrapper}
-          />
-        </Checkbox>
+        ></CustomCheckbox>
+
+        <Field
+          tooltipInfoContent={t(TranslationKey["Label the box as labeled with the supplier's barcode"])}
+          label={t(TranslationKey['Supplier glued the barcode'])}
+          inputClasses={styles.hidden}
+          labelClasses={styles.label}
+          containerClasses={styles.labelWrapper}
+        />
 
         {item.items?.[0]?.transparencyFile && (
-          <Checkbox
+          <CustomCheckbox
             color="primary"
             checked={item?.items?.[0]?.isTransparencyFileAlreadyAttachedByTheSupplier}
+            labelClassName={cx(styles.label, styles.transparencyCodesText)}
             onChange={e => handlers.onClickTransparency(itemIndex)(e)}
           >
-            <p className={cx(styles.label, styles.transparencyCodesText)}>
-              {t(TranslationKey['The supplier glued the Transparency Codes'])}
-            </p>
-          </Checkbox>
+            The supplier glued the Transparency Codes
+          </CustomCheckbox>
         )}
 
         {!restProps.isNoBuyerSupplier && (
-          <Checkbox
-            color="primary"
-            disabled={restProps.isNoBuyerSupplier}
-            checked={item.tmpUseToUpdateSupplierBoxDimensions}
-            onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
-          >
+          <>
+            <CustomCheckbox
+              disabled={restProps.isNoBuyerSupplier}
+              checked={item.tmpUseToUpdateSupplierBoxDimensions}
+              onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
+            />
+
             <Field
               tooltipInfoContent={t(TranslationKey['Save box parameters to the current supplier'])}
               label={t(TranslationKey['Make the supplier standard'])}
@@ -154,15 +153,20 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
               labelClasses={styles.label}
               containerClasses={styles.labelWrapper}
             />
-          </Checkbox>
+          </>
         )}
       </TableCell>
 
       <TableCell>
         <div className={styles.buttonCell}>
-          <CustomButton danger type="primary" icon={<CrossIcon />} onClick={() => handlers.onRemoveBox(itemIndex)} />
+          <CustomButton
+            danger
+            type="primary"
+            icon={<MdOutlineClose size={18} />}
+            onClick={() => handlers.onRemoveBox(itemIndex)}
+          />
 
-          <CustomButton icon={<EditIcon />} onClick={() => handlers.onEditBox()}></CustomButton>
+          <CustomButton icon={<MdOutlineEdit size={18} />} onClick={() => handlers.onEditBox()}></CustomButton>
         </div>
       </TableCell>
     </TableRow>

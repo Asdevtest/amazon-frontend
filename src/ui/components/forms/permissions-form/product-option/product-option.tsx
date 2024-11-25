@@ -15,21 +15,20 @@ interface ProductOptionProps {
   label?: string
   sku?: string
   subOption?: boolean
+  searchValue?: string
 }
 
 export const ProductOption: FC<ProductOptionProps> = memo(props => {
-  const { image, label, asin, sku, subOption } = props
+  const { image, label, asin, sku, subOption, searchValue } = props
 
   const { classes: styles } = useStyles()
   const hoverAsin = useHover()
   const hoverSku = useHover()
 
   return (
-    <div className={styles.flexRow}>
+    <div className={styles.flexRow} onClick={e => searchValue?.length && e.stopPropagation()}>
       {subOption ? (
-        <div onClick={e => e.stopPropagation()}>
-          <CustomImage width={40} height={40} src={image} maskClassName={styles.mask} />
-        </div>
+        <CustomImage preview={!searchValue?.length} width={40} height={40} src={image} maskClassName={styles.mask} />
       ) : null}
 
       <div className={styles.flexColumn}>
@@ -41,7 +40,7 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
               {...hoverAsin[1]}
               ellipsis
               target="_blank"
-              copyable={hoverAsin[0] && !!asin}
+              copyable={hoverAsin[0] && !!asin && !searchValue?.length}
               href={`https://www.amazon.com/dp/${asin}`}
               className={styles.text}
               onClick={e => e.stopPropagation()}
@@ -50,7 +49,13 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
             </Link>
           ) : null}
           {sku && subOption ? (
-            <AntText {...hoverSku[1]} ellipsis copyable={hoverSku[0] && !!sku} type="secondary" className={styles.text}>
+            <AntText
+              {...hoverSku[1]}
+              ellipsis
+              copyable={hoverSku[0] && !!sku && !searchValue?.length}
+              type="secondary"
+              className={styles.text}
+            >
               {sku}
             </AntText>
           ) : null}

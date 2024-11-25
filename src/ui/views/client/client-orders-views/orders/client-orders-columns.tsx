@@ -61,13 +61,12 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
 
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID) + ' / item',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       valueGetter: params => params.row.xid,
-      renderCell: params => <Text isCell text={`${params.row.xid || '-'} / ${params.row.item || '-'}`} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 100,
-
-      columnKey: columnnsKeys.client.WAREHOUSE_IN_STOCK_ORDER_IDS_ITEMS,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -256,8 +255,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
-        const supplier = params.row.orderSupplier
-
+        const supplier = params.row.orderSupplierCard
         return (
           <Text
             isCell
@@ -289,7 +287,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
         params.row.status < 20 ? <DeadlineCell deadline={params.row.deadline} /> : <Text isCell text={'-'} />,
       width: 100,
       valueGetter: params => (params.value ? formatDate(params.value) : ''),
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -353,7 +351,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       valueFormatter: params => formatNormDateTime(params.value),
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -364,7 +362,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       valueFormatter: params => formatNormDateTime(params.value),
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

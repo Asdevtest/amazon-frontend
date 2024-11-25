@@ -15,9 +15,9 @@ import { SupplierModel } from '@models/supplier-model'
 
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { SupplierPriceVariationSelector } from '@components/product/suplier-price-variation-selector'
-import { Checkbox } from '@components/shared/checkbox'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomSelectPaymentDetails } from '@components/shared/custom-select-payment-details'
 import { Field } from '@components/shared/field'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
@@ -88,7 +88,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     minProductionTerm: supplier?.minProductionTerm || '',
     maxProductionTerm: supplier?.maxProductionTerm || '',
     paymentMethods: supplier?.paymentMethods || [],
-    yuanRate: supplier?.yuanRate || platformSettings?.yuanToDollarRate,
+    yuanToDollarRate: supplier?.yuanRate || platformSettings?.yuanToDollarRate,
     priceInYuan: supplier?.priceInYuan || '',
     batchDeliveryCostInDollar:
       supplier?.batchDeliveryCostInYuan / (supplier?.yuanRate || platformSettings?.yuanToDollarRate) || 0,
@@ -218,10 +218,10 @@ export const AddOrEditSupplierModalContent = memo(props => {
   const [editPhotosOfUnit, setEditPhotosOfUnit] = useState([])
 
   useEffect(() => {
-    if (supplier?.images.length > 0) {
+    if (supplier?.images?.length > 0) {
       setEditPhotosOfSupplier(supplier?.images)
     }
-    if (supplier?.imageUnit.length > 0) {
+    if (supplier?.imageUnit?.length > 0) {
       setEditPhotosOfUnit(supplier?.imageUnit)
     }
   }, [supplier])
@@ -354,7 +354,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
       setTmpSupplier({
         ...tmpSupplier,
         [fieldName]: event.target.value,
-        priceInYuan: event.target.value * tmpSupplier?.yuanRate,
+        priceInYuan: event.target.value * tmpSupplier?.yuanToDollarRate,
       })
     } else if (['priceInYuan'].includes(fieldName)) {
       setTmpSupplier({
@@ -362,14 +362,16 @@ export const AddOrEditSupplierModalContent = memo(props => {
         [fieldName]: event.target.value,
         price:
           event.target.value /
-          (tmpSupplier?.yuanRate === '' || parseFloat(tmpSupplier?.yuanRate) === 0 ? 1 : tmpSupplier?.yuanRate),
+          (tmpSupplier?.yuanToDollarRate === '' || parseFloat(tmpSupplier?.yuanToDollarRate) === 0
+            ? 1
+            : tmpSupplier?.yuanToDollarRate),
       })
     } else if (['batchDeliveryCostInDollar'].includes(fieldName)) {
       setTmpSupplier({
         ...tmpSupplier,
         [fieldName]: event.target.value,
         batchDeliveryCostInYuan:
-          event.target.value * (tmpSupplier?.yuanRate === ('' || '0') ? 1 : tmpSupplier?.yuanRate),
+          event.target.value * (tmpSupplier?.yuanToDollarRate === ('' || '0') ? 1 : tmpSupplier?.yuanToDollarRate),
       })
     } else if (['batchDeliveryCostInYuan'].includes(fieldName)) {
       setTmpSupplier({
@@ -377,7 +379,9 @@ export const AddOrEditSupplierModalContent = memo(props => {
         [fieldName]: event.target.value,
         batchDeliveryCostInDollar:
           event.target.value /
-          (tmpSupplier?.yuanRate === '' || parseFloat(tmpSupplier?.yuanRate) === 0 ? 1 : tmpSupplier?.yuanRate),
+          (tmpSupplier?.yuanToDollarRate === '' || parseFloat(tmpSupplier?.yuanToDollarRate) === 0
+            ? 1
+            : tmpSupplier?.yuanToDollarRate),
       })
     } else {
       setTmpSupplier({ ...tmpSupplier, [fieldName]: event.target.value })
@@ -388,7 +392,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
     if (checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot(e.target.value)) {
       setTmpSupplier({
         ...tmpSupplier,
-        yuanRate: e.target.value,
+        yuanToDollarRate: e.target.value,
         batchDeliveryCostInDollar:
           tmpSupplier.batchDeliveryCostInYuan /
           (e.target.value === '' || parseFloat(e.target.value) === 0 ? 1 : e.target.value),
@@ -454,8 +458,8 @@ export const AddOrEditSupplierModalContent = memo(props => {
     '' === tmpSupplier.priceInYuan ||
     '' === tmpSupplier.batchDeliveryCostInDollar ||
     '' === tmpSupplier.batchDeliveryCostInYuan ||
-    '' === tmpSupplier?.yuanRate ||
-    '0' === tmpSupplier?.yuanRate ||
+    '' === tmpSupplier?.yuanToDollarRate ||
+    '0' === tmpSupplier?.yuanToDollarRate ||
     0 === parseFloat(tmpSupplier.price) ||
     0 === parseInt(tmpSupplier.amount) ||
     0 === parseInt(tmpSupplier.minlot) ||
@@ -594,7 +598,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
 
           <Field
             oneLine
-            error={`${platformSettings?.yuanToDollarRate}` !== `${tmpSupplier?.yuanRate}`}
+            error={`${platformSettings?.yuanToDollarRate}` !== `${tmpSupplier?.yuanToDollarRate}`}
             disabled={onlyRead}
             tooltipInfoContent={t(TranslationKey['Course to calculate the cost'])}
             label={t(TranslationKey['Current supplier course'])}
@@ -602,7 +606,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
             containerClasses={styles.rateContainer}
             labelClasses={styles.rateLabel}
             inputClasses={styles.courseInput}
-            value={tmpSupplier?.yuanRate}
+            value={tmpSupplier?.yuanToDollarRate}
             onChange={onChangeYuanToDollarRate}
           />
         </div>
@@ -801,15 +805,14 @@ export const AddOrEditSupplierModalContent = memo(props => {
                   [styles.disabledCheckboxWrapper]: onlyRead || !boxPropertiesIsFull,
                 })}
               >
-                <Checkbox
+                <CustomCheckbox
                   disabled={onlyRead || !boxPropertiesIsFull}
                   className={styles.checkbox}
                   checked={tmpSupplier.multiplicity}
-                  color="primary"
                   onChange={onChangeField('multiplicity')}
                 >
-                  <p>{t(TranslationKey['Use multiples of items when creating boxes'])}</p>
-                </Checkbox>
+                  Use multiples of items when creating boxes
+                </CustomCheckbox>
               </div>
 
               <div className={styles.boxInfoExtraSubWrapper}>
@@ -929,11 +932,7 @@ export const AddOrEditSupplierModalContent = memo(props => {
           label={t(TranslationKey['Make the main supplier'])}
           containerClasses={styles.makeMainSupplierСheckboxWrapper}
           inputComponent={
-            <Checkbox
-              color="primary"
-              checked={makeMainSupplier}
-              onChange={() => setMakeMainSupplier(!makeMainSupplier)}
-            />
+            <CustomCheckbox checked={makeMainSupplier} onChange={() => setMakeMainSupplier(!makeMainSupplier)} />
           }
         />
       )}

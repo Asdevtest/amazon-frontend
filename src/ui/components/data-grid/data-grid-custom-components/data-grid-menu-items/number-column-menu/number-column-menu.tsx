@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { toFixed } from '@utils/text'
@@ -96,11 +96,12 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
           const valueChecked = chosenItems?.some(item => item === el)
 
           return (
-            <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
+            <div key={index} className={sharedStyles.filterWrapper}>
+              <CustomCheckbox key={index} checked={valueChecked} onChange={() => onClickItem(el)} />
               <p title={value} className={sharedStyles.filterTitle}>
                 {value}
               </p>
-            </Checkbox>
+            </div>
           )
         })}
       </DataWrapperColumnMenu>

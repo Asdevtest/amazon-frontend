@@ -2,7 +2,7 @@ import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomFileIcon } from '@components/shared/custom-file-icon'
 import { DownloadRoundIcon } from '@components/shared/svg-icons'
 
@@ -57,7 +57,7 @@ export const RequestDocumentsTab: FC<RequestDocumentsTabProps> = memo(props => {
                       </div>
 
                       <div className={styles.icons}>
-                        <Checkbox
+                        <CustomCheckbox
                           checked={getCheckboxState(file)}
                           disabled={getDisabledCheckbox(file)}
                           className={styles.checkbox}

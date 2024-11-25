@@ -7,7 +7,7 @@ export const filtersFields = [
   'storekeeper',
   'logicsTariff',
   'finalWeight',
-  'deliveryTotalPrice',
+  'totalPriceFromOrderSupplier',
   'totalPrice',
   'etd',
   'eta',

@@ -448,6 +448,7 @@ export class OwnerRequestDetailCustomViewModel {
   onClickEditBtn() {
     this.history.push(
       `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/custom-request/edit-request`,
+      { requestId: this.requestId },
     )
   }
 
@@ -643,7 +644,10 @@ export class OwnerRequestDetailCustomViewModel {
       name: UserModel.userInfo.name,
     }
 
-    const files = filesToAdd.map(file => file?.fileLink)
+    const files = filesToAdd.map(file => ({
+      fromProduct: true,
+      file: file?.fileLink,
+    }))
 
     const messageParams = {
       chatId: this.chatSelectedId,

@@ -1,4 +1,4 @@
-import { GridRowModel } from '@mui/x-data-grid-premium'
+import { GridCellParams, GridRowModel } from '@mui/x-data-grid-premium'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 import { colorByTaskPriorityStatus, taskPriorityStatusTranslate } from '@constants/task/task-priority-status'
@@ -59,6 +59,16 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
     : null
 
   const columns: IGridColumn[] = [
+    {
+      field: 'xid',
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.xid} />,
+
+      width: 120,
+      disableCustomSort: true,
+    },
+
     {
       field: 'action',
       headerName: t(TranslationKey.Action),
@@ -134,21 +144,15 @@ export const warehouseMainTasksViewColumns = (props: ColumnsProps) => {
     },
     {
       field: 'orderId',
-      headerName: t(TranslationKey['Order number']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
+      headerName: t(TranslationKey['Order ID']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order ID'])} />,
       renderCell: ({ row }) => <StringListCell data={row.boxesBeforeOrderXids} />,
       width: 160,
       disableCustomSort: true,
     },
-    {
-      field: 'item',
-      headerName: 'item',
-      renderHeader: () => <MultilineTextHeaderCell text="item" />,
-      renderCell: ({ row }) => <StringListCell data={row.boxesBeforeOrderItems} />,
-      width: 160,
-      disableCustomSort: true,
-    },
+
     isBarCodeAttachedColumn as IGridColumn,
+
     {
       field: 'createdAt',
       headerName: t(TranslationKey.Created),

@@ -40,6 +40,11 @@ class SupplierModelStatic {
     const response = await restApiService.supplierApi.apiV1SuppliersPaymentMethodsGuidPatch({ guid, body })
     return response.data
   }
+
+  importSupplierCards = async ({ supplierId, out }, options) => {
+    const response = await restApiService.supplierApi.apiV1SuppliersImportCardsPost({ supplierId, out }, options)
+    return response.data
+  }
 }
 
 export const SupplierModel = new SupplierModelStatic()

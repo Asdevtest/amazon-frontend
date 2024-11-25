@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo } from 'react'
 
-import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 
 import { useStyles as useSharedStyles } from '../column-menu.style'
@@ -10,6 +10,7 @@ import { ColumnMenuProps } from '../column-menu.type'
 import { ControlButtonsColumnMenu } from '../control-buttons-column-menu'
 import { DataWrapperColumnMenu } from '../data-wrapper-column-menu'
 
+import { getValueToCompare } from './helpers/get-value-to-compare'
 import { useObjectColumnMenu } from './hooks/use-object-column-menu'
 
 interface IObjectColumnMenuProps extends ColumnMenuProps<any> {
@@ -73,14 +74,15 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
       >
         {dataforRender?.map((el, index) => {
           const value = 'name' in el ? el?.name : 'title' in el ? el?.title : ''
-          const valueChecked = chosenItems?.some(item => item?._id === el?._id)
+          const valueChecked = chosenItems?.some(item => getValueToCompare(item) === el?._id)
 
           return (
-            <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
+            <div key={index} className={sharedStyles.filterWrapper}>
+              <CustomCheckbox key={index} checked={valueChecked} onChange={() => onClickItem(el)} />
               <p title={value as string} className={sharedStyles.filterTitle}>
                 {value as string}
               </p>
-            </Checkbox>
+            </div>
           )
         })}
       </DataWrapperColumnMenu>

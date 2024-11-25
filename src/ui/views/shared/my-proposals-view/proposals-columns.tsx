@@ -47,6 +47,16 @@ interface IHandlers {
 export const proposalsColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
     {
+      field: 'xid',
+      headerName: t(TranslationKey['Proposal ID']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Proposal ID'])} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.xid} />,
+
+      width: 120,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
       field: 'priority',
       headerName: t(TranslationKey.Priority),
       renderHeader: () => <MultilineTextHeaderCell component={<img src="/assets/icons/bookmark.svg" />} />,
@@ -130,8 +140,8 @@ export const proposalsColumns = (handlers: IHandlers) => {
 
     {
       field: 'requestXid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: (params: GridCellParams) => <Text isCell text={params.row?.request.xid} />,
       width: 80,
 
@@ -199,7 +209,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Deadline)} />,
       renderCell: (params: GridCellParams) => <NormDateCell value={params.row?.request.timeoutAt as string} />,
       width: 80,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       table: DataGridFilterTables.REQUESTS,
     },
 
@@ -282,7 +292,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: (params: GridCellParams) => <NormDateCell value={params?.row?.updatedAt} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 
@@ -291,6 +301,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
       column.table = DataGridFilterTables.PROPOSALS
     }
     column.sortable = false
+    column.filterable = false
   }
 
   return columns

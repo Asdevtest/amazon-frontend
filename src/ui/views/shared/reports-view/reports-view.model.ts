@@ -1,4 +1,3 @@
-import { Dayjs } from 'dayjs'
 import { makeObservable } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -14,13 +13,14 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { ReportsViewProps } from './reports-view-copy.types'
+import { RangeDateType, ReportsViewProps } from './reports-view-copy.types'
 import { reportsViewColumns } from './reports-view.columns'
 import { additionalFilterFields, additionalSearchFields, reportsViewConfig } from './reports-view.config'
 
 export class ReportsViewModel extends DataGridFilterTableModel {
   reportId?: string
   showReportModal = false
+  dateRangeValue: RangeDateType = null
 
   get product() {
     return this.meta?.product
@@ -67,8 +67,9 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     makeObservable(this, reportsViewConfig)
   }
 
-  onChangeRangeDate(dates: null | (Dayjs | null)[]) {
+  onChangeRangeDate(dates: RangeDateType) {
     if (dates?.[0] && dates?.[1]) {
+      this.dateRangeValue = dates
       const lteDateValueForBackendPostgreSQL = dates?.[1].add(1, 'day')
       const launchDateFrom = [getDateWithoutTime(dates?.[0])]
       const launchDateTo = [getDateWithoutTime(lteDateValueForBackendPostgreSQL)]
@@ -78,6 +79,11 @@ export class ReportsViewModel extends DataGridFilterTableModel {
     } else {
       this.onClickResetFilters()
     }
+  }
+
+  onClickExtraResetFilters() {
+    this.onClickResetFilters()
+    this.dateRangeValue = null
   }
 
   onToggleReportModal() {

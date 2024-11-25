@@ -1,0 +1,1 @@
+export { WholesaleView } from './wholesale'

@@ -18,12 +18,12 @@ export const useStyles = makeStyles()(theme => ({
   headerDetails: {
     display: 'flex',
     gap: '20px',
+    maxWidth: '500px',
   },
 
   headerTitle: {
     maxWidth: 550,
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
+    width: '100%',
   },
 
   flexContainer: {

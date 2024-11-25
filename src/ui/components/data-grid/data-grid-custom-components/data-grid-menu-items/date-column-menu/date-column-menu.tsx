@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 
-import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomRangeDatePicker } from '@components/shared/custom-range-date-picker'
 
 import { formatDateWithoutTime } from '@utils/date-time'
@@ -64,11 +64,17 @@ export const DateColumnMenu: FC<ColumnMenuProps<string>> = memo(props => {
           const valueChecked = chosenItems?.some(item => item === el)
 
           return (
-            <Checkbox key={index} checked={valueChecked} onClick={() => onClickItem(el)}>
+            <div key={index} className={styles.checkboxWrapper}>
+              <CustomCheckbox
+                key={index}
+                labelClassName={sharedStyles.filterTitle}
+                checked={valueChecked}
+                onChange={() => onClickItem(el)}
+              ></CustomCheckbox>
               <p title={value} className={sharedStyles.filterTitle}>
                 {value}
               </p>
-            </Checkbox>
+            </div>
           )
         })}
       </DataWrapperColumnMenu>

@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { MdOutlineDelete } from 'react-icons/md'
 
-import { Checkbox, IconButton, TableCell, TableRow } from '@mui/material'
+import { IconButton, TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -11,6 +11,7 @@ import { ChangeChipCell, ProductCell, StringListCell } from '@components/data-gr
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
@@ -58,7 +59,7 @@ export const OrderModalBodyRow = ({
 
   const [pricePerUnit, setPerPriceUnit] = useState(null)
 
-  const priceVariations = item.currentSupplier?.priceVariations
+  const priceVariations = item?.currentSupplierCard?.supplier?.priceVariations
 
   const { tariffName, tariffRate } = useGetDestinationTariffInfo(
     destinations,
@@ -69,17 +70,17 @@ export const OrderModalBodyRow = ({
     item.variationTariffId,
   )
 
-  const weightOfOneBox = item.currentSupplier
+  const weightOfOneBox = item.currentSupplierCard
     ? Math.max(
         Math.round(
-          (((item.currentSupplier.boxProperties?.boxWidthCm || 0) *
-            (item.currentSupplier.boxProperties?.boxLengthCm || 0) *
-            (item.currentSupplier.boxProperties?.boxHeightCm || 0)) /
+          (((item.currentSupplierCard.boxProperties?.boxWidthCm || 0) *
+            (item.currentSupplierCard.boxProperties?.boxLengthCm || 0) *
+            (item.currentSupplierCard.boxProperties?.boxHeightCm || 0)) /
             platformSettings?.volumeWeightCoefficient) *
             100,
         ) / 100 || 0,
-        item.currentSupplier.boxProperties?.boxWeighGrossKg,
-      ) / item.currentSupplier.boxProperties?.amountInBox
+        item.currentSupplierCard.boxProperties?.boxWeighGrossKg,
+      ) / item.currentSupplierCard.boxProperties?.amountInBox
     : ''
 
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
@@ -146,8 +147,8 @@ export const OrderModalBodyRow = ({
     }
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
 
-  const productionTerm = item.currentSupplier
-    ? `${item.currentSupplier.minProductionTerm} - ${item.currentSupplier.maxProductionTerm}`
+  const productionTerm = item.currentSupplierCard
+    ? `${item.currentSupplierCard.minProductionTerm} - ${item.currentSupplierCard.maxProductionTerm}`
     : t(TranslationKey['No data'])
 
   return (
@@ -156,26 +157,26 @@ export const OrderModalBodyRow = ({
         key={item._id}
         hover
         role="checkbox"
-        className={cx(styles.row, { [styles.noCurrentSupplier]: !item.currentSupplier })}
+        className={cx(styles.row, { [styles.noCurrentSupplier]: !item.currentSupplierCard })}
       >
         <TableCell className={cx(styles.cell, styles.productCell)}>
           <ProductCell image={item.images[0]} title={item.amazonTitle} asin={item.asin} sku={item.skuByClient} />
 
-          {!item.currentSupplier && (
+          {!item.currentSupplierCard && (
             <p className={styles.noCurrentSupplierText}>{t(TranslationKey['No supplier selected!'])}</p>
           )}
         </TableCell>
 
         <TableCell className={styles.cell}>
           <p className={styles.standartText}>
-            {item.currentSupplier ? toFixed(item.currentSupplier.price, 2) : <span>—</span>}
+            {item.currentSupplierCard ? toFixed(item.currentSupplierCard?.priceInUsd, 2) : <span>—</span>}
           </p>
         </TableCell>
 
         <TableCell className={styles.cell}>
           <p className={styles.standartText}>
-            {item.currentSupplier ? (
-              toFixed(item.currentSupplier.batchDeliveryCostInDollar / item.currentSupplier.amount, 2)
+            {item.currentSupplierCard ? (
+              toFixed(item.currentSupplierCard.batchDeliveryCostInDollar / item.currentSupplierCard.amount, 2)
             ) : (
               <span>—</span>
             )}
@@ -187,17 +188,17 @@ export const OrderModalBodyRow = ({
             containerClasses={cx(styles.containerField, styles.containerFieldCell)}
             inputClasses={styles.amountCell}
             error={
-              item.currentSupplier?.multiplicity &&
-              item.currentSupplier?.boxProperties?.amountInBox &&
-              (orderState.amount % item.currentSupplier?.boxProperties?.amountInBox !== 0 || !orderState.amount) &&
-              ` ${t(TranslationKey['Not a multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox}`
+              item.currentSupplierCard?.multiplicity &&
+              item.currentSupplierCard?.boxProperties?.amountInBox &&
+              (orderState.amount % item.currentSupplierCard?.boxProperties?.amountInBox !== 0 || !orderState.amount) &&
+              ` ${t(TranslationKey['Not a multiple of'])} ${item.currentSupplierCard.boxProperties?.amountInBox}`
             }
             successText={
-              item.currentSupplier?.multiplicity &&
-              item.currentSupplier?.boxProperties?.amountInBox &&
-              orderState.amount % item.currentSupplier?.boxProperties?.amountInBox === 0 &&
+              item.currentSupplierCard?.multiplicity &&
+              item.currentSupplierCard?.boxProperties?.amountInBox &&
+              orderState.amount % item.currentSupplierCard?.boxProperties?.amountInBox === 0 &&
               !!orderState.amount &&
-              ` ${t(TranslationKey['Value multiple of'])} ${item.currentSupplier.boxProperties?.amountInBox}`
+              ` ${t(TranslationKey['Value multiple of'])} ${item.currentSupplierCard.boxProperties?.amountInBox}`
             }
             inputProps={{ maxLength: 6, min: 0 }}
             value={orderState.amount}
@@ -374,7 +375,7 @@ export const OrderModalBodyRow = ({
               containerClasses={styles.containerField}
               labelClasses={styles.labelField}
               label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
-              inputComponent={<p className={styles.sumText}>{item.currentSupplier?.minlot}</p>}
+              inputComponent={<p className={styles.sumText}>{item.currentSupplierCard?.minlot}</p>}
             />
 
             <Field
@@ -403,7 +404,9 @@ export const OrderModalBodyRow = ({
               labelClasses={styles.labelField}
               label={t(TranslationKey['Batch delivery cost']) + ',$'}
               inputComponent={
-                <p className={styles.sumText}>{toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}</p>
+                <p className={styles.sumText}>
+                  {toFixed(item.currentSupplierCard.batchDeliveryCostInDollar, 2) || t(TranslationKey['No data'])}
+                </p>
               }
             />
 
@@ -418,12 +421,17 @@ export const OrderModalBodyRow = ({
           <div className={styles.mainCheckboxWrapper}>
             <div className={styles.checkboxWrapper}>
               <div className={styles.expressWrapper} onClick={onClickPriority}>
-                <Checkbox className={styles.checkbox} checked={item.priority === '40'} color="primary" />
-                <p className={styles.sumText}>{t(TranslationKey['Mark an order as urgent'])}</p>
+                <CustomCheckbox
+                  className={styles.checkbox}
+                  labelClassName={styles.sumText}
+                  checked={item.priority === '40'}
+                >
+                  Mark an order as urgent
+                </CustomCheckbox>
                 <img className={styles.deliveryImg} src="/assets/icons/fire.svg" alt="" />
               </div>
               <div className={styles.expressWrapper} onClick={onClickExpressChinaDelivery}>
-                <Checkbox className={styles.checkbox} checked={item.expressChinaDelivery} color="primary" />
+                <CustomCheckbox className={styles.checkbox} checked={item.expressChinaDelivery} />
                 <p className={styles.sumText}>{t(TranslationKey['Order express delivery in China'])}</p>
                 <TruckIcon className={styles.deliveryImg} />
               </div>

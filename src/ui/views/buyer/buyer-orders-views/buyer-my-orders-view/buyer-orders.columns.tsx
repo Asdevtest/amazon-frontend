@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Checkbox } from '@mui/material'
-
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import {
@@ -19,11 +17,12 @@ import {
   ManyUserLinkCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  PaymentMethodsCell,
   PriorityAndChinaDeliverCell,
   ProductCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
+import { PaymentMethods } from '@components/shared/payment-methods'
 import { Text } from '@components/shared/text'
 
 import { convertDaysToSeconds, formatDate, getDistanceBetweenDatesInSeconds } from '@utils/date-time'
@@ -42,7 +41,7 @@ import { payColumnMenuItems, payColumnMenuValue } from '@config/data-grid-column
 
 interface buyerOrdersColumnsParams {
   rowHandlers: {
-    onClickPaymentMethodsCell: (row: IOrder) => void
+    onClickPaymentMethods: (row: IOrder) => void
   }
   isShowPartialPayment: boolean
   isDisableCustomSort: boolean
@@ -56,8 +55,8 @@ export const buyerOrdersColumns = ({
   const columns: IGridColumn[] = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.value} />,
 
       sortable: true,
@@ -113,7 +112,9 @@ export const buyerOrdersColumns = ({
       field: 'paymentDetailsAttached',
       headerName: t(TranslationKey['Payment documents']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment documents'])} />,
-      renderCell: params => <Checkbox sx={{ pointerEvents: 'none' }} checked={params.row.paymentDetailsAttached} />,
+      renderCell: params => (
+        <CustomCheckbox style={{ pointerEvents: 'none' }} checked={params.row.paymentDetailsAttached} />
+      ),
       valueGetter: params => params.row.paymentDetailsAttached,
       width: 120,
       align: 'center',
@@ -167,9 +168,10 @@ export const buyerOrdersColumns = ({
       headerName: t(TranslationKey['Payment methods']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
       renderCell: params => (
-        <PaymentMethodsCell
+        <PaymentMethods
+          isCell
           paymentMethods={params.row.payments?.map((payment: any) => payment.paymentMethod)}
-          onClickCell={() => rowHandlers.onClickPaymentMethodsCell(params.row as IOrder)}
+          onClick={() => rowHandlers.onClickPaymentMethods(params.row as IOrder)}
         />
       ),
       valueGetter: params => params.row.payments.map((payment: any) => payment?.paymentMethod?.title).join(', '),
@@ -239,12 +241,12 @@ export const buyerOrdersColumns = ({
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
       renderCell: params => {
-        const currentSupplier = params.row.orderSupplier
+        const currentSupplier = params.row.orderSupplierCard
 
         return <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
       },
       valueGetter: params => {
-        const currentSupplier = params.row.orderSupplier
+        const currentSupplier = params.row.orderSupplierCard
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
@@ -266,7 +268,7 @@ export const buyerOrdersColumns = ({
       valueGetter: params => (params.row.deadline ? formatDate(params.row.deadline) : ''),
       width: 100,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -290,7 +292,7 @@ export const buyerOrdersColumns = ({
       valueGetter: params => formatDate(params.row.paymentDateToSupplier) ?? '',
       width: 115,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -388,7 +390,7 @@ export const buyerOrdersColumns = ({
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -399,7 +401,7 @@ export const buyerOrdersColumns = ({
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

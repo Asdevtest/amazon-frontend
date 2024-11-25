@@ -29,8 +29,8 @@ import { toFixedWithDollarSign, toFixedWithKg } from '@utils/text'
 export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
   {
     field: 'xid',
-    headerName: t(TranslationKey.ID) + ' / item',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
+    headerName: 'ID/item',
+    renderHeader: () => <MultilineTextHeaderCell text="ID/item" />,
     renderCell: params => <Text isCell text={params.row.xid} />,
     width: 100,
     type: 'number',
@@ -222,12 +222,12 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     sortable: false,
   },
   {
-    field: 'trackingNumberChina',
+    field: 'trackNumberText',
     headerName: t(TranslationKey['Track number']),
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Track number'])} />,
 
     width: 160,
-    renderCell: params => <Text isCell text={params.row.trackingNumberChina} />,
+    renderCell: params => <Text isCell text={params.row.trackNumberText} />,
   },
 
   {

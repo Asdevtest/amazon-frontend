@@ -3,7 +3,7 @@ import { memo, useEffect, useRef, useState } from 'react'
 import { FiArrowRight, FiPlus } from 'react-icons/fi'
 import { useHistory } from 'react-router-dom'
 
-import { Checkbox, Link, MenuItem, Select } from '@mui/material'
+import { Link, MenuItem, Select } from '@mui/material'
 
 import { MAX_COMMENT_LEGTH } from '@constants/requests/request'
 import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/statuses/difficulty-level'
@@ -17,6 +17,7 @@ import { ChoiceOfPerformerModal } from '@components/modals/choice-of-performer-m
 import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
@@ -24,9 +25,9 @@ import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { FireIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { RequestSelect } from '@views/shared/create-or-edit-request-view/request-select/request-select'
@@ -35,12 +36,15 @@ import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/cal
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { convertLocalDateToUTC, formatDateForShowWithoutParseISO } from '@utils/date-time'
 import { parseTextString, replaceCommaByDot, toFixed } from '@utils/text'
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import '@typings/enums/button-style'
 import { Specs } from '@typings/enums/specs'
 
 import { useStyles } from './create-or-edit-request-content.style'
+
+import { AsinSelect } from '../../shared/asin-select'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -519,35 +523,15 @@ export const CreateOrEditRequestContent = memo(props => {
                     }
                   />
 
-                  <Field
-                    tooltipInfoContent={t(TranslationKey['Select a product card for the order'])}
-                    label={t(TranslationKey.ASIN) + '*'}
-                    labelClasses={styles.label}
-                    containerClasses={styles.fieldContainer}
-                    inputComponent={
-                      <WithSearchSelect
-                        grayBorder
-                        blackSelectedItem
-                        darkIcon
-                        chosenItemNoHover
-                        CustomButton={componentProps => <SelectProductButton {...componentProps} />}
-                        data={permissionsData || []}
-                        width="100%"
-                        selectedItemName={
-                          formFields?.request?.asin === '' || formFields?.request?.asin === 'undefined'
-                            ? t(TranslationKey.Missing)
-                            : formFields?.request?.asin
-                            ? formFields.request.asin
-                            : t(TranslationKey['Select ASIN'])
-                        }
-                        onScrollItemList={loadMorePermissionsDataHadler}
-                        onClickSubmitSearch={onClickSubmitSearch}
-                        onClickSelect={el => {
-                          onChangeField('request')('asin')(el.asin)
-                          onChangeField('request')('productId')(el._id)
-                        }}
-                      />
-                    }
+                  <AsinSelect
+                    required
+                    size="large"
+                    label="ASIN"
+                    placeholder="Select ASIN"
+                    onChangeData={data => {
+                      onChangeField('request')('asin')(data.asin)
+                      onChangeField('request')('productId')(data._id)
+                    }}
                   />
 
                   <Field
@@ -567,8 +551,8 @@ export const CreateOrEditRequestContent = memo(props => {
                         </MenuItem>
 
                         {specs.map(spec => (
-                          <MenuItem key={spec._id} value={spec?._id} className={styles.capitalize}>
-                            {spec?.title}
+                          <MenuItem key={spec._id} value={spec?._id} className={styles.requestItem}>
+                            <Text text={spec?.title} copyable={false} rows={1} />
                           </MenuItem>
                         ))}
                       </Select>
@@ -629,6 +613,8 @@ export const CreateOrEditRequestContent = memo(props => {
 
                 <div className={styles.defaultMarginTop}>
                   <CustomButton
+                    type="primary"
+                    size="large"
                     disabled={!formFields.request?.productId}
                     icon={<FiPlus size={16} />}
                     onClick={() => onClickAddMediaFromProduct(formFields.request?.productId)}
@@ -725,39 +711,30 @@ export const CreateOrEditRequestContent = memo(props => {
                 </div>
 
                 <div className={styles.fields}>
-                  <div className={styles.checkbox}>
-                    <Checkbox
-                      color="primary"
-                      checked={formFields.request.withoutConfirmation}
-                      onChange={onChangeField('request')('withoutConfirmation')}
-                    />
-                    <p title={t(TranslationKey['Allow execution without confirmation'])} className={styles.subTitle}>
-                      {t(TranslationKey['Allow execution without confirmation'])}
-                    </p>
-                  </div>
+                  <CustomCheckbox
+                    checked={formFields.request.withoutConfirmation}
+                    wrapperClassName={styles.checkbox}
+                    labelClassName={styles.subTitle}
+                    onChange={onChangeField('request')('withoutConfirmation')}
+                  >
+                    Allow execution without confirmation
+                  </CustomCheckbox>
 
-                  <div className={styles.checkbox}>
-                    <Checkbox
-                      color="primary"
-                      checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
-                      onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
-                    />
-                    <p
-                      className={styles.subTitle}
-                      title={t(
-                        TranslationKey['After providing the result, the same performer may make a new proposal'],
-                      )}
-                    >
-                      {t(TranslationKey['Disable multiple execution'])}
-                    </p>
-                  </div>
+                  <CustomCheckbox
+                    checked={formFields.request.restrictMoreThanOneProposalFromOneAssignee}
+                    wrapperClassName={styles.checkbox}
+                    labelClassName={styles.subTitle}
+                    onChange={onChangeField('request')('restrictMoreThanOneProposalFromOneAssignee')}
+                  >
+                    Disable multiple execution
+                  </CustomCheckbox>
                 </div>
 
                 <div className={styles.fields}>
                   <div className={cx(styles.checkbox, styles.defaultMarginTop)}>
-                    <Checkbox
-                      color="primary"
+                    <CustomCheckbox
                       checked={formFields.request.priority === 30}
+                      labelClassName={styles.subTitle}
                       onChange={() => {
                         if (formFields.request.priority === 20) {
                           onChangeField('request')('priority')({ target: { value: 30 } })
@@ -765,8 +742,9 @@ export const CreateOrEditRequestContent = memo(props => {
                           onChangeField('request')('priority')({ target: { value: 20 } })
                         }
                       }}
-                    />
-                    <p className={styles.subTitle}>{t(TranslationKey['Set urgent priority'])}</p>
+                    >
+                      Set urgent priority
+                    </CustomCheckbox>
                     <FireIcon className={styles.fireIcon} />
                   </div>
                 </div>
@@ -1073,26 +1051,36 @@ export const CreateOrEditRequestContent = memo(props => {
                       ) : null}
 
                       {formFields.request.needCheckBySupervisor && (
-                        <div className={styles.checkbox}>
-                          <Checkbox checked disabled color="primary" />
-                          <p className={styles.subTitle}>{t(TranslationKey['A supervisor check is necessary'])}</p>
-                        </div>
+                        <CustomCheckbox
+                          checked
+                          disabled
+                          wrapperClassName={styles.checkbox}
+                          labelClassName={styles.subTitle}
+                        >
+                          A supervisor check is necessary
+                        </CustomCheckbox>
                       )}
 
                       {formFields.request.restrictMoreThanOneProposalFromOneAssignee && (
-                        <div className={styles.checkbox}>
-                          <Checkbox checked disabled color="primary" />
-                          <p className={styles.subTitle}>
-                            {t(TranslationKey['Multiple performances by the same performer are prohibited'])}
-                          </p>
-                        </div>
+                        <CustomCheckbox
+                          checked
+                          disabled
+                          wrapperClassName={styles.checkbox}
+                          labelClassName={styles.subTitle}
+                        >
+                          Multiple performances by the same performer are prohibited
+                        </CustomCheckbox>
                       )}
 
                       {formFields.request.withoutConfirmation && (
-                        <div className={styles.checkbox}>
-                          <Checkbox checked disabled color="primary" />
-                          <p className={styles.subTitle}>{t(TranslationKey['Allow execution without confirmation'])}</p>
-                        </div>
+                        <CustomCheckbox
+                          checked
+                          disabled
+                          wrapperClassName={styles.checkbox}
+                          labelClassName={styles.subTitle}
+                        >
+                          Allow execution without confirmation
+                        </CustomCheckbox>
                       )}
                     </div>
                   </div>
@@ -1149,7 +1137,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   <CustomButton
                     type="primary"
                     disabled={disableSubmit}
-                    onClick={() => onClickCreate({ withPublish: true })}
+                    onClick={throttle(() => onClickCreate({ withPublish: true }))}
                   >
                     {t(TranslationKey['Create and publish a request'])}
                   </CustomButton>
@@ -1211,7 +1199,7 @@ export const CreateOrEditRequestContent = memo(props => {
           asin={formFields?.request?.asin}
           specTitle={currentSpec?.title}
           onClickRequest={onClickExistingRequest}
-          onClickContinue={() => onCreateSubmit(formFields, images, withPublish, announcement)}
+          onClickContinue={throttle(() => onCreateSubmit(formFields, images, withPublish, announcement))}
           onClickCancel={() => setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)}
         />
       </Modal>

@@ -21,7 +21,7 @@ export const adminWarehouseBoxesColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 105,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -30,13 +30,13 @@ export const adminWarehouseBoxesColumns = () => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
       width: 105,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.value} />,
       width: 60,
       columnKey: columnnsKeys.shared.STRING_VALUE,

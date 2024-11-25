@@ -107,3 +107,13 @@ export const getSumPropertiesObject = object => {
 
   return result
 }
+
+export const buildFilteredObject = (sourceObj, whitelist) => {
+  return whitelist.reduce((acc, key) => {
+    const value = sourceObj[key]
+    if (value) {
+      acc[key] = value
+    }
+    return acc
+  }, {})
+}

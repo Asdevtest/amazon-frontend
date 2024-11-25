@@ -1,11 +1,10 @@
 import { memo } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 
-import { Checkbox } from '@mui/material'
-
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 
 import { calcVolumeWeightForBox } from '@utils/calculation'
@@ -138,8 +137,7 @@ export const OrderBox = memo(props => {
       </div>
 
       <div className={styles.checkboxWithLabelWrapper}>
-        <Checkbox
-          color="primary"
+        <CustomCheckbox
           disabled={!order.orderSupplier?.boxProperties}
           checked={orderBox?.tmpUseCurrentSupplierDimensions}
           onChange={setDimensionsOfSupplierField(orderBoxIndex)}

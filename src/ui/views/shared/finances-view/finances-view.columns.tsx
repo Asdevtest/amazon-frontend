@@ -26,7 +26,7 @@ export const financesViewColumns = (userBalance?: boolean) => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: userBalance ? undefined : columnnsKeys.shared.DATE,
+      columnKey: userBalance ? undefined : columnnsKeys.shared.DATE_VALUE,
     },
 
     {

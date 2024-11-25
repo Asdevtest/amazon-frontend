@@ -30,11 +30,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: 3,
   },
 
-  checkboxContainer: {
-    marginBottom: 10,
-    justifyContent: 'space-between',
-  },
-
   modalTitleWrapper: {
     width: '100%',
     display: 'flex',
@@ -126,5 +121,9 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '14px',
     lineHeight: '19px',
     color: theme.palette.text.second,
+  },
+
+  transparencyWrapper: {
+    marginTop: '20px',
   },
 }))

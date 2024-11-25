@@ -31,6 +31,10 @@ export const globalStyles = theme => ({
     position: 'relative',
   },
 
+  '.highlight-text': {
+    color: theme.palette.text.highlight,
+  },
+
   '.tableWrapper': {
     flex: 1,
     padding: '3px',
@@ -72,7 +76,7 @@ export const globalStyles = theme => ({
   '.MuiDataGrid-main': {
     borderRadius: '0 0 20px 20px',
 
-    '> div:nth-child(3)': {
+    '> div:nth-of-type(3)': {
       display: 'none',
     },
   },
@@ -309,6 +313,7 @@ export const lightTheme = createTheme({
       red: '#FF1616',
       negativeMain: '#fff',
       green: '#00B746',
+      highlight: '#ff4d4f',
     },
 
     button: {
@@ -410,7 +415,7 @@ export const lightTheme = createTheme({
 
     boxShadow: {
       general: 'rgba(190, 190, 190, 0.15)',
-      paper: '0 2px 10px 2px rgba(190, 190, 190, 0.15)',
+      paper: '0 2px 10px 2px rgba(190, 190, 190, 0.2)',
       yellow:
         'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
       red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',
@@ -823,10 +828,10 @@ export const darkTheme = createTheme({
       red: '#FF1616',
       negativeMain: '#001029',
       green: '#00B746',
-
       disabled: '#001029',
       primary: '#fff',
       secondary: 'rgba(255, 255, 255, 0.7)',
+      highlight: '#dc4446',
     },
 
     button: {
@@ -933,7 +938,7 @@ export const darkTheme = createTheme({
 
     boxShadow: {
       general: 'rgba(31, 31, 31, 0.6)',
-      paper: '0 2px 8px 2px rgba(31, 31, 31, 0.6)',
+      paper: '0 2px 10px 2px rgba(0, 0, 0, 0.2)',
       yellow:
         'linear-gradient(90deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 0.77%, rgba(243, 175, 0, 0) 99.23%, rgba(243, 175, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 175, 0, 0.5) 0%, rgba(243, 175, 0, 0) 18.05%, rgba(243, 175, 0, 0) 83.72%, rgba(243, 175, 0, 0.5) 100%)',
       red: 'linear-gradient(90deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 0.77%, rgba(243, 0, 0, 0) 99.23%, rgba(243, 0, 0, 0.5) 100%), linear-gradient(180deg, rgba(243, 0, 0, 0.5) 0%, rgba(243, 0, 0, 0) 18.05%, rgba(243, 0, 0, 0) 83.72%, rgba(243, 0, 0, 0.5) 100%)',

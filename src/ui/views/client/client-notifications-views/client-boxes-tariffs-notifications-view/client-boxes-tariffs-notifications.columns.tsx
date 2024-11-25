@@ -26,8 +26,8 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
   const columns: IGridColumn[] = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
 
       renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
@@ -44,7 +44,7 @@ export const clientBoxesTariffsNotificationsViewColumns = (handlers: IHandlers) 
       renderCell: params => <NormDateCell value={params.value} />,
       width: 100,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {

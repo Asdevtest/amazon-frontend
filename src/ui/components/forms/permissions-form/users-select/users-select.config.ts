@@ -4,7 +4,7 @@ import { IFullUser } from '@typings/shared/full-user'
 
 import { IPermissionsData } from '@hooks/use-products-permissions'
 
-export const requestSelectConfig = {
+export const usersSelectConfig = {
   defaultUser: observable,
   defaultUserOption: computed,
   userOptions: computed,

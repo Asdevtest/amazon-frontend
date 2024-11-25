@@ -239,6 +239,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       onClickTag: tag => this.setActiveProductsTagFromTable(tag),
       onClickEdit: productId => this.onClickEditTags(productId),
       onClickParsingReportCell: (product, table) => this.onClickParsingReportCell(product, table),
+      onClickRequestCell: productId => this.onClickRequestCell(productId),
     }
 
     const defaultGetCurrentDataOptions = () => ({
@@ -302,8 +303,9 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       operatorsSettings,
       defaultSortModel: [{ field: 'sumStock', sort: 'desc' }],
     })
-
     makeObservable(this, observerConfig)
+
+    this.initHistory()
 
     const url = new URL(window.location.href)
     this.isArchive = url.searchParams.get('isArchive') || false
@@ -362,7 +364,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
 
   onClickInStock(boxId, storekeeper) {
     const win = window.open(
-      `${window.location.origin}/client/warehouse/in-stock?storekeeper-id=${storekeeper?._id}&search-text=${boxId}`,
+      `${window.location.origin}/client/warehouse/in-stock?storekeeper-id=${storekeeper?._id}&productId=${boxId}`,
       '_blank',
     )
 
@@ -379,6 +381,18 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     }
 
     this.onTriggerOpenModal('mainProductModal')
+  }
+
+  onClickRequestCell(productId) {
+    if (productId) {
+      this.isArchive
+        ? this.history.push(
+            `/client/inventory?product-id=${productId}&isArchive=true&show-tab=freelance&show-tab=orders&status=inProgress}`,
+          )
+        : this.history.push(`/client/inventory?product-id=${productId}&show-tab=freelance&status=inProgress`)
+    }
+
+    this.onTriggerOpenModal('productCardModal')
   }
 
   async onClickVariationButton(id) {
@@ -594,7 +608,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     ])
 
     if (this.pendingOrderQuantity === 0 || this.pendingOrderQuantity) {
-      dataForOrder[0].pendingOrderQuantity = this.pendingOrderQuantity
+      dataForOrder[0].pendingOrderQuantity = Math.ceil(this.pendingOrderQuantity / 100) * 100
       dataForOrder[0].isPending = true
     }
 

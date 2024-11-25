@@ -75,6 +75,7 @@ export const filtersFields = [
   'totalPrice',
   'subUsers',
   'clientComment',
+  'productId',
 ]
 
 export const fieldsForSearch = ['asin', 'amazonTitle', 'skuByClient', 'orderXid', 'item', 'productId', 'xid', 'prepId']

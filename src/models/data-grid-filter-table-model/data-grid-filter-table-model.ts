@@ -13,7 +13,7 @@ import { objectToUrlQs } from '@utils/text'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { DataGridFilterTableModelParams } from './data-grid-filter-table-model.type'
+import { DataGridFilterTableModelParams, IFilter } from './data-grid-filter-table-model.type'
 import { observerConfig } from './observer-config'
 
 export class DataGridFilterTableModel extends DataGridTableModel {
@@ -24,6 +24,11 @@ export class DataGridFilterTableModel extends DataGridTableModel {
   additionalPropertiesGetFilters: any = undefined
   defaultFilterParams: any = undefined
   operatorsSettings: any = undefined
+
+  oneTimeFilters: {
+    field: string
+    value: any
+  }[] = []
 
   get isSomeFilterOn() {
     return this.filtersFields.some(el => this.columnMenuSettings[el]?.currentFilterData?.length)
@@ -282,6 +287,9 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       }
 
       const parsedValue = this.parseQueryString(activePreset?.settings?.filters)
+
+      this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
+
       this.setFilterFromPreset(parsedValue)
 
       runInAction(() => {
@@ -309,16 +317,18 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       })
     }
 
+    this.useOneTimeFilter()
+
     this.getCurrentData()
   }
 
-  parseQueryString(queryString?: string): Record<string, string | string[]> {
+  parseQueryString(queryString?: string): IFilter {
     if (!queryString) {
       return {}
     }
 
     const params = queryString.split(';')
-    const result: Record<string, string | string[]> = {}
+    const result: IFilter = {}
 
     params.forEach(param => {
       const [key, value] = param.split('=')
@@ -329,10 +339,10 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         const decodedKey = decodeURIComponent(key).replace(/\[.*?\]/, '')
         const decodedValue = decodeURIComponent(value)
 
-        let valueArray: string[] = []
+        let valueArray: (string | null)[] = []
 
         if (decodedValue) {
-          valueArray = decodedValue.split(',').map(item => item.replace(/"/g, ''))
+          valueArray = decodedValue.split(',').map(item => (item === '"null"' ? null : item.replace(/"/g, '')))
         }
 
         result[decodedKey] = valueArray
@@ -342,7 +352,11 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     return result
   }
 
-  setFilterFromPreset(presetFilters: Record<string, string | string[]>) {
+  setFilterFromPreset(presetFilters: IFilter) {
+    if (this.oneTimeFilters?.length) {
+      return
+    }
+
     const keys = Object.keys(presetFilters)
 
     if (!presetFilters?.currentSearchValue) {
@@ -351,8 +365,6 @@ export class DataGridFilterTableModel extends DataGridTableModel {
       this.currentSearchValue = presetFilters.currentSearchValue as string
     }
 
-    this.setColumnMenuSettings(this.filtersFields, this.additionalPropertiesColumnMenuSettings)
-
     for (const key of keys) {
       if (key === 'currentSearchValue') {
         continue
@@ -360,5 +372,25 @@ export class DataGridFilterTableModel extends DataGridTableModel {
         this.onChangeFullFieldMenuItem(presetFilters[key], key)
       }
     }
+  }
+
+  useOneTimeFilter() {
+    if (!this.oneTimeFilters?.length) {
+      return
+    }
+
+    for (const filter of this.oneTimeFilters) {
+      const { field, value } = filter
+
+      if (field === 'currentSearchValue') {
+        this.currentSearchValue = value?.[0]
+      }
+
+      this.onChangeFullFieldMenuItem(value, field)
+    }
+
+    runInAction(() => {
+      this.oneTimeFilters = []
+    })
   }
 }

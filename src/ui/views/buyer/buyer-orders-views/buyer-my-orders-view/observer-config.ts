@@ -28,7 +28,7 @@ export const observerConfig = {
   onClickSaveSupplierBtn: action.bound,
   onClickSaveWithoutUpdateSupData: action.bound,
   onClickUpdataSupplierData: action.bound,
-  onClickPaymentMethodsCell: action.bound,
+  onClickPaymentMethods: action.bound,
   onSaveOrderItem: action.bound,
   onClickOrder: action.bound,
   onSubmitCancelOrder: action.bound,

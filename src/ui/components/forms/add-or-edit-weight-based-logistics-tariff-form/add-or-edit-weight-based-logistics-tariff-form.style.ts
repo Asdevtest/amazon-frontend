@@ -89,15 +89,12 @@ export const useStyles = makeStyles()(theme => ({
 
   destinationSearchInput: {
     height: 40,
-    border: `1px solid ${theme.palette.input.customBorder}`,
     marginBottom: 5,
   },
 
   customSearchInput: {
     width: 239,
     height: 40,
-
-    border: `1px solid ${theme.palette.input.customBorder}`,
     borderRadius: 4,
     marginBottom: 5,
   },

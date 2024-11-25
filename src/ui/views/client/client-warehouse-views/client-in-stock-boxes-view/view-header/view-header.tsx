@@ -101,7 +101,7 @@ export const ViewHeader: FC<ViewHeaderProps> = memo(props => {
           allowClear
           wrapperClassName={styles.searchInput}
           size="large"
-          placeholder="Search by SKU, ASIN, Title, Order, item, Prep Id, ID Box"
+          placeholder="Search by SKU, ASIN, Title, Order, Prep Id, ID Box"
           onSearch={onSearchSubmit}
         />
       </div>

@@ -23,8 +23,8 @@ import { SupplierPaymentForm } from '@components/forms/supplier-payment-form'
 import { CommentsForm } from '@components/forms/сomments-form'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
-import { Checkbox } from '@components/shared/checkbox'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
 import { Modal } from '@components/shared/modal'
@@ -100,7 +100,6 @@ export const EditOrderModal = memo(
     setUpdateSupplierData,
   }) => {
     const { classes: styles, cx } = useStyles()
-
     const [checkIsPlanningPrice, setCheckIsPlanningPrice] = useState(true)
     const [usePriceInDollars, setUsePriceInDollars] = useState(false)
     const [collapseCreateOrEditBoxBlock, setCollapseCreateOrEditBoxBlock] = useState(false)
@@ -117,6 +116,7 @@ export const EditOrderModal = memo(
     const [boxesForCreation, setBoxesForCreation] = useState([])
     const [isEdit, setIsEdit] = useState(false)
     const [isStatusChange, setStatusChange] = useState(false)
+    const [showPhotosModal, setShowPhotosModal] = useState(false)
 
     const initialState = {
       ...order,
@@ -140,7 +140,6 @@ export const EditOrderModal = memo(
       batchPrice: 0,
       totalPriceChanged: order?.totalPriceChanged || order?.totalPrice,
       yuanToDollarRate: order?.yuanToDollarRate || platformSettings?.yuanToDollarRate,
-      item: order?.item || 0,
       tmpRefundToClient: 0,
       priceInYuan: order?.priceInYuan || order?.totalPriceChanged * order?.yuanToDollarRate,
       paymentDetails: order?.paymentDetails || [],
@@ -311,7 +310,6 @@ export const EditOrderModal = memo(
           'totalPriceChanged',
           'deliveryCostToTheWarehouse',
           'yuanToDollarRate',
-          'item',
           'tmpRefundToClient',
           'priceInYuan',
         ].includes(filedName)
@@ -347,7 +345,7 @@ export const EditOrderModal = memo(
         newOrderFieldsState[filedName] = e.target.value
         setTmpNewOrderFieldsState(newOrderFieldsState)
 
-        setOrderFields(initialState)
+        // setOrderFields(initialState)
 
         if (
           e.target.value === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
@@ -428,30 +426,7 @@ export const EditOrderModal = memo(
         <div className={styles.modalHeader}>
           <div>
             <div className={styles.idItemWrapper}>
-              <p className={styles.modalText}>
-                {`${t(TranslationKey.Order)} № ${order.xid} / `} <span className={styles.modalSpanText}>{'item'}</span>
-              </p>
-
-              <Input
-                disabled={Number(order.status) === Number(OrderStatusByKey[OrderStatus.READY_FOR_BUYOUT])}
-                className={styles.itemInput}
-                inputProps={{ maxLength: 9 }}
-                value={orderFields.item}
-                endAdornment={
-                  <InputAdornment position="start">
-                    {(orderFields.item || (!orderFields.item && order?.item)) && order?.item !== orderFields.item ? (
-                      <SaveIcon
-                        className={styles.itemInputIcon}
-                        onClick={() => {
-                          onSaveOrderItem(order._id, orderFields.item)
-                          order.item = orderFields.item
-                        }}
-                      />
-                    ) : null}
-                  </InputAdornment>
-                }
-                onChange={setOrderField('item')}
-              />
+              <p className={styles.modalText}>{`${t(TranslationKey.Order)} № ${order.xid}`}</p>
             </div>
 
             {orderFields.deadline && orderFields.status < 20 && (
@@ -642,10 +617,12 @@ export const EditOrderModal = memo(
             setOrderField={setOrderField}
             orderFields={orderFields}
             showProgress={showProgress}
+            showPhotosModal={showPhotosModal}
             progressValue={progressValue}
             setPhotosToLoad={setPhotosToLoad}
             setUsePriceInDollars={setUsePriceInDollars}
             setPaymentMethodsModal={() => setPaymentMethodsModal(!paymentMethodsModal)}
+            setShowPhotosModal={() => setShowPhotosModal(!showPhotosModal)}
             onClickUpdateButton={onClickUpdateButton}
             onClickSupplierPaymentButton={() => setSupplierPaymentModal(!supplierPaymentModal)}
           />
@@ -661,9 +638,9 @@ export const EditOrderModal = memo(
           />
 
           <div className={styles.supplierCheckboxWrapper} onClick={() => setUpdateSupplierData?.(!updateSupplierData)}>
-            <Checkbox checked={updateSupplierData} color="primary">
-              <p className={styles.checkboxTitle}>{t(TranslationKey['Update supplier data'])}</p>
-            </Checkbox>
+            <CustomCheckbox checked={updateSupplierData} labelClassName={styles.checkboxTitle}>
+              Update supplier data
+            </CustomCheckbox>
           </div>
 
           <ListSuppliers
@@ -719,9 +696,9 @@ export const EditOrderModal = memo(
               orderGoodsAmount={orderFields?.amount}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={
-                userInfo._id !== order.orderSupplier.createdBy?._id &&
+                userInfo._id !== order?.orderSupplier?.createdBy?._id &&
                 userInfo?.masterUser?._id !== order.orderSupplier?.createdBy?._id &&
-                order.orderSupplier.createdBy
+                order?.orderSupplier?.createdBy
               }
               newBoxes={boxesForCreation}
               onRemoveBox={onRemoveForCreationBox}

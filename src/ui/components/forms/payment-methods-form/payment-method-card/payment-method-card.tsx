@@ -2,7 +2,7 @@ import { ChangeEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { Checkbox } from '@components/shared/checkbox'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -21,7 +21,7 @@ interface PaymentMethodCardProps {
   readOnly?: boolean
 }
 
-export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, setSelectedPayments, readOnly }) => {
+export const PaymentMethod: FC<PaymentMethodCardProps> = memo(({ payment, setSelectedPayments, readOnly }) => {
   const { classes: styles, cx } = useStyles()
 
   const handleFieldChange = (field: string, value: string | UploadFileType[] | boolean) => {
@@ -56,7 +56,7 @@ export const PaymentMethodCard: FC<PaymentMethodCardProps> = memo(({ payment, se
   return (
     <div className={styles.root}>
       <div className={styles.paymentMethodTitleWrapper}>
-        <Checkbox disabled={readOnly} checked={payment.isChecked} onChange={handleChangeIsChecked} />
+        <CustomCheckbox disabled={readOnly} checked={payment.isChecked} onChange={() => handleChangeIsChecked} />
         <img
           src={getAmazonImageUrl(payment.paymentMethod?.iconImage, false)}
           alt={payment.paymentMethod?.title}

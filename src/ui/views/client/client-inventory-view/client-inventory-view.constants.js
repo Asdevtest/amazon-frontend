@@ -66,4 +66,11 @@ export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode',
 
 export const disableDoubleClickOnCells = ['stockUSA', 'purchaseQuantity']
 
-export const clickableCells = ['inTransfer', 'amountInBoxes', 'amountInOrders', 'amountInPendingOrders', 'sentToFbaSum']
+export const clickableCells = [
+  'inTransfer',
+  'amountInBoxes',
+  'amountInOrders',
+  'amountInPendingOrders',
+  'sentToFbaSum',
+  'requestsInWork',
+]

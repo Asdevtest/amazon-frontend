@@ -21,9 +21,9 @@ export const Buttons: FC<ButtonsProps> = memo(props => {
 
   return (
     <div className={cx(styles.flexRowContainer, styles.flexEnd)}>
-      {/* <Checkbox disabled className={styles.checkbox}>
-          {t(TranslationKey['Add changes to the product'])}
-        </Checkbox> */}
+      {/* <CustomCheckbox disabled className={styles.checkbox}>
+          Add changes to the product
+        </CustomCheckbox> */}
 
       <div className={styles.flexRowContainer}>
         <CustomButton type="primary" disabled={disabledSaveButton} onClick={onSave}>

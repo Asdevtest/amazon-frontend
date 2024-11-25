@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdCheckBox, MdVisibility, MdVisibilityOff } from 'react-icons/md'
 
-import { Checkbox, ListItemText, MenuItem, Rating, Select } from '@mui/material'
+import { ListItemText, MenuItem, Rating, Select } from '@mui/material'
 
 import { UserRole, UserRoleCodeMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
 import { humanFriendlyStategyStatus, productStrategyStatusesEnum } from '@constants/product/product-strategy-status'
@@ -66,7 +66,7 @@ export const AdminUserEditContent = observer(
 
       permissions: editUserFormFields?.permissions.map(perm => perm._id) || [],
       permissionGroups: editUserFormFields?.permissionGroups.map(permGroup => permGroup._id) || [],
-      oldPassword: '',
+
       password: '',
       confirmPassword: '',
     }
@@ -155,9 +155,11 @@ export const AdminUserEditContent = observer(
     }
 
     const onClickSubmit = () => {
+      let passwordHasNoErrors = true
       if (startChangePassword) {
         setSubmit(true)
-        !errorLowercaseLetter &&
+        passwordHasNoErrors =
+          !errorLowercaseLetter &&
           !errorMinLength &&
           !errorOneNumber &&
           !errorUppercaseLetter &&
@@ -175,9 +177,13 @@ export const AdminUserEditContent = observer(
           : [...selectedAllowedRoles, Number(formFields.role)],
       }
 
-      const { oldPassword, password, confirmPassword, ...other } = dataToSubmit
+      const { password, confirmPassword, ...other } = dataToSubmit
 
-      onSubmit(other, editUserFormFields, { oldPassword, password, confirmPassword })
+      onSubmit(
+        other,
+        editUserFormFields,
+        startChangePassword && passwordHasNoErrors ? { password, confirmPassword } : undefined,
+      )
     }
 
     const selectedPermissions = singlePermissions?.filter(per => formFields?.permissions?.includes(per?._id))
@@ -197,7 +203,7 @@ export const AdminUserEditContent = observer(
       (isEqual(changedAllowedRoles, selectedAllowedRoles) && isEqual(sourceFormFields, formFields))
 
     const [visibilityPass, setVisibilityPass] = useState(false)
-    const [visibilityOldPass, setVisibilityOldPass] = useState(false)
+    const [visibilityConfirmPass, setVisibilityConfirmPass] = useState(false)
     const [errorOneNumber, setErrorOneNumber] = useState(false)
     const [errorUppercaseLetter, setErrorUppercaseLetter] = useState(false)
     const [errorLowercaseLetter, setErrorLowercaseLetter] = useState(false)
@@ -225,7 +231,7 @@ export const AdminUserEditContent = observer(
     const regExpRuLetter = /(?=.*[А-Яа-я])/
 
     useEffect(() => {
-      if (formFields.password.length < 6) {
+      if (formFields.password.length < 8) {
         setErrorMinLength(true)
       } else {
         setErrorMinLength(false)
@@ -340,24 +346,6 @@ export const AdminUserEditContent = observer(
 
             <div className={styles.field}>
               <Field
-                disabled
-                inputProps={{ maxLength: 128 }}
-                labelClasses={styles.labelField}
-                inputClasses={styles.input}
-                label={t(TranslationKey['Old password'])}
-                placeholder={t(TranslationKey['Old password'])}
-                type={!visibilityOldPass ? 'password' : 'text'}
-                value={formFields.oldPassword}
-                onChange={onChangeFormField('oldPassword')}
-              />
-              <div className={styles.visibilityIcon} onClick={() => setVisibilityOldPass(!visibilityOldPass)}>
-                {!visibilityOldPass ? <MdVisibilityOff size={24} /> : <MdVisibility size={24} />}
-              </div>
-            </div>
-
-            <div className={styles.field}>
-              <Field
-                disabled
                 inputProps={{ maxLength: 128 }}
                 labelClasses={styles.labelField}
                 error={showError}
@@ -388,16 +376,18 @@ export const AdminUserEditContent = observer(
 
             <div className={styles.field}>
               <Field
-                disabled
                 inputProps={{ maxLength: 128 }}
                 labelClasses={styles.labelField}
                 inputClasses={styles.input}
                 label={t(TranslationKey['Re-enter the new password'])}
                 placeholder={t(TranslationKey.Password)}
-                type={!visibilityPass ? 'password' : 'text'}
+                type={!visibilityConfirmPass ? 'password' : 'text'}
                 value={formFields.confirmPassword}
                 onChange={onChangeFormField('confirmPassword')}
               />
+              <div className={styles.visibilityIcon} onClick={() => setVisibilityConfirmPass(!visibilityConfirmPass)}>
+                {!visibilityConfirmPass ? <MdVisibilityOff size={24} /> : <MdVisibility size={24} />}
+              </div>
             </div>
           </div>
 
@@ -495,8 +485,7 @@ export const AdminUserEditContent = observer(
                             Number(role) === Number(formFields.role)
                           }
                         >
-                          <Checkbox
-                            color="primary"
+                          <CustomCheckbox
                             checked={
                               selectedAllowedRoles.includes(Number(role)) || Number(role) === Number(formFields.role)
                             }
@@ -538,7 +527,7 @@ export const AdminUserEditContent = observer(
                 >
                   {Object.keys(productStrategyStatusesEnum).map((strategy, index) => (
                     <MenuItem key={index} className={styles.standartText} value={Number(strategy)}>
-                      <Checkbox color="primary" checked={formFields.allowedStrategies.includes(Number(strategy))} />
+                      <CustomCheckbox checked={formFields.allowedStrategies.includes(Number(strategy))} />
                       <ListItemText primary={humanFriendlyStategyStatus(productStrategyStatusesEnum[strategy])} />
                     </MenuItem>
                   ))}
@@ -566,7 +555,7 @@ export const AdminUserEditContent = observer(
                   >
                     {specs?.map(spec => (
                       <MenuItem key={spec?._id} value={spec?.type} className={styles.capitalize}>
-                        <Checkbox checked={formFields.allowedSpec?.includes(spec?.type)} />
+                        <CustomCheckbox checked={formFields.allowedSpec?.includes(spec?.type)} />
                         {spec?.title}
                       </MenuItem>
                     ))}
@@ -611,7 +600,6 @@ export const AdminUserEditContent = observer(
             )}
             <div className={styles.checkboxWrapper}>
               <CustomCheckbox
-                color="primary"
                 disabled={
                   editUserFormFields?.masterUser || Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]
                 }
@@ -622,8 +610,7 @@ export const AdminUserEditContent = observer(
             </div>
 
             <div className={styles.checkboxWrapper}>
-              <Checkbox
-                color="primary"
+              <CustomCheckbox
                 disabled={
                   editUserFormFields?.masterUser ||
                   Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE] ||
@@ -636,8 +623,7 @@ export const AdminUserEditContent = observer(
             </div>
 
             <div className={styles.checkboxWrapper}>
-              <Checkbox
-                color="primary"
+              <CustomCheckbox
                 disabled={Number(formFields.role) === mapUserRoleEnumToKey[UserRole.CANDIDATE]}
                 checked={formFields.hideSuppliers}
                 onChange={onChangeFormField('hideSuppliers')}
@@ -646,8 +632,7 @@ export const AdminUserEditContent = observer(
             </div>
 
             <div className={styles.checkboxWrapper}>
-              <Checkbox
-                color="primary"
+              <CustomCheckbox
                 disabled={Number(formFields.role) !== mapUserRoleEnumToKey[UserRole.STOREKEEPER]}
                 checked={formFields.isUserPreprocessingCenterUSA}
                 onChange={onChangeFormField('isUserPreprocessingCenterUSA')}

@@ -19,7 +19,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -79,7 +79,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -90,7 +90,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -134,7 +134,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       width: 155,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -145,7 +145,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -156,7 +156,7 @@ export const clientIntegrationsReportInventoryShipmentsColumns = () => {
       width: 118,
 
       table: DataGridFilterTables.INVENTORY_SHIPMENTS,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

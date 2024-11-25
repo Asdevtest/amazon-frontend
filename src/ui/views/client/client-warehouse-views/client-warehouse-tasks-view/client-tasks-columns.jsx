@@ -20,6 +20,16 @@ import { t } from '@utils/translations'
 export const clientTasksViewColumns = handlers => {
   const columns = [
     {
+      field: 'xid',
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
+      renderCell: params => <Text isCell text={params.row?.xid} />,
+
+      width: 120,
+      disableCustomSort: true,
+    },
+
+    {
       field: 'action',
       headerName: t(TranslationKey.Action),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Action)} />,
@@ -121,23 +131,13 @@ export const clientTasksViewColumns = handlers => {
     },
 
     {
-      field: 'xid',
-      headerName: t(TranslationKey.ID) + ' / item',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID) + ' / item'} />,
-      renderCell: params => <Text isCell text={params.row.xid} />,
-      width: 100,
-      type: 'number',
-    },
+      field: 'orderXid',
 
-    {
-      field: 'orderId',
-      headerName: t(TranslationKey['Order number']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Order number'])} />,
+      headerName: t(TranslationKey['№ Order']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['№ Order'])} />,
 
-      renderCell: params => (
-        <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.xid))} />
-      ),
-      type: 'number',
+      renderCell: params => <Text text={params.value} />,
+      valueGetter: ({ row }) => row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.xid))?.join(', '),
       disableCustomSort: true,
       width: 160,
     },
@@ -150,18 +150,6 @@ export const clientTasksViewColumns = handlers => {
       renderCell: params => <CheckboxCell disabled checked={params.value} />,
       width: 160,
       type: 'boolean',
-    },
-
-    {
-      field: 'item',
-      headerName: 'item',
-      renderHeader: () => <MultilineTextHeaderCell text="item" />,
-
-      renderCell: params => (
-        <StringListCell data={params.row?.boxesBefore?.flatMap(box => box.items?.map(item => item.order?.item))} />
-      ),
-      disableCustomSort: true,
-      width: 160,
     },
 
     {

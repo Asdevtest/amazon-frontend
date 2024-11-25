@@ -19,7 +19,6 @@ import { IdeaModel } from '@models/ideas-model'
 import { ProductModel } from '@models/product-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
-import { ShopModel } from '@models/shop-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
@@ -36,9 +35,7 @@ import { isBuyer, isClient } from '@typings/guards/roles'
 
 export class SuppliersAndIdeasModel {
   requestStatus = undefined
-
   currentIdeaId = undefined
-
   curIdea = undefined
   ideaForReject = undefined
   currentProduct = undefined
@@ -46,28 +43,20 @@ export class SuppliersAndIdeasModel {
   currentProposal = undefined
   currentRequest = undefined
   requestTypeTask = undefined
-
   productId = undefined
   updateData = undefined
-
   inCreate = false
   isCreateModal = false
   inEdit = false
   ideasData = []
   ideaIdToRemove = undefined
-
   supplierData = undefined
-
   dataToCreateProduct = undefined
-
   readyFiles = []
   progressValue = 0
   showProgress = false
-
   isCreate = false
-
   showConfirmModal = false
-
   showRequestDesignerResultModal = false
   showMainRequestResultModal = false
   showRequestBloggerResultModal = false
@@ -77,12 +66,10 @@ export class SuppliersAndIdeasModel {
   showSelectionSupplierModal = false
   showCommentsModal = false
   showSelectShopsModal = false
-
   selectedProduct = undefined
   storekeepers = []
   destinations = []
   ordersDataStateToSubmit = undefined
-
   confirmModalSettings = {
     isWarning: false,
     confirmMessage: '',
@@ -272,10 +259,6 @@ export class SuppliersAndIdeasModel {
         )
         await this.getIdea(createdIdeaId)
 
-        if (!isBuyer(this.userInfo?.role)) {
-          await this.getShops()
-        }
-
         if (!this.currentProduct) {
           this.onTriggerOpenModal('showSelectShopsModal')
         } else {
@@ -294,25 +277,14 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onSaveProductData(shop) {
+  async onSaveProductData(id) {
     try {
-      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: shop.id })
+      await ClientModel.updateProduct(this.curIdea.parentProduct._id, { shopId: id })
+    } catch (error) {
+      console.error(error)
+    } finally {
       this.closeModalHandler()
       this.updateData?.()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async getShops() {
-    try {
-      const result = await ShopModel.getMyShops()
-
-      runInAction(() => {
-        this.shopsData = result
-      })
-    } catch (error) {
-      console.error(error)
     }
   }
 

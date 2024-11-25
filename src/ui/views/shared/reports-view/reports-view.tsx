@@ -33,6 +33,7 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
 
       <Header
         subView={subView}
+        dateRangeValue={viewModel.dateRangeValue}
         requestStatus={viewModel.requestStatus}
         onSearchSubmit={viewModel.onSearchSubmit}
         onChangeRangeDate={viewModel.onChangeRangeDate}
@@ -60,7 +61,7 @@ export const ReportsView: FC<ReportsViewProps> = observer(props => {
             excelOptions: { exceljsPostProcess },
 
             resetFiltersBtnSettings: {
-              onClickResetFilters: viewModel.onClickResetFilters,
+              onClickResetFilters: viewModel.onClickExtraResetFilters,
               isSomeFilterOn: viewModel.isSomeFilterOn,
             },
             columsBtnSettings: {

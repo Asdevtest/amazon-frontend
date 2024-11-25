@@ -102,7 +102,8 @@ export const dataGridFiltersConverter = (
 
   // * Проходимся по всем колонкам, получаем фильтра для каждой и генерируем итоговый объект
   const columnFilters: FilterObject = columns.reduce((acc, column) => {
-    const filterList = exclusion !== column ? columnMenuSettings[column].currentFilterData : []
+    const filterList =
+      exclusion === column || !columnMenuSettings[column] ? [] : columnMenuSettings[column].currentFilterData
 
     if (filterList.length === 0) {
       return acc

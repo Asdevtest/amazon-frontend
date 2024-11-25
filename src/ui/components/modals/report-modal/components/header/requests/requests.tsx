@@ -1,6 +1,7 @@
 import { Tooltip } from 'antd'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
+import { MdOutlineClose } from 'react-icons/md'
 import { NavLink } from 'react-router-dom'
 
 import { MyRequestStatusTranslate } from '@constants/requests/request-proposal-status'
@@ -10,7 +11,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { IRequestWithLaunch } from '@components/modals/report-modal/report-modal.type'
 import { CustomButton } from '@components/shared/custom-button'
 import { Launches } from '@components/shared/launches'
-import { CrossIcon } from '@components/shared/svg-icons'
 
 import { getUrlToRequest } from '@utils/get-url-to-request/get-url-to-request'
 import { t } from '@utils/translations'
@@ -46,13 +46,13 @@ export const Requests: FC<RequestsProps> = observer(({ requests, onRemoveRequest
               <CustomButton
                 danger
                 size="small"
-                icon={<CrossIcon />}
+                icon={<MdOutlineClose size={16} />}
                 onClick={() => onRemoveRequest(request.launch?._id)}
               />
             </div>
             <div className={styles.requestConatainer}>
               <p className={styles.requestText}>
-                <span className={styles.requestTextSecond}>{`${t(TranslationKey.ID)}:`}</span>
+                <span className={styles.requestTextSecond}>ID:</span>
                 <NavLink to={getUrlToRequest(request?._id)} className={styles.link} target="_blank">
                   {request?.xid}
                 </NavLink>

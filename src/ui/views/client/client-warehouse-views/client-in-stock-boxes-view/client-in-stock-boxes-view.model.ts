@@ -239,26 +239,22 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
     const url = new URL(window.location.href)
 
     const storekeeperId = url.searchParams.get('storekeeper-id')
-
     if (storekeeperId) {
       this.currentStorekeeperId = storekeeperId
     }
 
-    const boxId = url.searchParams.get('box-id')
-
-    if (boxId) {
-      this.columnMenuSettings?.xid.currentFilterData.push(boxId)
+    const productId = url.searchParams.get('productId')
+    if (productId) {
+      this.oneTimeFilters?.push({ field: 'productId', value: [productId] })
     }
 
-    this.currentSearchValue = url.searchParams.get('search-text') || ''
-
-    if (history.location.state?.dataGridFilter) {
-      this.columnMenuSettings?.status.currentFilterData.push(history.location.state?.dataGridFilter)
+    if (history.location.state) {
+      this.oneTimeFilters?.push(...history.location.state)
+      history.replace({ ...this.history.location, state: null })
     }
 
     this.getTableSettingsPreset()
     this.getStorekeepers()
-    this.getCurrentData()
     this.getDestinations()
     this.getShops()
     this.getClientDestinations()

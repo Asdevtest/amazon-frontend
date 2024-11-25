@@ -1,10 +1,11 @@
-import { Checkbox, Tooltip } from 'antd'
+import { Tooltip } from 'antd'
 import { FC, memo } from 'react'
 
 import { GridColumnVisibilityModel } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { TooltipInfoIcon } from '@components/shared/svg-icons'
 
 import { formatDateWithoutTime } from '@utils/date-time'
@@ -88,7 +89,7 @@ export const TariffDetails: FC<TariffDetailsProps> = memo(
                     })}
                   >
                     {isHideCalculation || !isTariffsSelect ? null : (
-                      <Checkbox
+                      <CustomCheckbox
                         checked={isActiveSelectedVariation}
                         disabled={
                           destinationId !== initialDestinationId && isStrictVariationSelect && !!initialDestinationId

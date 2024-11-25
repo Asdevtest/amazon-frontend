@@ -51,7 +51,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
   const { classes: styles } = useStyles()
 
-  const orderSupplier = 'orderSupplier' in formFields ? formFields?.orderSupplier : undefined
+  const orderSupplier = 'orderSupplier' in formFields ? formFields?.currentSupplierCard?.supplier : undefined
 
   const viewModel = useMemo(
     () => new ListSuppliersModel(extractProduct(formFields), onSaveProduct, onRemoveSupplier),
@@ -138,7 +138,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           product={extractProduct(formFields)}
           storekeepersData={viewModel.storekeepers}
           requestStatus={viewModel.requestStatus}
-          supplierId={viewModel.currentSupplier?._id}
+          supplierId={viewModel.currentSupplier?.supplier?._id}
           platformSettings={viewModel.platformSettings}
           title={t(TranslationKey['Adding and editing a supplier'])}
           onClickSaveBtn={onClickSaveSupplier}

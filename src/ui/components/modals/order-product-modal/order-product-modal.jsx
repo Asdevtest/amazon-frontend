@@ -1,12 +1,13 @@
 import { isPast, isToday, isTomorrow } from 'date-fns'
 import { memo, useEffect, useState } from 'react'
 
-import { Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { CustomButton } from '@components/shared/custom-button'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Modal } from '@components/shared/modal'
 import { TooltipAttentionIcon } from '@components/shared/svg-icons'
 import { OrderModalBodyRow } from '@components/table/table-rows/client/inventory/order-product-modal/order-modal-body-row'
@@ -288,10 +289,10 @@ export const OrderProductModal = memo(props => {
     const ordersData = orderState.map((el, i) => ({
       ...el,
       destinationId: el.destinationId ? el.destinationId : null,
-      totalPrice: productsForRender[i]?.currentSupplier?.price
-        ? (productsForRender[i]?.currentSupplier.price +
-            productsForRender[i]?.currentSupplier.batchDeliveryCostInDollar /
-              productsForRender[i]?.currentSupplier.amount) *
+      totalPrice: productsForRender[i]?.currentSupplierCard?.price
+        ? (productsForRender[i]?.currentSupplierCard.price +
+            productsForRender[i]?.currentSupplierCard.batchDeliveryCostInDollar /
+              productsForRender[i]?.currentSupplierCard.amount) *
           el?.amount
         : 0,
 
@@ -313,7 +314,7 @@ export const OrderProductModal = memo(props => {
     order => order?.storekeeperId === destinations?.find(el => el?._id === order?.destinationId)?.storekeeper?._id,
   )
 
-  const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplier)
+  const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplierCard)
 
   const disabledSubmit =
     orderState.some((order, index) => {
@@ -322,7 +323,7 @@ export const OrderProductModal = memo(props => {
         (isPast(new Date(order.deadline)) || isToday(new Date(order.deadline)) || isTomorrow(new Date(order.deadline)))
 
       return (
-        (productsForRender[index].currentSupplier &&
+        (productsForRender[index].currentSupplierCard &&
           toFixed(calcProductsPriceWithDelivery(productsForRender[index], order), 2) <
             platformSettings?.orderAmountLimit) ||
         !order.storekeeperId ||
@@ -331,9 +332,9 @@ export const OrderProductModal = memo(props => {
         !Number.isInteger(Number(order.amount)) ||
         (isPendingOrder && !order.deadline) ||
         ((!!isInventory || !!reorderOrdersData?.length) && isDeadlineTodayOrTomorrow) ||
-        (productsForRender[index].currentSupplier?.multiplicity &&
-          productsForRender[index].currentSupplier?.boxProperties?.amountInBox &&
-          order.amount % productsForRender[index].currentSupplier?.boxProperties?.amountInBox !== 0)
+        (productsForRender[index].currentSupplierCard?.multiplicity &&
+          productsForRender[index].currentSupplierCard?.boxProperties?.amountInBox &&
+          order.amount % productsForRender[index].currentSupplierCard?.boxProperties?.amountInBox !== 0)
       )
     }) ||
     storekeeperEqualsDestination ||
@@ -342,6 +343,12 @@ export const OrderProductModal = memo(props => {
     submitIsClicked ||
     (orderState.some(order => order.transparency && !order.transparencyFile && !order.tmpTransparencyFile.length) &&
       !isPendingOrder)
+
+  useEffect(() => {
+    if (productsForRender?.[0]?.isPending) {
+      setIsPendingOrder(true)
+    }
+  }, [])
 
   return (
     <div className={styles.wrapper}>
@@ -461,16 +468,15 @@ export const OrderProductModal = memo(props => {
       </div>
 
       <div className={styles.buttonsWrapper}>
-        <div className={styles.pendingOrderWrapper} onClick={() => setIsResearchSupplier(!isResearchSupplier)}>
-          <Checkbox
-            checked={isResearchSupplier}
-            color="primary"
-            classes={{
-              root: styles.checkbox,
-            }}
-          />
-          <p className={styles.sumText}>{t(TranslationKey['Re-search supplier'])}</p>
-        </div>
+        <CustomCheckbox
+          checked={isResearchSupplier}
+          wrapperClassName={styles.pendingOrderWrapper}
+          className={styles.checkbox}
+          labelClassName={styles.sumText}
+          onChange={() => setIsResearchSupplier(!isResearchSupplier)}
+        >
+          Re-search supplier
+        </CustomCheckbox>
 
         {!isPendingOrdering ? (
           <div className={styles.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
@@ -483,14 +489,9 @@ export const OrderProductModal = memo(props => {
                 </div>
               </Tooltip>
             </div>
-            <Checkbox
-              checked={productsForRender?.[0]?.isPending || isPendingOrder}
-              color="primary"
-              classes={{
-                root: styles.checkbox,
-              }}
-            />
-            <p className={styles.sumText}>{t(TranslationKey['Pending order'])}</p>
+            <CustomCheckbox checked={isPendingOrder} labelClassName={styles.sumText} className={styles.checkbox}>
+              Pending order
+            </CustomCheckbox>
           </div>
         ) : null}
 

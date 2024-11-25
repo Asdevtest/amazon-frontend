@@ -40,8 +40,8 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.value} />,
 
       columnKey: columnnsKeys.shared.NUMBER,
@@ -159,12 +159,12 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
-        const currentSupplier = params.row?.orderSupplier
+        const currentSupplier = params.row?.orderSupplierCard
 
         return <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
       },
       valueGetter: params => {
-        const currentSupplier = params.row?.orderSupplier
+        const currentSupplier = params.row?.orderSupplierCard
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
@@ -185,7 +185,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
 
       valueGetter: params => formatDate(params.row.deadline) || '',
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 100,
     },
 
@@ -264,7 +264,7 @@ export const buyerFreeOrdersViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: params => <NormDateCell value={params.value} />,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
       width: 115,
     },
   ]

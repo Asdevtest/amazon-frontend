@@ -25,8 +25,8 @@ export const adminOrdersViewColumns = () => {
   const columns: IGridColumn[] = [
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.value} />,
       columnKey: columnnsKeys.shared.NUMBER,
       width: 100,
@@ -199,7 +199,7 @@ export const adminOrdersViewColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 120,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -210,7 +210,7 @@ export const adminOrdersViewColumns = () => {
       renderCell: params => <NormDateCell value={params.value} />,
       width: 150,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

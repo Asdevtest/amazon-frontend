@@ -4,8 +4,6 @@ import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 import { MdDone } from 'react-icons/md'
 
-import { Checkbox } from '@mui/material'
-
 import { tariffTypes } from '@constants/keys/tariff-types'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -314,6 +312,19 @@ export const EditMultipleBoxesForm = observer(
                       ...el,
                       isBarCodeAlreadyAttachedByTheSupplier: sharedFields.isBarCodeAlreadyAttachedByTheSupplier,
                       isBarCodeAttachedByTheStorekeeper: sharedFields.isBarCodeAttachedByTheStorekeeper,
+                    }))
+                  : [],
+              }
+            : newBox,
+        )
+      } else if (field === 'isTransparencyFileAttached') {
+        updatedNewBoxes = newBoxes.map(newBox =>
+          visibleBoxesIds.includes(newBox._id)
+            ? {
+                ...newBox,
+                items: newBox?.items
+                  ? newBox.items.map(el => ({
+                      ...el,
                       isTransparencyFileAttachedByTheStorekeeper:
                         sharedFields.isTransparencyFileAttachedByTheStorekeeper,
                       isTransparencyFileAlreadyAttachedByTheSupplier:
@@ -573,6 +584,7 @@ export const EditMultipleBoxesForm = observer(
                     />
                   }
                 />
+
                 <CustomButton
                   disabled={disabledApplyBtn || isStorekeeper(userInfo.role)}
                   onClick={() => onApplySharedValuesToAllBoxes('tmpTransparencyFile')}
@@ -584,14 +596,12 @@ export const EditMultipleBoxesForm = observer(
               {isStorekeeper(userInfo.role) ? (
                 <div>
                   <CustomCheckbox
-                    isRow
                     disabled={isAnyBoxMissingShippingLabel}
-                    label="Shipping label was glued to the warehouse"
-                    labelClassName={styles.label}
-                    wrapperClassName={styles.checkboxContainer}
                     checked={sharedFields.isShippingLabelAttachedByStorekeeper}
                     onChange={e => onChangeSharedFields(e, 'isShippingLabelAttachedByStorekeeper')}
-                  />
+                  >
+                    Shipping label was glued to the warehouse
+                  </CustomCheckbox>
 
                   <CustomButton
                     disabled={disabledApplyBtn}
@@ -603,50 +613,50 @@ export const EditMultipleBoxesForm = observer(
                       t(TranslationKey.Apply)
                     )}
                   </CustomButton>
+
+                  <div className={styles.transparencyWrapper}>
+                    <CustomCheckbox
+                      disabled={isAnyBoxMissingTransparencyFile}
+                      checked={sharedFields.isTransparencyFileAlreadyAttachedByTheSupplier}
+                      onChange={e => onChangeSharedFields(e, 'isTransparencyFileAlreadyAttachedByTheSupplier')}
+                    >
+                      Transparency Codes glued by the supplier
+                    </CustomCheckbox>
+                    <CustomCheckbox
+                      disabled={isAnyBoxMissingTransparencyFile}
+                      checked={sharedFields.isTransparencyFileAttachedByTheStorekeeper}
+                      onChange={e => onChangeSharedFields(e, 'isTransparencyFileAttachedByTheStorekeeper')}
+                    >
+                      Transparency Codes are glued by storekeeper
+                    </CustomCheckbox>
+                    <CustomButton
+                      disabled={disabledApplyBtn}
+                      onClick={() => onApplySharedValuesToAllBoxes('isTransparencyFileAttached')}
+                    >
+                      {applyBtnsClicked.isTransparencyFileAttached ? <MdDone size={18} /> : t(TranslationKey.Apply)}
+                    </CustomButton>
+                  </div>
                 </div>
               ) : null}
 
               {isStorekeeper(userInfo.role) && (
                 <div>
                   <CustomCheckbox
-                    isRow
                     disabled={isAnyBoxMissingBarCode}
-                    label="The barcode is glued by the supplier"
-                    labelClassName={styles.label}
-                    wrapperClassName={styles.checkboxContainer}
-                    tooltipLabel="The supplier has glued the barcode before shipment"
+                    tooltip="The supplier has glued the barcode before shipment"
                     checked={sharedFields.isBarCodeAlreadyAttachedByTheSupplier}
                     onChange={e => onChangeSharedFields(e, 'isBarCodeAlreadyAttachedByTheSupplier')}
-                  />
+                  >
+                    The barcode is glued by the supplier
+                  </CustomCheckbox>
                   <CustomCheckbox
-                    isRow
                     disabled={isAnyBoxMissingBarCode}
-                    label="The barcode is glued by the Storekeeper"
-                    labelClassName={styles.label}
-                    wrapperClassName={styles.checkboxContainer}
-                    tooltipLabel="The barcode was glued on when the box was accepted at the prep center"
+                    tooltip="The barcode was glued on when the box was accepted at the prep center"
                     checked={sharedFields.isBarCodeAttachedByTheStorekeeper}
                     onChange={e => onChangeSharedFields(e, 'isBarCodeAttachedByTheStorekeeper')}
-                  />
-                  <CustomCheckbox
-                    isRow
-                    disabled={isAnyBoxMissingTransparencyFile}
-                    label="Transparency Codes glued by the supplier"
-                    labelClassName={styles.label}
-                    wrapperClassName={styles.checkboxContainer}
-                    checked={sharedFields.isTransparencyFileAlreadyAttachedByTheSupplier}
-                    onChange={e => onChangeSharedFields(e, 'isTransparencyFileAlreadyAttachedByTheSupplier')}
-                  />
-
-                  <CustomCheckbox
-                    isRow
-                    disabled={isAnyBoxMissingTransparencyFile}
-                    label="Transparency Codes are glued by storekeeper"
-                    labelClassName={styles.label}
-                    wrapperClassName={styles.checkboxContainer}
-                    checked={sharedFields.isTransparencyFileAttachedByTheStorekeeper}
-                    onChange={e => onChangeSharedFields(e, 'isTransparencyFileAttachedByTheStorekeeper')}
-                  />
+                  >
+                    The barcode is glued by the Storekeeper
+                  </CustomCheckbox>
 
                   <CustomButton
                     disabled={disabledApplyBtn}

@@ -14,6 +14,7 @@ export class CreateOrEditServicesViewModel {
   requestId?: string
   requestToEdit?: IRequest
   uploadedFiles = []
+  loading: boolean = false
 
   get userInfo() {
     return UserModel.userInfo as unknown as IFullUser
@@ -30,6 +31,10 @@ export class CreateOrEditServicesViewModel {
     this.getAnnouncementsDataByGuid()
 
     makeAutoObservable(this, undefined, { autoBind: true })
+  }
+
+  setLoading(value: boolean) {
+    this.loading = value
   }
 
   async getAnnouncementsDataByGuid() {
@@ -50,6 +55,7 @@ export class CreateOrEditServicesViewModel {
 
   async onClickCreateBtn(data: any) {
     try {
+      this.setLoading(true)
       if (data.linksToMediaFiles?.length) {
         // @ts-ignore
         await onSubmitPostImages.call(this, { images: data.linksToMediaFiles, type: 'uploadedFiles' })
@@ -64,12 +70,14 @@ export class CreateOrEditServicesViewModel {
     } catch (error) {
       console.error(error)
     } finally {
+      this.setLoading(false)
       this.history?.push('/freelancer/freelance/my-services')
     }
   }
 
   async onClickEditBtn(data: any) {
     try {
+      this.setLoading(true)
       if (data.linksToMediaFiles?.length) {
         // @ts-ignore
         await onSubmitPostImages.call(this, { images: data.linksToMediaFiles, type: 'uploadedFiles' })
@@ -84,6 +92,7 @@ export class CreateOrEditServicesViewModel {
     } catch (error) {
       console.error(error)
     } finally {
+      this.setLoading(false)
       this.history?.push('/freelancer/freelance/my-services')
     }
   }

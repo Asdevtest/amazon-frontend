@@ -86,7 +86,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: (params: GridCellParams) => <NormDateCell value={params.row.updatedAt} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
@@ -95,7 +95,7 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: (params: GridCellParams) => <NormDateCell value={params.row.createdAt} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

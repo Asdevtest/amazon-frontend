@@ -1,8 +1,7 @@
 import { FC, memo } from 'react'
 
-import { Checkbox } from '@mui/material'
-
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
@@ -25,10 +24,10 @@ export const SelectProductCellWithourTitle: FC<SelectProductCellWithourTitleProp
   return (
     <div className={styles.selectedProductWrapper}>
       {withCheckbox && (
-        <Checkbox
+        <CustomCheckbox
           disabled={checkboxDisabled}
           checked={checkboxChecked}
-          onClick={e => {
+          onChange={e => {
             e.stopPropagation()
             !!onClickCheckbox && onClickCheckbox()
           }}

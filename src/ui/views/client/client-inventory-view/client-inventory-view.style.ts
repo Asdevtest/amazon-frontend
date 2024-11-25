@@ -12,6 +12,7 @@ export const useStyles = makeStyles()(theme => ({
       borderRadius: 10,
       boxShadow: 'inset 0 0 10px rgba(247, 179, 7, .8)',
       textDecoration: 'underline',
+      color: theme.palette.primary.main,
     },
   },
 }))

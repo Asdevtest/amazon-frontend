@@ -1,3 +1,4 @@
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { BatchStatus } from '@constants/statuses/batch-status'
@@ -71,8 +72,8 @@ export const clientBatchesViewColumns = rowHandlers => {
 
     {
       field: 'xid',
-      headerName: t(TranslationKey.ID),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.ID)} />,
+      headerName: 'ID',
+      renderHeader: () => <MultilineTextHeaderCell text="ID" />,
       renderCell: params => <Text isCell text={params.value} />,
       type: 'number',
       width: 80,
@@ -157,11 +158,36 @@ export const clientBatchesViewColumns = rowHandlers => {
           trackingNumber={params.row?.trackingNumber}
         />
       ),
+
       width: 200,
       filterable: false,
       sortable: false,
-      columnKey: columnnsKeys.shared.BATCHES_TRACKING,
       disableCustomSort: true,
+
+      fields: [
+        {
+          label: 'Track number',
+          value: 0,
+        },
+        {
+          label: 'Arrival date',
+          value: 1,
+        },
+      ],
+      columnMenuConfig: [
+        {
+          field: 'trackingNumber',
+          table: DataGridFilterTables.BATCHES,
+          columnKey: ColumnMenuKeys.STRING,
+        },
+        {
+          field: 'arrivalDate',
+          table: DataGridFilterTables.BATCHES,
+          columnKey: ColumnMenuKeys.DATA,
+        },
+      ],
+
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
@@ -175,7 +201,7 @@ export const clientBatchesViewColumns = rowHandlers => {
     },
 
     {
-      field: 'deliveryTotalPrice',
+      field: 'totalPriceFromOrderSupplier',
       headerName: t(TranslationKey['Delivery cost']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Delivery cost'])} />,
       renderCell: params => <Text isCell text={toFixedWithDollarSign(params.row?.totalPriceFromOrderSupplier, 2)} />,
@@ -183,7 +209,7 @@ export const clientBatchesViewColumns = rowHandlers => {
       width: 110,
       sortable: false,
       columnKey: columnnsKeys.shared.NUMBER,
-      table: DataGridFilterTables.BOXES,
+      table: DataGridFilterTables.BATCHES,
       disableCustomSort: true,
     },
 
@@ -212,7 +238,7 @@ export const clientBatchesViewColumns = rowHandlers => {
       headerName: t(TranslationKey.Updated),
       renderCell: params => <NormDateCell value={params.value} />,
       width: 115,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 

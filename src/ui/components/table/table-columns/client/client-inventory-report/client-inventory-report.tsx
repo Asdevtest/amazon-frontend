@@ -22,7 +22,7 @@ export const clientInventoryReportColumns = () => {
       renderCell: (params: GridRenderCellParams) => <NormDateCell value={params.value} />,
       width: 118,
 
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
 
     {
