@@ -6,6 +6,8 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    whiteSpace: 'nowrap',
+    gap: '5px',
   },
 
   redBorder: {
@@ -17,7 +19,6 @@ export const useStyles = makeStyles()(theme => ({
       position: 'absolute',
       left: 2,
       top: 1,
-
       width: 5,
       height: 72,
 
@@ -34,5 +35,9 @@ export const useStyles = makeStyles()(theme => ({
   unreadMessages: {
     background: theme.palette.background.chatMyMessage,
     zIndex: 7,
+  },
+
+  searchInput: {
+    width: '480px',
   },
 }))
