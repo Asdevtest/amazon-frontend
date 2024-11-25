@@ -23,6 +23,7 @@ interface TextCellProps extends ParagraphProps {
   link?: boolean
   maxTextareaLength?: number
   url?: string
+  collapsible?: boolean
   onClickSubmit?: (id: string, comment?: string) => void
 }
 
@@ -39,6 +40,7 @@ export const Text: FC<TextCellProps> = memo(props => {
     color,
     maxTextareaLength = 255,
     url,
+    collapsible,
     onClick,
     onClickSubmit,
     ...restProps
@@ -47,6 +49,7 @@ export const Text: FC<TextCellProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const [value, setValue] = useState<string>('')
   const [isHover, onMouseFunctions] = useHover()
+  const [expanded, setExpanded] = useState(false)
 
   useEffect(() => {
     if (text) {
@@ -62,8 +65,9 @@ export const Text: FC<TextCellProps> = memo(props => {
       setValue(text)
     }
   }
-  const handleExpand = (event: MouseEvent) => {
+  const handleExpand = (event: MouseEvent, info: { expanded: boolean }) => {
     event.stopPropagation()
+    setExpanded(info.expanded)
   }
   const handleSubmit = () => {
     onClickSubmit?.(value)
@@ -95,6 +99,8 @@ export const Text: FC<TextCellProps> = memo(props => {
           copyable={isCopyable}
           ellipsis={{
             rows,
+            expanded,
+            expandable: collapsible ? 'collapsible' : false,
             tooltip: { destroyTooltipOnHide: true, arrow: false },
             onExpand: handleExpand,
           }}

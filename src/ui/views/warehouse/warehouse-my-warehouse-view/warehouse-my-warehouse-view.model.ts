@@ -791,19 +791,6 @@ export class WarehouseMyWarehouseViewModel extends DataGridFilterTableModel {
 
   async onClickGroupingBtn() {
     try {
-      const firstBox = this.currentData.find(box => box._id === this.selectedRows[0])
-
-      const boxesWithDifferentStorekeepers = this.selectedRows.filter(boxId => {
-        const findBox = this.currentData.find(box => box._id === boxId)
-        return findBox?.storekeeper !== firstBox?.storekeeper
-      })
-
-      if (boxesWithDifferentStorekeepers.length) {
-        toast.warning(t(TranslationKey['Boxes with identical storekeeper must be selected']))
-
-        return
-      }
-
       const destinations = await ClientModel.getDestinations()
 
       runInAction(() => {

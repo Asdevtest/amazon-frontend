@@ -5,6 +5,7 @@ import { TableCell, TableRow } from '@mui/material'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CheckboxCell } from '@components/data-grid/data-grid-cells'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field/field'
@@ -112,20 +113,15 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
         </div>
       </TableCell>
 
-      <TableCell>
+      <TableCell className={styles.checkboxCell}>
         <CustomCheckbox
           disabled={!restProps.barcodeIsExist}
           checked={item.isBarCodeAlreadyAttachedByTheSupplier}
+          labelClassName={styles.label}
           onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
-        ></CustomCheckbox>
-
-        <Field
-          tooltipInfoContent={t(TranslationKey["Label the box as labeled with the supplier's barcode"])}
-          label={t(TranslationKey['Supplier glued the barcode'])}
-          inputClasses={styles.hidden}
-          labelClasses={styles.label}
-          containerClasses={styles.labelWrapper}
-        />
+        >
+          Supplier glued the barcode
+        </CustomCheckbox>
 
         {item.items?.[0]?.transparencyFile && (
           <CustomCheckbox
@@ -139,21 +135,14 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
         )}
 
         {!restProps.isNoBuyerSupplier && (
-          <>
-            <CustomCheckbox
-              disabled={restProps.isNoBuyerSupplier}
-              checked={item.tmpUseToUpdateSupplierBoxDimensions}
-              onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
-            />
-
-            <Field
-              tooltipInfoContent={t(TranslationKey['Save box parameters to the current supplier'])}
-              label={t(TranslationKey['Make the supplier standard'])}
-              inputClasses={styles.hidden}
-              labelClasses={styles.label}
-              containerClasses={styles.labelWrapper}
-            />
-          </>
+          <CustomCheckbox
+            disabled={restProps.isNoBuyerSupplier}
+            checked={item.tmpUseToUpdateSupplierBoxDimensions}
+            labelClassName={styles.label}
+            onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
+          >
+            Make the supplier standard
+          </CustomCheckbox>
         )}
       </TableCell>
 

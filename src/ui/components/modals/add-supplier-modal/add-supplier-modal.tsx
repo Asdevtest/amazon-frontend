@@ -21,7 +21,7 @@ import { getRequiredRules } from '@config/form-rules/get-required-rules'
 import { useStyles } from './add-supplier-modal.style'
 import { useStyles as useSharedStyles } from './shared.style'
 
-import { AddSupplierProductModal } from '../add-supplier-product-modal'
+import { AddSupplierCardModal } from '../add-supplier-card-modal'
 import { ImportTemplateModal } from '../import-template-modal'
 
 import { AddSupplierModalModel } from './add-supplier-modal.model'
@@ -154,7 +154,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
       ) : null}
 
       {viewModel.showAddSupplierProductModal ? (
-        <AddSupplierProductModal
+        <AddSupplierCardModal
           supplierId={supplierId as string}
           handleUpdate={viewModel.onImportProducts}
           openModal={viewModel.showAddSupplierProductModal}

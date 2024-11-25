@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    height: '205px',
+    // height: '205px',
     padding: '20px',
     display: 'flex',
     alignItems: 'flex-start',

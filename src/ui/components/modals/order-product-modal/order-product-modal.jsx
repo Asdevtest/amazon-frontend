@@ -334,7 +334,8 @@ export const OrderProductModal = memo(props => {
         ((!!isInventory || !!reorderOrdersData?.length) && isDeadlineTodayOrTomorrow) ||
         (productsForRender[index].currentSupplierCard?.multiplicity &&
           productsForRender[index].currentSupplierCard?.boxProperties?.amountInBox &&
-          order.amount % productsForRender[index].currentSupplierCard?.boxProperties?.amountInBox !== 0)
+          order.amount % productsForRender[index].currentSupplierCard?.boxProperties?.amountInBox !== 0) ||
+        order.amount < productsForRender[index]?.currentSupplierCard?.minlot
       )
     }) ||
     storekeeperEqualsDestination ||

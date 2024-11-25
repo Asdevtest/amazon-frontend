@@ -6,6 +6,7 @@ export interface FilterValues {
   category: string[]
   minlotMin: string
   minlotMax: string
+  cardName: string
 }
 
 export interface CardsFilterProps {
@@ -13,4 +14,5 @@ export interface CardsFilterProps {
   filtersCount: number
   onSubmit: (values: FilterOptionsType) => void
   onReset: () => void
+  loading?: boolean
 }

@@ -549,13 +549,14 @@ export const FieldsAndSuppliers = memo(props => {
           </div>
 
           {(checkIsClient(curUserRole) || checkIsBuyer(curUserRole)) && (
-            <CustomCheckbox
-              disabled={checkIsBuyer(curUserRole)}
-              checked={product?.transparency}
-              onChange={e => onChangeField?.('transparency')(e.target.checked)}
-            >
-              Transparency Codes
-            </CustomCheckbox>
+            <div className={styles.flexWrap}>
+              <CustomCheckbox
+                disabled={checkIsBuyer(curUserRole)}
+                checked={product?.transparency}
+                onChange={e => onChangeField?.('transparency')(e.target.checked)}
+              />
+              <p>Transparency Codes</p>
+            </div>
           )}
         </div>
       </Box>
