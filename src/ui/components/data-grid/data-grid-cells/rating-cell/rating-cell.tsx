@@ -1,5 +1,6 @@
 import { Rate, RateProps } from 'antd'
 import { FC, memo, useState } from 'react'
+import { GoComment } from 'react-icons/go'
 
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { Modal } from '@components/shared/modal'
@@ -10,10 +11,11 @@ interface RatingCellProps extends RateProps {
   rating: number
   id?: string
   name?: string
+  totalFeedback?: number
 }
 
 export const RatingCell: FC<RatingCellProps> = memo(props => {
-  const { rating, id, name, ...restProps } = props
+  const { rating, totalFeedback, id, name, ...restProps } = props
 
   const { classes: styles } = useStyles()
   const [showModal, setShowModal] = useState(false)
@@ -21,6 +23,13 @@ export const RatingCell: FC<RatingCellProps> = memo(props => {
   return (
     <>
       <div className={styles.root}>
+        {totalFeedback ? (
+          <div className={styles.totalFeedbackWrapper}>
+            <GoComment />
+            <p className={styles.totalFeedback}>{totalFeedback}</p>
+          </div>
+        ) : null}
+
         <Rate
           {...restProps}
           allowHalf

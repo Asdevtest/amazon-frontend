@@ -2087,5 +2087,10 @@
   "Select category": "Выберите категорию",
   "Download template": "Скачать шаблон",
   "Production term": "Срок производства",
-  "Cards": "Карточки"
+  "Cards": "Карточки",
+  "Cards total": "Всего карточек",
+  "Commodity": "Товарооборот",
+  "Commodity USD": "Товарооборот USD",
+  "Commodity CNY": "Товарооборот CNY",
+  "Total orders": "Всего заказов"
 }
