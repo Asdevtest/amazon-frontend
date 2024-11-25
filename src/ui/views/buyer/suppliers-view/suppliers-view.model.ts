@@ -1,54 +1,81 @@
 import { RadioChangeEvent } from 'antd'
 import { makeObservable, runInAction } from 'mobx'
 
-import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
-
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
+import { paginationModelInitialValue } from '@models/data-grid-table-model'
 import { SupplierModel } from '@models/supplier-model'
-import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
 
-import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
-
+import { getModelSettings } from './helpers/get-model-settings'
 import { observerConfig } from './observer.config'
-import { suppliersViewColumns } from './suppliers-view.columns'
-import { IHandlers, TableView } from './suppliers-view.type'
+import { IHandlers, IHandlersCards, IHandlersSuppliers, TableView } from './suppliers-view.type'
 
 export class SuppliersViewModel extends DataGridFilterTableModel {
   currentTable: TableView = TableView.SUPLLIERS
 
+  tablesHandlers: Record<TableView, IHandlers>
+
   supplierIdToEdit: string = ''
+  supplierCardIdToEdit: string = ''
 
   showAddSupplierModal: boolean = false
   showAddSupplierProductModal: boolean = false
 
   constructor() {
-    const handlers: IHandlers = {
+    const supplierHandlers: IHandlersSuppliers = {
       onClickOpenInNewTab: (link: string) => this.onClickOpenInNewTab(link),
       onClickEdit: (id: string) => this.onClickEdit(id),
       onClickDelete: (id: string) => this.onClickDelete(id),
     }
+    const cardHandlers: IHandlersCards = {
+      onClickEdit: (id: string) => this.onClickEditSupplierCard(id),
+      onClickDelete: (id: string) => this.onClickEditSupplierCard(id),
+    }
 
-    const columnsModel = suppliersViewColumns(handlers)
+    const { getMainDataMethod, mainMethodURL, columnsModel, tableKey, filtersFields, sortModel, fieldsForSearch } =
+      getModelSettings(TableView.SUPLLIERS, supplierHandlers)
 
     super({
-      getMainDataMethod: SupplierV2Model?.getSuppliers,
+      getMainDataMethod,
       columnsModel,
-      filtersFields: getFilterFields(columnsModel, ['amazonTitle', 'skuByClient']),
-      mainMethodURL: 'v2/suppliers?',
-      fieldsForSearch: [],
-      tableKey: DataGridTablesKeys.BUYER_SUPPLIERS,
-      defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
+      filtersFields,
+      mainMethodURL,
+      fieldsForSearch,
+      tableKey,
+      defaultSortModel: sortModel,
     })
     makeObservable(this, observerConfig)
-    this.initHistory()
 
+    this.tablesHandlers = {
+      [TableView.SUPLLIERS]: supplierHandlers,
+      [TableView.CARDS]: cardHandlers,
+    }
+
+    this.initHistory()
     this.getTableSettingsPreset()
   }
 
   onChangeRadioButtonOption(event: RadioChangeEvent) {
+    const value = event.target.value as TableView
+
     runInAction(() => {
-      this.currentTable = event.target.value
+      this.currentTable = value
     })
+
+    const { getMainDataMethod, mainMethodURL, columnsModel, tableKey, filtersFields, sortModel, fieldsForSearch } =
+      getModelSettings(value, this.tablesHandlers[value])
+
+    this.getMainDataMethod = getMainDataMethod
+    this.tableKey = tableKey
+    this.columnsModel = columnsModel
+    this.defaultColumnsModel = columnsModel
+    this.filtersFields = filtersFields
+    this.mainMethodURL = mainMethodURL
+    this.fieldsForSearch = fieldsForSearch
+    this.setColumnMenuSettings(filtersFields)
+    this.defaultSortModel = sortModel
+    this.paginationModel = paginationModelInitialValue
+    this.setDefaultPinnedColumns()
+    this.getTableSettingsPreset()
   }
 
   onClickCreateSupplier() {
@@ -69,6 +96,11 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
     this.getCurrentData()
   }
 
+  onClickEditSupplierCard(id: string) {
+    this.supplierCardIdToEdit = id
+    this.onClickAddSupplierProduct()
+  }
+
   onCloseAddSupplierModal() {
     this.onTriggerOpenModal('showAddSupplierModal', false)
     this.supplierIdToEdit = ''
@@ -79,5 +111,6 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
   }
   onCloseAddSupplierProductModal() {
     this.onTriggerOpenModal('showAddSupplierProductModal', false)
+    this.supplierCardIdToEdit = ''
   }
 }
