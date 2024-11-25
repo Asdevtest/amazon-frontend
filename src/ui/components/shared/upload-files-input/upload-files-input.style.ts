@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(() => ({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap: '10px',
     marginTop: '10px',
   },
 
@@ -13,6 +13,6 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     alignItems: 'flex-end',
     flexDirection: 'row',
-    gap: '20px',
+    gap: '10px',
   },
 }))

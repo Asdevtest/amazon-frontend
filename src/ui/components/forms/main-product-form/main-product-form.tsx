@@ -32,7 +32,7 @@ export const MainProductForm: FC<MainProductFormProps> = observer(props => {
       {
         key: ProductTubs.MAIN_INFO,
         label: t(TranslationKey['Basic information']),
-        children: <BasicInfo product={viewModel.product} />,
+        children: <BasicInfo product={viewModel.product} onClose={onClose} />,
       },
     ]
 
@@ -82,7 +82,7 @@ export const MainProductForm: FC<MainProductFormProps> = observer(props => {
     }
 
     return tabs
-  }, [])
+  }, [viewModel.product])
 
   return (
     <>

@@ -12,6 +12,7 @@ import { useStyles } from './custom-textarea.style'
 
 interface CustomTextareaProps extends TextAreaProps, IDefaultPropsExtensionAntdComponent {
   resize?: boolean
+  autoHeight?: boolean
 }
 
 export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
@@ -27,6 +28,7 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
     className,
     labelClassName,
     wrapperClassName,
+    autoHeight = false,
     ...restProps
   } = props
 
@@ -45,7 +47,7 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
         rows={rows}
         readOnly={readOnly}
         autoSize={readOnly && { maxRows: rows, minRows: 1 }}
-        className={cx(className, { [styles.readOnly]: readOnly })}
+        className={cx(className, { [styles.readOnly]: readOnly, [styles.autoHeight]: autoHeight })}
         style={{ resize: resize ? 'vertical' : 'none' }}
         placeholder={placeholderText}
         onKeyDown={event => event.stopPropagation()}

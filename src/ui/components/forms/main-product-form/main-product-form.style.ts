@@ -2,15 +2,18 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   root: {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
-    width: '65vw', // for not modal view?
-    height: '80vh',
-    overflowY: 'auto',
+    width: '100%', // TODO
+    height: '100%', // TODO
+    minWidth: '1200px', // TODO
+    minHeight: '600px', // TODO
 
     '.ant-tabs-content': {
       paddingLeft: '8px',
+      position: 'static', // TODO
     },
   },
 }))
