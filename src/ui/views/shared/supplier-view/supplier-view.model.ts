@@ -12,7 +12,7 @@ import { t } from '@utils/translations'
 import { ISupplierCard, ISupplierExchange } from '@typings/models/suppliers/supplier-exchange'
 import { HistoryType } from '@typings/types/history'
 
-import { supplierConfig } from './supplier-view.config'
+import { filterFields, supplierConfig } from './supplier-view.config'
 
 export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
   showSelectShopsModal = false
@@ -27,6 +27,18 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
   get showFilter() {
     return this.products?.length > 1 || this.filtersCount > 0
   }
+  get productsAll() {
+    return this.products?.length > 36
+  }
+  get productsBig() {
+    return this.products?.length <= 12
+  }
+  get productsMedium() {
+    return this.products?.length > 12 && this.products?.length <= 36
+  }
+  get gorizontalMode() {
+    return this.productsMedium || this.productsBig
+  }
 
   constructor(history: HistoryType) {
     const options = {
@@ -36,8 +48,7 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
     super({
       method: SupplierV2Model.getSupplierCards,
       options,
-      searchFields: ['cardName'],
-      filterFields: ['priceMin', 'priceMax', 'categories', 'moqMin', 'moqMax'],
+      filterFields,
     })
 
     this.getData()

@@ -1,6 +1,6 @@
 import { Drawer, Form, Space } from 'antd'
 import { FC, memo, useMemo, useState } from 'react'
-import { FaArrowRight } from 'react-icons/fa'
+import { TbFilter, TbFilterCheck } from 'react-icons/tb'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -19,7 +19,7 @@ import { createFilterCondition, getFilterOptions, maxValueRules, minValueRules }
 import { CardsFilterProps, FilterValues } from './cards-filter.type'
 
 export const CardsFilter: FC<CardsFilterProps> = memo(props => {
-  const { showFilter, filtersCount, onSubmit, onReset } = props
+  const { showFilter, filtersCount, onSubmit, onReset, loading } = props
 
   const { classes: styles, cx } = useStyles()
   const viewModel = useMemo(() => new CategoriesModel(), [])
@@ -33,6 +33,7 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
   }
   const handleFinish = (values: FilterValues) => {
     const filterOptionsArray = [
+      createFilterCondition('cardName', '$contains', values.cardName?.trim()),
       createFilterCondition('priceInUsd', '$gte', Number(values.priceInUsdMin)),
       createFilterCondition('priceInUsd', '$lte', Number(values.priceInUsdMax)),
       createFilterCondition('category', '$eq', values.category?.join(',')),
@@ -58,7 +59,7 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
         color={filtersCount > 0 ? 'primary' : undefined}
         variant="outlined"
         size="large"
-        icon={<FaArrowRight />}
+        icon={filtersCount > 0 ? <TbFilterCheck size={18} /> : <TbFilter size={18} />}
         iconPosition="end"
         className={cx(styles.filterButton, { [styles.filterButtonActive]: filtersCount > 0 })}
         onClick={showDrawer}
@@ -69,6 +70,10 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
 
       <Drawer title={t(TranslationKey.Filters)} placement="left" open={openFilter} onClose={onClose}>
         <Form name="categories-form" size="large" form={form} rootClassName={styles.form} onFinish={handleFinish}>
+          <Form.Item<FilterValues> name="cardName">
+            <CustomInput fullWidth label="Product name" />
+          </Form.Item>
+
           <Space.Compact rootClassName={styles.space}>
             <Form.Item<FilterValues> name="priceInUsdMin" rules={minValueRules()}>
               <CustomInput fullWidth addonBefore={t(TranslationKey.min)} label="Price" />
@@ -104,8 +109,10 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
 
           <Form.Item shouldUpdate>
             <div className={styles.buttons}>
-              <CustomButton onClick={handleReset}>{t(TranslationKey.Reset)}</CustomButton>
-              <CustomButton type="primary" htmlType="submit">
+              <CustomButton loading={loading} onClick={handleReset}>
+                {t(TranslationKey.Reset)}
+              </CustomButton>
+              <CustomButton loading={loading} type="primary" htmlType="submit">
                 {t(TranslationKey.Apply)}
               </CustomButton>
             </div>
