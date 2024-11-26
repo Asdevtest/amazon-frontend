@@ -15,6 +15,12 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
   },
 
+  buttons: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+
   blockTitle: {
     fontWeight: 600,
   },
