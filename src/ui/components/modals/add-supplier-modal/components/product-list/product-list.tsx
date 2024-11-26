@@ -29,7 +29,7 @@ export const ProductList: FC<ProductListProps> = memo(props => {
 
   return (
     <div className={styles.productsWrapper}>
-      <Text type="secondary" copyable={false} text={t(TranslationKey.Products)} rows={1} />
+      <Text type="secondary" copyable={false} text={t(TranslationKey.Cards)} rows={1} />
 
       <div
         className={styles.productsList}

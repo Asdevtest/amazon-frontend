@@ -1,10 +1,13 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
+import { GridRowParams } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddSupplierCardModal } from '@components/modals/add-supplier-card-modal'
 import { AddSupplierModal } from '@components/modals/add-supplier-modal'
+import { SupplierModal } from '@components/modals/supplier-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -116,6 +119,7 @@ export const SuppliersView: FC = observer(() => {
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
         onPinnedColumnsChange={viewModel.handlePinColumn}
+        onRowDoubleClick={(params: GridRowParams) => viewModel.onOpenSupplierModal(params.row)}
       />
 
       {viewModel.showAddSupplierModal ? (
@@ -133,6 +137,14 @@ export const SuppliersView: FC = observer(() => {
           handleUpdate={viewModel.getCurrentData}
           openModal={viewModel.showAddSupplierProductModal}
           setOpenModal={viewModel.onCloseAddSupplierProductModal}
+        />
+      ) : null}
+
+      {viewModel.showSupplierModal ? (
+        <SupplierModal
+          openModal={viewModel.showSupplierModal}
+          setOpenModal={viewModel.onCloseSupplierModal}
+          supplierId={viewModel.supplierIdToShow}
         />
       ) : null}
     </div>

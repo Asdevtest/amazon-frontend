@@ -2093,5 +2093,8 @@
   "Commodity USD": "Товарооборот USD",
   "Commodity CNY": "Товарооборот CNY",
   "Total orders": "Всего заказов",
-  "Actual cards": "Актуальные карточки"
+  "Actual cards": "Актуальные карточки",
+  "Included components": "Входящие компоненты",
+  "Plastic, metal, wooden, ABS, PP, not defined": "Пластик, металл, дерево, ABS, PP, не определено",
+  "Add a new card": "Добавить новую карточку"
 }

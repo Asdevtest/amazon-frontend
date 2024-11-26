@@ -30,6 +30,8 @@ export interface ICreateSupplierCard {
   imageUnit: string[]
   multiplicity: boolean
   priceVariations: ICreateSupplierPrice[]
+  material: string
+  includedComponents: string
 }
 
 export interface ICreateSupplierProductModal extends ICreateSupplierCard {
