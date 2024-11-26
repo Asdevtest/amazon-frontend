@@ -104,8 +104,8 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
         )}
       </Skeleton>
 
-      <div className={cx(styles.flexRow, { [styles.flexEnd]: viewModel.showResponseBlock })}>
-        {!viewModel.showResponseBlock ? (
+      <div className={cx(styles.flexRow, { [styles.flexEnd]: viewModel.showResponseBlock || viewModel.loading })}>
+        {!viewModel.showResponseBlock && !viewModel.loading ? (
           <CustomButton
             size="large"
             type={viewModel.showMediaBlock ? 'primary' : 'default'}
