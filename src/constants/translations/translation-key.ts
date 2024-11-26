@@ -2087,4 +2087,8 @@ export enum TranslationKey {
   'Download template' = 'Download template',
   'Production term' = 'Production term',
   'Cards' = 'Cards',
+  'Set dates' = 'Set dates',
+  'Due shipment date' = 'Due shipment date',
+  'Recommended deadline is not valid' = 'Recommended deadline is not valid',
+  'Time reserv, d.' = 'Time reserv, d.',
 }

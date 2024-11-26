@@ -44,12 +44,10 @@ export const OrderProductModal = memo(props => {
     statusesForChecking,
   } = props
 
-  const [submitIsClicked, setSubmitIsClicked] = useState(false)
   const [showSetBarcodeModal, setShowSetBarcodeModal] = useState(false)
   const [tmpOrderIndex, setTmpOrderIndex] = useState(undefined)
   const [showSetFilesModal, setShowSetFilesModal] = useState(false)
   const [filesConditions, setFilesConditions] = useState({ tmpFiles: [], currentFiles: '', index: undefined })
-
   const [isPendingOrder, setIsPendingOrder] = useState(false)
   const [isResearchSupplier, setIsResearchSupplier] = useState(false)
 
@@ -118,7 +116,6 @@ export const OrderProductModal = memo(props => {
           priority: '30',
           deadline: null,
           variationTariffId: product?.variationTariff?._id,
-
           destination: {
             _id: null,
           },
@@ -295,27 +292,20 @@ export const OrderProductModal = memo(props => {
               productsForRender[i]?.currentSupplierCard.amount) *
           el?.amount
         : 0,
-
       needsResearch: isResearchSupplier,
       tmpIsPendingOrder: isPendingOrder,
       images: [], // reset images to create an order(onClickSubmit), because in the useTariffVariations they are added again - need to fix order product modal
     }))
-
     onSubmit({
       ordersDataState: ordersData,
       totalOrdersCost,
     })
-    setSubmitIsClicked(true)
-
-    setTimeout(() => setSubmitIsClicked(false), 3000)
   }
 
   const storekeeperEqualsDestination = orderState.some(
     order => order?.storekeeperId === destinations?.find(el => el?._id === order?.destinationId)?.storekeeper?._id,
   )
-
   const isHaveSomeSupplier = productsForRender.some(item => item.currentSupplierCard)
-
   const disabledSubmit =
     orderState.some((order, index) => {
       const isDeadlineTodayOrTomorrow =
@@ -341,7 +331,6 @@ export const OrderProductModal = memo(props => {
     storekeeperEqualsDestination ||
     (!isHaveSomeSupplier && productsForRender.some(order => !order.deadline)) ||
     !orderState.length ||
-    submitIsClicked ||
     (orderState.some(order => order.transparency && !order.transparencyFile && !order.tmpTransparencyFile.length) &&
       !isPendingOrder)
 
@@ -366,7 +355,6 @@ export const OrderProductModal = memo(props => {
                   {t(TranslationKey['Price without delivery']) + ' $'}
                 </p>
               </TableCell>
-
               <TableCell className={styles.deliveryCell}>
                 <p className={styles.deliveryCellBtn} title={t(TranslationKey['Delivery costs to the prep center'])}>
                   {t(TranslationKey['Delivery per unit.']) + ' $'}
@@ -409,7 +397,6 @@ export const OrderProductModal = memo(props => {
                   {t(TranslationKey.Destination)}
                 </p>
               </TableCell>
-
               <TableCell className={styles.commentCell}>
                 <p
                   className={styles.commentCellBtn}
@@ -513,6 +500,19 @@ export const OrderProductModal = memo(props => {
             setTmpOrderIndex(undefined)
           }}
           onCloseModal={triggerBarcodeModal}
+        />
+      </Modal>
+      <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>
+        <SetFilesModal
+          modalTitle={t(TranslationKey.Transparency)}
+          LabelTitle="Transparency Codes"
+          currentFiles={filesConditions.currentFiles}
+          tmpFiles={filesConditions.tmpFiles}
+          onClickSave={value => {
+            setOrderStateFiled(filesConditions.index)('tmpTransparencyFile')(value)
+            setShowSetFilesModal(false)
+          }}
+          onCloseModal={setShowSetFilesModal}
         />
       </Modal>
       <Modal openModal={showSetFilesModal} setOpenModal={setShowSetFilesModal}>

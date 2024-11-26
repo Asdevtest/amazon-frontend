@@ -12,7 +12,6 @@ import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { Dimensions } from '@typings/enums/dimensions'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ISupplierCardFull } from '@typings/models/suppliers/supplier-card'
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -90,8 +89,6 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
         systemYuanToDollarRate: viewModel.systemYuanToDollarRate,
       }),
     )
-
-    console.log('form :>> ', form?.getFieldsValue())
   }, [[viewModel?.currentData]])
 
   return (

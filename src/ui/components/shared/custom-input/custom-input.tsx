@@ -42,7 +42,7 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
     <div
       className={cx(
         styles.root,
-        { [styles.cell]: isCell, [styles.row]: isRow, [styles.input]: fullWidth },
+        { [styles.cell]: isCell, [styles.row]: isRow, [styles.fullWidth]: fullWidth },
         wrapperClassName,
       )}
     >
@@ -50,7 +50,7 @@ export const CustomInput: FC<CustomInputProps> = memo(props => {
       <Component
         {...restProps}
         title={placeholderText}
-        className={cx(styles.input, className)}
+        className={cx(styles.fullWidth, className)}
         placeholder={placeholderText}
         maxLength={maxLength}
         onKeyDown={e => e.stopPropagation()}

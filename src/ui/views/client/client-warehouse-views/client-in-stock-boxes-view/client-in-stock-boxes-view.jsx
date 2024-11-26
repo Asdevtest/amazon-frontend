@@ -340,10 +340,10 @@ export const ClientInStockBoxesView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
       >
         <CheckPendingOrderForm
-          existingProducts={viewModel.existingProducts}
+          products={viewModel.existingProducts}
           onClickPandingOrder={viewModel.onClickPandingOrder}
-          onClickContinueBtn={() => viewModel.onClickContinueBtn(viewModel.existingProducts?.[0])}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+          onSubmit={() => viewModel.onClickContinueBtn(viewModel.existingProducts?.[0])}
+          onClose={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
         />
       </Modal>
 

@@ -10,8 +10,6 @@ export const getInitialFormState = ({
   supplierId?: string
   systemYuanToDollarRate: number
 }) => {
-  console.log('supplierCard :>> ', supplierCard)
-
   const body = {
     supplierId,
     boxProperties: {
