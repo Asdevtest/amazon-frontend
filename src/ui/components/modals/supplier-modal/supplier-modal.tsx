@@ -3,6 +3,7 @@ import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { Reviews } from '@components/forms/reviews-form'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -17,6 +18,7 @@ import { useStyles } from './supplier-modal.style'
 
 import { AddSupplierCardModal } from '../add-supplier-card-modal'
 import { AddSupplierModal } from '../add-supplier-modal'
+import { ImportTemplateModal } from '../import-template-modal'
 
 import { SupplierModalModel } from './supplier-modal.model'
 
@@ -35,6 +37,8 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
 
   const { supplierCardsModel } = viewModel
 
+  console.log('supplierCardsModel.sortModel :>> ', supplierCardsModel.sortModel)
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.root}>
@@ -42,7 +46,7 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
 
         <div className={styles.cardsWrapper}>
           <div className={styles.header}>
-            <p>{t(TranslationKey.Cards)}</p>
+            <p className={styles.blockTitle}>{t(TranslationKey.Cards)}</p>
             <CustomButton onClick={supplierCardsModel.onClickAddSupplierProduct}>
               {t(TranslationKey['Add a new card'])}
             </CustomButton>
@@ -91,8 +95,23 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
             onFilterModelChange={supplierCardsModel.onChangeFilterModel}
             onPinnedColumnsChange={supplierCardsModel.handlePinColumn}
           />
+
+          <div className={styles.reviewsWrapper}>
+            <p className={styles.blockTitle}>{t(TranslationKey.Reviews)}</p>
+
+            <Reviews wrapperClassName={styles.reviews} reviews={viewModel.feedbacks} />
+          </div>
         </div>
       </div>
+
+      {viewModel.showImportTemplateModal ? (
+        <ImportTemplateModal
+          supplierId={supplierId as string}
+          updateHandler={supplierCardsModel.getCurrentData}
+          openModal={viewModel.showImportTemplateModal}
+          setOpenModal={viewModel.onCloseImportTemplateModal}
+        />
+      ) : null}
 
       {supplierCardsModel.showAddSupplierModal ? (
         <AddSupplierModal

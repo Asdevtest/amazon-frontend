@@ -136,7 +136,6 @@ export class AddSupplierProductModalModel extends DefaultModel {
 
     delete (transformedData.boxProperties as Partial<IBoxPropertiesDimensionType>)?.dimensionType
     delete (transformedData as Partial<ICreateSupplierProductModal>).unitDimensionType
-    delete (transformedData as Partial<ICreateSupplierProductModal>).yuanToDollarRate
 
     return transformedData
   }
@@ -161,8 +160,6 @@ export class AddSupplierProductModalModel extends DefaultModel {
   }
 
   async editSupplierCard(supplierCardId: string, values: ICreateSupplierProductModal) {
-    console.log('supplierCardId :>> ', supplierCardId)
-
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
