@@ -1,6 +1,7 @@
 import { ICountry } from '@typings/shared/country'
 import { ICreatedBy } from '@typings/shared/created-by'
 
+import { SupplierCardStatus } from './supplier-card'
 import { ISupplierEmployee } from './supplier-employee'
 
 export interface ISupplierV2 {
@@ -22,6 +23,7 @@ export interface ISupplierV2 {
   updatedAt: string
   supplierEmployees: ISupplierEmployee[]
   originCountry: ICountry
+  status: SupplierCardStatus
 }
 
 export interface ISupplierV2Light {

@@ -112,6 +112,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
           <Form.Item<ICreateSupplierProductModal>
             name={amountName}
             className={cx(sharedStyles.field, styles.deliveryField)}
+            rules={getRules()}
           >
             <CustomInputNumber
               size="large"

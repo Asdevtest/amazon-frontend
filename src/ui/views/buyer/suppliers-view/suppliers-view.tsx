@@ -44,7 +44,7 @@ export const SuppliersView: FC = observer(() => {
           enterButton
           allowClear
           size="large"
-          placeholder="Search by SKU, ASIN, Title, ID"
+          placeholder="ID, Title"
           onSearch={viewModel.onSearchSubmit}
         />
 

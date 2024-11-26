@@ -13,7 +13,6 @@ import {
   MediaContentCell,
   MultilineTextHeaderCell,
   NormDateCell,
-  OpenInNewTabCell,
   RatingCell,
 } from '@components/data-grid/data-grid-cells'
 import { SupplierEmployeesCell } from '@components/data-grid/data-grid-cells/supplier-employees-cell'
@@ -21,29 +20,18 @@ import { PaymentMethods } from '@components/shared/payment-methods'
 import { Text } from '@components/shared/text'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-import { toFixed } from '@utils/text'
+import { convertToSentenceCase, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { SupplierCardStatus } from '@typings/models/suppliers/supplier-card'
 import { IGridColumn } from '@typings/shared/grid-column'
 import { IPaymentMethod } from '@typings/shared/payment-method'
 
-import { IHandlersSuppliers } from '../suppliers-view.type'
+import { getStatusColor } from '../helpers/get-status-color'
+import { IHandlers } from '../suppliers-view.type'
 
-export const suppliersViewColumns = (handlers: IHandlersSuppliers) => {
+export const suppliersViewColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
-    {
-      field: 'link',
-      headerName: t(TranslationKey.Link),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
-      renderCell: ({ value }) => (
-        <OpenInNewTabCell isFullSize onClickOpenInNewTab={() => handlers.onClickOpenInNewTab(value)} />
-      ),
-      width: 80,
-
-      filterable: false,
-      disableCustomSort: true,
-    },
-
     {
       field: 'xid',
       headerName: 'ID',
@@ -51,6 +39,23 @@ export const suppliersViewColumns = (handlers: IHandlersSuppliers) => {
       renderCell: ({ value }) => <Text isCell text={value} />,
       width: 100,
       columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
+      field: 'status',
+      headerName: t(TranslationKey.Status),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+      renderCell: ({ value }) => (
+        <Text
+          isCell
+          color={getStatusColor(Number(SupplierCardStatus[value]))}
+          text={value ? convertToSentenceCase(value) : ''}
+        />
+      ),
+      valueGetter: ({ row }) => SupplierCardStatus[row?.status],
+      transformValueMethod: (value: number) => convertToSentenceCase(SupplierCardStatus[value]),
+      width: 150,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -98,7 +103,7 @@ export const suppliersViewColumns = (handlers: IHandlersSuppliers) => {
       headerName: `${t(TranslationKey.Commodity)}, $ / ¥`,
       renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Commodity)}, $ / ¥`} />,
       renderCell: ({ value }) => <Text isCell text={value} />,
-      valueGetter: ({ row }) => `${toFixed(row?.totalAmountInUsd)}  / ${toFixed(row?.totalAmountInYuan)}`,
+      valueGetter: ({ row }) => `${toFixed(row?.totalAmountInUsd || 0)}  / ${toFixed(row?.totalAmountInYuan || 0)}`,
       width: 100,
 
       fields: [

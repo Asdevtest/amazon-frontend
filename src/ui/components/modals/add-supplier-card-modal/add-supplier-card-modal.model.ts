@@ -10,6 +10,7 @@ import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { isString } from '@typings/guards'
+import { SupplierCardStatus } from '@typings/models/suppliers/supplier-card'
 import { ISupplierV2Light } from '@typings/models/suppliers/supplier-v2'
 import { ICategory } from '@typings/shared/category'
 import { IPlatformSettings } from '@typings/shared/patform-settings'
@@ -149,7 +150,7 @@ export class AddSupplierProductModalModel extends DefaultModel {
 
       const body = this.transformValueToCreateSupplier(values, { images, imageUnit })
 
-      const result = SupplierV2Model?.createSupplierCard(body)
+      const result = await SupplierV2Model?.createSupplierCard(body)
 
       return result
     } catch (error) {
@@ -168,9 +169,21 @@ export class AddSupplierProductModalModel extends DefaultModel {
 
       const body = this.transformValueToCreateSupplier(values, { images, imageUnit })
 
-      const result = SupplierV2Model?.editSupplierCard(supplierCardId, body)
+      const result = await SupplierV2Model?.editSupplierCard(supplierCardId, body)
 
       return result
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    }
+  }
+
+  async changeSupplierCardStatus(supplierCardId: string, status: SupplierCardStatus) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      SupplierV2Model.patchSupplierCardStatus(supplierCardId, { status })
     } catch (error) {
       console.error(error)
     } finally {

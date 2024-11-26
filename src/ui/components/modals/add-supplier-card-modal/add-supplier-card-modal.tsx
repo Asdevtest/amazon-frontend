@@ -1,4 +1,5 @@
 import { Form } from 'antd'
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { observer } from 'mobx-react'
 import { FC, useCallback, useEffect, useMemo } from 'react'
 import { FaStar } from 'react-icons/fa6'
@@ -13,7 +14,7 @@ import { Modal } from '@components/shared/modal'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
-import { ISupplierCardFull } from '@typings/models/suppliers/supplier-card'
+import { ISupplierCardFull, SupplierCardStatus } from '@typings/models/suppliers/supplier-card'
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './add-supplier-card-modal.styles'
@@ -47,6 +48,15 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
 
   const viewModel = useMemo(() => new AddSupplierProductModalModel({ supplierId, supplierCardId }), [])
 
+  const isPublished = SupplierCardStatus.PUBLISHED === (viewModel.currentData as unknown as ISupplierCardFull)?.status
+
+  const isPrimeValue = Form.useWatch('isPrime', form)
+
+  const handleChangeIsPrime = useCallback(
+    (e: CheckboxChangeEvent) => form.setFieldValue('isPrime', e.target.checked),
+    [],
+  )
+
   const handleUploadFiles = (images: UploadFileType[]) => {
     form.setFieldValue('images', images)
     form.validateFields(['images'])
@@ -78,14 +88,29 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
   }, [])
 
   const handleFinish = async (values: ICreateSupplierProductModal) => {
+    let result = supplierCardId
+
     if (supplierCardId) {
       await viewModel.editSupplierCard(supplierCardId, values)
     } else {
-      await viewModel.createSupplierCard(values)
+      result = (await viewModel.createSupplierCard(values))?.guid
     }
 
     handleUpdate()
     onCloseModal()
+
+    return result
+  }
+
+  const handleChangeStatus = async (status: SupplierCardStatus) => {
+    try {
+      await form.validateFields()
+      const result = (await handleFinish(form.getFieldsValue())) as string
+
+      viewModel.changeSupplierCardStatus(result, status)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   useEffect(() => {
@@ -104,13 +129,15 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
   }, [viewModel?.currentData])
 
   return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <Form clearOnDestroy name="supplier" size="large" form={form} rootClassName={styles.form} onFinish={handleFinish}>
         <div className={styles.header}>
           <p className={styles.title}>{t(TranslationKey['Add product'])}</p>
 
           <Form.Item<ICreateSupplierProductModal> name="isPrime" className={cx(sharedStyles.field, styles.markAsTop)}>
-            <CustomCheckbox>Mark as top</CustomCheckbox>
+            <CustomCheckbox checked={isPrimeValue} onChange={handleChangeIsPrime}>
+              Mark as top
+            </CustomCheckbox>
             <FaStar className={styles.icon} />
           </Form.Item>
         </div>
@@ -146,8 +173,15 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
         </div>
 
         <div className={styles.footerWrapper}>
+          <CustomButton
+            type="primary"
+            onClick={() => handleChangeStatus(isPublished ? SupplierCardStatus.ON_HOLD : SupplierCardStatus.PUBLISHED)}
+          >
+            {t(TranslationKey[isPublished ? 'On hold' : 'Publish'])}
+          </CustomButton>
+
           <Form.Item shouldUpdate className={sharedStyles.field}>
-            <CustomButton type="primary" htmlType="submit" /* loading={loading} disabled={loading} */>
+            <CustomButton type="primary" htmlType="submit" loading={viewModel.loading}>
               {t(TranslationKey.Save)}
             </CustomButton>
           </Form.Item>

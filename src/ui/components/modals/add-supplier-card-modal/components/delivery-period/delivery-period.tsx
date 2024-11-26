@@ -29,7 +29,6 @@ export const DeliveryPeriod = memo(() => {
           rules={getMinProductionRermRules()}
         >
           <CustomInputNumber
-            required
             size="large"
             label="Production term"
             wrapperClassName={sharedStyles.input}
@@ -42,12 +41,7 @@ export const DeliveryPeriod = memo(() => {
           className={sharedStyles.field}
           rules={getMaxProductionTermRules()}
         >
-          <CustomInputNumber
-            required
-            size="large"
-            wrapperClassName={sharedStyles.input}
-            addonBefore={t(TranslationKey.max)}
-          />
+          <CustomInputNumber size="large" wrapperClassName={sharedStyles.input} addonBefore={t(TranslationKey.max)} />
         </Form.Item>
       </Space.Compact>
 
@@ -56,19 +50,12 @@ export const DeliveryPeriod = memo(() => {
           required
           size="large"
           label="Purchase quantity for the current price"
-          precision={2}
           wrapperClassName={sharedStyles.input}
         />
       </Form.Item>
 
       <Form.Item<ICreateSupplierProductModal> name="minlot" className={sharedStyles.field} rules={getRequiredRules()}>
-        <CustomInputNumber
-          required
-          size="large"
-          label="Minimum batch"
-          precision={2}
-          wrapperClassName={sharedStyles.input}
-        />
+        <CustomInputNumber required size="large" label="Minimum batch" wrapperClassName={sharedStyles.input} />
       </Form.Item>
     </div>
   )
