@@ -10,7 +10,7 @@ import { ISupplierV2 } from '@typings/models/suppliers/supplier-v2'
 
 import { getModelSettings } from './helpers/get-model-settings'
 import { observerConfig } from './observer.config'
-import { IHandlers, IHandlersCards, IHandlersSuppliers, TableView } from './suppliers-view.type'
+import { IHandlers, TableView } from './suppliers-view.type'
 
 export class SuppliersViewModel extends DataGridFilterTableModel {
   currentTable: TableView
@@ -30,12 +30,11 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
   constructor(table?: TableView) {
     const initialTable = table || TableView.SUPLLIERS
 
-    const supplierHandlers: IHandlersSuppliers = {
-      onClickOpenInNewTab: (link: string) => this.onClickOpenInNewTab(link),
+    const supplierHandlers: IHandlers = {
       onClickEdit: (id: string) => this.onClickEdit(id),
       onClickDelete: (id: string) => this.onClickDelete(id),
     }
-    const cardHandlers: IHandlersCards = {
+    const cardHandlers: IHandlers = {
       onClickEdit: (id: string) => this.onClickEditSupplierCard(id),
       onClickDelete: (id: string) => this.onClickDeleteSupplierCard(id),
     }
@@ -114,10 +113,6 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
 
   onClickCreateSupplier() {
     this.onTriggerOpenModal('showAddSupplierModal', true)
-  }
-
-  onClickOpenInNewTab(link: string) {
-    this.history.push(link)
   }
 
   onClickEdit(id: string) {

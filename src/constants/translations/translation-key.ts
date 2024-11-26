@@ -2097,4 +2097,5 @@ export enum TranslationKey {
   'Plastic, metal, wooden, ABS, PP, not defined' = 'Plastic, metal, wooden, ABS, PP, not defined',
   'Add a new card' = 'Add a new card',
   'On hold' = 'On hold',
+  'ID, Title' = 'ID, Title',
 }

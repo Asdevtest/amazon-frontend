@@ -3,12 +3,7 @@ export enum TableView {
   CARDS = 'Cards',
 }
 
-export type IHandlers = IHandlersCards | IHandlersSuppliers
-
-export interface IHandlersCards {
+export interface IHandlers {
   onClickEdit: (id: string) => void
   onClickDelete: (id: string) => void
-}
-export interface IHandlersSuppliers extends IHandlersCards {
-  onClickOpenInNewTab: (link: string) => void
 }

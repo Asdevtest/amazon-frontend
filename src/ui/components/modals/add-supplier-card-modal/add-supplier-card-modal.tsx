@@ -1,4 +1,5 @@
 import { Form } from 'antd'
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { observer } from 'mobx-react'
 import { FC, useCallback, useEffect, useMemo } from 'react'
 import { FaStar } from 'react-icons/fa6'
@@ -48,6 +49,13 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
   const viewModel = useMemo(() => new AddSupplierProductModalModel({ supplierId, supplierCardId }), [])
 
   const isPublished = SupplierCardStatus.PUBLISHED === (viewModel.currentData as unknown as ISupplierCardFull)?.status
+
+  const isPrimeValue = Form.useWatch('isPrime', form)
+
+  const handleChangeIsPrime = useCallback(
+    (e: CheckboxChangeEvent) => form.setFieldValue('isPrime', e.target.checked),
+    [],
+  )
 
   const handleUploadFiles = (images: UploadFileType[]) => {
     form.setFieldValue('images', images)
@@ -121,13 +129,15 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
   }, [viewModel?.currentData])
 
   return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <Form clearOnDestroy name="supplier" size="large" form={form} rootClassName={styles.form} onFinish={handleFinish}>
         <div className={styles.header}>
           <p className={styles.title}>{t(TranslationKey['Add product'])}</p>
 
           <Form.Item<ICreateSupplierProductModal> name="isPrime" className={cx(sharedStyles.field, styles.markAsTop)}>
-            <CustomCheckbox>Mark as top</CustomCheckbox>
+            <CustomCheckbox checked={isPrimeValue} onChange={handleChangeIsPrime}>
+              Mark as top
+            </CustomCheckbox>
             <FaStar className={styles.icon} />
           </Form.Item>
         </div>
