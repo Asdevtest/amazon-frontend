@@ -220,7 +220,6 @@ export const EditBoxForm = memo(
 
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
-    console.log(boxFields)
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>

@@ -50,17 +50,6 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
       columnKey: columnnsKeys.client.INVENTORY_SHOPS,
     },
 
-    // {
-    //   field: 'marketPlaceCountry',
-    //   headerName: t(TranslationKey.Marketplace),
-    //   renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Marketplace)} />,
-    //   renderCell: (params: GridCellParams) => <Text isCell text={params.row.data?.marketPlaceCountry?.shortTitle} />,
-    //   width: 100,
-    //   disableCustomSort: true,
-    //   columnKey: columnnsKeys.shared.OBJECT_VALUE,
-    //   table: DataGridFilterTables.PRODUCTS,
-    // },
-
     {
       field: 'type',
       headerName: t(TranslationKey['Notification type']),
