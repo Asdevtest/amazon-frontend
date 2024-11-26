@@ -150,7 +150,7 @@ export class AddSupplierProductModalModel extends DefaultModel {
 
       const body = this.transformValueToCreateSupplier(values, { images, imageUnit })
 
-      const result = SupplierV2Model?.createSupplierCard(body)
+      const result = await SupplierV2Model?.createSupplierCard(body)
 
       return result
     } catch (error) {
@@ -161,6 +161,7 @@ export class AddSupplierProductModalModel extends DefaultModel {
   }
 
   async editSupplierCard(supplierCardId: string, values: ICreateSupplierProductModal) {
+    console.log('supplierCardId, values 123123 :>> ', supplierCardId, values)
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -169,7 +170,9 @@ export class AddSupplierProductModalModel extends DefaultModel {
 
       const body = this.transformValueToCreateSupplier(values, { images, imageUnit })
 
-      const result = SupplierV2Model?.editSupplierCard(supplierCardId, body)
+      console.log('supplierCardId, body :>> ', supplierCardId, body)
+
+      const result = await SupplierV2Model?.editSupplierCard(supplierCardId, body)
 
       return result
     } catch (error) {

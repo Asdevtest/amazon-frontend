@@ -89,6 +89,14 @@ class SupplierV2ModelStatic {
     })
     return response.data
   }
+
+  patchSupplierStatus = async (guid: string, body: { status: number }) => {
+    const response = await restApiService.supplierV2Api.apiV2SuppliersGuidChangeStatusPatch({
+      guid,
+      body,
+    })
+    return response.data
+  }
 }
 
 export const SupplierV2Model = new SupplierV2ModelStatic()

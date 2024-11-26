@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { useStyles as useSharedStyles } from '../../shared.style'
@@ -29,8 +30,8 @@ export const SupplierCourse: FC<ISupplierCourseProps> = memo(({ systemYuanToDoll
   return (
     <div className={styles.root}>
       <div className={styles.systemCourseWrapper}>
-        <p>{t(TranslationKey['Current supplier course'])}</p>
-        <p className={styles.systemCourse}>{systemYuanToDollarRate}</p>
+        <p>{t(TranslationKey['Actual course'])}</p>
+        <p className={styles.systemCourse}>{toFixed(systemYuanToDollarRate)?.replace('.', ',')}</p>
       </div>
 
       <Form.Item<ICreateSupplierProductModal>

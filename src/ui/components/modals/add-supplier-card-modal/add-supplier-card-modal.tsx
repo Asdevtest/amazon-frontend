@@ -83,9 +83,9 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
     let result = supplierCardId
 
     if (supplierCardId) {
-      result ||= await viewModel.editSupplierCard(supplierCardId, values)
+      await viewModel.editSupplierCard(supplierCardId, values)
     } else {
-      result ||= (await viewModel.createSupplierCard(values))?.guid
+      result = (await viewModel.createSupplierCard(values))?.guid
     }
 
     handleUpdate()
