@@ -2090,5 +2090,14 @@
   "Set dates": "Встановити дати",
   "Due shipment date": "Дата відправлення",
   "Recommended deadline is not valid": "Рекомендований термін недійсний",
-  "Time reserv, d.": "Резерв часу, дн."
+  "Time reserv, d.": "Резерв часу, дн.",
+  "Cards total": "Всього карток",
+  "Commodity": "Товарооборот",
+  "Commodity USD": "Товарооборот USD",
+  "Commodity CNY": "Товарооборот CNY",
+  "Total orders": "Всього замовлень",
+  "Actual cards": "Актуальні картки",
+  "Included components": "Включені компоненти",
+  "Plastic, metal, wooden, ABS, PP, not defined": "Пластик, метал, дерево, ABS, PP, не визначено",
+  "Add a new card": "Додати нову картку"
 }

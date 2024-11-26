@@ -2091,4 +2091,13 @@ export enum TranslationKey {
   'Due shipment date' = 'Due shipment date',
   'Recommended deadline is not valid' = 'Recommended deadline is not valid',
   'Time reserv, d.' = 'Time reserv, d.',
+  'Cards total' = 'Cards total',
+  'Commodity' = 'Commodity',
+  'Commodity USD' = 'Commodity USD',
+  'Commodity CNY' = 'Commodity CNY',
+  'Total orders' = 'Total orders',
+  'Actual cards' = 'Actual cards',
+  'Included components' = 'Included components',
+  'Plastic, metal, wooden, ABS, PP, not defined' = 'Plastic, metal, wooden, ABS, PP, not defined',
+  'Add a new card' = 'Add a new card',
 }

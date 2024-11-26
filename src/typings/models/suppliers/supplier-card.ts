@@ -38,4 +38,13 @@ export interface ISupplierCardFull {
   priceVariations: IPriceVariation[]
   createdAt: string
   updatedAt: string
+  material: string
+  includedComponents: string
+  status: SupplierCardStatus
+}
+
+export enum SupplierCardStatus {
+  DRAFT = 0,
+  ON_HOLD = 5,
+  PUBLISHED = 10,
 }

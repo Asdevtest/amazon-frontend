@@ -20,12 +20,14 @@ import { useStyles } from './add-supplier-card-modal.styles'
 import { useStyles as useSharedStyles } from './shared.style'
 
 import { AddSupplierProductModalModel } from './add-supplier-card-modal.model'
-import { ICreateSupplierPrice, ICreateSupplierProductModal, SupplierCurrency } from './add-supplier-card-modal.type'
+import { ICreateSupplierPrice, ICreateSupplierProductModal } from './add-supplier-card-modal.type'
 import { BoxDimentions } from './components/box-dimentions'
 import { DeliveryParams } from './components/delivery-params'
+import { DetailsInfo } from './components/details-info'
 import { GeneralInfo } from './components/general-info/general-info'
 import { PriceVariations } from './components/price-variations'
 import { getInitialFormState } from './helpers/get-initial-form-state'
+import { getPriceVariation } from './helpers/get-price-variation'
 
 interface AddSupplierCardModalProps {
   supplierCardId?: string
@@ -67,7 +69,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
 
     const variationToAdd = {
       ...priceVariation,
-      label: `${priceVariation.quantity} / ${priceVariation.price}${SupplierCurrency.CNY}`,
+      label: getPriceVariation(priceVariation),
     }
 
     form.setFieldsValue({
@@ -76,20 +78,30 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
   }, [])
 
   const handleFinish = async (values: ICreateSupplierProductModal) => {
-    await viewModel.createSupplierCard(values)
+    if (supplierCardId) {
+      await viewModel.editSupplierCard(supplierCardId, values)
+    } else {
+      await viewModel.createSupplierCard(values)
+    }
+
     handleUpdate()
     onCloseModal()
   }
 
   useEffect(() => {
+    const currentSupplierCard = viewModel.currentData as unknown as ISupplierCardFull
+
     form.setFieldsValue(
       getInitialFormState({
-        supplierCard: viewModel.currentData as unknown as ISupplierCardFull,
+        supplierCard: currentSupplierCard,
         supplierId,
         systemYuanToDollarRate: viewModel.systemYuanToDollarRate,
       }),
     )
-  }, [[viewModel?.currentData]])
+
+    handleUploadFiles(currentSupplierCard?.images || [])
+    handleUploadUnitFiles(currentSupplierCard?.imageUnit || [])
+  }, [viewModel?.currentData])
 
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
@@ -119,6 +131,8 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
 
           <PriceVariations form={form} onAddPriceVariations={onAddPriceVariations} />
 
+          <DetailsInfo />
+
           <BoxDimentions
             form={form}
             unitImages={viewModel.unitImages}
@@ -127,7 +141,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
           />
 
           <Form.Item<ICreateSupplierProductModal> name="comment" className={sharedStyles.field}>
-            <CustomTextarea size="large" rows={4} label="Comment" placeholder="Comment" maxLength={512} />
+            <CustomTextarea size="large" rows={4} label="Comment" maxLength={512} />
           </Form.Item>
         </div>
 

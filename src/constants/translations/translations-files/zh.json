@@ -2088,5 +2088,14 @@
   "Set dates": "设置日期",
   "Due shipment date": "预计发货日期",
   "Recommended deadline is not valid": "推荐截止日期无效",
-  "Time reserv, d.": "时间储备（天)"
+  "Time reserv, d.": "时间储备（天)",
+  "Cards total": "总卡片数",
+  "Commodity": "商品",
+  "Commodity USD": "商品 USD",
+  "Commodity CNY": "商品 CNY",
+  "Total orders": "总订单数",
+  "Actual cards": "实际卡片",
+  "Included components": "包含组件",
+  "Plastic, metal, wooden, ABS, PP, not defined": "塑料,金属,木制,ABS,PP,未定义",
+  "Add a new card": "添加新卡片"
 }

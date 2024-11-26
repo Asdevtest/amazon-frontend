@@ -3,6 +3,7 @@ import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -20,6 +21,7 @@ import { PaymentMethods } from '@components/shared/payment-methods'
 import { Text } from '@components/shared/text'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -80,6 +82,58 @@ export const suppliersViewColumns = (handlers: IHandlersSuppliers) => {
       ),
       width: 170,
       columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
+      field: 'totalCountCards',
+      headerName: t(TranslationKey['Cards total']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cards total'])} />,
+      renderCell: ({ value }) => <Text isCell text={value} />,
+      width: 100,
+      columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
+      field: 'totalAmountInUsd',
+      headerName: `${t(TranslationKey.Commodity)}, $ / ¥`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Commodity)}, $ / ¥`} />,
+      renderCell: ({ value }) => <Text isCell text={value} />,
+      valueGetter: ({ row }) => `${toFixed(row?.totalAmountInUsd)}  / ${toFixed(row?.totalAmountInYuan)}`,
+      width: 100,
+
+      fields: [
+        {
+          label: 'Commodity USD',
+          value: 0,
+        },
+        {
+          label: 'Commodity CNY',
+          value: 1,
+        },
+      ],
+      columnMenuConfig: [
+        {
+          field: 'totalAmountInUsd',
+          table: DataGridFilterTables.SUPPLIER,
+          columnKey: ColumnMenuKeys.NUMBER,
+        },
+
+        {
+          field: 'totalAmountInYuan',
+          table: DataGridFilterTables.SUPPLIER,
+          columnKey: ColumnMenuKeys.NUMBER,
+        },
+      ],
+      columnKey: columnnsKeys.shared.MULTIPLE,
+    },
+
+    {
+      field: 'totalCountInOrder',
+      headerName: t(TranslationKey['Total orders']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Total orders'])} />,
+      renderCell: ({ value }) => <Text isCell text={value} />,
+      width: 100,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -146,10 +200,9 @@ export const suppliersViewColumns = (handlers: IHandlersSuppliers) => {
       headerName: t(TranslationKey.Rating),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rating)} />,
 
-      renderCell: ({ value }) => <RatingCell disabled rating={value} />,
-      width: 170,
+      renderCell: ({ row }) => <RatingCell disabled rating={row?.avgRating} totalFeedback={row?.totalCountFeedback} />,
+      width: 180,
       columnKey: columnnsKeys.shared.NUMBER,
-      disableCustomSort: true,
     },
 
     {
