@@ -2089,4 +2089,13 @@ export enum TranslationKey {
   'Download template' = 'Download template',
   'Production term' = 'Production term',
   'Cards' = 'Cards',
+  'Cards total' = 'Cards total',
+  'Commodity' = 'Commodity',
+  'Commodity USD' = 'Commodity USD',
+  'Commodity CNY' = 'Commodity CNY',
+  'Total orders' = 'Total orders',
+  'Actual cards' = 'Actual cards',
+  'Included components' = 'Included components',
+  'Plastic, metal, wooden, ABS, PP, not defined' = 'Plastic, metal, wooden, ABS, PP, not defined',
+  'Add a new card' = 'Add a new card',
 }

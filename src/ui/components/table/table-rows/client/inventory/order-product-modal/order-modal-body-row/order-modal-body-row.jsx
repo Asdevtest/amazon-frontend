@@ -59,7 +59,7 @@ export const OrderModalBodyRow = ({
 
   const [pricePerUnit, setPerPriceUnit] = useState(null)
 
-  const priceVariations = item?.currentSupplierCard?.supplier?.priceVariations
+  const priceVariations = item?.currentSupplierCard?.priceVariations
 
   const { tariffName, tariffRate } = useGetDestinationTariffInfo(
     destinations,

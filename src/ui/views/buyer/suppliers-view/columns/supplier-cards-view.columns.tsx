@@ -2,6 +2,7 @@ import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
+import { ColumnMenuKeys } from '@constants/data-grid/column-menu-keys'
 import { columnnsKeys } from '@constants/data-grid/data-grid-columns-keys'
 import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -14,9 +15,10 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
-import { toFixed } from '@utils/text'
+import { convertToSentenceCase, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { SupplierCardStatus } from '@typings/models/suppliers/supplier-card'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { IHandlersCards } from '../suppliers-view.type'
@@ -30,6 +32,17 @@ export const supplierCardsViewColumns = (handlers: IHandlersCards) => {
       renderCell: ({ value }) => <Text isCell text={value} />,
       width: 100,
       columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
+      field: 'status',
+      headerName: t(TranslationKey.Status),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+      renderCell: ({ value }) => <Text isCell text={value ? convertToSentenceCase(value) : ''} />,
+      valueGetter: ({ row }) => SupplierCardStatus[row?.status],
+      transformValueMethod: (value: number) => convertToSentenceCase(SupplierCardStatus[value]),
+      width: 150,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -72,6 +85,16 @@ export const supplierCardsViewColumns = (handlers: IHandlersCards) => {
     },
 
     {
+      field: 'supplier',
+      headerName: t(TranslationKey.Supplier),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
+      renderCell: ({ value }) => <Text isCell text={value} />,
+      valueGetter: ({ row }) => row.supplier?.companyName,
+      width: 150,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+    },
+
+    {
       field: 'minlot',
       headerName: 'MOQ, pcs',
       renderHeader: () => <MultilineTextHeaderCell text="MOQ, pcs" />,
@@ -87,7 +110,31 @@ export const supplierCardsViewColumns = (handlers: IHandlersCards) => {
       renderCell: ({ value }) => <Text isCell text={value} />,
       valueGetter: ({ row }) => `${row.minProductionTerm} - ${row.maxProductionTerm}`,
       width: 150,
-      columnKey: columnnsKeys.shared.NUMBER,
+
+      fields: [
+        {
+          label: 'Min production term',
+          value: 0,
+        },
+        {
+          label: 'Max production term',
+          value: 1,
+        },
+      ],
+      columnMenuConfig: [
+        {
+          field: 'minProductionTerm',
+          table: DataGridFilterTables.SUPPLIER_CARDS,
+          columnKey: ColumnMenuKeys.NUMBER,
+        },
+
+        {
+          field: 'maxProductionTerm',
+          table: DataGridFilterTables.SUPPLIER_CARDS,
+          columnKey: ColumnMenuKeys.NUMBER,
+        },
+      ],
+      columnKey: columnnsKeys.shared.MULTIPLE,
     },
 
     {
@@ -127,7 +174,7 @@ export const supplierCardsViewColumns = (handlers: IHandlersCards) => {
 
   for (const column of columns) {
     if (!column.table) {
-      column.table = DataGridFilterTables.SUPPLIERS
+      column.table = DataGridFilterTables.SUPPLIER_CARDS
     }
 
     column.sortable = false

@@ -1,10 +1,13 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
+import { GridRowParams } from '@mui/x-data-grid-premium'
+
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddSupplierCardModal } from '@components/modals/add-supplier-card-modal'
 import { AddSupplierModal } from '@components/modals/add-supplier-modal'
+import { SupplierModal } from '@components/modals/supplier-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
@@ -19,6 +22,7 @@ import { useStyles } from './suppliers-view.style'
 
 import { getRadioButtonOptions } from './helpers/get-radio-button-options'
 import { SuppliersViewModel } from './suppliers-view.model'
+import { TableView } from './suppliers-view.type'
 
 export const SuppliersView: FC = observer(() => {
   const { classes: styles } = useStyles()
@@ -44,15 +48,21 @@ export const SuppliersView: FC = observer(() => {
           onSearch={viewModel.onSearchSubmit}
         />
 
-        <div className={styles.headerButtons}>
-          <CustomButton size="large" type="primary" onClick={viewModel?.onClickAddSupplierProduct}>
-            {t(TranslationKey['Add product'])}
-          </CustomButton>
-
+        {viewModel.currentTable === TableView.SUPLLIERS ? (
           <CustomButton size="large" type="primary" onClick={viewModel?.onClickCreateSupplier}>
             {t(TranslationKey['Create a supplier'])}
           </CustomButton>
-        </div>
+        ) : (
+          <div className={styles.headerButtons}>
+            <CustomButton block size="large" onClick={viewModel?.onTriggerArchive}>
+              {t(TranslationKey[viewModel?.isSupplierCardsActive ? 'Actual cards' : 'Open archive'])}
+            </CustomButton>
+
+            <CustomButton size="large" type="primary" onClick={viewModel?.onClickAddSupplierProduct}>
+              {t(TranslationKey['Add product'])}
+            </CustomButton>
+          </div>
+        )}
       </div>
 
       <CustomDataGrid
@@ -109,6 +119,7 @@ export const SuppliersView: FC = observer(() => {
         onPaginationModelChange={viewModel.onPaginationModelChange}
         onFilterModelChange={viewModel.onChangeFilterModel}
         onPinnedColumnsChange={viewModel.handlePinColumn}
+        onRowDoubleClick={(params: GridRowParams) => viewModel.onOpenSupplierModal(params.row)}
       />
 
       {viewModel.showAddSupplierModal ? (
@@ -126,6 +137,14 @@ export const SuppliersView: FC = observer(() => {
           handleUpdate={viewModel.getCurrentData}
           openModal={viewModel.showAddSupplierProductModal}
           setOpenModal={viewModel.onCloseAddSupplierProductModal}
+        />
+      ) : null}
+
+      {viewModel.showSupplierModal ? (
+        <SupplierModal
+          openModal={viewModel.showSupplierModal}
+          setOpenModal={viewModel.onCloseSupplierModal}
+          supplierId={viewModel.supplierIdToShow}
         />
       ) : null}
     </div>

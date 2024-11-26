@@ -9,6 +9,10 @@ export const getBoxDimentionsRules = (): Rule[] => [
     validator(_, value) {
       const boxProperties = getFieldValue('boxProperties')
 
+      if (!boxProperties) {
+        return Promise.resolve()
+      }
+
       const { boxHeightCm, boxWidthCm, boxLengthCm, amountInBox, boxWeighGrossKg } = boxProperties
 
       const isSomeUnitFilled = boxHeightCm || boxWidthCm || boxLengthCm || amountInBox || boxWeighGrossKg

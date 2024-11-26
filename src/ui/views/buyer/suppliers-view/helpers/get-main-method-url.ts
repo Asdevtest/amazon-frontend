@@ -5,6 +5,6 @@ export const getMainMethodUrl = (activeTable: TableView) => {
     case TableView.SUPLLIERS:
       return 'v2/suppliers?'
     case TableView.CARDS:
-      return 'v2/cards?'
+      return 'v2/suppliers/cards?'
   }
 }

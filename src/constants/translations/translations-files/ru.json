@@ -2089,5 +2089,14 @@
   "Select category": "Выберите категорию",
   "Download template": "Скачать шаблон",
   "Production term": "Срок производства",
-  "Cards": "Карточки"
+  "Cards": "Карточки",
+  "Cards total": "Всего карточек",
+  "Commodity": "Товарооборот",
+  "Commodity USD": "Товарооборот USD",
+  "Commodity CNY": "Товарооборот CNY",
+  "Total orders": "Всего заказов",
+  "Actual cards": "Актуальные карточки",
+  "Included components": "Входящие компоненты",
+  "Plastic, metal, wooden, ABS, PP, not defined": "Пластик, металл, дерево, ABS, PP, не определено",
+  "Add a new card": "Добавить новую карточку"
 }

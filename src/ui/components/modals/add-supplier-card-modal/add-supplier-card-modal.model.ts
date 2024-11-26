@@ -136,7 +136,6 @@ export class AddSupplierProductModalModel extends DefaultModel {
 
     delete (transformedData.boxProperties as Partial<IBoxPropertiesDimensionType>)?.dimensionType
     delete (transformedData as Partial<ICreateSupplierProductModal>).unitDimensionType
-    delete (transformedData as Partial<ICreateSupplierProductModal>).yuanToDollarRate
 
     return transformedData
   }
@@ -151,6 +150,25 @@ export class AddSupplierProductModalModel extends DefaultModel {
       const body = this.transformValueToCreateSupplier(values, { images, imageUnit })
 
       const result = SupplierV2Model?.createSupplierCard(body)
+
+      return result
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    }
+  }
+
+  async editSupplierCard(supplierCardId: string, values: ICreateSupplierProductModal) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      const images = await this.uploadFiles(values?.images)
+      const imageUnit = await this.uploadFiles(values?.imageUnit)
+
+      const body = this.transformValueToCreateSupplier(values, { images, imageUnit })
+
+      const result = SupplierV2Model?.editSupplierCard(supplierCardId, body)
 
       return result
     } catch (error) {
