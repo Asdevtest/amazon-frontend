@@ -37,8 +37,6 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
 
   const { supplierCardsModel } = viewModel
 
-  console.log('supplierCardsModel.sortModel :>> ', supplierCardsModel.sortModel)
-
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.root}>
@@ -47,9 +45,16 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
         <div className={styles.cardsWrapper}>
           <div className={styles.header}>
             <p className={styles.blockTitle}>{t(TranslationKey.Cards)}</p>
-            <CustomButton onClick={supplierCardsModel.onClickAddSupplierProduct}>
-              {t(TranslationKey['Add a new card'])}
-            </CustomButton>
+
+            <div className={styles.buttons}>
+              <CustomButton onClick={viewModel.onOpenImportTemplateModal}>
+                {t(TranslationKey['Import products'])}
+              </CustomButton>
+
+              <CustomButton onClick={supplierCardsModel.onClickAddSupplierProduct}>
+                {t(TranslationKey['Add a new card'])}
+              </CustomButton>
+            </div>
           </div>
 
           <CustomDataGrid
