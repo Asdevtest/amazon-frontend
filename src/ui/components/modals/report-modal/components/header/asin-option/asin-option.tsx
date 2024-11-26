@@ -1,10 +1,12 @@
-import { Space } from 'antd'
+import { Avatar, Space } from 'antd'
 import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomImage } from '@components/shared/custom-image'
+
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { useStyles } from './asin-option.style'
 
@@ -36,7 +38,13 @@ export const AsinOption: FC<AsinOptionProps> = observer(({ data }) => {
             />
           </div>
         </div>
-        <div className={styles.flexContainer}></div>
+
+        {data.marketPlaceCountry ? (
+          <div className={styles.flexContainer}>
+            <Avatar size={20} src={getAmazonImageUrl(data.marketPlaceCountry?.image)} />
+            <p>{data.marketPlaceCountry?.shortTitle}</p>
+          </div>
+        ) : null}
       </div>
     </Space>
   )

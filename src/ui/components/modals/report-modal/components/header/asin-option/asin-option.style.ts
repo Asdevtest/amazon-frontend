@@ -4,6 +4,7 @@ export const useStyles = makeStyles()(() => ({
   optionWrapper: {
     display: 'flex',
     alignItems: 'center',
+    gap: '10px',
     width: '100%',
   },
 
@@ -16,6 +17,7 @@ export const useStyles = makeStyles()(() => ({
   asinContainer: {
     display: 'flex',
     flexDirection: 'column',
+    width: '100px',
   },
 
   optionText: {

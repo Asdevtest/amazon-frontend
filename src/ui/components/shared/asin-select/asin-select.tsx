@@ -2,7 +2,6 @@ import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { FC, UIEvent, useCallback, useMemo } from 'react'
 
-import { ProductCell } from '@components/data-grid/data-grid-cells'
 import { AsinOption } from '@components/modals/report-modal/components/header/asin-option'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
