@@ -6,12 +6,14 @@ import { paginationModelInitialValue } from '@models/data-grid-table-model'
 import { SupplierModel } from '@models/supplier-model'
 import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
 
+import { ISupplierV2 } from '@typings/models/suppliers/supplier-v2'
+
 import { getModelSettings } from './helpers/get-model-settings'
 import { observerConfig } from './observer.config'
 import { IHandlers, IHandlersCards, IHandlersSuppliers, TableView } from './suppliers-view.type'
 
 export class SuppliersViewModel extends DataGridFilterTableModel {
-  currentTable: TableView = TableView.SUPLLIERS
+  currentTable: TableView
 
   isSupplierCardsActive: boolean = false
 
@@ -19,11 +21,15 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
 
   supplierIdToEdit: string = ''
   supplierCardIdToEdit: string = ''
+  supplierIdToShow: string = ''
 
+  showSupplierModal: boolean = false
   showAddSupplierModal: boolean = false
   showAddSupplierProductModal: boolean = false
 
-  constructor() {
+  constructor(table?: TableView) {
+    const initialTable = table || TableView.SUPLLIERS
+
     const supplierHandlers: IHandlersSuppliers = {
       onClickOpenInNewTab: (link: string) => this.onClickOpenInNewTab(link),
       onClickEdit: (id: string) => this.onClickEdit(id),
@@ -34,8 +40,10 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
       onClickDelete: (id: string) => this.onClickDeleteSupplierCard(id),
     }
 
+    const initialHandlers = initialTable === TableView.SUPLLIERS ? supplierHandlers : cardHandlers
+
     const { getMainDataMethod, mainMethodURL, columnsModel, tableKey, filtersFields, sortModel, fieldsForSearch } =
-      getModelSettings(TableView.SUPLLIERS, supplierHandlers)
+      getModelSettings(initialTable, initialHandlers)
 
     const defaultFilterParams = () => {
       const isArchive = this.isSupplierCardsActive && this.currentTable === TableView.CARDS
@@ -63,13 +71,18 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
     })
     makeObservable(this, observerConfig)
 
+    this.currentTable = initialTable
+
     this.tablesHandlers = {
       [TableView.SUPLLIERS]: supplierHandlers,
       [TableView.CARDS]: cardHandlers,
     }
 
     this.initHistory()
-    this.getTableSettingsPreset()
+
+    if (!table) {
+      this.getTableSettingsPreset()
+    }
   }
 
   onChangeRadioButtonOption(event: RadioChangeEvent) {
@@ -153,5 +166,18 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
       this.isSupplierCardsActive = !this.isSupplierCardsActive
     })
     this.getCurrentData()
+  }
+
+  onOpenSupplierModal(supplier: ISupplierV2) {
+    if (this.currentTable === TableView.CARDS) {
+      return
+    }
+
+    this.supplierIdToShow = supplier._id
+    this.onTriggerOpenModal('showSupplierModal', true)
+  }
+  onCloseSupplierModal() {
+    this.supplierIdToShow = ''
+    this.onTriggerOpenModal('showSupplierModal', false)
   }
 }

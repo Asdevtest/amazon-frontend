@@ -15,9 +15,10 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
-import { toFixed } from '@utils/text'
+import { convertToSentenceCase, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
+import { SupplierCardStatus } from '@typings/models/suppliers/supplier-card'
 import { IGridColumn } from '@typings/shared/grid-column'
 
 import { IHandlersCards } from '../suppliers-view.type'
@@ -31,6 +32,17 @@ export const supplierCardsViewColumns = (handlers: IHandlersCards) => {
       renderCell: ({ value }) => <Text isCell text={value} />,
       width: 100,
       columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
+      field: 'status',
+      headerName: t(TranslationKey.Status),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
+      renderCell: ({ value }) => <Text isCell text={value ? convertToSentenceCase(value) : ''} />,
+      valueGetter: ({ row }) => SupplierCardStatus[row?.status],
+      transformValueMethod: (value: number) => convertToSentenceCase(SupplierCardStatus[value]),
+      width: 150,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
