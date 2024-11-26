@@ -58,7 +58,7 @@ export const supplierCardsViewColumns = (handlers: IHandlersCards) => {
       field: 'images',
       headerName: t(TranslationKey.Photos),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Photos)} />,
-      renderCell: ({ value }) => <MediaContentCell image={value?.[0]} />,
+      renderCell: ({ value }) => <MediaContentCell file={value?.[0]} />,
       width: 80,
 
       filterable: false,

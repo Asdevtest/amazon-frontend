@@ -14,6 +14,7 @@ export const feedbackViewConfig = {
   showContentEditorForm: observable,
   showTicketForm: observable,
   feedback: observable,
+  uploadedFiles: observable,
 
   contentEditorFormTitle: computed,
   userInfo: computed,

@@ -1,6 +1,8 @@
 import { Image } from 'antd'
 import { FC, memo } from 'react'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+
 import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './custom-preview-group.style'
@@ -31,7 +33,7 @@ export const CustomPreviewGroup: FC<CustomPreviewGroupProps> = memo(props => {
             key={index}
             width={size}
             height={size}
-            src={url as string}
+            src={getAmazonImageUrl(url, true)}
             preview={!!url && { maskClassName: styles.mask }}
           />
         ))}

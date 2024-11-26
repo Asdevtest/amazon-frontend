@@ -2,8 +2,11 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   wrapper: {
-    padding: '5px 0',
-    height: '58px',
+    margin: '5px 0',
+    height: '48px',
+    width: '48px',
+    borderRadius: '4px',
+    overflow: 'hidden',
   },
 
   mask: {

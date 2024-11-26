@@ -87,7 +87,7 @@ export const clientOnCheckingIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Idea),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-      renderCell: params => <MediaContentCell image={params.value.find(el => checkIsMediaFileLink(el))} />,
+      renderCell: params => <MediaContentCell file={params.value.find(el => checkIsMediaFileLink(el))} />,
       width: 70,
 
       filterable: false,

@@ -142,7 +142,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
       renderCell: params => (
-        <MediaContentCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
+        <MediaContentCell file={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
       ),
       width: 70,
       disableCustomSort: true,

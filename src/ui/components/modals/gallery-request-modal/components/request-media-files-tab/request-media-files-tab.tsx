@@ -62,7 +62,7 @@ export const RequestMediaFilesTab: FC<RequestMediaFilesTabProps> = memo(props =>
                   {data[key]?.map((file, index) => (
                     <div key={index} className={styles.file} onClick={() => handleChangeCurrentSlideIndex(file)}>
                       {checkIsVideoLink(file) ? (
-                        <VideoPreloader videoSource={getAmazonImageUrl(file)} preloaderClassName={styles.video} />
+                        <VideoPreloader videoSource={file} preloaderClassName={styles.video} />
                       ) : (
                         <img src={getAmazonImageUrl(file)} alt={`Slide-${index + 1}`} className={styles.image} />
                       )}

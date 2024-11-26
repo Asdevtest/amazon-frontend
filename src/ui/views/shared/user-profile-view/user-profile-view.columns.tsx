@@ -19,7 +19,7 @@ export const userProfileColumns = () => {
       field: 'image',
       headerName: t(TranslationKey.Image),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
-      renderCell: ({ row }) => <MediaContentCell image={row.images?.[0]} />,
+      renderCell: ({ row }) => <MediaContentCell file={row.images?.[0]} />,
       width: 70,
       disableCustomSort: true,
     },
