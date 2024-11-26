@@ -161,7 +161,6 @@ export class AddSupplierProductModalModel extends DefaultModel {
   }
 
   async editSupplierCard(supplierCardId: string, values: ICreateSupplierProductModal) {
-    console.log('supplierCardId, values 123123 :>> ', supplierCardId, values)
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
@@ -169,8 +168,6 @@ export class AddSupplierProductModalModel extends DefaultModel {
       const imageUnit = await this.uploadFiles(values?.imageUnit)
 
       const body = this.transformValueToCreateSupplier(values, { images, imageUnit })
-
-      console.log('supplierCardId, body :>> ', supplierCardId, body)
 
       const result = await SupplierV2Model?.editSupplierCard(supplierCardId, body)
 

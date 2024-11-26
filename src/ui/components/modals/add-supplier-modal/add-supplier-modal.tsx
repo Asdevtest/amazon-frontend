@@ -68,9 +68,9 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
     let result = supplierId
 
     if (supplierId) {
-      result ||= await viewModel?.editSupplier(supplierId, value)
+      await viewModel?.editSupplier(supplierId, value)
     } else {
-      result ||= await viewModel.createSupplier(value)
+      result = await viewModel.createSupplier(value)
     }
 
     updateHandler?.()
@@ -153,11 +153,9 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
           <div className={styles.buttons}>
             <CustomButton
               type="primary"
-              onClick={() =>
-                handleChangeStatus(isPublished ? SupplierCardStatus.ON_HOLD : SupplierCardStatus.PUBLISHED)
-              }
+              onClick={() => handleChangeStatus(isPublished ? SupplierCardStatus.DRAFT : SupplierCardStatus.PUBLISHED)}
             >
-              {t(TranslationKey[isPublished ? 'On hold' : 'Publish'])}
+              {t(TranslationKey[isPublished ? 'Draft' : 'Publish'])}
             </CustomButton>
 
             <Form.Item shouldUpdate className={sharedStyles.field}>
