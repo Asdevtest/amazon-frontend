@@ -9,6 +9,7 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 import { ClientModel } from '@models/client-model'
 import { ProductModel } from '@models/product-model'
 import { ShopModel } from '@models/shop-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -47,6 +48,8 @@ export class ClientProductViewModel {
   productsToBind = undefined
 
   shopsData = []
+  destinations = []
+  storekeepers = []
 
   curUpdateProductData = undefined
 
@@ -111,6 +114,8 @@ export class ClientProductViewModel {
     try {
       await this.getProductById()
       await this.getShops()
+      await this.getDestinations()
+      await this.getStorekeepers()
       await this.getProductsVariations()
     } catch (error) {
       console.error(error)
@@ -302,6 +307,30 @@ export class ClientProductViewModel {
 
       runInAction(() => {
         this.shopsData = result
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getDestinations() {
+    try {
+      const response = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const response = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.storekeepers = response
       })
     } catch (error) {
       console.error(error)

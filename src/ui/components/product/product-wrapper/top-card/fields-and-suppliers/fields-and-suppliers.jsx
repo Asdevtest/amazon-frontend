@@ -1,4 +1,5 @@
 import { memo, useState } from 'react'
+import { FaStar } from 'react-icons/fa'
 import { FiPlus } from 'react-icons/fi'
 import { MdOutlineEdit } from 'react-icons/md'
 
@@ -38,6 +39,7 @@ import { downloadFileByLink } from '@utils/upload-files'
 import '@typings/enums/button-style'
 import { TariffModal } from '@typings/enums/tariff-modal'
 
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './fields-and-suppliers.style'
@@ -63,6 +65,8 @@ export const FieldsAndSuppliers = memo(props => {
     productBase,
     formFieldsValidationErrors,
     shops,
+    destinations,
+    storekeepers,
     onTriggerOpenModal,
     onClickHsCode,
     onClickParseProductData,
@@ -72,24 +76,8 @@ export const FieldsAndSuppliers = memo(props => {
 
   const [edit, setEdit] = useState(true)
   const [showEditProductTagsModal, setShowEditProductTagsModal] = useState(false)
-  const [boxFields, setBoxFields] = useState() // ! change logic   // mainTariffVariationId
-  console.log(boxFields)
-
-  const {
-    destinationId,
-    onSubmitSelectStorekeeperAndTariff,
-
-    showConfirmModal,
-    setShowConfirmModal,
-
-    confirmModalSettings,
-
-    handleSetDestination,
-    handleResetDestination,
-
-    showSelectionStorekeeperAndTariffModal,
-    setShowSelectionStorekeeperAndTariffModal,
-  } = useTariffVariation(boxFields?.destinationId, setBoxFields)
+  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+  const [currentTariff, setCurrentTatiff] = useState(product?.mainTariffVariation?.storekeeperTariffLogistics?.name)
 
   const onChangeShop = shopId => {
     onChangeField?.('shopId')({ target: { value: shopId } })
@@ -97,7 +85,23 @@ export const FieldsAndSuppliers = memo(props => {
 
   const onChangeMarketPlace = marketplace => {
     onChangeField?.('marketPlaceCountryId')({ target: { value: marketplace._id } })
-    console.log(marketplace._id)
+  }
+
+  const onChangeTariff = tariff => {
+    onChangeField?.('mainTariffVariationId')({ target: { value: tariff.variationTariffId } })
+    setCurrentTatiff(tariff)
+    setShowSelectionStorekeeperAndTariffModal(false)
+    if (tariff && storekeepers.length) {
+      const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+        destinations,
+        storekeepers,
+        tariff.destinationId,
+        tariff.storekeeperId,
+        tariff.logicsTariffId,
+        tariff.variationTariffId,
+      )
+      setCurrentTatiff(tariffName)
+    }
   }
 
   const isEditRedFlags =
@@ -614,13 +618,17 @@ export const FieldsAndSuppliers = memo(props => {
             onChangeData={onChangeMarketPlace}
           />
 
-          <CustomButton
-            type="primary"
-            onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-          >
-            {/* {t(TranslationKey.Select)} */}
-            Choose tariff
-          </CustomButton>
+          <div className={styles.tariffWrapper}>
+            <div className={styles.tariffLabel}>
+              <FaStar /> <p className={styles.spanLabelSmall}>{t(TranslationKey['Favorite tariff'])}</p>
+            </div>
+            <CustomButton
+              type={currentTariff ? 'default' : 'primary'}
+              onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+            >
+              {currentTariff ? currentTariff : t(TranslationKey.Choose)}
+            </CustomButton>
+          </div>
         </div>
       ) : null}
 
@@ -640,9 +648,7 @@ export const FieldsAndSuppliers = memo(props => {
           tariffModalType={TariffModal.TARIFFS}
           openModal={showSelectionStorekeeperAndTariffModal}
           setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
-          // box={item}
-          onClickSubmit={onSubmitSelectStorekeeperAndTariff}
-          // mainTariffVariation
+          onClickSubmit={onChangeTariff}
         />
       ) : null}
     </Grid>

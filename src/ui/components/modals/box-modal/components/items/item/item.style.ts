@@ -24,6 +24,12 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
+  marketplaceWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
+
   flexContainer: {
     display: 'flex',
     alignItems: 'center',

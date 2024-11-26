@@ -61,6 +61,17 @@ export const clientBoxesViewColumns = (
     },
 
     {
+      field: 'marketPlaceCountry',
+      headerName: t(TranslationKey.Marketplace),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Marketplace)} />,
+      renderCell: params => <Text isCell text={params.row?.items?.[0]?.product?.marketPlaceCountry?.shortTitle} />,
+      valueGetter: ({ row }) => row?.items?.[0]?.product?.marketPlaceCountry?.shortTitle,
+      width: 100,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+    },
+
+    {
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,

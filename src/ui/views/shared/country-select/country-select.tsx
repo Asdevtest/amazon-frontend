@@ -28,7 +28,7 @@ export const CountrySelect: FC<CountrySelectProps> = observer(({ defaultCountry,
       defaultActiveFirstOption={false}
       placeholder="Search"
       options={viewModel.getCountriesOption}
-      value={viewModel.getDefaultCountryOption}
+      defaultValue={viewModel.getDefaultCountryOption}
       optionRender={({ data }) => <CountryOption data={data} />}
       onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
       onSearch={viewModel.onSearchChange}

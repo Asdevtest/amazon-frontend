@@ -394,4 +394,17 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+
+  spanLabelSmall: {
+    fontSize: '14px',
+  },
+
+  tariffLabel: {
+    marginBottom: '5px',
+    display: 'flex',
+    gap: '5px',
+    svg: {
+      color: 'rgba(255, 197, 61, 1)',
+    },
+  },
 }))

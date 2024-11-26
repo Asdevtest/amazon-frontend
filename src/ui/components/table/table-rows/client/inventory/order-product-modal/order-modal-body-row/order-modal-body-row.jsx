@@ -147,6 +147,15 @@ export const OrderModalBodyRow = ({
     }
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
 
+  useEffect(() => {
+    if (item.mainTariffVariation) {
+      item.destinationId = item.mainTariffVariation.destination._id
+      item.storekeeperId = item.mainTariffVariation?.storekeeperTariffLogistics.storekeeperId
+      item.logicsTariffId = item.mainTariffVariation?.storekeeperTariffLogistics._id
+      item.variationTariffId = item.mainTariffVariation._id
+    }
+  }, [])
+
   const productionTerm = item.currentSupplierCard
     ? `${item.currentSupplierCard.minProductionTerm} - ${item.currentSupplierCard.maxProductionTerm}`
     : t(TranslationKey['No data'])
