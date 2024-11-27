@@ -1,5 +1,6 @@
 import { Image, ImageProps } from 'antd'
 import { FC, ReactElement, memo } from 'react'
+import { GoDesktopDownload } from 'react-icons/go'
 
 import { checkIsDocumentLink, checkIsImageLink, checkIsVideoLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -31,8 +32,21 @@ export const renderPreviewContent = (originalNode: ReactElement, info: { image: 
   return originalNode
 }
 
-export const renderPreviewToolbar = (originalNode: ReactElement, info: { image: { url: string } }) =>
-  checkIsImageLink(info.image.url) ? originalNode : null
+export const renderPreviewToolbar = (originalNode: ReactElement, info: { image: { url: string } }) => (
+  <div style={{ display: 'flex', alignItems: 'center' }} className="ant-render-preview-toolbar">
+    {checkIsImageLink(info.image.url) ? originalNode : null}
+
+    <a
+      download
+      target="_blank"
+      rel="noreferrer noopener"
+      href={info.image.url}
+      className="ant-render-preview-toolbar-download-link"
+    >
+      <GoDesktopDownload size={20} />
+    </a>
+  </div>
+)
 
 export const CustomImage: FC<CustomImageProps> = memo(props => {
   const { fullImage = true, className, src, maskClassName, wrapperClassName, ...restProps } = props
