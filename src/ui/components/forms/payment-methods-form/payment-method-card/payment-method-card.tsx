@@ -1,3 +1,4 @@
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { ChangeEvent, FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -49,14 +50,14 @@ export const PaymentMethod: FC<PaymentMethodCardProps> = memo(({ payment, setSel
   const handleChangeImagesForLoad = (files: UploadFileType[]) => {
     handleFieldChange('paymentImages', files)
   }
-  const handleChangeIsChecked = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeIsChecked = (event: CheckboxChangeEvent) => {
     handleFieldChange('isChecked', event.target.checked)
   }
 
   return (
     <div className={styles.root}>
       <div className={styles.paymentMethodTitleWrapper}>
-        <CustomCheckbox disabled={readOnly} checked={payment.isChecked} onChange={() => handleChangeIsChecked} />
+        <CustomCheckbox disabled={readOnly} checked={payment.isChecked} onChange={handleChangeIsChecked} />
         <img
           src={getAmazonImageUrl(payment.paymentMethod?.iconImage, false)}
           alt={payment.paymentMethod?.title}
