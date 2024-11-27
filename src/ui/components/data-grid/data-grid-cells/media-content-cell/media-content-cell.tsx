@@ -9,7 +9,7 @@ interface MediaContentCellProps {
   preview?: boolean
 }
 
-export const MediaContentCell: FC<MediaContentCellProps> = memo(({ file, preview = true }) => {
+export const MediaContentCell: FC<MediaContentCellProps> = memo(({ file, preview }) => {
   const { classes: styles } = useStyles()
 
   if (!file) {
