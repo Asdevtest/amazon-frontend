@@ -7,6 +7,8 @@ import { UploadFileType } from '@typings/shared/upload-file'
 
 import { useStyles } from './custom-preview-group.style'
 
+import { CustomImage } from '../custom-image'
+
 interface CustomPreviewGroupProps {
   data: UploadFileType[]
   size?: number
@@ -29,7 +31,7 @@ export const CustomPreviewGroup: FC<CustomPreviewGroupProps> = memo(props => {
     <div className={cx(styles.root, { [styles.center]: center })} style={{ maxHeight: scrollableHeight, gap }}>
       <Image.PreviewGroup>
         {data.map((url, index) => (
-          <Image
+          <CustomImage
             key={index}
             width={size}
             height={size}
