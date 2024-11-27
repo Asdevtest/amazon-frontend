@@ -1,4 +1,4 @@
-import { Avatar, Space } from 'antd'
+import { Avatar } from 'antd'
 import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
@@ -15,11 +15,9 @@ export const CountryOption: FC<CountryOptionProps> = observer(({ data }) => {
   const { classes: styles } = useStyles()
 
   return (
-    <Space>
-      <div className={styles.selectOption}>
-        <Avatar size={20} src={getAmazonImageUrl(data.image)} />
-        <p>{`${data.title} (${data.shortTitle})`}</p>
-      </div>
-    </Space>
+    <div className={styles.selectOption}>
+      <Avatar size={20} src={getAmazonImageUrl(data.image)} />
+      <p>{`${data.title} (${data.shortTitle})`}</p>
+    </div>
   )
 })

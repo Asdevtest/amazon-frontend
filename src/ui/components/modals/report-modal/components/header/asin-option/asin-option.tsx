@@ -1,4 +1,4 @@
-import { Avatar, Space } from 'antd'
+import { Avatar } from 'antd'
 import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
@@ -17,35 +17,33 @@ interface AsinOptionProps {
 export const AsinOption: FC<AsinOptionProps> = observer(({ data }) => {
   const { classes: styles } = useStyles()
   return (
-    <Space>
-      <div className={styles.optionWrapper}>
-        <div className={styles.flexContainer}>
-          <CustomImage width={32} height={32} src={data.images?.[0]} />
-          <div className={styles.asinContainer}>
-            <AsinOrSkuLink
-              withCopyValue
-              withAttributeTitle="asin"
-              link={data.asin}
-              textStyles={styles.optionText}
-              iconStyles={styles.optionIcon}
-            />
-            <AsinOrSkuLink
-              withCopyValue
-              withAttributeTitle="sku"
-              link={data.skuByClient}
-              textStyles={styles.optionText}
-              iconStyles={styles.optionIcon}
-            />
-          </div>
+    <div className={styles.optionWrapper}>
+      <div className={styles.flexContainer}>
+        <CustomImage width={32} height={32} src={data.images?.[0]} />
+        <div className={styles.asinContainer}>
+          <AsinOrSkuLink
+            withCopyValue
+            withAttributeTitle="asin"
+            link={data.asin}
+            textStyles={styles.optionText}
+            iconStyles={styles.optionIcon}
+          />
+          <AsinOrSkuLink
+            withCopyValue
+            withAttributeTitle="sku"
+            link={data.skuByClient}
+            textStyles={styles.optionText}
+            iconStyles={styles.optionIcon}
+          />
         </div>
-
-        {data.marketPlaceCountry ? (
-          <div className={styles.flexContainer}>
-            <Avatar size={20} src={getAmazonImageUrl(data.marketPlaceCountry?.image)} />
-            <p>{data.marketPlaceCountry?.shortTitle}</p>
-          </div>
-        ) : null}
       </div>
-    </Space>
+
+      {data.marketPlaceCountry ? (
+        <div className={styles.flexContainer}>
+          <Avatar size={20} src={getAmazonImageUrl(data.marketPlaceCountry?.image)} />
+          <p>{data.marketPlaceCountry?.shortTitle}</p>
+        </div>
+      ) : null}
+    </div>
   )
 })
