@@ -17,8 +17,6 @@ import { checkIsPositiveNum, isNotUndefined } from '@utils/checks'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
-import '@typings/enums/button-style'
-
 import { useStyles } from './order-product-modal.style'
 
 import { SetFilesModal } from '../set-files-modal'
@@ -206,10 +204,9 @@ export const OrderProductModal = memo(props => {
             _id: null,
           },
 
-          destinationId: null,
-
-          storekeeperId: null,
-          logicsTariffId: null,
+          destinationId: product.mainTariffVariation?.destination._id || null,
+          storekeeperId: product.mainTariffVariation?.storekeeperTariffLogistics.storekeeperId || null,
+          logicsTariffId: product.mainTariffVariation?.storekeeperTariffLogistics._id || null,
           expressChinaDelivery: false,
           priority: '30',
           buyerId: product?.buyer?._id || null,

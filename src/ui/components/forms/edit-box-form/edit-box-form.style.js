@@ -189,6 +189,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'space-between',
     width: 660,
     overflow: 'hidden',
+    gap: '30px',
   },
 
   leftProductColumn: {
@@ -197,7 +198,7 @@ export const useStyles = makeStyles()(theme => ({
 
   amazonTitle: {
     display: '-webkit-box',
-    WebkitLineClamp: 3,
+    WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
     maxHeight: 65,
     whiteSpace: 'normal',
@@ -205,7 +206,6 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
 
-    width: '230px',
     marginBottom: '5px',
 
     color: theme.palette.text.general,
@@ -263,5 +263,18 @@ export const useStyles = makeStyles()(theme => ({
 
   containerTitleField: {
     marginBottom: '5px !important',
+  },
+
+  flexContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '20px',
+    marginTop: '10px',
+  },
+
+  marketPlaceWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
   },
 }))

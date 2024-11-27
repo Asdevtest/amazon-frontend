@@ -82,6 +82,18 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
     },
 
     {
+      field: 'marketPlaceCountry',
+      headerName: t(TranslationKey.Marketplace),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Marketplace)} />,
+      renderCell: params => <Text isCell text={params.row?.product?.marketPlaceCountry?.shortTitle} />,
+      valueGetter: ({ row }) => row?.product?.marketPlaceCountry?.shortTitle,
+      width: 100,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      table: DataGridFilterTables.PRODUCTS,
+    },
+
+    {
       field: 'priority',
       headerName: t(TranslationKey.Priority),
       renderHeader: () => <IconHeaderCell url={'/assets/icons/bookmark.svg'} />,
