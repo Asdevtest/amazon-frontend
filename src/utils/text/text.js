@@ -28,7 +28,12 @@ export const getModelNameWithotPostfix = modelName =>
 
 export const trimBarcode = value => (value && value.length >= 8 ? String(value.substr(-8)) : value)
 
-export const toFixed = (int, x = 2) => (int && typeof int === 'number' ? int.toFixed(x) : int)
+export const toFixed = (int, x = 2) => {
+  if (typeof int !== 'number') {
+    return int
+  }
+  return Number.isInteger(int) ? int : int.toFixed(x)
+}
 
 export const getFloatOrZero = str => (str ? parseFloat(str) || 0 : 0)
 

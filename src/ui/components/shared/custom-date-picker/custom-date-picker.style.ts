@@ -16,8 +16,8 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'row',
   },
 
-  datePicker: {
-    width: 240,
+  fullWidth: {
+    width: '100%',
   },
 
   label: {
