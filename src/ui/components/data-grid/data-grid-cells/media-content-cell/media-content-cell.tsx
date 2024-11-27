@@ -1,10 +1,9 @@
-import { Image } from 'antd'
-import { FC, memo, useMemo } from 'react'
+import { Image as AntdImage } from 'antd'
+import { FC, memo } from 'react'
 
-import { CustomImage } from '@components/shared/custom-image'
-import { renderPreviewContent, renderPreviewToolbar } from '@components/shared/custom-image/custom-image'
+import { CustomImage, renderPreviewContent, renderPreviewToolbar } from '@components/shared/custom-image'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { useImagesValidation } from '@hooks/use-image-validation'
 
 import { useStyles } from './media-content-cell.style'
 
@@ -19,11 +18,11 @@ export const MediaContentCell: FC<MediaContentCellProps> = memo(({ files }) => {
     return null
   }
 
-  const items = useMemo(() => files.map(file => getAmazonImageUrl(file, true)), [])
+  const items = useImagesValidation(files)
 
   return (
     <div className={styles.wrapper}>
-      <Image.PreviewGroup
+      <AntdImage.PreviewGroup
         items={items}
         preview={{
           destroyOnClose: true,
@@ -32,7 +31,7 @@ export const MediaContentCell: FC<MediaContentCellProps> = memo(({ files }) => {
         }}
       >
         <CustomImage width={48} height={48} src={files[0]} maskClassName={styles.mask} />
-      </Image.PreviewGroup>
+      </AntdImage.PreviewGroup>
     </div>
   )
 })
