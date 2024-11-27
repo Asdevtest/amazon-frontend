@@ -1,10 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { action, computed, makeObservable, observable, runInAction } from 'mobx'
+import { action, makeObservable, observable, runInAction } from 'mobx'
 
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
-
-import { loadingStatus } from '@typings/enums/loading-status'
 
 const observableConfig = {
   method: observable,
@@ -14,11 +11,9 @@ const observableConfig = {
   data: observable,
   meta: observable,
   hasMore: observable,
-  requestStatus: observable,
   searchValue: observable,
   filtersCount: observable,
-
-  loading: computed,
+  loading: observable,
 
   getData: action.bound,
   loadMoreData: action.bound,
@@ -57,13 +52,9 @@ export class InfiniteScrollModel<T, M = any> {
   options = DEFAULT_OPTIONS
   searchFields: string[] = []
   filterFields: string[] = []
-  requestStatus = loadingStatus.SUCCESS
   searchValue = ''
   filtersCount = 0
-
-  get loading() {
-    return this.requestStatus === loadingStatus.IS_LOADING
-  }
+  loading: boolean = false
 
   constructor({ method, options, searchFields = [], filterFields = [] }: InfiniteScrollModelProps) {
     this.method = method
@@ -74,40 +65,41 @@ export class InfiniteScrollModel<T, M = any> {
     makeObservable(this, observableConfig)
   }
 
-  private setLoadingState() {
-    this.requestStatus = loadingStatus.IS_LOADING
-  }
-  private setErrorState() {
-    this.requestStatus = loadingStatus.FAILED
-  }
-
   async getData() {
     if (!this.method) {
       return
     }
 
     try {
-      this.setLoadingState()
+      runInAction(() => {
+        this.loading = true
+      })
 
       const response = await this.method(this.options)
 
       runInAction(() => {
         this.data = response?.rows || response
         this.meta = response?.meta
-        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
-      this.setErrorState()
+      console.error(error)
+    } finally {
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 
   async loadMoreData() {
-    if (!this.method || !this.hasMore || this.requestStatus !== loadingStatus.SUCCESS) {
+    if (!this.method || !this.hasMore || this.loading) {
       return
     }
 
     try {
-      this.setLoadingState()
+      runInAction(() => {
+        this.loading = true
+      })
+
       this.options.offset += this.options.limit
 
       const response = await this.method(this.options)
@@ -119,18 +111,20 @@ export class InfiniteScrollModel<T, M = any> {
         if (dataToAdd?.length < this.options.limit) {
           this.hasMore = false
         }
-
-        this.requestStatus = loadingStatus.SUCCESS
       })
     } catch (error) {
-      this.setErrorState()
+      console.error(error)
+    } finally {
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 
   async onSearchSubmit(searchValue: string) {
     this.searchValue = searchValue.trim()
 
-    if (!this.method || this.requestStatus !== loadingStatus.SUCCESS) {
+    if (!this.method || this.loading) {
       return
     }
 
@@ -143,12 +137,12 @@ export class InfiniteScrollModel<T, M = any> {
 
       await this.getData()
     } catch (error) {
-      this.setErrorState()
+      console.error(error)
     }
   }
 
   async onFilterSubmit(filtersOtions: FilterOptionsType) {
-    if (!this.method || this.requestStatus !== loadingStatus.SUCCESS) {
+    if (!this.method || this.loading) {
       return
     }
 
@@ -167,7 +161,7 @@ export class InfiniteScrollModel<T, M = any> {
         this.filtersCount = new Set(Object.keys(filtersOtions)).size
       })
     } catch (error) {
-      this.setErrorState()
+      console.error(error)
     }
   }
 
