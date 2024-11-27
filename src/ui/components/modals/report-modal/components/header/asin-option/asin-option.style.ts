@@ -1,15 +1,23 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
-  optionContainer: {
+  optionWrapper: {
     display: 'flex',
-    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '10px',
+    width: '100%',
   },
 
-  optionImage: {
-    width: 28,
-    height: 28,
-    borderRadius: 8,
+  flexContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
+
+  asinContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100px',
   },
 
   optionText: {

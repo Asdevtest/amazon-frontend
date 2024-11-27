@@ -6,12 +6,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { OtherModel } from '@models/other-model'
+import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
 import { FeedbackStatus, FeedbackStatusConst } from '@typings/enums/feedback-status'
+import { Roles } from '@typings/enums/roles'
 import { IFeedback } from '@typings/models/administrators/feedback'
+import { IFullUser } from '@typings/shared/full-user'
 
 import { getStatusText } from '../feedback-view.config'
 
@@ -27,6 +30,9 @@ export class TicketFormModel {
   showMediaBlock = false
   uploadedFiles: string[] = []
 
+  get userInfo() {
+    return UserModel.userInfo as unknown as IFullUser
+  }
   get showResponseBlock() {
     return !!this.feedback?.responseText || !!this.feedback?.responseMedia?.length
   }
@@ -36,6 +42,9 @@ export class TicketFormModel {
       value: status,
       disabled: status === FeedbackStatus.CREATED,
     }))
+  }
+  get showUploadButton() {
+    return !this.showResponseBlock && !this.loading && this.userInfo?.role === Roles.ADMIN
   }
 
   constructor({ feedbackId, onUdateData, onClose }: TicketFormProps) {

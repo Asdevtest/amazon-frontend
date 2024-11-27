@@ -103,6 +103,17 @@ export const clientInventoryColumns = ({
     },
 
     {
+      field: 'marketPlaceCountry',
+      headerName: t(TranslationKey.Marketplace),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Marketplace)} />,
+      renderCell: params => <Text isCell text={params.row?.marketPlaceCountry?.shortTitle} />,
+      valueGetter: ({ row }) => row?.marketPlaceCountry?.shortTitle,
+      width: 100,
+      disableCustomSort: true,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+    },
+
+    {
       field: 'strategyStatus',
       headerName: t(TranslationKey.Strategy),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Strategy)} />,

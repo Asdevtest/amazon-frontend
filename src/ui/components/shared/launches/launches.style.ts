@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(() => ({
   },
 
   cell: {
-    padding: '10px 0',
+    padding: '5px 0',
   },
 
   text: {

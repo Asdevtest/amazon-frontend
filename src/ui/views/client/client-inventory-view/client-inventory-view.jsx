@@ -231,10 +231,10 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
       >
         <CheckPendingOrderForm
-          existingProducts={viewModel.existingProducts}
+          products={viewModel.existingProducts}
           onClickPandingOrder={viewModel.onClickPandingOrder}
-          onClickContinueBtn={viewModel.onClickContinueBtn}
-          onClickCancelBtn={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
+          onSubmit={viewModel.onClickContinueBtn}
+          onClose={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
         />
       </Modal>
 

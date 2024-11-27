@@ -43,6 +43,8 @@ export const TopCard = memo(
     navigateToProduct,
     unbindProductHandler,
     shops,
+    destinations,
+    storekeepers,
     modal,
     productBase,
     formFieldsValidationErrors,
@@ -137,6 +139,8 @@ export const TopCard = memo(
                 navigateToProduct={navigateToProduct}
                 unbindProductHandler={unbindProductHandler}
                 shops={shops}
+                destinations={destinations}
+                storekeepers={storekeepers}
                 productBase={productBase}
                 onTriggerOpenModal={onTriggerOpenModal}
                 onChangeField={onChangeField}
