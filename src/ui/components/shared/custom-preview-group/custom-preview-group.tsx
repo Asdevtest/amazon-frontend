@@ -1,16 +1,13 @@
 import { Image } from 'antd'
 import { FC, memo } from 'react'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-
-import { UploadFileType } from '@typings/shared/upload-file'
-
 import { useStyles } from './custom-preview-group.style'
 
 import { CustomImage } from '../custom-image'
+import { renderPreviewContent, renderPreviewToolbar } from '../custom-image/custom-image'
 
 interface CustomPreviewGroupProps {
-  data: UploadFileType[]
+  data: string[]
   size?: number
   gap?: number
   center?: boolean
@@ -29,15 +26,15 @@ export const CustomPreviewGroup: FC<CustomPreviewGroupProps> = memo(props => {
 
   return (
     <div className={cx(styles.root, { [styles.center]: center })} style={{ maxHeight: scrollableHeight, gap }}>
-      <Image.PreviewGroup>
+      <Image.PreviewGroup
+        preview={{
+          destroyOnClose: true,
+          imageRender: renderPreviewContent,
+          toolbarRender: renderPreviewToolbar,
+        }}
+      >
         {data.map((url, index) => (
-          <CustomImage
-            key={index}
-            width={size}
-            height={size}
-            src={getAmazonImageUrl(url, true)}
-            preview={!!url && { maskClassName: styles.mask }}
-          />
+          <CustomImage key={index} width={size} height={size} src={url} />
         ))}
       </Image.PreviewGroup>
     </div>

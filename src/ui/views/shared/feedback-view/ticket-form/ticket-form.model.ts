@@ -12,7 +12,6 @@ import { onSubmitPostImages } from '@utils/upload-files'
 
 import { FeedbackStatus, FeedbackStatusConst } from '@typings/enums/feedback-status'
 import { IFeedback } from '@typings/models/administrators/feedback'
-import { UploadFileType } from '@typings/shared/upload-file'
 
 import { getStatusText } from '../feedback-view.config'
 
@@ -20,7 +19,7 @@ import { TicketFormProps } from './ticket-form'
 
 export class TicketFormModel {
   feedback?: IFeedback
-  responseMedia: UploadFileType[] = []
+  responseMedia: string[] = []
   responseText = ''
   onUdateData?: VoidFunction
   onClose?: VoidFunction
@@ -121,7 +120,7 @@ export class TicketFormModel {
     this.responseText = e.target.value
   }
 
-  onChangeResponseMedia(media: UploadFileType[]) {
+  onChangeResponseMedia(media: string[]) {
     this.responseMedia = media
   }
 

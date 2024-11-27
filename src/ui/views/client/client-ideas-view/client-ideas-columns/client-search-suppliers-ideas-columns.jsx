@@ -23,7 +23,6 @@ import {
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { Text } from '@components/shared/text'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -141,9 +140,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Idea),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-      renderCell: params => (
-        <MediaContentCell file={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
-      ),
+      renderCell: params => <MediaContentCell files={params.row.linksToMediaFiles} />,
       width: 70,
       disableCustomSort: true,
       filterable: false,
