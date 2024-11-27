@@ -9,12 +9,12 @@ import { OtherModel } from '@models/other-model'
 import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 import { FeedbackStatus, FeedbackStatusConst } from '@typings/enums/feedback-status'
 import { Roles } from '@typings/enums/roles'
 import { IFeedback } from '@typings/models/administrators/feedback'
 import { IFullUser } from '@typings/shared/full-user'
-import { UploadFileType } from '@typings/shared/upload-file'
 
 import { getStatusText } from '../feedback-view.config'
 
@@ -22,12 +22,13 @@ import { TicketFormProps } from './ticket-form'
 
 export class TicketFormModel {
   feedback?: IFeedback
-  responseMedia: UploadFileType[] = []
+  responseMedia: string[] = []
   responseText = ''
   onUdateData?: VoidFunction
   onClose?: VoidFunction
   loading = false
   showMediaBlock = false
+  uploadedFiles: string[] = []
 
   get userInfo() {
     return UserModel.userInfo as unknown as IFullUser
@@ -101,9 +102,17 @@ export class TicketFormModel {
 
   async onSendReplyToFeedback() {
     try {
+      runInAction(() => (this.loading = true))
+      if (this.responseMedia?.length) {
+        // @ts-ignore
+        await onSubmitPostImages.call(this, {
+          images: this.responseMedia,
+          type: 'uploadedFiles',
+        })
+      }
       const data = {
         responseText: this.responseText,
-        responseMedia: await OtherModel.getFileUrls(this.responseMedia),
+        responseMedia: this.uploadedFiles,
       }
       await AdministratorModel.sendReplyToFeedback(this.feedback?._id, data)
       toast.success(t(TranslationKey['The response to the request has been successfully sent!']))
@@ -111,6 +120,8 @@ export class TicketFormModel {
       this.onUdateData?.()
     } catch (error) {
       toast.error(t(TranslationKey['There was an error sending the response to the request. Try again.']))
+    } finally {
+      runInAction(() => (this.loading = false))
     }
   }
 
@@ -118,7 +129,7 @@ export class TicketFormModel {
     this.responseText = e.target.value
   }
 
-  onChangeResponseMedia(media: UploadFileType[]) {
+  onChangeResponseMedia(media: string[]) {
     this.responseMedia = media
   }
 

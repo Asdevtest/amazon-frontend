@@ -71,7 +71,7 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
       field: 'images',
       headerName: t(TranslationKey.Photos),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Photos)} />,
-      renderCell: ({ value }) => <MediaContentCell image={value?.[0]} />,
+      renderCell: ({ value }) => <MediaContentCell files={value} />,
       width: 80,
 
       filterable: false,

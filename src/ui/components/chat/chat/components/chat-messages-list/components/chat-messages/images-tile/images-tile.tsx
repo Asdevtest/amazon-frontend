@@ -31,7 +31,7 @@ export const ImagesTile: FC<ImagesTileProps> = ({ images }) => {
         {images.slice(0, 6).map((el, index) => (
           <div key={index} className={styles.imageWrapper} onClick={() => handlePreview(index)}>
             {checkIsVideoLink(el) ? (
-              <VideoPreloader wrapperClassName={styles.image} videoSource={getAmazonImageUrl(el)} />
+              <VideoPreloader wrapperClassName={styles.image} videoSource={el} />
             ) : (
               <img
                 className={styles.image}

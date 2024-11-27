@@ -142,7 +142,7 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       field: 'media',
       headerName: t(TranslationKey['User files']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['User files'])} />,
-      renderCell: ({ row }: GridRowModel) => <MediaContentCell image={row.media?.[0]} isEmpty={!row.media.length} />,
+      renderCell: ({ row }: GridRowModel) => <MediaContentCell files={row.media} />,
       width: 90,
       filterable: false,
       disableCustomSort: true,
@@ -151,9 +151,7 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       field: 'responseMedia',
       headerName: t(TranslationKey['Response files']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Response files'])} />,
-      renderCell: ({ row }: GridRowModel) => (
-        <MediaContentCell image={row.responseMedia?.[0]} isEmpty={!row.responseMedia.length} />
-      ),
+      renderCell: ({ row }: GridRowModel) => <MediaContentCell files={row.responseMedia} />,
       width: 90,
       filterable: false,
       disableCustomSort: true,

@@ -112,6 +112,7 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
 
       <div className={styles.flexRow}>
         <CustomButton
+          disabled={loading}
           type={showMediaBlock ? 'primary' : 'default'}
           icon={<MdOutlineAttachFile />}
           onClick={() => setShowMediaBlock(!showMediaBlock)}
@@ -119,12 +120,14 @@ export const ContentEditorForm: FC<ContentEditorFormProps> = memo(props => {
 
         <div className={styles.flexRow}>
           <Form.Item<EditorFormFieldData> shouldUpdate>
-            <CustomButton type="primary" htmlType="submit" loading={loading} disabled={loading}>
+            <CustomButton type="primary" htmlType="submit" loading={loading}>
               {t(TranslationKey[data ? 'Save' : 'Create'])}
             </CustomButton>
           </Form.Item>
 
-          <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
+          <CustomButton disabled={loading} onClick={onClose}>
+            {t(TranslationKey.Close)}
+          </CustomButton>
         </div>
       </div>
     </Form>
