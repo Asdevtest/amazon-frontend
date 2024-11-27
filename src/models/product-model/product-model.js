@@ -9,7 +9,7 @@ class ProductModelStatic {
   addSuppliersToProduct = async (guid, supplier) => {
     const response = await restApiService.product.apiV1ProductsAddSuppliersGuidPost({
       guid,
-      body: { suppliersIds: supplier },
+      body: { supplierCardIds: supplier },
     })
     return response.data
   }

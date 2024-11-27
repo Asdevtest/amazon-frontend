@@ -288,57 +288,13 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn(supplierCardId) {
     try {
-      supplier = {
-        ...supplier,
-        amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        heightUnit: supplier?.heightUnit || null,
-        widthUnit: supplier?.widthUnit || null,
-        lengthUnit: supplier?.lengthUnit || null,
-        weighUnit: supplier?.weighUnit || null,
-        minlot: parseInt(supplier?.minlot) || '',
-        price: parseFloat(supplier?.price) || '',
+      if (supplierCardId) {
+        await ProductModel.addSuppliersToProduct(this.productId, [supplierCardId])
       }
 
-      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        images: this.readyImages,
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        imageUnit: this.readyImages,
-      }
-
-      if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
-          supplier,
-          patchSuppliers,
-          undefined,
-          undefined,
-          true,
-        )
-
-        await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
-
-        if (supplier._id === this.product.currentSupplierId) {
-          runInAction(() => {
-            this.product.currentSupplier = supplier
-            updateProductAutoCalculatedFields.call(this)
-          })
-        }
-      } else {
-        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
-        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-
-        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
-      }
-
-      this.onSaveForceProductData()
+      this.loadData()
     } catch (error) {
       console.error(error)
     }

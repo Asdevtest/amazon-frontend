@@ -47,6 +47,7 @@ export const fieldsOfProductAllowedToUpdate = [
   'minpurchase',
   'fbaamount',
   'strategyStatus',
+  'currentSupplierCardId',
   'currentSupplierId',
   'asin',
   'clientComment',

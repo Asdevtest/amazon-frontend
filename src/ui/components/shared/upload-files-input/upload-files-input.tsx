@@ -79,7 +79,7 @@ export const UploadFilesInput: FC<UploadFilesInputProps> = memo(props => {
         {!withoutActionsButtons ? (
           <Buttons
             quantity={files.length}
-            disabled={files.length === 0}
+            disabled={disabled || files.length === 0}
             showImages={showImages}
             maxNumber={maxNumber}
             onShowImages={onShowImages}

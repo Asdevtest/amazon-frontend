@@ -35,6 +35,7 @@ export class ListSuppliersModel {
 
   supplierModalReadOnly = false
   showAddOrEditSupplierModal = false
+  showAddSupplierProductModal = false
   showSupplierApproximateCalculationsModal = false
   showConfirmModal = false
 
@@ -163,25 +164,29 @@ export class ListSuppliersModel {
 
         this.onToggleModal(ModalNames.SUPPLIER)
         break
+      case ModalModes.ADD_SUPPLIER_CARD:
+        this.onToggleModal(ModalNames.SUPPLIER_CARD)
+        break
       case ModalModes.VIEW:
         runInAction(() => {
           this.supplierModalReadOnly = true
         })
 
-        this.onToggleModal(ModalNames.SUPPLIER)
+        this.onToggleModal(ModalNames.SUPPLIER_CARD)
         break
       case ModalModes.EDIT:
         runInAction(() => {
           this.supplierModalReadOnly = false
         })
 
-        this.onToggleModal(ModalNames.SUPPLIER)
+        this.onToggleModal(ModalNames.SUPPLIER_CARD)
         break
       case ModalModes.ACCEPT:
         runInAction(() => {
           if (this.currentSupplier && this.product) {
-            this.product.currentSupplierId = this.currentSupplier?._id
             this.product.currentSupplier = this.currentSupplier
+            this.product.currentSupplierId = this.currentSupplier?.supplier?._id
+            this.product.currentSupplierCardId = this.currentSupplier?._id
           }
         })
 

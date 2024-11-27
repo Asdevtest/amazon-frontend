@@ -1,9 +1,5 @@
 import { Rule } from 'antd/es/form'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
-import { t } from '@utils/translations'
-
 export const getUnitRules = (): Rule[] => [
   ({ getFieldsValue }) => ({
     validator(_, value) {
@@ -14,7 +10,7 @@ export const getUnitRules = (): Rule[] => [
       const isSomeUnitFilled = lengthUnit || widthUnit || heightUnit || weighUnit
 
       if (isSomeUnitFilled && !value) {
-        return Promise.reject(t(TranslationKey['Fill in the field']))
+        return Promise.reject('')
       }
 
       return Promise.resolve()

@@ -14,6 +14,7 @@ export interface IProduct {
   currentSupplier?: ISupplier // remove after back update
   currentSupplierCard?: ISupplier
   currentSupplierId: string | null
+  currentSupplierCardId: string | null
   parentProductId: string
   hasChildren: boolean
   category: string

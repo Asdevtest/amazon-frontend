@@ -20,6 +20,7 @@ interface IBoxDimentionsProps {
   form: FormInstance<ICreateSupplierProductModal>
   unitImages: UploadFileType[]
   volumeWeightCoefficient: number
+  disabled?: boolean
   handleUploadUnitFiles: (images: UploadFileType[]) => void
 }
 
@@ -27,7 +28,7 @@ export const BoxDimentions: FC<IBoxDimentionsProps> = memo(props => {
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
-  const { form, volumeWeightCoefficient, unitImages, handleUploadUnitFiles } = props
+  const { disabled, form, volumeWeightCoefficient, unitImages, handleUploadUnitFiles } = props
 
   const {
     boxInfoVolumeWeight,
@@ -87,6 +88,7 @@ export const BoxDimentions: FC<IBoxDimentionsProps> = memo(props => {
           rules={getUnitImagesRules()}
         >
           <UploadFilesInput
+            disabled={disabled}
             wrapperClassName={sharedStyles.uploadFilesInputWrapper}
             dragAndDropButtonHeight={50}
             images={unitImages}
