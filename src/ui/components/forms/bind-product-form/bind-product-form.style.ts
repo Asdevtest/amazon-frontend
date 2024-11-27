@@ -38,19 +38,6 @@ export const useStyles = makeStyles()(() => ({
     overflowY: 'auto',
   },
 
-  searchSelectCustomSubMainWrapper: {
-    width: '300px !important',
-  },
-
-  searchSelectCustomItemsWrapper: {
-    maxHeight: '300px !important',
-  },
-
-  searchSelectCustomSearchInput: {
-    height: 30,
-    marginBottom: 20,
-  },
-
   buttonsWrapper: {
     display: 'flex',
     justifyContent: 'center',

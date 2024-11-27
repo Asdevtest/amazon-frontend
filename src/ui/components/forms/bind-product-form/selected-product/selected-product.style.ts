@@ -14,6 +14,7 @@ export const useStyles = makeStyles()(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    maxWidth: '300px',
   },
 
   asin: {
