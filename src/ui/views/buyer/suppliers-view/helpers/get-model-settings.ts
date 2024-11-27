@@ -13,7 +13,6 @@ import { getValueMethod } from './get-value-method'
 export const getModelSettings = (activeTable: TableView, handlers: IHandlers) => {
   const getMainDataMethod = getValueMethod(activeTable)
   const mainMethodURL = getMainMethodUrl(activeTable)
-  // @ts-ignore
   const columnsModel = getTableColumns(activeTable)(handlers)
   const additionalFiltersFields = getAdditionalFiltersFields(activeTable)
   const tableKey = getTableKey(activeTable)

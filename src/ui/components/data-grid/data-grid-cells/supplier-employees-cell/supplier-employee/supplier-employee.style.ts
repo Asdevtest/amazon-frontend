@@ -7,6 +7,7 @@ export const useStyles = makeStyles()(() => ({
     gap: '5px',
     padding: '5px',
     overflow: 'hidden',
+    minHeight: '55px',
   },
 
   contacts: {

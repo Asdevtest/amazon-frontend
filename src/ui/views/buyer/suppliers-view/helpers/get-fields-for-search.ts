@@ -3,8 +3,8 @@ import { TableView } from '../suppliers-view.type'
 export const getFieldsForSearch = (activeTable: TableView) => {
   switch (activeTable) {
     case TableView.SUPLLIERS:
-      return ['name']
+      return ['companyName', 'xid']
     case TableView.CARDS:
-      return ['name']
+      return ['cardName', 'xid']
   }
 }

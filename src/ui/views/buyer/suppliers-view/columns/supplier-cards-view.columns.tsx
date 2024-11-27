@@ -21,9 +21,10 @@ import { t } from '@utils/translations'
 import { SupplierCardStatus } from '@typings/models/suppliers/supplier-card'
 import { IGridColumn } from '@typings/shared/grid-column'
 
-import { IHandlersCards } from '../suppliers-view.type'
+import { getStatusColor } from '../helpers/get-status-color'
+import { IHandlers } from '../suppliers-view.type'
 
-export const supplierCardsViewColumns = (handlers: IHandlersCards) => {
+export const supplierCardsViewColumns = (handlers: IHandlers) => {
   const columns: IGridColumn[] = [
     {
       field: 'xid',
@@ -38,7 +39,13 @@ export const supplierCardsViewColumns = (handlers: IHandlersCards) => {
       field: 'status',
       headerName: t(TranslationKey.Status),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Status)} />,
-      renderCell: ({ value }) => <Text isCell text={value ? convertToSentenceCase(value) : ''} />,
+      renderCell: ({ value }) => (
+        <Text
+          isCell
+          color={getStatusColor(Number(SupplierCardStatus[value]))}
+          text={value ? convertToSentenceCase(value) : ''}
+        />
+      ),
       valueGetter: ({ row }) => SupplierCardStatus[row?.status],
       transformValueMethod: (value: number) => convertToSentenceCase(SupplierCardStatus[value]),
       width: 150,
@@ -108,7 +115,7 @@ export const supplierCardsViewColumns = (handlers: IHandlersCards) => {
       headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: ({ value }) => <Text isCell text={value} />,
-      valueGetter: ({ row }) => `${row.minProductionTerm} - ${row.maxProductionTerm}`,
+      valueGetter: ({ row }) => `${row.minProductionTerm || 0} - ${row.maxProductionTerm || 0}`,
       width: 150,
 
       fields: [

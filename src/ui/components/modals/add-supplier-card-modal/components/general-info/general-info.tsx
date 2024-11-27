@@ -65,6 +65,7 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
               options={suppliers}
               fieldNames={{ label: 'companyName', value: '_id' }}
               onSearch={throttledSearch}
+              onClear={() => searchSuppliers('')}
               onPopupScroll={(event: UIEvent<HTMLElement>) => {
                 const isEndScroll =
                   event.currentTarget.scrollHeight - event.currentTarget.scrollTop === event.currentTarget.clientHeight

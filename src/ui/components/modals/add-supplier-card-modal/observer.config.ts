@@ -19,4 +19,5 @@ export const observerConfig = {
   createSupplierCard: action.bound,
   editSupplierCard: action.bound,
   uploadFiles: action.bound,
+  changeSupplierCardStatus: action.bound,
 }
