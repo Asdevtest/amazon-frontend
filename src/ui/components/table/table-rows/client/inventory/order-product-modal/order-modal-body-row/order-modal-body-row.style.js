@@ -1,52 +1,8 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  img: {
-    height: '64px',
-    width: '64px',
-    borderRadius: '2px',
-    verticalAlign: 'middle',
-    margin: '0 16px',
-    objectFit: 'contain',
-    objectPosition: 'center',
-  },
-
-  barcodeChip: {
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
-    fontSize: '14px',
-    width: '90px',
-    borderRadius: '7px',
-    height: '36px',
-  },
-  barcodeChipHover: {
-    '&:hover, &:focus': {
-      backgroundColor: theme.palette.primary.main,
-    },
-  },
-  barcodeChipIcon: {
-    color: 'rgba(255,255,255,0.26)',
-    '&:hover, &:focus': {
-      color: 'rgba(255,255,255,0.46)',
-    },
-  },
-  barcodeChipExists: {
-    backgroundcolor: theme.palette.text.general,
-  },
-  amountCell: {
-    width: '90px',
-  },
-
   noCurrentSupplier: {
     boxShadow: 'inset 0 0 15px rgba(255, 79, 7, .8)',
-  },
-
-  noCurrentSupplierText: {
-    color: 'red',
-  },
-
-  datePickerWrapper: {
-    width: '100%',
   },
 
   commentInput: {
@@ -59,39 +15,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: '0 10px',
     fontSize: 16,
     lineHeight: '20px',
-  },
-
-  amazonTitle: {
-    display: '-webkit-box',
-    WebkitLineClamp: 1,
-    WebkitBoxOrient: 'vertical',
-    maxHeight: 65,
-    whiteSpace: 'normal',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    width: '100%',
-    marginBottom: '5px',
-    color: theme.palette.text.general,
-  },
-
-  standartText: {
-    color: theme.palette.text.general,
-  },
-
-  button: {
-    height: '40px',
-    width: '130px',
-    flexDirection: 'column',
-    margin: '0px',
-
-    p: {
-      fontSize: 12,
-      color: 'currentcolor',
-      width: '100%',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-    },
   },
 
   row: {
@@ -128,14 +51,6 @@ export const useStyles = makeStyles()(theme => ({
     width: 'auto',
   },
 
-  containerFieldCell: {
-    '> p': {
-      position: 'absolute',
-      bottom: 0,
-      transform: 'translateY(100%)',
-    },
-  },
-
   labelField: {
     fontSize: '14px',
     color: theme.palette.text.general,
@@ -156,17 +71,13 @@ export const useStyles = makeStyles()(theme => ({
   cell: {
     padding: '0 5px',
   },
+
   productCell: {
     maxWidth: 260,
   },
+
   deleteCell: {
     padding: '0',
-  },
-  error: {
-    lineHeight: 0,
-    fontSize: 12,
-    color: '#FF1616',
-    marginTop: 12,
   },
 
   errorSpace: {
@@ -185,10 +96,6 @@ export const useStyles = makeStyles()(theme => ({
     fontSize: '12px',
   },
 
-  calculationButton: {
-    minWidth: '225px !important',
-  },
-
   buttonWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -199,9 +106,23 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   warningText: {
-    textAlign: 'center',
     fontSize: '12px',
-    fontWeight: 400,
     color: theme.palette.text.red,
+  },
+
+  textSuccess: {
+    fontSize: '12px',
+    color: theme.palette.text.green,
+  },
+
+  inputQuantity: {
+    '.ant-input-suffix >*:not(:last-child)': {
+      marginRight: '5px',
+    },
+  },
+
+  flexEnd: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }))

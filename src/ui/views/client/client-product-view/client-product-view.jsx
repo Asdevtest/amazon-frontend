@@ -41,6 +41,8 @@ export const ClientProductView = observer(({ history }) => {
           navigateToProduct={viewModel.navigateToProduct}
           unbindProductHandler={viewModel.unbindProductHandler}
           shops={viewModel.shopsData}
+          destinations={viewModel.destinations}
+          storekeepers={viewModel.storekeepers}
           showBindProductModal={viewModel.showBindProductModal}
           productsToBind={useProductsPermissions.currentPermissionsData}
           actionStatus={viewModel.requestStatus}

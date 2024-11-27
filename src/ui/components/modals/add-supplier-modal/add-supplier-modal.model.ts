@@ -1,6 +1,7 @@
 import { makeObservable, runInAction } from 'mobx'
 
 import { DefaultModel } from '@models/default-model'
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { OtherModel } from '@models/other-model'
 import { SupplierModel } from '@models/supplier-model'
 import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
@@ -9,6 +10,8 @@ import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { isString } from '@typings/guards'
+import { SupplierCardStatus } from '@typings/models/suppliers/supplier-card'
+import { ISupplierCard } from '@typings/models/suppliers/supplier-exchange'
 import { ICountry } from '@typings/shared/country'
 import { IPaymentMethod } from '@typings/shared/payment-method'
 import { UploadFileType } from '@typings/shared/upload-file'
@@ -20,10 +23,20 @@ export class AddSupplierModalModel extends DefaultModel {
   countries: ICountry[] = []
   paymentMethods: IPaymentMethod[] = []
 
+  productsInfinityModel?: InfiniteScrollModel<ISupplierCard>
+
+  productsRequestStatus: loadingStatus = loadingStatus.SUCCESS
   countriesRequestStatus: loadingStatus = loadingStatus.SUCCESS
   paymentMethodsRequestStatus: loadingStatus = loadingStatus.SUCCESS
 
   images: UploadFileType[] = []
+
+  showImportTemplateModal = false
+  showAddSupplierProductModal = false
+
+  get productIsloading() {
+    return this.productsRequestStatus === loadingStatus.IS_LOADING
+  }
 
   constructor(supplierId?: string) {
     const defaultGetCurrentDataOptions = () => supplierId
@@ -39,7 +52,12 @@ export class AddSupplierModalModel extends DefaultModel {
     this.getSuppliersPaymentMethods()
 
     if (supplierId) {
+      this.productsInfinityModel = new InfiniteScrollModel({
+        method: SupplierV2Model.getSupplierCards,
+        options: { guid: supplierId },
+      })
       this.getCurrentData()
+      this.productsInfinityModel?.getData()
     }
   }
 
@@ -110,7 +128,9 @@ export class AddSupplierModalModel extends DefaultModel {
 
       const data: PostSupplier = { ...value, images }
 
-      SupplierV2Model?.createSupplier(data)
+      const result = await SupplierV2Model?.createSupplier(data)
+
+      return result.guid
     } catch (error) {
       console.error(error)
     }
@@ -123,6 +143,8 @@ export class AddSupplierModalModel extends DefaultModel {
       const data: PostSupplier = { ...value, images }
 
       SupplierV2Model?.editSupplier(supplierId, data)
+
+      return supplierId
     } catch (error) {
       console.error(error)
     }
@@ -132,5 +154,45 @@ export class AddSupplierModalModel extends DefaultModel {
     runInAction(() => {
       this.images = images
     })
+  }
+
+  onOpenImportTemplateModal() {
+    this.onTriggerOpenModal('showImportTemplateModal', true)
+  }
+  onCloseImportTemplateModal() {
+    this.onTriggerOpenModal('showImportTemplateModal', false)
+  }
+
+  async onImportProducts() {
+    try {
+      if (!this.productsInfinityModel) {
+        return
+      }
+
+      this.productsInfinityModel.hasMore = true
+      this.productsInfinityModel?.setOptions({ offset: 0 })
+      await this.productsInfinityModel?.getData()
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  onOpenAddSupplierProductModal() {
+    this.onTriggerOpenModal('showAddSupplierProductModal', true)
+  }
+  onCloseAddSupplierProductModal() {
+    this.onTriggerOpenModal('showAddSupplierProductModal', false)
+  }
+
+  async changeSupplierStatus(supplierId: string, status: SupplierCardStatus) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      SupplierV2Model.patchSupplierStatus(supplierId, { status })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    }
   }
 }

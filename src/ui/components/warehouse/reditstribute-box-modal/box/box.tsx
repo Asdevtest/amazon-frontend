@@ -182,6 +182,7 @@ export const Box: FC<BoxProps> = memo(props => {
                     {isNewBox ? (
                       <CustomButton
                         disabled={!isNewBox}
+                        className={styles.tariffButton}
                         onClick={() =>
                           setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)
                         }

@@ -4,7 +4,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { MultilineTextHeaderCell, NormDateCell, UserCell } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
-import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -113,7 +112,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Units expected',
       renderHeader: () => <MultilineTextHeaderCell text="Units expected" />,
 
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },
@@ -123,7 +122,7 @@ export const inventoryShipmentsColumns = () => {
       headerName: 'Units received',
       renderHeader: () => <MultilineTextHeaderCell text="Units received" />,
 
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={params.value} />,
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },

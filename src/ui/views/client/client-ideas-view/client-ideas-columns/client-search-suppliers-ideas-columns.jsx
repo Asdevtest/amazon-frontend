@@ -23,7 +23,6 @@ import {
 import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { Text } from '@components/shared/text'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -109,7 +108,9 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           showSecond
           secondDanger
           firstContent={t(TranslationKey.Accept)}
-          firstDisabled={params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
+          firstDisabled={
+            params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND] || !params.row.supplierCards[0]?.supplier
+          }
           secondContent={t(TranslationKey.Reject)}
           onClickFirst={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row)}
           onClickSecond={() => rowHandlers.onClickReject(params.row._id)}
@@ -139,9 +140,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Idea),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-      renderCell: params => (
-        <MediaContentCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
-      ),
+      renderCell: params => <MediaContentCell files={params.row.linksToMediaFiles} />,
       width: 70,
       disableCustomSort: true,
       filterable: false,
@@ -175,10 +174,10 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           return <Text isCell text="" />
         }
 
-        return suppliers[0].link ? (
+        return suppliers[0]?.supplier?.link ? (
           <LinkWithCopy
-            url={checkAndMakeAbsoluteUrl(suppliers[0].link)}
-            valueToCopy={suppliers[0].link}
+            url={checkAndMakeAbsoluteUrl(suppliers[0]?.supplier?.link)}
+            valueToCopy={suppliers[0]?.supplier?.link}
             title={t(TranslationKey.Site)}
           />
         ) : (

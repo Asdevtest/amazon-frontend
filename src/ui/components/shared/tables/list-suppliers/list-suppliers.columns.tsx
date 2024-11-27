@@ -32,11 +32,11 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
     renderCell: ({ row }: GridRowModel) => (
       <SupplierWithIconsCell
-        supplierName={row.cardName}
+        supplierName={row.supplier?.companyName}
         orderCreatedAt={orderCreatedAt}
         orderSupplierId={orderSupplierId}
         supplierCreatedAt={row.createdAt}
-        supplierId={row.supplier._id}
+        supplierId={row.supplier?._id}
         supplierMultiplicity={row.multiplicity}
         supplierAmountInBox={row.boxProperties?.amountInBox}
       />
@@ -52,9 +52,9 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     renderCell: ({ row }: GridRowModel) =>
       row.link !== ACCESS_DENIED ? (
         <LinkWithCopy
-          url={checkAndMakeAbsoluteUrl(row.link)}
+          url={checkAndMakeAbsoluteUrl(row.supplier?.link)}
           title={t(TranslationKey['Go to supplier site'])}
-          valueToCopy={checkAndMakeAbsoluteUrl(row.link)}
+          valueToCopy={checkAndMakeAbsoluteUrl(row.supplier?.link)}
         />
       ) : (
         <Text isCell text={t(TranslationKey['Link not available'])} />
@@ -106,10 +106,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     field: 'priceVariations',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price variations'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <PriceVariationsCell
-        variations={row.supplier.priceVariations}
-        yuanToDollarRate={platformSettings?.yuanToDollarRate}
-      />
+      <PriceVariationsCell variations={row.priceVariations} yuanToDollarRate={platformSettings?.yuanToDollarRate} />
     ),
     filterable: false,
     sortable: false,
@@ -120,7 +117,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'paymentMethods',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Payment methods'])} />,
-    renderCell: ({ row }: GridRowModel) => <PaymentMethods isCell paymentMethods={row.supplier.paymentMethods} />,
+    renderCell: ({ row }: GridRowModel) => <PaymentMethods isCell paymentMethods={row.supplier?.paymentMethods} />,
     filterable: false,
     sortable: false,
     width: 125,
@@ -140,7 +137,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'comment',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.comment} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.supplier?.comment} />,
     filterable: false,
     sortable: false,
     width: 195,

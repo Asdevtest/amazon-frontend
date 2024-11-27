@@ -1,4 +1,5 @@
 import { memo, useState } from 'react'
+import { FaStar } from 'react-icons/fa'
 import { FiPlus } from 'react-icons/fi'
 import { MdOutlineEdit } from 'react-icons/md'
 
@@ -15,6 +16,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserCell } from '@components/data-grid/data-grid-cells'
 import { EditProductTags } from '@components/modals/edit-product-tags-modal'
+import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
@@ -26,6 +28,8 @@ import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { DownloadRoundIcon, EditIcon } from '@components/shared/svg-icons'
 import { TagList } from '@components/shared/tag-list'
 
+import { CountrySelect } from '@views/shared/country-select/country-select'
+
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { checkAndMakeAbsoluteUrl } from '@utils/text'
@@ -33,6 +37,10 @@ import { t } from '@utils/translations'
 import { downloadFileByLink } from '@utils/upload-files'
 
 import '@typings/enums/button-style'
+import { TariffModal } from '@typings/enums/tariff-modal'
+
+import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
+import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './fields-and-suppliers.style'
 
@@ -57,6 +65,8 @@ export const FieldsAndSuppliers = memo(props => {
     productBase,
     formFieldsValidationErrors,
     shops,
+    destinations,
+    storekeepers,
     onTriggerOpenModal,
     onClickHsCode,
     onClickParseProductData,
@@ -66,9 +76,32 @@ export const FieldsAndSuppliers = memo(props => {
 
   const [edit, setEdit] = useState(true)
   const [showEditProductTagsModal, setShowEditProductTagsModal] = useState(false)
+  const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
+  const [currentTariff, setCurrentTatiff] = useState(product?.mainTariffVariation?.storekeeperTariffLogistics?.name)
 
   const onChangeShop = shopId => {
     onChangeField?.('shopId')({ target: { value: shopId } })
+  }
+
+  const onChangeMarketPlace = marketplace => {
+    onChangeField?.('marketPlaceCountryId')({ target: { value: marketplace._id } })
+  }
+
+  const onChangeTariff = tariff => {
+    onChangeField?.('mainTariffVariationId')({ target: { value: tariff.variationTariffId } })
+    setCurrentTatiff(tariff)
+    setShowSelectionStorekeeperAndTariffModal(false)
+    if (tariff && storekeepers.length) {
+      const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+        destinations,
+        storekeepers,
+        tariff.destinationId,
+        tariff.storekeeperId,
+        tariff.logicsTariffId,
+        tariff.variationTariffId,
+      )
+      setCurrentTatiff(tariffName)
+    }
   }
 
   const isEditRedFlags =
@@ -520,13 +553,14 @@ export const FieldsAndSuppliers = memo(props => {
           </div>
 
           {(checkIsClient(curUserRole) || checkIsBuyer(curUserRole)) && (
-            <CustomCheckbox
-              disabled={checkIsBuyer(curUserRole)}
-              checked={product?.transparency}
-              onChange={e => onChangeField?.('transparency')(e.target.checked)}
-            >
-              Transparency Codes
-            </CustomCheckbox>
+            <div className={styles.flexWrap}>
+              <CustomCheckbox
+                disabled={checkIsBuyer(curUserRole)}
+                checked={product?.transparency}
+                onChange={e => onChangeField?.('transparency')(e.target.checked)}
+              />
+              <p>Transparency Codes</p>
+            </div>
           )}
         </div>
       </Box>
@@ -577,6 +611,24 @@ export const FieldsAndSuppliers = memo(props => {
               />
             }
           />
+
+          <CountrySelect
+            labelClassName={styles.spanLabelSmall}
+            defaultCountry={product.marketPlaceCountry}
+            onChangeData={onChangeMarketPlace}
+          />
+
+          <div className={styles.tariffWrapper}>
+            <div className={styles.tariffLabel}>
+              <FaStar /> <p className={styles.spanLabelSmall}>{t(TranslationKey['Favorite tariff'])}</p>
+            </div>
+            <CustomButton
+              type={currentTariff ? 'default' : 'primary'}
+              onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+            >
+              {currentTariff ? currentTariff : t(TranslationKey.Choose)}
+            </CustomButton>
+          </div>
         </div>
       ) : null}
 
@@ -586,6 +638,17 @@ export const FieldsAndSuppliers = memo(props => {
           setOpenModal={() => setShowEditProductTagsModal(false)}
           productId={product?._id}
           handleUpdateRow={tags => onChangeField?.('tags')({ target: { value: tags } })}
+        />
+      ) : null}
+
+      {showSelectionStorekeeperAndTariffModal ? (
+        <SupplierApproximateCalculationsModal
+          isTariffsSelect
+          isGetAllStorekeepers
+          tariffModalType={TariffModal.TARIFFS}
+          openModal={showSelectionStorekeeperAndTariffModal}
+          setOpenModal={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
+          onClickSubmit={onChangeTariff}
         />
       ) : null}
     </Grid>

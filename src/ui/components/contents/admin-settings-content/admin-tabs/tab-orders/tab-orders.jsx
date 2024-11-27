@@ -38,6 +38,14 @@ export const TabOrders = memo(props => {
         error={formFields.orderAmountLimit === ''}
         onChange={e => onChangeField(fieldNameObject.orderAmountLimit, e)}
       />
+      <Field
+        label={t(TranslationKey['Time reserv, d.'])}
+        labelClasses={styles.label}
+        classes={{ root: styles.textField, inputClasses: styles.input }}
+        value={formFields.reserveTimeForOrder}
+        error={formFields.reserveTimeForOrder === ''}
+        onChange={e => onChangeField(fieldNameObject.reserveTimeForOrder, e)}
+      />
       <CustomButton type="primary" size="large" disabled={disabledSubmit} onClick={onSubmit}>
         {t(TranslationKey.Save)}
       </CustomButton>

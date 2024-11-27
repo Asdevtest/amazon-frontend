@@ -43,7 +43,7 @@ export const SupplierCard: FC<SupplierCardProps> = memo(props => {
           totalCountFeedback={supplier?.totalCountFeedback}
         />
 
-        <Text copyable={false} text={supplier?.comment || ''} rows={commentRows} />
+        <Text collapsible={!showViewMore} copyable={false} text={supplier?.comment || ''} rows={commentRows} />
 
         {showViewMore ? (
           <CustomButton ghost type="primary" className={styles.viewMore} onClick={handleViewMore}>

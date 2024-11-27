@@ -1,4 +1,5 @@
 import { GiCardExchange } from 'react-icons/gi'
+import { IoFileTrayFull } from 'react-icons/io5'
 
 import { UserRole } from '@constants/keys/user-roles'
 
@@ -428,7 +429,10 @@ export const navbarConfig = {
       route: '/client/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.client.SHOW_FEEDBACK_CLIENT) ||
+        user?.permissions?.some(item => item === permissionsKeys.client.SHOW_FEEDBACK_CLIENT),
     },
     {
       icon: MessageIcon,
@@ -482,7 +486,10 @@ export const navbarConfig = {
       route: '/researcher/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.researcher.SHOW_FEEDBACK_RESEARCHER) ||
+        user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_FEEDBACK_RESEARCHER),
     },
     {
       icon: MessageIcon,
@@ -592,7 +599,10 @@ export const navbarConfig = {
       route: '/freelancer/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.freelancer.SHOW_FEEDBACK_FREELANCER) ||
+        user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FEEDBACK_FREELANCER),
     },
     {
       icon: MessageIcon,
@@ -726,7 +736,10 @@ export const navbarConfig = {
       route: '/supervisor/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.supervisor.SHOW_FEEDBACK_SUPERVISOR) ||
+        user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_FEEDBACK_SUPERVISOR),
     },
     {
       icon: MessageIcon,
@@ -775,7 +788,7 @@ export const navbarConfig = {
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PENDING_ORDERS_BUYER),
     },
     {
-      icon: ClockIcon,
+      icon: IoFileTrayFull,
       title: () => t(TranslationKey.Suppliers),
       route: '/buyer/suppliers',
       subtitles: null,
@@ -965,7 +978,10 @@ export const navbarConfig = {
       route: '/buyer/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_FEEDBACK_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_FEEDBACK_BUYER),
     },
     {
       icon: MessageIcon,
@@ -1116,7 +1132,10 @@ export const navbarConfig = {
       route: '/warehouse/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
-      checkHideBlock: () => true,
+      checkHideBlock: user =>
+        !isHaveMasterUser(user) ||
+        checkGroupPermissions(permissionsKeys.storekeeper.SHOW_FEEDBACK_STOREKEEPER) ||
+        user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_FEEDBACK_STOREKEEPER),
     },
     {
       icon: MessageIcon,

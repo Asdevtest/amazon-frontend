@@ -1,6 +1,8 @@
 import { FC, memo } from 'react'
 import { MdPlayCircle } from 'react-icons/md'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+
 import { useStyles } from './video-preloader.style'
 
 import { VideoPlayer } from '../video-player/video-player'
@@ -30,7 +32,7 @@ export const VideoPreloader: FC<VideoPreloaderProps> = memo(props => {
 
   return (
     <div className={cx(styles.wrapper, wrapperClassName)} onClick={onClick}>
-      <VideoPlayer preloader videoSource={videoSource} />
+      <VideoPlayer preloader videoSource={getAmazonImageUrl(videoSource)} />
       <div className={cx(styles.preloader, preloaderClassName)}>
         <MdPlayCircle size={24} className={cx(styles.preloaderIcon, iconPlayClassName)} />
       </div>

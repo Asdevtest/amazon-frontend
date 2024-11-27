@@ -421,7 +421,7 @@ export const SelectFields = ({
               checked={orderFields.partialPayment}
               onChange={() => setOrderField('partialPayment')({ target: { value: !orderFields.partialPayment } })}
             >
-              partialPayment
+              Partial payment
             </CustomCheckbox>
 
             <div className={styles.partialPaymentFields}>

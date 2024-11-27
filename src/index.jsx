@@ -8,6 +8,7 @@ import { reportWebVitals } from '@utils/report-web-vitals'
 
 import { App } from './app'
 import './config/sentry'
+import './config/service-worker'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

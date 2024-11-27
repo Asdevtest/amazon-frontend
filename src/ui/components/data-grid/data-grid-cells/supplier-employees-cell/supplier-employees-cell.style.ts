@@ -5,6 +5,8 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     width: '100%',
     height: '100%',
+    maxHeight: '110px',
     flexDirection: 'column',
+    overflowY: 'auto',
   },
 }))

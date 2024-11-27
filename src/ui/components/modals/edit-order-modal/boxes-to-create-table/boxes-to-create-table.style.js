@@ -58,11 +58,16 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   buttonCell: {
     width: 40,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
+  },
+
+  checkboxCell: {
+    width: 250,
   },
 
   sizesWrapper: {

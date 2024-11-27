@@ -1,16 +1,18 @@
-import { Empty, Spin } from 'antd'
 import { observer } from 'mobx-react'
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectShopsForm } from '@components/forms/select-shops-form'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
+import { DynamicVirtualList } from '@components/shared/dynamic-virtual-list'
 import { Modal } from '@components/shared/modal'
 import { SupplierCard, SupplierProductCard } from '@components/shared/supplier'
 
 import { t } from '@utils/translations'
+
+import { ISupplierCard, ISupplierExchange } from '@typings/models/suppliers/supplier-exchange'
 
 import { useStyles } from './wholesale.style'
 
@@ -18,16 +20,8 @@ import { generateWholesaleTabs } from './wholesale.config'
 import { WholesaleViewModel } from './wholesale.model'
 
 export const WholesaleView = observer(() => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new WholesaleViewModel(), [])
-
-  const contentRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (contentRef.current) {
-      contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }, [viewModel.supplierMode])
 
   return (
     <>
@@ -44,30 +38,22 @@ export const WholesaleView = observer(() => {
             enterButton
             size="large"
             placeholder="Search"
-            onSearch={viewModel.onClickSubmitSearch}
+            onSearch={viewModel.onSearchSubmit}
           />
         </div>
 
-        <div
-          ref={contentRef}
-          className={cx(styles.content, {
-            [styles.products]: !viewModel.supplierMode,
-            [styles.emptyProducts]: !viewModel.products.length,
-          })}
-          onScroll={viewModel.onScroll}
-        >
-          {viewModel.isEmpty ? (
-            <Empty className={styles.empty} />
-          ) : viewModel.supplierMode ? (
-            viewModel.suppliers.map(supplier => <SupplierCard key={supplier._id} supplier={supplier} />)
-          ) : (
-            viewModel.products.map(product => (
-              <SupplierProductCard key={product._id} product={product} onSubmit={viewModel.onSelectSupplierCard} />
-            ))
-          )}
-        </div>
-
-        <Spin spinning={viewModel.loading} size="large" className={styles.loading} />
+        <DynamicVirtualList<ISupplierExchange | ISupplierCard>
+          listClassName={viewModel.supplierMode ? styles.suppliers : styles.products}
+          data={viewModel.supplierMode ? viewModel.suppliers : viewModel.products}
+          itemContent={({ item }) =>
+            viewModel.supplierMode ? (
+              <SupplierCard supplier={item as ISupplierExchange} />
+            ) : (
+              <SupplierProductCard product={item as ISupplierCard} onSubmit={viewModel.onSelectSupplierCard} />
+            )
+          }
+          onScrollEnd={viewModel.loadMoreData}
+        />
       </div>
 
       <Modal openModal={viewModel.showSelectShopsModal} setOpenModal={viewModel.onToggleSelectShopsModal}>

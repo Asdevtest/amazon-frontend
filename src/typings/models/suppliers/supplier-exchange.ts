@@ -2,6 +2,8 @@ import { ICategory } from '../../shared/category'
 import { ICountry } from '../../shared/country'
 import { IPaymentMethod } from '../../shared/payment-method'
 
+import { IBoxProperties } from './supplier'
+
 export interface ISupplierExchange {
   _id: string
   xid: number
@@ -26,12 +28,5 @@ export interface ISupplierCard {
   priceInUsd: number
   images: string[]
   boxProperties: IBoxProperties
-}
-
-interface IBoxProperties {
-  amountInBox: number
-  boxLengthCm: number
-  boxWidthCm: number
-  boxHeightCm: number
-  boxWeighGrossKg: number
+  isPrime: boolean
 }

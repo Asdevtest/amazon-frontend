@@ -4,4 +4,5 @@ export interface IPlatformSettings {
   requestPlatformMarginInPercent: number
   volumeWeightCoefficient: number
   yuanToDollarRate: number
+  reserveTimeForOrder: number
 }

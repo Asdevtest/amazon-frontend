@@ -1,3 +1,4 @@
+import { Avatar } from 'antd'
 import isEqual from 'lodash.isequal'
 import { memo, useState } from 'react'
 
@@ -26,6 +27,7 @@ import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { maxBoxSizeFromOption } from '@utils/get-max-box-size-from-option/get-max-box-size-from-option'
 import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
@@ -467,14 +469,27 @@ export const EditBoxStorekeeperForm = memo(
                             <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.product.asin} />
                           ) : null}
 
-                          <Field
-                            oneLine
-                            disabled
-                            labelClasses={styles.standartLabel}
-                            inputClasses={styles.disabledNumInput}
-                            label={t(TranslationKey['Quantity units of product'])}
-                            value={item.amount}
-                          />
+                          <div className={styles.flexContainer}>
+                            <Field
+                              disabled
+                              labelClasses={styles.standartLabel}
+                              label={t(TranslationKey.Marketplace)}
+                              value={item.amount}
+                              inputComponent={
+                                <div className={styles.marketPlaceWrapper}>
+                                  <Avatar size={20} src={getAmazonImageUrl(item.product.marketPlaceCountry?.image)} />
+                                  <span>{item.product?.marketPlaceCountry?.title || t(TranslationKey.Missing)}</span>
+                                </div>
+                              }
+                            />
+
+                            <Field
+                              disabled
+                              labelClasses={styles.standartLabel}
+                              label={t(TranslationKey['Units quantity'])}
+                              value={item.amount}
+                            />
+                          </div>
 
                           <Field
                             multiline

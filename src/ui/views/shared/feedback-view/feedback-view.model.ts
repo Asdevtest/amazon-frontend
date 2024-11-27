@@ -1,4 +1,4 @@
-import { makeObservable } from 'mobx'
+import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
@@ -12,6 +12,7 @@ import { EditorFormFieldData } from '@components/forms/content-editor-form'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { t } from '@utils/translations'
+import { onSubmitPostImages } from '@utils/upload-files'
 
 import { isAdmin, isModerator } from '@typings/guards/roles'
 import { IFeedback } from '@typings/models/administrators/feedback'
@@ -24,6 +25,7 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
   feedback?: IFeedback
   showContentEditorForm = false
   showTicketForm = false
+  uploadedFiles: string[] = []
 
   get contentEditorFormTitle() {
     return this.feedback ? `Edit ticket` : 'Create ticket'
@@ -84,26 +86,52 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
 
   async onCreateFeedback(data: EditorFormFieldData) {
     try {
+      runInAction(() => {
+        this.loading = true
+      })
+      if (data.media?.length) {
+        // @ts-ignore
+        await onSubmitPostImages.call(this, {
+          images: data.media,
+          type: 'uploadedFiles',
+        })
+      }
+
       const body = {
         title: data.title,
         text: data.text,
-        media: await OtherModel.getFileUrls(data.media),
+        media: this.uploadedFiles,
       }
+
       await OtherModel.createFeedback(body)
       toast.success(t(TranslationKey['Your request has been sent. Thank you for your feedback!']))
       this.onToggleContentEditorForm()
       this.getCurrentData()
     } catch (error) {
       toast.error(t(TranslationKey['There was an error sending the request. Try again.']))
+    } finally {
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 
   async onUpdateFeedback(data: EditorFormFieldData) {
     try {
+      runInAction(() => {
+        this.loading = true
+      })
+      if (data.media?.length) {
+        // @ts-ignore
+        await onSubmitPostImages.call(this, {
+          images: data.media,
+          type: 'uploadedFiles',
+        })
+      }
       const body = {
         title: data.title,
         text: data.text,
-        media: await OtherModel.getFileUrls(data.media),
+        media: this.uploadedFiles,
       }
       await OtherModel.updateFeedback(this.feedback?._id, body)
       toast.success(t(TranslationKey['The request has been successfully edited.']))
@@ -111,6 +139,10 @@ export class FeedbackViewModel extends DataGridFilterTableModel {
       this.getCurrentData()
     } catch (error) {
       toast.error(t(TranslationKey['There was an error editing the request. Try again.']))
+    } finally {
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 }

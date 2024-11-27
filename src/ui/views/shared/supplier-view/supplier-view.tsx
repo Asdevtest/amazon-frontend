@@ -1,16 +1,16 @@
-import { Empty, Spin } from 'antd'
 import { observer } from 'mobx-react'
 import { useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectShopsForm } from '@components/forms/select-shops-form'
-import { CustomInputSearch } from '@components/shared/custom-input-search'
+import { DynamicVirtualList } from '@components/shared/dynamic-virtual-list'
 import { Modal } from '@components/shared/modal'
 import { SupplierCard, SupplierProductCard } from '@components/shared/supplier'
 
 import { t } from '@utils/translations'
 
+import { ISupplierCard } from '@typings/models/suppliers/supplier-exchange'
 import { HistoryType } from '@typings/types/history'
 
 import { useStyles } from './supplier-view.style'
@@ -25,31 +25,33 @@ export const SupplierView = observer(({ history }: { history: HistoryType }) => 
   return (
     <>
       <div className="viewWrapper">
-        <CustomInputSearch
-          allowClear
-          enterButton
-          size="large"
-          placeholder="Search"
-          onSearch={viewModel.onClickSubmitSearch}
-        />
-
         <SupplierCard supplier={viewModel.supplier} showViewMore={false} />
 
-        <div
-          className={cx(styles.content, { [styles.emptyProducts]: !viewModel.products.length })}
-          onScroll={viewModel.onScroll}
-        >
-          {viewModel.products.length ? (
-            viewModel.products.map(product => (
-              <SupplierProductCard key={product._id} product={product} onSubmit={viewModel.onSelectSupplierCard} />
-            ))
-          ) : (
-            <Empty />
-          )}
+        <div className={styles.productsWrapper}>
+          <DynamicVirtualList<ISupplierCard>
+            listClassName={cx(styles.products, {
+              [styles.productsAll]: viewModel.productsAll,
+              [styles.productsBig]: viewModel.productsBig,
+              [styles.productsMedium]: viewModel.productsMedium,
+            })}
+            data={viewModel.products}
+            itemContent={({ item }) => (
+              <SupplierProductCard
+                gorizontal={viewModel.gorizontalMode}
+                product={item}
+                onSubmit={viewModel.onSelectSupplierCard}
+              />
+            )}
+            onScrollEnd={viewModel.loadMoreData}
+          />
 
-          <CardsFilter showFilter={!!viewModel.products.length} onSubmit={viewModel.onSubmitFilters} />
-
-          <Spin spinning={viewModel.loading} size="large" className={styles.loading} />
+          <CardsFilter
+            loading={viewModel.loading}
+            showFilter={viewModel.showFilter}
+            filtersCount={viewModel.filtersCount}
+            onSubmit={viewModel.onFilterSubmit}
+            onReset={viewModel.onResetOptions}
+          />
         </div>
       </div>
 

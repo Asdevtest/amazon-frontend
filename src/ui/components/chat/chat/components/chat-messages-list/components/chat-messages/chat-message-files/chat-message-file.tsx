@@ -29,7 +29,7 @@ export const ChatMessageFile: FC<ChatMessageFileProps> = memo(({ src }) => {
     <div className={styles.fileWrapper} onClick={() => downloadFileByLink(src, recreatedFile?.name)}>
       <div className={styles.logo}>
         {checkIsVideoLink(src) ? (
-          <VideoPreloader videoSource={getAmazonImageUrl(src)} />
+          <VideoPreloader videoSource={src} />
         ) : checkIsImageLink(src) ? (
           <img src={getAmazonImageUrl(src)} alt="message_file_icon" />
         ) : (

@@ -13,6 +13,7 @@ import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
+import { SupplierCardStatus } from '@typings/models/suppliers/supplier-card'
 import { ISupplierV2 } from '@typings/models/suppliers/supplier-v2'
 import { UploadFileType } from '@typings/shared/upload-file'
 
@@ -21,9 +22,13 @@ import { getRequiredRules } from '@config/form-rules/get-required-rules'
 import { useStyles } from './add-supplier-modal.style'
 import { useStyles as useSharedStyles } from './shared.style'
 
+import { AddSupplierCardModal } from '../add-supplier-card-modal'
+import { ImportTemplateModal } from '../import-template-modal'
+
 import { AddSupplierModalModel } from './add-supplier-modal.model'
 import { CreateSupplier } from './add-supplier-modal.types'
 import { Contacts } from './components/contacts'
+import { ProductList } from './components/product-list'
 import { SupplierDetails } from './components/supplier-details'
 import { getInitialFormState } from './helpers/get-initial-form-state'
 
@@ -46,6 +51,8 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
 
   const viewModel = useMemo(() => new AddSupplierModalModel(supplierId), [])
 
+  const isPublished = SupplierCardStatus.PUBLISHED === (viewModel.currentData as unknown as ISupplierV2)?.status
+
   const onCloseModal = () => {
     form.resetFields()
     setOpenModal(false)
@@ -58,14 +65,29 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
   }
 
   const onFinish = async (value: CreateSupplier) => {
+    let result = supplierId
+
     if (supplierId) {
-      viewModel?.editSupplier(supplierId, value)
+      await viewModel?.editSupplier(supplierId, value)
     } else {
-      await viewModel.createSupplier(value)
+      result = await viewModel.createSupplier(value)
     }
 
     updateHandler?.()
     onCloseModal()
+
+    return result
+  }
+
+  const handleChangeStatus = async (status: SupplierCardStatus) => {
+    try {
+      await form.validateFields()
+      const result = (await onFinish(form.getFieldsValue())) as string
+
+      viewModel.changeSupplierStatus(result, status)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   useEffect(() => {
@@ -78,7 +100,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
   }, [viewModel?.currentData])
 
   return (
-    <Modal openModal={openModal} setOpenModal={setOpenModal}>
+    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <Form clearOnDestroy name="supplier" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
         <p className={styles.title}>{t(TranslationKey[title])}</p>
 
@@ -112,15 +134,32 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
         <Contacts />
 
         <Form.Item<CreateSupplier> name="comment" className={sharedStyles.field}>
-          <CustomTextarea size="large" rows={4} label="Description" placeholder="Description" />
+          <CustomTextarea size="large" rows={4} label="Description" placeholder="Description" maxLength={2000} />
         </Form.Item>
 
+        <ProductList
+          disabled={!supplierId}
+          isLoading={viewModel.productsInfinityModel?.loading || false}
+          products={viewModel.productsInfinityModel?.data || []}
+          loadMoreProducts={viewModel.productsInfinityModel?.loadMoreData}
+          onOpenAddProductModal={viewModel.onOpenAddSupplierProductModal}
+        />
+
         <div className={styles.footerWrapper}>
-          <CustomButton disabled={!supplierId}>{t(TranslationKey['Import products'])}</CustomButton>
+          <CustomButton disabled={!supplierId} onClick={viewModel.onOpenImportTemplateModal}>
+            {t(TranslationKey['Import products'])}
+          </CustomButton>
 
           <div className={styles.buttons}>
+            <CustomButton
+              type="primary"
+              onClick={() => handleChangeStatus(isPublished ? SupplierCardStatus.DRAFT : SupplierCardStatus.PUBLISHED)}
+            >
+              {t(TranslationKey[isPublished ? 'Draft' : 'Publish'])}
+            </CustomButton>
+
             <Form.Item shouldUpdate className={sharedStyles.field}>
-              <CustomButton type="primary" htmlType="submit" /* loading={loading} disabled={loading} */>
+              <CustomButton type="primary" htmlType="submit">
                 {t(TranslationKey.Save)}
               </CustomButton>
             </Form.Item>
@@ -129,6 +168,24 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
           </div>
         </div>
       </Form>
+
+      {viewModel.showImportTemplateModal ? (
+        <ImportTemplateModal
+          supplierId={supplierId as string}
+          updateHandler={viewModel.onImportProducts}
+          openModal={viewModel.showImportTemplateModal}
+          setOpenModal={viewModel.onCloseImportTemplateModal}
+        />
+      ) : null}
+
+      {viewModel.showAddSupplierProductModal ? (
+        <AddSupplierCardModal
+          supplierId={supplierId as string}
+          handleUpdate={viewModel.onImportProducts}
+          openModal={viewModel.showAddSupplierProductModal}
+          setOpenModal={viewModel.onCloseAddSupplierProductModal}
+        />
+      ) : null}
     </Modal>
   )
 })

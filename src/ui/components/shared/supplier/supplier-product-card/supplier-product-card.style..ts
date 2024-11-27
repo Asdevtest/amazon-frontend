@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
+    height: '100%',
     padding: '10px',
     display: 'flex',
     flexDirection: 'column',
@@ -13,20 +14,45 @@ export const useStyles = makeStyles()(theme => ({
     background: theme.palette.background.general,
   },
 
+  imagesWrapper: {
+    minWidth: '240px',
+  },
+
   flexRow: {
     display: 'flex',
-    alignItems: 'flex-start',
-    gap: '10px',
+    alignItems: 'center',
   },
 
   flexColumn: {
+    width: '70px',
     display: 'flex',
-    alignItems: 'center',
     flexDirection: 'column',
     gap: '5px',
   },
 
-  divider: {
+  fullWidth: {
+    width: '100%',
     height: '100%',
+  },
+
+  divider: {
+    height: '49px',
+  },
+
+  gorizontal: {
+    flexDirection: 'row',
+    gap: '20px',
+  },
+
+  center: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttons: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }))

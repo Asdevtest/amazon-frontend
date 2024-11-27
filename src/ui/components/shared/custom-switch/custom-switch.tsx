@@ -17,14 +17,11 @@ export const CustomSwitch: FC<CustomSwitchProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
+  const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
+
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
-      {label ? (
-        <p className={cx(styles.label, labelClassName)}>
-          {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>*</span> : null}
-        </p>
-      ) : null}
+      {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
       <Switch {...restProps} className={cx(styles.switch, className)} />
     </div>
   )
