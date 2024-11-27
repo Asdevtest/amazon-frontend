@@ -82,7 +82,7 @@ class SupplierV2ModelStatic {
     return response.data
   }
 
-  patchSupplierCardStatus = async (guid: string, body: { status: number }) => {
+  patchSupplierCardStatus = async (guid: string, body: any) => {
     const response = await restApiService.supplierV2Api.apiV2SuppliersCardGuidChangeStatusPatch({
       guid,
       body,
@@ -90,7 +90,7 @@ class SupplierV2ModelStatic {
     return response.data
   }
 
-  patchSupplierStatus = async (guid: string, body: { status: number }) => {
+  patchSupplierStatus = async (guid: string, body: any) => {
     const response = await restApiService.supplierV2Api.apiV2SuppliersGuidChangeStatusPatch({
       guid,
       body,
