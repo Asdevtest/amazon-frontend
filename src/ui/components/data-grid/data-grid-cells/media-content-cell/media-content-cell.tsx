@@ -6,9 +6,10 @@ import { useStyles } from './media-content-cell.style'
 
 interface MediaContentCellProps {
   file: string
+  preview?: boolean
 }
 
-export const MediaContentCell: FC<MediaContentCellProps> = memo(({ file }) => {
+export const MediaContentCell: FC<MediaContentCellProps> = memo(({ file, preview = true }) => {
   const { classes: styles } = useStyles()
 
   if (!file) {
@@ -17,7 +18,7 @@ export const MediaContentCell: FC<MediaContentCellProps> = memo(({ file }) => {
 
   return (
     <div className={styles.wrapper}>
-      <CustomImage preview={false} width={48} height={48} src={file} maskClassName={styles.mask} />
+      <CustomImage preview={preview} width={48} height={48} src={file} maskClassName={styles.mask} />
     </div>
   )
 })
