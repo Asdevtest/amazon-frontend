@@ -28,6 +28,7 @@ interface GeneralInfoProps {
   handleUploadFiles: (images: UploadFileType[]) => void
   loadMoreSuppliers: () => void
   searchSuppliers: (value: string) => void
+  disabled?: boolean
 }
 
 export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
@@ -40,6 +41,7 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
     handleUploadFiles,
     loadMoreSuppliers,
     searchSuppliers,
+    disabled,
   } = props
 
   const { classes: styles, cx } = useStyles()
@@ -113,6 +115,7 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
         validateTrigger={['onChange', 'onBlur']}
       >
         <UploadFilesInput
+          disabled={disabled}
           wrapperClassName={sharedStyles.uploadFilesInputWrapper}
           dragAndDropButtonHeight={50}
           images={images}

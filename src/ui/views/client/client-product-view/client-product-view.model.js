@@ -520,74 +520,15 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn(supplierCardId) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      supplier = {
-        ...supplier,
-        amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        minlot: parseInt(supplier?.minlot) || '',
-        price: parseFloat(supplier?.price) || '',
-        heightUnit: supplier?.heightUnit || null,
-        widthUnit: supplier?.widthUnit || null,
-        lengthUnit: supplier?.lengthUnit || null,
-        weighUnit: supplier?.weighUnit || null,
-        boxProperties: supplier?.boxProperties
-          ? supplier.boxProperties
-          : {
-              amountInBox: null,
-              boxHeightCm: null,
-              boxLengthCm: null,
-              boxWeighGrossKg: null,
-              boxWidthCm: null,
-            },
+      if (supplierCardId) {
+        await ProductModel.addSuppliersToProduct(this.productId, [supplierCardId])
       }
 
-      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        images: this.readyImages,
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        imageUnit: this.readyImages,
-      }
-
-      if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
-          supplier,
-          patchSuppliers,
-          undefined,
-          undefined,
-          true,
-        )
-
-        await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
-
-        if (supplier._id === this.product.currentSupplierId) {
-          runInAction(() => {
-            this.product.currentSupplier = supplier
-            updateProductAutoCalculatedFields.call(this)
-          })
-        }
-      } else {
-        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
-        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-
-        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
-        // await this.getProductById()
-      }
-
-      await this.onSaveForceProductData()
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
+      this.loadData()
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

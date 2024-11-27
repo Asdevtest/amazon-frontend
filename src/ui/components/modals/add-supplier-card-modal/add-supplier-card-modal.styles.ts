@@ -41,7 +41,7 @@ export const useStyles = makeStyles()(() => ({
   contentWrapper: {
     display: 'flex',
     flex: 1,
-    maxHeight: '70vh',
+    maxHeight: '65vh',
     flexDirection: 'column',
     gap: 10,
     overflow: 'auto',
