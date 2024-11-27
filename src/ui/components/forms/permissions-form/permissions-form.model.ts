@@ -1,6 +1,6 @@
 import { RadioChangeEvent } from 'antd'
 import { DefaultOptionType } from 'antd/es/cascader'
-import { makeAutoObservable, runInAction } from 'mobx'
+import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { KeyboardEvent } from 'react'
 import { toast } from 'react-toastify'
 
@@ -11,8 +11,9 @@ import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
 
+import { Roles } from '@typings/enums/roles'
 import { Specs } from '@typings/enums/specs'
-import { isBuyer, isClient, isFreelancer, isStorekeeper } from '@typings/guards/roles'
+import { isAdmin, isBuyer, isClient, isFreelancer, isStorekeeper } from '@typings/guards/roles'
 import { IPermission } from '@typings/models/permissions/permission'
 import { IPermissionGroup } from '@typings/models/permissions/permission-group'
 import { IPermissions } from '@typings/models/permissions/permissions'
@@ -45,6 +46,7 @@ export class PermissionsFormModel {
   onCloseModal?: () => void
   onUpdateData?: () => void
   searchValue: string = ''
+  currentMultupleRole?: Roles
 
   get userInfo() {
     return UserModel?.userInfo as unknown as IFullUser
@@ -92,8 +94,11 @@ export class PermissionsFormModel {
   get isFreelancer() {
     return isFreelancer(this.userInfo?.role)
   }
+  get isAdmin() {
+    return isAdmin(this.userInfo?.role)
+  }
   get hasExpiredRoles() {
-    return this.isFreelancer || isStorekeeper(this.userInfo?.role)
+    return this.isFreelancer || isStorekeeper(this.userInfo?.role) || this.isAdmin
   }
   get productsOptions() {
     const mainOptions = this.shops.map(item => ({
@@ -143,7 +148,7 @@ export class PermissionsFormModel {
 
       if (permissionId) {
         permissions.push(permissionId)
-      } else if (groupId !== SELECT_ALL_PERMISSION) {
+      } else if (![SELECT_ALL_PERMISSION, WITHOUT_GROUP].includes(groupId)) {
         permissionGroups.push(groupId)
       }
     })
@@ -203,11 +208,26 @@ export class PermissionsFormModel {
 
   constructor({ subUser, onCloseModal, onUpdateData }: PermissionsFormProps) {
     this.subUser = subUser
+
+    if (this.isAdmin) {
+      this.currentMultupleRole = subUser?.role
+    }
+
     this.onCloseModal = onCloseModal
     this.onUpdateData = onUpdateData
 
     this.loadData()
     this.initSelectedSpecs()
+
+    reaction(
+      () => this.currentMultupleRole,
+      () => {
+        if (this.currentMultupleRole) {
+          this.getGroupPermissions()
+          this.getWithoutGroupPermissions()
+        }
+      },
+    )
 
     makeAutoObservable(this, undefined, { autoBind: true })
   }
@@ -292,6 +312,10 @@ export class PermissionsFormModel {
     this.selectedUserIds = userIds
   }
 
+  onChangeMultipleRole(role: Roles) {
+    this.currentMultupleRole = role
+  }
+
   async loadData() {
     runInAction(() => (this.mainLoading = true))
 
@@ -330,7 +354,9 @@ export class PermissionsFormModel {
 
   async getGroupPermissions() {
     try {
-      const response = (await PermissionsModel.getGroupPermissions(this.userInfo?.role)) as IPermissionGroup[]
+      const response = (await PermissionsModel.getGroupPermissions(
+        this.currentMultupleRole || this.userInfo?.role,
+      )) as IPermissionGroup[]
 
       runInAction(() => {
         this.groupPermissions = response
@@ -344,7 +370,7 @@ export class PermissionsFormModel {
     try {
       const response = (await PermissionsModel.getPermissionsPag({
         groupIds: null, // null - get permissions without groups
-        role: this.userInfo?.role,
+        role: this.currentMultupleRole || this.userInfo?.role,
       })) as IPermissions
 
       runInAction(() => {
@@ -371,7 +397,11 @@ export class PermissionsFormModel {
     try {
       runInAction(() => (this.buttonLoading = true))
 
-      await UserModel.onEditMySubUser({ userIds: this.userIds, ...this.editingPermissions })
+      await UserModel.onEditMySubUser({
+        userIds: this.userIds,
+        ...this.editingPermissions,
+        role: this.currentMultupleRole,
+      })
 
       if (!this.hasExpiredRoles) {
         await PermissionsModel.setProductsPermissionsForUser({
@@ -395,7 +425,10 @@ export class PermissionsFormModel {
     } catch (error) {
       toast.error(t(TranslationKey['User permissions are not changed']))
     } finally {
-      runInAction(() => (this.buttonLoading = false))
+      runInAction(() => {
+        this.buttonLoading = false
+        this.currentMultupleRole = undefined
+      })
       this.onUpdateData?.()
       this.onCloseModal?.()
     }
