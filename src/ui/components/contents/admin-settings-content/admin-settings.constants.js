@@ -20,6 +20,7 @@ export const fieldNames = [
   'timeToDeadlinePendingOrder',
   'timeBeforeLaunchDeadline',
   'orderAmountLimit',
+  'reserveTimeForOrder',
 ]
 
 export const fieldNameObject = fieldNames.reduce((obj, fieldName) => {

@@ -59,8 +59,8 @@ class AdministratorModelStatic {
     return response.data
   }
 
-  getSettings = async () => {
-    const response = await restApiService.administratorApi.apiV1AdminsGetSettingsGet()
+  getSettings = async body => {
+    const response = await restApiService.administratorApi.apiV1AdminsGetSettingsGet({ ...body, noCache: true })
     return response.data
   }
 

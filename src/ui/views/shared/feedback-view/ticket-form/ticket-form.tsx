@@ -104,8 +104,8 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
         )}
       </Skeleton>
 
-      <div className={cx(styles.flexRow, { [styles.flexEnd]: viewModel.showResponseBlock })}>
-        {!viewModel.showResponseBlock ? (
+      <div className={cx(styles.flexRow, { [styles.flexEnd]: !viewModel.showUploadButton })}>
+        {viewModel.showUploadButton ? (
           <CustomButton
             size="large"
             disabled={viewModel.loading}

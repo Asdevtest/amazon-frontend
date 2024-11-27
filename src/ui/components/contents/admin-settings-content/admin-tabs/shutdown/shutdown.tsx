@@ -1,3 +1,4 @@
+import { Divider } from 'antd'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 import { PiAlarmDuotone } from 'react-icons/pi'
@@ -6,7 +7,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
-import { CustomDivider } from '@components/shared/custom-divider'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSwitch } from '@components/shared/custom-switch'
@@ -78,7 +78,7 @@ export const Shutdown: FC<ShutdownProps> = observer(({ techPause }) => {
           </div>
         </div>
 
-        <CustomDivider type="vertical" className={styles.divider} />
+        <Divider type="vertical" className={styles.divider} />
 
         <div className={cx(styles.rightContainer, styles.flexColumnContainer)}>
           <p className={styles.title}>{t(TranslationKey['Notice to users'])}</p>
