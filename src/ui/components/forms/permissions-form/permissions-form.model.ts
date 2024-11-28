@@ -205,6 +205,9 @@ export class PermissionsFormModel {
 
     return this.mainLoading || !hasEnoughUsers
   }
+  get showRolesSelect() {
+    return this.subUser && this.subUser?.allowedRoles?.length > 1
+  }
 
   constructor({ subUser, onCloseModal, onUpdateData }: PermissionsFormProps) {
     this.subUser = subUser

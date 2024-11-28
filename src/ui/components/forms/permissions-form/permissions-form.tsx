@@ -62,7 +62,9 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
           />
         )}
 
-        {viewModel.isAdmin ? <RolesSelect user={props.subUser} onChangeRole={viewModel.onChangeMultipleRole} /> : null}
+        {viewModel.showRolesSelect ? (
+          <RolesSelect user={props.subUser} onChangeRole={viewModel.onChangeMultipleRole} />
+        ) : null}
         <UsersSelect
           disabled={!!viewModel.subUser || viewModel.mainLoading}
           size="large"

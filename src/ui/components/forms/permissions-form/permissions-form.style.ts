@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '880px',
+    width: '900px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
