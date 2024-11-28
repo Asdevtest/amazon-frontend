@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { restApiService } from '@services/rest-api-service/rest-api-service'
 
 import { ICreateSupplierCard } from '@components/modals/add-supplier-card-modal/add-supplier-card-modal.type'
@@ -62,6 +63,7 @@ class SupplierV2ModelStatic {
 
   createSupplierCard = async (body: ICreateSupplierCard) => {
     const response = await restApiService.supplierV2Api.apiV2SuppliersCardPost({
+      // @ts-ignore | по факту бек должен принимать null, но этот тип не добавили
       body,
     })
     return response.data
@@ -70,6 +72,7 @@ class SupplierV2ModelStatic {
   editSupplierCard = async (guid: string, body: ICreateSupplierCard) => {
     const response = await restApiService.supplierV2Api.apiV2SuppliersCardGuidPatch({
       guid,
+      // @ts-ignore |  по факту бек должен принимать null, но этот тип не добавили
       body,
     })
     return response.data
