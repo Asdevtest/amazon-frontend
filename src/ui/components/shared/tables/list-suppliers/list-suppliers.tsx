@@ -5,12 +5,12 @@ import { GridRowClassNameParams } from '@mui/x-data-grid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AddSupplierCardModal } from '@components/modals/add-supplier-card-modal'
+import { AddSupplierModal } from '@components/modals/add-supplier-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
-import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
@@ -33,7 +33,7 @@ interface ListSuppliersProps {
   isIdea?: boolean
   onSaveProduct?: () => void
   onRemoveSupplier?: () => void // can be transferred inside the table model
-  onClickSaveSupplier?: () => void // can be transferred inside the table model
+  onClickSaveSupplier?: (suplierCardId?: string) => void // can be transferred inside the table model
 }
 
 export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
@@ -125,26 +125,24 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         />
       </div>
 
-      <Modal
-        missClickModalOn
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
-      >
-        <AddOrEditSupplierModalContent
-          // @ts-ignore
-          isIdea={isIdea}
-          onlyRead={viewModel.supplierModalReadOnly}
-          paymentMethods={viewModel.paymentMethods}
-          product={extractProduct(formFields)}
-          storekeepersData={viewModel.storekeepers}
-          requestStatus={viewModel.requestStatus}
-          supplierId={viewModel.currentSupplier?.supplier?._id}
-          platformSettings={viewModel.platformSettings}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          onClickSaveBtn={onClickSaveSupplier}
-          onTriggerShowModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
+      {viewModel.showAddOrEditSupplierModal ? (
+        <AddSupplierModal
+          openModal={viewModel.showAddOrEditSupplierModal}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
         />
-      </Modal>
+      ) : null}
+
+      {viewModel.showAddSupplierProductModal ? (
+        <AddSupplierCardModal
+          disabled={viewModel.supplierModalReadOnly}
+          supplierCardId={viewModel.currentSupplier?._id}
+          handleUpdate={supplierCardId =>
+            onClickSaveSupplier?.(supplierCardId === viewModel.currentSupplier?._id ? undefined : supplierCardId)
+          }
+          openModal={viewModel.showAddSupplierProductModal}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER_CARD)}
+        />
+      ) : null}
 
       {viewModel.showSupplierApproximateCalculationsModal ? (
         <SupplierApproximateCalculationsModal

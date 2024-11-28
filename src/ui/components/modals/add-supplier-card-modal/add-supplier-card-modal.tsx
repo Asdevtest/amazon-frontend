@@ -31,15 +31,16 @@ import { getInitialFormState } from './helpers/get-initial-form-state'
 import { getPriceVariation } from './helpers/get-price-variation'
 
 interface AddSupplierCardModalProps {
-  supplierCardId?: string
   openModal: boolean
-  setOpenModal: (openModal?: boolean) => void
-  handleUpdate: () => void
   supplierId?: string
+  supplierCardId?: string
+  disabled?: boolean
+  setOpenModal: (openModal?: boolean) => void
+  handleUpdate?: (supplierCardId?: string) => void
 }
 
 export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(props => {
-  const { supplierId, supplierCardId, openModal, setOpenModal, handleUpdate } = props
+  const { supplierId, supplierCardId, openModal, disabled, setOpenModal, handleUpdate } = props
 
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
@@ -93,10 +94,10 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
     if (supplierCardId) {
       await viewModel.editSupplierCard(supplierCardId, values)
     } else {
-      result = (await viewModel.createSupplierCard(values))?.guid
+      result = await viewModel.createSupplierCard(values)
     }
 
-    handleUpdate()
+    handleUpdate?.(result)
     onCloseModal()
 
     return result
@@ -130,7 +131,15 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
 
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
-      <Form clearOnDestroy name="supplier" size="large" form={form} rootClassName={styles.form} onFinish={handleFinish}>
+      <Form
+        clearOnDestroy
+        disabled={disabled}
+        name="supplier"
+        size="large"
+        form={form}
+        rootClassName={styles.form}
+        onFinish={handleFinish}
+      >
         <div className={styles.header}>
           <p className={styles.title}>{t(TranslationKey['Add product'])}</p>
 
@@ -144,6 +153,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
 
         <div className={styles.contentWrapper}>
           <GeneralInfo
+            disabled={disabled}
             isSuppliersLoading={viewModel?.suppliersInfinityModel?.loading}
             suppliers={viewModel?.suppliersInfinityModel?.data}
             loadMoreSuppliers={viewModel?.suppliersInfinityModel?.loadMoreData}
@@ -161,6 +171,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
           <DetailsInfo />
 
           <BoxDimentions
+            disabled={disabled}
             form={form}
             unitImages={viewModel.unitImages}
             handleUploadUnitFiles={handleUploadUnitFiles}

@@ -4,10 +4,9 @@ import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { AsinSelect } from '@components/shared/asin-select'
 import { CustomButton } from '@components/shared/custom-button'
 import { RadioButtons } from '@components/shared/radio-buttons'
-import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { SelectProductButton } from '@components/shared/selects/with-search-select/select-product-button'
 
 import { t } from '@utils/translations'
 
@@ -25,22 +24,12 @@ interface BindProductFormProps {
   onClickGetProductsToBind: (options: string) => void
   onClickNextButton: (option?: string, products?: Array<IProduct>) => void
   onClickCancelButton: () => void
-  loadMorePermissionsDataHadler: () => void
-  onClickSubmitSearch: (searchValue: string) => void
 }
 
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   const { classes: styles } = useStyles()
 
-  const {
-    sourceProduct,
-    productsToBind,
-    onClickGetProductsToBind,
-    onClickNextButton,
-    onClickCancelButton,
-    loadMorePermissionsDataHadler,
-    onClickSubmitSearch,
-  } = props
+  const { sourceProduct, productsToBind, onClickGetProductsToBind, onClickNextButton, onClickCancelButton } = props
 
   const [selectedProducts, setSelectedProducts] = useState<Array<IProduct>>([])
   const [selectedRadioValue, setSelectedRadioValue] = useState<string>()
@@ -70,6 +59,9 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   }
 
   const selectProductHandler = (selectedProduct: IProduct) => {
+    if (selectedRadioValue === ProductVariation.PARENT) {
+      return setSelectedProducts([selectedProduct])
+    }
     setSelectedProducts(prev => {
       if (prev.some(product => product._id === selectedProduct._id)) {
         return prev.filter(product => product._id !== selectedProduct._id)
@@ -99,34 +91,12 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
       </div>
 
       <div className={styles.selectWrapper}>
-        {/* @ts-ignore */}
-        <WithSearchSelect
-          // @ts-ignore
-          asinSelect
-          grayBorder
-          blackSelectedItem
-          darkIcon
-          chosenItemNoHover
-          CustomButton={(componentProps: any) => <SelectProductButton {...componentProps} />}
-          notCloseOneClick={selectedRadioValue === ProductVariation.CHILD}
-          checkbox={selectedRadioValue === ProductVariation.CHILD}
+        <AsinSelect
           disabled={!selectedRadioValue}
-          data={productsToBind?.filter(productToBind => productToBind?._id !== sourceProduct?._id)}
-          selectedData={selectedProducts}
-          width={300}
-          customSubMainWrapper={styles.searchSelectCustomSubMainWrapper}
-          customSearchInput={styles.searchSelectCustomSearchInput}
-          customItemsWrapper={styles.searchSelectCustomItemsWrapper}
-          selectedItemName={t(TranslationKey['Select products'])}
-          onScrollItemList={loadMorePermissionsDataHadler}
-          onClickSubmitSearch={onClickSubmitSearch}
-          onClickSelect={(product: IProduct) => {
-            if (selectedRadioValue === ProductVariation.PARENT) {
-              setSelectedProducts([product])
-            } else {
-              selectProductHandler(product)
-            }
-          }}
+          options={productsToBind}
+          placeholder={t(TranslationKey['Select product'])}
+          // @ts-ignore
+          onChangeData={selectProductHandler}
         />
 
         <div className={styles.selectedVariationsWrapper}>

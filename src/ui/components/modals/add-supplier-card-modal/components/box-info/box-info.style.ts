@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(() => ({
   boxInfoWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    flex: 1,
+    flex: '0 1',
   },
 
   boxInfoInputsWrapper: {
@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(() => ({
     justifyContent: 'space-between',
     alignContent: 'flex-start',
     flexWrap: 'wrap',
-    flex: 1,
+    flex: '0 1',
   },
 
   deliveryField: {

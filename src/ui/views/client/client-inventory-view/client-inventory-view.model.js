@@ -600,7 +600,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       }
 
       this.pendingOrderQuantity = value
-      this.currentRow = rowId || null
+      this.currentRow = typeof rowId === 'string' ? rowId : null
 
       if (resultArray.length) {
         runInAction(() => {

@@ -35,12 +35,13 @@ import { getInitialFormState } from './helpers/get-initial-form-state'
 interface AddSupplierModalProps {
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
-  updateHandler?: () => void
+  disabled?: boolean
   supplierId?: string
+  updateHandler?: () => void
 }
 
 export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
-  const { supplierId, openModal, setOpenModal, updateHandler } = props
+  const { supplierId, openModal, disabled, setOpenModal, updateHandler } = props
 
   const { classes: styles } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
@@ -101,7 +102,15 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
 
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
-      <Form clearOnDestroy name="supplier" size="large" form={form} rootClassName={styles.form} onFinish={onFinish}>
+      <Form
+        clearOnDestroy
+        disabled={disabled}
+        name="supplier"
+        size="large"
+        form={form}
+        rootClassName={styles.form}
+        onFinish={onFinish}
+      >
         <p className={styles.title}>{t(TranslationKey[title])}</p>
 
         <SupplierDetails

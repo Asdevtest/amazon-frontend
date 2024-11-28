@@ -135,6 +135,14 @@ export class AddSupplierProductModalModel extends DefaultModel {
       }
     }
 
+    transformedData.batchTotalCostInYuan =
+      Number(transformedData.priceInYuan) * (Number(transformedData.amount) || 0) +
+      Number(transformedData.batchDeliveryCostInYuan)
+
+    transformedData.batchTotalCostInDollar =
+      Number(transformedData.priceInUsd) * (Number(transformedData.amount) || 0) +
+      Number(transformedData.batchDeliveryCostInDollar)
+
     delete (transformedData.boxProperties as Partial<IBoxPropertiesDimensionType>)?.dimensionType
     delete (transformedData as Partial<ICreateSupplierProductModal>).unitDimensionType
 
@@ -152,7 +160,7 @@ export class AddSupplierProductModalModel extends DefaultModel {
 
       const result = await SupplierV2Model?.createSupplierCard(body)
 
-      return result
+      return result?.guid
     } catch (error) {
       console.error(error)
     } finally {

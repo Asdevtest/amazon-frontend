@@ -187,8 +187,6 @@ export const TopCard = memo(
             <BindProductForm
               sourceProduct={product}
               productsToBind={productsToBind}
-              loadMorePermissionsDataHadler={loadMorePermissionsDataHadler}
-              onClickSubmitSearch={onClickSubmitSearch}
               onClickGetProductsToBind={onClickGetProductsToBind}
               onClickNextButton={onClickNextButton}
               onClickCancelButton={() => onTriggerOpenModal('showBindProductModal')}

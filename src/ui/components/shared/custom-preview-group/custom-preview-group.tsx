@@ -3,8 +3,7 @@ import { FC, memo } from 'react'
 
 import { useStyles } from './custom-preview-group.style'
 
-import { CustomImage } from '../custom-image'
-import { renderPreviewContent, renderPreviewToolbar } from '../custom-image/custom-image'
+import { CustomImage, renderPreviewContent, renderPreviewToolbar } from '../custom-image'
 
 interface CustomPreviewGroupProps {
   data: string[]
