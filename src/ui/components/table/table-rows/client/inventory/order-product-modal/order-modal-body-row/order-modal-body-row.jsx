@@ -147,7 +147,7 @@ export const OrderModalBodyRow = ({
     ? `${item.currentSupplierCard?.minProductionTerm} - ${item.currentSupplierCard?.maxProductionTerm}`
     : t(TranslationKey['No data'])
 
-  const [boxQuantity, setBoxQuantity] = useState(item?.valueForOrder)
+  const [boxQuantity, setBoxQuantity] = useState(item?.valueForOrder || 0)
 
   useEffect(() => {
     const dinamicBoxQuantity = toFixed(
@@ -158,12 +158,15 @@ export const OrderModalBodyRow = ({
     setBoxQuantity(dinamicBoxQuantity)
   }, [orderState?.amount])
 
-  const quantityInputSuffix = item?.valueForOrder ? (
-    <>
-      <BsFillBoxSeamFill />
-      <span>{boxQuantity}</span>
-    </>
-  ) : undefined
+  const quantityInputSuffix =
+    boxQuantity > 0 ? (
+      <>
+        <BsFillBoxSeamFill />
+        <span>{boxQuantity}</span>
+      </>
+    ) : (
+      <></> // without layout, the input loses focus as the suffix redraws.
+    )
 
   const [showDeadlineModal, setShowDeadlineModal] = useState(false)
 

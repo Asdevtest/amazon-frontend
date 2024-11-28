@@ -21,7 +21,6 @@ export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
   }
 
   constructor(isSupplierMode: boolean) {
-    console.log('isSupplierMode', isSupplierMode)
     super({
       method: isSupplierMode ? ClientModel.getSuppliersExchange : ClientModel.getSuppliersExchangeCards,
       searchFields: ['xid'],
