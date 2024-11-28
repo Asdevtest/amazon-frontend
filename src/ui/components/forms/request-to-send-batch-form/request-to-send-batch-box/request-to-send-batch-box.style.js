@@ -33,16 +33,15 @@ export const useStyles = makeStyles()(theme => ({
     objectFit: 'contain',
     objectPosition: 'center',
   },
+
   crossBtn: {
     width: '20px',
     height: '20px',
     minWidth: 'auto',
   },
+
   tableCellCrossBtn: {
     width: '60px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 
   boxWrapper: {

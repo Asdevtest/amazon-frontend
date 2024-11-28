@@ -1,4 +1,5 @@
 import { memo, useState } from 'react'
+import { MdClose } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -343,9 +344,13 @@ export const RequestToSendBatchBox = memo(
         )}
 
         <td className={styles.tableCellCrossBtn}>
-          <CustomButton danger type="primary" className={styles.crossBtn} onClick={onClickRemoveBoxFromBatch}>
-            X
-          </CustomButton>
+          <CustomButton
+            danger
+            type="primary"
+            icon={<MdClose />}
+            className={styles.crossBtn}
+            onClick={onClickRemoveBoxFromBatch}
+          />
         </td>
 
         {isWeightMismatch ? (
