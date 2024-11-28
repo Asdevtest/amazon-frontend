@@ -49,13 +49,20 @@ export const DeliveryPeriod = memo(() => {
         <CustomInputNumber
           required
           size="large"
+          precision={0}
           label="Purchase quantity for the current price"
           wrapperClassName={sharedStyles.input}
         />
       </Form.Item>
 
       <Form.Item<ICreateSupplierProductModal> name="minlot" className={sharedStyles.field} rules={getRequiredRules()}>
-        <CustomInputNumber required size="large" label="Minimum batch" wrapperClassName={sharedStyles.input} />
+        <CustomInputNumber
+          required
+          size="large"
+          label="Minimum batch"
+          precision={0}
+          wrapperClassName={sharedStyles.input}
+        />
       </Form.Item>
     </div>
   )

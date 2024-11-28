@@ -143,6 +143,8 @@ export class AddSupplierProductModalModel extends DefaultModel {
       Number(transformedData.priceInUsd) * (Number(transformedData.amount) || 0) +
       Number(transformedData.batchDeliveryCostInDollar)
 
+    transformedData.supplierId = transformedData.supplierId || null
+
     delete (transformedData.boxProperties as Partial<IBoxPropertiesDimensionType>)?.dimensionType
     delete (transformedData as Partial<ICreateSupplierProductModal>).unitDimensionType
 

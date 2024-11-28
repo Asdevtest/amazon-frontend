@@ -143,7 +143,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
         <Contacts />
 
         <Form.Item<CreateSupplier> name="comment" className={sharedStyles.field}>
-          <CustomTextarea size="large" rows={4} label="Description" placeholder="Description" maxLength={2000} />
+          <CustomTextarea size="large" rows={4} label="Description" maxLength={2000} />
         </Form.Item>
 
         <ProductList

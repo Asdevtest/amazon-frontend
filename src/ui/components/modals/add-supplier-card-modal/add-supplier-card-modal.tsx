@@ -141,7 +141,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
         onFinish={handleFinish}
       >
         <div className={styles.header}>
-          <p className={styles.title}>{t(TranslationKey['Add product'])}</p>
+          <p className={styles.title}>{t(TranslationKey[supplierCardId ? 'Editing the card' : 'Add a new card'])}</p>
 
           <Form.Item<ICreateSupplierProductModal> name="isPrime" className={cx(sharedStyles.field, styles.markAsTop)}>
             <CustomCheckbox checked={isPrimeValue} onChange={handleChangeIsPrime}>

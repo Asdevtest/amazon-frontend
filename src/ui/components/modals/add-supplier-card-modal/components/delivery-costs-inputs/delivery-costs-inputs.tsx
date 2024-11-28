@@ -38,6 +38,7 @@ export const DeliveryCostsInputs: FC<DeliveryCostsInputsProps> = memo(props => {
           label={controllInputTitle}
           precision={2}
           wrapperClassName={sharedStyles.input}
+          changeOnBlur={false}
           onChange={value => onChangeDelivery(value as number)}
         />
       </Form.Item>
