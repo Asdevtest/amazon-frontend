@@ -25,7 +25,7 @@ export const SupplierCard: FC<SupplierCardProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
   const maxTopPropductCards = supplier?.supplierCards?.slice(0, 3) || []
-  const commentRows = showViewMore ? 4 : 6
+  const commentRows = showViewMore ? 5 : 6
 
   const handleViewMore = () => {
     const url = `/client/product-exchange/wholesale/supplier?${supplier?._id}`

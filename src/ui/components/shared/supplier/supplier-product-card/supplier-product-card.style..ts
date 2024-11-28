@@ -39,6 +39,10 @@ export const useStyles = makeStyles()(theme => ({
     height: '49px',
   },
 
+  extraGap: {
+    gap: '5px',
+  },
+
   gorizontal: {
     flexDirection: 'row',
     gap: '20px',

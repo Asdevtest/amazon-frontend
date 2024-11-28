@@ -32,6 +32,7 @@ export const WholesaleView = observer(() => {
   }
 
   const listClassName = isSupplierMode ? styles.suppliers : styles.products
+
   return (
     <>
       <div className="viewWrapper">

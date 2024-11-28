@@ -28,16 +28,10 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
     return this.products?.length > 1 || this.filtersCount > 0
   }
   get productsAll() {
-    return this.products?.length > 36
+    return this.products?.length > 12
   }
   get productsBig() {
     return this.products?.length <= 12
-  }
-  get productsMedium() {
-    return this.products?.length > 12 && this.products?.length <= 36
-  }
-  get gorizontalMode() {
-    return this.productsMedium || this.productsBig
   }
 
   constructor(history: HistoryType) {
