@@ -32,12 +32,11 @@ export const SupplierView = observer(({ history }: { history: HistoryType }) => 
             listClassName={cx(styles.products, {
               [styles.productsAll]: viewModel.productsAll,
               [styles.productsBig]: viewModel.productsBig,
-              [styles.productsMedium]: viewModel.productsMedium,
             })}
             data={viewModel.products}
             itemContent={({ item }) => (
               <SupplierProductCard
-                gorizontal={viewModel.gorizontalMode}
+                gorizontal={viewModel.productsBig}
                 product={item}
                 onSubmit={viewModel.onSelectSupplierCard}
               />

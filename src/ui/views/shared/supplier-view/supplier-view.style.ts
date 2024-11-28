@@ -20,8 +20,4 @@ export const useStyles = makeStyles()(() => ({
   productsBig: {
     gridTemplateColumns: 'repeat(2, minmax(260px, 1fr))',
   },
-
-  productsMedium: {
-    gridTemplateColumns: 'repeat(3, minmax(260px, 1fr))',
-  },
 }))
