@@ -17,6 +17,7 @@ import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-f
 import { getObjectFilteredByKeyArrayBlackList, getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { TaskStatus } from '@typings/enums/task/task-status'
 import { IBox } from '@typings/models/boxes/box'
 import { ITask } from '@typings/models/tasks/task'
@@ -280,6 +281,7 @@ export class WarehouseMainTasksViewModel extends DataGridFilterTableModel {
   }
 
   async onClickSolveTask({ task, newBoxes, operationType, comment, photos }: any) {
+    this.setRequestStatus(loadingStatus.IS_LOADING)
     try {
       for (let i = 0; i < newBoxes.length; i++) {
         const box = getObjectFilteredByKeyArrayBlackList(
@@ -380,10 +382,10 @@ export class WarehouseMainTasksViewModel extends DataGridFilterTableModel {
       await this.updateTaskWithStatus(this.currentTask?._id, comment)
 
       this.onTriggerOpenModal('showTaskModal')
-
-      this.getCurrentData()
     } catch (error) {
       console.error(error)
+    } finally {
+      this.setRequestStatus(loadingStatus.SUCCESS)
     }
   }
 

@@ -20,6 +20,7 @@ import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { BoxArrowIcon } from '@components/shared/svg-icons'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import { ButtonStyle } from '@typings/enums/button-style'
@@ -303,7 +304,7 @@ export const EditTaskModal = memo(
                   styleType={ButtonStyle.SUCCESS}
                   disabled={disableSaveButton}
                   tooltipInfoContent={t(TranslationKey['Save task data'])}
-                  onClick={() => {
+                  onClick={throttle(() => {
                     onClickSolveTask({
                       task,
                       newBoxes,
@@ -311,7 +312,7 @@ export const EditTaskModal = memo(
                       comment: storekeeperComment,
                       photos: photosOfTask,
                     })
-                  }}
+                  })}
                 >
                   {t(TranslationKey.Save)}
                 </Button>
