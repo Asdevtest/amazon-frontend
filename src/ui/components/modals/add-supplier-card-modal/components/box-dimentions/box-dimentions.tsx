@@ -1,5 +1,6 @@
 import { Divider, Form, FormInstance } from 'antd'
-import { FC, memo } from 'react'
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
+import { FC, memo, useCallback } from 'react'
 
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
@@ -41,6 +42,13 @@ export const BoxDimentions: FC<IBoxDimentionsProps> = memo(props => {
     onChangePackageUnitsOption,
   } = useBoxInfo(form, volumeWeightCoefficient)
 
+  const isMultiplicity = Form.useWatch('multiplicity', form)
+
+  const handleChangeIsMultiplicity = useCallback(
+    (e: CheckboxChangeEvent) => form.setFieldValue('multiplicity', e.target.checked),
+    [],
+  )
+
   return (
     <div className={cx(styles.boxDimentionsWrapper, sharedStyles.sectionWrapper)}>
       <div className={styles.dimentionsWrapper}>
@@ -59,7 +67,9 @@ export const BoxDimentions: FC<IBoxDimentionsProps> = memo(props => {
         />
 
         <Form.Item<ICreateSupplierProductModal> name="multiplicity" className={sharedStyles.field}>
-          <CustomCheckbox>{'Use multiples of items when creating boxes'}</CustomCheckbox>
+          <CustomCheckbox checked={isMultiplicity} onChange={handleChangeIsMultiplicity}>
+            Use multiples of items when creating boxes
+          </CustomCheckbox>
         </Form.Item>
       </div>
 

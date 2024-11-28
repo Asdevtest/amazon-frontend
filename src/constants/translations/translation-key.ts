@@ -2107,4 +2107,5 @@ export enum TranslationKey {
   'On hold' = 'On hold',
   'ID, Title' = 'ID, Title',
   'Editing the card' = 'Editing the card',
+  'Please enter a valid phone number!' = 'Please enter a valid phone number!',
 }

@@ -168,10 +168,10 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
 
     {
       field: 'comment',
-      headerName: t(TranslationKey.Comment),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
+      headerName: t(TranslationKey.Description),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Description)} />,
 
-      renderCell: params => <Text isCell text={params.value} />,
+      renderCell: params => <Text isCell style={{ whiteSpace: 'pre-wrap' }} text={params.value} />,
       width: 200,
       columnKey: columnnsKeys.shared.STRING_VALUE,
       disableCustomSort: true,

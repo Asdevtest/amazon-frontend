@@ -46,7 +46,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
   const { classes: styles } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
-  const title = supplierId ? 'Editing supplier' : 'Add a supplier'
+  const title = supplierId ? 'Editing supplier' : 'Create a supplier'
 
   const [form] = Form.useForm<CreateSupplier>()
 
@@ -103,12 +103,16 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
   return (
     <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
       <Form
+        scrollToFirstError
         clearOnDestroy
         disabled={disabled}
         name="supplier"
         size="large"
         form={form}
         rootClassName={styles.form}
+        onFieldsChange={(changedFields, allFields) =>
+          console.log('changedFields, allFields :>> ', changedFields, allFields)
+        }
         onFinish={onFinish}
       >
         <p className={styles.title}>{t(TranslationKey[title])}</p>

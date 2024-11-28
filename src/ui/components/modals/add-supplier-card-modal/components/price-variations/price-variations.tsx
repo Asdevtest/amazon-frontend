@@ -43,6 +43,7 @@ export const PriceVariations: FC<IPriceVariationsProps> = memo(({ onAddPriceVari
       <Form.Item<ICreateSupplierProductModal> name="priceVariations" className={sharedStyles.field}>
         <CustomSelect
           allowClear
+          showSearch={false}
           mode="tags"
           wrapperClassName={sharedStyles.input}
           label="Price variations"
@@ -78,6 +79,7 @@ export const PriceVariations: FC<IPriceVariationsProps> = memo(({ onAddPriceVari
               />
             </div>
           )}
+          onChange={value => console.log('onChange value :>> ', value)}
         />
       </Form.Item>
     </div>

@@ -60,7 +60,6 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ images = [], co
       <Form.Item<CreateSupplier>
         name="images"
         className={cx(sharedStyles.field, styles?.uploadFiles)}
-        rules={getRequiredRules()}
         validateTrigger={['onChange', 'onBlur']}
       >
         <UploadFilesInput

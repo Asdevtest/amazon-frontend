@@ -129,9 +129,12 @@ export class AddSupplierProductModalModel extends DefaultModel {
   ): ICreateSupplierCard {
     const transformedData = { ...value, ...propsToAdd }
 
+    console.log('transformedData :>> ', transformedData)
+
     if (transformedData.priceVariations?.length) {
       for (const priceVariation of transformedData.priceVariations) {
         delete priceVariation.label
+        delete priceVariation.value
       }
     }
 
