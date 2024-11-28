@@ -13,7 +13,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fixHeight: {
-    height: '205px',
+    height: '220px',
   },
 
   infoBlock: {
@@ -45,8 +45,10 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   imagesBlock: {
+    height: '100%',
     width: '260px',
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'flex-end',
   },
 }))
