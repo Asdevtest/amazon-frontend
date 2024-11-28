@@ -1,4 +1,7 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { PermissionsModel } from '@models/permissions-model'
@@ -6,10 +9,11 @@ import { UserModel } from '@models/user-model'
 
 import { userPermissionsColumns } from '@components/table/table-columns/admin/user-permissions-columns'
 
+import { t } from '@utils/translations'
+
 export class UserEditModel {
   history = undefined
 
-  changeFields = { email: '', name: '', newPassword: '', confirmNewPassword: '' }
   editUserFormFields = undefined
 
   wrongPassword = null
@@ -67,14 +71,20 @@ export class UserEditModel {
     try {
       await AdministratorModel.updateUser(this.userData._id, this.submitEditData)
       if (this.newPassword) {
-        await AdministratorModel.changePasswordById(this.userData._id, { password: this.newPassword })
+        await this.changeUserPassword()
       }
-      runInAction(() => {
-        this.changeFields = { email: '', name: '' }
-      })
-
       this.onTriggerOpenModal('showVerticalChoicesModal')
     } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async changeUserPassword() {
+    try {
+      await AdministratorModel.changePasswordById(this.userData._id, { password: this.newPassword })
+      toast.success(t(TranslationKey['New password set successfully']))
+    } catch (error) {
+      toast.error(t(TranslationKey['Failed to set new password']))
       console.error(error)
     }
   }

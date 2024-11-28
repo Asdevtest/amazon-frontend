@@ -1,3 +1,4 @@
+import { Form } from 'antd'
 import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
@@ -11,9 +12,11 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SettingsModel } from '@models/settings-model'
 
+import { getConfirmPasswordValidationRules, getNewPasswordValidationRules } from '@components/forms/auth-form/rules'
 import { PermissionsForm } from '@components/forms/permissions-form'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
+import { CustomInput } from '@components/shared/custom-input'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
@@ -23,8 +26,6 @@ import { UserLink } from '@components/user/user-link'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } from '@utils/checks'
 import { t } from '@utils/translations'
 import { validationMessagesArray } from '@utils/validation'
-
-import '@typings/enums/button-style'
 
 import { useStyles } from './admin-user-edit-content.style'
 
@@ -66,9 +67,6 @@ export const AdminUserEditContent = observer(
 
       permissions: editUserFormFields?.permissions.map(perm => perm._id) || [],
       permissionGroups: editUserFormFields?.permissionGroups.map(permGroup => permGroup._id) || [],
-
-      password: '',
-      confirmPassword: '',
     }
 
     const [formFields, setFormFields] = useState(sourceFormFields)
@@ -85,6 +83,11 @@ export const AdminUserEditContent = observer(
     const [permissionGroupsToSelect, setPermissionGroupsToSelect] = useState([
       ...((!!groupPermissions && groupPermissions?.filter(item => item?.role === formFields?.role)) || []),
     ])
+
+    const [form] = Form.useForm()
+
+    const confirmPasswordValidationRules = getConfirmPasswordValidationRules()
+    const newPasswordValidationRules = getNewPasswordValidationRules()
 
     useEffect(() => {
       !selectedRole ? setClearSelect(true) : setClearSelect(false)
@@ -136,6 +139,8 @@ export const AdminUserEditContent = observer(
       setFormFields(newFormFields)
     }
 
+    const [passwords, setPassword] = useState({ password: '', confirmPassword: '' })
+    const [hasErrors, setHasErrors] = useState(false)
     const [emailIsValid, setEmailIsValid] = useState(true)
 
     useEffect(() => {
@@ -155,18 +160,7 @@ export const AdminUserEditContent = observer(
     }
 
     const onClickSubmit = () => {
-      let passwordHasNoErrors = true
-      if (startChangePassword) {
-        setSubmit(true)
-        passwordHasNoErrors =
-          !errorLowercaseLetter &&
-          !errorMinLength &&
-          !errorOneNumber &&
-          !errorUppercaseLetter &&
-          !errorMaxLength &&
-          !equalityError &&
-          !errorNoEngLetter
-      }
+      const { password, confirmPassword } = passwords
 
       const dataToSubmit = {
         ...formFields,
@@ -177,13 +171,7 @@ export const AdminUserEditContent = observer(
           : [...selectedAllowedRoles, Number(formFields.role)],
       }
 
-      const { password, confirmPassword, ...other } = dataToSubmit
-
-      onSubmit(
-        other,
-        editUserFormFields,
-        startChangePassword && passwordHasNoErrors ? { password, confirmPassword } : undefined,
-      )
+      onSubmit(dataToSubmit, editUserFormFields, password && !hasErrors ? { password, confirmPassword } : undefined)
     }
 
     const selectedPermissions = singlePermissions?.filter(per => formFields?.permissions?.includes(per?._id))
@@ -196,33 +184,14 @@ export const AdminUserEditContent = observer(
       selectedGroupPermissions?.find(perGroup => Number(perGroup?.role) !== Number(formFields?.role))
 
     const disabledSubmitButton =
+      hasErrors ||
       !emailIsValid ||
       formFields.name?.trim() === '' ||
       formFields.email?.trim() === '' ||
       formFields.rate === '' ||
-      (isEqual(changedAllowedRoles, selectedAllowedRoles) && isEqual(sourceFormFields, formFields))
-
-    const [visibilityPass, setVisibilityPass] = useState(false)
-    const [visibilityConfirmPass, setVisibilityConfirmPass] = useState(false)
-    const [errorOneNumber, setErrorOneNumber] = useState(false)
-    const [errorUppercaseLetter, setErrorUppercaseLetter] = useState(false)
-    const [errorLowercaseLetter, setErrorLowercaseLetter] = useState(false)
-    const [errorMinLength, setErrorMinLength] = useState(false)
-    const [errorMaxLength, setErrorMaxLength] = useState(false)
-    const [errorNoEngLetter, setErrorNoEngLetter] = useState(false)
-    const [equalityError, setEqualityError] = useState(false)
-    const [submit, setSubmit] = useState(false)
-
-    const [startChangePassword, setStartChangePassword] = useState(false)
-
-    useEffect(() => {
-      if (formFields.password !== '') {
-        setStartChangePassword(true)
-      }
-      if (formFields.password === '') {
-        setStartChangePassword(false)
-      }
-    }, [formFields.password])
+      (!passwords.password &&
+        isEqual(changedAllowedRoles, selectedAllowedRoles) &&
+        isEqual(sourceFormFields, formFields))
 
     const regExpNumber = /(?=.*[0-9])/g
     const regExpUpperCase = /(?=.*[A-Z])/g
@@ -231,60 +200,24 @@ export const AdminUserEditContent = observer(
     const regExpRuLetter = /(?=.*[А-Яа-я])/
 
     useEffect(() => {
-      if (formFields.password.length < 8) {
-        setErrorMinLength(true)
-      } else {
-        setErrorMinLength(false)
-      }
-      if (formFields.password.length > 32) {
-        setErrorMaxLength(true)
-      } else {
-        setErrorMaxLength(false)
-      }
-      if (!formFields.password.match(regExpNumber)) {
-        setErrorOneNumber(true)
-      } else {
-        setErrorOneNumber(false)
-      }
-      if (!formFields.password.match(regExpUpperCase)) {
-        setErrorUppercaseLetter(true)
-      } else {
-        setErrorUppercaseLetter(false)
-      }
-      if (!formFields.password.match(regExpLowerCase)) {
-        setErrorLowercaseLetter(true)
-      } else {
-        setErrorLowercaseLetter(false)
-      }
-      if (!formFields.password.match(regExpEngLetter)) {
-        setErrorNoEngLetter(true)
-      } else {
-        setErrorNoEngLetter(false)
-      }
-      if (formFields.password.match(regExpRuLetter)) {
-        setErrorNoEngLetter(true)
-      } else {
-        setErrorNoEngLetter(false)
-      }
-      if (formFields.password !== formFields.confirmPassword) {
-        setEqualityError(true)
-      } else {
-        setEqualityError(false)
-      }
-    }, [
-      formFields.password,
-      formFields.confirmPassword,
-      errorOneNumber,
-      errorUppercaseLetter,
-      SettingsModel.languageTag,
-    ])
+      const { password, confirmPassword } = passwords
 
-    const showError =
-      (submit && errorLowercaseLetter) ||
-      (submit && errorMinLength) ||
-      (submit && errorOneNumber) ||
-      (submit && errorUppercaseLetter) ||
-      (submit && errorMaxLength)
+      const passwordHasErrors =
+        password.length < 8 ||
+        password.length > 32 ||
+        !password.match(regExpNumber) ||
+        !password.match(regExpUpperCase) ||
+        !password.match(regExpLowerCase) ||
+        !password.match(regExpEngLetter) ||
+        password.match(regExpRuLetter) ||
+        password !== confirmPassword
+
+      if (password !== '') {
+        setHasErrors(passwordHasErrors)
+      } else {
+        setHasErrors(false)
+      }
+    }, [passwords.password, passwords.confirmPassword, SettingsModel.languageTag])
 
     return (
       <div className={styles.root}>
@@ -343,52 +276,36 @@ export const AdminUserEditContent = observer(
                 onChange={onChangeFormField('email')}
               />
             </div>
+            <Form form={form}>
+              <div className={styles.field}>
+                <Form.Item name="password" validateTrigger={['onBlur', 'onChange']} rules={newPasswordValidationRules}>
+                  <CustomInput
+                    hasFeedback
+                    password
+                    placeholder={'Password'}
+                    value={passwords.password}
+                    onChange={e => setPassword({ ...passwords, password: e.target.value })}
+                  />
+                </Form.Item>
+              </div>
 
-            <div className={styles.field}>
-              <Field
-                inputProps={{ maxLength: 128 }}
-                labelClasses={styles.labelField}
-                error={showError}
-                inputClasses={styles.input}
-                label={t(TranslationKey['New password'])}
-                placeholder={t(TranslationKey.Password)}
-                type={!visibilityPass ? 'password' : 'text'}
-                value={formFields.password}
-                onChange={onChangeFormField('password')}
-              />
-              <div className={styles.visibilityIcon} onClick={() => setVisibilityPass(!visibilityPass)}>
-                {!visibilityPass ? <MdVisibilityOff size={24} /> : <MdVisibility size={24} />}
+              <div className={styles.field}>
+                <Form.Item
+                  name="confirmPassword"
+                  dependencies={['password']}
+                  validateTrigger={['onBlur', 'onChange']}
+                  rules={confirmPasswordValidationRules}
+                >
+                  <CustomInput
+                    hasFeedback
+                    password
+                    placeholder="Confirm password"
+                    value={passwords.confirmPassword}
+                    onChange={e => setPassword({ ...passwords, confirmPassword: e.target.value })}
+                  />
+                </Form.Item>
               </div>
-              <div className={styles.validationMessage}>
-                {validationMessagesArray(
-                  errorMinLength,
-                  errorOneNumber,
-                  errorUppercaseLetter,
-                  errorLowercaseLetter,
-                  errorNoEngLetter,
-                ).map((text, index) => (
-                  <span key={index} className={cx(styles.validationText, { [styles.red]: submit && text.error })}>
-                    {text.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.field}>
-              <Field
-                inputProps={{ maxLength: 128 }}
-                labelClasses={styles.labelField}
-                inputClasses={styles.input}
-                label={t(TranslationKey['Re-enter the new password'])}
-                placeholder={t(TranslationKey.Password)}
-                type={!visibilityConfirmPass ? 'password' : 'text'}
-                value={formFields.confirmPassword}
-                onChange={onChangeFormField('confirmPassword')}
-              />
-              <div className={styles.visibilityIcon} onClick={() => setVisibilityConfirmPass(!visibilityConfirmPass)}>
-                {!visibilityConfirmPass ? <MdVisibilityOff size={24} /> : <MdVisibility size={24} />}
-              </div>
-            </div>
+            </Form>
           </div>
 
           <div className={styles.middleWrapper}>
