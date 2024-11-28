@@ -11,5 +11,6 @@ export interface IGridColumn<T = any> extends GridBaseColDef {
   fields?: IRadioBottonsSetting[]
   transformValueMethod?: (value: any) => string
   columnMenuConfig?: any
+  titleKey?: string
   sortOptions?: 'asc' | 'desc'
 }

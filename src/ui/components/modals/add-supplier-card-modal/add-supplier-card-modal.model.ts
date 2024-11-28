@@ -132,6 +132,7 @@ export class AddSupplierProductModalModel extends DefaultModel {
     if (transformedData.priceVariations?.length) {
       for (const priceVariation of transformedData.priceVariations) {
         delete priceVariation.label
+        delete priceVariation.value
       }
     }
 

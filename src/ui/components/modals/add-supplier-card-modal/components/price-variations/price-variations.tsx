@@ -1,5 +1,5 @@
 import { Form, FormInstance } from 'antd'
-import { FC, memo, useState } from 'react'
+import { FC, memo, useMemo, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
 
 import { CustomButton } from '@components/shared/custom-button'
@@ -10,13 +10,14 @@ import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './price-variations.style'
 
 import { ICreateSupplierPrice, ICreateSupplierProductModal, SupplierCurrency } from '../../add-supplier-card-modal.type'
+import { getConvertedPriceVariations } from '../../helpers/get-converted-price-variations'
 
 interface IPriceVariationsProps {
   form: FormInstance<ICreateSupplierProductModal>
   onAddPriceVariations: (priceVariation: ICreateSupplierPrice) => void
 }
 
-export const PriceVariations: FC<IPriceVariationsProps> = memo(({ onAddPriceVariations }) => {
+export const PriceVariations: FC<IPriceVariationsProps> = memo(({ form, onAddPriceVariations }) => {
   const { classes: styles } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
@@ -24,6 +25,14 @@ export const PriceVariations: FC<IPriceVariationsProps> = memo(({ onAddPriceVari
     quantity: 0,
     price: 0,
   })
+
+  const isDoubledPriceVariation = useMemo(() => {
+    const priceVariations = form.getFieldValue('priceVariations') as ICreateSupplierPrice[]
+
+    return priceVariations?.some(
+      variation => variation.quantity === priceVariation?.quantity && variation.price === priceVariation?.price,
+    )
+  }, [priceVariation])
 
   const onChangeAmount = (value: number) => {
     setPriceVariation({ ...priceVariation, quantity: value })
@@ -40,13 +49,19 @@ export const PriceVariations: FC<IPriceVariationsProps> = memo(({ onAddPriceVari
 
   return (
     <div className={sharedStyles.sectionWrapper}>
-      <Form.Item<ICreateSupplierProductModal> name="priceVariations" className={sharedStyles.field}>
+      <Form.Item<ICreateSupplierProductModal>
+        name="priceVariations"
+        className={sharedStyles.field}
+        getValueFromEvent={(...args) => getConvertedPriceVariations(args?.[0])}
+      >
         <CustomSelect
           allowClear
+          showSearch={false}
           mode="tags"
           wrapperClassName={sharedStyles.input}
           label="Price variations"
           options={[]}
+          popupMatchSelectWidth={350}
           dropdownRender={() => (
             <div className={styles.addPriceVariations}>
               <CustomInputNumber
@@ -73,7 +88,7 @@ export const PriceVariations: FC<IPriceVariationsProps> = memo(({ onAddPriceVari
                 size="middle"
                 shape="circle"
                 icon={<FaPlus size={16} />}
-                disabled={!priceVariation.quantity || !priceVariation.price}
+                disabled={!priceVariation.quantity || !priceVariation.price || isDoubledPriceVariation}
                 onClick={onAddPriceVariation}
               />
             </div>

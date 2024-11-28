@@ -25,4 +25,5 @@ export const observerConfig = {
   onImportProducts: action.bound,
   onOpenAddSupplierProductModal: action.bound,
   onCloseAddSupplierProductModal: action.bound,
+  transformSupplierToCreateEditSupplier: action.bound,
 }

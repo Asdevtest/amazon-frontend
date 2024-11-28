@@ -4,6 +4,7 @@ export const getBoxDimentionsRules = (): Rule[] => [
   ({ getFieldValue }) => ({
     validator(_, value) {
       const boxProperties = getFieldValue('boxProperties')
+      const multiplicity = getFieldValue('multiplicity')
 
       if (!boxProperties) {
         return Promise.resolve()
@@ -11,7 +12,8 @@ export const getBoxDimentionsRules = (): Rule[] => [
 
       const { boxHeightCm, boxWidthCm, boxLengthCm, amountInBox, boxWeighGrossKg } = boxProperties
 
-      const isSomeUnitFilled = boxHeightCm || boxWidthCm || boxLengthCm || amountInBox || boxWeighGrossKg
+      const isSomeUnitFilled =
+        boxHeightCm || boxWidthCm || boxLengthCm || amountInBox || boxWeighGrossKg || multiplicity
 
       if (isSomeUnitFilled && !value) {
         return Promise.reject('')

@@ -81,6 +81,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
     const variationToAdd = {
       ...priceVariation,
       label: getPriceVariation(priceVariation),
+      value: priceVariation,
     }
 
     form.setFieldsValue({
