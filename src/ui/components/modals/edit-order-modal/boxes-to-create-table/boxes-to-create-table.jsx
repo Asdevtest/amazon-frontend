@@ -118,6 +118,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
           disabled={!restProps.barcodeIsExist}
           checked={item.isBarCodeAlreadyAttachedByTheSupplier}
           labelClassName={styles.label}
+          tooltip="Label the box as labeled with the supplier's barcode"
           onChange={e => handlers.onClickBarcodeCheckbox(itemIndex)(e)}
         >
           Supplier glued the barcode
@@ -139,6 +140,7 @@ const TableBodyBoxRow = ({ item, itemIndex, handlers, ...restProps }) => {
             disabled={restProps.isNoBuyerSupplier}
             checked={item.tmpUseToUpdateSupplierBoxDimensions}
             labelClassName={styles.label}
+            tooltip="Save box parameters to the current supplier"
             onChange={e => handlers.onClickUpdateSupplierStandart(itemIndex)(e)}
           >
             Make the supplier standard
