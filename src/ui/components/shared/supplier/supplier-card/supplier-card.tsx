@@ -43,14 +43,7 @@ export const SupplierCard: FC<SupplierCardProps> = memo(props => {
           totalCountFeedback={supplier?.totalCountFeedback}
         />
 
-        <Text
-          collapsible={!showViewMore}
-          copyable={false}
-          text={
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. At cum neque odio vero! Atque aperiam, sequi et eligendi, quas architecto minima facere provident rem sit deleniti magnam soluta voluptatum explicabo eius tenetur, similique ullam ipsum. Nam libero quisquam possimus ratione labore itaque iste quas sapiente corporis qui est ea tempora perspiciatis nostrum omnis officiis molestias nemo quaerat, voluptatem ducimus autem! Illum iusto aliquid exercitationem. Suscipit voluptatum ipsum magni velit laborum saepe facere praesentium, necessitatibus placeat eaque animi quaerat dolores sit distinctio accusantium nihil reprehenderit voluptas repellendus. Adipisci possimus atque accusantium, porro, ab dolorum iste impedit corporis consequatur obcaecati repellat voluptates?Lorem ipsum dolor sit amet consectetur adipisicing elit. At cum neque odio vero! Atque aperiam, sequi et eligendi, quas architecto minima facere provident rem sit deleniti magnam soluta voluptatum explicabo eius tenetur, similique ullam ipsum. Nam libero quisquam possimus ratione labore itaque iste quas sapiente corporis qui est ea tempora perspiciatis nostrum omnis officiis molestias nemo quaerat, voluptatem ducimus autem! Illum iusto aliquid exercitationem. Suscipit voluptatum ipsum magni velit laborum saepe facere praesentium, necessitatibus placeat eaque animi quaerat dolores sit distinctio accusantium nihil reprehenderit voluptas repellendus. Adipisci possimus atque accusantium, porro, ab dolorum iste impedit corporis consequatur obcaecati repellat voluptates?'
-          }
-          rows={commentRows}
-        />
+        <Text collapsible={!showViewMore} copyable={false} text={supplier?.comment || ''} rows={commentRows} />
 
         {showViewMore ? (
           <CustomButton ghost type="primary" className={styles.viewMore} onClick={handleViewMore}>
