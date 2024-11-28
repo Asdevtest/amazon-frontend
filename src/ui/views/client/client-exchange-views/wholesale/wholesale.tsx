@@ -1,5 +1,6 @@
+import { RadioChangeEvent } from 'antd'
 import { observer } from 'mobx-react'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,13 +17,21 @@ import { ISupplierCard, ISupplierExchange } from '@typings/models/suppliers/supp
 
 import { useStyles } from './wholesale.style'
 
-import { generateWholesaleTabs } from './wholesale.config'
+import { WholesaleTabs, generateWholesaleTabs } from './wholesale.config'
 import { WholesaleViewModel } from './wholesale.model'
 
 export const WholesaleView = observer(() => {
   const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new WholesaleViewModel(), [])
+  const [wholesaleTab, setWholesaleTab] = useState<WholesaleTabs>(WholesaleTabs.Suppliers)
 
+  const isSupplierMode = wholesaleTab === WholesaleTabs.Suppliers
+  const viewModel = useMemo(() => new WholesaleViewModel(isSupplierMode), [isSupplierMode])
+
+  const handleChangeWholesaleTab = (event: RadioChangeEvent) => {
+    setWholesaleTab(event.target.value)
+  }
+
+  const listClassName = isSupplierMode ? styles.suppliers : styles.products
   return (
     <>
       <div className="viewWrapper">
@@ -30,8 +39,8 @@ export const WholesaleView = observer(() => {
           <CustomRadioButton
             size="large"
             options={generateWholesaleTabs()}
-            value={viewModel.wholesaleTab}
-            onChange={viewModel.onChangeWholesaleTab}
+            value={wholesaleTab}
+            onChange={handleChangeWholesaleTab}
           />
           <CustomInputSearch
             allowClear
@@ -43,10 +52,10 @@ export const WholesaleView = observer(() => {
         </div>
 
         <DynamicVirtualList<ISupplierExchange | ISupplierCard>
-          listClassName={viewModel.supplierMode ? styles.suppliers : styles.products}
-          data={viewModel.supplierMode ? viewModel.suppliers : viewModel.products}
+          listClassName={listClassName}
+          data={viewModel.items}
           itemContent={({ item }) =>
-            viewModel.supplierMode ? (
+            isSupplierMode ? (
               <SupplierCard supplier={item as ISupplierExchange} />
             ) : (
               <SupplierProductCard product={item as ISupplierCard} onSubmit={viewModel.onSelectSupplierCard} />

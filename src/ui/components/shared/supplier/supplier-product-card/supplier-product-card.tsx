@@ -49,7 +49,7 @@ export const SupplierProductCard: FC<SupplierProductCardProps> = memo(props => {
           <Divider type="vertical" className={styles.divider} />
           <div className={styles.flexColumn}>
             <Text type="secondary" copyable={false} text={t(TranslationKey.Category)} />
-            <Text copyable={false} text={product?.category?.title || t(TranslationKey.Missing)} />
+            <Text copyable={false} rows={1} text={product?.category?.title || t(TranslationKey.Missing)} />
           </div>
           <Divider type="vertical" className={styles.divider} />
           <div className={styles.flexColumn}>

@@ -305,6 +305,11 @@ class ClientModelStatic {
     return response.data
   }
 
+  getSuppliersExchangeCards = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsSuppliersExchangeCardsGet(body)
+    return response.data
+  }
+
   createSupplierProduct = async body => {
     const response = await restApiService.clientApi.apiV1ClientsProductsFromSupplierCardPost({ body })
     return response.data

@@ -33,7 +33,7 @@ export const SupplierCard: FC<SupplierCardProps> = memo(props => {
   }
 
   return (
-    <div className={styles.root}>
+    <div className={cx(styles.root, { [styles.fixHeight]: showViewMore })}>
       <div className={cx(styles.flexColumn, styles.infoBlock)}>
         <SupplierDitailsInfo
           image={supplier?.originCountry?.image}
