@@ -161,8 +161,8 @@ export const OrderModalBodyRow = ({
   const quantityInputSuffix =
     boxQuantity > 0 ? (
       <>
-        <BsFillBoxSeamFill />
-        <span>{boxQuantity}</span>
+        <BsFillBoxSeamFill className={styles.boxGray} />
+        <span className={styles.boxGray}>{boxQuantity}</span>
       </>
     ) : (
       <></> // without layout, the input loses focus as the suffix redraws.
