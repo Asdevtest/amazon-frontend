@@ -14,18 +14,6 @@ export const useStyles = makeStyles()(theme => ({
     },
   },
 
-  taskDescriptionImg: {
-    width: '100%',
-    maxHeight: '30px',
-    height: '100%',
-    objectPosition: 'center',
-
-    [theme.breakpoints.down(1282)]: {
-      width: 39,
-      height: 39,
-    },
-  },
-
   taskDescriptionCountWrapper: {
     marginLeft: 5,
   },
