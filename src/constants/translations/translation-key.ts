@@ -1181,7 +1181,7 @@ export enum TranslationKey {
   'Add address' = 'Add address',
   'Edit address' = 'Edit address',
   'Reply to a User Feedback' = 'Reply to a User Feedback',
-  'Search by ASIN, Order ID, ID' = 'Search by ASIN, Order ID, ID',
+  'Search by ASIN, Order ID, Box ID, ID' = 'Search by ASIN, Order ID,  Box ID, ID',
   'Search by ASIN, Order ID, Track number, ID' = 'Search by ASIN, Order ID, Track number, ID',
   'Message Search' = 'Message Search',
   'Search results' = 'Search results',

@@ -35,6 +35,7 @@ export const ClientWarehouseTasksView = observer(() => {
           allowClear
           size="large"
           placeholder="Search by ASIN, Order ID, ID"
+          // ! Search by ASIN, Order ID, Box ID, ID
           onSearch={viewModel.onSearchSubmit}
         />
 
