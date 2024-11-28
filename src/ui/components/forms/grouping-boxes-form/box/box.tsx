@@ -82,7 +82,7 @@ export const Box: FC<BoxProps> = memo(props => {
               </div>
             )}
 
-            <p className={styles.boxNum}>{`№ ${box.xid || '-'}`}</p>
+            <p className={styles.boxNum}>{`№ ${!isNewBox ? box.xid : '-'}`}</p>
           </div>
 
           <Field
@@ -105,7 +105,7 @@ export const Box: FC<BoxProps> = memo(props => {
             <div className={styles.orderInfo}>
               <div className={styles.asinWrapper}>
                 <p className={styles.asinTitle}>{`${t(TranslationKey.Order)} / item`}</p>
-                <p className={styles.asinValue}>{`${order.order.id} / ${
+                <p className={styles.asinValue}>{`${order.order.xid} / ${
                   Number(order.order.item) ? order.order.item : '-'
                 }`}</p>
               </div>
