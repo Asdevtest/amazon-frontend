@@ -27,6 +27,7 @@ export const RolesSelect: FC<RolesSelectProps> = observer(props => {
       {...restProps}
       size="large"
       filterOption={false}
+      style={{ width: '160px' }}
       defaultActiveFirstOption={false}
       options={options}
       defaultValue={user.role}
