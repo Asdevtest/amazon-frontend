@@ -170,6 +170,8 @@
   "The file is too big!": "文件过大!",
   "My users": "我的用户",
   "Password": "密码",
+  "New password set successfully": "新密码已设置成功",
+  "Failed to set new password": "设置新密码失败",
   "Remember me": "记住我的账号",
   "Forgot password": "忘记密码",
   "Login": "登记",

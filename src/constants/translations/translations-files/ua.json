@@ -170,6 +170,8 @@
   "The file is too big!": "Файл занадто великий!",
   "My users": "Мої користувачі",
   "Password": "Пароль",
+  "New password set successfully": "Новий пароль успішно встановлено",
+  "Failed to set new password": "Не вдалося встановити новий пароль",
   "Remember me": "Запам'ятати мене",
   "Forgot password": "Забули пароль",
   "Login": "Увійти",

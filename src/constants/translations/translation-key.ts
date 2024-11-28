@@ -169,6 +169,8 @@ export enum TranslationKey {
   'The file is too big!' = 'The file is too big!',
   'My users' = 'My users',
   'Password' = 'Password',
+  'New password set successfully' = 'New password set successfully',
+  'Failed to set new password' = 'Failed to set new password',
   'Remember me' = 'Remember me',
   'Forgot password' = 'Forgot password',
   'Login' = 'Login',
