@@ -86,7 +86,7 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
         <Text isCell text={value?.title || ''} icon={<Avatar size={20} src={getAmazonImageUrl(value?.image)} />} />
       ),
       width: 170,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {

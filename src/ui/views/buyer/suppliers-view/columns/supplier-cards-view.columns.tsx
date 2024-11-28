@@ -88,7 +88,7 @@ export const supplierCardsViewColumns = (handlers: IHandlers) => {
       renderCell: ({ value }) => <Text isCell text={value} />,
       valueGetter: ({ row }) => row.category?.title,
       width: 150,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -97,6 +97,7 @@ export const supplierCardsViewColumns = (handlers: IHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Supplier)} />,
       renderCell: ({ value }) => <Text isCell text={value} />,
       valueGetter: ({ row }) => row.supplier?.companyName,
+      titleKey: 'companyName',
       width: 150,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
