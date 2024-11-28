@@ -180,9 +180,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
             valueToCopy={suppliers[0]?.supplier?.link}
             title={t(TranslationKey.Site)}
           />
-        ) : (
-          <Text isCell text={t(TranslationKey['Link not available'])} />
-        )
+        ) : null
       },
       width: 100,
       disableCustomSort: true,
