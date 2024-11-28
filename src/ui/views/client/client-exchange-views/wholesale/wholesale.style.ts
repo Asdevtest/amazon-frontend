@@ -8,6 +8,11 @@ export const useStyles = makeStyles()(() => ({
     gap: '20px',
   },
 
+  container: {
+    position: 'relative',
+    height: '100%',
+  },
+
   suppliers: {
     padding: '5px',
     display: 'grid',

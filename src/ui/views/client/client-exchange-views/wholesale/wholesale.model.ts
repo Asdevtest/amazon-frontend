@@ -19,6 +19,9 @@ export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
   get items() {
     return this.data
   }
+  get showFilter() {
+    return this.items?.length > 1 || this.filtersCount > 0
+  }
 
   constructor(isSupplierMode: boolean) {
     super({
