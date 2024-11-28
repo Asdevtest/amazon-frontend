@@ -4,6 +4,7 @@ import { FiPlus } from 'react-icons/fi'
 
 import { TaskOperationType } from '@constants/task/task-operation-type'
 
+import { CustomImage } from '@components/shared/custom-image'
 import { BoxArrowIcon, CubeIcon, EditIcon, EqualIcon } from '@components/shared/svg-icons'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
@@ -18,7 +19,7 @@ export const TaskDescriptionCell: FC<TaskDescriptionCellProps> = memo(({ task })
   const { classes: styles, cx } = useStyles()
   const renderProductImages = (product: any, key: any, box?: any) => (
     <div key={key && key} className={styles.imgWrapper}>
-      <img src={getAmazonImageUrl(product?.product.images[0])} alt="box" className={styles.taskDescriptionImg} />
+      <CustomImage width={30} height={30} src={product?.product.images[0]} alt="box" />
 
       <div className={styles.taskDescriptionCountWrapper}>
         {box?.amount > 1 && <p className={styles.taskDescriptionSuperBox}>{`SB ${box.amount}`}</p>}

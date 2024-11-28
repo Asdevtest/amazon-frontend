@@ -22,41 +22,35 @@ export const DeliveryParams: FC<IDeliveryParamsProps> = memo(({ form, systemYuan
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
-  const onChangePricePerUnit = useCallback(
-    (currency: SupplierCurrency) => (value: number) => {
-      const currentCourse = form.getFieldValue('yuanToDollarRate')
-      const valueToUpdate: Partial<ICreateSupplierProductModal> = {}
+  const onChangePricePerUnit = useCallback((currency: SupplierCurrency, value: number) => {
+    const currentCourse = form.getFieldValue('yuanToDollarRate')
+    const valueToUpdate: Partial<ICreateSupplierProductModal> = {}
 
-      if (currency === SupplierCurrency.CNY) {
-        valueToUpdate.priceInYuan = value
-        valueToUpdate.priceInUsd = value / currentCourse
-      } else {
-        valueToUpdate.priceInYuan = value * currentCourse
-        valueToUpdate.priceInUsd = value
-      }
+    if (currency === SupplierCurrency.CNY) {
+      valueToUpdate.priceInYuan = value
+      valueToUpdate.priceInUsd = value / currentCourse
+    } else {
+      valueToUpdate.priceInYuan = value * currentCourse
+      valueToUpdate.priceInUsd = value
+    }
 
-      form.setFieldsValue(valueToUpdate)
-    },
-    [],
-  )
+    form.setFieldsValue(valueToUpdate)
+  }, [])
 
-  const onChangeBatchDelivery = useCallback(
-    (currency: SupplierCurrency) => (value: number) => {
-      const currentCourse = form.getFieldValue('yuanToDollarRate')
-      const valueToUpdate: Partial<ICreateSupplierProductModal> = {}
+  const onChangeBatchDelivery = useCallback((currency: SupplierCurrency, value: number) => {
+    const currentCourse = form.getFieldValue('yuanToDollarRate')
+    const valueToUpdate: Partial<ICreateSupplierProductModal> = {}
 
-      if (currency === SupplierCurrency.CNY) {
-        valueToUpdate.batchDeliveryCostInYuan = value
-        valueToUpdate.batchDeliveryCostInDollar = value / currentCourse
-      } else {
-        valueToUpdate.batchDeliveryCostInYuan = value * currentCourse
-        valueToUpdate.batchDeliveryCostInDollar = value
-      }
+    if (currency === SupplierCurrency.CNY) {
+      valueToUpdate.batchDeliveryCostInYuan = value
+      valueToUpdate.batchDeliveryCostInDollar = value / currentCourse
+    } else {
+      valueToUpdate.batchDeliveryCostInYuan = value * currentCourse
+      valueToUpdate.batchDeliveryCostInDollar = value
+    }
 
-      form.setFieldsValue(valueToUpdate)
-    },
-    [],
-  )
+    form.setFieldsValue(valueToUpdate)
+  }, [])
 
   const onChangeSupplierCourse = useCallback((value: number) => {
     const priceInUsd = form.getFieldValue('priceInUsd')
@@ -82,8 +76,8 @@ export const DeliveryParams: FC<IDeliveryParamsProps> = memo(({ form, systemYuan
             currency={SupplierCurrency.CNY}
             getBatchPrice={getBatchPrice}
             getPriceWithDeliveryPerUnit={getPriceWithDeliveryPerUnit}
-            onChangePricePerUnit={onChangePricePerUnit(SupplierCurrency.CNY)}
-            onChangeBatchDelivery={onChangeBatchDelivery(SupplierCurrency.CNY)}
+            onChangePricePerUnit={onChangePricePerUnit}
+            onChangeBatchDelivery={onChangeBatchDelivery}
           />
 
           <Divider type="vertical" className={sharedStyles.divider} />
@@ -92,8 +86,8 @@ export const DeliveryParams: FC<IDeliveryParamsProps> = memo(({ form, systemYuan
             currency={SupplierCurrency.USD}
             getBatchPrice={getBatchPriceUsd}
             getPriceWithDeliveryPerUnit={getPriceWithDeliveryPerUnitUsd}
-            onChangePricePerUnit={onChangePricePerUnit(SupplierCurrency.USD)}
-            onChangeBatchDelivery={onChangeBatchDelivery(SupplierCurrency.USD)}
+            onChangePricePerUnit={onChangePricePerUnit}
+            onChangeBatchDelivery={onChangeBatchDelivery}
           />
         </div>
       </div>

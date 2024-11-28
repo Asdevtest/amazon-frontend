@@ -3,7 +3,7 @@ import { IPriceVariation } from '@typings/models/suppliers/price-variation'
 import { IBoxProperties } from '@typings/models/suppliers/supplier'
 
 export interface ICreateSupplierCard {
-  supplierId?: string
+  supplierId?: string | null
   cardName: string
   comment: string
   categoryId: string

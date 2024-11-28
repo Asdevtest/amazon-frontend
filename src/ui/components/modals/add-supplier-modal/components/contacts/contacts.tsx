@@ -49,13 +49,12 @@ export const Contacts = memo(() => {
                       validateTrigger={['onChange', 'onBlur']}
                       rules={getRequiredRules()}
                     >
-                      <CustomInput required size="large" placeholder="Fullname" wrapperClassName={sharedStyles.input} />
+                      <CustomInput required size="large" wrapperClassName={sharedStyles.input} />
                     </Form.Item>
                   </div>
 
                   <ContactInputList
                     listTitle="Phone"
-                    inputPlaceholder="Phone"
                     listName={[fieldName, 'phoneNumbers']}
                     formItemRules={getRequiredRules}
                   />
@@ -63,7 +62,6 @@ export const Contacts = memo(() => {
                   <ContactInputList
                     required={false}
                     listTitle="E-mail"
-                    inputPlaceholder="E-mail"
                     listName={[fieldName, 'emails']}
                     formItemRules={getRequiredEmailRules}
                   />
