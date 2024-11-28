@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 import { GoDesktopDownload } from 'react-icons/go'
 
 import { checkIsDocumentLink, checkIsImageLink, checkIsVideoLink } from '@utils/checks'
+import { downloadFileByLink } from '@utils/upload-files'
 
 import { CustomFileIcon } from '../custom-file-icon'
 
@@ -31,15 +32,9 @@ export const renderPreviewToolbar = (originalNode: ReactElement, info: PreviewCo
   <div className="ant-render-preview-toolbar">
     {checkIsImageLink(info.image.url) ? originalNode : null}
 
-    <a
-      download
-      target="_blank"
-      rel="noreferrer noopener"
-      href={info.image.url}
-      className="ant-render-preview-toolbar-download-link"
-    >
+    <button className="ant-render-preview-toolbar-download-link" onClick={() => downloadFileByLink(info.image.url)}>
       <GoDesktopDownload size={20} />
-    </a>
+    </button>
   </div>
 )
 
