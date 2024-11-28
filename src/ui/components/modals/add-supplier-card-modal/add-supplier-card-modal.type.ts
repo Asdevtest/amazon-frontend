@@ -45,7 +45,7 @@ export interface IBoxPropertiesDimensionType extends IBoxProperties {
 
 export interface ICreateSupplierPrice extends IPriceVariation {
   label?: string
-  value?: string
+  value?: IPriceVariation
   price: number
   quantity: number
 }

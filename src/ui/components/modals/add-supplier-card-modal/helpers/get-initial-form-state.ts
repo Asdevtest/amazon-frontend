@@ -1,9 +1,7 @@
-import { v4 as uuid } from 'uuid'
-
 import { Dimensions } from '@typings/enums/dimensions'
 import { ISupplierCardFull } from '@typings/models/suppliers/supplier-card'
 
-import { getPriceVariation } from './get-price-variation'
+import { getConvertedPriceVariations } from './get-converted-price-variations'
 
 export const getInitialFormState = ({
   supplierCard,
@@ -24,11 +22,7 @@ export const getInitialFormState = ({
   }
 
   if (supplierCard) {
-    const priceVariations = supplierCard?.priceVariations?.map(priceVariation => ({
-      label: getPriceVariation(priceVariation),
-      value: uuid(),
-      ...priceVariation,
-    }))
+    const priceVariations = getConvertedPriceVariations(supplierCard?.priceVariations)
 
     return {
       ...body,

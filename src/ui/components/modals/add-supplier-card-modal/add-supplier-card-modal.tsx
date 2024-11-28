@@ -3,7 +3,6 @@ import { CheckboxChangeEvent } from 'antd/es/checkbox'
 import { observer } from 'mobx-react'
 import { FC, useCallback, useEffect, useMemo } from 'react'
 import { FaStar } from 'react-icons/fa6'
-import { v4 as uuid } from 'uuid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -82,7 +81,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
     const variationToAdd = {
       ...priceVariation,
       label: getPriceVariation(priceVariation),
-      value: uuid(),
+      value: priceVariation,
     }
 
     form.setFieldsValue({
