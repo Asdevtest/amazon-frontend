@@ -389,7 +389,6 @@ export const SelectFields = ({
 
                   <CustomCheckbox
                     disabled
-                    wrapperClassName={styles.researchWrapper}
                     labelClassName={styles.researchLabel}
                     className={styles.checkbox}
                     checked={orderFields.needsResearch}
