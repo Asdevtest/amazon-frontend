@@ -108,10 +108,10 @@ export class ListSuppliersModel {
       const currentSupplierId: string | undefined = this.product?.currentSupplierCard?._id
 
       const foundCurrentSupplier = this.product?.supplierCards?.find(
-        (supplier: ISupplier) => supplier?.supplier?._id === currentSupplierId,
+        (supplier: ISupplier) => supplier?._id === currentSupplierId,
       )
       const filteringSuppliers = this.product?.supplierCards?.filter(
-        (supplier: ISupplier) => supplier?.supplier?._id !== currentSupplierId,
+        (supplier: ISupplier) => supplier?._id !== currentSupplierId,
       )
 
       const resultSuppliers = foundCurrentSupplier
@@ -232,6 +232,7 @@ export class ListSuppliersModel {
     }
   }
 
+  // The button of deleting a supplier was commented because it wasnt necessary
   removeSupplier() {
     if (this.onRemoveSupplier && this.currentSupplier) {
       this.onRemoveSupplier(this.currentSupplier?.supplier?._id, this.product?._id)

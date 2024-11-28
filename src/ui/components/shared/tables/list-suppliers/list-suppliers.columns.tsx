@@ -135,7 +135,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'comment',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.supplier?.comment} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.comment} />,
     filterable: false,
     sortable: false,
     width: 195,
