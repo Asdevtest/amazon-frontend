@@ -18,11 +18,10 @@ interface ContactInputListProps {
   listTitle: keyof typeof TranslationKey
   listName: FormListProps['name']
   formItemRules?: () => Rule[]
-  inputPlaceholder?: keyof typeof TranslationKey
 }
 
 export const ContactInputList: FC<ContactInputListProps> = memo(props => {
-  const { required = true, listTitle, listName, inputPlaceholder, formItemRules } = props
+  const { required = true, listTitle, listName, formItemRules } = props
 
   const { classes: styles } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
@@ -44,7 +43,6 @@ export const ContactInputList: FC<ContactInputListProps> = memo(props => {
                 <CustomInput
                   required
                   size="large"
-                  placeholder={inputPlaceholder}
                   wrapperClassName={sharedStyles.input}
                   suffix={
                     index > 0 ? (

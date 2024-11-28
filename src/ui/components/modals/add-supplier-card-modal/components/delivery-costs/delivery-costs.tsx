@@ -16,8 +16,8 @@ interface IDeliveryCostsProps {
   getBatchPrice: (values: ICreateSupplierProductModal) => number
   getPriceWithDeliveryPerUnit: (values: ICreateSupplierProductModal) => number
 
-  onChangePricePerUnit: (value: number) => void
-  onChangeBatchDelivery: (value: number) => void
+  onChangePricePerUnit: (currency: SupplierCurrency, value: number) => void
+  onChangeBatchDelivery: (currency: SupplierCurrency, value: number) => void
 }
 
 export const DeliveryCosts: FC<IDeliveryCostsProps> = memo(props => {
@@ -53,7 +53,7 @@ export const DeliveryCosts: FC<IDeliveryCostsProps> = memo(props => {
         controllInputTitle="Price per unit"
         uncontrollInputTitle="Price with delivery per unit"
         uncontrollInputValue={priceWithDeliveryPerUnit}
-        onChangeDelivery={onChangePricePerUnit}
+        onChangeDelivery={value => onChangePricePerUnit?.(currency, value)}
       />
 
       <DeliveryCostsInputs
@@ -61,7 +61,7 @@ export const DeliveryCosts: FC<IDeliveryCostsProps> = memo(props => {
         controllInputTitle="Batch delivery"
         uncontrollInputTitle="Batch price"
         uncontrollInputValue={batchPrice}
-        onChangeDelivery={onChangeBatchDelivery}
+        onChangeDelivery={value => onChangeBatchDelivery?.(currency, value)}
       />
     </div>
   )

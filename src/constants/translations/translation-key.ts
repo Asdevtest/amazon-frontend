@@ -2106,4 +2106,5 @@ export enum TranslationKey {
   'Add a new card' = 'Add a new card',
   'On hold' = 'On hold',
   'ID, Title' = 'ID, Title',
+  'Editing the card' = 'Editing the card',
 }
