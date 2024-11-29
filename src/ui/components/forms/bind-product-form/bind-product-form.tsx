@@ -94,7 +94,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
         <AsinSelect
           disabled={!selectedRadioValue}
           options={productsToBind}
-          placeholder={t(TranslationKey['Select product'])}
+          placeholder="Select product"
           // @ts-ignore
           onChangeData={selectProductHandler}
         />
