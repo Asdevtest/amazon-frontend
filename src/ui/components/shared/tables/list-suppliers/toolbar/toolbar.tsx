@@ -82,7 +82,9 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     !readOnly &&
     isSupplerSelected &&
     !!userInfo &&
-    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
+    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) &&
+      clientValidProductStatuses.includes(status) &&
+      isSelectedOwner) ||
       (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
         [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
@@ -130,6 +132,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     userInfo &&
     (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
     isNotProductNameForIdea
+
   const disabledEditSupplierButton =
     !supplier ||
     supplier?.name === ACCESS_DENIED ||
@@ -185,7 +188,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           className={styles.button}
           disabled={disabledEditSupplierButton || !showEditSupplierButton}
           onClick={() => onSupplierActions(ModalModes.EDIT)}
-        ></CustomButton>
+        />
 
         <CustomButton
           icon={<FaEye size={18} />}

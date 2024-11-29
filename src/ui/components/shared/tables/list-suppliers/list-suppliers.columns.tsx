@@ -145,11 +145,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     field: 'createdBy',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <UserCell
-        name={row.supplier?.createdBy?.name}
-        id={row.supplier?.createdBy?._id}
-        email={row.supplier?.createdBy?.email}
-      />
+      <UserCell name={row?.createdBy?.name} id={row?.createdBy?._id} email={row?.createdBy?.email} />
     ),
     filterable: false,
     sortable: false,
