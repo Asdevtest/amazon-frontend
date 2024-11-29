@@ -6,4 +6,10 @@ export const useStyles = makeStyles()(() => ({
     alignItems: 'center',
     gap: '5px',
   },
+
+  countryText: {
+    maxWidth: '200px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 }))
