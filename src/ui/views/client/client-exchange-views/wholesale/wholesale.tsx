@@ -1,5 +1,6 @@
+import { RadioChangeEvent } from 'antd'
 import { observer } from 'mobx-react'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -10,18 +11,29 @@ import { DynamicVirtualList } from '@components/shared/dynamic-virtual-list'
 import { Modal } from '@components/shared/modal'
 import { SupplierCard, SupplierProductCard } from '@components/shared/supplier'
 
+import { CardsFilter } from '@views/shared/supplier-view/cards-filter'
+
 import { t } from '@utils/translations'
 
 import { ISupplierCard, ISupplierExchange } from '@typings/models/suppliers/supplier-exchange'
 
 import { useStyles } from './wholesale.style'
 
-import { generateWholesaleTabs } from './wholesale.config'
+import { WholesaleTabs, generateWholesaleTabs } from './wholesale.config'
 import { WholesaleViewModel } from './wholesale.model'
 
 export const WholesaleView = observer(() => {
   const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new WholesaleViewModel(), [])
+  const [wholesaleTab, setWholesaleTab] = useState<WholesaleTabs>(WholesaleTabs.Suppliers)
+
+  const isSupplierMode = wholesaleTab === WholesaleTabs.Suppliers
+  const viewModel = useMemo(() => new WholesaleViewModel(isSupplierMode), [isSupplierMode])
+
+  const handleChangeWholesaleTab = (event: RadioChangeEvent) => {
+    setWholesaleTab(event.target.value)
+  }
+
+  const listClassName = isSupplierMode ? styles.suppliers : styles.products
 
   return (
     <>
@@ -30,8 +42,8 @@ export const WholesaleView = observer(() => {
           <CustomRadioButton
             size="large"
             options={generateWholesaleTabs()}
-            value={viewModel.wholesaleTab}
-            onChange={viewModel.onChangeWholesaleTab}
+            value={wholesaleTab}
+            onChange={handleChangeWholesaleTab}
           />
           <CustomInputSearch
             allowClear
@@ -42,18 +54,28 @@ export const WholesaleView = observer(() => {
           />
         </div>
 
-        <DynamicVirtualList<ISupplierExchange | ISupplierCard>
-          listClassName={viewModel.supplierMode ? styles.suppliers : styles.products}
-          data={viewModel.supplierMode ? viewModel.suppliers : viewModel.products}
-          itemContent={({ item }) =>
-            viewModel.supplierMode ? (
-              <SupplierCard supplier={item as ISupplierExchange} />
-            ) : (
-              <SupplierProductCard product={item as ISupplierCard} onSubmit={viewModel.onSelectSupplierCard} />
-            )
-          }
-          onScrollEnd={viewModel.loadMoreData}
-        />
+        <div className={styles.container}>
+          <DynamicVirtualList<ISupplierExchange | ISupplierCard>
+            listClassName={listClassName}
+            data={viewModel.items}
+            itemContent={({ item }) =>
+              isSupplierMode ? (
+                <SupplierCard supplier={item as ISupplierExchange} />
+              ) : (
+                <SupplierProductCard product={item as ISupplierCard} onSubmit={viewModel.onSelectSupplierCard} />
+              )
+            }
+            onScrollEnd={viewModel.loadMoreData}
+          />
+
+          <CardsFilter
+            loading={viewModel.loading}
+            showFilter={viewModel.showFilter && !isSupplierMode}
+            filtersCount={viewModel.filtersCount}
+            onSubmit={viewModel.onFilterSubmit}
+            onReset={viewModel.onResetOptions}
+          />
+        </div>
       </div>
 
       <Modal openModal={viewModel.showSelectShopsModal} setOpenModal={viewModel.onToggleSelectShopsModal}>

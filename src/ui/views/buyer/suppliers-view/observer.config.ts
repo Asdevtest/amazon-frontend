@@ -3,8 +3,13 @@ import { action, observable } from 'mobx'
 export const observerConfig = {
   currentTable: observable,
 
+  supplierIdToShow: observable,
   supplierIdToEdit: observable,
+  isSupplierCardsActive: observable,
+  supplierCardIdToEdit: observable,
+  tablesHandlers: observable,
 
+  showSupplierModal: observable,
   showAddSupplierModal: observable,
   showAddSupplierProductModal: observable,
 
@@ -15,4 +20,9 @@ export const observerConfig = {
   onCloseAddSupplierModal: action.bound,
   onCloseAddSupplierProductModal: action.bound,
   onClickAddSupplierProduct: action.bound,
+  onClickEditSupplierCard: action.bound,
+  onClickDeleteSupplierCard: action.bound,
+  onTriggerArchive: action.bound,
+  onOpenSupplierModal: action.bound,
+  onCloseSupplierModal: action.bound,
 }

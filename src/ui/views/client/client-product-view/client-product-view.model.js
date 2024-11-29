@@ -9,6 +9,7 @@ import { creatSupplier, patchSuppliers } from '@constants/white-list'
 import { ClientModel } from '@models/client-model'
 import { ProductModel } from '@models/product-model'
 import { ShopModel } from '@models/shop-model'
+import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
@@ -47,6 +48,8 @@ export class ClientProductViewModel {
   productsToBind = undefined
 
   shopsData = []
+  destinations = []
+  storekeepers = []
 
   curUpdateProductData = undefined
 
@@ -111,6 +114,8 @@ export class ClientProductViewModel {
     try {
       await this.getProductById()
       await this.getShops()
+      await this.getDestinations()
+      await this.getStorekeepers()
       await this.getProductsVariations()
     } catch (error) {
       console.error(error)
@@ -233,6 +238,8 @@ export class ClientProductViewModel {
           'category',
           'lamazon',
           'clientComment',
+          'marketPlaceCountryId',
+          'mainTariffVariationId',
           'amazonTitle',
           'amazonDescription',
           'amazonDetail',
@@ -300,6 +307,30 @@ export class ClientProductViewModel {
 
       runInAction(() => {
         this.shopsData = result
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getDestinations() {
+    try {
+      const response = await ClientModel.getDestinations()
+
+      runInAction(() => {
+        this.destinations = response
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async getStorekeepers() {
+    try {
+      const response = await StorekeeperModel.getStorekeepers()
+
+      runInAction(() => {
+        this.storekeepers = response
       })
     } catch (error) {
       console.error(error)
@@ -455,7 +486,6 @@ export class ClientProductViewModel {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await onSubmitPostImages.call(this, { images: this.imagesForLoad, type: 'uploadedImages' })
-
       await ClientModel.updateProduct(
         this.product._id,
         getObjectFilteredByKeyArrayBlackList(
@@ -490,74 +520,15 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, itemId, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn(supplierCardId) {
     try {
-      this.setRequestStatus(loadingStatus.IS_LOADING)
-
-      supplier = {
-        ...supplier,
-        amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        minlot: parseInt(supplier?.minlot) || '',
-        price: parseFloat(supplier?.price) || '',
-        heightUnit: supplier?.heightUnit || null,
-        widthUnit: supplier?.widthUnit || null,
-        lengthUnit: supplier?.lengthUnit || null,
-        weighUnit: supplier?.weighUnit || null,
-        boxProperties: supplier?.boxProperties
-          ? supplier.boxProperties
-          : {
-              amountInBox: null,
-              boxHeightCm: null,
-              boxLengthCm: null,
-              boxWeighGrossKg: null,
-              boxWidthCm: null,
-            },
+      if (supplierCardId) {
+        await ProductModel.addSuppliersToProduct(this.productId, [supplierCardId])
       }
 
-      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        images: this.readyImages,
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        imageUnit: this.readyImages,
-      }
-
-      if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
-          supplier,
-          patchSuppliers,
-          undefined,
-          undefined,
-          true,
-        )
-
-        await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
-
-        if (supplier._id === this.product.currentSupplierId) {
-          runInAction(() => {
-            this.product.currentSupplier = supplier
-            updateProductAutoCalculatedFields.call(this)
-          })
-        }
-      } else {
-        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
-        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-
-        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
-        // await this.getProductById()
-      }
-
-      await this.onSaveForceProductData()
-
-      this.setRequestStatus(loadingStatus.SUCCESS)
+      this.loadData()
     } catch (error) {
       console.error(error)
-      this.setRequestStatus(loadingStatus.FAILED)
     }
   }
 

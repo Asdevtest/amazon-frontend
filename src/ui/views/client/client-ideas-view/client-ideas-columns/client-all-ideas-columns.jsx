@@ -15,7 +15,6 @@ import {
 } from '@components/data-grid/data-grid-cells'
 import { Text } from '@components/shared/text'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import {
@@ -101,9 +100,7 @@ export const clientAllIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Idea),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-      renderCell: params => (
-        <MediaContentCell image={params.row.linksToMediaFiles.find(el => checkIsMediaFileLink(el))} />
-      ),
+      renderCell: params => <MediaContentCell files={params.row.linksToMediaFiles} />,
       width: 70,
       disableCustomSort: true,
       filterable: false,

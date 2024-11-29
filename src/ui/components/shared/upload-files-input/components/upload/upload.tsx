@@ -60,6 +60,7 @@ export const Upload: FC<UploadProps> = memo(props => {
         <input
           multiple
           type="file"
+          disabled={disabled}
           title={t(TranslationKey['File not selected'])}
           accept={generateAcceptString(acceptTypes)}
           className={styles.uploadInput}

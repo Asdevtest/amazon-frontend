@@ -162,6 +162,15 @@ export const useStyles = makeStyles()(theme => ({
 
   shopsWrapper: {
     marginBottom: '30px',
+    display: 'flex',
+    gap: '20px',
+    alignItems: 'flex-end',
+    maxHeight: '70px',
+  },
+
+  allowedRoleContainer: {
+    width: 'fit-content',
+    margin: 0,
   },
 
   inputAsin: {
@@ -184,6 +193,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
+  },
+
+  flexWrap: {
+    display: 'flex',
+    alignItems: 'center',
   },
 
   inputLink: {
@@ -379,5 +393,18 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+
+  spanLabelSmall: {
+    fontSize: '14px',
+  },
+
+  tariffLabel: {
+    marginBottom: '5px',
+    display: 'flex',
+    gap: '5px',
+    svg: {
+      color: 'rgba(255, 197, 61, 1)',
+    },
   },
 }))

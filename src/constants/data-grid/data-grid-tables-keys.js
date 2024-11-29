@@ -61,6 +61,7 @@ export const DataGridTablesKeys = {
   BUYER_PRODUCTS: 'buyerProductsDataGridState',
   BUYER_MY_ORDERS_: 'buyerMyOrdersDataGridState',
   BUYER_SUPPLIERS: 'buyerSuppliersDataGridState',
+  BUYER_SUPPLIERS_CARDS: 'buyerSuppliersCardsDataGridState',
 
   BUYER_PENDING_ORDERS: 'buyerPendingOrdersDataGridState',
   BUYER_MY_ORDERS_NOT_PAID: 'buyerMyOrdersNotPaidDataGridState',

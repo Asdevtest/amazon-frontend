@@ -1,4 +1,3 @@
-import { RadioChangeEvent } from 'antd'
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -11,35 +10,27 @@ import { t } from '@utils/translations'
 
 import { ISupplierExchange } from '@typings/models/suppliers/supplier-exchange'
 
-import { WholesaleTabs, wholesaleConfig } from './wholesale.config'
+import { wholesaleConfig } from './wholesale.config'
 
 export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
-  wholesaleTab: WholesaleTabs = WholesaleTabs.Suppliers
   showSelectShopsModal = false
   supplierCardId?: string
 
-  get suppliers() {
+  get items() {
     return this.data
   }
-  get products() {
-    return this.suppliers.flatMap((supplier: ISupplierExchange) => supplier.supplierCards)
-  }
-  get supplierMode() {
-    return this.wholesaleTab === WholesaleTabs.Suppliers
-  }
-  get isEmpty() {
-    return (this.supplierMode && this.suppliers.length === 0) || (!this.supplierMode && this.products.length === 0)
+  get showFilter() {
+    return this.items?.length > 1 || this.filtersCount > 0
   }
 
-  constructor() {
-    super({ method: ClientModel.getSuppliersExchange, searchFields: ['xid'] })
+  constructor(isSupplierMode: boolean) {
+    super({
+      method: isSupplierMode ? ClientModel.getSuppliersExchange : ClientModel.getSuppliersExchangeCards,
+      searchFields: ['xid'],
+    })
 
     this.getData()
     makeObservable(this, wholesaleConfig)
-  }
-
-  onChangeWholesaleTab(event: RadioChangeEvent) {
-    this.wholesaleTab = event.target.value
   }
 
   onToggleSelectShopsModal() {

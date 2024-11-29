@@ -43,8 +43,21 @@ export const calcProductsMaxAmountByPriceLimit = (product, maxPrice) =>
     : 999999999
 
 export const calcOrderTotalPrice = (supplier, goodsAmount) =>
-  ((parseFloat(supplier?.price) || 0) + (parseFloat(supplier?.batchDeliveryCostInDollar / supplier?.amount) || 0)) *
+  ((parseFloat(supplier?.priceInUsd) || 0) +
+    (parseFloat(supplier?.batchDeliveryCostInDollar / supplier?.amount) || 0)) *
   (parseInt(goodsAmount) || 0)
+
+export const calcOrderPerPcInDollar = supplier =>
+  toFixed(
+    (parseFloat(supplier?.priceInUsd) || 0) + (parseFloat(supplier?.batchDeliveryCostInDollar / supplier?.amount) || 0),
+    2,
+  )
+
+export const calcOrderPerPcInYuan = supplier =>
+  toFixed(
+    (parseFloat(supplier?.priceInYuan) || 0) + (parseFloat(supplier?.batchDeliveryCostInYuan / supplier?.amount) || 0),
+    2,
+  )
 
 export const calcOrderTotalPriceInYuann = (supplier, goodsAmount) =>
   ((parseFloat(supplier?.priceInYuan) || 0) + (parseFloat(supplier?.batchDeliveryCostInYuan / supplier?.amount) || 0)) *

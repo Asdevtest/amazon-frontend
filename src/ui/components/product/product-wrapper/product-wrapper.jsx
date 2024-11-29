@@ -72,6 +72,8 @@ export const ProductWrapper = memo(
     navigateToProduct,
     unbindProductHandler,
     shops,
+    destinations,
+    storekeepers,
     productBase,
     userRole,
     modal,
@@ -180,14 +182,14 @@ export const ProductWrapper = memo(
             navigateToProduct={navigateToProduct}
             unbindProductHandler={unbindProductHandler}
             shops={shops}
+            destinations={destinations}
+            storekeepers={storekeepers}
             productBase={productBase}
             actionStatus={actionStatus}
             showBindProductModal={showBindProductModal}
             productsToBind={productsToBind}
             handleProductActionButtons={handleProductActionButtons}
             formFieldsValidationErrors={formFieldsValidationErrors}
-            loadMorePermissionsDataHadler={loadMorePermissionsDataHadler}
-            onClickSubmitSearch={onClickSubmitSearch}
             onClickNextButton={onClickNextButton}
             onTriggerOpenModal={onTriggerOpenModal}
             onClickGetProductsToBind={onClickGetProductsToBind}

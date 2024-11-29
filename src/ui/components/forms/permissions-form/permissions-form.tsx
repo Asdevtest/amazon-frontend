@@ -18,6 +18,7 @@ import { useStyles } from './permissions-form.style'
 import { createPermissionOptions } from './permissions-form.config'
 import { PermissionsFormModel } from './permissions-form.model'
 import { ProductOption } from './product-option'
+import { RolesSelect } from './roles-select'
 import { UsersSelect } from './users-select'
 
 export interface PermissionsFormProps {
@@ -60,6 +61,10 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
             onChange={viewModel.onChangePermissionTab}
           />
         )}
+
+        {viewModel.showRolesSelect ? (
+          <RolesSelect user={props.subUser} onChangeRole={viewModel.onChangeMultipleRole} />
+        ) : null}
         <UsersSelect
           disabled={!!viewModel.subUser || viewModel.mainLoading}
           size="large"

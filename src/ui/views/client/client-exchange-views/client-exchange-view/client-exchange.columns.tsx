@@ -30,7 +30,7 @@ export const clientExchangeColumns = (rowHandlers: IRowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Image)} />,
 
       width: 70,
-      renderCell: params => <MediaContentCell image={params.row.images[0]} />,
+      renderCell: params => <MediaContentCell files={params.row.images} />,
     },
 
     {

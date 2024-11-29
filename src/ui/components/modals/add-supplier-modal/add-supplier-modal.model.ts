@@ -10,6 +10,7 @@ import { onPostImage, uploadFileByUrl } from '@utils/upload-files'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { isString } from '@typings/guards'
+import { SupplierCardStatus } from '@typings/models/suppliers/supplier-card'
 import { ISupplierCard } from '@typings/models/suppliers/supplier-exchange'
 import { ICountry } from '@typings/shared/country'
 import { IPaymentMethod } from '@typings/shared/payment-method'
@@ -121,13 +122,30 @@ export class AddSupplierModalModel extends DefaultModel {
     }
   }
 
+  transformSupplierToCreateEditSupplier(supplier: CreateSupplier, images: string[]): PostSupplier {
+    const transformedData = { ...supplier, images }
+
+    const supplierEmployees = supplier?.supplierEmployees?.map(employee => ({
+      name: employee?.name,
+      phoneNumbers: employee?.phoneNumbers?.filter(phone => phone),
+      emails: employee?.emails?.filter(email => email),
+      links: employee?.links?.filter(link => link),
+    }))
+
+    transformedData.supplierEmployees = supplierEmployees
+
+    return transformedData
+  }
+
   async createSupplier(value: CreateSupplier) {
     try {
       const images = await this.uploadFiles(value?.images)
 
-      const data: PostSupplier = { ...value, images }
+      const data = this.transformSupplierToCreateEditSupplier(value, images)
 
-      SupplierV2Model?.createSupplier(data)
+      const result = await SupplierV2Model?.createSupplier(data)
+
+      return result.guid
     } catch (error) {
       console.error(error)
     }
@@ -137,9 +155,11 @@ export class AddSupplierModalModel extends DefaultModel {
     try {
       const images = await this.uploadFiles(value?.images)
 
-      const data: PostSupplier = { ...value, images }
+      const data = this.transformSupplierToCreateEditSupplier(value, images)
 
       SupplierV2Model?.editSupplier(supplierId, data)
+
+      return supplierId
     } catch (error) {
       console.error(error)
     }
@@ -177,5 +197,17 @@ export class AddSupplierModalModel extends DefaultModel {
   }
   onCloseAddSupplierProductModal() {
     this.onTriggerOpenModal('showAddSupplierProductModal', false)
+  }
+
+  async changeSupplierStatus(supplierId: string, status: SupplierCardStatus) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      SupplierV2Model.patchSupplierStatus(supplierId, { status })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    }
   }
 }

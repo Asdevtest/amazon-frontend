@@ -47,6 +47,7 @@ export const fieldsOfProductAllowedToUpdate = [
   'minpurchase',
   'fbaamount',
   'strategyStatus',
+  'currentSupplierCardId',
   'currentSupplierId',
   'asin',
   'clientComment',
@@ -62,5 +63,6 @@ export const fieldsOfProductAllowedToUpdate = [
   'redFlags',
   'tags',
   'shopId',
-  // 'totalFba'
+  'marketPlaceCountryId',
+  'mainTariffVariationId',
 ]

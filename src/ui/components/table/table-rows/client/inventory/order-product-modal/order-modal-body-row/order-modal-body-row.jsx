@@ -1,6 +1,6 @@
-import { isValid } from 'date-fns'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
+import { BsFillBoxSeamFill } from 'react-icons/bs'
 import { MdOutlineDelete } from 'react-icons/md'
 
 import { IconButton, TableCell, TableRow } from '@mui/material'
@@ -9,17 +9,19 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ChangeChipCell, ProductCell, StringListCell } from '@components/data-grid/data-grid-cells'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
+import { DeadlineForm } from '@components/modals/order-product-modal/deadline-form/deadline-form'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
-import { DatePicker } from '@components/shared/date-picker'
+import { CustomDatePicker } from '@components/shared/custom-date-picker'
+import { CustomInput } from '@components/shared/custom-input'
 import { Field } from '@components/shared/field/field'
 import { Input } from '@components/shared/input'
+import { Modal } from '@components/shared/modal'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { TruckIcon } from '@components/shared/svg-icons'
 
 import { calcProductsPriceWithDelivery } from '@utils/calculation'
-import { convertLocalDateToUTC } from '@utils/date-time'
 import { toFixed, toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -54,12 +56,9 @@ export const OrderModalBodyRow = ({
   const { classes: styles, cx } = useStyles()
 
   const [isLocalPriseOutOfLimit, setIsLocalPriseOutOfLimit] = useState(false)
-  const minDate = new Date(dayjs().add(2, 'day'))
-  const [deadline, setDeadline] = useState(item.deadline ? new Date(item.deadline) : item.deadline)
-
   const [pricePerUnit, setPerPriceUnit] = useState(null)
 
-  const priceVariations = item?.currentSupplierCard?.supplier?.priceVariations
+  const priceVariations = item?.currentSupplierCard?.priceVariations
 
   const { tariffName, tariffRate } = useGetDestinationTariffInfo(
     destinations,
@@ -73,14 +72,14 @@ export const OrderModalBodyRow = ({
   const weightOfOneBox = item.currentSupplierCard
     ? Math.max(
         Math.round(
-          (((item.currentSupplierCard.boxProperties?.boxWidthCm || 0) *
-            (item.currentSupplierCard.boxProperties?.boxLengthCm || 0) *
-            (item.currentSupplierCard.boxProperties?.boxHeightCm || 0)) /
+          (((item.currentSupplierCard?.boxProperties?.boxWidthCm || 0) *
+            (item.currentSupplierCard?.boxProperties?.boxLengthCm || 0) *
+            (item.currentSupplierCard?.boxProperties?.boxHeightCm || 0)) /
             platformSettings?.volumeWeightCoefficient) *
             100,
         ) / 100 || 0,
-        item.currentSupplierCard.boxProperties?.boxWeighGrossKg,
-      ) / item.currentSupplierCard.boxProperties?.amountInBox
+        item.currentSupplierCard?.boxProperties?.boxWeighGrossKg,
+      ) / item.currentSupplierCard?.boxProperties?.amountInBox
     : ''
 
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
@@ -89,16 +88,9 @@ export const OrderModalBodyRow = ({
 
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
-      let value
+      const transformedDate = event ? dayjs(event).format() : event
 
-      if (isValid(event)) {
-        value = new Date(convertLocalDateToUTC(new Date(event)))
-      } else {
-        value = null
-      }
-
-      setOrderStateFiled(nameInput)(value)
-      setDeadline(value)
+      setOrderStateFiled(nameInput)(transformedDate)
     } else if (nameInput === 'tariff') {
       setOrderStateFiled(nameInput)(event)
     } else {
@@ -110,17 +102,12 @@ export const OrderModalBodyRow = ({
 
   const {
     destinationId,
-
     onSubmitSelectStorekeeperAndTariff,
-
     showConfirmModal,
     setShowConfirmModal,
-
     confirmModalSettings,
-
     handleSetDestination,
     handleResetDestination,
-
     showSelectionStorekeeperAndTariffModal,
     setShowSelectionStorekeeperAndTariffModal,
   } = useTariffVariation(item.destinationId, setBoxBody(item))
@@ -147,9 +134,41 @@ export const OrderModalBodyRow = ({
     }
   }, [costDeliveryOfBatch, item, orderState, orderState.amount])
 
+  useEffect(() => {
+    if (item.mainTariffVariation) {
+      item.destinationId = item.mainTariffVariation.destination._id
+      item.storekeeperId = item.mainTariffVariation?.storekeeperTariffLogistics.storekeeperId
+      item.logicsTariffId = item.mainTariffVariation?.storekeeperTariffLogistics._id
+      item.variationTariffId = item.mainTariffVariation._id
+    }
+  }, [])
+
   const productionTerm = item.currentSupplierCard
-    ? `${item.currentSupplierCard.minProductionTerm} - ${item.currentSupplierCard.maxProductionTerm}`
+    ? `${item.currentSupplierCard?.minProductionTerm} - ${item.currentSupplierCard?.maxProductionTerm}`
     : t(TranslationKey['No data'])
+
+  const [boxQuantity, setBoxQuantity] = useState(item?.valueForOrder || 0)
+
+  useEffect(() => {
+    const dinamicBoxQuantity = toFixed(
+      orderState?.amount / (item?.currentSupplierCard?.boxProperties?.amountInBox || 1),
+      1,
+    )
+
+    setBoxQuantity(dinamicBoxQuantity)
+  }, [orderState?.amount])
+
+  const quantityInputSuffix =
+    boxQuantity > 0 ? (
+      <>
+        <BsFillBoxSeamFill className={styles.boxGray} />
+        <span className={styles.boxGray}>{boxQuantity}</span>
+      </>
+    ) : (
+      <></> // without layout, the input loses focus as the suffix redraws.
+    )
+
+  const [showDeadlineModal, setShowDeadlineModal] = useState(false)
 
   return (
     <>
@@ -161,22 +180,19 @@ export const OrderModalBodyRow = ({
       >
         <TableCell className={cx(styles.cell, styles.productCell)}>
           <ProductCell image={item.images[0]} title={item.amazonTitle} asin={item.asin} sku={item.skuByClient} />
-
           {!item.currentSupplierCard && (
-            <p className={styles.noCurrentSupplierText}>{t(TranslationKey['No supplier selected!'])}</p>
+            <p className={styles.warningText}>{t(TranslationKey['No supplier selected!'])}</p>
           )}
         </TableCell>
 
         <TableCell className={styles.cell}>
-          <p className={styles.standartText}>
-            {item.currentSupplierCard ? toFixed(item.currentSupplierCard?.priceInUsd, 2) : <span>—</span>}
-          </p>
+          <p>{item.currentSupplierCard ? toFixed(item.currentSupplierCard?.priceInUsd, 2) : <span>—</span>}</p>
         </TableCell>
 
         <TableCell className={styles.cell}>
-          <p className={styles.standartText}>
+          <p>
             {item.currentSupplierCard ? (
-              toFixed(item.currentSupplierCard.batchDeliveryCostInDollar / item.currentSupplierCard.amount, 2)
+              toFixed(item.currentSupplierCard?.batchDeliveryCostInDollar / item.currentSupplierCard?.amount, 2)
             ) : (
               <span>—</span>
             )}
@@ -184,36 +200,35 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={styles.cell}>
-          <Field
-            containerClasses={cx(styles.containerField, styles.containerFieldCell)}
-            inputClasses={styles.amountCell}
-            error={
-              item.currentSupplierCard?.multiplicity &&
+          <CustomInput
+            fullWidth
+            maxLength={6}
+            value={orderState.amount}
+            suffix={quantityInputSuffix}
+            className={styles.inputQuantity}
+            onChange={e => onChangeInput(e, 'amount')}
+          />
+          <span className={styles.warningText}>
+            {item.currentSupplierCard?.multiplicity &&
               item.currentSupplierCard?.boxProperties?.amountInBox &&
               (orderState.amount % item.currentSupplierCard?.boxProperties?.amountInBox !== 0 || !orderState.amount) &&
-              ` ${t(TranslationKey['Not a multiple of'])} ${item.currentSupplierCard.boxProperties?.amountInBox}`
-            }
-            successText={
-              item.currentSupplierCard?.multiplicity &&
+              ` ${t(TranslationKey['Not a multiple of'])} ${item.currentSupplierCard?.boxProperties?.amountInBox}`}
+          </span>
+          <span className={styles.textSuccess}>
+            {item.currentSupplierCard?.multiplicity &&
               item.currentSupplierCard?.boxProperties?.amountInBox &&
               orderState.amount % item.currentSupplierCard?.boxProperties?.amountInBox === 0 &&
               !!orderState.amount &&
-              ` ${t(TranslationKey['Value multiple of'])} ${item.currentSupplierCard.boxProperties?.amountInBox}`
-            }
-            inputProps={{ maxLength: 6, min: 0 }}
-            value={orderState.amount}
-            onChange={e => {
-              onChangeInput(e, 'amount')
-            }}
-          />
+              ` ${t(TranslationKey['Value multiple of'])} ${item.currentSupplierCard?.boxProperties?.amountInBox}`}
+          </span>
         </TableCell>
 
         <TableCell className={styles.cell}>
-          <p className={cx(styles.standartText, { [styles.errorSpace]: isLocalPriseOutOfLimit })}>
+          <p className={cx({ [styles.errorSpace]: isLocalPriseOutOfLimit })}>
             {toFixed(calcProductsPriceWithDelivery(item, orderState), 2)}
           </p>
           {isLocalPriseOutOfLimit && (
-            <p className={styles.error}>
+            <p className={styles.warningText}>
               {t(TranslationKey['At least'])} {platformSettings?.orderAmountLimit}$
             </p>
           )}
@@ -277,8 +292,6 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <CustomButton
-            block
-            className={styles.button}
             type={item.logicsTariffId ? 'default' : 'primary'}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
@@ -327,15 +340,14 @@ export const OrderModalBodyRow = ({
         </TableCell>
 
         <TableCell className={styles.cell}>
-          <div className={styles.datePickerWrapper}>
-            <DatePicker
-              disablePast
-              error={isPendingOrder && !deadline}
-              minDate={minDate}
-              value={deadline}
-              onChange={e => onChangeInput(e, 'deadline')}
-            />
-          </div>
+          <CustomDatePicker
+            inputReadOnly
+            open={false}
+            format="DD.MM.YYYY"
+            status={isPendingOrder && !item.deadline && 'error'}
+            value={item?.deadline ? dayjs(item.deadline) : null}
+            onClick={() => setShowDeadlineModal(!showDeadlineModal)}
+          />
         </TableCell>
 
         {withRemove && (
@@ -405,7 +417,7 @@ export const OrderModalBodyRow = ({
               label={t(TranslationKey['Batch delivery cost']) + ',$'}
               inputComponent={
                 <p className={styles.sumText}>
-                  {toFixed(item.currentSupplierCard.batchDeliveryCostInDollar, 2) || t(TranslationKey['No data'])}
+                  {toFixed(item.currentSupplierCard?.batchDeliveryCostInDollar, 2) || t(TranslationKey['No data'])}
                 </p>
               }
             />
@@ -453,6 +465,15 @@ export const OrderModalBodyRow = ({
             onClickCancelBtn={confirmModalSettings?.onClickCancelBtn}
           />
         ) : null}
+
+        <Modal openModal={showDeadlineModal} setOpenModal={setShowDeadlineModal}>
+          <DeadlineForm
+            selectedDeadline={item?.deadline ? dayjs(item.deadline) : null}
+            maxProductionTerm={item?.currentSupplierCard?.maxProductionTerm}
+            onSubmit={value => onChangeInput(value, 'deadline')}
+            onClose={() => setShowDeadlineModal(false)}
+          />
+        </Modal>
       </TableRow>
     </>
   )

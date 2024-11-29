@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'row',
   },
 
-  input: {
+  fullWidth: {
     width: '100%',
   },
 

@@ -29,7 +29,6 @@ import {
   shopFields,
 } from '@views/client/client-ideas-view/columns-menu.config'
 
-import { checkIsMediaFileLink } from '@utils/checks'
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -151,9 +150,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       headerName: t(TranslationKey.Idea),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Idea)} />,
 
-      renderCell: params => (
-        <MediaContentCell image={params.row.linksToMediaFiles.find((el: string) => checkIsMediaFileLink(el))} />
-      ),
+      renderCell: params => <MediaContentCell files={params.row.linksToMediaFiles} />,
       width: 70,
       disableCustomSort: true,
       filterable: false,
@@ -187,10 +184,10 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
           return <Text isCell text="" />
         }
 
-        return suppliers[0].link ? (
+        return suppliers[0]?.supplier?.link ? (
           <LinkWithCopy
-            url={checkAndMakeAbsoluteUrl(suppliers[0].link)}
-            valueToCopy={suppliers[0].link}
+            url={checkAndMakeAbsoluteUrl(suppliers[0]?.supplier?.link)}
+            valueToCopy={suppliers[0]?.supplier?.link}
             title={t(TranslationKey.Site)}
           />
         ) : (

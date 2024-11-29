@@ -165,4 +165,8 @@ export const useStyles = makeStyles()(theme => ({
   blue: {
     color: theme.palette.text.main,
   },
+
+  tariffButton: {
+    maxWidth: '230px',
+  },
 }))

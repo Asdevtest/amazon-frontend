@@ -1,3 +1,4 @@
+import { Dropdown, MenuProps } from 'antd'
 import { FC, memo } from 'react'
 import { FaEye } from 'react-icons/fa'
 import { FiPlus } from 'react-icons/fi'
@@ -140,6 +141,25 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
       userInfo?._id !== supplier?.createdBy?._id &&
       userInfo?.masterUser?._id !== supplier?.createdBy?._id)
 
+  const menuProps: MenuProps['items'] = [
+    {
+      key: 'addSupplierCard',
+      label: (
+        <CustomButton onClick={() => onSupplierActions(ModalModes.ADD_SUPPLIER_CARD)}>
+          {t(TranslationKey['Add a new card'])}
+        </CustomButton>
+      ),
+    },
+    {
+      key: 'addSupplier',
+      label: (
+        <CustomButton onClick={() => onSupplierActions(ModalModes.ADD)}>
+          {t(TranslationKey['Add a supplier'])}
+        </CustomButton>
+      ),
+    },
+  ]
+
   return (
     <div className={styles.toolbar}>
       <p className={styles.tableTitle}>{t(TranslationKey['List of suppliers'])}</p>
@@ -153,12 +173,13 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           {t(TranslationKey['View an oriented calculation'])}
         </CustomButton>
 
-        <CustomButton
-          icon={<FiPlus size={18} />}
-          className={styles.button}
+        <Dropdown
           disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea || !showAddSupplierButton}
-          onClick={() => onSupplierActions(ModalModes.ADD)}
-        />
+          menu={{ items: menuProps }}
+          placement="bottomLeft"
+        >
+          <CustomButton icon={<FiPlus size={18} />} className={styles.button} />
+        </Dropdown>
 
         <CustomButton
           icon={<MdOutlineEdit size={18} />}

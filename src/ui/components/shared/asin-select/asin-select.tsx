@@ -2,7 +2,7 @@ import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { FC, UIEvent, useCallback, useMemo } from 'react'
 
-import { ProductCell } from '@components/data-grid/data-grid-cells'
+import { AsinOption } from '@components/modals/report-modal/components/header/asin-option'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
 
@@ -52,9 +52,7 @@ export const AsinSelect: FC<AsinSelectProps> = observer(props => {
       defaultActiveFirstOption={false}
       options={options}
       value={defaultOption}
-      optionRender={({ data }) => (
-        <ProductCell isCell={false} image={data?.images?.[0]} asin={data?.asin} sku={data?.skuByClient} />
-      )}
+      optionRender={({ data }) => <AsinOption data={data} />}
       onDropdownVisibleChange={handleDropdownVisibleChange}
       onSearch={viewModel.onClickSubmitSearch}
       onPopupScroll={handlePopupScroll}

@@ -32,6 +32,8 @@ export const fieldsOfProductAllowedToCreate = [
   'amazonDescription',
   'category',
   'weight',
+  'marketPlaceCountry',
+  'mainTariffVariation',
   'minpurchase',
   'fbaamount',
   'strategyStatus',

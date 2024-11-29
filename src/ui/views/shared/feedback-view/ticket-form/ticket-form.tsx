@@ -38,7 +38,7 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
 
   return (
     <div className={styles.root}>
-      <Skeleton active loading={viewModel.loading} paragraph={{ rows: 12 }}>
+      <Skeleton active loading={!viewModel.feedback} paragraph={{ rows: 12 }}>
         <div className={cx(styles.block, styles.user)}>
           <div className={styles.flexRow}>
             {creator && viewModel.feedback ? (
@@ -104,10 +104,11 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
         )}
       </Skeleton>
 
-      <div className={cx(styles.flexRow, { [styles.flexEnd]: viewModel.showResponseBlock })}>
-        {!viewModel.showResponseBlock ? (
+      <div className={cx(styles.flexRow, { [styles.flexEnd]: !viewModel.showUploadButton })}>
+        {viewModel.showUploadButton ? (
           <CustomButton
             size="large"
+            disabled={viewModel.loading}
             type={viewModel.showMediaBlock ? 'primary' : 'default'}
             icon={<MdOutlineAttachFile />}
             onClick={viewModel.onToggleResponseBlock}
@@ -118,6 +119,7 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
           {creator && !viewModel.showResponseBlock ? (
             <CustomButton
               type="primary"
+              loading={viewModel.loading}
               size="large"
               disabled={!viewModel.responseText.trim()}
               onClick={viewModel.onSendReplyToFeedback}
@@ -125,7 +127,7 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
               {t(TranslationKey.Send)}
             </CustomButton>
           ) : null}
-          <CustomButton size="large" onClick={onClose}>
+          <CustomButton size="large" disabled={viewModel.loading} onClick={onClose}>
             {t(TranslationKey.Close)}
           </CustomButton>
         </div>

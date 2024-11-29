@@ -14,6 +14,7 @@ export interface IProduct {
   currentSupplier?: ISupplier // remove after back update
   currentSupplierCard?: ISupplier
   currentSupplierId: string | null
+  currentSupplierCardId: string | null
   parentProductId: string
   hasChildren: boolean
   category: string
@@ -98,7 +99,15 @@ export interface IProduct {
   productsInWarehouseSchema: Array<object>
   orders: Array<IOrder>
   shop: ICreatedBy
+  marketPlaceCountry: IMarketPlace
   selected?: boolean
+}
+
+export interface IMarketPlace {
+  image: string
+  shortTitle: string
+  title: string
+  id: string
 }
 
 export interface IBoxAmount {

@@ -1,80 +1,51 @@
-import { makeAutoObservable, reaction, runInAction } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
-import { PermissionsModel } from '@models/permissions-model'
 import { UserModel } from '@models/user-model'
 
-import { userPermissionsColumns } from '@components/table/table-columns/admin/user-permissions-columns'
+import { t } from '@utils/translations'
 
 export class UserEditModel {
   history = undefined
-
-  changeFields = { email: '', name: '', newPassword: '', confirmNewPassword: '' }
-  editUserFormFields = undefined
-
-  wrongPassword = null
   specs = []
   userData = undefined
-
   submitEditData = undefined
   newPassword = undefined
-
-  groupPermissions = undefined
-  singlePermissions = undefined
-
-  showAddOrEditGroupPermissionModal = false
   showVerticalChoicesModal = false
-  showConfirmModal = false
-
-  addOrEditGroupPermissionSettings = {
-    permission: {},
-    isEdit: false,
-    onSubmit: (data, newSinglePermissions) => this.onSubmitCreateGroupPermission(data, newSinglePermissions),
-  }
-
-  confirmModalSettings = {
-    isWarning: false,
-    message: '',
-    onClickSuccess: () => {},
-  }
-
-  rowHandlers = {
-    onClickRemoveBtn: row => this.onClickRemoveBtn(row),
-    onClickEditBtn: row => this.onClickEditBtn(row),
-  }
-
-  sortModel = []
-  filterModel = { items: [] }
-  curPage = 0
-  rowsPerPage = 15
-  densityModel = 'compact'
-  columnsModel = userPermissionsColumns(this.rowHandlers)
 
   constructor({ history, user }) {
     this.history = history
-
     this.userId = user._id
 
-    makeAutoObservable(this, undefined, { autoBind: true })
+    this.loadData()
 
-    reaction(
-      () => this.userId,
-      () => this.loadData(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  async finalStepSubmitEditUserForm() {
+  async finalStepSubmitEditUserForm(data, sourceData, passwords) {
     try {
+      this.submitEditData = { ...data, permissions: data.active && data.active !== 'false' ? data.permissions : [] } // удаляем пермишены если баним юзера
+      this.newPassword = passwords?.password
+
       await AdministratorModel.updateUser(this.userData._id, this.submitEditData)
       if (this.newPassword) {
-        await AdministratorModel.changePasswordById(this.userData._id, { password: this.newPassword })
+        await this.changeUserPassword()
       }
-      runInAction(() => {
-        this.changeFields = { email: '', name: '' }
-      })
-
       this.onTriggerOpenModal('showVerticalChoicesModal')
     } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async changeUserPassword() {
+    try {
+      await AdministratorModel.changePasswordById(this.userData._id, { password: this.newPassword })
+      toast.success(t(TranslationKey['New password set successfully']))
+    } catch (error) {
+      toast.error(t(TranslationKey['Failed to set new password']))
       console.error(error)
     }
   }
@@ -96,26 +67,6 @@ export class UserEditModel {
     this.onTriggerOpenModal('showVerticalChoicesModal')
   }
 
-  async submitEditUserForm(data, sourceData, passwords) {
-    try {
-      this.submitEditData = { ...data, permissions: data.active && data.active !== 'false' ? data.permissions : [] } // удаляем пермишены если баним юзера
-      this.newPassword = passwords?.password
-      this.availableSubUsers = undefined
-
-      if (sourceData.canByMasterUser === true && data.canByMasterUser === false) {
-        this.availableSubUsers = !!(await AdministratorModel.getUsersById(this.userData._id)).subUsers.length
-      }
-
-      if (this.availableSubUsers) {
-        this.onTriggerOpenModal('showConfirmModal')
-      } else {
-        await this.finalStepSubmitEditUserForm()
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   onClickCancelBtn() {
     this.history.goBack()
   }
@@ -124,40 +75,10 @@ export class UserEditModel {
     this.history.push('/admin/users')
   }
 
-  async getGroupPermissions() {
-    try {
-      const result = await PermissionsModel.getGroupPermissions()
-
-      runInAction(() => {
-        this.groupPermissions = result?.sort((a, b) => a.role - b.role) || []
-      })
-    } catch (error) {
-      this.groupPermissions = []
-      console.error(error)
-    }
-  }
-
-  async getSinglePermissions() {
-    try {
-      const result = await PermissionsModel.getSinglePermissions()
-
-      runInAction(() => {
-        this.singlePermissions = result?.sort((a, b) => a.role - b.role) || []
-      })
-    } catch (error) {
-      this.singlePermissions = []
-      console.error(error)
-    }
-  }
-
   loadData() {
-    try {
+    if (this.userId) {
       this.getUserData()
-      this.getGroupPermissions()
-      this.getSinglePermissions()
       this.getSpecs()
-    } catch (error) {
-      console.error(error)
     }
   }
 

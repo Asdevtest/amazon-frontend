@@ -2,6 +2,7 @@ export const filtersFields = [
   'xid',
   'item',
   'shopId',
+  'marketPlaceCountry',
   'priority',
   'asin',
   'skuByClient',

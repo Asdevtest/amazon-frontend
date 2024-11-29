@@ -32,14 +32,7 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ images = [], co
     <div className={styles.root}>
       <div className={styles.supplierDetailsWrapper}>
         <Form.Item<CreateSupplier> name="companyName" className={sharedStyles.field} rules={getRequiredRules()}>
-          <CustomInput
-            required
-            allowClear
-            label="Title"
-            size="large"
-            placeholder="Title"
-            wrapperClassName={sharedStyles.input}
-          />
+          <CustomInput required allowClear label="Title" size="large" wrapperClassName={sharedStyles.input} />
         </Form.Item>
 
         <Form.Item<CreateSupplier> name="countryId" className={sharedStyles.field} rules={getRequiredRules()}>
@@ -48,7 +41,6 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ images = [], co
             allowClear
             wrapperClassName={sharedStyles.input}
             label="Country"
-            placeholder="Country"
             options={countries}
             fieldNames={{ label: 'title', value: '_id' }}
             optionRender={option => (
@@ -61,21 +53,13 @@ export const SupplierDetails: FC<SupplierDetailsProps> = memo(({ images = [], co
         </Form.Item>
 
         <Form.Item<CreateSupplier> name="link" className={sharedStyles.field} rules={getRequiredLinkRules()}>
-          <CustomInput
-            required
-            allowClear
-            label="Link"
-            size="large"
-            placeholder="Link"
-            wrapperClassName={sharedStyles.input}
-          />
+          <CustomInput required allowClear label="Link" size="large" wrapperClassName={sharedStyles.input} />
         </Form.Item>
       </div>
 
       <Form.Item<CreateSupplier>
         name="images"
         className={cx(sharedStyles.field, styles?.uploadFiles)}
-        rules={getRequiredRules()}
         validateTrigger={['onChange', 'onBlur']}
       >
         <UploadFilesInput

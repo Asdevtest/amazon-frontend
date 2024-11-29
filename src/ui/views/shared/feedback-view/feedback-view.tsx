@@ -102,6 +102,7 @@ export const FeedbackView = observer(() => {
         setOpenModal={viewModel.onToggleContentEditorForm}
       >
         <ContentEditorForm
+          loading={viewModel.loading}
           data={viewModel.feedback}
           title={viewModel.contentEditorFormTitle}
           onSubmit={viewModel.onTicketFormSubmit}

@@ -1,9 +1,11 @@
-import { Image, ImageProps } from 'antd'
+import { Image as AntdImage, ImageProps } from 'antd'
 import { FC, memo } from 'react'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
 import { useStyles } from './custom-image.style'
+
+import { getFallbackImage, renderPreviewContent, renderPreviewToolbar } from './custom-image.config'
 
 export interface CustomImageProps extends ImageProps {
   fullImage?: boolean
@@ -18,8 +20,16 @@ export const CustomImage: FC<CustomImageProps> = memo(props => {
 
   return (
     <div className={cx(styles.root, wrapperClassName)} onClick={e => e.stopPropagation()}>
-      <Image
-        preview={!!src && { maskClassName: cx(styles.maskClassNameRoot, maskClassName), destroyOnClose: true }}
+      <AntdImage
+        preview={
+          !!src && {
+            maskClassName: cx(styles.maskClassNameRoot, maskClassName),
+            destroyOnClose: true,
+            imageRender: renderPreviewContent,
+            toolbarRender: renderPreviewToolbar,
+          }
+        }
+        fallback={getFallbackImage(src)}
         src={getAmazonImageUrl(src, fullImage)}
         className={cx(styles.image, className)}
         {...restProps}

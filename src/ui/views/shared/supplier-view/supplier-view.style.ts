@@ -10,7 +10,14 @@ export const useStyles = makeStyles()(() => ({
     padding: '5px',
     display: 'grid',
     gridAutoRows: 'min-content',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
     gap: '10px',
+  },
+
+  productsAll: {
+    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+  },
+
+  productsBig: {
+    gridTemplateColumns: 'repeat(2, minmax(260px, 1fr))',
   },
 }))

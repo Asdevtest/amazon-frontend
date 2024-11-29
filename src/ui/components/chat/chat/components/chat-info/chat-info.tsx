@@ -121,7 +121,7 @@ export const ChatInfo: FC<ChatInfoProps> = memo(props => {
                     <VideoPreloader
                       key={index}
                       wrapperClassName={styles.videoWrapper}
-                      videoSource={validFile}
+                      videoSource={el}
                       onClick={clickHandler}
                     />
                   )}

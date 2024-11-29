@@ -26,7 +26,7 @@ export const UsersSelect: FC<UsersSelectProps> = observer(props => {
       showSearch
       filterOption={false}
       defaultActiveFirstOption={false}
-      style={{ width: '330px' }}
+      style={{ width: '320px' }}
       options={viewModel.userOptions}
       value={viewModel.defaultUserOption}
       optionRender={({ data }) => <UserOption user={data} onChangeData={onChangeData} />}

@@ -112,13 +112,6 @@ export const useStyles = makeStyles()(theme => ({
     height: 'auto',
   },
 
-  researchWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 15,
-    width: 130,
-  },
-
   researchLabel: {
     color: theme.palette.text.second,
     fontWeight: '400',

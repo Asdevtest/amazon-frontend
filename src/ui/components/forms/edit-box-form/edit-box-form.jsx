@@ -1,3 +1,4 @@
+import { Avatar } from 'antd'
 import { memo, useState } from 'react'
 
 import { Divider } from '@mui/material'
@@ -25,6 +26,7 @@ import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { WarehouseDimensions } from '@components/shared/warehouse-dimensions'
 
+import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
 
 import '@typings/enums/button-style'
@@ -218,7 +220,6 @@ export const EditBoxForm = memo(
 
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
-
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
@@ -389,15 +390,27 @@ export const EditBoxForm = memo(
                               <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={item.product.asin} />
                             ) : null}
 
-                            <Field
-                              oneLine
-                              disabled
-                              labelClasses={styles.standartLabel}
-                              inputClasses={styles.disabledNumInput}
-                              label={t(TranslationKey['Quantity units of product'])}
-                              value={item.amount}
-                            />
+                            <div className={styles.flexContainer}>
+                              <Field
+                                disabled
+                                labelClasses={styles.standartLabel}
+                                label={t(TranslationKey.Marketplace)}
+                                value={item.amount}
+                                inputComponent={
+                                  <div className={styles.marketPlaceWrapper}>
+                                    <Avatar size={20} src={getAmazonImageUrl(item.product.marketPlaceCountry?.image)} />
+                                    <span>{item.product?.marketPlaceCountry?.title || t(TranslationKey.Missing)}</span>
+                                  </div>
+                                }
+                              />
 
+                              <Field
+                                disabled
+                                labelClasses={styles.standartLabel}
+                                label={t(TranslationKey['Units quantity'])}
+                                value={item.amount}
+                              />
+                            </div>
                             <Field
                               multiline
                               disabled

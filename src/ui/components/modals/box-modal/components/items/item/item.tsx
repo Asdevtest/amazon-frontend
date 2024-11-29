@@ -1,3 +1,4 @@
+import { Avatar } from 'antd'
 import { FC, memo } from 'react'
 
 import { Tooltip } from '@mui/material'
@@ -72,7 +73,14 @@ export const Item: FC<ItemProps> = memo(props => {
       <div className={styles.header}>
         <div className={styles.flexContainer}>
           <p className={cx(styles.text, styles.blue)}>{`x ${item.amount}`}</p>
-
+          {item.product?.marketPlaceCountry ? (
+            <Tooltip title={`${t(TranslationKey.Marketplace)}: ${item.product?.marketPlaceCountry?.title}`}>
+              <div className={styles.marketplaceWrapper}>
+                <Avatar size={20} src={getAmazonImageUrl(item.product?.marketPlaceCountry?.image)} />
+                <p>{item.product?.marketPlaceCountry?.shortTitle || t(TranslationKey.Missing)}</p>
+              </div>
+            </Tooltip>
+          ) : null}
           <Tooltip title={item.product.amazonTitle}>
             <p className={cx(styles.title, { [styles.titleOrderInfo]: isOrderInfo })}>{item.product.amazonTitle}</p>
           </Tooltip>

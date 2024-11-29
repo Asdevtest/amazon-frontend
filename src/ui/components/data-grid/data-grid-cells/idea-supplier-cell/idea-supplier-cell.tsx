@@ -20,7 +20,7 @@ export const IdeaSupplierCell: FC<IdeaSupplierCellProps> = memo(({ onClickAddSup
 
   return (
     <div className={styles.ideaSupplier}>
-      {!!suppliers.length && <p>{suppliers[0]?.cardName}</p>}
+      {!!suppliers.length && <p>{suppliers[0]?.supplier?.companyName}</p>}
       {!suppliers.length && (
         <CustomButton type="primary" size="small" icon={<FiPlus size={16} />} onClick={onClickAddSupplier}>
           {t(TranslationKey.Add)}

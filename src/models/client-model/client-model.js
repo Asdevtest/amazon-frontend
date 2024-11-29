@@ -234,8 +234,8 @@ class ClientModelStatic {
     return response.data
   }
 
-  getProductsInfoForOrders = async productIds => {
-    const response = await restApiService.clientApi.apiV1ClientsProductsInfoForOrdersGet({ productIds })
+  getProductsInfoForOrders = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsProductsInfoForOrdersGet(body)
     return response.data
   }
 
@@ -302,6 +302,11 @@ class ClientModelStatic {
 
   getSuppliersExchange = async body => {
     const response = await restApiService.clientApi.apiV1ClientsSuppliersExchangeGet(body)
+    return response.data
+  }
+
+  getSuppliersExchangeCards = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsSuppliersExchangeCardsGet(body)
     return response.data
   }
 

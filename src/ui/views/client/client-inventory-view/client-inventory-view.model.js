@@ -566,14 +566,17 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   async onClickOrderBtn(rowId, value) {
     try {
       const resultArray = []
+
       if (value && rowId) {
         const result = await this.checkPendingOrder(rowId)
+
         if (result) {
           resultArray.push(result)
         }
       } else {
         for (const id of this.selectedRows) {
           const result = await this.checkPendingOrder(id)
+
           if (result) {
             resultArray.push(result)
           }
@@ -593,22 +596,19 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       }
     } catch (error) {
       console.error(error)
-    } finally {
-      runInAction(() => {
-        this.showCircularProgressModal = false
-      })
     }
   }
 
   async onClickContinueBtn() {
-    const [storekeepers, destinations, dataForOrder] = await Promise.all([
-      StorekeeperModel.getStorekeepers(),
-      ClientModel.getDestinations(),
-      ClientModel.getProductsInfoForOrders(this.currentRow ? this.currentRow : this.selectedRows.join(',')),
-    ])
+    const storekeepers = await StorekeeperModel.getStorekeepers()
+    const destinations = await ClientModel.getDestinations()
+    const dataForOrder = await ClientModel.getProductsInfoForOrders({
+      productIds: this.currentRow || this.selectedRows.join(','),
+      recommendedValue: this.pendingOrderQuantity,
+    })
 
     if (this.pendingOrderQuantity === 0 || this.pendingOrderQuantity) {
-      dataForOrder[0].pendingOrderQuantity = Math.ceil(this.pendingOrderQuantity / 100) * 100
+      dataForOrder[0].pendingOrderQuantity = this.pendingOrderQuantity
       dataForOrder[0].isPending = true
     }
 
@@ -887,16 +887,14 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       await this.getCurrentData()
 
       toast.success(t(TranslationKey['Products will be updated soon']))
-
-      this.showCircularProgressModal = false
     } catch (error) {
-      runInAction(() => {
-        this.showCircularProgressModal = false
-      })
-
       toast.error(t(TranslationKey['Parsing data not updated']))
 
       console.error(error)
+    } finally {
+      runInAction(() => {
+        this.showCircularProgressModal = false
+      })
     }
   }
 
@@ -1134,19 +1132,16 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
         }
       }
 
-      runInAction(() => {
-        this.showCircularProgressModal = false
-
-        toast.success(t(TranslationKey['Product added']))
-      })
+      toast.success(t(TranslationKey['Product added']))
 
       await this.getCurrentData()
     } catch (error) {
+      console.error(error)
+      toast.success(t(TranslationKey['Product not added']))
+    } finally {
       runInAction(() => {
         this.showCircularProgressModal = false
       })
-      console.error(error)
-      toast.success(t(TranslationKey['Product not added']))
     }
   }
 

@@ -14,7 +14,7 @@ import { getRequiredRules } from '@config/form-rules/get-required-rules'
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './contacts.style'
 
-import { getRequiredEmailRules } from '../../add-supplier-modal.config'
+import { getRequiredEmailRules, getRequiredPhoneNumberRules } from '../../add-supplier-modal.config'
 import { emptyEmployee } from '../../add-supplier-modal.constants'
 import { ContactInputList } from '../contact-input-list'
 import { ContactListHeader } from '../contact-list-header'
@@ -49,21 +49,19 @@ export const Contacts = memo(() => {
                       validateTrigger={['onChange', 'onBlur']}
                       rules={getRequiredRules()}
                     >
-                      <CustomInput required size="large" placeholder="Fullname" wrapperClassName={sharedStyles.input} />
+                      <CustomInput required size="large" wrapperClassName={sharedStyles.input} />
                     </Form.Item>
                   </div>
 
                   <ContactInputList
                     listTitle="Phone"
-                    inputPlaceholder="Phone"
                     listName={[fieldName, 'phoneNumbers']}
-                    formItemRules={getRequiredRules}
+                    formItemRules={getRequiredPhoneNumberRules}
                   />
 
                   <ContactInputList
                     required={false}
                     listTitle="E-mail"
-                    inputPlaceholder="E-mail"
                     listName={[fieldName, 'emails']}
                     formItemRules={getRequiredEmailRules}
                   />

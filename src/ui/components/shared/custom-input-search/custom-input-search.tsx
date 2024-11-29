@@ -17,16 +17,13 @@ export const CustomInputSearch: FC<CustomInputSearchProps> = memo(props => {
     props
 
   const { classes: styles, cx } = useStyles()
+
   const placeholderText = placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined
+  const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
 
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
-      {label ? (
-        <p className={cx(styles.label, labelClassName)}>
-          {t(TranslationKey[label as TranslationKey])}
-          {required ? <span>*</span> : null}
-        </p>
-      ) : null}
+      {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
       <Search
         {...restProps}
         title={placeholderText}

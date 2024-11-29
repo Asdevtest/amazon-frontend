@@ -121,6 +121,8 @@ export const ProductCardModal = observer(props => {
             progressValue={viewModel?.progressValue}
             product={viewModel?.currentData}
             shops={viewModel?.shopsData}
+            destinations={viewModel.destinations}
+            storekeepers={viewModel.storekeepers}
             productBase={viewModel?.productBase}
             handleProductActionButtons={viewModel?.handleProductActionButtons}
             formFieldsValidationErrors={viewModel?.formFieldsValidationErrors}
