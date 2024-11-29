@@ -16,8 +16,8 @@ export const CountryOption: FC<CountryOptionProps> = observer(({ data }) => {
 
   return (
     <div className={styles.selectOption}>
-      <Avatar size={20} src={getAmazonImageUrl(data.image)} />
-      <p>{`${data.title} (${data.shortTitle})`}</p>
+      <Avatar src={getAmazonImageUrl(data.image)} size={20} />
+      <p className={styles.countryText}>{`${data.title} (${data.shortTitle})`}</p>
     </div>
   )
 })
