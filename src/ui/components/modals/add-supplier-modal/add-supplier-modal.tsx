@@ -110,9 +110,6 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
         size="large"
         form={form}
         rootClassName={styles.form}
-        onFieldsChange={(changedFields, allFields) =>
-          console.log('changedFields, allFields :>> ', changedFields, allFields)
-        }
         onFinish={onFinish}
       >
         <p className={styles.title}>{t(TranslationKey[title])}</p>
