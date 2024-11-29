@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 import { FaEye } from 'react-icons/fa'
 import { FiPlus } from 'react-icons/fi'
 import { IoMdCheckmark, IoMdClose } from 'react-icons/io'
-import { MdDeleteOutline, MdOutlineEdit } from 'react-icons/md'
+import { MdOutlineEdit } from 'react-icons/md'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ACCESS_DENIED } from '@constants/text'
@@ -15,7 +15,6 @@ import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { OrderStatus } from '@typings/enums/order/order-status'
-import { ProductStatus } from '@typings/enums/product/product-status'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { IFullUser } from '@typings/shared/full-user'
 
@@ -83,7 +82,9 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     !readOnly &&
     isSupplerSelected &&
     !!userInfo &&
-    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) && clientValidProductStatuses.includes(status)) ||
+    ((checkIsClient(UserRoleCodeMap[userInfo?.role]) &&
+      clientValidProductStatuses.includes(status) &&
+      isSelectedOwner) ||
       (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
         [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)) ||
       ((checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
@@ -100,12 +101,12 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
       (checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
         [OrderStatus.PENDING, OrderStatus.AT_PROCESS].includes(orderStatus)))
 
-  const showRemoveCurrentSupplierButton =
-    !readOnly &&
-    isSupplerSelected &&
-    !!userInfo &&
-    (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
-    (status === ProductStatus.BUYER_PICKED_PRODUCT || (ideaValidStatuses.includes(status) && isSelectedOwner))
+  // const showRemoveCurrentSupplierButton =
+  //   !readOnly &&
+  //   isSupplerSelected &&
+  //   !!userInfo &&
+  //   (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
+  //   (status === ProductStatus.BUYER_PICKED_PRODUCT || (ideaValidStatuses.includes(status) && isSelectedOwner))
 
   const boxPropertiesIsFullAndMainsValues =
     supplier?.boxProperties?.amountInBox &&
@@ -131,6 +132,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     userInfo &&
     (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
     isNotProductNameForIdea
+
   const disabledEditSupplierButton =
     !supplier ||
     supplier?.name === ACCESS_DENIED ||
@@ -186,7 +188,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           className={styles.button}
           disabled={disabledEditSupplierButton || !showEditSupplierButton}
           onClick={() => onSupplierActions(ModalModes.EDIT)}
-        ></CustomButton>
+        />
 
         <CustomButton
           icon={<FaEye size={18} />}
@@ -212,14 +214,14 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
           onClick={() => onSupplierActions(ModalModes.ACCEPT)}
         />
 
-        <CustomButton
+        {/* <CustomButton
           danger
           icon={<MdDeleteOutline size={18} />}
           disabled={!showRemoveCurrentSupplierButton}
           type="primary"
           className={styles.button}
           onClick={() => onSupplierActions(ModalModes.DELETE)}
-        />
+        /> */}
       </div>
     </div>
   )

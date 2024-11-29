@@ -135,7 +135,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'comment',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.supplier?.comment} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.comment} />,
     filterable: false,
     sortable: false,
     width: 195,
@@ -145,11 +145,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     field: 'createdBy',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <UserCell
-        name={row.supplier?.createdBy?.name}
-        id={row.supplier?.createdBy?._id}
-        email={row.supplier?.createdBy?.email}
-      />
+      <UserCell name={row?.createdBy?.name} id={row?.createdBy?._id} email={row?.createdBy?.email} />
     ),
     filterable: false,
     sortable: false,
