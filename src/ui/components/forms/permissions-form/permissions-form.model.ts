@@ -226,8 +226,7 @@ export class PermissionsFormModel {
       () => this.currentMultupleRole,
       () => {
         if (this.currentMultupleRole) {
-          this.getGroupPermissions()
-          this.getWithoutGroupPermissions()
+          this.loadData()
         }
       },
     )
@@ -362,10 +361,13 @@ export class PermissionsFormModel {
       )) as IPermissionGroup[]
 
       runInAction(() => {
-        this.groupPermissions = response
+        this.groupPermissions = response || []
       })
     } catch (error) {
       console.error(error)
+      runInAction(() => {
+        this.groupPermissions = []
+      })
     }
   }
 
@@ -381,6 +383,9 @@ export class PermissionsFormModel {
       })
     } catch (error) {
       console.error(error)
+      runInAction(() => {
+        this.withoutGroupPermissions = []
+      })
     }
   }
 
