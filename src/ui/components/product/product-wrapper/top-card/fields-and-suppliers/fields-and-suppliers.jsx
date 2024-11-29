@@ -96,8 +96,6 @@ export const FieldsAndSuppliers = memo(props => {
     currentTariff?.variationTariffId || product.mainTariffVariation?._id,
   )
 
-  console.log('currentTariff', { tariffName, tariffRate, tariffDestination })
-
   const onChangeTariff = tariff => {
     onChangeField?.('mainTariffVariationId')({ target: { value: tariff.variationTariffId } })
 
