@@ -10,20 +10,21 @@ import { getFallbackImage, renderPreviewContent, renderPreviewToolbar } from './
 export interface CustomImageProps extends ImageProps {
   fullImage?: boolean
   className?: string
-  maskClassName?: string
-  wrapperClassName?: string
+  rootClassName?: string
 }
 
 export const CustomImage: FC<CustomImageProps> = memo(props => {
-  const { fullImage = true, className, src, maskClassName, wrapperClassName, ...restProps } = props
+  const { fullImage = true, className, src, rootClassName, ...restProps } = props
+
   const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={cx(styles.root, wrapperClassName)} onClick={e => e.stopPropagation()}>
+    <div className={styles.wrapper} onClick={e => e.stopPropagation()}>
       <AntdImage
+        className={className}
+        rootClassName={cx(styles.root, rootClassName)}
         preview={
           !!src && {
-            maskClassName: cx(styles.maskClassNameRoot, maskClassName),
             destroyOnClose: true,
             imageRender: renderPreviewContent,
             toolbarRender: renderPreviewToolbar,
@@ -31,7 +32,6 @@ export const CustomImage: FC<CustomImageProps> = memo(props => {
         }
         fallback={getFallbackImage(src)}
         src={getAmazonImageUrl(src, fullImage)}
-        className={cx(styles.image, className)}
         {...restProps}
       />
     </div>
