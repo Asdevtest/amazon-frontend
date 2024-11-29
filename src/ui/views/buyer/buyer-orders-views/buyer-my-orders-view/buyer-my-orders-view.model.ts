@@ -586,8 +586,8 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         if (elementOrderBox.tmpUseToUpdateSupplierBoxDimensions) {
           const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
             {
-              ...order.orderSupplier,
-              paymentMethods: order?.orderSupplier?.paymentMethods?.map(paymentMethod => ({
+              ...order.orderSupplierCard,
+              paymentMethods: order?.orderSupplierCard?.paymentMethods?.map(paymentMethod => ({
                 _id: paymentMethod._id,
               })),
               boxProperties: {
@@ -601,7 +601,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
             patchSuppliers,
           )
 
-          await SupplierModel.updateSupplier(order.orderSupplier._id, supplierUpdateData)
+          await SupplierModel.updateSupplier(order.orderSupplierCard._id, supplierUpdateData)
         }
       }
 

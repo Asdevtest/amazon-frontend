@@ -280,9 +280,9 @@ export const buyerOrdersColumns = ({
           isCell
           color={
             Math.abs(getDistanceBetweenDatesInSeconds(params.row.paymentDateToSupplier)) >
-              convertDaysToSeconds(params.row.orderSupplier?.productionTerm) &&
+              convertDaysToSeconds(params.row.orderSupplierCard?.productionTerm) &&
             params.row.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER as keyof typeof OrderStatusByKey] &&
-            !!params.row.orderSupplier?.minProductionTerm
+            !!params.row.orderSupplierCard?.minProductionTerm
               ? '#FF1616'
               : undefined
           }
