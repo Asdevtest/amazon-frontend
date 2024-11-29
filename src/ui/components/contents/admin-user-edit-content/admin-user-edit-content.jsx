@@ -2,7 +2,7 @@ import { Form } from 'antd'
 import isEqual from 'lodash.isequal'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
-import { MdCheckBox, MdVisibility, MdVisibilityOff } from 'react-icons/md'
+import { MdCheckBox } from 'react-icons/md'
 
 import { ListItemText, MenuItem, Rating, Select } from '@mui/material'
 
@@ -25,7 +25,6 @@ import { UserLink } from '@components/user/user-link'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } from '@utils/checks'
 import { t } from '@utils/translations'
-import { validationMessagesArray } from '@utils/validation'
 
 import { useStyles } from './admin-user-edit-content.style'
 
@@ -35,17 +34,7 @@ const activeOptions = [
 ]
 
 export const AdminUserEditContent = observer(
-  ({
-    editUserFormFields,
-    buttonLabel,
-    onSubmit,
-    specs,
-    onClickCancelBtn,
-    groupPermissions,
-    singlePermissions,
-    changeFields,
-    onUpdateData,
-  }) => {
+  ({ editUserFormFields, buttonLabel, onSubmit, specs, onClickCancelBtn, onUpdateData }) => {
     const { classes: styles, cx } = useStyles()
 
     const [showPermissionModal, setShowPermissionModal] = useState(false)
@@ -71,18 +60,19 @@ export const AdminUserEditContent = observer(
 
     const [formFields, setFormFields] = useState(sourceFormFields)
 
+    useEffect(() => {
+      setFormFields(sourceFormFields)
+    }, [editUserFormFields])
+
     const [selectedAllowedRoles, setSelectedAllowedRoles] = useState(formFields.allowedRoles)
+
+    useEffect(() => {
+      setSelectedAllowedRoles(formFields.allowedRoles)
+    }, [formFields.allowedRoles])
 
     const [selectedRole, setSelectedRole] = useState('')
     const [changedAllowedRoles, setChangedAllowedRoles] = useState([])
     const [clearSelect, setClearSelect] = useState(false)
-
-    const [permissionsToSelect, setPermissionsToSelect] = useState([
-      ...((!!singlePermissions && singlePermissions?.filter(item => item?.role === formFields?.role)) || []),
-    ])
-    const [permissionGroupsToSelect, setPermissionGroupsToSelect] = useState([
-      ...((!!groupPermissions && groupPermissions?.filter(item => item?.role === formFields?.role)) || []),
-    ])
 
     const [form] = Form.useForm()
 
@@ -105,6 +95,7 @@ export const AdminUserEditContent = observer(
 
     const onChangeFormField = fieldName => event => {
       const newFormFields = { ...formFields }
+
       if (fieldName === 'rate') {
         newFormFields[fieldName] = event
       } else if (['fba', 'canByMasterUser', 'hideSuppliers', 'isUserPreprocessingCenterUSA'].includes(fieldName)) {
@@ -118,22 +109,17 @@ export const AdminUserEditContent = observer(
         newFormFields[fieldName] = event.target.value
       }
 
-      if (fieldName === 'role') {
-        setPermissionsToSelect([...singlePermissions.filter(item => item.role === +event.target.value)])
-        setPermissionGroupsToSelect([...groupPermissions.filter(item => item.role === +event.target.value)])
-      }
-
       if (fieldName === 'role' && fieldName === 'permissions' && fieldName === 'permissionGroups') {
-        changeFields.name = ''
-        changeFields.email = ''
+        newFormFields.name = ''
+        newFormFields.email = ''
       }
 
       if (fieldName === 'name') {
-        changeFields.name = event.target.value
+        newFormFields.name = event.target.value
       }
 
       if (fieldName === 'email') {
-        changeFields.email = event.target.value
+        newFormFields.email = event.target.value
       }
 
       setFormFields(newFormFields)
@@ -173,15 +159,6 @@ export const AdminUserEditContent = observer(
 
       onSubmit(dataToSubmit, editUserFormFields, password && !hasErrors ? { password, confirmPassword } : undefined)
     }
-
-    const selectedPermissions = singlePermissions?.filter(per => formFields?.permissions?.includes(per?._id))
-    const selectedGroupPermissions = groupPermissions?.filter(perGroup =>
-      formFields?.permissionGroups?.includes(perGroup?._id),
-    )
-
-    const isWrongPermissionsSelect =
-      selectedPermissions?.find(per => Number(per?.role) !== Number(formFields?.role)) ||
-      selectedGroupPermissions?.find(perGroup => Number(perGroup?.role) !== Number(formFields?.role))
 
     const disabledSubmitButton =
       hasErrors ||
@@ -320,11 +297,6 @@ export const AdminUserEditContent = observer(
             <div className={styles.roleRateWrapper}>
               <Field
                 label={t(TranslationKey.Role)}
-                tooltipInfoContent={'Роль будет автоматически добавлена в разрешеннные'}
-                error={
-                  isWrongPermissionsSelect &&
-                  t(TranslationKey['The selected permissions and the current role do not match!'])
-                }
                 containerClasses={styles.roleContainer}
                 inputComponent={
                   <Select
@@ -510,11 +482,6 @@ export const AdminUserEditContent = observer(
               }
             />
 
-            {isWrongPermissionsSelect && (
-              <p className={styles.isWrongPermissionsSelectError}>
-                {t(TranslationKey['The selected permissions and the current role do not match!'])}
-              </p>
-            )}
             <div className={styles.checkboxWrapper}>
               <CustomCheckbox
                 disabled={
@@ -560,11 +527,7 @@ export const AdminUserEditContent = observer(
         </div>
 
         <div className={styles.buttonWrapper}>
-          <CustomButton
-            type="primary"
-            disabled={isWrongPermissionsSelect || disabledSubmitButton}
-            onClick={onClickSubmit}
-          >
+          <CustomButton type="primary" disabled={disabledSubmitButton} onClick={onClickSubmit}>
             {buttonLabel}
           </CustomButton>
 

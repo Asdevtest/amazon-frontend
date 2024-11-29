@@ -2,7 +2,6 @@ import { makeAutoObservable } from 'mobx'
 
 export class AdminUserViewModel {
   history = undefined
-
   user = undefined
 
   constructor({ history }) {
