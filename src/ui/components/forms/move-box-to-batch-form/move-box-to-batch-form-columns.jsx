@@ -101,7 +101,7 @@ export const moveBoxToBatchFormColumns = (handlers, selectedRow) => [
           box.items?.reduce((boxTotal, item) => {
             return (
               boxTotal +
-              (item?.order?.orderSupplier?.batchTotalCostInDollar / item?.order?.orderSupplier?.amount) *
+              (item?.order?.orderSupplierCard?.batchTotalCostInDollar / item?.order?.orderSupplierCard?.amount) *
                 item?.amount *
                 box?.amount
             )

@@ -278,7 +278,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
         )
       },
       valueGetter: params => {
-        const supplier = params.row?.orderSupplier
+        const supplier = params.row?.orderSupplierCard
 
         return `${supplier?.minProductionTerm} - ${supplier?.maxProductionTerm}`
       },

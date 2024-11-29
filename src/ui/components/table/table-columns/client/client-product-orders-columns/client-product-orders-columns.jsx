@@ -171,7 +171,7 @@ export const clientProductOrdersViewColumns = (handlers, isSomeFilterOn) => [
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
 
     renderCell: params => {
-      const orderSupplier = params.row.orderSupplier
+      const orderSupplier = params.row.orderSupplierCard
 
       return orderSupplier ? (
         <Text isCell text={`${orderSupplier?.minProductionTerm} - ${orderSupplier?.maxProductionTerm}`} />

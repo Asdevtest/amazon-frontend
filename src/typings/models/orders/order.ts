@@ -46,6 +46,7 @@ export interface IOrder {
   storekeeper: ICreatedBy
   buyer: ICreatedBy
   orderSupplier: ISupplier
+  orderSupplierCard: ISupplier
   createdBy: ICreatedBy
   priceInYuan: number
   paymentDetailsAttached: boolean

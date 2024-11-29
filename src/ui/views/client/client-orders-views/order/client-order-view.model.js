@@ -214,7 +214,8 @@ export class ClientOrderViewModel {
           ...data,
           totalPrice:
             data.amount *
-            (data.orderSupplier?.price + data.orderSupplier?.batchDeliveryCostInDollar / data.orderSupplier?.amount),
+            (data.orderSupplierCard?.price +
+              data.orderSupplierCard?.batchDeliveryCostInDollar / data.orderSupplierCard?.amount),
         },
         [
           'amount',

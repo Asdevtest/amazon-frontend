@@ -73,8 +73,8 @@ export const MyOrderModal: FC<MyOrderModalProps> = memo(props => {
 
   const isOrderEditable = formFields?.status <= OrderStatus.READY_FOR_BUYOUT
   const stateComparison = isEqual(getInitialOrderState(), formFields)
-  const multiplicity = formFields.orderSupplier?.multiplicity
-  const amountInBox = formFields.orderSupplier?.boxProperties?.amountInBox
+  const multiplicity = formFields.orderSupplierCard?.multiplicity
+  const amountInBox = formFields.orderSupplierCard?.boxProperties?.amountInBox
   const amount = formFields.amount
   const isNotMultiple = multiplicity && !!amountInBox && (amount % amountInBox !== 0 || !amount)
   const isMultiple = multiplicity && !!amountInBox && amount % amountInBox === 0 && !!amount

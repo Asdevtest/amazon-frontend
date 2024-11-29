@@ -304,7 +304,7 @@ export const calcPriceForBox = box => {
   }
 
   const sumsOfItems = box.items?.reduce(
-    (acc, cur) => acc + calcSupplierPriceForUnit(cur.order?.orderSupplier) * cur.amount,
+    (acc, cur) => acc + calcSupplierPriceForUnit(cur.order?.orderSupplierCard) * cur.amount,
     0,
   )
   return box.amount > 1 ? sumsOfItems * box.amount : sumsOfItems

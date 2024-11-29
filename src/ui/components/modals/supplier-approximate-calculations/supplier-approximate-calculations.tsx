@@ -146,7 +146,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
                 onClickChangeActive={() =>
                   viewModel?.handleChangeActiveProduct(
                     product?._id,
-                    order?.orderSupplier?._id || order?.orderSupplierId,
+                    order?.orderSupplierCard?._id || order?.orderSupplierId,
                     order?._id,
                   )
                 }

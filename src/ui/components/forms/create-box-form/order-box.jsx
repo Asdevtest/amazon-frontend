@@ -138,7 +138,7 @@ export const OrderBox = memo(props => {
 
       <div className={styles.checkboxWithLabelWrapper}>
         <CustomCheckbox
-          disabled={!order.orderSupplier?.boxProperties}
+          disabled={!order.orderSupplierCard?.boxProperties}
           checked={orderBox?.tmpUseCurrentSupplierDimensions}
           onChange={setDimensionsOfSupplierField(orderBoxIndex)}
         />
