@@ -27,10 +27,12 @@ export const useGetDestinationTariffInfo = (
       currentLogicsTariff?.destinationVariations?.find(el => el._id === variationTariffId)?.pricePerKgUsd,
     2,
   )
+  const tariffDestination = currentTariff?.destinationVariations?.find(el => el?.destination?._id === destinationId)
 
   return {
     tariffName,
     tariffRate,
+    tariffDestination,
     currentTariff,
   }
 }

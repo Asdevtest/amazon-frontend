@@ -112,10 +112,10 @@ export class ClientProductViewModel {
 
   async loadData() {
     try {
-      await this.getProductById()
-      await this.getShops()
       await this.getDestinations()
       await this.getStorekeepers()
+      await this.getShops()
+      await this.getProductById()
       await this.getProductsVariations()
     } catch (error) {
       console.error(error)
@@ -327,12 +327,15 @@ export class ClientProductViewModel {
 
   async getStorekeepers() {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
       const response = await StorekeeperModel.getStorekeepers()
 
       runInAction(() => {
         this.storekeepers = response
       })
+      this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
+      this.setRequestStatus(loadingStatus.FAILED)
       console.error(error)
     }
   }
