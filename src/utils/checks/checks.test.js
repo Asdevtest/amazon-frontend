@@ -16,7 +16,6 @@ import {
   checkIsSupervisor,
   checkIsVideoLink,
   findTariffInStorekeepersData,
-  isHaveMasterUser,
   isNotNull,
   isNotUndefined,
   isNull,
@@ -452,29 +451,6 @@ describe('Test checkIsPositiveNummberAndNoMoreNCharactersAfterDot(str, max)', ()
   unvalidTestValue.forEach(value => {
     test('Unvalid props', () => {
       expect(checkIsPositiveNummberAndNoMoreNCharactersAfterDot(value.enter, value.max)).toBe(value.expect)
-    })
-  })
-})
-
-describe('Test isHaveMasterUser(user)', () => {
-  const validTestValue = [
-    { enter: { masterUser: { _id: 'efb65978-bd03-4931-8fd8-a3d69fcafecd', name: 'buyer' } }, expect: true },
-  ]
-
-  const unvalidTestValue = [
-    { enter: { masterUser: null }, expect: false },
-    { enter: { masterUser: undefined }, expect: false },
-  ]
-
-  validTestValue.forEach(value => {
-    test('Valid props', () => {
-      expect(isHaveMasterUser(value.enter, value.max)).toBe(value.expect)
-    })
-  })
-
-  unvalidTestValue.forEach(value => {
-    test('Unvalid props', () => {
-      expect(isHaveMasterUser(value.enter, value.max)).toBe(value.expect)
     })
   })
 })

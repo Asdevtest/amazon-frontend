@@ -60,8 +60,6 @@ export const checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot = str =>
 export const checkIsPositiveNummberAndNoMoreNCharactersAfterDot = (str, max) =>
   checkIsPositiveNum(str) && !checkIsMoreNCharactersAfterDot(str, max)
 
-export const isHaveMasterUser = user => !!user.masterUser
-
 export const findTariffInStorekeepersData = (storekeepers, storekeeperId, logicsTariffId) =>
   storekeepers?.find(el => el?._id === storekeeperId)?.tariffLogistics?.find(el => el?._id === logicsTariffId)
 
