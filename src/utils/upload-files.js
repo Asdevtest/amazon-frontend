@@ -172,9 +172,8 @@ export const downloadFileByLink = async (str, fileName) => {
       a.click()
       window.URL.revokeObjectURL(url)
       a.remove()
-      // alert('your file has downloaded!') // or you know, something with better UX...
     })
-    .catch(() => alert('oh no!'))
+    .catch(error => console.error(error))
 }
 
 export const getFileWeight = async url =>

@@ -51,10 +51,12 @@ export const ProductTable = props => {
               </p>
             </TableCell>
             <TableCell>
-              {order.orderSupplier ? toFixed(order.orderSupplier.price, 2) : t(TranslationKey['Not available'])}
+              {order.orderSupplierCard
+                ? toFixed(order.orderSupplierCard.priceInUsd, 2)
+                : t(TranslationKey['Not available'])}
             </TableCell>
             <TableCell className={styles.tableCell}>
-              {toFixed(order?.orderSupplier?.batchDeliveryCostInDollar / order?.orderSupplier?.amount, 2) ||
+              {toFixed(order?.orderSupplierCard?.batchDeliveryCostInDollar / order?.orderSupplierCard?.amount, 2) ||
                 t(TranslationKey['Not available'])}
             </TableCell>
             <TableCell className={styles.tableCell}>
@@ -75,8 +77,10 @@ export const ProductTable = props => {
             </TableCell>
             <TableCell>{toFixedWithDollarSign(calcProductsPriceWithDelivery(order.product, orderFields), 2)}</TableCell>
             <TableCell>
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplier?.link)}>
-                <p className={styles.link}>{order.orderSupplier?.link || `${t(TranslationKey['Not available'])}`}</p>
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplierCard?.link)}>
+                <p className={styles.link}>
+                  {order.orderSupplierCard?.link || `${t(TranslationKey['Not available'])}`}
+                </p>
               </Link>
             </TableCell>
           </TableRow>

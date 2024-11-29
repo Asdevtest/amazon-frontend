@@ -125,4 +125,8 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+
+  boxGray: {
+    color: ' #637381CC',
+  },
 }))

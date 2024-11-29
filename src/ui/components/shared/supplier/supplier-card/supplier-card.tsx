@@ -6,6 +6,8 @@ import { t } from '@utils/translations'
 
 import { ISupplierExchange } from '@typings/models/suppliers/supplier-exchange'
 
+import { useCreateBreakpointResolutions } from '@hooks/use-create-breakpoint-resolutions'
+
 import { useStyles } from './supplier-card.style'
 
 import { CustomButton } from '../../custom-button'
@@ -23,8 +25,9 @@ interface SupplierCardProps {
 export const SupplierCard: FC<SupplierCardProps> = memo(props => {
   const { supplier, showViewMore = true } = props
 
+  const { isPcMiddleResolution } = useCreateBreakpointResolutions()
   const { classes: styles, cx } = useStyles()
-  const maxTopPropductCards = supplier?.supplierCards?.slice(0, 3) || []
+  const maxTopPropductCards = supplier?.supplierCards?.slice(0, isPcMiddleResolution ? 2 : 3) || []
   const commentRows = showViewMore ? 4 : 6
 
   const handleViewMore = () => {

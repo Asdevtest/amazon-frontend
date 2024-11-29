@@ -16,6 +16,7 @@ import { useObjectColumnMenu } from './hooks/use-object-column-menu'
 interface IObjectColumnMenuProps extends ColumnMenuProps<any> {
   hideEmptyObject?: boolean
   sortOptions?: string
+  titleKey?: string
 }
 
 export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
@@ -30,6 +31,7 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
     sortOptions,
     additionalFilterSettings,
     fieldNameFilter,
+    titleKey,
     onClose,
     onClickFilterBtn,
     onChangeFullFieldMenuItem,
@@ -73,7 +75,7 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
         setChosenItems={setChosenItems}
       >
         {dataforRender?.map((el, index) => {
-          const value = 'name' in el ? el?.name : 'title' in el ? el?.title : ''
+          const value = titleKey ? el?.[titleKey] : 'name' in el ? el?.name : 'title' in el ? el?.title : ''
           const valueChecked = chosenItems?.some(item => getValueToCompare(item) === el?._id)
 
           return (

@@ -87,7 +87,6 @@ export const Text: FC<TextCellProps> = memo(props => {
           target="_blank"
           onClick={e => {
             e.stopPropagation()
-            e.preventDefault()
             onClick?.(e)
           }}
         >
@@ -101,7 +100,8 @@ export const Text: FC<TextCellProps> = memo(props => {
             rows,
             expanded,
             expandable: collapsible ? 'collapsible' : false,
-            tooltip: { destroyTooltipOnHide: true, arrow: false },
+            symbol: t(TranslationKey[expanded ? 'Close' : 'Open']),
+            tooltip: !collapsible && { destroyTooltipOnHide: true, arrow: false },
             onExpand: handleExpand,
           }}
           style={{

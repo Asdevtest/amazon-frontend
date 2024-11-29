@@ -28,14 +28,13 @@ export const SuppliersView: FC = observer(() => {
   const { classes: styles } = useStyles()
 
   const viewModel = useMemo(() => new SuppliersViewModel(), [])
-  const options = useMemo(() => getRadioButtonOptions(), [])
 
   return (
     <div className="viewWrapper">
       <div className={styles.header}>
         <CustomRadioButton
           size="large"
-          options={options}
+          options={getRadioButtonOptions()}
           value={viewModel.currentTable}
           onChange={viewModel.onChangeRadioButtonOption}
         />
@@ -59,7 +58,7 @@ export const SuppliersView: FC = observer(() => {
             </CustomButton>
 
             <CustomButton size="large" type="primary" onClick={viewModel?.onClickAddSupplierProduct}>
-              {t(TranslationKey['Add product'])}
+              {t(TranslationKey['Add a new card'])}
             </CustomButton>
           </div>
         )}
@@ -127,14 +126,14 @@ export const SuppliersView: FC = observer(() => {
           supplierId={viewModel.supplierIdToEdit}
           openModal={viewModel.showAddSupplierModal}
           setOpenModal={viewModel.onCloseAddSupplierModal}
-          updateHandler={viewModel.getCurrentData}
+          updateHandler={() => viewModel.getCurrentData()}
         />
       ) : null}
 
       {viewModel.showAddSupplierProductModal ? (
         <AddSupplierCardModal
           supplierCardId={viewModel.supplierCardIdToEdit}
-          handleUpdate={viewModel.getCurrentData}
+          handleUpdate={() => viewModel.getCurrentData()}
           openModal={viewModel.showAddSupplierProductModal}
           setOpenModal={viewModel.onCloseAddSupplierProductModal}
         />

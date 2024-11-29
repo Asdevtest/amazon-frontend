@@ -7,8 +7,6 @@ import { TaskOperationType } from '@constants/task/task-operation-type'
 import { CustomImage } from '@components/shared/custom-image'
 import { BoxArrowIcon, CubeIcon, EditIcon, EqualIcon } from '@components/shared/svg-icons'
 
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
-
 import { useStyles } from './task-description-cell.style'
 
 interface TaskDescriptionCellProps {

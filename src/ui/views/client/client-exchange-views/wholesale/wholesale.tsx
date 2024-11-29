@@ -11,6 +11,8 @@ import { DynamicVirtualList } from '@components/shared/dynamic-virtual-list'
 import { Modal } from '@components/shared/modal'
 import { SupplierCard, SupplierProductCard } from '@components/shared/supplier'
 
+import { CardsFilter } from '@views/shared/supplier-view/cards-filter'
+
 import { t } from '@utils/translations'
 
 import { ISupplierCard, ISupplierExchange } from '@typings/models/suppliers/supplier-exchange'
@@ -32,6 +34,7 @@ export const WholesaleView = observer(() => {
   }
 
   const listClassName = isSupplierMode ? styles.suppliers : styles.products
+
   return (
     <>
       <div className="viewWrapper">
@@ -51,18 +54,28 @@ export const WholesaleView = observer(() => {
           />
         </div>
 
-        <DynamicVirtualList<ISupplierExchange | ISupplierCard>
-          listClassName={listClassName}
-          data={viewModel.items}
-          itemContent={({ item }) =>
-            isSupplierMode ? (
-              <SupplierCard supplier={item as ISupplierExchange} />
-            ) : (
-              <SupplierProductCard product={item as ISupplierCard} onSubmit={viewModel.onSelectSupplierCard} />
-            )
-          }
-          onScrollEnd={viewModel.loadMoreData}
-        />
+        <div className={styles.container}>
+          <DynamicVirtualList<ISupplierExchange | ISupplierCard>
+            listClassName={listClassName}
+            data={viewModel.items}
+            itemContent={({ item }) =>
+              isSupplierMode ? (
+                <SupplierCard supplier={item as ISupplierExchange} />
+              ) : (
+                <SupplierProductCard product={item as ISupplierCard} onSubmit={viewModel.onSelectSupplierCard} />
+              )
+            }
+            onScrollEnd={viewModel.loadMoreData}
+          />
+
+          <CardsFilter
+            loading={viewModel.loading}
+            showFilter={viewModel.showFilter && !isSupplierMode}
+            filtersCount={viewModel.filtersCount}
+            onSubmit={viewModel.onFilterSubmit}
+            onReset={viewModel.onResetOptions}
+          />
+        </div>
       </div>
 
       <Modal openModal={viewModel.showSelectShopsModal} setOpenModal={viewModel.onToggleSelectShopsModal}>

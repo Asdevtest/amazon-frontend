@@ -20,6 +20,7 @@ export interface ISupplierExchange {
 }
 
 export interface ISupplierCard {
+  archive: boolean
   _id: string
   xid: number
   cardName: string
@@ -29,4 +30,8 @@ export interface ISupplierCard {
   images: string[]
   boxProperties: IBoxProperties
   isPrime: boolean
+  createdAt: string
+  status: number
+  supplier: ISupplierExchange
+  updatedAt: string
 }

@@ -14,7 +14,7 @@ import { getRequiredRules } from '@config/form-rules/get-required-rules'
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './contacts.style'
 
-import { getRequiredEmailRules } from '../../add-supplier-modal.config'
+import { getRequiredEmailRules, getRequiredPhoneNumberRules } from '../../add-supplier-modal.config'
 import { emptyEmployee } from '../../add-supplier-modal.constants'
 import { ContactInputList } from '../contact-input-list'
 import { ContactListHeader } from '../contact-list-header'
@@ -56,7 +56,7 @@ export const Contacts = memo(() => {
                   <ContactInputList
                     listTitle="Phone"
                     listName={[fieldName, 'phoneNumbers']}
-                    formItemRules={getRequiredRules}
+                    formItemRules={getRequiredPhoneNumberRules}
                   />
 
                   <ContactInputList

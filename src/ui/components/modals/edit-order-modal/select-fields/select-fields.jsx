@@ -17,6 +17,8 @@ import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import {
   calcExchangeDollarsInYuansPrice,
+  calcOrderPerPcInDollar,
+  calcOrderPerPcInYuan,
   calcOrderTotalPrice,
   calcOrderTotalPriceInYuann,
   calcPriceForItem,
@@ -156,7 +158,7 @@ export const SelectFields = ({
                   inputClasses={styles.input}
                   value={
                     isPendingOrder
-                      ? toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplier, orderFields?.amount), 2)
+                      ? toFixed(calcOrderTotalPriceInYuann(orderFields?.orderSupplierCard, orderFields?.amount), 2) // ? not sure
                       : toFixed(orderFields.priceInYuan, 2) || ''
                   }
                   label={t(TranslationKey['Yuan per batch']) + ', ¥'}
@@ -170,7 +172,17 @@ export const SelectFields = ({
                   inputProps={{ maxLength: 10 }}
                   labelClasses={styles.label}
                   inputClasses={styles.input}
-                  value={toFixed(orderFields.priceBatchDeliveryInYuan, 2)}
+                  value={
+                    orderFields.priceBatchDeliveryInYuan
+                      ? toFixed(orderFields.priceBatchDeliveryInYuan, 2)
+                      : toFixed(
+                          (orderFields.orderSupplierCard.batchDeliveryCostInDollar /
+                            orderFields.orderSupplierCard.amount) *
+                            orderFields.amount *
+                            orderFields.orderSupplierCard.yuanToDollarRate,
+                          2,
+                        )
+                  }
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', ¥'}
                   onChange={e => {
                     if (
@@ -190,7 +202,7 @@ export const SelectFields = ({
                 inputClasses={styles.input}
                 labelClasses={styles.label}
                 label={t(TranslationKey['Cost of purchase per pc.']) + ', ¥'}
-                value={toFixedWithYuanSign(calcPriceForItem(orderFields.priceInYuan, orderFields.amount), 2) || ''}
+                value={calcOrderPerPcInYuan(orderFields.orderSupplierCard)} // ? change formula
               />
             </Box>
 
@@ -241,7 +253,7 @@ export const SelectFields = ({
                   label={t(TranslationKey['Dollars per batch']) + ', $'}
                   value={
                     isPendingOrder
-                      ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
+                      ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplierCard, orderFields?.amount), 2)
                       : toFixed(orderFields.totalPriceChanged, 2) || ''
                   }
                   onChange={setOrderField('totalPriceChanged')}
@@ -255,7 +267,16 @@ export const SelectFields = ({
                   inputClasses={styles.input}
                   labelClasses={styles.label}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', $'}
-                  value={toFixed(orderFields.deliveryCostToTheWarehouse, 2) || '0'}
+                  value={
+                    orderFields.deliveryCostToTheWarehouse
+                      ? toFixed(orderFields.deliveryCostToTheWarehouse, 2)
+                      : toFixed(
+                          (orderFields.orderSupplierCard.batchDeliveryCostInDollar /
+                            orderFields.orderSupplierCard.amount) *
+                            orderFields.amount,
+                          2,
+                        )
+                  }
                   onChange={e => {
                     Number(e.target.value) < orderFields.totalPriceChanged &&
                       setOrderField('deliveryCostToTheWarehouse')(e)
@@ -281,7 +302,7 @@ export const SelectFields = ({
                 toFixedWithDollarSign(
                   calcPriceForItem(
                     isPendingOrder
-                      ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplier, orderFields?.amount), 2)
+                      ? toFixed(calcOrderPerPcInDollar(orderFields?.orderSupplierCard), 2)
                       : orderFields.totalPriceChanged,
                     orderFields.amount,
                   ),
@@ -389,7 +410,6 @@ export const SelectFields = ({
 
                   <CustomCheckbox
                     disabled
-                    wrapperClassName={styles.researchWrapper}
                     labelClassName={styles.researchLabel}
                     className={styles.checkbox}
                     checked={orderFields.needsResearch}
