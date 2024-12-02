@@ -8,8 +8,8 @@ class FeedbackModelStatic {
     })
   }
 
-  getFeedback = async guid => {
-    const response = await restApiService.userApi.apiV1UsersFeedbackGuidGet({ guid })
+  getFeedback = async (guid, body) => {
+    const response = await restApiService.userApi.apiV1UsersFeedbackGuidGet({ guid, noCache: true, ...body })
     return response.data
   }
 
@@ -20,6 +20,11 @@ class FeedbackModelStatic {
 
   getSupplierFeedbacks = async guid => {
     const response = await restApiService.userApi.apiV1UsersFeedbackSupplierGuidGet({ guid })
+    return response.data
+  }
+
+  async getSupplierReviewsById(guid, body) {
+    const response = await restApiService.userApi.apiV1UsersFeedbackSupplierGuidGet({ guid, noCache: true, ...body })
     return response.data
   }
 }
