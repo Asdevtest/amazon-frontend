@@ -17,7 +17,7 @@ export const TaskDescriptionCell: FC<TaskDescriptionCellProps> = memo(({ task })
   const { classes: styles, cx } = useStyles()
   const renderProductImages = (product: any, key: any, box?: any) => (
     <div key={key && key} className={styles.imgWrapper}>
-      <CustomImage width={30} height={30} src={product?.product.images[0]} alt="box" />
+      <CustomImage width={30} height={30} src={product?.product.images[0]} />
 
       <div className={styles.taskDescriptionCountWrapper}>
         {box?.amount > 1 && <p className={styles.taskDescriptionSuperBox}>{`SB ${box.amount}`}</p>}

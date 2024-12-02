@@ -333,7 +333,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     params.forEach(param => {
       const [key, value] = param.split('=')
 
-      if (key?.includes('or') && !result.currentSearchValue) {
+      if (/\['or'\]/.test(key) && !result.currentSearchValue) {
         result.currentSearchValue = value
       } else {
         const decodedKey = decodeURIComponent(key).replace(/\[.*?\]/, '')

@@ -31,7 +31,6 @@ import {
   UsersPermissionsIcon,
 } from '@components/shared/svg-icons'
 
-import { isHaveMasterUser } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { NavbarConfigTypes } from '@typings/shared/navbar-config'
@@ -51,7 +50,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_DASHBOARD_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_DASHBOARD_CLIENT),
     },
@@ -65,7 +63,6 @@ export const navbarConfig = {
           subRoute: '/client/freelance/service-exchange',
           key: navBarActiveSubCategory.SUB_NAVBAR_SERVICE_EXCHANGE,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_FREELANCE_EXCHANGE_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_FREELANCE_EXCHANGE_CLIENT),
         },
@@ -74,14 +71,12 @@ export const navbarConfig = {
           subRoute: '/client/freelance/my-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_REQUESTS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_FREELANCE_REQUESTS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_FREELANCE_REQUESTS_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_FREELANCE_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_FREELANCE_CLIENT),
     },
@@ -95,7 +90,6 @@ export const navbarConfig = {
           subRoute: '/client/inventory',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.inventory.SHOW_PRODUCTS_INVENTORY_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.inventory.SHOW_PRODUCTS_INVENTORY_CLIENT),
         },
@@ -104,14 +98,12 @@ export const navbarConfig = {
           subRoute: '/client/inventory/reports',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_INVENTORY_REPORTS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.inventory.SHOW_INVENTORY_LISTING_REPORTS) ||
             user?.permissions?.some(item => item === permissionsKeys.client.inventory.SHOW_INVENTORY_LISTING_REPORTS),
         },
       ],
       key: navBarActiveCategory.NAVBAR_INVENTORY,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.inventory.SHOW_INVENTORY_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.inventory.SHOW_INVENTORY_CLIENT),
     },
@@ -124,7 +116,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey.All),
           subRoute: '/client/ideas/all',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_ALL_IDEAS_CLIENT),
         },
@@ -132,7 +123,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['New ideas']),
           subRoute: '/client/ideas/new',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.ideas.SHOW_NEW_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_NEW_IDEAS_CLIENT),
         },
@@ -140,7 +130,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['On checking']),
           subRoute: '/client/ideas/on-checking',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.ideas.SHOW_ON_CHECKING_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_ON_CHECKING_IDEAS_CLIENT),
         },
@@ -148,7 +137,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Search for suppliers']),
           subRoute: '/client/ideas/search-suppliers',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.ideas.SHOW_SEARCH_SUPPLIER_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_SEARCH_SUPPLIER_IDEAS_CLIENT),
         },
@@ -156,7 +144,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Creating a product card']),
           subRoute: '/client/ideas/create-card',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.ideas.SHOW_CREATE_CARD_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_CREATE_CARD_IDEAS_CLIENT),
         },
@@ -164,7 +151,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Adding ASIN']),
           subRoute: '/client/ideas/add-asin',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.ideas.SHOW_ADD_ASIN_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_ADD_ASIN_IDEAS_CLIENT),
         },
@@ -172,7 +158,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Rejected and closed']),
           subRoute: '/client/ideas/closed',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.ideas.SHOW_CLOSED_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_CLOSED_IDEAS_CLIENT),
         },
@@ -180,14 +165,12 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Realized ideas']),
           subRoute: '/client/ideas/realized',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_REALIZED_IDEAS_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_IDEAS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.ideas.SHOW_IDEAS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.ideas.SHOW_IDEAS_CLIENT),
     },
@@ -200,7 +183,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Research exchange']),
           subRoute: '/client/product-exchange/forks-exchange',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_COMEXCHANGE_RESEXCHANGE_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_COMEXCHANGE_RESEXCHANGE_CLIENT),
         },
@@ -208,7 +190,6 @@ export const navbarConfig = {
           subtitle: () => 'Private label',
           subRoute: '/client/product-exchange/private-label',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_COMEXCHANGE_PRLABEL_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_COMEXCHANGE_PRLABEL_CLIENT),
         },
@@ -216,14 +197,12 @@ export const navbarConfig = {
           subtitle: () => 'Wholesale',
           subRoute: '/client/product-exchange/wholesale',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_COMEXCHANGE_WHOLESALE_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_COMEXCHANGE_WHOLESALE_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_EXCHANGE,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_VACANT_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_VACANT_CLIENT),
     },
@@ -237,7 +216,6 @@ export const navbarConfig = {
           subRoute: '/client/my-orders/orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_ORDERS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_ORDERS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_ORDERS_CLIENT),
         },
@@ -246,14 +224,12 @@ export const navbarConfig = {
           subRoute: '/client/my-orders/pending-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_PENDING_ORDERS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_PENDING_ORDERS_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_MY_ORDERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_MYORDERS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_MYORDERS_CLIENT),
     },
@@ -267,7 +243,6 @@ export const navbarConfig = {
           subRoute: '/client/warehouse/in-stock',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BOXES,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_WAREHOUSE_BOXESINSTOCK_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_WAREHOUSE_BOXESINSTOCK_CLIENT),
         },
@@ -276,14 +251,12 @@ export const navbarConfig = {
           subRoute: '/client/warehouse/tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_TASKS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_WAREHOUSE_TASKS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_WAREHOUSE_TASKS_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_WAREHOUSE_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_WAREHOUSE_CLIENT),
     },
@@ -297,7 +270,6 @@ export const navbarConfig = {
           subRoute: '/client/batches/awaiting-batch',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BOXES_AWAITING_BATCH,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_BATCHES_AWAITINGSEND_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_BATCHES_AWAITINGSEND_CLIENT),
         },
@@ -306,14 +278,12 @@ export const navbarConfig = {
           subRoute: '/client/batches/sent-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_CLIENT_BATCHES,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_BATCHES_SENTBOXES_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_BATCHES_SENTBOXES_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_BATCHES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_BATCHES_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_BATCHES_CLIENT),
     },
@@ -324,7 +294,6 @@ export const navbarConfig = {
       subtitles: [{ subtitle: () => t(TranslationKey['My users']), subRoute: '/client/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_USERS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_USERS_CLIENT),
     },
@@ -338,7 +307,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey.Shops),
           subRoute: '/client/shops/shops',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_SHOPS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_CLIENT),
         },
@@ -346,7 +314,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey.Reports),
           subRoute: '/client/shops/reports',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_SHOPS_REPORTS_CLIENT),
         },
@@ -356,7 +323,6 @@ export const navbarConfig = {
         },
       ],
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_STORES_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_STORES_CLIENT),
     },
@@ -366,7 +332,6 @@ export const navbarConfig = {
       route: '/client/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_PAYMENTS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_PAYMENTS_CLIENT),
     },
@@ -379,7 +344,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['On orders']),
           subRoute: '/client/notifications/orders-notifications',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_ORDERS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_ORDERS_CLIENT),
         },
@@ -387,7 +351,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['On boxes']),
           subRoute: '/client/notifications/boxes-notifications',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_BOXES_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_BOXES_CLIENT),
         },
@@ -395,7 +358,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['On boxes tariffs']),
           subRoute: '/client/notifications/tariffs-notifications',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_BOXESTARIF_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_BOXESTARIF_CLIENT),
         },
@@ -403,7 +365,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Request messages']),
           subRoute: '/client/notifications/freelance-notifications',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_REQUESTS_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_REQUESTS_CLIENT),
         },
@@ -412,14 +373,12 @@ export const navbarConfig = {
           key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
           subRoute: '/client/notifications/general-notifications-view',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_GENERAL_CLIENT) ||
             user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_GENERAL_CLIENT),
         },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_NOTIFICATIONS_CLIENT),
     },
@@ -430,7 +389,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_FEEDBACK_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_FEEDBACK_CLIENT),
     },
@@ -441,7 +399,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_CHAT_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_CHAT_CLIENT),
     },
@@ -454,7 +411,6 @@ export const navbarConfig = {
       route: '/researcher/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.researcher.SHOW_DASHBOARD_RESEARCHER) ||
         user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_DASHBOARD_RESEARCHER),
     },
@@ -465,7 +421,6 @@ export const navbarConfig = {
       route: '/researcher/products',
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.researcher.SHOW_PRODUCTS_RESEARCHER) ||
         user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_PRODUCTS_RESEARCHER),
     },
@@ -476,7 +431,6 @@ export const navbarConfig = {
       subtitles: [{ subtitle: () => t(TranslationKey['My users']), subRoute: '/researcher/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.researcher.SHOW_USERS_RESEARCHER) ||
         user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_USERS_RESEARCHER),
     },
@@ -487,7 +441,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.researcher.SHOW_FEEDBACK_RESEARCHER) ||
         user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_FEEDBACK_RESEARCHER),
     },
@@ -498,7 +451,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.researcher.SHOW_CHAT_RESEARCHER) ||
         user?.permissions?.some(item => item === permissionsKeys.researcher.SHOW_CHAT_RESEARCHER),
     },
@@ -511,7 +463,6 @@ export const navbarConfig = {
       route: '/freelancer/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.freelancer.SHOW_DASHBOARD_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_DASHBOARD_FREELANCER),
     },
@@ -525,7 +476,6 @@ export const navbarConfig = {
           subRoute: '/freelancer/freelance/vacant-requests',
           key: navBarActiveSubCategory.SUB_NAVBAR_VACANT_REQUESTS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_VAC_REQUESTS_FREELANCER),
         },
@@ -534,7 +484,6 @@ export const navbarConfig = {
           subRoute: '/freelancer/freelance/my-proposals',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_PROPOSALS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_PROPOSALS_FREELANCER),
         },
@@ -543,7 +492,6 @@ export const navbarConfig = {
           subRoute: '/freelancer/freelance/all-proposals',
           key: navBarActiveSubCategory.SUB_NAVBAR_ALL_PROPOSALS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FREELANCE_ALLPROPOSALS_FREELANCER),
         },
@@ -552,7 +500,6 @@ export const navbarConfig = {
           subRoute: '/freelancer/freelance/my-services',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_SERVICES,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_ANNOUNCEMENTS_FREELANCER),
         },
@@ -561,14 +508,12 @@ export const navbarConfig = {
           subRoute: '/freelancer/freelance/source-files',
           key: navBarActiveSubCategory.SUB_NAVBAR_SOURCE_FILES,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_SOURCES_FREELANCER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_REQUESTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.freelancer.SHOW_FREELANCE_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FREELANCE_FREELANCER),
     },
@@ -579,7 +524,6 @@ export const navbarConfig = {
       subtitles: [{ subtitle: () => t(TranslationKey['My users']), subRoute: '/freelancer/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.freelancer.SHOW_USERS_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_USERS_FREELANCER),
     },
@@ -589,7 +533,6 @@ export const navbarConfig = {
       route: '/freelancer/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.freelancer.SHOW_PAYMENTS_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_PAYMENTS_FREELANCER),
     },
@@ -600,7 +543,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.freelancer.SHOW_FEEDBACK_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_FEEDBACK_FREELANCER),
     },
@@ -611,7 +553,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.freelancer.SHOW_CHAT_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_CHAT_FREELANCER),
     },
@@ -624,7 +565,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['Request messages']),
           subRoute: '/freelancer/notifications/freelance-notifications',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.freelancer.SHOW_NOTIFICATIONS_REQUESTS_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_NOTIFICATIONS_REQUESTS_FREELANCER),
         },
@@ -633,14 +573,12 @@ export const navbarConfig = {
           key: navBarActiveSubCategory.SUB_NAVBAR_GENERAL_NOTIFICATIONS,
           subRoute: '/freelancer/notifications/general-notifications-view',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.freelancer.SHOW_NOTIFICATIONS_GENERAL_FREELANCER) ||
             user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_NOTIFICATIONS_GENERAL_FREELANCER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER) ||
         user?.permissions?.some(item => item === permissionsKeys.freelancer.SHOW_NOTIFICATIONS_FREELANCER),
     },
@@ -653,7 +591,6 @@ export const navbarConfig = {
       route: '/supervisor/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.supervisor.SHOW_DASHOBARD_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_DASHOBARD_SUPERVISOR),
     },
@@ -667,7 +604,6 @@ export const navbarConfig = {
           subRoute: '/supervisor/ready-to-check-by-researcher',
           key: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_RESEARCHER,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR) ||
             user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_VAC_BY_RES_SUPERVISOR),
         },
@@ -676,14 +612,12 @@ export const navbarConfig = {
           subRoute: '/supervisor/ready-to-check-by-client',
           key: navBarActiveSubCategory.SUB_NAVBAR_FROM_THE_CLIENT,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR) ||
             user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_VAC_BY_CLIENT_SUPERVISOR),
         },
       ],
       key: navBarActiveCategory.NAVBAR_READY_TO_CHECK,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.supervisor.SHOW_READYTOCHECK_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_READYTOCHECK_SUPERVISOR),
     },
@@ -694,7 +628,6 @@ export const navbarConfig = {
       route: '/supervisor/products',
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.supervisor.SHOW_PRODUCTS_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_PRODUCTS_SUPERVISOR),
     },
@@ -705,7 +638,6 @@ export const navbarConfig = {
       subtitles: [{ subtitle: () => t(TranslationKey['My users']), subRoute: '/supervisor/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.supervisor.SHOW_USERS_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_USERS_SUPERVISOR),
     },
@@ -715,7 +647,6 @@ export const navbarConfig = {
       route: '/supervisor/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.supervisor.SHOW_PAYMENTS_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_PAYMENTS_SUPERVISOR),
     },
@@ -726,7 +657,6 @@ export const navbarConfig = {
       route: '/supervisor/settings',
       key: navBarActiveCategory.NAVBAR_SETTINGS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.supervisor.SHOW_SETTINGS_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_SETTINGS_SUPERVISOR),
     },
@@ -737,7 +667,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.supervisor.SHOW_FEEDBACK_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_FEEDBACK_SUPERVISOR),
     },
@@ -748,7 +677,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.supervisor.SHOW_CHAT_SUPERVISOR) ||
         user?.permissions?.some(item => item === permissionsKeys.supervisor.SHOW_CHAT_SUPERVISOR),
     },
@@ -761,7 +689,6 @@ export const navbarConfig = {
       route: '/buyer/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_DASHBOARD_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_DASHBOARD_BUYER),
     },
@@ -772,7 +699,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FREE_ORDERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_VAC_ORDERS_BUYER),
     },
@@ -783,7 +709,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_PENDING_ORDERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_PENDING_ORDERS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PENDING_ORDERS_BUYER),
     },
@@ -794,7 +719,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_SUPPLIERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_SUPPLIERS) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_SUPPLIERS),
     },
@@ -808,7 +732,6 @@ export const navbarConfig = {
           subRoute: '/buyer/not-paid-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NOT_PAID,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_NOT_PAID_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_NOT_PAID_BUYER),
         },
@@ -817,7 +740,6 @@ export const navbarConfig = {
           subRoute: '/buyer/ready-for-payment-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_READY_FOR_PAYMENT,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_READY_FOR_PAYMENT_BUYER),
         },
@@ -826,7 +748,6 @@ export const navbarConfig = {
           subRoute: '/buyer/partially-paid-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_PARTIALLY_PAID,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_PARTIALLY_PAID_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_PARTIALLY_PAID_BUYER),
         },
@@ -835,7 +756,6 @@ export const navbarConfig = {
           subRoute: '/buyer/need-track-number-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_NEED_TRACK_NUMBER,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_NEED_TRACK_NUMBER_BUYER),
         },
@@ -844,7 +764,6 @@ export const navbarConfig = {
           subRoute: '/buyer/inbound-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_INBOUND,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_INBOUND_BUYER),
         },
@@ -853,7 +772,6 @@ export const navbarConfig = {
           subRoute: '/buyer/confirmation-required-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CONFIRMATION_REQUIRED,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_CONFIRMATION_REQUIRED_BUYER),
         },
@@ -862,7 +780,6 @@ export const navbarConfig = {
           subRoute: '/buyer/closed-and-canceled-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_CLOSED_AND_CANCELED,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_CLOSED_AND_CANCELED_BUYER),
         },
@@ -871,14 +788,12 @@ export const navbarConfig = {
           subRoute: '/buyer/all-orders',
           key: navBarActiveSubCategory.SUB_NAVBAR_MY_ORDERS_ALL_ORDERS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.buyer.SHOW_ORDERS_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_ORDERS_BUYER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_BUYER_MY_ORDERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_MYORDERS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_MYORDERS_BUYER),
     },
@@ -889,7 +804,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_PRODUCTS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
     },
@@ -901,7 +815,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_IDEAS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_IDEAS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_IDEAS_BUYER),
     },
@@ -915,7 +828,6 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['From the Supervisor']),
           subRoute: '/buyer/search-supplier-by-supervisor',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.buyer.SHOW_VAC_BY_SUP_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_VAC_BY_SUP_BUYER),
         },
@@ -923,14 +835,12 @@ export const navbarConfig = {
           subtitle: () => t(TranslationKey['From the Client']),
           subRoute: '/buyer/search-supplier-by-client',
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER) ||
             user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_VAC_BY_CLIENT_BUYER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_NEW_PRODUCTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_SUPSEARCH_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_SUPSEARCH_BUYER),
     },
@@ -941,7 +851,6 @@ export const navbarConfig = {
       subtitles: [{ subtitle: () => t(TranslationKey['My users']), subRoute: '/buyer/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_USERS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_USERS_BUYER),
     },
@@ -951,7 +860,6 @@ export const navbarConfig = {
       route: '/buyer/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_PAYMENTS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PAYMENTS_BUYER),
     },
@@ -968,7 +876,6 @@ export const navbarConfig = {
       ],
       key: navBarActiveCategory.NAVBAR_ORDERS_NOTIFICATIONS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_NOTIFICATIONS_BUYER),
     },
@@ -979,7 +886,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_FEEDBACK_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_FEEDBACK_BUYER),
     },
@@ -990,7 +896,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_CHAT_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_CHAT_BUYER),
     },
@@ -1003,7 +908,6 @@ export const navbarConfig = {
       route: '/warehouse/dashboard',
       key: navBarActiveCategory.NAVBAR_DASHBOARD,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.storekeeper.SHOW_DASHBOARD_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_DASHBOARD_STOREKEEPER),
     },
@@ -1016,7 +920,6 @@ export const navbarConfig = {
           subRoute: '/warehouse/tasks/vacant-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_VAC_TASKS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.storekeeper.SHOW_TASKS_NEWTASKS_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_NEWTASKS_STOREKEEPER),
         },
@@ -1025,7 +928,6 @@ export const navbarConfig = {
           subRoute: '/warehouse/tasks/my-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_MY_TASKS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.storekeeper.SHOW_TASKS_MYTASKS_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_MYTASKS_STOREKEEPER),
         },
@@ -1034,7 +936,6 @@ export const navbarConfig = {
           subRoute: '/warehouse/tasks/completed-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_COMPLETED_TASKS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.storekeeper.SHOW_TASKS_COMPLETTASKS_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_COMPLETTASKS_STOREKEEPER),
         },
@@ -1043,7 +944,6 @@ export const navbarConfig = {
           subRoute: '/warehouse/tasks/canceled-tasks',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_CANCELED_TASKS,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.storekeeper.SHOW_TASKS_CANCELTASKS_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_TASKS_CANCELTASKS_STOREKEEPER),
         },
@@ -1051,7 +951,6 @@ export const navbarConfig = {
       route: '/warehouse/tasks',
       key: navBarActiveCategory.NAVBAR_TASKS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_MY_TASKS_STOREKEEPER),
     },
@@ -1061,7 +960,6 @@ export const navbarConfig = {
       route: '/warehouse/my-warehouse',
       key: navBarActiveCategory.NAVBAR_WAREHOUSE,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_WAREHOUSE_STOREKEEPER),
     },
@@ -1075,7 +973,6 @@ export const navbarConfig = {
           subRoute: '/warehouse/batches/awaiting-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_AWAITING_BATCHES,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.storekeeper.SHOW_BATCHES_AWAITINGSEND_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_BATCHES_AWAITINGSEND_STOREKEEPER),
         },
@@ -1084,14 +981,12 @@ export const navbarConfig = {
           subRoute: '/warehouse/batches/sent-batches',
           key: navBarActiveSubCategory.SUB_NAVBAR_WAREHOUSE_BATCHES,
           checkHideSubBlock: user =>
-            !isHaveMasterUser(user) ||
             checkGroupPermissions(permissionsKeys.storekeeper.SHOW_BATCHES_SENT_STOREKEEPER) ||
             user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_BATCHES_SENT_STOREKEEPER),
         },
       ],
       key: navBarActiveCategory.NAVBAR_BATCHES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.storekeeper.SHOW_BATCHES_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_BATCHES_STOREKEEPER),
     },
@@ -1102,7 +997,6 @@ export const navbarConfig = {
       subtitles: [{ subtitle: () => t(TranslationKey['My users']), subRoute: '/warehouse/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_USERS_STOREKEEPER),
     },
@@ -1112,7 +1006,6 @@ export const navbarConfig = {
       route: '/warehouse/finances',
       key: navBarActiveCategory.NAVBAR_FINANCES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.storekeeper.SHOW_PAYMENTS_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_PAYMENTS_STOREKEEPER),
     },
@@ -1122,7 +1015,6 @@ export const navbarConfig = {
       route: '/warehouse/management',
       key: navBarActiveCategory.NAVBAR_MANAGEMENT,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.storekeeper.SHOW_MANAGEMENT_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_MANAGEMENT_STOREKEEPER),
     },
@@ -1133,7 +1025,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.storekeeper.SHOW_FEEDBACK_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_FEEDBACK_STOREKEEPER),
     },
@@ -1144,7 +1035,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.storekeeper.SHOW_CHAT_STOREKEEPER) ||
         user?.permissions?.some(item => item === permissionsKeys.storekeeper.SHOW_CHAT_STOREKEEPER),
     },
@@ -1308,7 +1198,6 @@ export const navbarConfig = {
       ],
       key: navBarActiveCategory.NAVBAR_TRADING_SHOPS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT) ||
         user?.permissions?.some(item => item === permissionsKeys.client.SHOW_TRADING_SHOPS_CLIENT),
     },
@@ -1319,7 +1208,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_APPEALS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_PRODUCTS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
     },
@@ -1330,7 +1218,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MY_PRODUCTS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.buyer.SHOW_PRODUCTS_BUYER) ||
         user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_PRODUCTS_BUYER),
     },
@@ -1341,7 +1228,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_UPDATED,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.moderator.SHOW_PATCHNOTES_MODERATOR) ||
         user?.permissions?.some(item => item === permissionsKeys.moderator.SHOW_PATCHNOTES_MODERATOR),
     },
@@ -1352,7 +1238,6 @@ export const navbarConfig = {
       subtitles: [{ subtitle: () => t(TranslationKey['My users']), subRoute: '/moderator/users/sub-users' }],
       key: navBarActiveCategory.NAVBAR_USERS,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.moderator.SHOW_USERS_MODERATOR) ||
         user?.permissions?.some(item => item === permissionsKeys.moderator.SHOW_USERS_MODERATOR),
     },
@@ -1371,7 +1256,6 @@ export const navbarConfig = {
       route: '/moderator/feedback',
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.moderator.SHOW_FEEDBACK_MODERATOR) ||
         user?.permissions?.some(item => item === permissionsKeys.moderator.SHOW_FEEDBACK_MODERATOR),
     },
@@ -1382,7 +1266,6 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_MESSAGES,
       checkHideBlock: user =>
-        !isHaveMasterUser(user) ||
         checkGroupPermissions(permissionsKeys.moderator.SHOW_CHAT_MODERATOR) ||
         user?.permissions?.some(item => item === permissionsKeys.moderator.SHOW_CHAT_MODERATOR),
     },

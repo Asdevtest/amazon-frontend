@@ -27,3 +27,29 @@
   color: rgba(255, 255, 255, 0.85);
   opacity: 1;
 }
+
+.ant-image-preview-switch-right,
+.ant-image-preview-switch-left,
+.ant-image-preview-close {
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.ant-image-preview-switch-right:hover,
+.ant-image-preview-switch-left:hover,
+.ant-image-preview-close:hover {
+  background: rgba(0, 0, 0, 0.5);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ant-image-preview-switch-left-disabled,
+.ant-image-preview-switch-right-disabled {
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ant-image-preview-switch-left-disabled:hover,
+.ant-image-preview-switch-right-disabled:hover {
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+}

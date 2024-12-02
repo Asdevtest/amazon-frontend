@@ -407,4 +407,16 @@ export const useStyles = makeStyles()(theme => ({
       color: 'rgba(255, 197, 61, 1)',
     },
   },
+
+  tariffText: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    gap: '3px',
+    span: {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  },
 }))

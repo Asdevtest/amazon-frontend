@@ -69,6 +69,7 @@ export const clientBoxesViewColumns = (
       width: 100,
       disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      table: DataGridFilterTables.PRODUCTS,
     },
 
     {

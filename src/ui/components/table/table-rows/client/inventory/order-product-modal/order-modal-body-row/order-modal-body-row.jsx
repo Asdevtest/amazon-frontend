@@ -60,7 +60,7 @@ export const OrderModalBodyRow = ({
 
   const priceVariations = item?.currentSupplierCard?.priceVariations
 
-  const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+  const { tariffName, tariffRate, tariffDestination } = useGetDestinationTariffInfo(
     destinations,
     storekeepers,
     item.destinationId,
@@ -170,6 +170,11 @@ export const OrderModalBodyRow = ({
 
   const [showDeadlineModal, setShowDeadlineModal] = useState(false)
 
+  const tariffForRender = (
+    <p className={styles.tariffText}>
+      <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate}</span>
+    </p>
+  )
   return (
     <>
       <TableRow
@@ -295,14 +300,7 @@ export const OrderModalBodyRow = ({
             type={item.logicsTariffId ? 'default' : 'primary'}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {item.logicsTariffId ? (
-              <>
-                <p>{tariffName}</p>
-                <p>{tariffRate}</p>
-              </>
-            ) : (
-              t(TranslationKey.Select)
-            )}
+            {item.logicsTariffId ? tariffForRender : t(TranslationKey.Select)}
           </CustomButton>
         </TableCell>
 

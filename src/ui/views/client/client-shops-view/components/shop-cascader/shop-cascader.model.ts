@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { format } from 'date-fns'
 import { makeAutoObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
@@ -7,6 +8,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
 import { ShopModel } from '@models/shop-model'
+
+import { AxiosErrorData } from '@services/axios/axios.types'
 
 import { t } from '@utils/translations'
 
@@ -88,8 +91,15 @@ export class ShopsCascaderModel {
           toast.success(t(TranslationKey['Data exported successfully']))
         }, 3000)
       }
-    } catch (error) {
-      toast.error(t(TranslationKey['Error while exporting data']))
+    } catch (error: any) {
+      const errorData = await error?.response?.data?.text?.()
+      const parsedErrorData = JSON.parse(errorData) as AxiosErrorData
+
+      if (parsedErrorData?.statusCode === 403) {
+        toast.error(t(TranslationKey['Access Denied: Insufficient Rights']))
+      } else {
+        toast.error(t(TranslationKey['Error while exporting data']))
+      }
     } finally {
       runInAction(() => (this.open = false))
       this.clearSelection()

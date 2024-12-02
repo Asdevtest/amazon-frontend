@@ -77,7 +77,7 @@ export const FieldsAndSuppliers = memo(props => {
   const [edit, setEdit] = useState(true)
   const [showEditProductTagsModal, setShowEditProductTagsModal] = useState(false)
   const [showSelectionStorekeeperAndTariffModal, setShowSelectionStorekeeperAndTariffModal] = useState(false)
-  const [currentTariff, setCurrentTatiff] = useState(product?.mainTariffVariation?.storekeeperTariffLogistics?.name)
+  const [currentTariff, setCurrentTariff] = useState()
 
   const onChangeShop = shopId => {
     onChangeField?.('shopId')({ target: { value: shopId } })
@@ -87,21 +87,25 @@ export const FieldsAndSuppliers = memo(props => {
     onChangeField?.('marketPlaceCountryId')({ target: { value: marketplace._id } })
   }
 
+  const { tariffName, tariffRate, tariffDestination } = useGetDestinationTariffInfo(
+    destinations,
+    storekeepers,
+    currentTariff?.destinationId || product.mainTariffVariation?.destination._id,
+    currentTariff?.storekeeperId || product.mainTariffVariation?.storekeeperTariffLogistics.storekeeperId,
+    currentTariff?.logicsTariffId || product.mainTariffVariation?.storekeeperTariffLogistics._id,
+    currentTariff?.variationTariffId || product.mainTariffVariation?._id,
+  )
+
   const onChangeTariff = tariff => {
     onChangeField?.('mainTariffVariationId')({ target: { value: tariff.variationTariffId } })
-    setCurrentTatiff(tariff)
-    setShowSelectionStorekeeperAndTariffModal(false)
-    if (tariff && storekeepers.length) {
-      const { tariffName, tariffRate } = useGetDestinationTariffInfo(
-        destinations,
-        storekeepers,
-        tariff.destinationId,
-        tariff.storekeeperId,
-        tariff.logicsTariffId,
-        tariff.variationTariffId,
-      )
-      setCurrentTatiff(tariffName)
+
+    if (tariff.variationTariffId) {
+      setCurrentTariff(tariff)
+    } else {
+      setCurrentTariff(undefined)
     }
+
+    setShowSelectionStorekeeperAndTariffModal(false)
   }
 
   const isEditRedFlags =
@@ -119,6 +123,12 @@ export const FieldsAndSuppliers = memo(props => {
   const seoFileValue = product?.latestSeoFiles[0]
     ? getFileNameFromUrl(product?.latestSeoFiles[0]).name
     : t(TranslationKey['Not available'])
+
+  const tariffForRender = (
+    <p className={styles.tariffText}>
+      <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate}</span>
+    </p>
+  )
 
   return (
     <Grid item xs={12}>
@@ -623,10 +633,10 @@ export const FieldsAndSuppliers = memo(props => {
               <FaStar /> <p className={styles.spanLabelSmall}>{t(TranslationKey['Favorite tariff'])}</p>
             </div>
             <CustomButton
-              type={currentTariff ? 'default' : 'primary'}
+              type={tariffName ? 'default' : 'primary'}
               onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
             >
-              {currentTariff ? currentTariff : t(TranslationKey.Choose)}
+              {tariffName ? tariffForRender : t(TranslationKey.Choose)}
             </CustomButton>
           </div>
         </div>

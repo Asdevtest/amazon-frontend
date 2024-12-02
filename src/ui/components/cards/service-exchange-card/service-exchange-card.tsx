@@ -46,7 +46,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
     <>
       <div className={cx(styles.wrapper, { [styles.cardWrapper]: isCard })} onClick={handleToggleModal}>
         <div className={styles.serviceWrapper}>
-          <CustomImage width={240} height={160} wrapperClassName={styles.image} src={service.linksToMediaFiles?.[0]} />
+          <CustomImage width={240} height={160} rootClassName={styles.image} src={service.linksToMediaFiles?.[0]} />
 
           <div className={styles.serviceInfo}>
             <CustomTag title={detailDescription} className={styles.serviceType} />

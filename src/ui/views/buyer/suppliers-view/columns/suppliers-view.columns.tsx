@@ -163,7 +163,7 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
       sortable: false,
 
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {

@@ -331,7 +331,8 @@ export const fbaInventoryColumns = () => {
       headerName: 'Item volume',
       renderHeader: () => <MultilineTextHeaderCell text="Item volume" />,
 
-      renderCell: params => <Text isCell text={toFixed(params.value)} />,
+      renderCell: params => <Text isCell text={toFixed(params.value, 4)} />,
+      transformValueMethod: value => toFixed(value, 4),
       width: 115,
       columnKey: columnnsKeys.shared.NUMBER,
     },

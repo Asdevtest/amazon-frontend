@@ -27,9 +27,7 @@ export const ProductOption: FC<ProductOptionProps> = memo(props => {
 
   return (
     <div className={styles.flexRow} onClick={e => searchValue?.length && e.stopPropagation()}>
-      {subOption ? (
-        <CustomImage preview={!searchValue?.length} width={40} height={40} src={image} maskClassName={styles.mask} />
-      ) : null}
+      {subOption ? <CustomImage preview={!searchValue?.length} width={40} height={40} src={image} /> : null}
 
       <div className={styles.flexColumn}>
         {label ? <p className={styles.title}>{label}</p> : null}

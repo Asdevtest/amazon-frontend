@@ -574,9 +574,9 @@ export const SelectFields = ({
                   [styles.inputError]:
                     orderFields.paymentDateToSupplier &&
                     orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
-                    !!orderFields.orderSupplier.productionTerm &&
+                    !!orderFields.orderSupplierCard.maxProductionTerm &&
                     Math.abs(getDistanceBetweenDatesInSeconds(orderFields.paymentDateToSupplier)) >
-                      convertDaysToSeconds(orderFields.orderSupplier.productionTerm),
+                      convertDaysToSeconds(orderFields.orderSupplierCard.maxProductionTerm),
                 })}
               />
             </div>
