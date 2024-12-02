@@ -8,10 +8,4 @@ export const useStyles = makeStyles()(() => ({
     borderRadius: '4px',
     overflow: 'hidden',
   },
-
-  mask: {
-    padding: '0 14px',
-    display: 'flex',
-    gap: '20px',
-  },
 }))

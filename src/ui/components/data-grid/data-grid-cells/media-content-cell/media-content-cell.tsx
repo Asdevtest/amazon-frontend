@@ -30,7 +30,7 @@ export const MediaContentCell: FC<MediaContentCellProps> = memo(({ files }) => {
           toolbarRender: renderPreviewToolbar,
         }}
       >
-        <CustomImage width={48} height={48} src={files[0]} maskClassName={styles.mask} />
+        <CustomImage width={48} height={48} src={files[0]} />
       </AntdImage.PreviewGroup>
     </div>
   )

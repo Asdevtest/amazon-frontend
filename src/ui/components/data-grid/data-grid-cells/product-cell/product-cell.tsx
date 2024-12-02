@@ -46,7 +46,7 @@ export const ProductCell: FC<ProductCellProps> = memo(props => {
       {title && !notAsinAndSku ? renderTextCell(title, 1) : null}
 
       <div className={styles.flexRow}>
-        <CustomImage width={32} height={32} src={image} maskClassName={styles.mask} />
+        <CustomImage width={32} height={32} src={image} />
 
         <div className={styles.flexColumn}>
           {notAsinAndSku && title ? (
