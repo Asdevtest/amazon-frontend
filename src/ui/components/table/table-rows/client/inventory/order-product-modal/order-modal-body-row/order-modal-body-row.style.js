@@ -127,4 +127,16 @@ export const useStyles = makeStyles()(theme => ({
   boxGray: {
     color: ' #637381CC',
   },
+
+  tariffText: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    gap: '3px',
+    span: {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  },
 }))
