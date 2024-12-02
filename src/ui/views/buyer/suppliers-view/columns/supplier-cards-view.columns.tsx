@@ -43,11 +43,12 @@ export const supplierCardsViewColumns = (handlers: IHandlers) => {
         <Text
           isCell
           color={getStatusColor(Number(SupplierCardStatus[value]))}
-          text={value ? convertToSentenceCase(value) : ''}
+          text={value ? t(TranslationKey[convertToSentenceCase(value) as keyof typeof TranslationKey]) : ''}
         />
       ),
       valueGetter: ({ row }) => SupplierCardStatus[row?.status],
-      transformValueMethod: (value: number) => convertToSentenceCase(SupplierCardStatus[value]),
+      transformValueMethod: (value: number) =>
+        t(TranslationKey[convertToSentenceCase(SupplierCardStatus[value]) as keyof typeof TranslationKey]),
       width: 150,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
