@@ -57,7 +57,6 @@ export class PatchNoutesViewModel {
 
   loadData() {
     try {
-      this.getDataGridState()
       this.getPatchNotes()
     } catch (error) {
       console.error()

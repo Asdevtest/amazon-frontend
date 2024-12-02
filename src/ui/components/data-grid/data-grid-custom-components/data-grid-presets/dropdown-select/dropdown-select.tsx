@@ -1,5 +1,7 @@
+import { Upload, UploadFile } from 'antd'
 import { ChangeEvent, FC, PropsWithChildren, memo, useCallback, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
+import { MdUpload } from 'react-icons/md'
 
 import { useGridApiContext } from '@mui/x-data-grid-premium'
 
@@ -12,11 +14,12 @@ import { useStyles } from './dropdown-select.style'
 
 interface DropdownSelectProps extends PropsWithChildren {
   handleCreateTableSettingsPreset: (title: string, colomns: IGridColumn[]) => void
+  handleLoadPreset: (preset: UploadFile) => void
 }
 
 export const DropdownSelect: FC<DropdownSelectProps> = memo(props => {
   const { classes: styles } = useStyles()
-  const { children, handleCreateTableSettingsPreset } = props
+  const { children, handleCreateTableSettingsPreset, handleLoadPreset } = props
 
   const apiRef = useGridApiContext()
 
@@ -47,6 +50,16 @@ export const DropdownSelect: FC<DropdownSelectProps> = memo(props => {
         />
 
         <CustomButton disabled={!createPresetTitle.trim()} icon={<FaPlus />} onClick={onClickCreatePreset} />
+
+        <Upload
+          accept=".json"
+          name="uploadPreset"
+          showUploadList={false}
+          beforeUpload={() => false}
+          onChange={info => handleLoadPreset(info.file)}
+        >
+          <CustomButton stopPropagation={false} icon={<MdUpload size={18} />} />
+        </Upload>
       </div>
     </>
   )

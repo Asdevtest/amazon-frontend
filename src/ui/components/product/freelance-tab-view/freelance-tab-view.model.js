@@ -11,7 +11,6 @@ import { freelanceRequestType } from '@constants/statuses/freelance-request-type
 import { GeneralModel } from '@models/general-model'
 import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
@@ -61,7 +60,6 @@ export class FreelanceModel {
       if (withoutUpdate) {
         this.getCurrentData()
       } else {
-        this.getDataGridState()
         this.getCustomRequests()
       }
     },
@@ -113,7 +111,6 @@ export class FreelanceModel {
 
   loadData() {
     try {
-      this.getDataGridState()
       this.getCustomRequests()
       this.getSpecs()
     } catch (error) {
@@ -205,32 +202,8 @@ export class FreelanceModel {
     this.getCustomRequests()
   }
 
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.PRODUCT_FREELANCE)
-  }
-
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.PRODUCT_FREELANCE)
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
-    this.setDataGridState()
   }
 
   onChangeFullFieldMenuItem(value, field) {
@@ -294,14 +267,12 @@ export class FreelanceModel {
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
 
-    this.setDataGridState()
     this.getCustomRequests()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
 
-    this.setDataGridState()
     this.getCustomRequests()
   }
 

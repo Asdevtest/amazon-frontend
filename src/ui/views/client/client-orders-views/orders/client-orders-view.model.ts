@@ -105,8 +105,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     makeObservable(this, observerConfig)
 
     this.history = history
-    // this.getDataGridState()
-    // this.getCurrentData()
+
     this.getDestinations()
     this.getStorekeepers()
     this.getTableSettingsPreset()

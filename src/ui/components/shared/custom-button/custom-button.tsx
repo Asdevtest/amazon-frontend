@@ -10,6 +10,7 @@ import { t } from '@utils/translations'
 import { useStyles } from './custom-button.style'
 
 interface CustomButtonProps extends ButtonProps {
+  stopPropagation?: boolean
   isCell?: boolean
   dropdown?: boolean
   confirmText?: string
@@ -17,12 +18,26 @@ interface CustomButtonProps extends ButtonProps {
 }
 
 export const CustomButton: FC<CustomButtonProps> = memo(props => {
-  const { isCell, icon, className, dropdown, children, menuItems, confirmText, onClick, ...restProps } = props
+  const {
+    isCell,
+    icon,
+    className,
+    dropdown,
+    children,
+    menuItems,
+    confirmText,
+    stopPropagation = true,
+    onClick,
+    ...restProps
+  } = props
 
   const { classes: styles, cx } = useStyles()
 
   const handleClick = throttle((e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
+    if (stopPropagation) {
+      e.stopPropagation()
+    }
+
     onClick?.(e)
   })
 

@@ -2108,4 +2108,6 @@ export enum TranslationKey {
   'ID, Title' = 'ID, Title',
   'Editing the card' = 'Editing the card',
   'Please enter a valid phone number!' = 'Please enter a valid phone number!',
+  'Preset downloaded' = 'Preset downloaded',
+  "The table doesn't fit" = "The table doesn't fit",
 }

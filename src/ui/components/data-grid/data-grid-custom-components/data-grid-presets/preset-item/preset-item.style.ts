@@ -8,12 +8,6 @@ export const useStyles = makeStyles()(() => ({
     gap: '5px',
   },
 
-  buttonWrapper: {
-    display: 'flex',
-    gap: '5px',
-    alignItems: 'center',
-  },
-
   presetTitle: {
     flex: 1,
     overflow: 'hidden',

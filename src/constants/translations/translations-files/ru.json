@@ -2108,5 +2108,7 @@
   "On hold": "На удержание",
   "ID, Title": "ID, Название",
   "Editing the card": "Редактирование карточки",
-  "Please enter a valid phone number!": "Введите корректный номер телефона!"
+  "Please enter a valid phone number!": "Введите корректный номер телефона!",
+  "Preset downloaded": "Пресет загружен",
+  "The table doesn't fit": "Таблица не подходит"
 }

@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { ClientModel } from '@models/client-model'
-import { TableSettingsModel } from '@models/table-settings'
 
 import { destinationsColumns } from '@components/table/table-columns/admin/destinations-columns'
 
@@ -48,7 +47,6 @@ export class AdminSettingsDestinationsModel {
   }
 
   loadData() {
-    this.getDataGridState()
     this.getDestinations()
   }
 
@@ -73,36 +71,12 @@ export class AdminSettingsDestinationsModel {
     }
   }
 
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_DESTINATIONS)
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_DESTINATIONS)
-  }
-
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-    this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-    this.setDataGridState()
   }
 
   onChangeFilterModel(model) {
@@ -111,7 +85,6 @@ export class AdminSettingsDestinationsModel {
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-    this.setDataGridState()
   }
 
   onClickRemoveBtn(row) {

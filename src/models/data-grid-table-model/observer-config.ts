@@ -21,8 +21,6 @@ export const observerConfig = {
   filteredData: computed,
   isSomeFilterOn: computed,
 
-  setDataGridState: action.bound,
-  getDataGridState: action.bound,
   onChangeSortingModel: action.bound,
   onColumnVisibilityModelChange: action.bound,
   onSelectionModel: action.bound,
@@ -47,4 +45,7 @@ export const observerConfig = {
   onClickAddQuickAccess: action.bound,
   setDefaultPinnedColumns: action.bound,
   onClickSaveRenamedPreset: action.bound,
+  handleDownloadPreset: action.bound,
+  handleLoadPreset: action.bound,
+  handleCreatePresetFromUpload: action.bound,
 }
