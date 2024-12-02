@@ -152,6 +152,7 @@ export const ProductCardModal = observer(props => {
             }
             onClickSaveSupplierBtn={viewModel?.onClickSaveSupplierBtn}
             onRemoveSupplier={viewModel?.onRemoveSupplier}
+            onSaveForceProductData={viewModel.onSaveForceProductData}
           />
         )}
 
