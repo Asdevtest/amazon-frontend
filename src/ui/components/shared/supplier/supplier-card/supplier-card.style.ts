@@ -49,6 +49,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '260px',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    // justifyContent: 'flex-end',
   },
 }))
