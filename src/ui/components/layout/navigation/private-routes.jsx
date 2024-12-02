@@ -14,8 +14,6 @@ import { resetAccessTokenByTime } from '@services/axios/reset-api'
 
 import { Layout } from '@components/layout'
 
-import { isHaveMasterUser } from '@utils/checks'
-
 export const PrivateRoutes = observer(() => {
   const location = useLocation()
   const resetAccessTimer = useRef(null)
@@ -60,7 +58,6 @@ export const PrivateRoutes = observer(() => {
         ?.filter(route => route?.permission?.includes(UserRoleCodeMap[userInfo.role]))
         ?.filter(
           route =>
-            !isHaveMasterUser(userInfo) ||
             !route?.permissionKey ||
             userInfo?.permissions?.some(item => item === route?.permissionKey) ||
             checkGroupPermissions(route?.permissionKey),
