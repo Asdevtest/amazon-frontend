@@ -35,12 +35,13 @@ interface AddSupplierCardModalProps {
   supplierId?: string
   supplierCardId?: string
   disabled?: boolean
+  hideStatusButton?: boolean
   setOpenModal: (openModal?: boolean) => void
   handleUpdate?: (supplierCardId?: string) => void
 }
 
 export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(props => {
-  const { supplierId, supplierCardId, openModal, disabled, setOpenModal, handleUpdate } = props
+  const { supplierId, supplierCardId, openModal, disabled, hideStatusButton, setOpenModal, handleUpdate } = props
 
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
@@ -185,12 +186,16 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
         </div>
 
         <div className={styles.footerWrapper}>
-          <CustomButton
-            type="primary"
-            onClick={() => handleChangeStatus(isPublished ? SupplierCardStatus.ON_HOLD : SupplierCardStatus.PUBLISHED)}
-          >
-            {t(TranslationKey[isPublished ? 'On hold' : 'Publish'])}
-          </CustomButton>
+          {!hideStatusButton ? (
+            <CustomButton
+              type="primary"
+              onClick={() =>
+                handleChangeStatus(isPublished ? SupplierCardStatus.ON_HOLD : SupplierCardStatus.PUBLISHED)
+              }
+            >
+              {t(TranslationKey[isPublished ? 'On hold' : 'Publish'])}
+            </CustomButton>
+          ) : null}
 
           <Form.Item shouldUpdate className={sharedStyles.field}>
             <CustomButton type="primary" htmlType="submit" loading={viewModel.loading}>
