@@ -2094,7 +2094,6 @@
   "Cards": "Карточки",
   "Set dates": "Установить даты",
   "Due shipment date": "Дата отправки",
-  "Recommended deadline is not valid": "Рекомендуемый срок недействителен",
   "Time reserv, d.": "Резерв времени, дн.",
   "Cards total": "Всего карточек",
   "Commodity": "Товарооборот",
@@ -2108,5 +2107,8 @@
   "On hold": "На удержание",
   "ID, Title": "ID, Название",
   "Editing the card": "Редактирование карточки",
-  "Please enter a valid phone number!": "Введите корректный номер телефона!"
+  "Please enter a valid phone number!": "Введите корректный номер телефона!",
+  "Preparing for shipment": "Подготовка к отправке",
+  "Number of days off": "Количество выходных дней",
+  "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "Выбранная дата отправки не соответствует допустимому интервалу, исходя из срока изготовления и подготовки продукта"
 }
