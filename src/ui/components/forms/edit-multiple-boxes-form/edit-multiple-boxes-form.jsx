@@ -380,7 +380,7 @@ export const EditMultipleBoxesForm = observer(
       onSubmit(newBoxes, selectedBoxes, sharedFields)
     }
 
-    const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
+    const { tariffName, tariffRate, tariffDestination, currentTariff } = useGetDestinationTariffInfo(
       destinations,
       storekeepers,
       sharedFields.destinationId,
@@ -426,6 +426,11 @@ export const EditMultipleBoxesForm = observer(
     const disabledApplyBtn = !visibleBoxes.length
     const isShippingLabelMissing = !sharedFields.shippingLabel && !sharedFields.tmpShippingLabel?.length
 
+    const tariffForRender = (
+      <p className={styles.tariffText}>
+        <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
+      </p>
+    )
     return (
       <div className={styles.root}>
         <div className={styles.modalTitleWrapper}>
@@ -487,11 +492,7 @@ export const EditMultipleBoxesForm = observer(
                       onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                     >
                       {sharedFields.logicsTariffId
-                        ? `${
-                            sharedFields.logicsTariffId
-                              ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-                              : 'none'
-                          }`
+                        ? `${sharedFields.logicsTariffId ? tariffForRender : 'none'}`
                         : t(TranslationKey.Select)}
                     </CustomButton>
                   }

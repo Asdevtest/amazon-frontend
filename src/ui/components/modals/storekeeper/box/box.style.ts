@@ -166,4 +166,16 @@ export const useStyles = makeStyles()(theme => ({
   tariffButton: {
     maxWidth: '230px',
   },
+
+  tariffText: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    gap: '3px',
+    span: {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  },
 }))

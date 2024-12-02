@@ -173,4 +173,16 @@ export const useStyles = makeStyles()(theme => ({
   blue: {
     color: theme.palette.text.main,
   },
+
+  tariffText: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    gap: '3px',
+    span: {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  },
 }))
