@@ -141,6 +141,7 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
       >
         <EditTaskModal
           // @ts-ignore
+          requestStatus={viewModel.requestStatus}
           readOnly={status === TaskStatus.NEW}
           task={viewModel.currentTask}
           showEditBoxModal={viewModel.showEditBoxModal}
