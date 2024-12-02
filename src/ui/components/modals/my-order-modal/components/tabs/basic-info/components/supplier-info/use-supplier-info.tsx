@@ -90,6 +90,7 @@ export const useSupplierInfo = ({
       text: purchasePrice,
       element: undefined,
     },
+
     {
       title: t(TranslationKey.Supplier),
       text: undefined,
@@ -109,6 +110,7 @@ export const useSupplierInfo = ({
         </a>
       ),
     },
+
     {
       title: t(TranslationKey['Production time']),
       text: formFields?.product
