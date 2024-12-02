@@ -97,7 +97,7 @@ export const useSupplierInfo = ({
         <a
           target="_blank"
           rel="noreferrer noopener"
-          href={checkAndMakeAbsoluteUrl(formFields?.orderSupplierCard?.link)}
+          href={checkAndMakeAbsoluteUrl(formFields?.orderSupplierCard?.supplier?.link)}
           className={cx(styles.fieldText, { [styles.link]: formFields?.orderSupplierCard?.link !== ACCESS_DENIED })}
           onClick={e => {
             if (formFields?.orderSupplierCard?.link === ACCESS_DENIED) {
@@ -105,7 +105,7 @@ export const useSupplierInfo = ({
             }
           }}
         >
-          {formFields?.orderSupplierCard?.name}
+          {formFields?.orderSupplierCard?.supplier?.companyName}
         </a>
       ),
     },
