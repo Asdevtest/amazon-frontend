@@ -148,7 +148,9 @@ export class PermissionsFormModel {
 
       if (permissionId) {
         permissions.push(permissionId)
-      } else if (![SELECT_ALL_PERMISSION, WITHOUT_GROUP].includes(groupId)) {
+      } else if (groupId === WITHOUT_GROUP) {
+        this.withoutGroupPermissions.forEach(permission => permissions.push(permission._id))
+      } else if (groupId !== SELECT_ALL_PERMISSION) {
         permissionGroups.push(groupId)
       }
     })
