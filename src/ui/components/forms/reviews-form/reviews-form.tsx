@@ -18,11 +18,14 @@ import { ReviewsFormModel } from './reviews-form.model'
 interface ReviewsFormProps {
   onClose: () => void
   user?: ICreatedBy
+  isSupplier?: boolean
 }
 
-export const ReviewsForm: FC<ReviewsFormProps> = observer(({ onClose, user }) => {
+export const ReviewsForm: FC<ReviewsFormProps> = observer(props => {
+  const { onClose, user, isSupplier } = props
+
   const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new ReviewsFormModel(user?._id), [])
+  const viewModel = useMemo(() => new ReviewsFormModel(user?._id, isSupplier), [])
 
   return (
     <div className={styles.root}>

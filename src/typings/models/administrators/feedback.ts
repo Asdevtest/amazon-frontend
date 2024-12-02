@@ -15,8 +15,15 @@ export interface IFeedback {
   updatedAt: string
 
   sub: ICreatedBy
+  subId: string
   createdBy: ICreatedBy
+  createdById: string
   rating: number
   comment: string
   role: number
+}
+
+export interface IFeedbacks {
+  count: number
+  rows: Array<IFeedback>
 }

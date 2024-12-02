@@ -47,6 +47,7 @@ export const SupplierDitailsInfo: FC<SupplierDitailsInfoProps> = memo(porps => {
 
       <Modal openModal={openReview} setOpenModal={setOpenReview}>
         <ReviewsForm
+          isSupplier
           user={{ _id: userId || '', name: String(xid), rating: rate }}
           onClose={() => setOpenReview(false)}
         />
