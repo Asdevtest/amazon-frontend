@@ -99,7 +99,12 @@ export const FieldsAndSuppliers = memo(props => {
   const onChangeTariff = tariff => {
     onChangeField?.('mainTariffVariationId')({ target: { value: tariff.variationTariffId } })
 
-    setCurrentTariff(tariff)
+    if (tariff.variationTariffId) {
+      setCurrentTariff(tariff)
+    } else {
+      setCurrentTariff(undefined)
+    }
+
     setShowSelectionStorekeeperAndTariffModal(false)
   }
 
