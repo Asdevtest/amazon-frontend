@@ -719,8 +719,8 @@ export const navbarConfig = {
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_SUPPLIERS,
       checkHideBlock: user =>
-        checkGroupPermissions(permissionsKeys.buyer.SHOW_SUPPLIERS) ||
-        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_SUPPLIERS),
+        checkGroupPermissions(permissionsKeys.buyer.SHOW_SUPPLIERS_BUYER) ||
+        user?.permissions?.some(item => item === permissionsKeys.buyer.SHOW_SUPPLIERS_BUYER),
     },
     {
       icon: MyOrdersIcon,

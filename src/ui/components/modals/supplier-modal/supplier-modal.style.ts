@@ -33,7 +33,7 @@ export const useStyles = makeStyles()(() => ({
 
   reviews: {
     maxHeight: 'unset',
-    height: '245px',
+    height: '80px',
     paddingRight: '0px',
   },
 
