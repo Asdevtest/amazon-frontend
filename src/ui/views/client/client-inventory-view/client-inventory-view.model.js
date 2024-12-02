@@ -581,6 +581,10 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
 
   async onClickOrderBtn(rowId, value) {
     try {
+      runInAction(() => {
+        this.loading = true
+      })
+
       const resultArray = []
 
       if (value && rowId) {
@@ -612,32 +616,48 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       }
     } catch (error) {
       console.error(error)
+    } finally {
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 
   async onClickContinueBtn() {
-    const storekeepers = await StorekeeperModel.getStorekeepers()
-    const destinations = await ClientModel.getDestinations()
-    const dataForOrder = await ClientModel.getProductsInfoForOrders({
-      productIds: this.currentRow || this.selectedRows.join(','),
-      recommendedValue: this.pendingOrderQuantity,
-    })
+    try {
+      runInAction(() => {
+        this.loading = true
+      })
 
-    if (this.pendingOrderQuantity === 0 || this.pendingOrderQuantity) {
-      dataForOrder[0].pendingOrderQuantity = this.pendingOrderQuantity
-      dataForOrder[0].isPending = true
-    }
+      const storekeepers = await StorekeeperModel.getStorekeepers()
+      const destinations = await ClientModel.getDestinations()
+      const dataForOrder = await ClientModel.getProductsInfoForOrders({
+        productIds: this.currentRow || this.selectedRows.join(','),
+        recommendedValue: this.pendingOrderQuantity,
+      })
 
-    runInAction(() => {
-      this.storekeepers = storekeepers
-      this.destinations = destinations
-      this.dataForOrderModal = dataForOrder
-    })
+      if (this.pendingOrderQuantity === 0 || this.pendingOrderQuantity) {
+        dataForOrder[0].pendingOrderQuantity = this.pendingOrderQuantity
+        dataForOrder[0].isPending = true
+      }
 
-    this.onTriggerOpenModal('showOrderModal')
+      runInAction(() => {
+        this.storekeepers = storekeepers
+        this.destinations = destinations
+        this.dataForOrderModal = dataForOrder
+      })
 
-    if (this.showCheckPendingOrderFormModal) {
-      this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+      this.onTriggerOpenModal('showOrderModal')
+
+      if (this.showCheckPendingOrderFormModal) {
+        this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+      }
+    } catch (error) {
+      console.error(error)
+    } finally {
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 
