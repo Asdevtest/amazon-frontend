@@ -1180,7 +1180,7 @@
   "Add address": "Додати адресу",
   "Edit address": "Редагувати адресу",
   "Reply to a User Feedback": "Відповісти на зворотний зв'язок користувача",
-  "Search by ASIN, Order ID, ID": "Пошук за ASIN, ID замовлення, ID",
+  "Search by ASIN, FBA shipment, Order ID, Box ID, ID": "Пошук за ASIN, FBA shipment, ID коробки, ID замовлення, ID",
   "Search by ASIN, Order ID, Track number, ID": "Пошук за ASIN, ID замовлення, Трек номер, ID",
   "Message Search": "Пошук за повідомленнями",
   "Search results": "Результати пошуку",

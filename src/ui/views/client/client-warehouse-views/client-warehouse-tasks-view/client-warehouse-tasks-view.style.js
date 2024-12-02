@@ -8,6 +8,10 @@ export const useStyles = makeStyles()(theme => ({
     gap: '20px',
   },
 
+  searchInput: {
+    width: '530px',
+  },
+
   filters: {
     display: 'flex',
     gap: '10px',

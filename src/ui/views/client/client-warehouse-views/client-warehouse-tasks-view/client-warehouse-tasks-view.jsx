@@ -33,8 +33,9 @@ export const ClientWarehouseTasksView = observer(() => {
         <CustomInputSearch
           enterButton
           allowClear
+          wrapperClassName={styles.searchInput}
           size="large"
-          placeholder="Search by ASIN, Order ID, ID"
+          placeholder="Search by ASIN, FBA shipment, Order ID, Box ID, ID"
           onSearch={viewModel.onSearchSubmit}
         />
 
