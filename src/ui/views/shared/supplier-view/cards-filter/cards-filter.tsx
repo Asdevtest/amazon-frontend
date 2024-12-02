@@ -1,5 +1,6 @@
 import { Drawer, Form, Space } from 'antd'
-import { FC, memo, useMemo, useState } from 'react'
+import { observer } from 'mobx-react'
+import { FC, useMemo, useState } from 'react'
 import { TbFilter, TbFilterCheck } from 'react-icons/tb'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -18,11 +19,11 @@ import { useStyles } from './cards-filter.style'
 import { createFilterCondition, getFilterOptions, maxValueRules, minValueRules } from './cards-filter.config'
 import { CardsFilterProps, FilterValues } from './cards-filter.type'
 
-export const CardsFilter: FC<CardsFilterProps> = memo(props => {
-  const { showFilter, filtersCount, onSubmit, onReset, loading } = props
+export const CardsFilter: FC<CardsFilterProps> = observer(props => {
+  const { showFilter, filtersCount, onSubmit, onReset, loading, onlyExchangeCategories } = props
 
   const { classes: styles, cx } = useStyles()
-  const viewModel = useMemo(() => new CategoriesModel(), [])
+  const viewModel = useMemo(() => new CategoriesModel(onlyExchangeCategories), [])
   const [form] = Form.useForm()
   const [openFilter, setOpenFilter] = useState(false)
   const showDrawer = () => {
@@ -89,12 +90,14 @@ export const CardsFilter: FC<CardsFilterProps> = memo(props => {
               showSearch
               multiple
               treeDefaultExpandAll
+              loading={viewModel.loading}
               label="Categories"
               placeholder="Select category"
               popupClassName={styles.treeSelectPopup}
               className={styles.treeSelect}
               wrapperClassName={styles.treeSelectWrapper}
               treeData={viewModel.categoriesNodes}
+              onDropdownVisibleChange={isOpen => viewModel.onDropdownVisibleChange(isOpen, onlyExchangeCategories)}
             />
           </Form.Item>
 

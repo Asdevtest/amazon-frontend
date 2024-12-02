@@ -187,7 +187,7 @@ const WholesaleView = lazy(() =>
     default: module.WholesaleView,
   })),
 )
-const SupplerView = lazy(() =>
+const SupplierView = lazy(() =>
   import('@views/shared/supplier-view').then(module => ({
     default: module.SupplierView,
   })),
@@ -1560,7 +1560,7 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/product-exchange/wholesale/supplier',
-    component: SupplerView,
+    component: SupplierView,
     exact: true,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_SUPPLIER_CLIENT,
