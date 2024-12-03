@@ -45,6 +45,7 @@ export const SupplierView = observer(({ history }: { history: HistoryType }) => 
           />
 
           <CardsFilter
+            onlyExchangeCategories
             loading={viewModel.loading}
             showFilter={viewModel.showFilter}
             filtersCount={viewModel.filtersCount}
