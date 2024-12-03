@@ -17,7 +17,7 @@ export const observerConfig = {
   showOrderModal: observable,
   showSelectionSupplierModal: observable,
   showCommentsModal: observable,
-  showAddOrEditSupplierModal: observable,
+  showAddSupplierProductModal: observable,
   readyImages: observable,
   ideaList: observable,
   selectedProduct: observable,
