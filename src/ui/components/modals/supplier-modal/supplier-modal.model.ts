@@ -1,3 +1,4 @@
+import { RadioChangeEvent } from 'antd'
 import { makeObservable, runInAction } from 'mobx'
 
 import { DefaultModel } from '@models/default-model'
@@ -11,8 +12,10 @@ import { TableView } from '@views/buyer/suppliers-view/suppliers-view.type'
 import { ISupplierFeedback } from '@typings/models/suppliers/supplier-feedback'
 
 import { observerConfig } from './observer.config'
+import { View } from './supplier-modal.types'
 
 export class SupplierModalModel extends DefaultModel {
+  currentTab: View = View.CARDS
   supplierCardsModel: SuppliersViewModel
 
   feedbacks: ISupplierFeedback[] = []
@@ -59,6 +62,10 @@ export class SupplierModalModel extends DefaultModel {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  onChangeTab(event: RadioChangeEvent) {
+    this.currentTab = event.target.value
   }
 
   onOpenImportTemplateModal() {
