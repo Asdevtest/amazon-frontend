@@ -30,14 +30,25 @@ const calculateQtySundays = (currentDate: Dayjs, needShipping: Dayjs): number =>
 }
 
 export const calculateRecommendedDeadline = (
-  needShipping: Dayjs, // Need Shipping: Желаемая дата отправки
+  needShipping: Dayjs | null, // Need Shipping: Желаемая дата отправки
   maxProductionTime: number, // Max Production Time: Максимальный срок производства
 ) => {
+  // Забираем Time Reserve из настроек платформы(Админка)
+  const timeReserve = (UserModel.platformSettings as unknown as IPlatformSettings)?.reserveTimeForOrder
+  // Если Need Shipping = null, то возвращаем пустой объект
+  const emptyResult = {
+    recommendedDeadline: null,
+    timeReserve,
+    qtySundays: 0,
+  }
+
+  if (!needShipping) {
+    return emptyResult
+  }
+
   // Определяем текущее время (UTC)
   const currentDateUtc = dayjs.utc()
   const needShippingUtc = dayjs.utc(needShipping)
-  // Забираем Time Reserve из настроек платформы(Админка)
-  const timeReserve = (UserModel.platformSettings as unknown as IPlatformSettings)?.reserveTimeForOrder
   // Расчет Production Time
   const qtySundays = calculateQtySundays(currentDateUtc, needShippingUtc)
   // Рассчитываем количество воскресений в период между текущей датой и датой отправки
@@ -49,13 +60,21 @@ export const calculateRecommendedDeadline = (
 
   // Проверяем условия для уведомлений
   if (
-    recommendedDeadline.isBefore(currentDateUtc, 'day') || // Recommended Deadline < Current Date
-    recommendedDeadline.isSame(currentDateUtc, 'day') || // Recommended Deadline == Current Date
-    recommendedDeadline.isSame(currentDateUtc.add(1, 'day'), 'day') // Recommended Deadline == Current Date + 1
+    recommendedDeadline.isBefore(currentDateUtc.add(2, 'day'), 'day') // Recommended Deadline < Current Date + 2
   ) {
-    toast.warning(t(TranslationKey['Recommended deadline is not valid']))
-    return null
+    toast.warning(
+      t(
+        TranslationKey[
+          'The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product'
+        ],
+      ),
+    )
+    return emptyResult
   }
 
-  return dayjs(recommendedDeadline).format()
+  return {
+    recommendedDeadline: dayjs(recommendedDeadline).format(),
+    timeReserve,
+    qtySundays,
+  }
 }
