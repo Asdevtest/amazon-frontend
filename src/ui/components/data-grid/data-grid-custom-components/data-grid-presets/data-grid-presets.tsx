@@ -1,3 +1,4 @@
+import { UploadFile } from 'antd'
 import { FC, memo, useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { useGridApiContext } from '@mui/x-data-grid-premium'
@@ -25,6 +26,8 @@ interface PresetsMenuProps {
   handleDeleteTableSettingsPreset: (preset: ITablePreset) => void
   onClickAddQuickAccess: (preset: ITablePreset) => void
   handleUpdateTableSettingsPreset: (presetId: string, colomns: IGridColumn[]) => void
+  handleDownloadPreset: (preset: ITablePreset) => void
+  handleLoadPreset: (preset: UploadFile) => void
   onClickSaveRenamedPreset: (preset: ITablePreset, newTitle: string) => void
 }
 
@@ -38,6 +41,8 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
     handleSetPresetActive,
     handleDeleteTableSettingsPreset,
     handleUpdateTableSettingsPreset,
+    handleDownloadPreset,
+    handleLoadPreset,
     onClickAddQuickAccess,
     onClickSaveRenamedPreset,
   } = props
@@ -93,6 +98,7 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
             preset={preset}
             handleDeletePreset={() => handleDeleteTableSettingsPreset(preset?.data as ITablePreset)}
             handleUpdatePreset={() => onClickUpdatePreset(preset?.data?._id)}
+            handleDownloadPreset={() => handleDownloadPreset(preset?.data as ITablePreset)}
             onClickAddQuickAccess={() => onClickAddQuickAccess(preset?.data as ITablePreset)}
             onClickSaveRenamedPreset={(newTitle: string) =>
               onClickSaveRenamedPreset(preset?.data as ITablePreset, newTitle)
@@ -101,7 +107,12 @@ export const PresetsMenu: FC<PresetsMenuProps> = memo(props => {
         )}
         labelRender={preset => preset?.label}
         dropdownRender={menu => (
-          <DropdownSelect handleCreateTableSettingsPreset={handleCreateTableSettingsPreset}>{menu}</DropdownSelect>
+          <DropdownSelect
+            handleCreateTableSettingsPreset={handleCreateTableSettingsPreset}
+            handleLoadPreset={handleLoadPreset}
+          >
+            {menu}
+          </DropdownSelect>
         )}
         onChange={handleSetPresetActive}
       />

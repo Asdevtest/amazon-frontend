@@ -4,7 +4,6 @@ import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { BatchStatus } from '@constants/statuses/batch-status'
 
 import { BatchesModel } from '@models/batches-model'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { adminBatchesViewColumns } from '@components/table/table-columns/admin/admin-batches-columns'
@@ -50,28 +49,6 @@ export class AdminAwaitingBatchesViewModel {
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_AWAITING_BATCHES)
-  }
-
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_AWAITING_BATCHES)
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
-  }
-
   onSearchSubmit(searchValue) {
     runInAction(() => {
       this.nameSearchValue = searchValue.trim()
@@ -102,23 +79,18 @@ export class AdminAwaitingBatchesViewModel {
     runInAction(() => {
       this.filterModel = model
     })
-
-    this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     runInAction(() => {
       this.paginationModel = model
     })
-
-    this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
     runInAction(() => {
       this.columnVisibilityModel = model
     })
-    this.setDataGridState()
   }
 
   setRequestStatus(requestStatus) {
@@ -131,8 +103,6 @@ export class AdminAwaitingBatchesViewModel {
     runInAction(() => {
       this.sortModel = sortModel
     })
-
-    this.setDataGridState()
   }
 
   onSelectionModel(model) {
@@ -144,7 +114,7 @@ export class AdminAwaitingBatchesViewModel {
   async loadData() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
-      this.getDataGridState()
+
       await this.getBatches()
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {

@@ -12,6 +12,11 @@ export const useStyles = makeStyles()(() => ({
       overflow: 'hidden',
       textOverflow: 'ellipsis',
     },
+
+    '&:disabled': {
+      opacity: 1,
+      backgroundColor: '#f5f5f5',
+    },
   },
 
   dropdown: {

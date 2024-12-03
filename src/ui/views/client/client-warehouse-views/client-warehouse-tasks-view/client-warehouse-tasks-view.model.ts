@@ -119,7 +119,6 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
 
   async getStorekeepers() {
     try {
-      this.getDataGridState()
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
       runInAction(() => {

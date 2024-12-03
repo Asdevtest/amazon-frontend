@@ -3,9 +3,9 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   buttonWrapper: {
     display: 'flex',
-    gap: 30,
+    gap: 20,
     justifyContent: 'flex-end',
-    marginTop: 30,
+    marginTop: 20,
   },
 
   checkboxWrapper: {
@@ -33,8 +33,10 @@ export const useStyles = makeStyles()(theme => ({
   subUsersWrapper: {
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 1fr)',
-    columnGap: '56px',
-    rowGap: '20px',
+    gap: '10px',
+    maxHeight: 400,
+    overflowY: 'auto',
+    marginBottom: 20,
   },
 
   ratingWrapper: {
@@ -55,7 +57,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainWrapper: {
-    marginTop: 20,
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
@@ -90,11 +91,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: 20,
-  },
-
-  rateContainer: {
-    width: '170px',
-    marginBottom: '0 !important',
   },
 
   allowedRoleRateContainer: {
@@ -179,71 +175,13 @@ export const useStyles = makeStyles()(theme => ({
   selectRoot: {
     border: 'none',
     outline: 'none',
-
     height: 20,
     width: '139px',
     color: theme.palette.text.general,
   },
 
-  labelField: {
-    fontSize: '14px',
-    color: theme.palette.text.second,
-    lineHeight: '19px',
-  },
   field: {
     flexBasis: '100%',
     position: 'relative',
-  },
-  input: {
-    height: '34px',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-  visibilityIcon: {
-    position: 'absolute',
-    right: 10,
-    top: 35,
-    cursor: 'pointer',
-    color: theme.palette.text.second,
-    [theme.breakpoints.down(768)]: {
-      top: 35,
-    },
-  },
-  validationMessage: {
-    width: '100%',
-    display: 'flex',
-    flexWrap: 'nowrap',
-    marginTop: '-15px',
-
-    justifyContent: 'start',
-    gap: '5px',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      flexWrap: 'wrap',
-    },
-  },
-  validationText: {
-    fontSize: '12px',
-    lineHeight: '16px',
-    fontWeight: '400',
-    color: theme.palette.text.second,
-  },
-  validationHiddenMessage: {
-    display: 'flex',
-    justifyContent: 'end',
-  },
-  validationHiddenText: {
-    visibility: 'hidden',
-    fontSize: '12px',
-    lineHeight: '16px',
-    fontWeight: '400',
-    color: theme.palette.text.second,
-  },
-  red: {
-    color: 'red !important',
-  },
-  visibility: {
-    visibility: 'visible',
   },
 }))

@@ -42,7 +42,6 @@ export class AdminSettingsTagsModel extends DataGridFilterTableModel {
 
     this.sortModel = [{ field: 'productCount', sort: 'desc' }]
 
-    this.getDataGridState()
     this.getCurrentData()
   }
 

@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDatePicker } from '@components/shared/custom-date-picker'
+import { Text } from '@components/shared/text'
 
 import { useStyles } from './deadline-form.style'
 
@@ -29,32 +30,41 @@ export const DeadlineForm: FC<DeadlineFormProps> = memo(props => {
     onSubmit(deadline)
     onClose()
   }
+
+  const { recommendedDeadline, timeReserve, qtySundays } = calculateRecommendedDeadline(desiredDate, maxProductionTerm)
+  const recommendedButtonText = recommendedDeadline
+    ? `${t(TranslationKey.Recommended)}: ${dayjs(recommendedDeadline).format('DD.MM.YYYY')}`
+    : ''
+  const maxProductionTermText = `${t(TranslationKey['Production time'])}: ${maxProductionTerm || 0}`
+  const timeReserveText = `${t(TranslationKey['Preparing for shipment'])}: ${timeReserve || 0}`
+  const qtySundaysText = `${t(TranslationKey['Number of days off'])}: ${qtySundays || 0}`
+
   const handleSelectRecommendedDeadline = () => {
     if (recommendedDeadline) {
       setDeadline(dayjs(recommendedDeadline))
     }
   }
 
-  const recommendedDeadline = desiredDate ? calculateRecommendedDeadline(desiredDate, maxProductionTerm) : null
-  const recommendedButtonText = recommendedDeadline
-    ? `${t(TranslationKey.Recommended)}: ${dayjs(recommendedDeadline).format('DD.MM.YYYY')}`
-    : ''
-
   return (
     <div className={styles.root}>
       <p className={styles.title}>{t(TranslationKey['Set dates'])}</p>
 
       <div className={styles.content}>
-        <CustomDatePicker
-          fullWidth
-          format="DD.MM.YYYY"
-          label="Due shipment date"
-          minDate={dayjs().add(2, 'day')}
-          value={desiredDate}
-          onChange={date => setDesiredDate(date)}
-        />
+        <div className={styles.flexColumn}>
+          <CustomDatePicker
+            fullWidth
+            format="DD.MM.YYYY"
+            label="Due shipment date"
+            minDate={dayjs().add(2, 'day')}
+            value={desiredDate}
+            onChange={date => setDesiredDate(date)}
+          />
+          <Text type="secondary" copyable={false} text={maxProductionTermText} />
+          <Text type="secondary" copyable={false} text={timeReserveText} />
+          <Text type="secondary" copyable={false} text={qtySundaysText} />
+        </div>
 
-        <div className={styles.deadline}>
+        <div className={styles.flexColumn}>
           <CustomDatePicker
             fullWidth
             format="DD.MM.YYYY"

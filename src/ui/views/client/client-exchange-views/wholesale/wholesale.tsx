@@ -24,7 +24,7 @@ import { WholesaleViewModel } from './wholesale.model'
 
 export const WholesaleView = observer(() => {
   const { classes: styles } = useStyles()
-  const [wholesaleTab, setWholesaleTab] = useState<WholesaleTabs>(WholesaleTabs.Suppliers)
+  const [wholesaleTab, setWholesaleTab] = useState<WholesaleTabs>(WholesaleTabs.Cards)
 
   const isSupplierMode = wholesaleTab === WholesaleTabs.Suppliers
   const viewModel = useMemo(() => new WholesaleViewModel(isSupplierMode), [isSupplierMode])
@@ -69,6 +69,7 @@ export const WholesaleView = observer(() => {
           />
 
           <CardsFilter
+            onlyExchangeCategories
             loading={viewModel.loading}
             showFilter={viewModel.showFilter && !isSupplierMode}
             filtersCount={viewModel.filtersCount}

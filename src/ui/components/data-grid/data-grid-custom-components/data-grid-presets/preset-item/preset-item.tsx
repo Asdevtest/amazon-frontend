@@ -3,6 +3,7 @@ import { BaseOptionType } from 'antd/es/select'
 import { ChangeEvent, FC, memo, useCallback, useState } from 'react'
 import { BsPinAngleFill, BsThreeDotsVertical } from 'react-icons/bs'
 import { GrUpdate } from 'react-icons/gr'
+import { IoMdDownload } from 'react-icons/io'
 import { MdOutlineDelete, MdOutlineDriveFileRenameOutline } from 'react-icons/md'
 import { RiUnpinLine } from 'react-icons/ri'
 
@@ -19,13 +20,21 @@ interface PresetItemProps {
   preset: BaseOptionType
   handleDeletePreset: () => void
   handleUpdatePreset: () => void
+  handleDownloadPreset: () => void
   onClickAddQuickAccess: () => void
   onClickSaveRenamedPreset: (newTitle: string) => void
 }
 
 export const PresetItem: FC<PresetItemProps> = memo(props => {
   const { classes: styles } = useStyles()
-  const { preset, handleDeletePreset, handleUpdatePreset, onClickAddQuickAccess, onClickSaveRenamedPreset } = props
+  const {
+    preset,
+    handleDeletePreset,
+    handleUpdatePreset,
+    handleDownloadPreset,
+    onClickAddQuickAccess,
+    onClickSaveRenamedPreset,
+  } = props
 
   const [renamePresetName, setPresetName] = useState<string>(preset?.data?.title)
 
@@ -121,6 +130,15 @@ export const PresetItem: FC<PresetItemProps> = memo(props => {
             {t(TranslationKey.Delete)}
           </CustomButton>
         </Popconfirm>
+      ),
+    },
+
+    {
+      key: 'download',
+      label: (
+        <CustomButton icon={<IoMdDownload size={20} />} onClick={handleDownloadPreset}>
+          {t(TranslationKey.Download)}
+        </CustomButton>
       ),
     },
   ]

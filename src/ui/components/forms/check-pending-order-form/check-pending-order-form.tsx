@@ -18,10 +18,11 @@ interface CheckPendingOrderFormProps {
   onSubmit: () => void
   onClose: () => void
   onClickPandingOrder: (id: string) => void
+  loading?: boolean
 }
 
 export const CheckPendingOrderForm: FC<CheckPendingOrderFormProps> = memo(props => {
-  const { products, onClickPandingOrder, onSubmit, onClose } = props
+  const { products, onClickPandingOrder, onSubmit, onClose, loading } = props
 
   const { classes: styles } = useStyles()
 
@@ -48,7 +49,7 @@ export const CheckPendingOrderForm: FC<CheckPendingOrderFormProps> = memo(props 
       </div>
 
       <div className={styles.buttons}>
-        <CustomButton size="large" type="primary" onClick={onSubmit}>
+        <CustomButton loading={loading} size="large" type="primary" onClick={onSubmit}>
           {t(TranslationKey.Continue)}
         </CustomButton>
         <CustomButton size="large" onClick={onClose}>

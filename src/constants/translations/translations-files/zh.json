@@ -2092,7 +2092,6 @@
   "Cards": "卡片",
   "Set dates": "设置日期",
   "Due shipment date": "预计发货日期",
-  "Recommended deadline is not valid": "推荐截止日期无效",
   "Time reserv, d.": "时间储备（天)",
   "Cards total": "总卡片数",
   "Commodity": "商品",
@@ -2106,5 +2105,10 @@
   "On hold": "待处理",
   "ID, Title": "ID, 标题",
   "Editing the card": "编辑卡片",
-  "Please enter a valid phone number!": "请输入有效的电话号码!"
+  "Please enter a valid phone number!": "请输入有效的电话号码!",
+  "Preset downloaded": "预设已下载",
+  "The table doesn't fit": "表格不适合",
+  "Preparing for shipment": "准备发货",
+  "Number of days off": "休假天数",
+  "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "选择的发货日期不符合根据产品制作和准备时间确定的可接受范围"
 }

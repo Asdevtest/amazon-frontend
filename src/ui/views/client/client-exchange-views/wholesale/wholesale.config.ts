@@ -19,6 +19,6 @@ export enum WholesaleTabs {
 }
 
 export const generateWholesaleTabs = () => [
-  { label: t(TranslationKey.Suppliers), value: WholesaleTabs.Suppliers },
   { label: t(TranslationKey.Cards), value: WholesaleTabs.Cards },
+  { label: t(TranslationKey.Suppliers), value: WholesaleTabs.Suppliers },
 ]

@@ -180,7 +180,7 @@ export const Box: FC<BoxProps> = memo(props => {
     el => el._id === box?.variationTariffId,
   )
 
-  const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+  const { tariffName, tariffRate, tariffDestination } = useGetDestinationTariffInfo(
     destinations,
     storekeepers,
     box.destinationId,
@@ -200,6 +200,11 @@ export const Box: FC<BoxProps> = memo(props => {
     }
   }, [isSameDestination, box?.variationTariffId, box?._id])
 
+  const tariffForRender = (
+    <p className={styles.tariffText}>
+      <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
+    </p>
+  )
   return (
     <div className={styles.box}>
       <div className={styles.itemWrapper}>
@@ -374,9 +379,7 @@ export const Box: FC<BoxProps> = memo(props => {
                   <CustomButton
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
-                    {box.logicsTariffId
-                      ? `${box.logicsTariffId ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}` : 'none'}`
-                      : t(TranslationKey.Select)}
+                    {box.logicsTariffId ? tariffForRender : t(TranslationKey.Select)}
                   </CustomButton>
                 }
               />

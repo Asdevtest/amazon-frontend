@@ -24,7 +24,7 @@ export class UserBalanceModel extends DataGridTableModel {
     })
 
     this.sortModel = [{ field: 'createdAt', sort: 'desc' }]
-    this.getDataGridState()
+
     this.getUserInfo(userId)
     this.getCurrentData()
 
