@@ -220,7 +220,8 @@ export const EditBoxForm = memo(
 
     const tariffForRender = (
       <p className={styles.tariffText}>
-        <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
+        <span>{tariffName}</span>
+        {tariffRate ? <span> / {tariffRate} $</span> : null}
       </p>
     )
 
