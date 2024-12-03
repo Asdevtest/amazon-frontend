@@ -61,6 +61,7 @@ export const ClientInventoryView = observer(({ history }) => {
   return (
     <div className="viewWrapper">
       <Header
+        loading={viewModel.loading}
         isArchive={viewModel.isArchive}
         selectedRows={viewModel.selectedRows}
         onClickTriggerArchOrResetProducts={viewModel.onClickTriggerArchOrResetProducts}
@@ -231,6 +232,7 @@ export const ClientInventoryView = observer(({ history }) => {
         setOpenModal={() => viewModel.onTriggerOpenModal('showCheckPendingOrderFormModal')}
       >
         <CheckPendingOrderForm
+          loading={viewModel.loading}
           products={viewModel.existingProducts}
           onClickPandingOrder={viewModel.onClickPandingOrder}
           onSubmit={viewModel.onClickContinueBtn}
