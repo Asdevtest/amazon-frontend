@@ -1,8 +1,12 @@
 import { Divider, Rate } from 'antd'
-import { FC, memo } from 'react'
+import { CheckboxChangeEvent } from 'antd/es/checkbox'
+import { FC, memo, useCallback, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CustomCheckbox } from '@components/shared/custom-checkbox'
+
+import { containsId } from '@utils/find-by-id'
 import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
@@ -18,16 +22,35 @@ interface SupplierProductCardProps {
   product: ISupplierCard
   onSubmit: (id: string) => void
   gorizontal?: boolean
+  checkedItems?: string[]
+  onChange?: (id?: string) => void
 }
 
 export const SupplierProductCard: FC<SupplierProductCardProps> = memo(props => {
-  const { product, gorizontal } = props
+  const { product, onSubmit, gorizontal, checkedItems, onChange } = props
 
   const { classes: styles, cx } = useStyles()
 
   const price = toFixedWithDollarSign(product?.priceInUsd || 0)
   const minlot = `${product?.minlot || 0} pcs`
   const casePack = `${product?.boxProperties?.amountInBox || 0} item`
+
+  const checked = useMemo(() => checkedItems && containsId(checkedItems, product?._id), [checkedItems, product?._id])
+
+  const handleSubmit = useCallback(
+    (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      event.stopPropagation()
+      onSubmit(product?._id)
+    },
+    [product?._id, onSubmit],
+  )
+  const handleCheckboxChange = useCallback(
+    (event: CheckboxChangeEvent) => {
+      event.stopPropagation()
+      onChange?.(product?._id)
+    },
+    [onChange, product?._id],
+  )
 
   return (
     <div className={cx(styles.root, { [styles.gorizontal]: gorizontal })}>
@@ -76,11 +99,15 @@ export const SupplierProductCard: FC<SupplierProductCardProps> = memo(props => {
         </div>
 
         <div className={styles.buttons}>
-          <CustomButton ghost block={!gorizontal} type="primary" onClick={() => props.onSubmit(product?._id)}>
+          <CustomButton ghost block={!gorizontal} type="primary" onClick={handleSubmit}>
             {t(TranslationKey['Add to inventory'])}
           </CustomButton>
         </div>
       </div>
+
+      {onChange ? (
+        <CustomCheckbox className={styles.checkbox} checked={checked} onChange={handleCheckboxChange} />
+      ) : null}
     </div>
   )
 })

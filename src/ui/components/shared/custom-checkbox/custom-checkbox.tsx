@@ -23,7 +23,7 @@ export const CustomCheckbox: FC<CustomCheckboxProps> = memo(props => {
       className={cx({ [styles.cell]: isCell }, wrapperClassName)}
     >
       <Checkbox {...restProps} className={cx(styles.checkbox, className)}>
-        {children ? <span className={labelClassName}>{t(TranslationKey[children as TranslationKey])} </span> : null}
+        {children && <span className={labelClassName}>{t(TranslationKey[children as TranslationKey])}</span>}
       </Checkbox>
     </Tooltip>
   )
