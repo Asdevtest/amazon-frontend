@@ -1563,7 +1563,7 @@ export const privateRoutesConfigs = [
     component: SupplierView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_SUPPLIER_CLIENT,
+    permissionKey: permissionsKeys.client.VIEW_SUPPLIER_CLIENT,
     crumbNameKey: TranslationKey.Supplier,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
