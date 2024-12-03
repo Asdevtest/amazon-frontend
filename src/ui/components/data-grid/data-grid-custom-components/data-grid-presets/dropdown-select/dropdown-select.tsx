@@ -52,6 +52,7 @@ export const DropdownSelect: FC<DropdownSelectProps> = memo(props => {
         <CustomButton disabled={!createPresetTitle.trim()} icon={<FaPlus />} onClick={onClickCreatePreset} />
 
         <Upload
+          multiple
           accept=".json"
           name="uploadPreset"
           showUploadList={false}
