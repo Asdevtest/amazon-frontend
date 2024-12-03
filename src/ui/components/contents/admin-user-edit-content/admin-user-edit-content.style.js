@@ -3,9 +3,9 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(theme => ({
   buttonWrapper: {
     display: 'flex',
-    gap: 30,
+    gap: 20,
     justifyContent: 'flex-end',
-    marginTop: 30,
+    marginTop: 20,
   },
 
   checkboxWrapper: {
@@ -33,8 +33,10 @@ export const useStyles = makeStyles()(theme => ({
   subUsersWrapper: {
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 1fr)',
-    columnGap: '56px',
-    rowGap: '20px',
+    gap: '10px',
+    maxHeight: 400,
+    overflowY: 'auto',
+    marginBottom: 20,
   },
 
   ratingWrapper: {
@@ -55,7 +57,6 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   mainWrapper: {
-    marginTop: 20,
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
