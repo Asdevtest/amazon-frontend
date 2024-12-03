@@ -134,6 +134,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
       {viewModel.showAddOrEditSupplierModal ? (
         <AddSupplierModal
+          hideStatusButton
           openModal={viewModel.showAddOrEditSupplierModal}
           setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
         />

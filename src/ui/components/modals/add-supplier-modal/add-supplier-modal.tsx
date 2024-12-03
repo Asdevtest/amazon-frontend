@@ -36,12 +36,13 @@ interface AddSupplierModalProps {
   openModal: boolean
   setOpenModal: (openModal?: boolean) => void
   disabled?: boolean
+  hideStatusButton?: boolean
   supplierId?: string
   updateHandler?: () => void
 }
 
 export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
-  const { supplierId, openModal, disabled, setOpenModal, updateHandler } = props
+  const { supplierId, openModal, disabled, hideStatusButton, setOpenModal, updateHandler } = props
 
   const { classes: styles } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
@@ -161,12 +162,16 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
           </CustomButton>
 
           <div className={styles.buttons}>
-            <CustomButton
-              type="primary"
-              onClick={() => handleChangeStatus(isPublished ? SupplierCardStatus.DRAFT : SupplierCardStatus.PUBLISHED)}
-            >
-              {t(TranslationKey[isPublished ? 'Draft' : 'Publish'])}
-            </CustomButton>
+            {!hideStatusButton ? (
+              <CustomButton
+                type="primary"
+                onClick={() =>
+                  handleChangeStatus(isPublished ? SupplierCardStatus.DRAFT : SupplierCardStatus.PUBLISHED)
+                }
+              >
+                {t(TranslationKey[isPublished ? 'Draft' : 'Publish'])}
+              </CustomButton>
+            ) : null}
 
             <Form.Item shouldUpdate className={sharedStyles.field}>
               <CustomButton type="primary" htmlType="submit">
