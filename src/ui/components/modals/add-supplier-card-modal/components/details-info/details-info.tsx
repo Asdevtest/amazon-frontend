@@ -20,7 +20,7 @@ export const DetailsInfo = memo(() => {
           rows={3}
           label="Material"
           placeholder="Plastic, metal, wooden, ABS, PP, not defined"
-          maxLength={512}
+          maxLength={256}
         />
       </Form.Item>
 
