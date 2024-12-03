@@ -49,12 +49,6 @@ export const OrderProductModal = memo(props => {
   const [isPendingOrder, setIsPendingOrder] = useState(false)
   const [isResearchSupplier, setIsResearchSupplier] = useState(false)
 
-  useEffect(() => {
-    if (!isPendingOrder) {
-      setIsResearchSupplier(false)
-    }
-  }, [isPendingOrder])
-
   const triggerBarcodeModal = () => {
     setShowSetBarcodeModal(!showSetBarcodeModal)
   }
@@ -464,7 +458,7 @@ export const OrderProductModal = memo(props => {
         </CustomCheckbox>
 
         {!isPendingOrdering ? (
-          <div className={styles.pendingOrderWrapper} onClick={() => setIsPendingOrder(!isPendingOrder)}>
+          <div className={styles.pendingOrderWrapper}>
             <div className={styles.tooltipPositionStyle}>
               <Tooltip arrow title={t(TranslationKey['Specify a deadline'])}>
                 <div>
@@ -474,7 +468,12 @@ export const OrderProductModal = memo(props => {
                 </div>
               </Tooltip>
             </div>
-            <CustomCheckbox checked={isPendingOrder} labelClassName={styles.sumText} className={styles.checkbox}>
+            <CustomCheckbox
+              checked={isPendingOrder}
+              labelClassName={styles.sumText}
+              className={styles.checkbox}
+              onClick={() => setIsPendingOrder(!isPendingOrder)}
+            >
               Pending order
             </CustomCheckbox>
           </div>
