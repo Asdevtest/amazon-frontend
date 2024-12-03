@@ -90,7 +90,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
     })
   }, [])
 
-  const handleFinish = async (values: ICreateSupplierProductModal) => {
+  const onSaveSupplierCard = async (values: ICreateSupplierProductModal) => {
     let result = supplierCardId
 
     if (supplierCardId) {
@@ -99,18 +99,24 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
       result = await viewModel.createSupplierCard(values)
     }
 
+    return result
+  }
+
+  const handleFinish = async (values: ICreateSupplierProductModal) => {
+    const result = await onSaveSupplierCard(values)
+
     handleUpdate?.(result)
     onCloseModal()
-
-    return result
   }
 
   const handleChangeStatus = async (status: SupplierCardStatus) => {
     try {
       await form.validateFields()
-      const result = (await handleFinish(form.getFieldsValue())) as string
-
+      const result = (await onSaveSupplierCard(form.getFieldsValue())) as string
       viewModel.changeSupplierCardStatus(result, status)
+      handleUpdate?.(result)
+
+      onCloseModal()
     } catch (error) {
       console.error(error)
     }
