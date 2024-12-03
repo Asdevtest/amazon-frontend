@@ -141,6 +141,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
       {viewModel.showAddSupplierProductModal ? (
         <AddSupplierCardModal
+          hideStatusButton
           disabled={viewModel.supplierModalReadOnly}
           supplierCardId={viewModel.currentSupplier?._id}
           handleUpdate={supplierCardId =>
