@@ -126,4 +126,16 @@ export const useStyles = makeStyles()(theme => ({
   transparencyWrapper: {
     marginTop: '20px',
   },
+
+  tariffText: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    gap: '3px',
+    span: {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  },
 }))

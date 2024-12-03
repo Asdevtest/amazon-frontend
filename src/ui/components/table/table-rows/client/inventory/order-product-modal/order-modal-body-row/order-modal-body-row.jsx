@@ -172,7 +172,7 @@ export const OrderModalBodyRow = ({
 
   const tariffForRender = (
     <p className={styles.tariffText}>
-      <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate}</span>
+      <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
     </p>
   )
   return (

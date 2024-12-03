@@ -209,13 +209,19 @@ export const EditBoxForm = memo(
         !priorityReason?.length) ||
       boxFields.status !== BoxStatus.IN_STOCK
 
-    const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+    const { tariffName, tariffRate, tariffDestination } = useGetDestinationTariffInfo(
       destinations,
       storekeepers,
       boxFields.destinationId,
       boxFields.storekeeperId,
       boxFields.logicsTariffId,
       boxFields.variationTariffId,
+    )
+
+    const tariffForRender = (
+      <p className={styles.tariffText}>
+        <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
+      </p>
     )
 
     const allItemsCount =
@@ -476,7 +482,7 @@ export const EditBoxForm = memo(
                           }
                         >
                           {boxFields.storekeeperId && (tariffName || tariffRate)
-                            ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
+                            ? tariffForRender
                             : t(TranslationKey.Select)}
                         </CustomButton>
                       }
