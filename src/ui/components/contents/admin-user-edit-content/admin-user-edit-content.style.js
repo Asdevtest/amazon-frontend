@@ -92,11 +92,6 @@ export const useStyles = makeStyles()(theme => ({
     gap: 20,
   },
 
-  rateContainer: {
-    width: '170px',
-    marginBottom: '0 !important',
-  },
-
   allowedRoleRateContainer: {
     marginBottom: '0 !important',
     gap: 10,
@@ -179,71 +174,13 @@ export const useStyles = makeStyles()(theme => ({
   selectRoot: {
     border: 'none',
     outline: 'none',
-
     height: 20,
     width: '139px',
     color: theme.palette.text.general,
   },
 
-  labelField: {
-    fontSize: '14px',
-    color: theme.palette.text.second,
-    lineHeight: '19px',
-  },
   field: {
     flexBasis: '100%',
     position: 'relative',
-  },
-  input: {
-    height: '34px',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-    },
-  },
-  visibilityIcon: {
-    position: 'absolute',
-    right: 10,
-    top: 35,
-    cursor: 'pointer',
-    color: theme.palette.text.second,
-    [theme.breakpoints.down(768)]: {
-      top: 35,
-    },
-  },
-  validationMessage: {
-    width: '100%',
-    display: 'flex',
-    flexWrap: 'nowrap',
-    marginTop: '-15px',
-
-    justifyContent: 'start',
-    gap: '5px',
-    [theme.breakpoints.down(768)]: {
-      width: '100%',
-      flexWrap: 'wrap',
-    },
-  },
-  validationText: {
-    fontSize: '12px',
-    lineHeight: '16px',
-    fontWeight: '400',
-    color: theme.palette.text.second,
-  },
-  validationHiddenMessage: {
-    display: 'flex',
-    justifyContent: 'end',
-  },
-  validationHiddenText: {
-    visibility: 'hidden',
-    fontSize: '12px',
-    lineHeight: '16px',
-    fontWeight: '400',
-    color: theme.palette.text.second,
-  },
-  red: {
-    color: 'red !important',
-  },
-  visibility: {
-    visibility: 'visible',
   },
 }))
