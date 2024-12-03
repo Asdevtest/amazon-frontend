@@ -2093,7 +2093,6 @@ export enum TranslationKey {
   'Cards' = 'Cards',
   'Set dates' = 'Set dates',
   'Due shipment date' = 'Due shipment date',
-  'Recommended deadline is not valid' = 'Recommended deadline is not valid',
   'Time reserv, d.' = 'Time reserv, d.',
   'Cards total' = 'Cards total',
   'Commodity' = 'Commodity',
@@ -2110,4 +2109,7 @@ export enum TranslationKey {
   'Please enter a valid phone number!' = 'Please enter a valid phone number!',
   'Preset downloaded' = 'Preset downloaded',
   "The table doesn't fit" = "The table doesn't fit",
+  'Preparing for shipment' = 'Preparing for shipment',
+  'Number of days off' = 'Number of days off',
+  'The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product' = 'The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product',
 }

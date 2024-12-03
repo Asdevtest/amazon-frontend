@@ -90,6 +90,7 @@ export const useSupplierInfo = ({
       text: purchasePrice,
       element: undefined,
     },
+
     {
       title: t(TranslationKey.Supplier),
       text: undefined,
@@ -97,7 +98,7 @@ export const useSupplierInfo = ({
         <a
           target="_blank"
           rel="noreferrer noopener"
-          href={checkAndMakeAbsoluteUrl(formFields?.orderSupplierCard?.link)}
+          href={checkAndMakeAbsoluteUrl(formFields?.orderSupplierCard?.supplier?.link)}
           className={cx(styles.fieldText, { [styles.link]: formFields?.orderSupplierCard?.link !== ACCESS_DENIED })}
           onClick={e => {
             if (formFields?.orderSupplierCard?.link === ACCESS_DENIED) {
@@ -105,10 +106,11 @@ export const useSupplierInfo = ({
             }
           }}
         >
-          {formFields?.orderSupplierCard?.name}
+          {formFields?.orderSupplierCard?.supplier?.companyName}
         </a>
       ),
     },
+
     {
       title: t(TranslationKey['Production time']),
       text: formFields?.product

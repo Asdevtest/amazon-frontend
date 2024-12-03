@@ -172,7 +172,7 @@ export const OrderModalBodyRow = ({
 
   const tariffForRender = (
     <p className={styles.tariffText}>
-      <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate}</span>
+      <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
     </p>
   )
   return (
@@ -342,9 +342,10 @@ export const OrderModalBodyRow = ({
             inputReadOnly
             open={false}
             format="DD.MM.YYYY"
+            disabled={!item?.currentSupplierCard}
             status={isPendingOrder && !item.deadline && 'error'}
             value={item?.deadline ? dayjs(item.deadline) : null}
-            onClick={() => setShowDeadlineModal(!showDeadlineModal)}
+            onClick={() => item?.currentSupplierCard && setShowDeadlineModal(!showDeadlineModal)}
           />
         </TableCell>
 

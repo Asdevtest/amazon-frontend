@@ -300,7 +300,7 @@ export const EditBoxStorekeeperForm = memo(
       maxBoxSizeFromOption(sizeSetting, Number(boxFields.widthCmWarehouse)) ||
       maxBoxSizeFromOption(sizeSetting, Number(boxFields.heightCmWarehouse))
 
-    const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
+    const { tariffName, tariffRate, tariffDestination, currentTariff } = useGetDestinationTariffInfo(
       destinations,
       storekeepers,
       boxFields.destinationId,
@@ -315,6 +315,12 @@ export const EditBoxStorekeeperForm = memo(
 
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
+
+    const tariffForRender = (
+      <p className={styles.tariffText}>
+        <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
+      </p>
+    )
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
@@ -567,7 +573,7 @@ export const EditBoxStorekeeperForm = memo(
                           }
                         >
                           {boxFields.storekeeperId && (tariffName || tariffRate)
-                            ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
+                            ? tariffForRender
                             : t(TranslationKey.Select)}
                         </CustomButton>
                       }

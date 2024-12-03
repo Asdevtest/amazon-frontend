@@ -83,7 +83,6 @@ export class UserPermissionsModel extends DataGridTableModel {
     this.setDefaultPinnedColumns()
 
     this.getTableSettingsPreset()
-    this.getSinglePermissions()
   }
 
   async createPermission(data: IPermission | IPermissionGroup) {

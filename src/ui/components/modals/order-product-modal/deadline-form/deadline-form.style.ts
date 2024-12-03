@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   root: {
-    width: '400px',
+    width: '440px',
     display: 'flex',
     flexDirection: 'column',
     gap: '20px',
@@ -22,7 +22,7 @@ export const useStyles = makeStyles()(() => ({
     gap: '20px',
   },
 
-  deadline: {
+  flexColumn: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',

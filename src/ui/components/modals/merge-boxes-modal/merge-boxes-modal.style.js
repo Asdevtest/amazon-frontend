@@ -197,4 +197,16 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     gap: 40,
   },
+
+  tariffText: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    gap: '3px',
+    span: {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  },
 }))
