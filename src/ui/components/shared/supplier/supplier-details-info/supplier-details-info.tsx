@@ -16,10 +16,11 @@ interface SupplierDitailsInfoProps {
   image?: string
   userId?: string
   totalCountFeedback?: number
+  hideTotalCountFeedback?: boolean
 }
 
 export const SupplierDitailsInfo: FC<SupplierDitailsInfoProps> = memo(porps => {
-  const { image, xid, rate = 0, userId, totalCountFeedback } = porps
+  const { image, xid, rate = 0, userId, totalCountFeedback, hideTotalCountFeedback } = porps
 
   const { classes: styles } = useStyles()
   const [openReview, setOpenReview] = useState(false)
@@ -32,7 +33,7 @@ export const SupplierDitailsInfo: FC<SupplierDitailsInfoProps> = memo(porps => {
         {image ? <CustomImage preview={false} src={image} height={20} width={30} /> : null}
         {xid ? <Text copyable={false} text={xidText} rows={1} /> : null}
         <Rate disabled allowHalf value={rate} />
-        {totalCountFeedback ? (
+        {!hideTotalCountFeedback && totalCountFeedback ? (
           <CustomButton
             size="small"
             type="link"
