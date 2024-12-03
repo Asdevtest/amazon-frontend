@@ -339,12 +339,12 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <CustomDatePicker
-            inputReadOnly
-            open={false}
+            open={!item?.currentSupplierCard && undefined}
+            inputReadOnly={item?.currentSupplierCard}
             format="DD.MM.YYYY"
-            disabled={!item?.currentSupplierCard}
             status={isPendingOrder && !item.deadline && 'error'}
             value={item?.deadline ? dayjs(item.deadline) : null}
+            onChange={value => !item?.currentSupplierCard && onChangeInput(value, 'deadline')}
             onClick={() => item?.currentSupplierCard && setShowDeadlineModal(!showDeadlineModal)}
           />
         </TableCell>
