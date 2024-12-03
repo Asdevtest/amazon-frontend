@@ -86,8 +86,6 @@ export class ClientAwaitingBatchesViewModel extends DataGridFilterTableModel {
 
         this.currentStorekeeperId = this.currentStorekeeperId || ''
       })
-
-      this.getDataGridState()
     } catch (error) {
       console.error(error)
     }

@@ -223,20 +223,17 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     if (sortModel.length > 0) {
       this.sortModel = sortModel
       this.getCurrentData()
-      this.setDataGridState()
     }
   }
 
   onChangeFilterModel(model: GridFilterModel) {
     this.filterModel = model
     this.getCurrentData()
-    this.setDataGridState()
   }
 
   onPaginationModelChange(model: GridPaginationModel) {
     this.paginationModel = model
     this.getCurrentData()
-    this.setDataGridState()
   }
 
   getPresetSettingForSave(colomns: IGridColumn[]) {

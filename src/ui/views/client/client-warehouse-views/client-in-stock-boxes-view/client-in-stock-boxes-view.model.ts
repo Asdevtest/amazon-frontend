@@ -310,8 +310,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.storekeepersData = result as IStorekeeper[]
       })
-
-      this.getDataGridState()
     } catch (error) {
       console.error(error)
     }
@@ -636,8 +634,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.clientDestinations = clientDestinations as IDestination[]
       })
-
-      this.getDataGridState()
     } catch (error) {
       console.error(error)
     }

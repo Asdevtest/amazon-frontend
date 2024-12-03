@@ -40,7 +40,6 @@ export class SupervisorSettingsViewModel extends DataGridTableModel {
 
     this.sortModel = [{ field: 'asin', sort: 'desc' }]
 
-    this.getDataGridState()
     this.onChangeСondition(this.condition)
 
     makeObservable(this, supervisorSettingsConfig)

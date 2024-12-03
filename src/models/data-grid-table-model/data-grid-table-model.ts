@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { UploadFile } from 'antd'
 import { makeObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
@@ -8,10 +9,10 @@ import { GridPinnedColumns } from '@mui/x-data-grid-premium'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { DefaultModel } from '@models/default-model'
-import { TableSettingsModel } from '@models/table-settings'
 import { UserModel } from '@models/user-model'
 
 import { t } from '@utils/translations'
+import { downloadFile } from '@utils/upload-files'
 
 import { ITablePreset } from '@typings/models/user/table-preset'
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -88,61 +89,20 @@ export class DataGridTableModel extends DefaultModel {
     makeObservable(this, observerConfig)
   }
 
-  setDataGridState() {
-    if (!this.tableKey) return
-
-    const requestState = {
-      sortModel: this.sortModel,
-      filterModel: this.filterModel,
-      paginationModel: this.paginationModel,
-      columnVisibilityModel: this.columnVisibilityModel,
-      pinnedColumns: this.pinnedColumns,
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, this.tableKey)
-  }
-
-  getDataGridState() {
-    if (!this.tableKey) return
-
-    // @ts-ignore
-    const state = TableSettingsModel.getTableSettings(this.tableKey)
-
-    if (state) {
-      const sortModel = state?.sortModel
-
-      if (sortModel?.length > 0) {
-        this.sortModel = sortModel
-      }
-      // @ts-ignore
-      this.filterModel = state?.filterModel
-      // @ts-ignore
-      this.paginationModel = state?.paginationModel
-      // @ts-ignore
-      this.columnVisibilityModel = state?.columnVisibilityModel
-      // @ts-ignore
-      this.pinnedColumns = state?.pinnedColumns
-    }
-  }
-
   onColumnVisibilityModelChange(model: GridColumnVisibilityModel) {
     this.columnVisibilityModel = model
-    this.setDataGridState()
   }
 
   onChangeSortingModel(sortModel: GridSortModel) {
     this.sortModel = sortModel
-    this.setDataGridState()
   }
 
   onChangeFilterModel(model: GridFilterModel) {
     this.filterModel = model
-    this.setDataGridState()
   }
 
   onPaginationModelChange(model: GridPaginationModel) {
     this.paginationModel = model
-    this.setDataGridState()
   }
 
   onSelectionModel(selectedRows: string[]) {
@@ -155,7 +115,6 @@ export class DataGridTableModel extends DefaultModel {
 
   handlePinColumn(pinnedColumns: GridPinnedColumns) {
     this.pinnedColumns = pinnedColumns
-    this.setDataGridState()
   }
 
   handleHideColumns(columnsToHide: string[]) {
@@ -173,6 +132,83 @@ export class DataGridTableModel extends DefaultModel {
       this.handleSetActivePreset(presetId)
     } else {
       this.handleUnsetAllPresets()
+    }
+  }
+
+  async handleDownloadPreset(preset: ITablePreset) {
+    try {
+      const dataToDownload = {
+        endpoint: preset?.endpoint,
+        isFavorite: preset?.isFavorite,
+        title: preset?.title,
+        settings: preset?.settings,
+      }
+
+      const jsonString = JSON.stringify(dataToDownload)
+
+      const blob = new Blob([jsonString], { type: 'application/json' })
+
+      await downloadFile(blob, `${preset?.title}.json`)
+
+      toast.success(t(TranslationKey['Preset downloaded']))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async handleLoadPreset(uploadedPreset: UploadFile) {
+    try {
+      const fileReader = new FileReader()
+
+      fileReader.onload = e => {
+        try {
+          const fileContent = e?.target?.result as string
+
+          if (!fileContent) {
+            return
+          }
+
+          const jsonData = JSON.parse(fileContent)
+
+          this.handleCreatePresetFromUpload(jsonData)
+        } catch (error) {
+          toast.error(t(TranslationKey['Something went wrong']))
+        }
+      }
+
+      fileReader.readAsText(uploadedPreset as unknown as Blob)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async handleCreatePresetFromUpload(uploadedPreset: ITablePreset) {
+    try {
+      if (uploadedPreset?.endpoint !== this.tableKey) {
+        toast.success(t(TranslationKey["The table doesn't fit"]))
+        return
+      }
+
+      uploadedPreset.activeSetting = true
+
+      const result = await UserModel.createTableSettingsPreset(uploadedPreset)
+
+      uploadedPreset._id = result.guid as string
+
+      runInAction(() => {
+        this.presetsTableData = this.presetsTableData.map(preset => ({
+          ...preset,
+          activeSetting: false,
+        }))
+
+        this.presetsTableData.push(uploadedPreset)
+      })
+
+      this.setSettingsFromActivePreset()
+
+      toast.success(t(TranslationKey['Preset created']))
+    } catch (error) {
+      console.error(error)
     }
   }
 

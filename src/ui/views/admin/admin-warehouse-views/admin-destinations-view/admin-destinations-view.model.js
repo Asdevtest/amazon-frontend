@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AdministratorModel } from '@models/administrator-model'
 import { ClientModel } from '@models/client-model'
-import { TableSettingsModel } from '@models/table-settings'
 
 import { destinationsColumns } from '@components/table/table-columns/admin/destinations-columns'
 
@@ -56,42 +55,14 @@ export class AdminDestinationsViewModel {
 
   onChangeFilterModel(model) {
     this.filterModel = model
-
-    this.setDataGridState()
   }
 
   onPaginationModelChange(model) {
     this.paginationModel = model
-
-    this.setDataGridState()
   }
 
   onColumnVisibilityModelChange(model) {
     this.columnVisibilityModel = model
-
-    this.setDataGridState()
-  }
-
-  setDataGridState() {
-    const requestState = {
-      sortModel: toJS(this.sortModel),
-      filterModel: toJS(this.filterModel),
-      paginationModel: toJS(this.paginationModel),
-      columnVisibilityModel: toJS(this.columnVisibilityModel),
-    }
-
-    TableSettingsModel.saveTableSettings(requestState, DataGridTablesKeys.ADMIN_DESTINATIONS)
-  }
-
-  getDataGridState() {
-    const state = TableSettingsModel.getTableSettings(DataGridTablesKeys.ADMIN_DESTINATIONS)
-
-    if (state) {
-      this.sortModel = toJS(state.sortModel)
-      this.filterModel = toJS(this.startFilterModel ? this.startFilterModel : state.filterModel)
-      this.paginationModel = toJS(state.paginationModel)
-      this.columnVisibilityModel = toJS(state.columnVisibilityModel)
-    }
   }
 
   setRequestStatus(requestStatus) {
@@ -100,8 +71,6 @@ export class AdminDestinationsViewModel {
 
   onChangeSortingModel(sortModel) {
     this.sortModel = sortModel
-
-    this.setDataGridState()
   }
 
   onSelectionModel(model) {
@@ -110,7 +79,6 @@ export class AdminDestinationsViewModel {
 
   loadData() {
     try {
-      this.getDataGridState()
       this.getDestinations()
     } catch (error) {
       console.error(error)
