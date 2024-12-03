@@ -15,4 +15,5 @@ export interface CardsFilterProps {
   onSubmit: (values: FilterOptionsType) => void
   onReset: () => void
   loading?: boolean
+  onlyExchangeCategories?: boolean
 }
