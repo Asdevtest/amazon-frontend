@@ -1,7 +1,9 @@
+import { Tooltip } from 'antd'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { BsFillBoxSeamFill } from 'react-icons/bs'
 import { MdOutlineDelete } from 'react-icons/md'
+import { RiErrorWarningLine } from 'react-icons/ri'
 
 import { IconButton, TableCell, TableRow } from '@mui/material'
 
@@ -59,6 +61,8 @@ export const OrderModalBodyRow = ({
   const [pricePerUnit, setPerPriceUnit] = useState(null)
 
   const priceVariations = item?.currentSupplierCard?.priceVariations
+
+  const isNotMinAmout = item.amount < item?.currentSupplierCard?.minlot
 
   const { tariffName, tariffRate, tariffDestination } = useGetDestinationTariffInfo(
     destinations,
@@ -380,13 +384,23 @@ export const OrderModalBodyRow = ({
               inputComponent={<p className={styles.sumText}>{productionTerm}</p>}
             />
 
-            <Field
-              oneLine
-              containerClasses={styles.containerField}
-              labelClasses={styles.labelField}
-              label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
-              inputComponent={<p className={styles.sumText}>{item.currentSupplierCard?.minlot}</p>}
-            />
+            <div className={styles.minBatchWrapper}>
+              {isNotMinAmout ? (
+                <Tooltip
+                  title={t(TranslationKey['The quantity of goods must be greater than the minimum lot'])}
+                  className={styles.tooltipWrapper}
+                >
+                  <RiErrorWarningLine size={18} className={styles.warningIcon} />
+                </Tooltip>
+              ) : null}
+              <Field
+                oneLine
+                containerClasses={styles.containerField}
+                labelClasses={styles.labelField}
+                label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
+                inputComponent={<p className={styles.sumText}>{item.currentSupplierCard?.minlot}</p>}
+              />
+            </div>
 
             <Field
               oneLine

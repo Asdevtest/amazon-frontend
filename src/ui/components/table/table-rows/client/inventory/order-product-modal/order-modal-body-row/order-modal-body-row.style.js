@@ -139,4 +139,22 @@ export const useStyles = makeStyles()(theme => ({
       textOverflow: 'ellipsis',
     },
   },
+
+  minBatchWrapper: {
+    position: 'relative',
+  },
+
+  tooltipWrapper: {
+    position: 'absolute',
+    top: '-10px',
+    right: '-15px',
+    cursor: 'pointer',
+    width: '18px',
+    height: '18px',
+    zIndex: '20',
+  },
+
+  warningIcon: {
+    color: 'red',
+  },
 }))

@@ -788,6 +788,7 @@
   "to merge boxes": "to merge boxes",
   "Cost of purchase per piece.": "Cost of purchase per piece.",
   "Order products": "Order products",
+  "The quantity of goods must be greater than the minimum lot": "The quantity of goods must be greater than the minimum lot",
   "Total order amount": "Total order amount",
   "Order a batch of products": "Order a batch of products",
   "Delivery per unit.": "Delivery per unit.",
