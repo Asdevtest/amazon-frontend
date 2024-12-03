@@ -53,9 +53,6 @@ export const AdminUserEditContent = observer(
       hideSuppliers: editUserFormFields?.hideSuppliers || false,
       overdraft: editUserFormFields?.overdraft || 0,
       isUserPreprocessingCenterUSA: editUserFormFields?.isUserPreprocessingCenterUSA || false,
-
-      permissions: editUserFormFields?.permissions.map(perm => perm._id) || [],
-      permissionGroups: editUserFormFields?.permissionGroups.map(permGroup => permGroup._id) || [],
     }
 
     const [formFields, setFormFields] = useState(sourceFormFields)
@@ -109,7 +106,7 @@ export const AdminUserEditContent = observer(
         newFormFields[fieldName] = event.target.value
       }
 
-      if (fieldName === 'role' && fieldName === 'permissions' && fieldName === 'permissionGroups') {
+      if (fieldName === 'role') {
         newFormFields.name = ''
         newFormFields.email = ''
       }
@@ -137,13 +134,6 @@ export const AdminUserEditContent = observer(
       const arr = [...selectedAllowedRoles]
       setChangedAllowedRoles(arr)
     }, [])
-
-    const onSubmitUserPermissionsForm = permissions => {
-      const newFormFields = { ...formFields }
-      newFormFields.permissions = permissions
-      newFormFields.permissionGroups = []
-      setFormFields(newFormFields)
-    }
 
     const onClickSubmit = () => {
       const { password, confirmPassword } = passwords
