@@ -128,6 +128,16 @@ export const inventoryShipmentsColumns = () => {
     },
 
     {
+      field: 'discrepancy',
+      headerName: 'Discrepancy',
+      renderHeader: () => <MultilineTextHeaderCell text="Discrepancy" />,
+
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 115,
+      columnKey: columnnsKeys.shared.NUMBER,
+    },
+
+    {
       field: 'deliveryWindowStart',
       headerName: 'Delivery window start',
       renderHeader: () => <MultilineTextHeaderCell text="Delivery window start" />,
