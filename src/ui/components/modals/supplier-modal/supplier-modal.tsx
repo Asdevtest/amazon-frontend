@@ -47,7 +47,7 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
         <SupplierCard
           hideTotalCountFeedback
           showViewMore={false}
-          supplier={viewModel?.currentData as unknown as ISupplierExchange}
+          supplier={viewModel?.supplierCardsModel?.meta?.supplier as unknown as ISupplierExchange}
         />
 
         <div className={styles.tabsHeader}>
