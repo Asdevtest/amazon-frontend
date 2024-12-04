@@ -81,8 +81,6 @@ export const IdeaViewAndEditCard = observer(
 
     const [formFields, setFormFields] = useState(undefined)
 
-    console.log('formFields :>> ', formFields)
-
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showRequestType, setShowRequestType] = useState(
       idea?.status >= 18 ? RequestSwitherType.REQUESTS_ON_FINISHED : RequestSwitherType.REQUESTS_ON_CHECK,
