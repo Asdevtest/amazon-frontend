@@ -49,6 +49,7 @@ export const MainNav = observer(() => {
       colorText: SettingsModel.uiTheme === UiTheme.light ? '#001029' : '#fff',
       colorLink: SettingsModel.uiTheme === UiTheme.light ? '#007bff' : '#4ca1de',
       colorLinkHover: SettingsModel.uiTheme === UiTheme.light ? '#2997ff' : '#6badd6',
+      colorBgContainerDisabled: SettingsModel.uiTheme === UiTheme.light ? '#f5f5f5' : '#33333d',
       borderRadius: 16,
     },
   }
