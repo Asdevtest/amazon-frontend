@@ -118,13 +118,13 @@ export const calculateShippingDate = (
   const timeReserve = (UserModel.platformSettings as unknown as IPlatformSettings)?.reserveTimeForOrder
 
   // Определяем время выбранного дедлайна
-  const selectedDeadlineUtc = dayjs(selectedDeadline)
+  const selectedDeadlineDate = dayjs(selectedDeadline)
 
   // Расчет статически количества выходных дней - воскресений
   const qtySundays = calculateStaticQtySundays(maxProductionTime)
 
   // Рассчитываем Recommended Deadline
-  const recommendedShippingDate = selectedDeadlineUtc
+  const recommendedShippingDate = selectedDeadlineDate
     .add(timeReserve, 'day') // Добавляем Time Reserve
     .add(maxProductionTime, 'day') // Добавляем Production Time
     .add(qtySundays, 'day') // Добавляем выходные дни
