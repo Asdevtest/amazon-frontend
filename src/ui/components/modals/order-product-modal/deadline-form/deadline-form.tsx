@@ -37,8 +37,8 @@ export const DeadlineForm: FC<DeadlineFormProps> = memo(props => {
   const qtySundaysText = `${t(TranslationKey['Number of days off'])}: ${qtySundays || 0}`
   const recommendedShippingDate = calculateShippingDate(deadline, maxProductionTerm)
 
-  const recommendedButtonText = (date: string | null) =>
-    date ? `${t(TranslationKey.Recommended)}: ${dayjs(date).format('DD.MM.YYYY')}` : ''
+  const recommendedButtonText = (date: Dayjs | null) =>
+    date ? `${t(TranslationKey.Recommended)}: ${date.format('DD.MM.YYYY')}` : ''
 
   return (
     <div className={styles.root}>
@@ -60,7 +60,7 @@ export const DeadlineForm: FC<DeadlineFormProps> = memo(props => {
               variant="link"
               size="small"
               className={styles.button}
-              onClick={() => setDesiredDate(dayjs(recommendedShippingDate))}
+              onClick={() => setDesiredDate(recommendedShippingDate)}
             >
               {recommendedButtonText(recommendedShippingDate)}
             </CustomButton>
@@ -86,7 +86,7 @@ export const DeadlineForm: FC<DeadlineFormProps> = memo(props => {
               variant="link"
               size="small"
               className={styles.button}
-              onClick={() => setDeadline(dayjs(recommendedDeadline))}
+              onClick={() => setDeadline(recommendedDeadline)}
             >
               {recommendedButtonText(recommendedDeadline)}
             </CustomButton>

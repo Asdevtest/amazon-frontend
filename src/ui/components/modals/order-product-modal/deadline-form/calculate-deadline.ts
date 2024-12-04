@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs'
-import utc from 'dayjs/plugin/utc'
+// import utc from 'dayjs/plugin/utc'
 import { toast } from 'react-toastify'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -10,9 +10,34 @@ import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/shared/patform-settings'
 
-dayjs.extend(utc)
+// dayjs.extend(utc)
 
-const calculateQtySundays = (currentDate: Dayjs, needShipping: Dayjs): number => {
+const staticSundayRanges = [
+  { min: 1, max: 7, qtySundays: 1 },
+  { min: 8, max: 14, qtySundays: 2 },
+  { min: 15, max: 21, qtySundays: 3 },
+  { min: 22, max: 28, qtySundays: 4 },
+  { min: 29, max: 35, qtySundays: 5 },
+  { min: 36, max: 42, qtySundays: 6 },
+  { min: 43, max: 49, qtySundays: 7 },
+  { min: 50, max: Infinity, qtySundays: 8 },
+]
+
+const calculateStaticQtySundays = (maxProductionTime: number): number => {
+  if (maxProductionTime <= 0) {
+    return 0
+  }
+
+  for (const range of staticSundayRanges) {
+    if (maxProductionTime >= range.min && maxProductionTime <= range.max) {
+      return range.qtySundays
+    }
+  }
+
+  return 0
+}
+
+/* const calculateQtySundays = (currentDate: Dayjs, needShipping: Dayjs): number => {
   let count = 0
 
   const daysBetween = needShipping.diff(currentDate, 'day') // Вычисляем количество дней между текущей датой и датой отправки
@@ -27,7 +52,7 @@ const calculateQtySundays = (currentDate: Dayjs, needShipping: Dayjs): number =>
   }
 
   return count
-}
+} */
 
 export const calculateRecommendedDeadline = (
   needShipping: Dayjs | null, // Need Shipping: Желаемая дата отправки
@@ -46,21 +71,23 @@ export const calculateRecommendedDeadline = (
     return emptyResult
   }
 
-  // Определяем текущее время (UTC)
-  const currentDateUtc = dayjs.utc()
-  const needShippingUtc = dayjs.utc(needShipping)
+  // Определяем текущее время
+  const currentDate = dayjs()
+  const needShippingDate = dayjs(needShipping)
+
   // Расчет количества выходных дней - воскресений
-  const qtySundays = calculateQtySundays(currentDateUtc, needShippingUtc)
-  // Рассчитываем срок производства
-  const totalProductionTime = maxProductionTime + qtySundays
+  // const qtySundays = calculateQtySundays(currentDate, needShippingDate) // - это самое верное решение (диначимески считать количество выходных дней, но тогда обратный расчет будет местами не сходиться со статикой)
+  const qtySundays = calculateStaticQtySundays(maxProductionTime)
+
   // Рассчитываем Recommended Deadline
-  const recommendedDeadline = needShippingUtc
+  const recommendedDeadline = needShippingDate
     .subtract(timeReserve, 'day') // Вычитаем Time Reserve
-    .subtract(totalProductionTime, 'day') // Вычитаем Production Time
+    .subtract(maxProductionTime, 'day') // Вычитаем Production Time
+    .subtract(qtySundays, 'day') // Вычитаем количество выходных дней
 
   // Проверяем условия для уведомлений
   if (
-    recommendedDeadline.isBefore(currentDateUtc.add(2, 'day'), 'day') // Recommended Deadline < Current Date + 2
+    recommendedDeadline.isBefore(currentDate.add(2, 'day'), 'day') // Recommended Deadline < Current Date + 2
   ) {
     toast.warning(
       t(
@@ -73,7 +100,7 @@ export const calculateRecommendedDeadline = (
   }
 
   return {
-    recommendedDeadline: dayjs(recommendedDeadline).format(),
+    recommendedDeadline, // возвращаем строго локальное время - UTC только при отправке на бек
     timeReserve,
     qtySundays,
   }
@@ -89,24 +116,25 @@ export const calculateShippingDate = (
 
   // Забираем Time Reserve из настроек платформы(Админка)
   const timeReserve = (UserModel.platformSettings as unknown as IPlatformSettings)?.reserveTimeForOrder
-  // Определяем текущее время (UTC)
-  const currentDateUtc = dayjs.utc()
-  const selectedDeadlineUtc = dayjs.utc(selectedDeadline)
-  // Расчет количества выходных дней - воскресений
-  const qtySundays = calculateQtySundays(currentDateUtc, selectedDeadlineUtc)
-  // Рассчитываем срок производства
-  const totalProductionTime = maxProductionTime + qtySundays
+
+  // Определяем время выбранного дедлайна
+  const selectedDeadlineUtc = dayjs(selectedDeadline)
+
+  // Расчет статически количества выходных дней - воскресений
+  const qtySundays = calculateStaticQtySundays(maxProductionTime)
+
   // Рассчитываем Recommended Deadline
   const recommendedShippingDate = selectedDeadlineUtc
     .add(timeReserve, 'day') // Добавляем Time Reserve
-    .add(totalProductionTime, 'day') // Добавляем Production Time
+    .add(maxProductionTime, 'day') // Добавляем Production Time
+    .add(qtySundays, 'day') // Добавляем выходные дни
 
   if (recommendedShippingDate.day() === 0) {
     // Если расчетный день - воскресенье, то берем следующий день
     const nextDay = recommendedShippingDate.add(1, 'day')
 
-    return dayjs(nextDay).format()
+    return nextDay
   }
 
-  return dayjs(recommendedShippingDate).format()
+  return recommendedShippingDate // возвращаем строго локальное время - UTC только при отправке на бек
 }
