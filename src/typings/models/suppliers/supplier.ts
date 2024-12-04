@@ -15,6 +15,7 @@ export interface ISupplier {
   maxProductionTerm: number
   multiplicity: boolean
   priceInYuan: number
+  priceInUsd: number
   batchDeliveryCostInDollar: number
   batchDeliveryCostInYuan: number
   batchTotalCostInDollar: number

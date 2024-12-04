@@ -537,7 +537,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         {
           ...updateOrderData,
-          orderSupplierId: updateOrderData.orderSupplier._id,
+          orderSupplierId: updateOrderData.orderSupplierCard?._id, // orderSupplierCardId
           amount: updateOrderData?.amount,
           priceInYuan: updateOrderData.priceInYuan,
           priceBatchDeliveryInYuan: updateOrderData?.priceBatchDeliveryInYuan,
