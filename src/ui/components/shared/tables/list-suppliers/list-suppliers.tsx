@@ -53,8 +53,6 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
   const orderSupplier = 'orderSupplierCard' in formFields ? formFields?.orderSupplierCard : undefined
 
-  console.log('orderSupplier :>> ', orderSupplier)
-
   const viewModel = useMemo(
     // extractProduct - converter for getting product
     // from order(everywhere we work directly with the product)
