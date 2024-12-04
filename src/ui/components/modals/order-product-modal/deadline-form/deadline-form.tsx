@@ -10,7 +10,7 @@ import { Text } from '@components/shared/text'
 
 import { useStyles } from './deadline-form.style'
 
-import { calculateRecommendedDeadline } from './calculate-recommended-deadline'
+import { calculateRecommendedDeadline, calculateShippingDate } from './calculate-deadline'
 
 interface DeadlineFormProps {
   onSubmit: (date: Dayjs | null) => void
@@ -32,18 +32,13 @@ export const DeadlineForm: FC<DeadlineFormProps> = memo(props => {
   }
 
   const { recommendedDeadline, timeReserve, qtySundays } = calculateRecommendedDeadline(desiredDate, maxProductionTerm)
-  const recommendedButtonText = recommendedDeadline
-    ? `${t(TranslationKey.Recommended)}: ${dayjs(recommendedDeadline).format('DD.MM.YYYY')}`
-    : ''
   const maxProductionTermText = `${t(TranslationKey['Production time'])}: ${maxProductionTerm || 0}`
   const timeReserveText = `${t(TranslationKey['Preparing for shipment'])}: ${timeReserve || 0}`
   const qtySundaysText = `${t(TranslationKey['Number of days off'])}: ${qtySundays || 0}`
+  const recommendedShippingDate = calculateShippingDate(deadline, maxProductionTerm)
 
-  const handleSelectRecommendedDeadline = () => {
-    if (recommendedDeadline) {
-      setDeadline(dayjs(recommendedDeadline))
-    }
-  }
+  const recommendedButtonText = (date: Dayjs | null) =>
+    date ? `${t(TranslationKey.Recommended)}: ${date.format('DD.MM.YYYY')}` : ''
 
   return (
     <div className={styles.root}>
@@ -59,6 +54,17 @@ export const DeadlineForm: FC<DeadlineFormProps> = memo(props => {
             value={desiredDate}
             onChange={date => setDesiredDate(date)}
           />
+          {recommendedShippingDate && !desiredDate ? (
+            <CustomButton
+              type="link"
+              variant="link"
+              size="small"
+              className={styles.button}
+              onClick={() => setDesiredDate(recommendedShippingDate)}
+            >
+              {recommendedButtonText(recommendedShippingDate)}
+            </CustomButton>
+          ) : null}
           <Text type="secondary" copyable={false} text={maxProductionTermText} />
           <Text type="secondary" copyable={false} text={timeReserveText} />
           <Text type="secondary" copyable={false} text={qtySundaysText} />
@@ -80,9 +86,9 @@ export const DeadlineForm: FC<DeadlineFormProps> = memo(props => {
               variant="link"
               size="small"
               className={styles.button}
-              onClick={handleSelectRecommendedDeadline}
+              onClick={() => setDeadline(recommendedDeadline)}
             >
-              {recommendedButtonText}
+              {recommendedButtonText(recommendedDeadline)}
             </CustomButton>
           ) : null}
         </div>
