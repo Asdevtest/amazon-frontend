@@ -130,7 +130,8 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
           <CustomSelect
             required
             allowClear
-            mode="tags"
+            showSearch={false}
+            mode="multiple"
             loading={viewModel.paymentMethodsRequestStatus === loadingStatus.IS_LOADING}
             wrapperClassName={sharedStyles.input}
             label="Payment methods"
