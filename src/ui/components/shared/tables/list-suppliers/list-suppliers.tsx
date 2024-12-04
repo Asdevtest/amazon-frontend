@@ -143,6 +143,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         <AddSupplierCardModal
           hideStatusButton
           disabled={viewModel.supplierModalReadOnly}
+          supplierId={viewModel.currentSupplier?.supplier?._id}
           supplierCardId={viewModel.currentSupplier?._id}
           handleUpdate={supplierCardId =>
             onClickSaveSupplier?.(supplierCardId === viewModel.currentSupplier?._id ? undefined : supplierCardId)

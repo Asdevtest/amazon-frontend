@@ -65,6 +65,7 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
               wrapperClassName={sharedStyles.input}
               label="Supplier"
               options={suppliers}
+              labelRender={option => option.label || 'access denied'}
               fieldNames={{ label: 'companyName', value: '_id' }}
               onSearch={throttledSearch}
               onClear={() => searchSuppliers('')}
