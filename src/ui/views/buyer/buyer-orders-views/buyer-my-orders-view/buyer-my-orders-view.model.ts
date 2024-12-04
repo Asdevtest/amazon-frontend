@@ -546,8 +546,6 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         true,
       )
 
-      console.log('updateOrderDataFiltered :>> ', updateOrderDataFiltered)
-
       await BuyerModel.editOrder(order._id, updateOrderDataFiltered)
     } catch (error) {
       console.error(error)
