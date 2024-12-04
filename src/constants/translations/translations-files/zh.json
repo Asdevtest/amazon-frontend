@@ -2110,5 +2110,6 @@
   "The table doesn't fit": "表格不适合",
   "Preparing for shipment": "准备发货",
   "Number of days off": "休假天数",
-  "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "选择的发货日期不符合根据产品制作和准备时间确定的可接受范围"
+  "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "选择的发货日期不符合根据产品制作和准备时间确定的可接受范围",
+  "Supplier reviews": "供应商评论"
 }

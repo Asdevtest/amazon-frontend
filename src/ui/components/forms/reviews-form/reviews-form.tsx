@@ -30,8 +30,12 @@ export const ReviewsForm: FC<ReviewsFormProps> = observer(props => {
   return (
     <div className={styles.root}>
       <div className={styles.flexRow}>
-        <p className={styles.title}>{`${t(TranslationKey['User reviews'])}:`}</p>
-        <UserLink customClassNames={styles.title} name={user?.name} userId={user?._id} />
+        <p className={styles.title}>{`${t(TranslationKey[isSupplier ? 'Supplier reviews' : 'User reviews'])}:`}</p>
+        {isSupplier ? (
+          <p className={styles.title}>{user?.name}</p>
+        ) : (
+          <UserLink customClassNames={styles.title} name={user?.name} userId={user?._id} />
+        )}
       </div>
 
       <Reviews reviews={viewModel.reviews} />

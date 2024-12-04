@@ -2113,4 +2113,5 @@ export enum TranslationKey {
   'Preparing for shipment' = 'Preparing for shipment',
   'Number of days off' = 'Number of days off',
   'The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product' = 'The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product',
+  'Supplier reviews' = 'Supplier reviews',
 }
