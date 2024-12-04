@@ -787,6 +787,7 @@
   "to merge boxes": "连接箱子",
   "Cost of purchase per piece.": "每件成本",
   "Order products": "订单产品",
+  "The quantity of goods must be greater than the minimum lot": "货物数量必须大于最小批量",
   "Total order amount": "订单总额",
   "Order a batch of products": "预订批产品",
   "Delivery per unit.": "每件交货",

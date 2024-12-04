@@ -20,4 +20,8 @@ export const useStyles = makeStyles()(() => ({
   productsBig: {
     gridTemplateColumns: 'repeat(2, minmax(260px, 1fr))',
   },
+
+  addInventoryBtn: {
+    marginLeft: 'auto',
+  },
 }))

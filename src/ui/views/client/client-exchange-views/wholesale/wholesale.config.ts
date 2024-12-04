@@ -6,9 +6,10 @@ import { t } from '@utils/translations'
 
 export const wholesaleConfig = {
   showSelectShopsModal: observable,
-  supplierCardId: observable,
+  supplierCardIds: observable,
   items: computed,
   onToggleSelectShopsModal: action.bound,
+  onChangeSupplierCard: action.bound,
   onSelectSupplierCard: action.bound,
   onAddToInventory: action.bound,
 }

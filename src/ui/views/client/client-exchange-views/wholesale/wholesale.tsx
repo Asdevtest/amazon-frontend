@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectShopsForm } from '@components/forms/select-shops-form'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { DynamicVirtualList } from '@components/shared/dynamic-virtual-list'
@@ -52,6 +53,15 @@ export const WholesaleView = observer(() => {
             placeholder="Search"
             onSearch={viewModel.onSearchSubmit}
           />
+          <CustomButton
+            size="large"
+            type="primary"
+            disabled={!viewModel.supplierCardIds.length}
+            className={styles.addInventoryBtn}
+            onClick={viewModel.onToggleSelectShopsModal}
+          >
+            {t(TranslationKey['Add to inventory'])}
+          </CustomButton>
         </div>
 
         <div className={styles.container}>
@@ -62,7 +72,12 @@ export const WholesaleView = observer(() => {
               isSupplierMode ? (
                 <SupplierCard supplier={item as ISupplierExchange} />
               ) : (
-                <SupplierProductCard product={item as ISupplierCard} onSubmit={viewModel.onSelectSupplierCard} />
+                <SupplierProductCard
+                  product={item as ISupplierCard}
+                  checkedItems={viewModel.supplierCardIds}
+                  onChange={viewModel.onChangeSupplierCard}
+                  onSubmit={viewModel.onSelectSupplierCard}
+                />
               )
             }
             onScrollEnd={viewModel.loadMoreData}

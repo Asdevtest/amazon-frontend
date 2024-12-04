@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectShopsForm } from '@components/forms/select-shops-form'
+import { CustomButton } from '@components/shared/custom-button'
 import { DynamicVirtualList } from '@components/shared/dynamic-virtual-list'
 import { Modal } from '@components/shared/modal'
 import { SupplierCard, SupplierProductCard } from '@components/shared/supplier'
@@ -27,6 +28,16 @@ export const SupplierView = observer(({ history }: { history: HistoryType }) => 
       <div className="viewWrapper">
         <SupplierCard supplier={viewModel.supplier} showViewMore={false} />
 
+        <CustomButton
+          size="large"
+          type="primary"
+          disabled={!viewModel.supplierCardIds.length}
+          className={styles.addInventoryBtn}
+          onClick={viewModel.onToggleSelectShopsModal}
+        >
+          {t(TranslationKey['Add to inventory'])}
+        </CustomButton>
+
         <div className={styles.productsWrapper}>
           <DynamicVirtualList<ISupplierCard>
             listClassName={cx(styles.products, {
@@ -38,6 +49,8 @@ export const SupplierView = observer(({ history }: { history: HistoryType }) => 
               <SupplierProductCard
                 gorizontal={viewModel.productsBig}
                 product={item}
+                checkedItems={viewModel.supplierCardIds}
+                onChange={viewModel.onChangeSupplierCard}
                 onSubmit={viewModel.onSelectSupplierCard}
               />
             )}

@@ -9,39 +9,28 @@ export const useStyles = makeStyles()(() => ({
     gap: '10px',
   },
 
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
   buttons: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
   },
 
-  blockTitle: {
-    fontWeight: 600,
-  },
-
-  reviewsWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-
   reviews: {
     maxHeight: 'unset',
-    height: '80px',
+    flex: 1,
     paddingRight: '0px',
+  },
+
+  tabsHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   cardsWrapper: {
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    height: '600px',
     flex: 1,
   },
 }))

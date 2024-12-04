@@ -8,11 +8,10 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserModel } from '@models/user-model'
 
+import { AddSupplierCardModal } from '@components/modals/add-supplier-card-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
-import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
@@ -121,20 +120,14 @@ export const BuyerIdeas = observer(() => {
         />
       ) : null}
 
-      <Modal
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
-      >
-        <AddOrEditSupplierModalContent
-          // @ts-ignore
-          paymentMethods={viewModel.paymentMethods}
-          requestStatus={viewModel.requestStatus}
-          platformSettings={viewModel.platformSettings}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
-          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+      {viewModel.showAddSupplierProductModal ? (
+        <AddSupplierCardModal
+          hideStatusButton
+          handleUpdate={viewModel.onClickSaveSupplierBtn}
+          openModal={viewModel.showAddSupplierProductModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showAddSupplierProductModal')}
         />
-      </Modal>
+      ) : null}
     </div>
   )
 })

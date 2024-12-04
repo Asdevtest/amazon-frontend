@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Reviews } from '@components/forms/reviews-form'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 import { SupplierCard } from '@components/shared/supplier'
 
@@ -21,6 +22,7 @@ import { AddSupplierModal } from '../add-supplier-modal'
 import { ImportTemplateModal } from '../import-template-modal'
 
 import { SupplierModalModel } from './supplier-modal.model'
+import { View } from './supplier-modal.types'
 
 interface ISupplierModalProps {
   supplierId: string
@@ -37,15 +39,29 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
 
   const { supplierCardsModel } = viewModel
 
+  const isCardsTab = viewModel.currentTab === View.CARDS
+
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.root}>
-        <SupplierCard showViewMore={false} supplier={viewModel?.currentData as unknown as ISupplierExchange} />
+        <SupplierCard
+          hideTotalCountFeedback
+          showViewMore={false}
+          supplier={viewModel?.currentData as unknown as ISupplierExchange}
+        />
 
-        <div className={styles.cardsWrapper}>
-          <div className={styles.header}>
-            <p className={styles.blockTitle}>{t(TranslationKey.Cards)}</p>
+        <div className={styles.tabsHeader}>
+          <CustomRadioButton
+            buttonStyle="solid"
+            value={viewModel.currentTab}
+            options={[
+              { label: t(TranslationKey[View.CARDS]), value: View.CARDS },
+              { label: t(TranslationKey[View.REVIEWS]), value: View.REVIEWS },
+            ]}
+            onChange={viewModel.onChangeTab}
+          />
 
+          {isCardsTab ? (
             <div className={styles.buttons}>
               <CustomButton onClick={viewModel.onOpenImportTemplateModal}>
                 {t(TranslationKey['Import products'])}
@@ -55,8 +71,10 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
                 {t(TranslationKey['Add a new card'])}
               </CustomButton>
             </div>
-          </div>
+          ) : null}
+        </div>
 
+        {isCardsTab ? (
           <CustomDataGrid
             disableRowSelectionOnClick
             pinnedColumns={supplierCardsModel.pinnedColumns}
@@ -100,13 +118,9 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
             onFilterModelChange={supplierCardsModel.onChangeFilterModel}
             onPinnedColumnsChange={supplierCardsModel.handlePinColumn}
           />
-
-          <div className={styles.reviewsWrapper}>
-            <p className={styles.blockTitle}>{t(TranslationKey.Reviews)}</p>
-
-            <Reviews wrapperClassName={styles.reviews} reviews={viewModel.feedbacks} />
-          </div>
-        </div>
+        ) : (
+          <Reviews wrapperClassName={styles.reviews} reviews={viewModel.feedbacks} />
+        )}
       </div>
 
       {viewModel.showImportTemplateModal ? (

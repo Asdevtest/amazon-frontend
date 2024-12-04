@@ -25,13 +25,17 @@ export const roundHalf = num => {
   }
 }
 
-export const calcProductsPriceWithDelivery = (product, order) =>
-  ((parseFloat(product.currentSupplierCard && product.currentSupplierCard.priceInUsd) || 0) +
-    (parseFloat(
-      product.currentSupplier &&
-        product.currentSupplierCard.batchTotalCostInDollar / product.currentSupplierCard.amount,
-    ) || 0)) *
-  (parseInt(order?.amount) || 0)
+export const calcProductsPriceWithDelivery = (product, order) => {
+  if (!product.currentSupplierCard) {
+    return 0
+  }
+
+  return (
+    ((parseFloat(product.currentSupplierCard.priceInUsd) || 0) +
+      (parseFloat(product.currentSupplierCard.batchDeliveryCostInDollar / product.currentSupplierCard.amount) || 0)) *
+    (parseInt(order?.amount) || 0)
+  )
+}
 
 export const calcProductsMaxAmountByPriceLimit = (product, maxPrice) =>
   maxPrice > 0

@@ -36,10 +36,6 @@ export const plainValidationErrorAndApplyFuncForEachError = (error, func) => {
   })
 }
 
-export const disallowsSpecialCharInFirstCharEmail = field =>
-  field.charAt(0).replace(/[{}@"!#$%^&*()+=;:`~|'?/><, ]/, '')
-export const disallowsSpecialCharInEmailField = field => field.replace(/[{}"!#$%^&*()+=;:`~|'?/><, ]/, '')
-
 export const errorMessages = {
   'amazon must be a number conforming to the specified constraints':
     'amazon must be a number conforming to the specified constraints',
@@ -111,43 +107,3 @@ export const translateProposalsLeftMessage = (num1, num2) => {
     return `${num1} out of ${num2} proposals left`
   }
 }
-
-export const validationMessagesArray = (
-  errorMinLength,
-  errorOneNumber,
-  errorUppercaseLetter,
-  errorLowercaseLetter,
-  errorNoEngLetter,
-) => [
-  {
-    name: t(TranslationKey['The password must contain']),
-    error: '',
-  },
-  {
-    name: `${t(TranslationKey.minimum)} 8 ${t(TranslationKey.characters)},`,
-    error: errorMinLength,
-  },
-
-  {
-    name: `1 ${t(TranslationKey.number)},`,
-    error: errorOneNumber,
-  },
-  {
-    name: t(TranslationKey.uppercase),
-    error: errorUppercaseLetter,
-  },
-  {
-    name: t(TranslationKey.and),
-    error: '',
-  },
-
-  {
-    name: t(TranslationKey.lowercase),
-    error: errorLowercaseLetter,
-  },
-
-  {
-    name: t(TranslationKey['latin letters']),
-    error: errorNoEngLetter,
-  },
-]

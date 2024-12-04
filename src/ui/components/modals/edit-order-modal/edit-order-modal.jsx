@@ -563,6 +563,8 @@ export const EditOrderModal = memo(
                         [styles.disableSelect]: buyerOrderModalDisabledOrderStatuses.includes(statusCode),
                       })}
                       disabled={
+                        (!order.orderSupplierCard &&
+                          statusCode !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) ||
                         buyerOrderModalDisabledOrderStatuses.includes(statusCode) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||

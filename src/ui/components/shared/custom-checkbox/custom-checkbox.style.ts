@@ -10,6 +10,7 @@ export const useStyles = makeStyles()(() => ({
     span: {
       borderRadius: '4px !important', // delete when completely switching to antd
     },
+
     '& .ant-checkbox-inner': {
       width: 18,
       height: 18,

@@ -787,6 +787,7 @@
   "to merge boxes": "на слияние коробок",
   "Cost of purchase per piece.": "Себестоимость в закупке за шт.",
   "Order products": "Заказ товаров",
+  "The quantity of goods must be greater than the minimum lot": "Количество товара должно быть больше минимальной партии",
   "Total order amount": "Общая сумма заказа",
   "Order a batch of products": "Заказать партию товара",
   "Delivery per unit.": "Доставка за ед.",

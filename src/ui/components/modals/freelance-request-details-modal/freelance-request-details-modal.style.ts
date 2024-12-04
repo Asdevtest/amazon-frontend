@@ -108,5 +108,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '10px',
     justifyContent: 'flex-end',
+    alignItems: 'center',
   },
 }))
