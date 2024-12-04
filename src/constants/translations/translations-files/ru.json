@@ -1846,7 +1846,6 @@
   "Is the supplier's price unacceptable": "Цена поставщика неприемлема?",
   "The supplier's price is not acceptable?": "Цена поставщика неприемлема?",
   "Review of the performer's work": "Обзор работы исполнителя",
-  "You can't buy the product": "Вы не можете купить продукт",
   "You can't order": "Вы не можете заказать",
   "At the supervisor's check": "На проверке у супервайзера",
   "All that's left is to check the data": "Осталось только проверить данные",
@@ -2114,5 +2113,6 @@
   "Preparing for shipment": "Подготовка к отправке",
   "Number of days off": "Количество выходных дней",
   "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "Выбранная дата отправки не соответствует допустимому интервалу, исходя из срока изготовления и подготовки продукта",
-  "Supplier reviews": "Отзывы о поставщике"
+  "Supplier reviews": "Отзывы о поставщике",
+  "Not enough money on balance": "Недостаточно денежных средств на балансе"
 }
