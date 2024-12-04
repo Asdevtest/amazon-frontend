@@ -22,6 +22,7 @@ import {
   UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
+import { SupplierLink } from '@components/shared/supplier-link'
 import { Text } from '@components/shared/text'
 
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
@@ -168,19 +169,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Link),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
 
-      renderCell: params => {
-        const supplierLink = params.row.supplierCards[0]?.supplier?.link
-
-        return supplierLink === ACCESS_DENIED ? (
-          ACCESS_DENIED
-        ) : supplierLink ? (
-          <LinkWithCopy
-            url={checkAndMakeAbsoluteUrl(supplierLink)}
-            title={t(TranslationKey['Go to supplier site'])}
-            valueToCopy={checkAndMakeAbsoluteUrl(supplierLink)}
-          />
-        ) : null
-      },
+      renderCell: params => <SupplierLink link={params.row.supplierCards[0]?.supplier?.link} />,
       width: 100,
       disableCustomSort: true,
       filterable: false,

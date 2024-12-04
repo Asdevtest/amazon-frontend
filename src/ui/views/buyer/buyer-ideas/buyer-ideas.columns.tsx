@@ -7,7 +7,6 @@ import {
   ideaStatusByKey,
   ideaStatusTranslate,
 } from '@constants/statuses/idea-status'
-import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -20,7 +19,7 @@ import {
   ProductCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { LinkWithCopy } from '@components/shared/link-with-copy'
+import { SupplierLink } from '@components/shared/supplier-link'
 import { Text } from '@components/shared/text'
 
 import {
@@ -30,7 +29,7 @@ import {
   shopFields,
 } from '@views/client/client-ideas-view/columns-menu.config'
 
-import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -178,19 +177,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       headerName: t(TranslationKey.Link),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
 
-      renderCell: params => {
-        const supplierLink = params.row.supplierCards[0]?.supplier?.link
-
-        return supplierLink === ACCESS_DENIED ? (
-          ACCESS_DENIED
-        ) : supplierLink ? (
-          <LinkWithCopy
-            url={checkAndMakeAbsoluteUrl(supplierLink)}
-            title={t(TranslationKey['Go to supplier site'])}
-            valueToCopy={checkAndMakeAbsoluteUrl(supplierLink)}
-          />
-        ) : null
-      },
+      renderCell: params => <SupplierLink link={params.row.supplierCards[0]?.supplier?.link} />,
       width: 100,
       disableCustomSort: true,
       filterable: false,
