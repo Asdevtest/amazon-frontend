@@ -20,10 +20,11 @@ import { SupplierProductShortCard } from '../supplier-product-short-card/supplie
 interface SupplierCardProps {
   supplier?: ISupplierExchange
   showViewMore?: boolean
+  hideTotalCountFeedback?: boolean
 }
 
 export const SupplierCard: FC<SupplierCardProps> = memo(props => {
-  const { supplier, showViewMore = true } = props
+  const { supplier, showViewMore = true, hideTotalCountFeedback } = props
 
   const { isPcMiddleResolution } = useCreateBreakpointResolutions()
   const { classes: styles, cx } = useStyles()
@@ -39,6 +40,7 @@ export const SupplierCard: FC<SupplierCardProps> = memo(props => {
     <div className={cx(styles.root, { [styles.fixHeight]: showViewMore })}>
       <div className={cx(styles.flexColumn, styles.infoBlock)}>
         <SupplierDitailsInfo
+          hideTotalCountFeedback={hideTotalCountFeedback}
           image={supplier?.originCountry?.image}
           xid={supplier?.xid}
           rate={supplier?.avgRating}

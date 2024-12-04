@@ -44,7 +44,11 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
   return (
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.root}>
-        <SupplierCard showViewMore={false} supplier={viewModel?.currentData as unknown as ISupplierExchange} />
+        <SupplierCard
+          hideTotalCountFeedback
+          showViewMore={false}
+          supplier={viewModel?.currentData as unknown as ISupplierExchange}
+        />
 
         <div className={styles.tabsHeader}>
           <CustomRadioButton
