@@ -300,7 +300,7 @@ export const EditBoxStorekeeperForm = memo(
       maxBoxSizeFromOption(sizeSetting, Number(boxFields.widthCmWarehouse)) ||
       maxBoxSizeFromOption(sizeSetting, Number(boxFields.heightCmWarehouse))
 
-    const { tariffName, tariffRate, tariffDestination, currentTariff } = useGetDestinationTariffInfo(
+    const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
       destinations,
       storekeepers,
       boxFields.destinationId,
@@ -318,7 +318,8 @@ export const EditBoxStorekeeperForm = memo(
 
     const tariffForRender = (
       <p className={styles.tariffText}>
-        <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
+        <span>{tariffName}</span>
+        {tariffRate ? <span> / {tariffRate} $</span> : null}
       </p>
     )
     return (
