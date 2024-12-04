@@ -2,7 +2,7 @@ import { action, observable } from 'mobx'
 
 export const observerConfig = {
   showIdeaModal: observable,
-  showAddOrEditSupplierModal: observable,
+  showAddSupplierProductModal: observable,
 
   productId: observable,
   currentIdeaId: observable,

@@ -8,12 +8,7 @@ import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
 import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
-import {
-  creatSupplier,
-  createOrderRequestWhiteList,
-  createProductByClient,
-  patchSuppliers,
-} from '@constants/white-list'
+import { createOrderRequestWhiteList, createProductByClient } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
@@ -26,7 +21,6 @@ import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
-import { updateProductAutoCalculatedFields } from '@utils/calculation'
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { toFixed } from '@utils/text'
@@ -68,7 +62,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   showOrderModal = false
   showSelectionSupplierModal = false
   showCommentsModal = false
-  showAddOrEditSupplierModal = false
+  showAddSupplierProductModal = false
 
   // * Data
 
@@ -500,73 +494,13 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSaveSupplierBtn({
-    supplier,
-    itemId,
-    editPhotosOfSupplier,
-    editPhotosOfUnit,
-  }: {
-    supplier: any
-    itemId: string
-    editPhotosOfSupplier: IUploadFile[]
-    editPhotosOfUnit: IUploadFile[]
-  }) {
+  async onClickSaveSupplierBtn(supplierCardId: string) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      supplier = {
-        ...supplier,
-        amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map((item: IPaymentMethod) =>
-          getObjectFilteredByKeyArrayWhiteList(item, ['_id']),
-        ),
-        minlot: parseInt(supplier?.minlot) || '',
-        price: parseFloat(supplier?.price) || '',
-        heightUnit: supplier?.heightUnit || null,
-        widthUnit: supplier?.widthUnit || null,
-        lengthUnit: supplier?.lengthUnit || null,
-        weighUnit: supplier?.weighUnit || null,
-      }
-
-      // @ts-ignore
-      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        images: this.readyImages,
-      }
-
-      // @ts-ignore
-      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        imageUnit: this.readyImages,
-      }
-
-      if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
-          supplier,
-          patchSuppliers,
-          undefined,
-          undefined,
-          true,
-        )
-        await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
-
-        if (supplier._id === this.currentProduct?.currentSupplierId) {
-          runInAction(() => {
-            // @ts-ignore
-            this.currentProduct.currentSupplier = supplier
-            updateProductAutoCalculatedFields.call(this)
-          })
-        }
-      } else {
-        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
-        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-
-        await IdeaModel.addSuppliersToIdea(itemId || this.selectedIdeaId, {
-          suppliersIds: [createSupplierResult.guid],
-        })
-      }
+      await IdeaModel.addSuppliersToIdea(this.selectedIdeaId, {
+        supplierCardIds: [supplierCardId],
+      })
 
       runInAction(() => {
         this.selectedIdeaId = ''
@@ -875,8 +809,6 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       this.selectedIdeaId = id
     })
 
-    await this.getSuppliersPaymentMethods()
-
-    this.onTriggerOpenModal('showAddOrEditSupplierModal')
+    this.onTriggerOpenModal('showAddSupplierProductModal')
   }
 }

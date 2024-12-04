@@ -11,6 +11,7 @@ import { UserModel } from '@models/user-model'
 import { LinkRequestForm } from '@components/forms/link-request-form'
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { RequestDesignerResultClientForm } from '@components/forms/request-designer-result-client-form'
+import { AddSupplierCardModal } from '@components/modals/add-supplier-card-modal'
 import { CommentsModal } from '@components/modals/comments-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { IdeaCardsModal } from '@components/modals/idea-cards-modal'
@@ -281,20 +282,14 @@ export const ClientIdeasView = observer(({ history }) => {
         />
       ) : null}
 
-      <Modal
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
-      >
-        <AddOrEditSupplierModalContent
-          // @ts-ignore
-          paymentMethods={viewModel.paymentMethods}
-          requestStatus={viewModel.requestStatus}
-          platformSettings={viewModel.platformSettings}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
-          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+      {viewModel.showAddSupplierProductModal ? (
+        <AddSupplierCardModal
+          hideStatusButton
+          handleUpdate={viewModel.onClickSaveSupplierBtn}
+          openModal={viewModel.showAddSupplierProductModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showAddSupplierProductModal')}
         />
-      </Modal>
+      ) : null}
     </div>
   )
 })
