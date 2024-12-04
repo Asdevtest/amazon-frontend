@@ -185,6 +185,10 @@ export class BuyerProductViewModel {
   async openConfirmModalWithTextByStatus(updateDataHandler) {
     try {
       runInAction(() => {
+        this.product.currentSupplierCardId = this.product?.currentSupplierCard?._id
+      })
+
+      runInAction(() => {
         this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
           this.product,
           fieldsOfProductAllowedToUpdate,
