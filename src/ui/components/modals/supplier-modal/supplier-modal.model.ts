@@ -33,6 +33,14 @@ export class SupplierModalModel extends DefaultModel {
       guid: supplierId,
     })
     this.supplierCardsModel.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.supplierCardsModel.handleHideColumns(['supplier'])
+    this.supplierCardsModel.columnsModel = this.supplierCardsModel.columnsModel?.map(column => {
+      if (column?.field === 'supplier') {
+        column.disableCustomSort = true
+      }
+
+      return column
+    })
 
     makeObservable(this, observerConfig)
 
