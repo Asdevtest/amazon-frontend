@@ -44,7 +44,7 @@ export class TicketFormModel {
     }))
   }
   get showUploadButton() {
-    return !this.showResponseBlock && !this.loading && this.userInfo?.role === Roles.ADMIN
+    return !this.showResponseBlock && !this.loading && [Roles.ADMIN, Roles.MODERATOR].includes(this.userInfo?.role)
   }
 
   constructor({ feedbackId, onUdateData, onClose }: TicketFormProps) {
