@@ -60,11 +60,20 @@ export const RequestMediaFilesTab: FC<RequestMediaFilesTabProps> = memo(props =>
 
                 <div className={styles.files}>
                   {data[key]?.map((file, index) => (
-                    <div key={index} className={styles.file} onClick={() => handleChangeCurrentSlideIndex(file)}>
+                    <div key={index} className={styles.file}>
                       {checkIsVideoLink(file) ? (
-                        <VideoPreloader videoSource={file} preloaderClassName={styles.video} />
+                        <VideoPreloader
+                          videoSource={file}
+                          preloaderClassName={styles.video}
+                          onClick={() => handleChangeCurrentSlideIndex(file)}
+                        />
                       ) : (
-                        <img src={getAmazonImageUrl(file)} alt={`Slide-${index + 1}`} className={styles.image} />
+                        <img
+                          src={getAmazonImageUrl(file)}
+                          alt={`Slide-${index + 1}`}
+                          className={styles.image}
+                          onClick={() => handleChangeCurrentSlideIndex(file)}
+                        />
                       )}
 
                       <CustomCheckbox
