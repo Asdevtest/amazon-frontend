@@ -19,7 +19,7 @@ import {
   ProductCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { LinkWithCopy } from '@components/shared/link-with-copy'
+import { SupplierLink } from '@components/shared/supplier-link'
 import { Text } from '@components/shared/text'
 
 import {
@@ -29,7 +29,7 @@ import {
   shopFields,
 } from '@views/client/client-ideas-view/columns-menu.config'
 
-import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IGridColumn } from '@typings/shared/grid-column'
@@ -177,23 +177,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       headerName: t(TranslationKey.Link),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
 
-      renderCell: params => {
-        const suppliers = params.row.supplierCards
-
-        if (!suppliers.length) {
-          return <Text isCell text="" />
-        }
-
-        return suppliers[0]?.supplier?.link ? (
-          <LinkWithCopy
-            url={checkAndMakeAbsoluteUrl(suppliers[0]?.supplier?.link)}
-            valueToCopy={suppliers[0]?.supplier?.link}
-            title={t(TranslationKey.Site)}
-          />
-        ) : (
-          <Text isCell text={t(TranslationKey['Link not available'])} />
-        )
-      },
+      renderCell: params => <SupplierLink link={params.row.supplierCards[0]?.supplier?.link} />,
       width: 100,
       disableCustomSort: true,
       filterable: false,
