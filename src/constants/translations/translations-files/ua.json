@@ -2112,5 +2112,6 @@
   "The table doesn't fit": "Таблиця не підходить",
   "Preparing for shipment": "Підготовка до відправлення",
   "Number of days off": "Кількість вихідних днів",
-  "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "Обрана дата відправлення не відповідає допустимому інтервалу, виходячи з терміну виготовлення та підготовки продукту"
+  "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "Обрана дата відправлення не відповідає допустимому інтервалу, виходячи з терміну виготовлення та підготовки продукту",
+  "Supplier reviews": "Відгуки по поставщику"
 }
