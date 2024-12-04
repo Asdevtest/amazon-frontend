@@ -47,7 +47,7 @@ export class SupplierModalModel extends DefaultModel {
 
     makeObservable(this, observerConfig)
 
-    this.getCurrentData()
+    // this.getCurrentData()
     this.supplierCardsModel.getCurrentData()
     this.getSupplierFeedbacks(supplierId)
   }

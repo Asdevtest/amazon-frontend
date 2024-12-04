@@ -7,6 +7,7 @@ import {
   ideaStatusByKey,
   ideaStatusTranslate,
 } from '@constants/statuses/idea-status'
+import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -21,6 +22,7 @@ import {
   UserCell,
 } from '@components/data-grid/data-grid-cells'
 import { LinkWithCopy } from '@components/shared/link-with-copy'
+import { SupplierLink } from '@components/shared/supplier-link'
 import { Text } from '@components/shared/text'
 
 import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
@@ -167,21 +169,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
       headerName: t(TranslationKey.Link),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
 
-      renderCell: params => {
-        const suppliers = params.row.supplierCards
-
-        if (!suppliers.length) {
-          return <Text isCell text="" />
-        }
-
-        return suppliers[0]?.supplier?.link ? (
-          <LinkWithCopy
-            url={checkAndMakeAbsoluteUrl(suppliers[0]?.supplier?.link)}
-            valueToCopy={suppliers[0]?.supplier?.link}
-            title={t(TranslationKey.Site)}
-          />
-        ) : null
-      },
+      renderCell: params => <SupplierLink link={params.row.supplierCards[0]?.supplier?.link} />,
       width: 100,
       disableCustomSort: true,
       filterable: false,

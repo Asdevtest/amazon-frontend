@@ -26,6 +26,8 @@ import { UserLink } from '@components/user/user-link'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { isCandidate } from '@typings/guards/roles'
+
 import { useStyles } from './admin-user-edit-content.style'
 
 const activeOptions = [
@@ -104,11 +106,6 @@ export const AdminUserEditContent = observer(
         return
       } else {
         newFormFields[fieldName] = event.target.value
-      }
-
-      if (fieldName === 'role') {
-        newFormFields.name = ''
-        newFormFields.email = ''
       }
 
       if (fieldName === 'name') {
@@ -466,7 +463,10 @@ export const AdminUserEditContent = observer(
             <Field
               label={t(TranslationKey['Security/Sharing options'])}
               inputComponent={
-                <CustomButton onClick={() => setShowPermissionModal(!showPermissionModal)}>
+                <CustomButton
+                  disabled={isCandidate(editUserFormFields?.role)}
+                  onClick={() => setShowPermissionModal(!showPermissionModal)}
+                >
                   {t(TranslationKey['Manage permissions'])}
                 </CustomButton>
               }

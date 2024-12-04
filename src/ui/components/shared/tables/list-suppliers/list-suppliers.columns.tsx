@@ -1,6 +1,5 @@
 import { GridRowModel } from '@mui/x-data-grid'
 
-import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -10,12 +9,12 @@ import {
   SupplierWithIconsCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { PaymentMethods } from '@components/shared/payment-methods'
+import { SupplierLink } from '@components/shared/supplier-link'
 import { Text } from '@components/shared/text'
 
 import { formatNormDateTime } from '@utils/date-time'
-import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/shared/patform-settings'
@@ -49,14 +48,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'link',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
-    renderCell: ({ row }: GridRowModel) =>
-      row.supplier && row.supplier?.link !== ACCESS_DENIED ? (
-        <LinkWithCopy
-          url={checkAndMakeAbsoluteUrl(row.supplier?.link)}
-          title={t(TranslationKey['Go to supplier site'])}
-          valueToCopy={checkAndMakeAbsoluteUrl(row.supplier?.link)}
-        />
-      ) : null,
+    renderCell: ({ row }: GridRowModel) => <SupplierLink link={row?.supplier?.link} />,
     filterable: false,
     sortable: false,
     width: 160,

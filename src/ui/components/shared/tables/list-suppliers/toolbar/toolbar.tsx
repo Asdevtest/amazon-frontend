@@ -117,7 +117,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     supplier?.amount &&
     supplier?.minlot &&
     supplier?.priceInYuan &&
-    supplier?.price
+    supplier?.priceInUsd
   const isPendingOrderAndNotDefaultSupplier =
     userInfo &&
     checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&

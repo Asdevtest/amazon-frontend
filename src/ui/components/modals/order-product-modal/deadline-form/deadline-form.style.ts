@@ -31,6 +31,7 @@ export const useStyles = makeStyles()(() => ({
 
   button: {
     width: 'max-content',
+    padding: 0,
   },
 
   buttons: {

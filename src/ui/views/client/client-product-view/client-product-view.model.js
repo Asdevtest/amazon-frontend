@@ -431,6 +431,10 @@ export class ClientProductViewModel {
         this.formFieldsValidationErrors = getNewObjectWithDefaultValue(this.formFields, undefined)
       })
 
+      runInAction(() => {
+        this.product.currentSupplierCardId = this.product?.currentSupplierCard?._id
+      })
+
       const curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
         this.product,
         fieldsOfProductAllowedToUpdate,

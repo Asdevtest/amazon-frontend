@@ -206,7 +206,16 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Rating),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rating)} />,
 
-      renderCell: ({ row }) => <RatingCell disabled rating={row?.avgRating} totalFeedback={row?.totalCountFeedback} />,
+      renderCell: ({ row }) => (
+        <RatingCell
+          disabled
+          isSupplier
+          id={row?._id}
+          name={row?.companyName}
+          rating={row?.avgRating}
+          totalFeedback={row?.totalCountFeedback}
+        />
+      ),
       width: 180,
       columnKey: columnnsKeys.shared.NUMBER,
     },
