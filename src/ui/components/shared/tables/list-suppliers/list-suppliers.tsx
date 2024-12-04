@@ -51,7 +51,9 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
   const { classes: styles } = useStyles()
 
-  const orderSupplier = 'orderSupplier' in formFields ? formFields?.currentSupplierCard : undefined
+  const orderSupplier = 'orderSupplierCard' in formFields ? formFields?.orderSupplierCard : undefined
+
+  console.log('orderSupplier :>> ', orderSupplier)
 
   const viewModel = useMemo(
     // extractProduct - converter for getting product

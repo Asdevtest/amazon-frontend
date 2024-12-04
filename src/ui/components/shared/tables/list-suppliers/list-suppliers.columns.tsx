@@ -35,7 +35,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
         orderCreatedAt={orderCreatedAt}
         orderSupplierId={orderSupplierId}
         supplierCreatedAt={row.createdAt}
-        supplierId={row.supplier?._id}
+        supplierId={row?._id}
         supplierMultiplicity={row.multiplicity}
         supplierAmountInBox={row.boxProperties?.amountInBox}
       />
