@@ -17,6 +17,7 @@ export interface ObjectItemColumnMenu {
 interface useObjectColumnMenuParams<T> extends HookParams<T> {
   hideEmptyObject?: boolean
   sortOptions?: string
+  titleKey?: string
 }
 
 export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
@@ -25,6 +26,7 @@ export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
   filtersData,
   additionalFilterSettings,
   fieldNameFilter,
+  titleKey,
   onClickFilterBtn,
   hideEmptyObject,
   sortOptions,
@@ -51,14 +53,14 @@ export const useObjectColumnMenu = <T extends ObjectItemColumnMenu>({
         return true
       }
 
-      const itemProperty = getItemKey(item)
+      const itemProperty = getItemKey(item, titleKey)
 
       return String(item[itemProperty]).toLowerCase().includes(nameSearchValue.toLowerCase())
     })
 
     if (sortOptions) {
       filteredData?.sort((a, b) => {
-        const itemProperty = getItemKey(a)
+        const itemProperty = getItemKey(a, titleKey)
 
         if (sortOptions === 'asc') {
           return a[itemProperty] > b[itemProperty] ? 1 : -1
