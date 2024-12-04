@@ -537,7 +537,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         {
           ...updateOrderData,
-          orderSupplierId: updateOrderData.orderSupplierCard?._id, // orderSupplierCardId
+          orderSupplierCardId: updateOrderData.orderSupplierCard?._id,
           amount: updateOrderData?.amount,
           priceInYuan: updateOrderData.priceInYuan,
           priceBatchDeliveryInYuan: updateOrderData?.priceBatchDeliveryInYuan,
@@ -545,9 +545,10 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         updateOrderKeys,
         true,
       )
-      await BuyerModel.editOrder(order._id, {
-        ...updateOrderDataFiltered,
-      })
+
+      console.log('updateOrderDataFiltered :>> ', updateOrderDataFiltered)
+
+      await BuyerModel.editOrder(order._id, updateOrderDataFiltered)
     } catch (error) {
       console.error(error)
     }
