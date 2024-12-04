@@ -88,8 +88,6 @@ export const OrderModalBodyRow = ({
 
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
 
-  const costDeliveryOfBatch = weightOfBatch * tariffRate || ''
-
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
       const transformedDate = event ? dayjs(event).format() : event
@@ -124,19 +122,20 @@ export const OrderModalBodyRow = ({
     }
   }, [orderState.amount])
 
+  const costDeliveryOfBatch = weightOfBatch * tariffRate
+
   useEffect(() => {
     if (orderState.amount > 0 && costDeliveryOfBatch) {
-      setPerPriceUnit(
-        toFixed(
-          (+toFixed(costDeliveryOfBatch, 2) + +toFixed(calcProductsPriceWithDelivery(item, orderState), 2)) /
-            +orderState.amount,
-          2,
-        ),
-      )
+      const result =
+        Number(costDeliveryOfBatch) +
+        Number(item.currentSupplierCard?.priceInUsd) +
+        Number(item.currentSupplierCard?.batchDeliveryCostInDollar / item.currentSupplierCard?.amount)
+
+      setPerPriceUnit(toFixed(result, 2))
     } else {
       setPerPriceUnit(t(TranslationKey['No data']))
     }
-  }, [costDeliveryOfBatch, item, orderState, orderState.amount])
+  }, [weightOfBatch, tariffRate, item, orderState, orderState.amount])
 
   useEffect(() => {
     if (item.mainTariffVariation) {
