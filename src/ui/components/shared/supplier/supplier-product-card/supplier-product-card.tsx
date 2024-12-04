@@ -66,7 +66,7 @@ export const SupplierProductCard: FC<SupplierProductCardProps> = memo(props => {
             <Text type="secondary" copyable={false} text={t(TranslationKey.Rating)} />
             <div className={cx(styles.flexRow, styles.extraGap)}>
               <Rate count={1} value={5} />
-              <Text strong copyable={false} text={String(product?.supplier?.avgRating)} />
+              <Text strong copyable={false} text={String(product?.supplier?.avgRating || 5)} />
             </div>
           </div>
           <Divider type="vertical" className={styles.divider} />
