@@ -787,6 +787,7 @@
   "to merge boxes": "на об'єднання коробок",
   "Cost of purchase per piece.": "Собівартість закупівлі за одиницю.",
   "Order products": "Замовлення товарів",
+  "The quantity of goods must be greater than the minimum lot": "Кількість товару має бути більшою за мінімальну партію",
   "Total order amount": "Загальна сума замовлення",
   "Order a batch of products": "Замовити партію товарів",
   "Delivery per unit.": "Доставка за одиницю.",
