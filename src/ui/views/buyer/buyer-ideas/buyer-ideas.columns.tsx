@@ -7,6 +7,7 @@ import {
   ideaStatusByKey,
   ideaStatusTranslate,
 } from '@constants/statuses/idea-status'
+import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -178,21 +179,17 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
 
       renderCell: params => {
-        const suppliers = params.row.supplierCards
+        const supplierLink = params.row.supplierCards[0]?.supplier?.link
 
-        if (!suppliers.length) {
-          return <Text isCell text="" />
-        }
-
-        return suppliers[0]?.supplier?.link ? (
+        return supplierLink === ACCESS_DENIED ? (
+          ACCESS_DENIED
+        ) : supplierLink ? (
           <LinkWithCopy
-            url={checkAndMakeAbsoluteUrl(suppliers[0]?.supplier?.link)}
-            valueToCopy={suppliers[0]?.supplier?.link}
-            title={t(TranslationKey.Site)}
+            url={checkAndMakeAbsoluteUrl(supplierLink)}
+            title={t(TranslationKey['Go to supplier site'])}
+            valueToCopy={checkAndMakeAbsoluteUrl(supplierLink)}
           />
-        ) : (
-          <Text isCell text={t(TranslationKey['Link not available'])} />
-        )
+        ) : null
       },
       width: 100,
       disableCustomSort: true,

@@ -49,14 +49,19 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'link',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
-    renderCell: ({ row }: GridRowModel) =>
-      row.supplier && row.supplier?.link !== ACCESS_DENIED ? (
+    renderCell: ({ row }: GridRowModel) => {
+      const link = row?.supplier?.link
+
+      return link === ACCESS_DENIED ? (
+        ACCESS_DENIED
+      ) : link ? (
         <LinkWithCopy
-          url={checkAndMakeAbsoluteUrl(row.supplier?.link)}
+          url={checkAndMakeAbsoluteUrl(link)}
           title={t(TranslationKey['Go to supplier site'])}
-          valueToCopy={checkAndMakeAbsoluteUrl(row.supplier?.link)}
+          valueToCopy={checkAndMakeAbsoluteUrl(link)}
         />
-      ) : null,
+      ) : null
+    },
     filterable: false,
     sortable: false,
     width: 160,
