@@ -81,6 +81,8 @@ export const IdeaViewAndEditCard = observer(
 
     const [formFields, setFormFields] = useState(undefined)
 
+    console.log('formFields :>> ', formFields)
+
     const [sizeSetting, setSizeSetting] = useState(unitsOfChangeOptions.EU)
     const [showRequestType, setShowRequestType] = useState(
       idea?.status >= 18 ? RequestSwitherType.REQUESTS_ON_FINISHED : RequestSwitherType.REQUESTS_ON_CHECK,
@@ -674,9 +676,7 @@ export const IdeaViewAndEditCard = observer(
                 isIdea
                 formFields={formFields}
                 isNotProductNameForIdea={formFields?.productName.length === 0} // for disable add supplier button
-                onClickSaveSupplier={({ ...rest }) =>
-                  onClickSaveSupplierBtn({ ...rest, ideaFormFields: calculateFieldsToSubmit() })
-                }
+                onClickSaveSupplier={supplierCardId => onClickSaveSupplierBtn(supplierCardId, formFields?._id)}
                 onRemoveSupplier={onRemoveSupplier}
                 // onSaveProduct={onClickSupplierBtns}
               />
