@@ -62,7 +62,6 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   currentRow = undefined
 
   previousSelectedRows = []
-  paymentMethods = []
 
   curProduct = undefined
   parsingTable = undefined
@@ -96,7 +95,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   showProductLaunch = false
   showIdeaModal = false
   showProductVariationsForm = false
-  showAddOrEditSupplierModal = false
+  showAddSupplierProductModal = false
   showEditProductTagsModal = false
   showParsingReportsModal = false
 
@@ -510,18 +509,6 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     this.getCurrentData()
   }
 
-  async getSuppliersPaymentMethods() {
-    try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = response
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   async onClickVariationRadioButton() {
     try {
       const result = await ClientModel.getProductPermissionsData({ isChild: false })
@@ -849,58 +836,11 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     }
   }
 
-  async onSubmitSaveSupplier({ supplier, makeMainSupplier, editPhotosOfSupplier, editPhotosOfUnit }) {
-    try {
-      supplier = {
-        ...supplier,
-        amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        minlot: parseInt(supplier?.minlot) || '',
-        price: parseFloat(supplier?.price) || '',
-        heightUnit: supplier?.heightUnit || null,
-        widthUnit: supplier?.widthUnit || null,
-        lengthUnit: supplier?.lengthUnit || null,
-        weighUnit: supplier?.weighUnit || null,
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        images: this.readyImages,
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        imageUnit: this.readyImages,
-      }
-
-      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier, undefined, undefined, true)
-      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-
-      await ProductModel.addSuppliersToProduct(this.selectedRowId, [createSupplierResult.guid])
-
-      if (makeMainSupplier) {
-        await ClientModel.updateProduct(this.selectedRowId, {
-          currentSupplierId: createSupplierResult.guid,
-        })
-      }
-
-      toast.success(t(TranslationKey['Supplier added']))
-
-      await this.getCurrentData()
-    } catch (error) {
-      console.error(error)
-
-      toast.error(t(TranslationKey.Error))
-    }
-  }
-
   async onClickAddSupplierButton() {
     try {
       this.getSuppliersPaymentMethods()
 
-      this.onTriggerOpenModal('showAddOrEditSupplierModal')
+      this.onTriggerOpenModal('showAddSupplierProductModal')
     } catch (error) {
       console.error(error)
     }
@@ -1251,38 +1191,11 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     this.selectedProduct = item
   }
 
-  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn(supplierCardId) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      supplier = {
-        ...supplier,
-        amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        heightUnit: supplier?.heightUnit || null,
-        widthUnit: supplier?.widthUnit || null,
-        lengthUnit: supplier?.lengthUnit || null,
-        weighUnit: supplier?.weighUnit || null,
-        minlot: parseInt(supplier?.minlot) || '',
-        price: parseFloat(supplier?.price) || '',
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        images: this.readyImages,
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        imageUnit: this.readyImages,
-      }
-
-      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
-      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-
-      await ProductModel.addSuppliersToProduct(this.selectedRowId || this.selectedRows[0], [createSupplierResult.guid])
+      await ProductModel.addSuppliersToProduct(this.selectedRowId || this.selectedRows[0], [supplierCardId])
 
       await this.getCurrentData()
 

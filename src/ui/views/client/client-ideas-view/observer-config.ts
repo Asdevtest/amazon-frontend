@@ -34,7 +34,6 @@ export const observerConfig = {
   currentIdeaId: observable,
   currentProposal: observable,
   currentRequest: observable,
-  paymentMethods: observable,
   isIdeaCreate: observable,
 
   userInfo: computed,
@@ -43,7 +42,6 @@ export const observerConfig = {
 
   getDataForIdeaModal: action.bound,
   onClickVariationRadioButton: action.bound,
-  getSuppliersPaymentMethods: action.bound,
   getStorekeepers: action.bound,
   statusHandler: action.bound,
   handleStatusToCheck: action.bound,

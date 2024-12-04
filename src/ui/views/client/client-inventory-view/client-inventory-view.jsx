@@ -13,6 +13,7 @@ import { GetFilesForm } from '@components/forms/get-files-form'
 import { ProductDataForm } from '@components/forms/product-data-form'
 import { ProductLaunchForm } from '@components/forms/product-launch-form'
 import { ProductVariationsForm } from '@components/forms/product-variations-form'
+import { AddSupplierCardModal } from '@components/modals/add-supplier-card-modal'
 import { AddSuppliersModal } from '@components/modals/add-suppliers-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { EditHSCodeModal } from '@components/modals/edit-hs-code-modal'
@@ -25,7 +26,6 @@ import { SelectionSupplierModal } from '@components/modals/selection-supplier-mo
 import { SetBarcodeModal } from '@components/modals/set-barcode-modal'
 import { SetFourMonthesStockModal } from '@components/modals/set-four-monthes-stock-value-modal.js'
 import { ShowBarOrHscodeModal } from '@components/modals/show-bar-or-hs-code-modal'
-import { AddOrEditSupplierModalContent } from '@components/product/add-or-edit-supplier-modal-content'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { Modal } from '@components/shared/modal'
@@ -384,20 +384,14 @@ export const ClientInventoryView = observer(({ history }) => {
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}
       {viewModel.showProgress && <CircularProgressWithLabel />}
 
-      <Modal
-        openModal={viewModel.showAddOrEditSupplierModal}
-        setOpenModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
-      >
-        <AddOrEditSupplierModalContent
-          // @ts-ignore
-          paymentMethods={viewModel.paymentMethods}
-          requestStatus={viewModel.requestStatus}
-          platformSettings={viewModel.platformSettings}
-          title={t(TranslationKey['Adding and editing a supplier'])}
-          onClickSaveBtn={viewModel.onClickSaveSupplierBtn}
-          onTriggerShowModal={() => viewModel.onTriggerOpenModal('showAddOrEditSupplierModal')}
+      {viewModel.showAddSupplierProductModal ? (
+        <AddSupplierCardModal
+          hideStatusButton
+          handleUpdate={viewModel.onClickSaveSupplierBtn}
+          openModal={viewModel.showAddSupplierProductModal}
+          setOpenModal={() => viewModel.onTriggerOpenModal('showAddSupplierProductModal')}
         />
-      </Modal>
+      ) : null}
 
       {viewModel.showEditProductTagsModal ? (
         <EditProductTags

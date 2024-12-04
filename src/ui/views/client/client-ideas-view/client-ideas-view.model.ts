@@ -18,7 +18,6 @@ import { RequestModel } from '@models/request-model'
 import { RequestProposalModel } from '@models/request-proposal'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { checkIsValidProposalStatusToShowResoult } from '@utils/checks'
@@ -35,7 +34,6 @@ import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 import { ISupplier } from '@typings/models/suppliers/supplier'
 import { IDestination } from '@typings/shared/destinations'
 import { IFullUser } from '@typings/shared/full-user'
-import { IPaymentMethod } from '@typings/shared/payment-method'
 import { IUploadFile } from '@typings/shared/upload-file'
 
 import { fieldsForSearch, filtersFields } from './client-ideas-view.constants'
@@ -87,7 +85,6 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   ideaIdFromParam: string | null
   currentProposal?: IProposal
   currentRequest = undefined
-  paymentMethods: IPaymentMethod[] = []
 
   // * Modal states
 
@@ -211,18 +208,6 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       this.productsToLaunch = result.rows as unknown as IProduct[]
     } catch (error) {
       this.setRequestStatus(loadingStatus.FAILED)
-      console.error(error)
-    }
-  }
-
-  async getSuppliersPaymentMethods() {
-    try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = response as IPaymentMethod[]
-      })
-    } catch (error) {
       console.error(error)
     }
   }

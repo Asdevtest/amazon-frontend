@@ -6,7 +6,6 @@ import { ideaStatusByKey, ideaStatusGroupsNames } from '@constants/statuses/idea
 
 import { DataGridFilterTableModel } from '@models/data-grid-filter-table-model'
 import { IdeaModel } from '@models/ideas-model'
-import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
@@ -14,7 +13,6 @@ import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-f
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IIdea } from '@typings/models/ideas/idea'
 import { IProduct } from '@typings/models/products/product'
-import { IPaymentMethod } from '@typings/shared/payment-method'
 
 import { buyerIdeasColumns } from './buyer-ideas.columns'
 import { fieldsForSearch } from './buyer-ideas.constants'
@@ -27,8 +25,6 @@ export class BuyerIdeasViewModel extends DataGridFilterTableModel {
   productId: string = ''
   currentIdeaId: string = ''
   currentProduct: IProduct | null = null
-
-  paymentMethods: IPaymentMethod[] = []
 
   get platformSettings() {
     return UserModel.platformSettings
@@ -109,18 +105,6 @@ export class BuyerIdeasViewModel extends DataGridFilterTableModel {
     })
 
     this.onTriggerOpenModal('showAddSupplierProductModal')
-  }
-
-  async getSuppliersPaymentMethods() {
-    try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = response as IPaymentMethod[]
-      })
-    } catch (error) {
-      console.error(error)
-    }
   }
 
   async onClickSaveSupplierBtn(supplierCardId?: string) {
