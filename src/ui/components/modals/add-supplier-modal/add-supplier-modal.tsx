@@ -65,7 +65,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
     viewModel.setImages(images)
   }
 
-  const onFinish = async (value: CreateSupplier) => {
+  const onSaveSupplier = async (value: CreateSupplier) => {
     let result = supplierId
 
     if (supplierId) {
@@ -74,18 +74,23 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
       result = await viewModel.createSupplier(value)
     }
 
+    return result
+  }
+
+  const onFinish = async (value: CreateSupplier) => {
+    await onSaveSupplier(value)
     updateHandler?.()
     onCloseModal()
-
-    return result
   }
 
   const handleChangeStatus = async (status: SupplierCardStatus) => {
     try {
       await form.validateFields()
-      const result = (await onFinish(form.getFieldsValue())) as string
+      const result = (await onSaveSupplier(form.getFieldsValue())) as string
+      await viewModel.changeSupplierStatus(result, status)
+      updateHandler?.()
 
-      viewModel.changeSupplierStatus(result, status)
+      onCloseModal()
     } catch (error) {
       console.error(error)
     }
