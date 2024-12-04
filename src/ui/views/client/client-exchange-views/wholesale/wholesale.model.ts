@@ -14,7 +14,7 @@ import { wholesaleConfig } from './wholesale.config'
 
 export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
   showSelectShopsModal = false
-  supplierCardId?: string
+  supplierCardIds: string[] = []
 
   get items() {
     return this.data
@@ -37,15 +37,27 @@ export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
     this.showSelectShopsModal = !this.showSelectShopsModal
   }
 
-  onSelectSupplierCard(cardId?: string) {
-    this.supplierCardId = cardId
+  onChangeSupplierCard(cardId?: string) {
+    if (cardId) {
+      const foundCardById = this.supplierCardIds.find(id => id === cardId)
+
+      if (foundCardById) {
+        this.supplierCardIds = this.supplierCardIds.filter(id => id !== cardId)
+      } else {
+        this.supplierCardIds.push(cardId)
+      }
+    }
+  }
+
+  onSelectSupplierCard(cardId: string) {
+    this.supplierCardIds = [cardId]
     this.onToggleSelectShopsModal()
   }
 
   async onAddToInventory(shopId: string) {
     try {
       const data = {
-        supplierCardId: this.supplierCardId,
+        supplierCardIds: this.supplierCardIds,
         shopId,
       }
       await ClientModel.createSupplierProduct(data)
@@ -55,7 +67,7 @@ export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
       toast.error(t(TranslationKey['Data not saved']))
     } finally {
       runInAction(() => {
-        this.supplierCardId = undefined
+        this.supplierCardIds = []
       })
     }
   }

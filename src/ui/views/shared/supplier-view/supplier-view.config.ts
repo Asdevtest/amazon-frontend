@@ -2,13 +2,14 @@ import { action, computed, observable } from 'mobx'
 
 export const supplierConfig = {
   showSelectShopsModal: observable,
-  supplierCardId: observable,
+  supplierCardIds: observable,
   supplier: computed,
   products: computed,
   showFilter: computed,
   productsAll: computed,
   productsBig: computed,
   onToggleSelectShopsModal: action.bound,
+  onChangeSupplierCard: action.bound,
   onSelectSupplierCard: action.bound,
   onAddToInventory: action.bound,
 }

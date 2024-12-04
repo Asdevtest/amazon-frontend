@@ -16,7 +16,7 @@ import { filterFields, supplierConfig } from './supplier-view.config'
 
 export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
   showSelectShopsModal = false
-  supplierCardId?: string
+  supplierCardIds: string[] = []
 
   get supplier(): ISupplierExchange {
     return this.meta?.supplier
@@ -53,15 +53,27 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
     this.showSelectShopsModal = !this.showSelectShopsModal
   }
 
-  onSelectSupplierCard(cardId?: string) {
-    this.supplierCardId = cardId
+  onChangeSupplierCard(cardId?: string) {
+    if (cardId) {
+      const foundCardById = this.supplierCardIds.find(id => id === cardId)
+
+      if (foundCardById) {
+        this.supplierCardIds = this.supplierCardIds.filter(id => id !== cardId)
+      } else {
+        this.supplierCardIds.push(cardId)
+      }
+    }
+  }
+
+  onSelectSupplierCard(cardId: string) {
+    this.supplierCardIds = [cardId]
     this.onToggleSelectShopsModal()
   }
 
   async onAddToInventory(shopId: string) {
     try {
       const data = {
-        supplierCardId: this.supplierCardId,
+        supplierCardId: this.supplierCardIds,
         shopId,
       }
       await ClientModel.createSupplierProduct(data)
@@ -71,7 +83,7 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
       toast.error(t(TranslationKey['Data not saved']))
     } finally {
       runInAction(() => {
-        this.supplierCardId = undefined
+        this.supplierCardIds = []
       })
     }
   }
