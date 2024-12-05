@@ -2115,5 +2115,7 @@
   "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "Обрана дата відправлення не відповідає допустимому інтервалу, виходячи з терміну виготовлення та підготовки продукту",
   "Supplier reviews": "Відгуки по поставщику",
   "Not enough money on balance": "Недостатньо грошових коштів на балансі",
-  "Support": "Підтримка"
+  "Support": "Підтримка",
+  "Selected items have been successfully added to the inventory": "Вибрані товари успішно додані до інвентарю",
+  "Selected items have not been added to the inventory": "Вибрані товари не були додані до інвентарю"
 }

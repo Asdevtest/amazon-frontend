@@ -2116,4 +2116,6 @@ export enum TranslationKey {
   'Supplier reviews' = 'Supplier reviews',
   'Not enough money on balance' = 'Not enough money on balance',
   'Support' = 'Support',
+  'Selected items have been successfully added to the inventory' = 'Selected items have been successfully added to the inventory',
+  'Selected items have not been added to the inventory' = 'Selected items have not been added to the inventory',
 }
