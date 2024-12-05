@@ -429,9 +429,7 @@ export const OrderModalBodyRow = ({
               labelClasses={styles.labelField}
               label={t(TranslationKey['Batch delivery cost']) + ',$'}
               inputComponent={
-                <p className={styles.sumText}>
-                  {toFixed(item.currentSupplierCard?.batchDeliveryCostInDollar, 2) || t(TranslationKey['No data'])}
-                </p>
+                <p className={styles.sumText}>{toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}</p>
               }
             />
 
