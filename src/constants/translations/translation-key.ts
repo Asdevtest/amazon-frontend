@@ -931,6 +931,7 @@ export enum TranslationKey {
   'Add boxes for this order' = 'Add boxes for this order',
   'This product already exists' = 'This product already exists',
   'My balance' = 'My balance',
+  "Users's balance" = "Users's balance",
   'Trading stores' = 'Trading stores',
   'Buy store' = 'Buy store',
   'Sell the store' = 'Sell the store',

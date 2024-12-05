@@ -25,7 +25,7 @@ export const UserBalance = observer(({ userId }) => {
 
   return (
     <>
-      {viewModel.user ? <DashboardBalance user={viewModel.user} /> : null}
+      {viewModel.user ? <DashboardBalance isNotCurrentUser user={viewModel.user} /> : null}
 
       <div className={styles.buttons}>
         <CustomButton onClick={viewModel.onTriggerReplenishModal}>{t(TranslationKey.Deposit)}</CustomButton>
