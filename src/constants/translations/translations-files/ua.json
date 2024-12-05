@@ -1844,7 +1844,6 @@
   "Is the supplier's price unacceptable": "Ціна постачальника неприйнятна?",
   "The supplier's price is not acceptable?": "Ціна постачальника неприйнятна?",
   "Review of the performer's work": "Огляд роботи виконавця",
-  "You can't buy the product": "Ви не можете купити продукт",
   "You can't order": "Ви не можете замовити",
   "At the supervisor's check": "На перевірці у cупервайзера",
   "All that's left is to check the data": "Залишилося лише перевірити дані",
@@ -2113,5 +2112,6 @@
   "Preparing for shipment": "Підготовка до відправлення",
   "Number of days off": "Кількість вихідних днів",
   "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "Обрана дата відправлення не відповідає допустимому інтервалу, виходячи з терміну виготовлення та підготовки продукту",
-  "Supplier reviews": "Відгуки по поставщику"
+  "Supplier reviews": "Відгуки по поставщику",
+  "Not enough money on balance": "Недостатньо грошових коштів на балансі"
 }

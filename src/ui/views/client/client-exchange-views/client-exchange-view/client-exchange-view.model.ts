@@ -217,7 +217,7 @@ export class ClientExchangeViewModel extends DataGridTableModel {
       this.updateUserInfo()
       this.getCurrentData()
     } catch (error) {
-      toast.error(t(TranslationKey["You can't buy the product"]))
+      toast.error(t(TranslationKey['Not enough money on balance']))
 
       console.error(error)
     }
