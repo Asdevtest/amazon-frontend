@@ -249,13 +249,6 @@ export const SuppliersAndIdeas = observer(props => {
         </>
       )}
 
-      {!currentData?.length || !curIdea ? (
-        <div className={styles.emptyTableWrapper}>
-          <img src="/assets/icons/empty-table.svg" />
-          <h5 className={styles.emptyTableText}>{t(TranslationKey['No ideas yet'])}</h5>
-        </div>
-      ) : null}
-
       {showConfirmModal ? (
         <ConfirmationModal
           // @ts-ignore
