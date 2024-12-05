@@ -243,12 +243,14 @@ export const buyerOrdersColumns = ({
       renderCell: params => {
         const currentSupplier = params.row.orderSupplierCard
 
-        return <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+        return currentSupplier ? (
+          <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+        ) : null
       },
       valueGetter: params => {
         const currentSupplier = params.row.orderSupplierCard
 
-        return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
+        return currentSupplier ? `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}` : null
       },
 
       fields: productionTimeColumnMenuItems,
