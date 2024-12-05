@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    width: '540px',
+    height: '100%',
     padding: '10px',
     display: 'flex',
     gap: '15px',

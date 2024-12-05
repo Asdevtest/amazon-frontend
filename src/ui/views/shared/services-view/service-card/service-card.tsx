@@ -13,38 +13,29 @@ import { t } from '@utils/translations'
 
 import { IAnnoucement } from '@typings/models/announcements/annoucement'
 
-import { useStyles } from './service-exchange-card.style'
+import { useStyles } from './service-card.style'
 
-interface ServiceExchangeCardProps {
+interface ServiceCardProps {
   service: IAnnoucement
+  listMode: boolean
   onClickButton: (service: IAnnoucement) => void
-  choose?: boolean
-  order?: boolean
-  variant?: 'list' | 'card'
-  freelancer?: boolean
+  isClient?: boolean
 }
 
-export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
-  const { service, onClickButton, choose, order, variant = 'list', freelancer } = props
+export const ServiceCard: FC<ServiceCardProps> = memo(props => {
+  const { service, listMode, onClickButton, isClient } = props
 
   const { classes: styles, cx } = useStyles()
   const [isOpenModal, setIsOpenModal] = useState(false)
 
-  const handleToggleModal = () => {
-    setIsOpenModal(!isOpenModal)
-  }
+  const handleToggleModal = () => setIsOpenModal(!isOpenModal)
 
   const detailDescription = service.spec?.type === 0 ? t(TranslationKey.Universal) : service.spec?.title
-  const buttonContent = choose
-    ? t(TranslationKey.Choose)
-    : order
-    ? t(TranslationKey['To order'])
-    : t(TranslationKey.Open)
-  const isCard = variant === 'card'
+  const buttonContent = isClient ? t(TranslationKey['To order']) : t(TranslationKey.Open)
 
   return (
     <>
-      <div className={cx(styles.wrapper, { [styles.cardWrapper]: isCard })} onClick={handleToggleModal}>
+      <div className={cx(styles.wrapper, { [styles.cardWrapper]: !listMode })} onDoubleClick={handleToggleModal}>
         <div className={styles.serviceWrapper}>
           <CustomImage width={240} height={160} rootClassName={styles.image} src={service.linksToMediaFiles?.[0]} />
 
@@ -64,12 +55,12 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
           </div>
         </div>
 
-        <div className={styles.descriptionWrapper} onClick={handleToggleModal}>
+        <div className={styles.descriptionWrapper}>
           <Text strong rows={2} copyable={false} text={service.title} />
 
           <Text copyable={false} text={service.description} />
 
-          {freelancer ? (
+          {!isClient ? (
             <p className={styles.detailsText}>
               <span className={styles.detailTitle}>{t(TranslationKey['Number of requests']) + ':'}</span>
               <span className={styles.detailDescription}>{service.requests.length}</span>
@@ -88,8 +79,7 @@ export const ServiceExchangeCard: FC<ServiceExchangeCardProps> = memo(props => {
         <AnnouncementModal
           openModal={isOpenModal}
           service={service}
-          choose={choose}
-          order={order}
+          order={isClient}
           onOpenModal={handleToggleModal}
           onClickButton={() => onClickButton(service)}
         />

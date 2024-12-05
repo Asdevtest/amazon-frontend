@@ -345,8 +345,13 @@ const AnotherUserProfileView = lazy(() =>
 const CreateOrEditProposalView = lazy(() =>
   import('@views/shared/create-or-edit-proposal-view').then(module => ({ default: module.CreateOrEditProposalView })),
 )
+
 const MyServicesView = lazy(() =>
-  import('@views/shared/my-services-view').then(module => ({ default: module.MyServicesView })),
+  import('@views/shared/services-view').then(module => {
+    const Component = module.ServicesView
+
+    return { default: props => <Component isClient={false} {...props} /> }
+  }),
 )
 
 const CreateOrEditServicesView = lazy(() =>
@@ -392,7 +397,11 @@ const AllProposalsView = lazy(() =>
 )
 
 const ServiceExchangeView = lazy(() =>
-  import('@views/shared/service-exchange-view').then(module => ({ default: module.ServiceExchangeView })),
+  import('@views/shared/services-view').then(module => {
+    const Component = module.ServicesView
+
+    return { default: props => <Component isClient {...props} /> }
+  }),
 )
 
 const MyRequestsView = lazy(() =>
