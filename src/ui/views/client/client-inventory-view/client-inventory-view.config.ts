@@ -3,13 +3,13 @@ import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tabl
 
 export const productionTimeColumnMenuValue = [
   {
-    field: 'minProductionTerm',
-    table: DataGridFilterTables.SUPPLIER_CARDS,
+    field: 'currentSupplierCardMinProductionTerm',
+    table: DataGridFilterTables.PRODUCTS,
     columnKey: ColumnMenuKeys.NUMBER,
   },
   {
-    field: 'maxProductionTerm',
-    table: DataGridFilterTables.SUPPLIER_CARDS,
+    field: 'currentSupplierCardMaxProductionTerm',
+    table: DataGridFilterTables.PRODUCTS,
     columnKey: ColumnMenuKeys.NUMBER,
   },
 ]
