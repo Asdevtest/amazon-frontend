@@ -14,7 +14,7 @@ export const updateOrderKeys = [
   'yuanToDollarRate',
   'paymentDetails',
   'amount',
-  'orderSupplierId',
+  'orderSupplierCardId',
   'priceInYuan',
   'priceBatchDeliveryInYuan',
   'partialPaymentAmountRmb',
