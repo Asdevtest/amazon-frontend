@@ -67,8 +67,8 @@ export const clientBoxesViewColumns = (
       renderCell: params => <Text isCell text={params.row?.items?.[0]?.product?.marketPlaceCountry?.shortTitle} />,
       valueGetter: ({ row }) => row?.items?.[0]?.product?.marketPlaceCountry?.shortTitle,
       width: 100,
-      disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      titleKey: 'shortTitle',
       table: DataGridFilterTables.PRODUCTS,
     },
 

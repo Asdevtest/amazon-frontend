@@ -51,6 +51,16 @@ export const generalNotificationsColumns = (rowHandlers: RowHandlers) => {
     },
 
     {
+      field: 'marketPlaceCountry',
+      headerName: t(TranslationKey.Marketplace),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Marketplace)} />,
+      renderCell: (params: GridCellParams) => <Text isCell text={params.row?.marketPlaceCountry?.shortTitle} />,
+      width: 100,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      titleKey: 'shortTitle',
+    },
+
+    {
       field: 'type',
       headerName: t(TranslationKey['Notification type']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Notification type'])} />,
