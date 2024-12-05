@@ -28,7 +28,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   productCell: {
-    maxWidth: 260,
+    maxWidth: 220,
   },
 
   commentInput: {
@@ -133,6 +133,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     flexWrap: 'nowrap',
     gap: '3px',
+
     span: {
       maxWidth: '100px',
       overflow: 'hidden',
@@ -156,5 +157,9 @@ export const useStyles = makeStyles()(theme => ({
 
   warningIcon: {
     color: 'red',
+  },
+
+  inputCell: {
+    width: '210px',
   },
 }))

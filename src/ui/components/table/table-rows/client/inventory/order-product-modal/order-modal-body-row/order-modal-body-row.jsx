@@ -75,16 +75,13 @@ export const OrderModalBodyRow = ({
 
   const weightOfOneBox = item.currentSupplierCard
     ? Math.max(
-        Math.round(
-          (((item.currentSupplierCard?.boxProperties?.boxWidthCm || 0) *
-            (item.currentSupplierCard?.boxProperties?.boxLengthCm || 0) *
-            (item.currentSupplierCard?.boxProperties?.boxHeightCm || 0)) /
-            platformSettings?.volumeWeightCoefficient) *
-            100,
-        ) / 100 || 0,
-        item.currentSupplierCard?.boxProperties?.boxWeighGrossKg,
-      ) / item.currentSupplierCard?.boxProperties?.amountInBox
-    : ''
+        ((item.currentSupplierCard?.boxProperties?.boxWidthCm || 0) *
+          (item.currentSupplierCard?.boxProperties?.boxLengthCm || 0) *
+          (item.currentSupplierCard?.boxProperties?.boxHeightCm || 0)) /
+          platformSettings?.volumeWeightCoefficient || 0,
+        item.currentSupplierCard?.boxProperties?.boxWeighGrossKg || 0,
+      ) / item.currentSupplierCard?.boxProperties?.amountInBox || 0
+    : 0
 
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
 
@@ -122,12 +119,12 @@ export const OrderModalBodyRow = ({
     }
   }, [orderState.amount])
 
-  const costDeliveryOfBatch = weightOfBatch * tariffRate
+  const costDeliveryOfBatch = (weightOfBatch || 0) * (tariffRate || 0)
 
   useEffect(() => {
     if (orderState.amount > 0 && costDeliveryOfBatch) {
       const result =
-        Number(costDeliveryOfBatch) +
+        Number(weightOfOneBox) * Number(tariffRate || 0) +
         Number(item.currentSupplierCard?.priceInUsd) +
         Number(item.currentSupplierCard?.batchDeliveryCostInDollar / item.currentSupplierCard?.amount)
 
@@ -214,7 +211,7 @@ export const OrderModalBodyRow = ({
           </p>
         </TableCell>
 
-        <TableCell className={styles.cell}>
+        <TableCell className={cx(styles.cell, styles.inputCell)}>
           <CustomInput
             fullWidth
             maxLength={6}
