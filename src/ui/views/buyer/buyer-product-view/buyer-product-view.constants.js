@@ -13,7 +13,7 @@ export const fieldsOfProductAllowedToUpdate = [
   'margin',
   'buyersComment',
   'additionalProp1',
-  'currentSupplierId',
+  'currentSupplierCardId',
   'tags',
 ]
 
@@ -27,7 +27,7 @@ export const fieldsOfProductAllowedToForceUpdate = [
   'margin',
   'buyersComment',
   'additionalProp1',
-  'currentSupplierId',
+  'currentSupplierCardId',
   'tags',
 ]
 
