@@ -2113,5 +2113,7 @@
   "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "选择的发货日期不符合根据产品制作和准备时间确定的可接受范围",
   "Supplier reviews": "供应商评论",
   "Not enough money on balance": "余额中的资金不足",
-  "Support": "支持"
+  "Support": "支持",
+  "Selected items have been successfully added to the inventory": "选定的物品已成功添加到库存中",
+  "Selected items have not been added to the inventory": "选定的物品未添加到库存中"
 }

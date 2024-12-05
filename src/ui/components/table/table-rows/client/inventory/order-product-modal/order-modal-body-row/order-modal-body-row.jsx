@@ -158,12 +158,6 @@ export const OrderModalBodyRow = ({
     setBoxQuantity(dinamicBoxQuantity)
   }, [orderState?.amount])
 
-  useEffect(() => {
-    if (item?.valueForOrder) {
-      setBoxQuantity(item?.valueForOrder)
-    }
-  }, [])
-
   const quantityInputSuffix =
     boxQuantity > 0 ? (
       <>
