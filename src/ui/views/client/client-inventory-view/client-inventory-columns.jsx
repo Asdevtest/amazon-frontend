@@ -307,14 +307,14 @@ export const clientInventoryColumns = ({
       headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
-        const currentSupplier = params.row.currentSupplier
+        const currentSupplier = params.row.currentSupplierCard
 
         return currentSupplier ? (
           <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
         ) : null
       },
       valueGetter: params => {
-        const currentSupplier = params.row.currentSupplier
+        const currentSupplier = params.row.currentSupplierCard
 
         return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
       },
