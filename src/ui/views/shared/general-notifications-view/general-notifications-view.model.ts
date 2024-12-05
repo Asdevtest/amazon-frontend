@@ -56,6 +56,11 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
       field: 'updatedAt',
       headerName: t(TranslationKey.Updated),
     },
+
+    {
+      field: 'marketPlaceCountry',
+      headerName: t(TranslationKey.Marketplace),
+    },
   ]
 
   get userInfo(): IFullUser | undefined {
@@ -74,7 +79,7 @@ export class GeneralNotificationsViewModel extends DataGridFilterTableModel {
 
     const columns = generalNotificationsColumns(rowHandlers)
 
-    const filtersFields = ['type', 'shop', 'createdAt', 'updatedAt']
+    const filtersFields = ['type', 'shop', 'createdAt', 'marketPlaceCountry', 'updatedAt']
 
     if (checkIsFreelancer(UserRoleCodeMap[rowHandlers.userInfo()?.role || 0])) {
       filtersFields.push('user')

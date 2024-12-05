@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   wrapper: {
-    height: 445,
+    height: 435,
     padding: '0 5px 5px',
     overflow: 'auto',
     display: 'flex',
@@ -11,7 +11,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   title: {
-    marginBottom: 10,
+    marginBottom: 5,
     color: theme.palette.text.general,
     textTransform: 'capitalize',
   },
@@ -57,13 +57,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   checkbox: {
-    padding: 0,
-    borderRadius: '0 5px 0 6px',
-    background: theme.palette.background.general,
-
-    '&:hover': {
-      background: theme.palette.background.general,
-    },
+    borderRadius: '0 5px 0 6px !important',
   },
 
   noPhotos: {

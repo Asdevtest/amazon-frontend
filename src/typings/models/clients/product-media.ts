@@ -1,8 +1,8 @@
 export interface IProductMedia {
   productImages: Array<string>
   latestSeoFiles: Array<string>
-  currentSupplierImage: Array<string>
-  supplierImage: Array<ISupplierImage>
+  currentSupplierCardImage: Array<string>
+  supplierCardsImages: Array<ISupplierImage>
 }
 
 interface ISupplierImage {
