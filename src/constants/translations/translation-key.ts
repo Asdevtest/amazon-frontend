@@ -2114,4 +2114,5 @@ export enum TranslationKey {
   'The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product' = 'The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product',
   'Supplier reviews' = 'Supplier reviews',
   'Not enough money on balance' = 'Not enough money on balance',
+  'Support' = 'Support',
 }
