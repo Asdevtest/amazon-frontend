@@ -14,11 +14,11 @@ interface MediaContentCellProps {
 export const MediaContentCell: FC<MediaContentCellProps> = memo(({ files }) => {
   const { classes: styles } = useStyles()
 
+  const items = useImagesValidation(files || [])
+
   if (!files.length) {
     return null
   }
-
-  const items = useImagesValidation(files)
 
   return (
     <div className={styles.wrapper}>
