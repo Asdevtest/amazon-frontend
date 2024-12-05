@@ -79,7 +79,7 @@ export const RequestTermsList = props => {
           }
         />
       </div>
-      <div style={{ height: '100%' }}>
+      <div>
         <Field
           labelClasses={styles.fieldLabel}
           containerClasses={styles.fieldContainer}
