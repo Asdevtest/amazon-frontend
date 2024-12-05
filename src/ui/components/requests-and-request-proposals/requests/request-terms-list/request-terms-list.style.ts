@@ -4,7 +4,6 @@ export const useStyles = makeStyles()(theme => ({
   body: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
     width: '100%',
     alignSelf: 'center',
     flexWrap: 'wrap',
@@ -27,7 +26,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   fieldContainer: {
-    minHeight: 40,
+    height: '60px',
     marginBottom: '25px !important',
     maxWidth: '100px',
     '&:last-child': {
