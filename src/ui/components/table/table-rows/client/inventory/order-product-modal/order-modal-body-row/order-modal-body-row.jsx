@@ -151,7 +151,7 @@ export const OrderModalBodyRow = ({
     ? `${item.currentSupplierCard?.minProductionTerm} - ${item.currentSupplierCard?.maxProductionTerm}`
     : t(TranslationKey['No data'])
 
-  const [boxQuantity, setBoxQuantity] = useState(item?.valueForOrder || 0)
+  const [boxQuantity, setBoxQuantity] = useState(0)
 
   useEffect(() => {
     const dinamicBoxQuantity = toFixed(
@@ -161,6 +161,12 @@ export const OrderModalBodyRow = ({
 
     setBoxQuantity(dinamicBoxQuantity)
   }, [orderState?.amount])
+
+  useEffect(() => {
+    if (item?.valueForOrder) {
+      setBoxQuantity(item?.valueForOrder)
+    }
+  }, [])
 
   const quantityInputSuffix =
     boxQuantity > 0 ? (
@@ -179,6 +185,7 @@ export const OrderModalBodyRow = ({
       <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
     </p>
   )
+
   return (
     <>
       <TableRow
