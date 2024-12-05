@@ -61,7 +61,8 @@ export const additionalFilterFields = [
   'purchaseQuantity',
   'amountInBoxes',
   'toRefill',
-  'currentSupplierMinProductionTerm',
+  'maxProductionTerm',
+  'minProductionTerm',
 ]
 
 export const disableSelectionCells = ['stockUSA', 'purchaseQuantity', 'barCode', 'stockUSA', 'tags']
