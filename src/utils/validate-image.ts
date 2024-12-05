@@ -1,9 +1,8 @@
-export const validateImage = (url: string): Promise<boolean> => {
-  return new Promise(resolve => {
+export const validateImage = (url: string): Promise<boolean> =>
+  new Promise(resolve => {
     const img = new Image()
     img.src = url
 
     img.onload = () => resolve(true)
     img.onerror = () => resolve(false)
   })
-}
