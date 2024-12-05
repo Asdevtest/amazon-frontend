@@ -30,11 +30,13 @@ export const maxValueRules = (fieldName: string) => [
 export const createFilterCondition = (
   key: string,
   operator: string,
-  value: string | number,
+  value: string | number | boolean,
 ): FilterOptionsType | null => (value ? { [key]: { [operator]: value } } : null)
 
-export const getFilterOptions = (options: FilterOptionsType[]) =>
-  options?.reduce((acc: FilterOptionsType, filter: any) => {
+export const getFilterOptions = (options: (FilterOptionsType | null)[]) => {
+  const filterNullsOptions: FilterOptionsType[] = options.filter(option => option !== null)
+
+  return filterNullsOptions?.reduce((acc: FilterOptionsType, filter: any) => {
     const key = Object.keys(filter)[0]
 
     if (!acc[key]) {
@@ -45,3 +47,4 @@ export const getFilterOptions = (options: FilterOptionsType[]) =>
 
     return acc
   }, {})
+}

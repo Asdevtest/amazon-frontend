@@ -5,8 +5,6 @@ import { TbFilter, TbFilterCheck } from 'react-icons/tb'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { FilterOptionsType } from '@models/infinite-scroll-model/infinite-scroll.model'
-
 import { CategoriesModel } from '@components/contents/admin-settings-content/admin-tabs/categories/categories.model'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
@@ -40,8 +38,7 @@ export const CardsFilter: FC<CardsFilterProps> = observer(props => {
       createFilterCondition('category', '$eq', values.category?.join(',')),
       createFilterCondition('minlot', '$gte', Number(values.minlotMin)),
       createFilterCondition('minlot', '$lte', Number(values.minlotMax)),
-    ].filter(Boolean) as FilterOptionsType[]
-
+    ]
     const filterOptions = getFilterOptions(filterOptionsArray)
 
     onSubmit(filterOptions)
