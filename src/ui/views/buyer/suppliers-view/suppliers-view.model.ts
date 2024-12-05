@@ -58,6 +58,10 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
       return {}
     }
 
+    const operatorsSettings = {
+      supplier: '$any',
+    }
+
     super({
       getMainDataMethod,
       columnsModel,
@@ -66,6 +70,7 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
       fieldsForSearch,
       tableKey,
       defaultSortModel: sortModel,
+      operatorsSettings,
       defaultFilterParams,
     })
     makeObservable(this, observerConfig)

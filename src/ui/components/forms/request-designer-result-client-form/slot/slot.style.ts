@@ -8,17 +8,18 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   imageObjSubWrapper: {
-    width: 161,
+    width: '161px',
+    height: '42px',
     display: 'flex',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: '10px',
+    gap: '10px',
   },
 
   imageObjIndex: {
     fontWeight: 700,
     fontSize: 20,
     color: theme.palette.text.second,
-    marginRight: 10,
   },
 
   imageObjTitle: {
@@ -71,11 +72,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   commentIcon: {
-    position: 'absolute',
-    top: '11px',
-    right: '15px',
-    width: '16px !important',
-    height: '16px !important',
+    width: '16px',
+    height: '16px',
   },
 
   commentBtnWrapper: {

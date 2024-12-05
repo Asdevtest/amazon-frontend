@@ -1846,7 +1846,6 @@ export enum TranslationKey {
   "Is the supplier's price unacceptable" = "Is the supplier's price unacceptable",
   "The supplier's price is not acceptable?" = "The supplier's price is not acceptable?",
   "Review of the performer's work" = "Review of the performer's work",
-  "You can't buy the product" = "You can't buy the product",
   "You can't order" = "You can't order",
   "At the supervisor's check" = "At the supervisor's check",
   "All that's left is to check the data" = "All that's left is to check the data",
@@ -2114,4 +2113,5 @@ export enum TranslationKey {
   'Number of days off' = 'Number of days off',
   'The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product' = 'The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product',
   'Supplier reviews' = 'Supplier reviews',
+  'Not enough money on balance' = 'Not enough money on balance',
 }

@@ -1842,7 +1842,6 @@
   "Is the supplier's price unacceptable": "供应商的价格不可接受?",
   "The supplier's price is not acceptable?": "供应商的价格不可接受?",
   "Review of the performer's work": "执行者的工作评审",
-  "You can't buy the product": "你不能购买该产品",
   "You can't order": "你不能下订单",
   "At the supervisor's check": "由主管检查",
   "All that's left is to check the data": "只剩下检查数据",
@@ -2111,5 +2110,6 @@
   "Preparing for shipment": "准备发货",
   "Number of days off": "休假天数",
   "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "选择的发货日期不符合根据产品制作和准备时间确定的可接受范围",
-  "Supplier reviews": "供应商评论"
+  "Supplier reviews": "供应商评论",
+  "Not enough money on balance": "余额中的资金不足"
 }

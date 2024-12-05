@@ -109,7 +109,7 @@ export const clientInventoryColumns = ({
       renderCell: params => <Text isCell text={params.row?.marketPlaceCountry?.shortTitle} />,
       valueGetter: ({ row }) => row?.marketPlaceCountry?.shortTitle,
       width: 100,
-      disableCustomSort: true,
+      titleKey: 'shortTitle',
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 

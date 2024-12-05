@@ -162,6 +162,11 @@ export class ListSuppliersModel {
         break
 
       case ModalModes.ADD_SUPPLIER_CARD:
+        runInAction(() => {
+          this.supplierModalReadOnly = false
+          this.currentSupplier = undefined
+        })
+
         this.onToggleModal(ModalNames.SUPPLIER_CARD)
         break
 

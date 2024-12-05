@@ -5,6 +5,7 @@ import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 import { TabPanel } from '@components/shared/tab-panel'
 
+import { IProductMedia } from '@typings/models/clients/product-media'
 import { IRequestMedia } from '@typings/models/requests/request-media'
 
 import { useStyles } from './gallery-request-modal.style'
@@ -14,11 +15,10 @@ import { customSwitcherSettings } from '../gallery-modal/gallery-modal.config'
 import { SwitcherConditions } from '../gallery-modal/gallery-modal.type'
 
 import { Buttons, RequestDocumentsTab, RequestMediaFilesTab } from './components'
-import { IData } from './gallery-request-modal.type'
 import { useGalleryRequestModal } from './use-gallery-request-modal'
 
 interface GalleryRequestModalProps {
-  data: IData
+  data: IProductMedia
   openModal: boolean
   mediaFiles: IRequestMedia[]
   onChangeMediaFiles: (mediaFiles: IRequestMedia[]) => void

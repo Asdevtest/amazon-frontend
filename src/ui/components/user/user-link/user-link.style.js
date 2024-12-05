@@ -2,6 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   linkText: {
+    width: '100%',
     color: theme.palette.primary.main,
     fontSize: '14px',
     lineHeight: '19px',
@@ -79,5 +80,8 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
+    width: '200px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
 }))

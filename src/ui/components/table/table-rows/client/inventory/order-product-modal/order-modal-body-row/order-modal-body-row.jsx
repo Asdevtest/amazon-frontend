@@ -88,8 +88,6 @@ export const OrderModalBodyRow = ({
 
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
 
-  const costDeliveryOfBatch = weightOfBatch * tariffRate || ''
-
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
       const transformedDate = event ? dayjs(event).format() : event
@@ -124,19 +122,20 @@ export const OrderModalBodyRow = ({
     }
   }, [orderState.amount])
 
+  const costDeliveryOfBatch = weightOfBatch * tariffRate
+
   useEffect(() => {
     if (orderState.amount > 0 && costDeliveryOfBatch) {
-      setPerPriceUnit(
-        toFixed(
-          (+toFixed(costDeliveryOfBatch, 2) + +toFixed(calcProductsPriceWithDelivery(item, orderState), 2)) /
-            +orderState.amount,
-          2,
-        ),
-      )
+      const result =
+        Number(costDeliveryOfBatch) +
+        Number(item.currentSupplierCard?.priceInUsd) +
+        Number(item.currentSupplierCard?.batchDeliveryCostInDollar / item.currentSupplierCard?.amount)
+
+      setPerPriceUnit(toFixed(result, 2))
     } else {
       setPerPriceUnit(t(TranslationKey['No data']))
     }
-  }, [costDeliveryOfBatch, item, orderState, orderState.amount])
+  }, [weightOfBatch, tariffRate, item, orderState, orderState.amount])
 
   useEffect(() => {
     if (item.mainTariffVariation) {
@@ -151,7 +150,7 @@ export const OrderModalBodyRow = ({
     ? `${item.currentSupplierCard?.minProductionTerm} - ${item.currentSupplierCard?.maxProductionTerm}`
     : t(TranslationKey['No data'])
 
-  const [boxQuantity, setBoxQuantity] = useState(item?.valueForOrder || 0)
+  const [boxQuantity, setBoxQuantity] = useState(0)
 
   useEffect(() => {
     const dinamicBoxQuantity = toFixed(
@@ -161,6 +160,12 @@ export const OrderModalBodyRow = ({
 
     setBoxQuantity(dinamicBoxQuantity)
   }, [orderState?.amount])
+
+  useEffect(() => {
+    if (item?.valueForOrder) {
+      setBoxQuantity(item?.valueForOrder)
+    }
+  }, [])
 
   const quantityInputSuffix =
     boxQuantity > 0 ? (
@@ -179,6 +184,7 @@ export const OrderModalBodyRow = ({
       <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
     </p>
   )
+
   return (
     <>
       <TableRow
@@ -429,9 +435,7 @@ export const OrderModalBodyRow = ({
               labelClasses={styles.labelField}
               label={t(TranslationKey['Batch delivery cost']) + ',$'}
               inputComponent={
-                <p className={styles.sumText}>
-                  {toFixed(item.currentSupplierCard?.batchDeliveryCostInDollar, 2) || t(TranslationKey['No data'])}
-                </p>
+                <p className={styles.sumText}>{toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}</p>
               }
             />
 

@@ -233,8 +233,7 @@ export const RequestDesignerResultClientForm = memo(props => {
 
           <div className={styles.downloadsWrapper}>
             <div className={styles.downloadsCheckWrapper} onClick={onClickAllAddDownload}>
-              <CustomCheckbox checked={imagesForDownload.length === imagesData.length} />
-              <p>{t(TranslationKey['Select all'])}</p>
+              <CustomCheckbox checked={imagesForDownload.length === imagesData.length}>Select all</CustomCheckbox>
             </div>
 
             <CustomButton

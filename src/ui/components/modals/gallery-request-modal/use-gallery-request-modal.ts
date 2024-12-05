@@ -6,13 +6,14 @@ import { MAX_DEFAULT_MEDIA_FILES } from '@constants/text'
 import { checkIsDocumentLink, checkIsMediaFileLink } from '@utils/checks'
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
+import { IProductMedia } from '@typings/models/clients/product-media'
 import { IRequestMedia } from '@typings/models/requests/request-media'
 
 import { SwitcherConditions } from '../gallery-modal/gallery-modal.type'
 
-import { IData, IState } from './gallery-request-modal.type'
+import { IState } from './gallery-request-modal.type'
 
-export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[], maxNumber?: number) => {
+export const useGalleryRequestModal = (data: IProductMedia, mediaFiles: IRequestMedia[], maxNumber?: number) => {
   const [tabValue, setTabValue] = useState<SwitcherConditions>(SwitcherConditions.MEDIA_FILES)
   const [mediaFilesStates, setMediaFilesStates] = useState<IState | undefined>(undefined)
   const [documentsStates, setDocumentsStates] = useState<IState | undefined>(undefined)
@@ -30,13 +31,13 @@ export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[],
 
     Object.keys(data).forEach((person: string) => {
       // features of object key typing
-      if (person === 'productImages' || person === 'currentSupplierImage' || person === 'latestSeoFiles') {
+      if (person === 'productImages' || person === 'currentSupplierCardImage' || person === 'latestSeoFiles') {
         filterAndAssign(data[person], person)
       }
 
-      if (person === 'supplierImage') {
+      if (person === 'supplierCardsImages') {
         data[person]?.forEach((supplier, index) => {
-          filterAndAssign(supplier?.images, `supplierImage${index + 1}`)
+          filterAndAssign(supplier?.images, `supplierCardsImages${index + 1}`)
         })
       }
     })
@@ -57,6 +58,7 @@ export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[],
     const findMediaFile = allFilesToAdd.find(fileToAdd => fileToAdd.fileLink === mediaFile)
 
     let updatedFiles
+
     if (findMediaFile) {
       updatedFiles = allFilesToAdd.filter(fileToAdd => fileToAdd.fileLink !== mediaFile)
     } else {
@@ -98,6 +100,7 @@ export const useGalleryRequestModal = (data: IData, mediaFiles: IRequestMedia[],
   }
 
   const getCheckboxState = (mediaFile: string) => allFilesToAdd.some(fileToAdd => fileToAdd.fileLink === mediaFile)
+
   const getDisabledCheckbox = (mediaFile: string) => {
     const isFileAdded = allFilesToAdd.some(fileToAdd => fileToAdd.fileLink === mediaFile)
     const isMaxReached = allFilesToAdd.length >= (maxNumber || MAX_DEFAULT_MEDIA_FILES)

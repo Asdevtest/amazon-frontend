@@ -12,20 +12,20 @@ export const useStyles = makeStyles()(() => ({
     width: '450px',
   },
 
-  empty: {
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
+  announcementLists: {
+    padding: '5px',
+    display: 'grid',
+    gridAutoRows: 'min-content',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(540px, 1fr))',
+    gap: '10px',
   },
 
-  content: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
+  announcementCards: {
+    padding: '5px',
+    display: 'grid',
+    gridAutoRows: 'min-content',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
     gap: '10px',
-    overflowY: 'auto',
   },
 
   loading: {

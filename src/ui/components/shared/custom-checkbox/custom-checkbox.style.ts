@@ -7,6 +7,8 @@ export const useStyles = makeStyles()(() => ({
   },
 
   checkbox: {
+    lineHeight: '18px',
+
     span: {
       borderRadius: '4px !important', // delete when completely switching to antd
     },
