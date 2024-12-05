@@ -57,7 +57,7 @@ export const PriceVariations: FC<IPriceVariationsProps> = memo(({ form, onAddPri
         <CustomSelect
           allowClear
           showSearch={false}
-          mode="tags"
+          mode="multiple"
           wrapperClassName={sharedStyles.input}
           label="Price variations"
           options={[]}
