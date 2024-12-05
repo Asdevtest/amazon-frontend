@@ -210,16 +210,15 @@ export class ClientExchangeViewModel extends DataGridTableModel {
       })
 
       await this.onSaveProductData()
-      this.onTriggerOpenModal('showSelectShopsModal')
 
       this.openCreateOrder()
 
       this.updateUserInfo()
       this.getCurrentData()
     } catch (error) {
-      toast.error(t(TranslationKey['Not enough money on balance']))
-
       console.error(error)
+    } finally {
+      this.onTriggerOpenModal('showSelectShopsModal')
     }
   }
 
