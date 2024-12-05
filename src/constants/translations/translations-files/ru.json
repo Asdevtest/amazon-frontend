@@ -2116,5 +2116,7 @@
   "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "Выбранная дата отправки не соответствует допустимому интервалу, исходя из срока изготовления и подготовки продукта",
   "Supplier reviews": "Отзывы о поставщике",
   "Not enough money on balance": "Недостаточно денежных средств на балансе",
-  "Support": "Поддержка"
+  "Support": "Поддержка",
+  "Selected items have been successfully added to the inventory": "Выбранные товары успешно добавлены в инвентарь",
+  "Selected items have not been added to the inventory": "Выбранные товары не были добавлены в инвентарь"
 }
