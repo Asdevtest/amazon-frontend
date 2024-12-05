@@ -303,18 +303,18 @@ export const clientInventoryColumns = ({
     },
 
     {
-      field: 'currentSupplierMaxProductionTerm',
+      field: 'currentSupplierCardMinProductionTerm',
       headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
-        const currentSupplier = params.row.currentSupplier
+        const currentSupplier = params.row.currentSupplierCard
 
         return currentSupplier ? (
           <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
         ) : null
       },
       valueGetter: params => {
-        const currentSupplier = params.row.currentSupplier
+        const currentSupplier = params.row.currentSupplierCard
 
         return currentSupplier ? `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}` : null
       },
@@ -322,7 +322,6 @@ export const clientInventoryColumns = ({
       fields: productionTimeColumnMenuItems,
       columnMenuConfig: productionTimeColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
-
       sortable: false,
       width: 120,
     },
