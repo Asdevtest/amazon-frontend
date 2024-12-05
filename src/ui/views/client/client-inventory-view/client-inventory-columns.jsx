@@ -316,7 +316,7 @@ export const clientInventoryColumns = ({
       valueGetter: params => {
         const currentSupplier = params.row.currentSupplier
 
-        return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
+        return currentSupplier ? `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}` : null
       },
 
       fields: productionTimeColumnMenuItems,
