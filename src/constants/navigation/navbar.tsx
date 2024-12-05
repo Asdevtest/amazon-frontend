@@ -384,7 +384,7 @@ export const navbarConfig = {
     },
     {
       icon: FeedbackIcon,
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
       route: '/client/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -436,7 +436,7 @@ export const navbarConfig = {
     },
     {
       icon: FeedbackIcon,
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
       route: '/researcher/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -538,7 +538,7 @@ export const navbarConfig = {
     },
     {
       icon: FeedbackIcon,
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
       route: '/freelancer/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -662,7 +662,7 @@ export const navbarConfig = {
     },
     {
       icon: FeedbackIcon,
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
       route: '/supervisor/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -881,7 +881,7 @@ export const navbarConfig = {
     },
     {
       icon: FeedbackIcon,
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
       route: '/buyer/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -1020,7 +1020,7 @@ export const navbarConfig = {
     },
     {
       icon: FeedbackIcon,
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
       route: '/warehouse/feedback',
       subtitles: null,
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -1156,7 +1156,7 @@ export const navbarConfig = {
     },
     {
       icon: FeedbackIcon,
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
       subtitles: null,
       route: '/admin/feedback',
       key: navBarActiveCategory.NAVBAR_FEEDBACK,
@@ -1251,7 +1251,7 @@ export const navbarConfig = {
     },
     {
       icon: FeedbackIcon,
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
       subtitles: null,
       route: '/moderator/feedback',
       key: navBarActiveCategory.NAVBAR_FEEDBACK,

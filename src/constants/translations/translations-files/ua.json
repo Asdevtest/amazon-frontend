@@ -2114,5 +2114,6 @@
   "Number of days off": "Кількість вихідних днів",
   "The selected shipping date does not correspond to the acceptable range based on the manufacturing and preparation time of the product": "Обрана дата відправлення не відповідає допустимому інтервалу, виходячи з терміну виготовлення та підготовки продукту",
   "Supplier reviews": "Відгуки по поставщику",
-  "Not enough money on balance": "Недостатньо грошових коштів на балансі"
+  "Not enough money on balance": "Недостатньо грошових коштів на балансі",
+  "Support": "Підтримка"
 }
