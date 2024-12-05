@@ -36,7 +36,6 @@ export const DeliveryCostsInputs: FC<DeliveryCostsInputsProps> = memo(props => {
           required
           size="large"
           label={controllInputTitle}
-          max={999999}
           precision={2}
           wrapperClassName={sharedStyles.input}
           changeOnBlur={false}
