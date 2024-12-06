@@ -3,7 +3,7 @@ export const updateOrderKeys = [
   'buyerComment',
   'images',
   'item',
-  'orderSupplierId',
+  'orderSupplierCardId',
   'totalPrice',
   'priceBatchDeliveryInYuan',
   'deliveryCostToTheWarehouse',

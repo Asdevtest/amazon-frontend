@@ -208,24 +208,6 @@ export class ListSuppliersModel {
 
         this.saveProduct()
         break
-
-      // The button of deleting a supplier was commented because it wasnt necessary
-      // case ModalModes.DELETE:
-      //   runInAction(() => {
-      //     this.confirmModalSettings = {
-      //       isWarning: true,
-      //       message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-      //       successBtnText: t(TranslationKey.Yes),
-      //       cancelBtnText: t(TranslationKey.Close),
-      //       onClickOkBtn: () => {
-      //         this.removeSupplier()
-      //         this.onToggleModal(ModalNames.CONFIRM)
-      //       },
-      //     }
-      //   })
-
-      //   this.onToggleModal(ModalNames.CONFIRM)
-      //   break
     }
   }
 

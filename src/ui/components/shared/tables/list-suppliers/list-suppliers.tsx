@@ -73,8 +73,11 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
     }
   }, [formFields])
 
-  const getRowClassName = ({ id }: GridRowClassNameParams) =>
-    id === extractProduct(formFields).currentSupplierCard?._id && styles.currentSupplierBackground
+  const getRowClassName = ({ id }: GridRowClassNameParams) => {
+    if (id === extractProduct(formFields).currentSupplierCard?._id) {
+      return styles.currentSupplierBackground
+    }
+  }
 
   const listSuppliersColumns = suppliersOrderColumn({
     orderCreatedAt: 'product' in formFields ? formFields?.createdAt : '',
