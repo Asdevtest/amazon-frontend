@@ -85,15 +85,13 @@ export const MainProductForm: FC<MainProductFormProps> = observer(props => {
   }, [viewModel.product])
 
   return (
-    <>
-      <div className={styles.root}>
-        <Tabs
-          destroyInactiveTabPane
-          defaultActiveKey={viewModel.tabValue}
-          items={generateProductTabs()}
-          onChange={viewModel.onChangeTabValue}
-        />
-      </div>
-    </>
+    <div className={styles.root}>
+      <Tabs
+        destroyInactiveTabPane
+        defaultActiveKey={viewModel.tabValue}
+        items={generateProductTabs()}
+        onChange={viewModel.onChangeTabValue}
+      />
+    </div>
   )
 })

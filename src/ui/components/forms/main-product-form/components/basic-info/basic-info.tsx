@@ -18,6 +18,8 @@ import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './basic-info.style'
 
+import { BasicInfoConfig } from './basic-info.config'
+
 interface BasicInfoProps {
   onClose: () => void
   product?: IProduct
@@ -27,6 +29,7 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
   const { onClose, product } = props
   const { classes: styles, cx } = useStyles()
   const [images, setImages] = useState(product?.images || [])
+  const [tab, setTab] = useState(BasicInfoConfig.PRODUCT_INFO)
 
   const badgeContent = t(TranslationKey[product?.parentProductId ? 'Child product' : 'Parent product'])
 
@@ -109,16 +112,22 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
         block
         size="large"
         options={[
-          { label: t(TranslationKey['Product information']), value: '1' },
-          { label: t(TranslationKey.Parameters), value: '2' },
-          { label: t(TranslationKey.Suppliers), value: '3' },
-          { label: t(TranslationKey.Description), value: '4' },
+          { label: t(TranslationKey['Product information']), value: BasicInfoConfig.PRODUCT_INFO },
+          { label: t(TranslationKey.Parameters), value: BasicInfoConfig.PARAMETERS },
+          { label: t(TranslationKey.Suppliers), value: BasicInfoConfig.SUPPLIERS },
+          { label: t(TranslationKey.Description), value: BasicInfoConfig.DESCRIPTION },
         ]}
-        value={'1'}
-        onChange={() => {}}
+        value={tab}
+        onChange={e => setTab(e.target.value)}
       />
 
-      <div>CONTENT</div>
+      <div>{t(TranslationKey['Product information'])}</div>
+
+      <div>{t(TranslationKey.Parameters)}</div>
+
+      <div>{t(TranslationKey.Suppliers)}</div>
+
+      <div>{t(TranslationKey.Description)}</div>
     </div>
   )
 })
