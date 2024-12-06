@@ -79,8 +79,8 @@ export const financesViewColumns = (userBalance?: boolean) => {
 
     {
       field: 'sum',
-      headerName: `${t(TranslationKey.Sum)}, $`,
-      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Sum)}, $`} />,
+      headerName: `${t(TranslationKey.Sum)}`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Sum)}`} />,
 
       width: 110,
 

@@ -25,7 +25,7 @@ import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { DownloadRoundIcon, EditIcon } from '@components/shared/svg-icons'
+import { DownloadRoundIcon } from '@components/shared/svg-icons'
 import { TagList } from '@components/shared/tag-list'
 
 import { CountrySelect } from '@views/shared/country-select/country-select'
@@ -40,7 +40,6 @@ import '@typings/enums/button-style'
 import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
-import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './fields-and-suppliers.style'
 
@@ -308,7 +307,6 @@ export const FieldsAndSuppliers = memo(props => {
 
           <div className={styles.strategyWrapper}>
             <Field
-              tooltipInfoContent={t(TranslationKey['Choose a product strategy'])}
               label={t(TranslationKey['Product Strategy'])}
               inputComponent={
                 <Select

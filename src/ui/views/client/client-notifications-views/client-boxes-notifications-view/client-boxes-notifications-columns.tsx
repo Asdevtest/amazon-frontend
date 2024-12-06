@@ -134,8 +134,8 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
 
     {
       field: 'totalPrice',
-      headerName: `${t(TranslationKey['Total price'])}, $`,
-      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey['Total price'])}, $`} />,
+      headerName: `${t(TranslationKey['Total price'])}`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey['Total price'])}`} />,
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
       width: 120,
@@ -145,9 +145,9 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
 
     {
       field: 'finalWeight',
-      headerName: `${t(TranslationKey['Final weight'])}, ${t(TranslationKey.kg)}`,
+      headerName: `${t(TranslationKey['Final weight'])}{t(TranslationKey.kg)}`,
       renderHeader: () => (
-        <MultilineTextHeaderCell text={`${t(TranslationKey['Final weight'])}, ${t(TranslationKey.kg)}`} />
+        <MultilineTextHeaderCell text={`${t(TranslationKey['Final weight'])}{t(TranslationKey.kg)}`} />
       ),
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,
@@ -159,9 +159,9 @@ export const clientBoxesNotificationsViewColumns = (handlers: IHandlers) => {
 
     {
       field: 'weighGrossKgWarehouse',
-      headerName: `${t(TranslationKey['Gross weight'])}, ${t(TranslationKey.kg)}`,
+      headerName: `${t(TranslationKey['Gross weight'])}{t(TranslationKey.kg)}`,
       renderHeader: () => (
-        <MultilineTextHeaderCell text={`${t(TranslationKey['Gross weight'])}, ${t(TranslationKey.kg)}`} />
+        <MultilineTextHeaderCell text={`${t(TranslationKey['Gross weight'])}{t(TranslationKey.kg)}`} />
       ),
 
       renderCell: params => <Text isCell text={toFixed(params.value)} />,

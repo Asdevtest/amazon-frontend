@@ -101,8 +101,8 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
 
     {
       field: 'totalAmountInUsd',
-      headerName: `${t(TranslationKey.Commodity)}, $ / ¥`,
-      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Commodity)}, $ / ¥`} />,
+      headerName: `${t(TranslationKey.Commodity)} / ¥`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Commodity)} / ¥`} />,
       renderCell: ({ value }) => <Text isCell text={value} />,
       valueGetter: ({ row }) => `${toFixed(row?.totalAmountInUsd || 0)}  / ${toFixed(row?.totalAmountInYuan || 0)}`,
       width: 100,

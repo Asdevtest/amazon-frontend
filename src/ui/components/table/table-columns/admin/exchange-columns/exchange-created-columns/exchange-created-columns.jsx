@@ -108,8 +108,8 @@ export const exchangeСreatedColumns = () => [
   },
   {
     field: 'fbafee',
-    headerName: t(TranslationKey['FBA fee , $']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
+    headerName: t(TranslationKey['FBA fee ']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee '])} />,
 
     renderCell: params => <Text text={toFixedWithDollarSign(params.value, 2)} />,
     width: 150,

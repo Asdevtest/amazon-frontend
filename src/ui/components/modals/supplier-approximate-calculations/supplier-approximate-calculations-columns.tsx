@@ -54,8 +54,8 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
 
     {
       field: 'minWeight',
-      headerName: `${t(TranslationKey.Weight)}, ${t(TranslationKey.kg)}`,
-      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Weight)}, ${t(TranslationKey.kg)}`} />,
+      headerName: `${t(TranslationKey.Weight)}{t(TranslationKey.kg)}`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Weight)}{t(TranslationKey.kg)}`} />,
       renderCell: () => null,
       valueGetter: (params: GridRenderCellParams) =>
         params.row?.destinationVariations
@@ -87,8 +87,8 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
 
     {
       field: 'pricePerKgUsd',
-      headerName: t(TranslationKey['Price per kg']) + ', $',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per kg']) + ', $'} />,
+      headerName: t(TranslationKey['Price per kg']) + '',
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price per kg']) + ''} />,
       renderCell: () => null,
       valueGetter: (params: GridRenderCellParams) =>
         params.row?.destinationVariations
@@ -129,7 +129,7 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
       field: 'costUnitWithDeliveryToChina',
       headerName: t(TranslationKey['Cost per unit with delivery to China']),
       renderHeader: () => (
-        <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit with delivery to China']) + ', $'} />
+        <MultilineTextHeaderCell text={t(TranslationKey['Cost per unit with delivery to China']) + ''} />
       ),
       renderCell: (params: GridValidRowModel) => <Text isCell text={toFixed(params.value, 2)} />,
       valueGetter: (params: GridRenderCellParams) => toFixed(params.row?.costUnitWithDeliveryToChina),
@@ -140,8 +140,8 @@ export const SupplierApproximateCalculationsColumns = (columnHandlers: columnHan
 
     {
       field: 'costUnitWithDeliveryToUsa',
-      headerName: t(TranslationKey['Cost of per unit in the U.S.']) + ', $',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of per unit in the U.S.']) + ', $'} />,
+      headerName: t(TranslationKey['Cost of per unit in the U.S.']) + '',
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Cost of per unit in the U.S.']) + ''} />,
       renderCell: (params: GridValidRowModel) => (
         <Text isCell text={toFixed(params.row.avgCostUnitWithDeliveryToUsa, 2)} />
       ),

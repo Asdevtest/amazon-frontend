@@ -7,7 +7,6 @@ import {
   ideaStatusByKey,
   ideaStatusTranslate,
 } from '@constants/statuses/idea-status'
-import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -21,11 +20,10 @@ import {
   ProductCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { SupplierLink } from '@components/shared/supplier-link'
 import { Text } from '@components/shared/text'
 
-import { checkAndMakeAbsoluteUrl, toFixed } from '@utils/text'
+import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 
 import {
@@ -177,7 +175,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
 
     {
       field: 'priceWithDelivery',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery']) + ', $'} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery']) + ''} />,
       headerName: t(TranslationKey['Price with delivery']) + '$',
 
       renderCell: params => {

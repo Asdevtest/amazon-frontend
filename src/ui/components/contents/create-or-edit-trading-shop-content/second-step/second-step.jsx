@@ -165,12 +165,12 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
           <Field
             labelClasses={styles.chartLabel}
             containerClasses={styles.chartContainer}
-            label={`${t(TranslationKey['Income Indicators'])}, $*`}
+            label={`${t(TranslationKey['Income Indicators'])}*`}
             inputComponent={
               <div className={styles.chartSharedWrapper}>
                 <div className={styles.chartWrapper}>
                   <div className={styles.subLabelWrapper}>
-                    <p className={styles.chartSubLabel}>{`${t(TranslationKey['Gross income'])}, $`}</p>
+                    <p className={styles.chartSubLabel}>{`${t(TranslationKey['Gross income'])}`}</p>
                     <img
                       src="/assets/icons/chart.svg"
                       className={styles.chartIcon}
@@ -208,7 +208,7 @@ export const SecondStep = ({ formFields, setFormFields, renderBackNextBtns, onCh
 
                 <div className={styles.chartWrapper}>
                   <div className={styles.subLabelWrapper}>
-                    <p className={styles.chartSubLabel}>{`${t(TranslationKey['Pure profit'])}, $`}</p>
+                    <p className={styles.chartSubLabel}>{`${t(TranslationKey['Pure profit'])}`}</p>
                     <img
                       src="/assets/icons/chart.svg"
                       className={styles.chartIcon}

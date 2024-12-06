@@ -8,17 +8,20 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
+import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSwitch } from '@components/shared/custom-switch'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
+import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
 
 import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './basic-info.style'
 
-import { BasicInfoConfig } from './basic-info.config'
+import { BasicInfoConfig, basicInfoTabsOptions, productStrategyStatus } from './basic-info.config'
 
 interface BasicInfoProps {
   onClose: () => void
@@ -36,6 +39,86 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
   if (!product) {
     return <Spin spinning size="large" className={styles.loading} />
   }
+
+  const basicInfoTabsContent = {
+    [BasicInfoConfig.PRODUCT_INFO]: (
+      <div className={styles.flexColumn}>
+        <div className={styles.flexRow}>
+          <CustomSelect
+            label="Product Strategy"
+            value={product?.strategyStatus}
+            options={Object.keys(productStrategyStatus).map(key => ({
+              value: productStrategyStatus[key],
+              label: key.replace(/_/g, ' '),
+            }))}
+          />
+          <CustomRadioButton
+            label="Delivery Method"
+            options={[
+              { label: 'FBA', value: true },
+              { label: 'FBM', value: false },
+            ]}
+            value={product?.fba}
+          />
+          <CustomInput
+            label="SEO file"
+            placeholder={product?.latestSeoFiles?.[0] ? '' : 'Not available'}
+            value={getFileNameFromUrl(product?.latestSeoFiles?.[0])?.name}
+          />
+          <CustomInput label="Shop" value={0} />
+          <CustomSwitch label="Transparency codes" value={product?.transparency} />
+          <CustomButton type="primary">HS code</CustomButton>
+        </div>
+        <div className={styles.flexRow}>
+          <CustomInput label="Category" value={product?.category} />
+          <CustomInput label="Marketplace" value={product?.marketPlaceCountry.title} />
+          <CustomInput label="Niche" value={'Niche'} />
+          <CustomInput label="Total revenue" value={'Total revenue'} />
+          <CustomInput label="ASINs" value={'ASINs'} />
+          <CustomInput label="Coefficient" value={'Coefficient'} />
+        </div>
+        <div className={styles.flexRow}>
+          <CustomInput label="Avg Revenue" value={'Avg Revenue'} />
+          <CustomInput label="Avg BSR" value={'Avg BSR'} />
+          <CustomInput label="Avg Price" value={'Avg Price'} />
+          <CustomInput label="Avg Review" value={'Avg Review'} />
+          <CustomInput label="Status" value={product?.status} />
+          <CustomInput label="Amazon price" value={product?.amazon} />
+        </div>
+        <div className={styles.flexRow}>
+          <CustomInput label="FBA fees" value={product?.fbafee} />
+          <CustomInput label="Referral fee" value={product?.reffee} />
+          <CustomInput label="Min purchase price" value={product?.minpurchase} />
+          <CustomInput label="Total FBA" value={0} />
+          <CustomInput label="Profit" value={product?.profit} />
+          <CustomInput label="BSR" value={product?.bsr} />
+        </div>
+        <div className={styles.flexRow}>
+          <CustomInput label="Recommended batch" value={product?.fbaamount} />
+          <CustomInput label="Margin" value={product?.margin} />
+          <CustomInput label="Weight" value={product?.weight} />
+          <CustomInput label="Width" value={product?.width} />
+          <CustomInput label="Height" value={product?.height} />
+          <CustomInput label="Length" value={product?.length} />
+        </div>
+      </div>
+    ),
+    [BasicInfoConfig.PARAMETERS]: t(TranslationKey.Parameters),
+    [BasicInfoConfig.SUPPLIERS]: t(TranslationKey.Suppliers),
+    [BasicInfoConfig.DESCRIPTION]: (
+      <div className={styles.flexRow}>
+        <div className={cx(styles.root, styles.flexColumn)}>
+          <CustomInput fullWidth label="Product header on Amazon" value={0} />
+          <CustomTextarea autoHeight label="Details" value={0} rows={5} />
+        </div>
+        <div className={cx(styles.root, styles.flexRow)}>
+          <CustomTextarea autoHeight label="Amazon Brief Description" value={0} rows={8} />
+        </div>
+      </div>
+    ),
+  }
+
+  console.log('product', product)
 
   return (
     <div className={cx(styles.root, styles.flexColumn)}>
@@ -111,23 +194,12 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
       <CustomRadioButton
         block
         size="large"
-        options={[
-          { label: t(TranslationKey['Product information']), value: BasicInfoConfig.PRODUCT_INFO },
-          { label: t(TranslationKey.Parameters), value: BasicInfoConfig.PARAMETERS },
-          { label: t(TranslationKey.Suppliers), value: BasicInfoConfig.SUPPLIERS },
-          { label: t(TranslationKey.Description), value: BasicInfoConfig.DESCRIPTION },
-        ]}
+        options={basicInfoTabsOptions}
         value={tab}
         onChange={e => setTab(e.target.value)}
       />
 
-      <div>{t(TranslationKey['Product information'])}</div>
-
-      <div>{t(TranslationKey.Parameters)}</div>
-
-      <div>{t(TranslationKey.Suppliers)}</div>
-
-      <div>{t(TranslationKey.Description)}</div>
+      <div>{basicInfoTabsContent[tab]}</div>
     </div>
   )
 })

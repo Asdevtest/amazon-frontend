@@ -58,7 +58,7 @@ export const CheckQuantityForm = props => {
 
       {withRefund && (
         <div className={styles.flexContainer}>
-          <p>{t(TranslationKey['Enter the amount of the refund to the Client']) + ', $:'}</p>
+          <p>{t(TranslationKey['Enter the amount of the refund to the Client']) + ':'}</p>
 
           <Field
             inputProps={{ maxLength: 8 }}

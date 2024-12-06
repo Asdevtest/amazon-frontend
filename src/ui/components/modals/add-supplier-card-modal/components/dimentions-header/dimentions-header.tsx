@@ -35,7 +35,7 @@ export const DimentionsHeader: FC<DimentionsHeaderProps> = memo(props => {
     sizeSetting,
   })
 
-  const title = `${t(TranslationKey[dimentionsHeaderTitle])}, ${dimensionsSize}/${unitsSize}`
+  const title = `${t(TranslationKey[dimentionsHeaderTitle])}{dimensionsSize}/${unitsSize}`
 
   const options = [
     { label: Dimensions.EU, value: Dimensions.EU },

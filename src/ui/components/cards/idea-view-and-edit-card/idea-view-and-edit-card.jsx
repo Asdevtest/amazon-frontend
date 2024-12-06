@@ -585,7 +585,7 @@ export const IdeaViewAndEditCard = observer(
                         labelClasses={styles.spanLabel}
                         inputClasses={styles.shortInput}
                         containerClasses={cx(styles.noMarginContainer, styles.mediumSizeContainer)}
-                        label={t(TranslationKey['Desired purchase price']) + ', $'}
+                        label={t(TranslationKey['Desired purchase price']) + ''}
                         value={formFields?.price}
                         className={styles.oneLineField}
                         onChange={onChangeField('price')}
@@ -638,7 +638,7 @@ export const IdeaViewAndEditCard = observer(
 
                       <div className={styles.approximateCalculationFieldsWrapper}>
                         <Field
-                          label={t(TranslationKey['Referral fee, $'])}
+                          label={t(TranslationKey['Referral fee'])}
                           disabled={disableFields}
                           inputProps={{ maxLength: 6 }}
                           labelClasses={styles.spanLabel}

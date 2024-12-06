@@ -25,7 +25,7 @@ export const TabSearchSupplier = memo(props => {
   return (
     <div className={styles.wrapper}>
       <Field
-        label={t(TranslationKey['Price for the search of a supplier by a Buyer from the Client']) + ', $'}
+        label={t(TranslationKey['Price for the search of a supplier by a Buyer from the Client']) + ''}
         labelClasses={styles.label}
         classes={{ root: styles.textField }}
         value={formFields.costOfFindingSupplier}
@@ -34,7 +34,7 @@ export const TabSearchSupplier = memo(props => {
       />
       <Field
         labelClasses={styles.label}
-        label={t(TranslationKey['Price for the Supervisor to check the search for a supplier from the Client']) + ', $'}
+        label={t(TranslationKey['Price for the Supervisor to check the search for a supplier from the Client']) + ''}
         classes={{ root: styles.textField }}
         value={formFields.costOfCheckingProduct}
         error={formFields.costOfCheckingProduct === ''}

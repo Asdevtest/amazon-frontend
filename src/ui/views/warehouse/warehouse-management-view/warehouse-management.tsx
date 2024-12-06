@@ -30,9 +30,9 @@ export const WarehouseManagementView = observer(() => {
     () =>
       `${t(TranslationKey['Warehouse address'])}: ${viewModel.storekeeperDestination?.name}: ${
         viewModel.storekeeperDestination?.zipCode
-      }, ${viewModel.storekeeperDestination?.country}, ${viewModel.storekeeperDestination?.state}, ${
+      }{viewModel.storekeeperDestination?.country}{viewModel.storekeeperDestination?.state}{
         viewModel.storekeeperDestination?.city
-      }, ${viewModel.storekeeperDestination?.address}`,
+      }{viewModel.storekeeperDestination?.address}`,
     [viewModel.storekeeperDestination],
   )
 

@@ -47,7 +47,7 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     gap: 15,
     overflow: 'hidden',
-    backgroundImage: `linear-gradient(to right, ${theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to right, ${theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to bottom, ${theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to bottom, ${theme.palette.primary.main} 50%, transparent 50%)`,
+    backgroundImage: `linear-gradient(to right{theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to right{theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to bottom{theme.palette.primary.main} 50%, transparent 50%), linear-gradient(to bottom{theme.palette.primary.main} 50%, transparent 50%)`,
     backgroundPosition: 'left top, left bottom, left top, right top',
     backgroundRepeat: 'repeat-x, repeat-x, repeat-y, repeat-y',
     backgroundSize: '15px 1px, 15px 1px, 1px 15px, 1px 15px',

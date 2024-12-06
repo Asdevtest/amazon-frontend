@@ -9,7 +9,7 @@ export const WAREHOUSE_RECEIVE_HEAD_CELLS = styles => [
 
   { title: <p className={styles.headerCell}>{t(TranslationKey.Total)}</p> },
   {
-    title: <p className={styles.headerCell}>{`${t(TranslationKey.Sizes)}, ${t(TranslationKey.cm)}`}</p>,
+    title: <p className={styles.headerCell}>{`${t(TranslationKey.Sizes)}{t(TranslationKey.cm)}`}</p>,
   },
   { title: <p className={styles.headerCell}>{t(TranslationKey['Weight, kg'])}</p> },
   { title: <p className={styles.headerCell}>{t(TranslationKey['Volume weight, kg'])}</p> },

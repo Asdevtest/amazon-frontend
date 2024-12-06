@@ -31,7 +31,7 @@ export const DimensionsHeaderCell: FC<DimensionsHeaderCellProps> = memo(props =>
     calculationField,
   })
 
-  const title = `${t(TranslationKey.Dimensions)}, ${dimensionsSize}/${unitsSize}`
+  const title = `${t(TranslationKey.Dimensions)}{dimensionsSize}/${unitsSize}`
   const options = [
     { label: DimensionsEnum.EU, value: DimensionsEnum.EU },
     { label: DimensionsEnum.US, value: DimensionsEnum.US },

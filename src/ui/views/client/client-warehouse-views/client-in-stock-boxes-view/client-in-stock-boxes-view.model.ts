@@ -995,7 +995,7 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
 
       toast.success(
         this.boxesIdsToTask.length
-          ? `${t(TranslationKey['Editing completed'])}, ${t(
+          ? `${t(TranslationKey['Editing completed'])}{t(
               TranslationKey['Tasks were created for the following boxes'],
             )}: ${this.boxesIdsToTask.join(', ')}`
           : t(TranslationKey['Editing completed']),

@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   select: {
-    width: '225px',
+    // width: '225px',
   },
 
   label: {
