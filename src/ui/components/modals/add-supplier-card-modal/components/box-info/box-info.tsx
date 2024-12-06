@@ -117,7 +117,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
             <CustomInputNumber
               size="large"
               label="Number of units in box"
-              precision={2}
+              precision={0}
               wrapperClassName={sharedStyles.input}
             />
           </Form.Item>
