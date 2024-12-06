@@ -1,3 +1,4 @@
+import { Badge } from 'antd'
 import { useState } from 'react'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { Link } from 'react-router-dom'
@@ -47,157 +48,116 @@ export const NavbarCollapse = ({
   const renderNotificationBySubRoute = subRoute => {
     switch (subRoute) {
       case '/warehouse/tasks/vacant-tasks':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.tasksNewAll || 0}</div>}</ListItemIcon>
+        return (
+          <div>
+            <Badge className={styles.badge} count={userInfo?.tasksNewAll || 0} color="blue" />
+          </div>
+        )
 
       case '/warehouse/tasks/my-tasks':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.tasksAtProcessAll || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.tasksAtProcessAll || 0} color="blue" />
 
       case '/client/notifications/ideas-notifications':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.updatesOnIdeas || 0}</div>}</ListItemIcon>
-
       case '/buyer/notifications/ideas-notifications':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.updatesOnIdeas || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.updatesOnIdeas || 0} color="blue" />
 
       case '/client/notifications/orders-notifications':
-        return (
-          <ListItemIcon>
-            {<div className={styles.badge}>{userInfo?.needConfirmPriceChange?.orders || 0}</div>}
-          </ListItemIcon>
-        )
+        return <Badge className={styles.badge} count={userInfo?.needConfirmPriceChange?.orders || 0} color="blue" />
 
       case '/client/notifications/boxes-notifications':
-        return (
-          <ListItemIcon>
-            {<div className={styles.badge}>{userInfo?.needConfirmPriceChange?.boxes || 0}</div>}
-          </ListItemIcon>
-        )
+        return <Badge className={styles.badge} count={userInfo?.needConfirmPriceChange?.boxes || 0} color="blue" />
 
       case '/client/notifications/tariffs-notifications':
-        return (
-          <ListItemIcon>{<div className={styles.badge}>{userInfo?.needUpdateTariff?.boxes || 0}</div>}</ListItemIcon>
-        )
+        return <Badge className={styles.badge} count={userInfo?.needUpdateTariff?.boxes || 0} color="blue" />
 
       case '/client/notifications/freelance-notifications':
-        return (
-          <ListItemIcon>{<div className={styles.badge}>{userInfo?.freelanceNotices?.length || 0}</div>}</ListItemIcon>
-        )
-
       case '/freelancer/notifications/freelance-notifications':
-        return (
-          <ListItemIcon>{<div className={styles.badge}>{userInfo?.freelanceNotices?.length || 0}</div>}</ListItemIcon>
-        )
-
-      // case '/shared/general-notifications-view':
-      //   return (
-      //     <ListItemIcon>
-      //       {<div className={styles.badge}>{currentViewModel.userInfo.freelanceNotices.length}</div>}
-      //     </ListItemIcon>
-      //   )
+        return <Badge className={styles.badge} count={userInfo?.freelanceNotices?.length || 0} color="blue" />
 
       case '/client/my-orders/pending-orders':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.pendingOrders || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.pendingOrders || 0} color="blue" />
 
       case '/client/my-orders/orders':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.orders || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.orders || 0} color="blue" />
 
       case '/buyer/not-paid-orders':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.notPaid || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.notPaid || 0} color="blue" />
 
       case '/buyer/need-track-number-orders':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.needTrackNumber || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.needTrackNumber || 0} color="blue" />
 
       case '/buyer/inbound-orders':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.inbound || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.inbound || 0} color="blue" />
 
       case '/buyer/confirmation-required-orders':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.confirmationRequired || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.confirmationRequired || 0} color="blue" />
 
       case '/buyer/closed-and-canceled-orders':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.closedAndCanceled || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.closedAndCanceled || 0} color="blue" />
 
       case '/buyer/ready-for-payment-orders':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.readyForPayment || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.readyForPayment || 0} color="blue" />
 
       case '/buyer/partially-paid-orders':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.partiallyPaid || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.partiallyPaid || 0} color="blue" />
 
       case '/buyer/all-orders':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.allOrders || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.allOrders || 0} color="blue" />
 
       case '/client/ideas/new':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.new || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.ideas?.new || 0} color="blue" />
 
       case '/client/ideas/on-checking':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.onCheck || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.ideas?.onCheck || 0} color="blue" />
 
       case '/client/ideas/search-suppliers':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.supplierSearch || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.ideas?.supplierSearch || 0} color="blue" />
 
       case '/client/ideas/create-card':
-        return (
-          <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.productCreating || 0}</div>}</ListItemIcon>
-        )
+        return <Badge className={styles.badge} count={userInfo?.ideas?.productCreating || 0} color="blue" />
 
       case '/client/ideas/add-asin':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.addingAsin || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.ideas?.addingAsin || 0} color="blue" />
 
       case '/client/ideas/realized':
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.ideas?.finished || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.ideas?.finished || 0} color="blue" />
 
       case '/client/ideas/closed':
-        return (
-          <ListItemIcon>
-            {<div className={styles.badge}>{userInfo?.ideas?.rejectedOrClosed || 0 || 0}</div>}
-          </ListItemIcon>
-        )
+        return <Badge className={styles.badge} count={userInfo?.ideas?.rejectedOrClosed || 0} color="blue" />
 
       case `/${UserRoleCodeMapForRoutes[userInfo?.role]}/notifications/general-notifications-view`:
-        return <ListItemIcon>{<div className={styles.badge}>{userInfo?.notificationCounter || 0}</div>}</ListItemIcon>
+        return <Badge className={styles.badge} count={userInfo?.notificationCounter || 0} color="blue" />
 
       case '/client/ideas/all':
         return (
-          <ListItemIcon>
-            {
-              <div className={styles.badge}>
-                {userInfo?.ideas?.new +
-                  userInfo?.ideas?.onCheck +
-                  userInfo?.ideas?.supplierSearch +
-                  userInfo?.ideas?.productCreating +
-                  userInfo?.ideas?.addingAsin +
-                  userInfo?.ideas?.finished +
-                  userInfo?.ideas?.rejectedOrClosed}
-              </div>
+          <Badge
+            className={styles.badge}
+            count={
+              (userInfo?.ideas?.new || 0) +
+              (userInfo?.ideas?.onCheck || 0) +
+              (userInfo?.ideas?.supplierSearch || 0) +
+              (userInfo?.ideas?.productCreating || 0) +
+              (userInfo?.ideas?.addingAsin || 0) +
+              (userInfo?.ideas?.finished || 0) +
+              (userInfo?.ideas?.rejectedOrClosed || 0)
             }
-          </ListItemIcon>
+            color="blue"
+          />
         )
 
       case '/freelancer/freelance/vacant-requests':
-        return (
-          <ListItemIcon>
-            <div className={styles.badge}>{userInfo?.vacantRequests}</div>
-          </ListItemIcon>
-        )
+        return <Badge className={styles.badge} count={userInfo?.vacantRequests || 0} color="blue" />
 
       case '/freelancer/freelance/my-proposals':
         return (
-          <ListItemIcon>
-            <div className={styles.badge}>{getSumPropertiesObject(userInfo?.myProposals)}</div>
-          </ListItemIcon>
+          <Badge className={styles.badge} count={getSumPropertiesObject(userInfo?.myProposals) || 0} color="blue" />
         )
 
       case '/buyer/search-supplier-by-supervisor':
-        return (
-          <ListItemIcon>
-            <div className={styles.badge}>{userInfo?.searchFromSupervisor}</div>
-          </ListItemIcon>
-        )
+        return <Badge className={styles.badge} count={userInfo?.searchFromSupervisor || 0} color="blue" />
 
       case '/buyer/search-supplier-by-client':
-        return (
-          <ListItemIcon>
-            <div className={styles.badge}>{userInfo?.searchFromClient}</div>
-          </ListItemIcon>
-        )
+        return <Badge className={styles.badge} count={userInfo?.searchFromClient || 0} color="blue" />
 
       default:
         return null
@@ -219,18 +179,20 @@ export const NavbarCollapse = ({
     switch (route) {
       case '/client/my-orders/pending-orders':
         return (
-          <div className={cx(styles.bigBadge, styles.redBadge)}>
-            {userInfo?.purchaseOrderRequired?.length ? userInfo?.purchaseOrderRequired?.length : 0}
-          </div>
+          <Badge
+            count={userInfo?.purchaseOrderRequired?.length ? userInfo?.purchaseOrderRequired?.length : 0}
+            color="red"
+            className={styles.bigBadge}
+          />
         )
       case '/supervisor/ready-to-check-by-researcher':
-        return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.vacFromResearcher}</div>
+        return <Badge count={userInfo?.vacFromResearcher} color="red" className={styles.bigBadge} />
       case '/supervisor/ready-to-check-by-client':
-        return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.vacFromClient}</div>
+        return <Badge count={userInfo?.vacFromClient} color="red" className={styles.bigBadge} />
       case '/client/freelance/my-requests':
       case '/freelancer/freelance/my-proposals':
         return userInfo?.freelanceNotices.length > 0 ? (
-          <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo?.freelanceNotices.length}</div>
+          <Badge count={userInfo?.freelanceNotices.length} color="red" className={styles.bigBadge} />
         ) : null
       default:
         return null
