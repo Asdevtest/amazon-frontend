@@ -223,20 +223,17 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     if (sortModel.length > 0) {
       this.sortModel = sortModel
       this.getCurrentData()
-      this.setDataGridState()
     }
   }
 
   onChangeFilterModel(model: GridFilterModel) {
     this.filterModel = model
     this.getCurrentData()
-    this.setDataGridState()
   }
 
   onPaginationModelChange(model: GridPaginationModel) {
     this.paginationModel = model
     this.getCurrentData()
-    this.setDataGridState()
   }
 
   getPresetSettingForSave(colomns: IGridColumn[]) {
@@ -333,7 +330,7 @@ export class DataGridFilterTableModel extends DataGridTableModel {
     params.forEach(param => {
       const [key, value] = param.split('=')
 
-      if (key?.includes('or') && !result.currentSearchValue) {
+      if (/\['or'\]/.test(key) && !result.currentSearchValue) {
         result.currentSearchValue = value
       } else {
         const decodedKey = decodeURIComponent(key).replace(/\[.*?\]/, '')

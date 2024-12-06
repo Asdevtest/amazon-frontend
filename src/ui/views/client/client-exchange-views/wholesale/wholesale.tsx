@@ -5,13 +5,13 @@ import { useMemo, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { SelectShopsForm } from '@components/forms/select-shops-form'
+import { CardsFilter } from '@components/shared/cards-filter'
+import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { DynamicVirtualList } from '@components/shared/dynamic-virtual-list'
 import { Modal } from '@components/shared/modal'
 import { SupplierCard, SupplierProductCard } from '@components/shared/supplier'
-
-import { CardsFilter } from '@views/shared/supplier-view/cards-filter'
 
 import { t } from '@utils/translations'
 
@@ -24,7 +24,7 @@ import { WholesaleViewModel } from './wholesale.model'
 
 export const WholesaleView = observer(() => {
   const { classes: styles } = useStyles()
-  const [wholesaleTab, setWholesaleTab] = useState<WholesaleTabs>(WholesaleTabs.Suppliers)
+  const [wholesaleTab, setWholesaleTab] = useState<WholesaleTabs>(WholesaleTabs.Cards)
 
   const isSupplierMode = wholesaleTab === WholesaleTabs.Suppliers
   const viewModel = useMemo(() => new WholesaleViewModel(isSupplierMode), [isSupplierMode])
@@ -52,6 +52,15 @@ export const WholesaleView = observer(() => {
             placeholder="Search"
             onSearch={viewModel.onSearchSubmit}
           />
+          <CustomButton
+            size="large"
+            type="primary"
+            disabled={!viewModel.supplierCardIds.length}
+            className={styles.addInventoryBtn}
+            onClick={viewModel.onToggleSelectShopsModal}
+          >
+            {t(TranslationKey['Add to inventory'])}
+          </CustomButton>
         </div>
 
         <div className={styles.container}>
@@ -62,13 +71,19 @@ export const WholesaleView = observer(() => {
               isSupplierMode ? (
                 <SupplierCard supplier={item as ISupplierExchange} />
               ) : (
-                <SupplierProductCard product={item as ISupplierCard} onSubmit={viewModel.onSelectSupplierCard} />
+                <SupplierProductCard
+                  product={item as ISupplierCard}
+                  checkedItems={viewModel.supplierCardIds}
+                  onChange={viewModel.onChangeSupplierCard}
+                  onSubmit={viewModel.onSelectSupplierCard}
+                />
               )
             }
             onScrollEnd={viewModel.loadMoreData}
           />
 
           <CardsFilter
+            onlyExchangeCategories
             loading={viewModel.loading}
             showFilter={viewModel.showFilter && !isSupplierMode}
             filtersCount={viewModel.filtersCount}

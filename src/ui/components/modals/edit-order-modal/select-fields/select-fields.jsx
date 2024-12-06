@@ -173,13 +173,13 @@ export const SelectFields = ({
                   labelClasses={styles.label}
                   inputClasses={styles.input}
                   value={
-                    orderFields.priceBatchDeliveryInYuan
-                      ? toFixed(orderFields.priceBatchDeliveryInYuan, 2)
+                    orderFields?.priceBatchDeliveryInYuan || !orderFields?.orderSupplierCard
+                      ? toFixed(orderFields?.priceBatchDeliveryInYuan, 2)
                       : toFixed(
-                          (orderFields.orderSupplierCard.batchDeliveryCostInDollar /
-                            orderFields.orderSupplierCard.amount) *
-                            orderFields.amount *
-                            orderFields.orderSupplierCard.yuanToDollarRate,
+                          (orderFields?.orderSupplierCard?.batchDeliveryCostInDollar /
+                            orderFields?.orderSupplierCard?.amount) *
+                            orderFields?.amount *
+                            orderFields?.orderSupplierCard?.yuanToDollarRate,
                           2,
                         )
                   }
@@ -202,7 +202,7 @@ export const SelectFields = ({
                 inputClasses={styles.input}
                 labelClasses={styles.label}
                 label={t(TranslationKey['Cost of purchase per pc.']) + ', ¥'}
-                value={calcOrderPerPcInYuan(orderFields.orderSupplierCard)} // ? change formula
+                value={calcOrderPerPcInYuan(orderFields?.orderSupplierCard)}
               />
             </Box>
 
@@ -268,12 +268,12 @@ export const SelectFields = ({
                   labelClasses={styles.label}
                   label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', $'}
                   value={
-                    orderFields.deliveryCostToTheWarehouse
-                      ? toFixed(orderFields.deliveryCostToTheWarehouse, 2)
+                    orderFields?.deliveryCostToTheWarehouse || !orderFields?.orderSupplierCard
+                      ? toFixed(orderFields?.deliveryCostToTheWarehouse, 2)
                       : toFixed(
-                          (orderFields.orderSupplierCard.batchDeliveryCostInDollar /
-                            orderFields.orderSupplierCard.amount) *
-                            orderFields.amount,
+                          (orderFields.orderSupplierCard?.batchDeliveryCostInDollar /
+                            orderFields.orderSupplierCard?.amount) *
+                            orderFields?.amount,
                           2,
                         )
                   }
@@ -574,9 +574,9 @@ export const SelectFields = ({
                   [styles.inputError]:
                     orderFields.paymentDateToSupplier &&
                     orderFields.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER] &&
-                    !!orderFields.orderSupplier.productionTerm &&
+                    !!orderFields.orderSupplierCard.maxProductionTerm &&
                     Math.abs(getDistanceBetweenDatesInSeconds(orderFields.paymentDateToSupplier)) >
-                      convertDaysToSeconds(orderFields.orderSupplier.productionTerm),
+                      convertDaysToSeconds(orderFields.orderSupplierCard?.maxProductionTerm),
                 })}
               />
             </div>

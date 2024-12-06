@@ -91,6 +91,8 @@ export const WarehouseMyWarehouseView = observer(() => {
               handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              handleDownloadPreset: viewModel.handleDownloadPreset,
+              handleLoadPreset: viewModel.handleLoadPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },

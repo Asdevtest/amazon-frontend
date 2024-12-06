@@ -14,6 +14,7 @@ const observableConfig = {
   searchValue: observable,
   filtersCount: observable,
   loading: observable,
+  filtersOtions: observable,
 
   getData: action.bound,
   loadMoreData: action.bound,
@@ -31,7 +32,7 @@ const DEFAULT_OPTIONS = {
   filters: '',
 }
 
-export type FilterOptionsType = Record<string, Record<string, string | number>>
+export type FilterOptionsType = Record<string, Record<string, string | number | boolean>>
 
 interface InfiniteScrollModelProps {
   method: ICallback
@@ -55,6 +56,7 @@ export class InfiniteScrollModel<T, M = any> {
   searchValue = ''
   filtersCount = 0
   loading: boolean = false
+  filtersOtions?: FilterOptionsType
 
   constructor({ method, options, searchFields = [], filterFields = [] }: InfiniteScrollModelProps) {
     this.method = method
@@ -73,6 +75,12 @@ export class InfiniteScrollModel<T, M = any> {
     try {
       runInAction(() => {
         this.loading = true
+      })
+
+      this.setOptions({
+        filters: objectToUrlQs(
+          dataGridFiltersConverter({}, this.searchValue, '', this.filterFields, this.searchFields, this.filtersOtions),
+        ),
       })
 
       const response = await this.method(this.options)
@@ -122,17 +130,19 @@ export class InfiniteScrollModel<T, M = any> {
   }
 
   async onSearchSubmit(searchValue: string) {
-    this.searchValue = searchValue.trim()
-
     if (!this.method || this.loading) {
       return
     }
+
+    this.searchValue = searchValue.trim()
 
     try {
       this.hasMore = true
       this.setOptions({
         offset: 0,
-        filters: objectToUrlQs(dataGridFiltersConverter({}, searchValue, '', this.filterFields, this.searchFields)),
+        filters: objectToUrlQs(
+          dataGridFiltersConverter({}, this.searchValue, '', this.filterFields, this.searchFields, this.filtersOtions),
+        ),
       })
 
       await this.getData()
@@ -146,29 +156,31 @@ export class InfiniteScrollModel<T, M = any> {
       return
     }
 
+    runInAction(() => {
+      this.filtersOtions = filtersOtions
+      this.filtersCount = new Set(Object.keys(filtersOtions)).size
+    })
+
     try {
       this.hasMore = true
       this.setOptions({
         offset: 0,
         filters: objectToUrlQs(
-          dataGridFiltersConverter({}, this.searchValue, '', this.filterFields, this.searchFields, filtersOtions),
+          dataGridFiltersConverter({}, this.searchValue, '', this.filterFields, this.searchFields, this.filtersOtions),
         ),
       })
 
       await this.getData()
-
-      runInAction(() => {
-        this.filtersCount = new Set(Object.keys(filtersOtions)).size
-      })
     } catch (error) {
       console.error(error)
     }
   }
 
   async onResetOptions() {
-    this.hasMore = true
-    this.setOptions(DEFAULT_OPTIONS)
-    this.filtersCount = 0
+    runInAction(() => {
+      this.filtersCount = 0
+      this.filtersOtions = undefined
+    })
 
     await this.getData()
   }

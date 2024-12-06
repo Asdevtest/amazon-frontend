@@ -243,12 +243,14 @@ export const buyerOrdersColumns = ({
       renderCell: params => {
         const currentSupplier = params.row.orderSupplierCard
 
-        return <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+        return currentSupplier ? (
+          <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
+        ) : null
       },
       valueGetter: params => {
         const currentSupplier = params.row.orderSupplierCard
 
-        return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
+        return currentSupplier ? `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}` : null
       },
 
       fields: productionTimeColumnMenuItems,
@@ -280,9 +282,9 @@ export const buyerOrdersColumns = ({
           isCell
           color={
             Math.abs(getDistanceBetweenDatesInSeconds(params.row.paymentDateToSupplier)) >
-              convertDaysToSeconds(params.row.orderSupplier?.productionTerm) &&
+              convertDaysToSeconds(params.row.orderSupplierCard?.productionTerm) &&
             params.row.status === OrderStatusByKey[OrderStatus.PAID_TO_SUPPLIER as keyof typeof OrderStatusByKey] &&
-            !!params.row.orderSupplier?.minProductionTerm
+            !!params.row.orderSupplierCard?.minProductionTerm
               ? '#FF1616'
               : undefined
           }

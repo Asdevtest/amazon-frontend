@@ -14,7 +14,11 @@ import { DataWrapperColumnMenu } from '../data-wrapper-column-menu'
 
 import { useNumberColumnMenu } from './hooks/use-number-column-menu'
 
-export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
+interface NumberColumnMenuProps extends ColumnMenuProps<number> {
+  transformValueMethod: (value: number) => number
+}
+
+export const NumberColumnMenu: FC<NumberColumnMenuProps> = memo(props => {
   const { classes: styles } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
@@ -25,6 +29,7 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
     filterRequestStatus,
     additionalFilterSettings,
     fieldNameFilter,
+    transformValueMethod,
     onClose,
     onClickFilterBtn,
     onChangeFullFieldMenuItem,
@@ -92,7 +97,14 @@ export const NumberColumnMenu: FC<ColumnMenuProps<number>> = memo(props => {
         setChosenItems={setChosenItems}
       >
         {dataforRender?.map((el, index) => {
-          const value = isWholeNumber ? el : toFixed(el)
+          let value
+
+          if (transformValueMethod) {
+            value = transformValueMethod(el)
+          } else {
+            value = isWholeNumber ? el : toFixed(el)
+          }
+
           const valueChecked = chosenItems?.some(item => item === el)
 
           return (

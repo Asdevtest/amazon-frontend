@@ -1,6 +1,5 @@
 import { GridRowModel } from '@mui/x-data-grid'
 
-import { ACCESS_DENIED } from '@constants/text'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import {
@@ -10,12 +9,12 @@ import {
   SupplierWithIconsCell,
   UserCell,
 } from '@components/data-grid/data-grid-cells'
-import { LinkWithCopy } from '@components/shared/link-with-copy'
 import { PaymentMethods } from '@components/shared/payment-methods'
+import { SupplierLink } from '@components/shared/supplier-link'
 import { Text } from '@components/shared/text'
 
 import { formatNormDateTime } from '@utils/date-time'
-import { checkAndMakeAbsoluteUrl, toFixedWithDollarSign } from '@utils/text'
+import { toFixedWithDollarSign } from '@utils/text'
 import { t } from '@utils/translations'
 
 import { IPlatformSettings } from '@typings/shared/patform-settings'
@@ -36,7 +35,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
         orderCreatedAt={orderCreatedAt}
         orderSupplierId={orderSupplierId}
         supplierCreatedAt={row.createdAt}
-        supplierId={row.supplier?._id}
+        supplierId={row?._id}
         supplierMultiplicity={row.multiplicity}
         supplierAmountInBox={row.boxProperties?.amountInBox}
       />
@@ -49,14 +48,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'link',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Link)} />,
-    renderCell: ({ row }: GridRowModel) =>
-      row.supplier && row.supplier?.link !== ACCESS_DENIED ? (
-        <LinkWithCopy
-          url={checkAndMakeAbsoluteUrl(row.supplier?.link)}
-          title={t(TranslationKey['Go to supplier site'])}
-          valueToCopy={checkAndMakeAbsoluteUrl(row.supplier?.link)}
-        />
-      ) : null,
+    renderCell: ({ row }: GridRowModel) => <SupplierLink link={row?.supplier?.link} />,
     filterable: false,
     sortable: false,
     width: 160,
@@ -135,7 +127,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
   {
     field: 'comment',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Comment)} />,
-    renderCell: ({ row }: GridRowModel) => <Text isCell text={row.supplier?.comment} />,
+    renderCell: ({ row }: GridRowModel) => <Text isCell text={row?.comment} />,
     filterable: false,
     sortable: false,
     width: 195,
@@ -145,11 +137,7 @@ export const suppliersOrderColumn = ({ orderCreatedAt, orderSupplierId, platform
     field: 'createdBy',
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Created by'])} />,
     renderCell: ({ row }: GridRowModel) => (
-      <UserCell
-        name={row.supplier?.createdBy?.name}
-        id={row.supplier?.createdBy?._id}
-        email={row.supplier?.createdBy?.email}
-      />
+      <UserCell name={row?.createdBy?.name} id={row?.createdBy?._id} email={row?.createdBy?.email} />
     ),
     filterable: false,
     sortable: false,

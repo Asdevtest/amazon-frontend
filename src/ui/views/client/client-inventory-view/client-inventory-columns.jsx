@@ -109,7 +109,7 @@ export const clientInventoryColumns = ({
       renderCell: params => <Text isCell text={params.row?.marketPlaceCountry?.shortTitle} />,
       valueGetter: ({ row }) => row?.marketPlaceCountry?.shortTitle,
       width: 100,
-      disableCustomSort: true,
+      titleKey: 'shortTitle',
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
@@ -303,26 +303,25 @@ export const clientInventoryColumns = ({
     },
 
     {
-      field: 'currentSupplierMaxProductionTerm',
+      field: 'currentSupplierCardMinProductionTerm',
       headerName: t(TranslationKey['Production time, days']),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Production time, days'])} />,
       renderCell: params => {
-        const currentSupplier = params.row.currentSupplier
+        const currentSupplier = params.row.currentSupplierCard
 
         return currentSupplier ? (
           <Text isCell text={`${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`} />
         ) : null
       },
       valueGetter: params => {
-        const currentSupplier = params.row.currentSupplier
+        const currentSupplier = params.row.currentSupplierCard
 
-        return `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}`
+        return currentSupplier ? `${currentSupplier?.minProductionTerm} - ${currentSupplier?.maxProductionTerm}` : null
       },
 
       fields: productionTimeColumnMenuItems,
       columnMenuConfig: productionTimeColumnMenuValue,
       columnKey: columnnsKeys.shared.MULTIPLE,
-
       sortable: false,
       width: 120,
     },

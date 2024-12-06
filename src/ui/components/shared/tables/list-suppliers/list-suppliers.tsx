@@ -51,13 +51,18 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
   const { classes: styles } = useStyles()
 
-  const orderSupplier = 'orderSupplier' in formFields ? formFields?.currentSupplierCard?.supplier : undefined
+  const orderSupplier = 'orderSupplierCard' in formFields ? formFields?.orderSupplierCard : undefined
 
   const viewModel = useMemo(
+    // extractProduct - converter for getting product
+    // from order(everywhere we work directly with the product)
     () => new ListSuppliersModel(extractProduct(formFields), onSaveProduct, onRemoveSupplier),
     [],
-  ) // extractProduct - converter for getting product from order(everywhere we work directly with the product)
-  const [orderStatus, setOrderStatus] = useState(0) // needed for additional conditions in the buyer's order view(everywhere we work directly with the product)
+  )
+
+  // needed for additional conditions in the buyer's order
+  // view(everywhere we work directly with the product)
+  const [orderStatus, setOrderStatus] = useState(0)
 
   useEffect(() => {
     viewModel.updateSuppliers(extractProduct(formFields))
@@ -69,14 +74,16 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   }, [formFields])
 
   const getRowClassName = ({ id }: GridRowClassNameParams) =>
-    id === extractProduct(formFields).currentSupplierId && styles.currentSupplierBackground
+    id === extractProduct(formFields).currentSupplierCard?._id && styles.currentSupplierBackground
+
   const listSuppliersColumns = suppliersOrderColumn({
     orderCreatedAt: 'product' in formFields ? formFields?.createdAt : '',
     orderSupplierId: orderSupplier?._id || '',
     platformSettings: viewModel.platformSettings,
   })
-  const isCurrentSupplierSelected = extractProduct(formFields).currentSupplierId === viewModel.selectionModel[0]
-  const isDefaultSupplier = !!orderStatus && defaultSupplierId === extractProduct(formFields).currentSupplierId
+
+  const isCurrentSupplierSelected = extractProduct(formFields).currentSupplierCard?._id === viewModel.selectionModel[0]
+  const isDefaultSupplier = !!orderStatus && defaultSupplierId === extractProduct(formFields).currentSupplierCard?._id
 
   return (
     <>
@@ -127,6 +134,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
       {viewModel.showAddOrEditSupplierModal ? (
         <AddSupplierModal
+          hideStatusButton
           openModal={viewModel.showAddOrEditSupplierModal}
           setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER)}
         />
@@ -134,7 +142,9 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
       {viewModel.showAddSupplierProductModal ? (
         <AddSupplierCardModal
+          hideStatusButton
           disabled={viewModel.supplierModalReadOnly}
+          supplierId={viewModel.currentSupplier?.supplier?._id}
           supplierCardId={viewModel.currentSupplier?._id}
           handleUpdate={supplierCardId =>
             onClickSaveSupplier?.(supplierCardId === viewModel.currentSupplier?._id ? undefined : supplierCardId)

@@ -20,7 +20,6 @@ interface AnnouncementModalProps {
   openModal: boolean
   service: IAnnoucement
   onOpenModal: () => void
-  choose?: boolean
   order?: boolean
   select?: boolean
   onClickButton?: (service: IAnnoucement) => void
@@ -28,7 +27,7 @@ interface AnnouncementModalProps {
 }
 
 export const AnnouncementModal: FC<AnnouncementModalProps> = memo(props => {
-  const { openModal, service, choose, order, select, onOpenModal, onClickButton, onClickSelectButton } = props
+  const { openModal, service, order, select, onOpenModal, onClickButton, onClickSelectButton } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -36,8 +35,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = memo(props => {
   const textBold = cx(styles.text, styles.bold)
   const textMediumBold = cx(styles.textMedium, styles.bold)
   const files = service.linksToMediaFiles as string[]
-  const translationButtonKey = choose ? TranslationKey.Choose : order ? TranslationKey['To order'] : TranslationKey.Open
-  const isSuccess = choose || order
+  const translationButtonKey = order ? TranslationKey['To order'] : TranslationKey.Open
 
   return (
     <Modal openModal={openModal} setOpenModal={onOpenModal}>
@@ -87,7 +85,7 @@ export const AnnouncementModal: FC<AnnouncementModalProps> = memo(props => {
               </div>
             </div>
 
-            {onClickButton && isSuccess ? (
+            {onClickButton && order ? (
               <div className={styles.buttonWrapper}>
                 <CustomButton type="primary" onClick={() => onClickButton(service)}>
                   {t(translationButtonKey)}

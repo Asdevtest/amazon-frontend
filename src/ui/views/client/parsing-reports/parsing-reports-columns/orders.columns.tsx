@@ -124,6 +124,26 @@ export const ordersColumns = () => {
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
       disableCustomSort: true,
     },
+
+    {
+      field: 'shipCountry',
+      headerName: 'Ship country',
+      renderHeader: () => <MultilineTextHeaderCell text="Ship country" />,
+
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 115,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
+
+    {
+      field: 'shipState',
+      headerName: 'Ship state',
+      renderHeader: () => <MultilineTextHeaderCell text="Ship state" />,
+
+      renderCell: params => <Text isCell text={params.value} />,
+      width: 115,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
+    },
   ]
 
   for (const column of columns) {

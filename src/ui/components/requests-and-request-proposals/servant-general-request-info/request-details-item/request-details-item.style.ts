@@ -19,4 +19,10 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.general,
     fontWeight: 600,
   },
+
+  marketPlaceWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
 }))

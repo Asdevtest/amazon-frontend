@@ -10,6 +10,7 @@ import { ColumnMenuProps } from '../column-menu.type'
 import { ControlButtonsColumnMenu } from '../control-buttons-column-menu'
 import { DataWrapperColumnMenu } from '../data-wrapper-column-menu'
 
+import { getItemKey } from './helpers/get-item-key'
 import { getValueToCompare } from './helpers/get-value-to-compare'
 import { useObjectColumnMenu } from './hooks/use-object-column-menu'
 
@@ -55,6 +56,7 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
     sortOptions,
     additionalFilterSettings,
     fieldNameFilter,
+    titleKey,
     onClickFilterBtn,
   })
 
@@ -75,7 +77,7 @@ export const ObjectColumnMenu: FC<IObjectColumnMenuProps> = memo(props => {
         setChosenItems={setChosenItems}
       >
         {dataforRender?.map((el, index) => {
-          const value = titleKey ? el?.[titleKey] : 'name' in el ? el?.name : 'title' in el ? el?.title : ''
+          const value = el?.[getItemKey(el, titleKey)]
           const valueChecked = chosenItems?.some(item => getValueToCompare(item) === el?._id)
 
           return (

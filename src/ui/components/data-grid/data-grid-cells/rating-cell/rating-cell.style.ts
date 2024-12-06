@@ -15,6 +15,11 @@ export const useStyles = makeStyles()(() => ({
     },
   },
 
+  feedback: {
+    gap: '3px',
+    padding: 0,
+  },
+
   totalFeedbackWrapper: {
     display: 'flex',
     alignItems: 'center',

@@ -270,6 +270,7 @@ export const proposalsColumns = (handlers: IHandlers) => {
           secondDanger
           firstGhost
           secondGhost
+          block={false}
           firstDisabled={!noDisabledEditBtnStatuses.includes(params.row?.status)}
           secondDisabled={disabledCancelBtnStatuses.includes(params.row?.status)}
           thirdDisabled={!showResultStatuses.includes(params.row?.status)}

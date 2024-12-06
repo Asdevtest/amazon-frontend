@@ -315,6 +315,13 @@ export const EditBoxStorekeeperForm = memo(
 
     const allItemsCount =
       boxFields.items.reduce((ac, cur) => (ac = ac + cur.amount), 0) * (boxFields.amount < 1 ? 1 : boxFields.amount)
+
+    const tariffForRender = (
+      <p className={styles.tariffText}>
+        <span>{tariffName}</span>
+        {tariffRate ? <span> / {tariffRate} $</span> : null}
+      </p>
+    )
     return (
       <div className={styles.root}>
         <div className={styles.titleWrapper}>
@@ -567,7 +574,7 @@ export const EditBoxStorekeeperForm = memo(
                           }
                         >
                           {boxFields.storekeeperId && (tariffName || tariffRate)
-                            ? `${tariffName ? tariffName : ''}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
+                            ? tariffForRender
                             : t(TranslationKey.Select)}
                         </CustomButton>
                       }

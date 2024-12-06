@@ -77,7 +77,6 @@ export const useStyles = makeStyles()(theme => ({
     overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    gap: 5,
   },
 
   loadingWrapper: {
@@ -85,5 +84,11 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  selectButton: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    borderRadius: '7px',
   },
 }))

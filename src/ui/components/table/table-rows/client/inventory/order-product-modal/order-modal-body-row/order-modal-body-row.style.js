@@ -1,13 +1,39 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
+  warningText: {
+    fontSize: '12px',
+    color: theme.palette.text.red,
+  },
+
+  textSuccess: {
+    fontSize: '12px',
+    color: theme.palette.text.green,
+  },
+
+  row: {
+    width: '100%',
+
+    td: {
+      color: theme.palette.text.general,
+    },
+  },
+
   noCurrentSupplier: {
     boxShadow: 'inset 0 0 15px rgba(255, 79, 7, .8)',
   },
 
+  cell: {
+    padding: '0 5px',
+  },
+
+  productCell: {
+    maxWidth: 220,
+  },
+
   commentInput: {
     height: 70,
-    padding: '10px 0',
+    padding: '5px 0',
   },
 
   inputMultiline: {
@@ -15,11 +41,6 @@ export const useStyles = makeStyles()(theme => ({
     padding: '0 10px',
     fontSize: 16,
     lineHeight: '20px',
-  },
-
-  row: {
-    width: '100%',
-    border: '1px solid rgba(0,0,0, .1)',
   },
 
   sumsWrapper: {
@@ -52,8 +73,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   labelField: {
-    fontSize: '14px',
     color: theme.palette.text.general,
+    fontSize: '14px',
     lineHeight: '17px',
     fontWeight: '600',
     marginRight: '10px',
@@ -61,19 +82,11 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   sumText: {
-    fontSize: '14px',
     color: theme.palette.text.general,
+    fontSize: '14px',
     lineHeight: '16px',
     fontWeight: '400',
     whiteSpace: 'nowrap',
-  },
-
-  cell: {
-    padding: '0 5px',
-  },
-
-  productCell: {
-    maxWidth: 260,
   },
 
   deleteCell: {
@@ -87,13 +100,8 @@ export const useStyles = makeStyles()(theme => ({
   priceVariationsCell: {
     width: 145,
     display: 'flex',
-    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100%',
-    margin: 'auto',
-    color: theme.palette.text.general,
-    fontSize: '12px',
   },
 
   buttonWrapper: {
@@ -103,16 +111,6 @@ export const useStyles = makeStyles()(theme => ({
     justifyContent: 'center',
     gap: '5px',
     padding: '5px 0',
-  },
-
-  warningText: {
-    fontSize: '12px',
-    color: theme.palette.text.red,
-  },
-
-  textSuccess: {
-    fontSize: '12px',
-    color: theme.palette.text.green,
   },
 
   inputQuantity: {
@@ -128,5 +126,40 @@ export const useStyles = makeStyles()(theme => ({
 
   boxGray: {
     color: ' #637381CC',
+  },
+
+  tariffText: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    gap: '3px',
+
+    span: {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  },
+
+  minBatchWrapper: {
+    position: 'relative',
+  },
+
+  tooltipWrapper: {
+    position: 'absolute',
+    top: '-10px',
+    right: '-15px',
+    cursor: 'pointer',
+    width: '18px',
+    height: '18px',
+    zIndex: '20',
+  },
+
+  warningIcon: {
+    color: 'red',
+  },
+
+  inputCell: {
+    width: '210px',
   },
 }))

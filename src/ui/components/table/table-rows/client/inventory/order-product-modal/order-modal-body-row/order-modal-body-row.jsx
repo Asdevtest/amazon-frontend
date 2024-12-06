@@ -1,7 +1,9 @@
+import { Tooltip } from 'antd'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { BsFillBoxSeamFill } from 'react-icons/bs'
 import { MdOutlineDelete } from 'react-icons/md'
+import { RiErrorWarningLine } from 'react-icons/ri'
 
 import { IconButton, TableCell, TableRow } from '@mui/material'
 
@@ -60,7 +62,9 @@ export const OrderModalBodyRow = ({
 
   const priceVariations = item?.currentSupplierCard?.priceVariations
 
-  const { tariffName, tariffRate } = useGetDestinationTariffInfo(
+  const isNotMinAmout = item.amount < item?.currentSupplierCard?.minlot
+
+  const { tariffName, tariffRate, tariffDestination } = useGetDestinationTariffInfo(
     destinations,
     storekeepers,
     item.destinationId,
@@ -71,20 +75,15 @@ export const OrderModalBodyRow = ({
 
   const weightOfOneBox = item.currentSupplierCard
     ? Math.max(
-        Math.round(
-          (((item.currentSupplierCard?.boxProperties?.boxWidthCm || 0) *
-            (item.currentSupplierCard?.boxProperties?.boxLengthCm || 0) *
-            (item.currentSupplierCard?.boxProperties?.boxHeightCm || 0)) /
-            platformSettings?.volumeWeightCoefficient) *
-            100,
-        ) / 100 || 0,
-        item.currentSupplierCard?.boxProperties?.boxWeighGrossKg,
-      ) / item.currentSupplierCard?.boxProperties?.amountInBox
-    : ''
+        ((item.currentSupplierCard?.boxProperties?.boxWidthCm || 0) *
+          (item.currentSupplierCard?.boxProperties?.boxLengthCm || 0) *
+          (item.currentSupplierCard?.boxProperties?.boxHeightCm || 0)) /
+          platformSettings?.volumeWeightCoefficient || 0,
+        item.currentSupplierCard?.boxProperties?.boxWeighGrossKg || 0,
+      ) / item.currentSupplierCard?.boxProperties?.amountInBox || 0
+    : 0
 
   const weightOfBatch = weightOfOneBox * orderState.amount || ''
-
-  const costDeliveryOfBatch = weightOfBatch * tariffRate || ''
 
   const onChangeInput = (event, nameInput) => {
     if (nameInput === 'deadline') {
@@ -120,19 +119,20 @@ export const OrderModalBodyRow = ({
     }
   }, [orderState.amount])
 
+  const costDeliveryOfBatch = (weightOfBatch || 0) * (tariffRate || 0)
+
   useEffect(() => {
     if (orderState.amount > 0 && costDeliveryOfBatch) {
-      setPerPriceUnit(
-        toFixed(
-          (+toFixed(costDeliveryOfBatch, 2) + +toFixed(calcProductsPriceWithDelivery(item, orderState), 2)) /
-            +orderState.amount,
-          2,
-        ),
-      )
+      const result =
+        Number(weightOfOneBox) * Number(tariffRate || 0) +
+        Number(item.currentSupplierCard?.priceInUsd) +
+        Number(item.currentSupplierCard?.batchDeliveryCostInDollar / item.currentSupplierCard?.amount)
+
+      setPerPriceUnit(toFixed(result, 2))
     } else {
       setPerPriceUnit(t(TranslationKey['No data']))
     }
-  }, [costDeliveryOfBatch, item, orderState, orderState.amount])
+  }, [weightOfBatch, tariffRate, item, orderState, orderState.amount])
 
   useEffect(() => {
     if (item.mainTariffVariation) {
@@ -147,7 +147,7 @@ export const OrderModalBodyRow = ({
     ? `${item.currentSupplierCard?.minProductionTerm} - ${item.currentSupplierCard?.maxProductionTerm}`
     : t(TranslationKey['No data'])
 
-  const [boxQuantity, setBoxQuantity] = useState(item?.valueForOrder || 0)
+  const [boxQuantity, setBoxQuantity] = useState(0)
 
   useEffect(() => {
     const dinamicBoxQuantity = toFixed(
@@ -169,6 +169,12 @@ export const OrderModalBodyRow = ({
     )
 
   const [showDeadlineModal, setShowDeadlineModal] = useState(false)
+
+  const tariffForRender = (
+    <p className={styles.tariffText}>
+      <span>{tariffName}</span> / <span>{tariffDestination?.destination?.name}</span> / <span>{tariffRate} $</span>
+    </p>
+  )
 
   return (
     <>
@@ -199,7 +205,7 @@ export const OrderModalBodyRow = ({
           </p>
         </TableCell>
 
-        <TableCell className={styles.cell}>
+        <TableCell className={cx(styles.cell, styles.inputCell)}>
           <CustomInput
             fullWidth
             maxLength={6}
@@ -295,14 +301,7 @@ export const OrderModalBodyRow = ({
             type={item.logicsTariffId ? 'default' : 'primary'}
             onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
           >
-            {item.logicsTariffId ? (
-              <>
-                <p>{tariffName}</p>
-                <p>{tariffRate}</p>
-              </>
-            ) : (
-              t(TranslationKey.Select)
-            )}
+            {item.logicsTariffId ? tariffForRender : t(TranslationKey.Select)}
           </CustomButton>
         </TableCell>
 
@@ -341,12 +340,13 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <CustomDatePicker
-            inputReadOnly
-            open={false}
+            open={!item?.currentSupplierCard && undefined}
+            inputReadOnly={item?.currentSupplierCard}
             format="DD.MM.YYYY"
             status={isPendingOrder && !item.deadline && 'error'}
             value={item?.deadline ? dayjs(item.deadline) : null}
-            onClick={() => setShowDeadlineModal(!showDeadlineModal)}
+            onChange={value => !item?.currentSupplierCard && onChangeInput(value, 'deadline')}
+            onClick={() => item?.currentSupplierCard && setShowDeadlineModal(!showDeadlineModal)}
           />
         </TableCell>
 
@@ -382,13 +382,23 @@ export const OrderModalBodyRow = ({
               inputComponent={<p className={styles.sumText}>{productionTerm}</p>}
             />
 
-            <Field
-              oneLine
-              containerClasses={styles.containerField}
-              labelClasses={styles.labelField}
-              label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
-              inputComponent={<p className={styles.sumText}>{item.currentSupplierCard?.minlot}</p>}
-            />
+            <div className={styles.minBatchWrapper}>
+              {isNotMinAmout ? (
+                <Tooltip
+                  title={t(TranslationKey['The quantity of goods must be greater than the minimum lot'])}
+                  className={styles.tooltipWrapper}
+                >
+                  <RiErrorWarningLine size={18} className={styles.warningIcon} />
+                </Tooltip>
+              ) : null}
+              <Field
+                oneLine
+                containerClasses={styles.containerField}
+                labelClasses={styles.labelField}
+                label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
+                inputComponent={<p className={styles.sumText}>{item.currentSupplierCard?.minlot}</p>}
+              />
+            </div>
 
             <Field
               oneLine
@@ -416,9 +426,7 @@ export const OrderModalBodyRow = ({
               labelClasses={styles.labelField}
               label={t(TranslationKey['Batch delivery cost']) + ',$'}
               inputComponent={
-                <p className={styles.sumText}>
-                  {toFixed(item.currentSupplierCard?.batchDeliveryCostInDollar, 2) || t(TranslationKey['No data'])}
-                </p>
+                <p className={styles.sumText}>{toFixed(costDeliveryOfBatch, 2) || t(TranslationKey['No data'])}</p>
               }
             />
 

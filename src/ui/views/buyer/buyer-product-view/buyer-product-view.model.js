@@ -185,6 +185,10 @@ export class BuyerProductViewModel {
   async openConfirmModalWithTextByStatus(updateDataHandler) {
     try {
       runInAction(() => {
+        this.product.currentSupplierCardId = this.product?.currentSupplierCard?._id
+      })
+
+      runInAction(() => {
         this.curUpdateProductData = getObjectFilteredByKeyArrayWhiteList(
           this.product,
           fieldsOfProductAllowedToUpdate,
@@ -263,24 +267,23 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onSaveForceProductData() {
+  async onSaveForceProductData(product) {
     try {
-      await BuyerModel.updateProduct(
-        this.productId,
-        getObjectFilteredByKeyArrayWhiteList(
-          this.product,
-          fieldsOfProductAllowedToForceUpdate,
-          false,
-          (key, value) => {
-            if (key === 'buyersComment' && isUndefined(value)) {
-              return ''
-            } else {
-              return value
-            }
-          },
-          true,
-        ),
+      const dataToSave = getObjectFilteredByKeyArrayWhiteList(
+        product,
+        fieldsOfProductAllowedToForceUpdate,
+        false,
+        (key, value) => {
+          if (key === 'buyersComment' && isUndefined(value)) {
+            return ''
+          } else {
+            return value
+          }
+        },
+        true,
       )
+
+      await BuyerModel.updateProduct(this.productId, dataToSave)
 
       this.loadData()
     } catch (error) {

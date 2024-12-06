@@ -3,13 +3,9 @@ import { makeAutoObservable, reaction, runInAction } from 'mobx'
 
 import { GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid'
 
-import { TranslationKey } from '@constants/translations/translation-key'
-
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
-
-import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IProduct } from '@typings/models/products/product'
@@ -108,10 +104,10 @@ export class ListSuppliersModel {
       const currentSupplierId: string | undefined = this.product?.currentSupplierCard?._id
 
       const foundCurrentSupplier = this.product?.supplierCards?.find(
-        (supplier: ISupplier) => supplier?.supplier?._id === currentSupplierId,
+        (supplier: ISupplier) => supplier?._id === currentSupplierId,
       )
       const filteringSuppliers = this.product?.supplierCards?.filter(
-        (supplier: ISupplier) => supplier?.supplier?._id !== currentSupplierId,
+        (supplier: ISupplier) => supplier?._id !== currentSupplierId,
       )
 
       const resultSuppliers = foundCurrentSupplier
@@ -164,9 +160,16 @@ export class ListSuppliersModel {
 
         this.onToggleModal(ModalNames.SUPPLIER)
         break
+
       case ModalModes.ADD_SUPPLIER_CARD:
+        runInAction(() => {
+          this.supplierModalReadOnly = false
+          this.currentSupplier = undefined
+        })
+
         this.onToggleModal(ModalNames.SUPPLIER_CARD)
         break
+
       case ModalModes.VIEW:
         runInAction(() => {
           this.supplierModalReadOnly = true
@@ -174,6 +177,7 @@ export class ListSuppliersModel {
 
         this.onToggleModal(ModalNames.SUPPLIER_CARD)
         break
+
       case ModalModes.EDIT:
         runInAction(() => {
           this.supplierModalReadOnly = false
@@ -181,19 +185,19 @@ export class ListSuppliersModel {
 
         this.onToggleModal(ModalNames.SUPPLIER_CARD)
         break
+
       case ModalModes.ACCEPT:
         runInAction(() => {
           if (this.currentSupplier && this.product) {
             this.product.currentSupplier = this.currentSupplier
-            this.product.currentSupplierId = this.currentSupplier?.supplier?._id
             this.product.currentSupplierCardId = this.currentSupplier?._id
           }
         })
 
         this.saveProduct()
         this.onGetSuppliers()
-
         break
+
       case ModalModes.ACCERT_REVOKE:
         runInAction(() => {
           if (this.currentSupplier && this.product) {
@@ -203,24 +207,25 @@ export class ListSuppliersModel {
         })
 
         this.saveProduct()
-
         break
-      case ModalModes.DELETE:
-        runInAction(() => {
-          this.confirmModalSettings = {
-            isWarning: true,
-            message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-            successBtnText: t(TranslationKey.Yes),
-            cancelBtnText: t(TranslationKey.Close),
-            onClickOkBtn: () => {
-              this.removeSupplier()
-              this.onToggleModal(ModalNames.CONFIRM)
-            },
-          }
-        })
 
-        this.onToggleModal(ModalNames.CONFIRM)
-        break
+      // The button of deleting a supplier was commented because it wasnt necessary
+      // case ModalModes.DELETE:
+      //   runInAction(() => {
+      //     this.confirmModalSettings = {
+      //       isWarning: true,
+      //       message: t(TranslationKey['Are you sure you want to remove the supplier?']),
+      //       successBtnText: t(TranslationKey.Yes),
+      //       cancelBtnText: t(TranslationKey.Close),
+      //       onClickOkBtn: () => {
+      //         this.removeSupplier()
+      //         this.onToggleModal(ModalNames.CONFIRM)
+      //       },
+      //     }
+      //   })
+
+      //   this.onToggleModal(ModalNames.CONFIRM)
+      //   break
     }
   }
 
@@ -232,6 +237,7 @@ export class ListSuppliersModel {
     }
   }
 
+  // The button of deleting a supplier was commented because it wasnt necessary
   removeSupplier() {
     if (this.onRemoveSupplier && this.currentSupplier) {
       this.onRemoveSupplier(this.currentSupplier?.supplier?._id, this.product?._id)

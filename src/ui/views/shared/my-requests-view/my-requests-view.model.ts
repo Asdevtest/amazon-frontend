@@ -166,7 +166,6 @@ export class MyRequestsViewModel extends DataGridFilterTableModel {
 
   async loadData() {
     try {
-      this.getDataGridState()
       await this.getCurrentData()
     } catch (error) {
       console.error(error)

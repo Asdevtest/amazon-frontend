@@ -198,6 +198,7 @@ export const useStyles = makeStyles()(theme => ({
   flexWrap: {
     display: 'flex',
     alignItems: 'center',
+    gap: '5px',
   },
 
   inputLink: {
@@ -397,14 +398,31 @@ export const useStyles = makeStyles()(theme => ({
 
   spanLabelSmall: {
     fontSize: '14px',
+    color: theme.palette.text.general,
+    marginBottom: '5px',
+  },
+
+  countrySelectWrapper: {
+    gap: 0,
   },
 
   tariffLabel: {
-    marginBottom: '5px',
     display: 'flex',
     gap: '5px',
     svg: {
       color: 'rgba(255, 197, 61, 1)',
+    },
+  },
+
+  tariffText: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    gap: '3px',
+    span: {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
   },
 }))

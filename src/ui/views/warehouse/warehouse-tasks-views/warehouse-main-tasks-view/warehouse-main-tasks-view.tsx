@@ -118,6 +118,8 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
               handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              handleDownloadPreset: viewModel.handleDownloadPreset,
+              handleLoadPreset: viewModel.handleLoadPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },
@@ -141,6 +143,7 @@ export const WarehouseMainTasksView = observer(({ status }: { status: TaskStatus
       >
         <EditTaskModal
           // @ts-ignore
+          requestStatus={viewModel.requestStatus}
           readOnly={status === TaskStatus.NEW}
           task={viewModel.currentTask}
           showEditBoxModal={viewModel.showEditBoxModal}

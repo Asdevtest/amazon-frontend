@@ -154,9 +154,9 @@ export const IdeaViewAndEditCard = observer(
         criteria: idea?.criteria || '',
         quantity: idea?.quantity || 0,
         price: idea?.price || 0,
-        width: toFixed(idea?.width / multiplier, 2) || 0,
-        height: toFixed(idea?.height / multiplier, 2) || 0,
-        length: toFixed(idea?.length / multiplier, 2) || 0,
+        width: toFixed((idea?.width || 0) / multiplier, 2) || 0,
+        height: toFixed((idea?.height || 0) / multiplier, 2) || 0,
+        length: toFixed((idea?.length || 0) / multiplier, 2) || 0,
         suppliers: idea?.suppliers || [],
         _id: idea?._id || undefined,
         childProduct: idea?.childProduct || undefined,
@@ -674,9 +674,7 @@ export const IdeaViewAndEditCard = observer(
                 isIdea
                 formFields={formFields}
                 isNotProductNameForIdea={formFields?.productName.length === 0} // for disable add supplier button
-                onClickSaveSupplier={({ ...rest }) =>
-                  onClickSaveSupplierBtn({ ...rest, ideaFormFields: calculateFieldsToSubmit() })
-                }
+                onClickSaveSupplier={supplierCardId => onClickSaveSupplierBtn(supplierCardId, formFields?._id)}
                 onRemoveSupplier={onRemoveSupplier}
                 // onSaveProduct={onClickSupplierBtns}
               />

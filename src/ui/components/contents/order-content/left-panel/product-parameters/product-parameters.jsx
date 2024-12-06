@@ -49,8 +49,8 @@ export const ProductParameters = ({
     />
   )
 
-  const productionTerm = order.orderSupplier
-    ? `${order.orderSupplier.minProductionTerm} - ${order.orderSupplier.maxProductionTerm}`
+  const productionTerm = order.orderSupplierCard
+    ? `${order.orderSupplierCard.minProductionTerm} - ${order.orderSupplierCard.maxProductionTerm}`
     : t(TranslationKey['No data'])
 
   return (
@@ -89,11 +89,11 @@ export const ProductParameters = ({
         labelClasses={styles.fieldLabel}
         inputComponent={
           <div>
-            {order.orderSupplier?.link === ACCESS_DENIED ? (
-              <p className={styles.scrollingText}>{order.orderSupplier?.link}</p>
+            {order.orderSupplierCard?.link === ACCESS_DENIED ? (
+              <p className={styles.scrollingText}>{order.orderSupplierCard?.link}</p>
             ) : (
-              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplier?.link)}>
-                <p className={styles.scrollingText}>{order.orderSupplier?.link}</p>
+              <Link target="_blank" rel="noopener" href={checkAndMakeAbsoluteUrl(order.orderSupplierCard?.link)}>
+                <p className={styles.scrollingText}>{order.orderSupplierCard?.link}</p>
               </Link>
             )}
           </div>

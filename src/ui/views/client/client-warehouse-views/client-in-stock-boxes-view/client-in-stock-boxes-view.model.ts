@@ -310,8 +310,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.storekeepersData = result as IStorekeeper[]
       })
-
-      this.getDataGridState()
     } catch (error) {
       console.error(error)
     }
@@ -636,8 +634,6 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
       runInAction(() => {
         this.clientDestinations = clientDestinations as IDestination[]
       })
-
-      this.getDataGridState()
     } catch (error) {
       console.error(error)
     }
@@ -1893,7 +1889,8 @@ export class ClientInStockBoxesViewModel extends DataGridFilterTableModel {
           ...order,
           totalPrice:
             order.amount *
-            (order.orderSupplier?.price + order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount),
+            (order.orderSupplierCard?.price +
+              order.orderSupplierCard?.batchDeliveryCostInDollar / order.orderSupplierCard?.amount),
         },
         [
           'amount',

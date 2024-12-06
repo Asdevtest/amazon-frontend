@@ -187,7 +187,7 @@ const WholesaleView = lazy(() =>
     default: module.WholesaleView,
   })),
 )
-const SupplerView = lazy(() =>
+const SupplierView = lazy(() =>
   import('@views/shared/supplier-view').then(module => ({
     default: module.SupplierView,
   })),
@@ -345,8 +345,13 @@ const AnotherUserProfileView = lazy(() =>
 const CreateOrEditProposalView = lazy(() =>
   import('@views/shared/create-or-edit-proposal-view').then(module => ({ default: module.CreateOrEditProposalView })),
 )
+
 const MyServicesView = lazy(() =>
-  import('@views/shared/my-services-view').then(module => ({ default: module.MyServicesView })),
+  import('@views/shared/services-view').then(module => {
+    const Component = module.ServicesView
+
+    return { default: props => <Component isClient={false} {...props} /> }
+  }),
 )
 
 const CreateOrEditServicesView = lazy(() =>
@@ -392,7 +397,11 @@ const AllProposalsView = lazy(() =>
 )
 
 const ServiceExchangeView = lazy(() =>
-  import('@views/shared/service-exchange-view').then(module => ({ default: module.ServiceExchangeView })),
+  import('@views/shared/services-view').then(module => {
+    const Component = module.ServicesView
+
+    return { default: props => <Component isClient {...props} /> }
+  }),
 )
 
 const MyRequestsView = lazy(() =>
@@ -979,11 +988,11 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.BUYER],
     permissionKey: permissionsKeys.buyer.SHOW_FEEDBACK_BUYER,
-    crumbNameKey: TranslationKey.Feedback,
+    crumbNameKey: TranslationKey.Support,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
     },
   },
 
@@ -1102,11 +1111,11 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.RESEARCHER],
     permissionKey: permissionsKeys.researcher.SHOW_FEEDBACK_RESEARCHER,
-    crumbNameKey: TranslationKey.Feedback,
+    crumbNameKey: TranslationKey.Support,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
     },
   },
 
@@ -1560,10 +1569,10 @@ export const privateRoutesConfigs = [
 
   {
     routePath: '/client/product-exchange/wholesale/supplier',
-    component: SupplerView,
+    component: SupplierView,
     exact: true,
     permission: [UserRole.CLIENT],
-    permissionKey: permissionsKeys.client.SHOW_SUPPLIER_CLIENT,
+    permissionKey: permissionsKeys.client.VIEW_SUPPLIER_CLIENT,
     crumbNameKey: TranslationKey.Supplier,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_EXCHANGE,
@@ -2000,11 +2009,11 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.CLIENT],
     permissionKey: permissionsKeys.client.SHOW_FEEDBACK_CLIENT,
-    crumbNameKey: TranslationKey.Feedback,
+    crumbNameKey: TranslationKey.Support,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
     },
   },
 
@@ -2228,11 +2237,11 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.SUPERVISOR],
     permissionKey: permissionsKeys.supervisor.SHOW_FEEDBACK_SUPERVISOR,
-    crumbNameKey: TranslationKey.Feedback,
+    crumbNameKey: TranslationKey.Support,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
     },
   },
 
@@ -2473,11 +2482,11 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.STOREKEEPER],
     permissionKey: permissionsKeys.storekeeper.SHOW_FEEDBACK_STOREKEEPER,
-    crumbNameKey: TranslationKey.Feedback,
+    crumbNameKey: TranslationKey.Support,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
     },
   },
 
@@ -2785,11 +2794,11 @@ export const privateRoutesConfigs = [
     component: FeedbackView,
     exact: false,
     permission: [UserRole.ADMIN],
-    crumbNameKey: TranslationKey.Feedback,
+    crumbNameKey: TranslationKey.Support,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
     },
   },
 
@@ -3167,11 +3176,11 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.FREELANCER],
     permissionKey: permissionsKeys.freelancer.SHOW_FEEDBACK_FREELANCER,
-    crumbNameKey: TranslationKey.Feedback,
+    crumbNameKey: TranslationKey.Support,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
     },
   },
 
@@ -3295,11 +3304,11 @@ export const privateRoutesConfigs = [
     exact: false,
     permission: [UserRole.MODERATOR],
     permissionKey: permissionsKeys.moderator.SHOW_FEEDBACK_MODERATOR,
-    crumbNameKey: TranslationKey.Feedback,
+    crumbNameKey: TranslationKey.Support,
     navigationInfo: {
       activeCategory: navBarActiveCategory.NAVBAR_FEEDBACK,
       activeSubCategory: '',
-      title: () => t(TranslationKey.Feedback),
+      title: () => t(TranslationKey.Support),
     },
   },
 

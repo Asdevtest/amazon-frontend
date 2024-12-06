@@ -25,13 +25,17 @@ export const roundHalf = num => {
   }
 }
 
-export const calcProductsPriceWithDelivery = (product, order) =>
-  ((parseFloat(product.currentSupplierCard && product.currentSupplierCard.priceInUsd) || 0) +
-    (parseFloat(
-      product.currentSupplier &&
-        product.currentSupplierCard.batchTotalCostInDollar / product.currentSupplierCard.amount,
-    ) || 0)) *
-  (parseInt(order?.amount) || 0)
+export const calcProductsPriceWithDelivery = (product, order) => {
+  if (!product.currentSupplierCard) {
+    return 0
+  }
+
+  return (
+    ((parseFloat(product.currentSupplierCard.priceInUsd) || 0) +
+      (parseFloat(product.currentSupplierCard.batchDeliveryCostInDollar / product.currentSupplierCard.amount) || 0)) *
+    (parseInt(order?.amount) || 0)
+  )
+}
 
 export const calcProductsMaxAmountByPriceLimit = (product, maxPrice) =>
   maxPrice > 0
@@ -304,7 +308,7 @@ export const calcPriceForBox = box => {
   }
 
   const sumsOfItems = box.items?.reduce(
-    (acc, cur) => acc + calcSupplierPriceForUnit(cur.order?.orderSupplier) * cur.amount,
+    (acc, cur) => acc + calcSupplierPriceForUnit(cur.order?.orderSupplierCard) * cur.amount,
     0,
   )
   return box.amount > 1 ? sumsOfItems * box.amount : sumsOfItems

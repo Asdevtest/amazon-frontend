@@ -1,6 +1,6 @@
 import { IAnnoucement } from './annoucement'
 
-export interface IProductsPag {
+export interface IAnnoucements {
   count: number
   rows: IAnnoucement[]
 }

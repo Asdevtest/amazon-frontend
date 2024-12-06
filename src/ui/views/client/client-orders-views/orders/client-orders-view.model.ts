@@ -105,8 +105,7 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
     makeObservable(this, observerConfig)
 
     this.history = history
-    // this.getDataGridState()
-    // this.getCurrentData()
+
     this.getDestinations()
     this.getStorekeepers()
     this.getTableSettingsPreset()
@@ -534,7 +533,8 @@ export class ClientOrdersViewModel extends DataGridFilterTableModel {
           ...order,
           totalPrice:
             order.amount *
-            (order.orderSupplier?.price + order.orderSupplier?.batchDeliveryCostInDollar / order.orderSupplier?.amount),
+            (order.orderSupplierCard?.price +
+              order.orderSupplierCard?.batchDeliveryCostInDollar / order.orderSupplierCard?.amount),
         },
         [
           'amount',

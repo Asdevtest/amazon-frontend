@@ -8,6 +8,10 @@ export const useStyles = makeStyles()(() => ({
     gap: '20px',
   },
 
+  addInventoryBtn: {
+    marginLeft: 'auto',
+  },
+
   container: {
     position: 'relative',
     height: '100%',

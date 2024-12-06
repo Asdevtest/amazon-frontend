@@ -126,12 +126,12 @@ export const EditOrderModal = memo(
       deliveryCostToTheWarehouse:
         order?.deliveryCostToTheWarehouse ||
         (order?.priceInYuan !== 0 && Number(order?.deliveryCostToTheWarehouse) === 0 && '0') ||
-        (order?.orderSupplier?.batchDeliveryCostInDollar / order?.orderSupplier?.amount) * order?.amount ||
+        (order?.orderSupplierCard?.batchDeliveryCostInDollar / order?.orderSupplierCard?.amount) * order?.amount ||
         0,
       priceBatchDeliveryInYuan:
         order?.priceBatchDeliveryInYuan ||
         (order?.priceInYuan !== 0 && Number(order?.priceBatchDeliveryInYuan) === 0 && '0') ||
-        (order?.orderSupplier?.batchDeliveryCostInYuan / order?.orderSupplier?.amount) * order?.amount ||
+        (order?.orderSupplierCard?.batchDeliveryCostInYuan / order?.orderSupplierCard?.amount) * order?.amount ||
         0,
       trackId: '',
       material: order?.product?.material || '',
@@ -144,7 +144,7 @@ export const EditOrderModal = memo(
       priceInYuan: order?.priceInYuan || order?.totalPriceChanged * order?.yuanToDollarRate,
       paymentDetails: order?.paymentDetails || [],
       payments: order?.payments || [],
-      orderSupplier: order?.orderSupplier || {},
+      orderSupplierCard: order?.orderSupplierCard || {},
       partialPaymentAmountRmb: order?.partialPaymentAmountRmb || 0,
       partiallyPaid: order?.partiallyPaid || 0,
       partialPayment: order?.partialPayment || false,
@@ -173,18 +173,18 @@ export const EditOrderModal = memo(
     const [editPaymentDetailsPhotos, setEditPaymentDetailsPhotos] = useState(orderFields.paymentDetails)
 
     useEffect(() => {
-      setOrderFields({ ...orderFields, product: order.product, orderSupplier: order.orderSupplier })
+      setOrderFields({ ...orderFields, product: order.product, orderSupplierCard: order.orderSupplierCard })
     }, [order])
 
     const handleSaveProduct = product => {
-      setOrderFields(prev => ({ ...prev, product, orderSupplier: product.currentSupplier }))
+      setOrderFields(prev => ({ ...prev, product, orderSupplierCard: product.currentSupplier }))
     }
 
     useEffect(() => {
       if (isPendingOrder) {
         onClickUpdateButton()
       }
-    }, [orderFields.orderSupplier])
+    }, [orderFields.orderSupplierCard])
 
     const onRemoveForCreationBox = boxIndex => {
       const updatedNewBoxes = boxesForCreation.filter((box, i) => i !== boxIndex)
@@ -232,22 +232,23 @@ export const EditOrderModal = memo(
       const newOrderFieldsState = { ...orderFields }
 
       newOrderFieldsState.deliveryCostToTheWarehouse =
-        (orderFields?.orderSupplier?.batchDeliveryCostInYuan /
+        (orderFields?.orderSupplierCard?.batchDeliveryCostInYuan /
           orderFields?.yuanToDollarRate /
-          orderFields?.orderSupplier?.amount) *
+          orderFields?.orderSupplierCard?.amount) *
         orderFields?.amount
 
       newOrderFieldsState.priceBatchDeliveryInYuan =
-        (orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) * orderFields?.amount
+        (orderFields?.orderSupplierCard?.batchDeliveryCostInYuan / orderFields?.orderSupplierCard?.amount) *
+        orderFields?.amount
 
       newOrderFieldsState.priceInYuan =
-        (orderFields?.orderSupplier?.priceInYuan +
-          orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) *
+        (orderFields?.orderSupplierCard?.priceInYuan +
+          orderFields?.orderSupplierCard?.batchDeliveryCostInYuan / orderFields?.orderSupplierCard?.amount) *
         orderFields?.amount
 
       newOrderFieldsState.totalPriceChanged =
-        ((orderFields?.orderSupplier?.priceInYuan +
-          orderFields?.orderSupplier?.batchDeliveryCostInYuan / orderFields?.orderSupplier?.amount) *
+        ((orderFields?.orderSupplierCard?.priceInYuan +
+          orderFields?.orderSupplierCard?.batchDeliveryCostInYuan / orderFields?.orderSupplierCard?.amount) *
           orderFields?.amount) /
         orderFields?.yuanToDollarRate
 
@@ -271,7 +272,7 @@ export const EditOrderModal = memo(
       const costInYuan = (orderFields.priceInYuan - orderFields.priceBatchDeliveryInYuan) / orderFields.amount
 
       const dataForUpdateSupData = {
-        supplier: orderFields.orderSupplier,
+        supplier: orderFields.orderSupplierCard,
         productId: order.product?._id,
         orderFields: {
           amount: orderFields.amount,
@@ -293,7 +294,7 @@ export const EditOrderModal = memo(
           onSubmitSaveOrder(getDataForSaveOrder())
           onClickUpdataSupplierData(dataForUpdateSupData)
         } else {
-          if (toFixed(costInYuan, 2) !== toFixed(orderFields?.orderSupplier.priceInYuan, 2)) {
+          if (toFixed(costInYuan, 2) !== toFixed(orderFields?.orderSupplierCard.priceInYuan, 2)) {
             onClickSaveWithoutUpdateSupData(getDataForSaveOrder(), orderFields)
           } else {
             onSubmitSaveOrder(getDataForSaveOrder())
@@ -362,23 +363,23 @@ export const EditOrderModal = memo(
         newOrderFieldsState[filedName] = clearEverythingExceptNumbers(e.target.value)
 
         newOrderFieldsState.priceInYuan =
-          (orderFields?.orderSupplier.priceInYuan +
-            orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+          (orderFields?.orderSupplierCard.priceInYuan +
+            orderFields?.orderSupplierCard.batchDeliveryCostInYuan / orderFields?.orderSupplierCard.amount) *
             clearEverythingExceptNumbers(e.target.value) || ''
 
         newOrderFieldsState.totalPriceChanged =
-          ((orderFields?.orderSupplier.priceInYuan +
-            orderFields?.orderSupplier.batchDeliveryCostInYuan / orderFields?.orderSupplier.amount) *
+          ((orderFields?.orderSupplierCard.priceInYuan +
+            orderFields?.orderSupplierCard.batchDeliveryCostInYuan / orderFields?.orderSupplierCard.amount) *
             clearEverythingExceptNumbers(e.target.value)) /
             orderFields?.yuanToDollarRate || ''
 
         newOrderFieldsState.priceBatchDeliveryInYuan =
-          (orderFields.orderSupplier.batchDeliveryCostInYuan / orderFields.orderSupplier.amount) *
+          (orderFields.orderSupplierCard.batchDeliveryCostInYuan / orderFields.orderSupplierCard.amount) *
             clearEverythingExceptNumbers(e.target.value) || 0
 
         newOrderFieldsState.deliveryCostToTheWarehouse =
-          (orderFields.orderSupplier.batchDeliveryCostInYuan /
-            orderFields.orderSupplier.amount /
+          (orderFields.orderSupplierCard.batchDeliveryCostInYuan /
+            orderFields.orderSupplierCard.amount /
             orderFields?.yuanToDollarRate) *
             clearEverythingExceptNumbers(e.target.value) || 0
       } else {
@@ -562,6 +563,8 @@ export const EditOrderModal = memo(
                         [styles.disableSelect]: buyerOrderModalDisabledOrderStatuses.includes(statusCode),
                       })}
                       disabled={
+                        (!order.orderSupplierCard &&
+                          statusCode !== `${OrderStatusByKey[OrderStatus.CANCELED_BY_BUYER]}`) ||
                         buyerOrderModalDisabledOrderStatuses.includes(statusCode) ||
                         (statusCode === `${OrderStatusByKey[OrderStatus.IN_STOCK]}` &&
                           order.status < OrderStatusByKey[OrderStatus.TRACK_NUMBER_ISSUED]) ||
@@ -645,7 +648,7 @@ export const EditOrderModal = memo(
 
           <ListSuppliers
             formFields={orderFields}
-            defaultSupplierId={order?.orderSupplier?._id}
+            defaultSupplierId={order?.orderSupplierCard?._id}
             checkIsPlanningPrice={checkIsPlanningPrice}
             onClickSaveSupplier={onClickSaveSupplierBtn}
             onSaveProduct={handleSaveProduct}
@@ -696,9 +699,9 @@ export const EditOrderModal = memo(
               orderGoodsAmount={orderFields?.amount}
               barcodeIsExist={order.product.barCode}
               isNoBuyerSupplier={
-                userInfo._id !== order?.orderSupplier?.createdBy?._id &&
-                userInfo?.masterUser?._id !== order.orderSupplier?.createdBy?._id &&
-                order?.orderSupplier?.createdBy
+                userInfo._id !== order?.orderSupplierCard?.createdBy?._id &&
+                userInfo?.masterUser?._id !== order.orderSupplierCard?.createdBy?._id &&
+                order?.orderSupplierCard?.createdBy
               }
               newBoxes={boxesForCreation}
               onRemoveBox={onRemoveForCreationBox}
@@ -762,7 +765,7 @@ export const EditOrderModal = memo(
           <CreateBoxForm
             isEdit={isEdit}
             order={order}
-            currentSupplier={order.orderSupplier}
+            currentSupplier={order.orderSupplierCard}
             volumeWeightCoefficient={platformSettings?.volumeWeightCoefficient}
             formItem={orderFields}
             boxesForCreation={boxesForCreation}

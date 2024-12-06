@@ -547,77 +547,16 @@ export class SuppliersAndIdeasModel {
     }
   }
 
-  async onClickSaveSupplierBtn({ supplier, itemId, ideaFormFields, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn(supplierCardId, ideaId) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      supplier = {
-        ...supplier,
-        amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        minlot: parseInt(supplier?.minlot) || '',
-        price: parseFloat(supplier?.price) || '',
-        heightUnit: supplier?.heightUnit || null,
-        widthUnit: supplier?.widthUnit || null,
-        lengthUnit: supplier?.lengthUnit || null,
-        weighUnit: supplier?.weighUnit || null,
-      }
+      await IdeaModel.addSuppliersToIdea(ideaId, {
+        supplierCardIds: [supplierCardId],
+      })
 
-      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        images: this.readyImages,
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        imageUnit: this.readyImages,
-      }
-
-      if (supplier?._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
-          supplier,
-          patchSuppliers,
-          undefined,
-          undefined,
-          true,
-        )
-        await SupplierModel.updateSupplier(supplier?._id, supplierUpdateData)
-      } else {
-        if (!itemId) {
-          await onSubmitPostImages.call(this, { images: ideaFormFields.media, type: 'readyImages' })
-
-          const submitData = {
-            ...ideaFormFields,
-            title: ideaFormFields.productName || '',
-            media: this.readyImages,
-            price: ideaFormFields.price || 0,
-            quantity: Math.floor(ideaFormFields.quantity) || 0,
-          }
-
-          const createdIdeaId = await this.createIdea(
-            getObjectFilteredByKeyArrayWhiteList({ ...submitData, parentProductId: this.productId }, IdeaCreate),
-            true,
-          )
-
-          if (createdIdeaId) {
-            runInAction(() => {
-              this.currentIdeaId = createdIdeaId
-            })
-          }
-        }
-
-        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
-        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-
-        await IdeaModel.addSuppliersToIdea(itemId || this.currentIdeaId, {
-          suppliersIds: [createSupplierResult?.guid],
-        })
-
-        await this.getIdea(itemId || this.currentIdeaId)
-        this.getIdeas()
-      }
+      await this.getIdea(ideaId)
+      this.getIdeas()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {

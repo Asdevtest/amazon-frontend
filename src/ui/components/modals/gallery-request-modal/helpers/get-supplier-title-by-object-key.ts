@@ -7,7 +7,7 @@ export const getSupplierTitleByObjectkey = (key: string): string => {
     return t(TranslationKey.Product)
   }
 
-  if (key === 'currentSupplierImage') {
+  if (key === 'currentSupplierCardImage') {
     return t(TranslationKey['Current supplier'])
   }
 
@@ -15,8 +15,8 @@ export const getSupplierTitleByObjectkey = (key: string): string => {
     return t(TranslationKey.SEO)
   }
 
-  if (key.includes('supplierImage')) {
-    return t(TranslationKey.Supplier) + ` ${key.replace('supplierImage', '')}`
+  if (key.includes('supplierCardsImages')) {
+    return t(TranslationKey.Supplier) + ` ${key.replace('supplierCardsImages', '')}`
   }
 
   return t(TranslationKey.Supplier)

@@ -38,14 +38,15 @@ export const styles = theme => ({
     maxHeight: 200,
     overflowY: 'auto',
     textAlign: 'center',
-
     boxShadow: theme.palette.boxShadow.filter,
   },
 
   shop: {
     display: 'flex',
     alignItems: 'center',
+    gap: '8px',
   },
+
   shopName: {
     width: '100%',
     textAlign: 'left',

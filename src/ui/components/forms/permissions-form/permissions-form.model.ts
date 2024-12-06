@@ -148,7 +148,9 @@ export class PermissionsFormModel {
 
       if (permissionId) {
         permissions.push(permissionId)
-      } else if (![SELECT_ALL_PERMISSION, WITHOUT_GROUP].includes(groupId)) {
+      } else if (groupId === WITHOUT_GROUP) {
+        this.withoutGroupPermissions.forEach(permission => permissions.push(permission._id))
+      } else if (groupId !== SELECT_ALL_PERMISSION) {
         permissionGroups.push(groupId)
       }
     })
@@ -206,7 +208,7 @@ export class PermissionsFormModel {
     return this.mainLoading || !hasEnoughUsers
   }
   get showRolesSelect() {
-    return this.subUser && this.subUser?.allowedRoles?.length > 1
+    return this.subUser && this.subUser?.allowedRoles?.length > 1 && this.isAdmin
   }
 
   constructor({ subUser, onCloseModal, onUpdateData }: PermissionsFormProps) {
@@ -226,8 +228,7 @@ export class PermissionsFormModel {
       () => this.currentMultupleRole,
       () => {
         if (this.currentMultupleRole) {
-          this.getGroupPermissions()
-          this.getWithoutGroupPermissions()
+          this.loadData()
         }
       },
     )
@@ -362,10 +363,13 @@ export class PermissionsFormModel {
       )) as IPermissionGroup[]
 
       runInAction(() => {
-        this.groupPermissions = response
+        this.groupPermissions = response || []
       })
     } catch (error) {
       console.error(error)
+      runInAction(() => {
+        this.groupPermissions = []
+      })
     }
   }
 
@@ -381,6 +385,9 @@ export class PermissionsFormModel {
       })
     } catch (error) {
       console.error(error)
+      runInAction(() => {
+        this.withoutGroupPermissions = []
+      })
     }
   }
 

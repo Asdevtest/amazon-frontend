@@ -48,7 +48,7 @@ export const SelectShopsForm: FC<SelectShopsModalProps> = observer(props => {
         onSelect={id => setSelectedShopId(id)}
       />
 
-      <Text copyable={false} text={message || ''} />
+      {message ? <Text copyable={false} text={message || ''} /> : null}
 
       <div className={styles.buttons}>
         <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>

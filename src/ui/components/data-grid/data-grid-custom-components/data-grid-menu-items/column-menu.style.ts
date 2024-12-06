@@ -33,5 +33,6 @@ export const useStyles = makeStyles()(() => ({
   filterWrapper: {
     display: 'flex',
     alignItems: 'flex-start',
+    gap: '4px',
   },
 }))

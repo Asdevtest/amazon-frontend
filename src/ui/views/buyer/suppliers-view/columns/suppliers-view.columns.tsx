@@ -49,11 +49,12 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
         <Text
           isCell
           color={getStatusColor(Number(SupplierCardStatus[value]))}
-          text={value ? convertToSentenceCase(value) : ''}
+          text={value ? t(TranslationKey[convertToSentenceCase(value) as keyof typeof TranslationKey]) : ''}
         />
       ),
       valueGetter: ({ row }) => SupplierCardStatus[row?.status],
-      transformValueMethod: (value: number) => convertToSentenceCase(SupplierCardStatus[value]),
+      transformValueMethod: (value: number) =>
+        t(TranslationKey[convertToSentenceCase(SupplierCardStatus[value]) as keyof typeof TranslationKey]),
       width: 150,
       columnKey: columnnsKeys.shared.STRING_VALUE,
     },
@@ -163,7 +164,7 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
       sortable: false,
 
       disableCustomSort: true,
-      columnKey: columnnsKeys.shared.STRING_VALUE,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -205,7 +206,16 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
       headerName: t(TranslationKey.Rating),
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rating)} />,
 
-      renderCell: ({ row }) => <RatingCell disabled rating={row?.avgRating} totalFeedback={row?.totalCountFeedback} />,
+      renderCell: ({ row }) => (
+        <RatingCell
+          disabled
+          isSupplier
+          id={row?._id}
+          name={row?.companyName}
+          rating={row?.avgRating}
+          totalFeedback={row?.totalCountFeedback}
+        />
+      ),
       width: 180,
       columnKey: columnnsKeys.shared.NUMBER,
     },

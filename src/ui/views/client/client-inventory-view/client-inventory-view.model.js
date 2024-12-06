@@ -7,7 +7,7 @@ import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { creatSupplier, createOrderRequestWhiteList } from '@constants/white-list'
+import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridTagsFilter } from '@models/data-grid-tags-filter'
@@ -19,7 +19,6 @@ import { ProductModel } from '@models/product-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
@@ -57,7 +56,6 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   pendingOrderQuantity = undefined
   currentRow = undefined
   previousSelectedRows = []
-  paymentMethods = []
   curProduct = undefined
   parsingTable = undefined
   productsToLaunch = []
@@ -86,7 +84,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   showProductLaunch = false
   showIdeaModal = false
   showProductVariationsForm = false
-  showAddOrEditSupplierModal = false
+  showAddSupplierProductModal = false
   showEditProductTagsModal = false
   showParsingReportsModal = false
   onAmazon = false
@@ -494,18 +492,6 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     this.getCurrentData()
   }
 
-  async getSuppliersPaymentMethods() {
-    try {
-      const response = await SupplierModel.getSuppliersPaymentMethods()
-
-      runInAction(() => {
-        this.paymentMethods = response
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   async onClickVariationRadioButton() {
     try {
       const result = await ClientModel.getProductPermissionsData({ isChild: false })
@@ -565,6 +551,10 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
 
   async onClickOrderBtn(rowId, value) {
     try {
+      runInAction(() => {
+        this.loading = true
+      })
+
       const resultArray = []
 
       if (value && rowId) {
@@ -596,32 +586,48 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       }
     } catch (error) {
       console.error(error)
+    } finally {
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 
   async onClickContinueBtn() {
-    const storekeepers = await StorekeeperModel.getStorekeepers()
-    const destinations = await ClientModel.getDestinations()
-    const dataForOrder = await ClientModel.getProductsInfoForOrders({
-      productIds: this.currentRow || this.selectedRows.join(','),
-      recommendedValue: this.pendingOrderQuantity,
-    })
+    try {
+      runInAction(() => {
+        this.loading = true
+      })
 
-    if (this.pendingOrderQuantity === 0 || this.pendingOrderQuantity) {
-      dataForOrder[0].pendingOrderQuantity = this.pendingOrderQuantity
-      dataForOrder[0].isPending = true
-    }
+      const storekeepers = await StorekeeperModel.getStorekeepers()
+      const destinations = await ClientModel.getDestinations()
+      const dataForOrder = await ClientModel.getProductsInfoForOrders({
+        productIds: this.currentRow || this.selectedRows.join(','),
+        recommendedValue: this.pendingOrderQuantity,
+      })
 
-    runInAction(() => {
-      this.storekeepers = storekeepers
-      this.destinations = destinations
-      this.dataForOrderModal = dataForOrder
-    })
+      if (this.pendingOrderQuantity === 0 || this.pendingOrderQuantity) {
+        dataForOrder[0].pendingOrderQuantity = this.pendingOrderQuantity
+        dataForOrder[0].isPending = true
+      }
 
-    this.onTriggerOpenModal('showOrderModal')
+      runInAction(() => {
+        this.storekeepers = storekeepers
+        this.destinations = destinations
+        this.dataForOrderModal = dataForOrder
+      })
 
-    if (this.showCheckPendingOrderFormModal) {
-      this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+      this.onTriggerOpenModal('showOrderModal')
+
+      if (this.showCheckPendingOrderFormModal) {
+        this.onTriggerOpenModal('showCheckPendingOrderFormModal')
+      }
+    } catch (error) {
+      console.error(error)
+    } finally {
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 
@@ -813,58 +819,11 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     }
   }
 
-  async onSubmitSaveSupplier({ supplier, makeMainSupplier, editPhotosOfSupplier, editPhotosOfUnit }) {
-    try {
-      supplier = {
-        ...supplier,
-        amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        minlot: parseInt(supplier?.minlot) || '',
-        price: parseFloat(supplier?.price) || '',
-        heightUnit: supplier?.heightUnit || null,
-        widthUnit: supplier?.widthUnit || null,
-        lengthUnit: supplier?.lengthUnit || null,
-        weighUnit: supplier?.weighUnit || null,
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        images: this.readyImages,
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        imageUnit: this.readyImages,
-      }
-
-      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier, undefined, undefined, true)
-      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-
-      await ProductModel.addSuppliersToProduct(this.selectedRowId, [createSupplierResult.guid])
-
-      if (makeMainSupplier) {
-        await ClientModel.updateProduct(this.selectedRowId, {
-          currentSupplierId: createSupplierResult.guid,
-        })
-      }
-
-      toast.success(t(TranslationKey['Supplier added']))
-
-      await this.getCurrentData()
-    } catch (error) {
-      console.error(error)
-
-      toast.error(t(TranslationKey.Error))
-    }
-  }
-
   async onClickAddSupplierButton() {
     try {
       this.getSuppliersPaymentMethods()
 
-      this.onTriggerOpenModal('showAddOrEditSupplierModal')
+      this.onTriggerOpenModal('showAddSupplierProductModal')
     } catch (error) {
       console.error(error)
     }
@@ -1215,38 +1174,11 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     this.selectedProduct = item
   }
 
-  async onClickSaveSupplierBtn({ supplier, editPhotosOfSupplier, editPhotosOfUnit }) {
+  async onClickSaveSupplierBtn(supplierCardId) {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      supplier = {
-        ...supplier,
-        amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map(item => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        heightUnit: supplier?.heightUnit || null,
-        widthUnit: supplier?.widthUnit || null,
-        lengthUnit: supplier?.lengthUnit || null,
-        weighUnit: supplier?.weighUnit || null,
-        minlot: parseInt(supplier?.minlot) || '',
-        price: parseFloat(supplier?.price) || '',
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        images: this.readyImages,
-      }
-
-      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        imageUnit: this.readyImages,
-      }
-
-      const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
-      const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-
-      await ProductModel.addSuppliersToProduct(this.selectedRowId || this.selectedRows[0], [createSupplierResult.guid])
+      await ProductModel.addSuppliersToProduct(this.selectedRowId || this.selectedRows[0], [supplierCardId])
 
       await this.getCurrentData()
 

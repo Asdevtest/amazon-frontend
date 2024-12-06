@@ -198,13 +198,20 @@ export const MergeBoxesModal = ({
       dim => Number(boxBody[dim]) <= 0,
     )
 
-  const { tariffName, tariffRate, currentTariff } = useGetDestinationTariffInfo(
+  const { tariffName, tariffRate, tariffDestination, currentTariff } = useGetDestinationTariffInfo(
     destinations,
     storekeepers,
     boxBody.destinationId,
     boxBody.storekeeperId,
     boxBody.logicsTariffId,
     boxBody.variationTariffId,
+  )
+
+  const tariffForRender = (
+    <p className={styles.tariffText}>
+      <span>{tariffName}</span>
+      {tariffRate ? <span> / {tariffRate} $</span> : null}
+    </p>
   )
 
   const finalBoxData = Object.values(
@@ -320,9 +327,7 @@ export const MergeBoxesModal = ({
                     disabled={isDifferentStorekeepers}
                     onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
                   >
-                    {boxBody.logicsTariffId
-                      ? `${tariffName}${tariffRate ? ' / ' + tariffRate + ' $' : ''}`
-                      : t(TranslationKey.Select)}
+                    {boxBody.logicsTariffId ? tariffForRender : t(TranslationKey.Select)}
                   </CustomButton>
                 }
               />

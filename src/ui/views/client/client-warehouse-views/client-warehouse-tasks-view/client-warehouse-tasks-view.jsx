@@ -33,8 +33,9 @@ export const ClientWarehouseTasksView = observer(() => {
         <CustomInputSearch
           enterButton
           allowClear
+          wrapperClassName={styles.searchInput}
           size="large"
-          placeholder="Search by ASIN, Order ID, ID"
+          placeholder="Search by ASIN, FBA shipment, Order ID, Box ID, ID"
           onSearch={viewModel.onSearchSubmit}
         />
 
@@ -113,6 +114,8 @@ export const ClientWarehouseTasksView = observer(() => {
               handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
               handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
               handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+              handleDownloadPreset: viewModel.handleDownloadPreset,
+              handleLoadPreset: viewModel.handleLoadPreset,
               onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
               onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
             },
@@ -132,6 +135,8 @@ export const ClientWarehouseTasksView = observer(() => {
             handleCreateTableSettingsPreset: viewModel.handleCreateTableSettingsPreset,
             handleDeleteTableSettingsPreset: viewModel.handleDeleteTableSettingsPreset,
             handleUpdateTableSettingsPreset: viewModel.handleUpdateTableSettingsPreset,
+            handleDownloadPreset: viewModel.handleDownloadPreset,
+            handleLoadPreset: viewModel.handleLoadPreset,
             onClickAddQuickAccess: viewModel.onClickAddQuickAccess,
             onClickSaveRenamedPreset: viewModel.onClickSaveRenamedPreset,
           },

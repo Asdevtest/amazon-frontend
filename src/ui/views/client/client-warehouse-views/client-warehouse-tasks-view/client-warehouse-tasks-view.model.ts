@@ -89,7 +89,7 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
       columnsModel,
       filtersFields: [],
       mainMethodURL: 'client/tasks/by_boxes?',
-      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient', 'orderXid', 'xid'],
+      fieldsForSearch: ['asin', 'amazonTitle', 'skuByClient', 'orderXid', 'xid', 'boxXid', 'fbaShipment'],
       tableKey: DataGridTablesKeys.CLIENT_WAREHOUSE_TASKS,
       defaultGetCurrentDataOptions,
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
@@ -119,7 +119,6 @@ export class ClientWarehouseTasksViewModel extends DataGridFilterTableModel {
 
   async getStorekeepers() {
     try {
-      this.getDataGridState()
       const result = await StorekeeperModel.getStorekeepers(BoxStatus.IN_STOCK)
 
       runInAction(() => {

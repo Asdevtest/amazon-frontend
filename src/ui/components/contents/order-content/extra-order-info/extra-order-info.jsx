@@ -27,7 +27,7 @@ export const ExtraOrderInfo = ({ order, isClient, onChangeField, formFields }) =
         <div className={styles.photoWrapper}>
           <p className={styles.subTitle}>{t(TranslationKey['Photos of current supplier']) + ':'}</p>
 
-          <SlideshowGallery hiddenPreviews slidesToShow={1} files={order.orderSupplier?.images} />
+          <SlideshowGallery hiddenPreviews slidesToShow={1} files={order.orderSupplierCard?.images} />
         </div>
         <div className={styles.photoWrapper}>
           <p className={styles.subTitle}>{t(TranslationKey['Supplier payment']) + ':'}</p>

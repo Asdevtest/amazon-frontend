@@ -13,6 +13,7 @@ import { useStyles } from './header.style'
 
 interface HeaderProps {
   onSearchSubmit: (value: string) => void
+  loading: boolean
   isArchive: boolean
   selectedRows: string[]
   onClickOrderBtn: () => void
@@ -30,6 +31,7 @@ export const Header: FC<HeaderProps> = memo(props => {
   const { classes: styles } = useStyles()
 
   const {
+    loading,
     isArchive,
     selectedRows,
     onSearchSubmit,
@@ -60,7 +62,13 @@ export const Header: FC<HeaderProps> = memo(props => {
 
         {!isArchive && (
           <div className={styles.buttonsSubWrapper}>
-            <CustomButton type="primary" size="large" disabled={isNoSelectedRows} onClick={onClickOrderBtn}>
+            <CustomButton
+              loading={loading}
+              type="primary"
+              size="large"
+              disabled={isNoSelectedRows}
+              onClick={onClickOrderBtn}
+            >
               {t(TranslationKey['To order'])}
             </CustomButton>
 

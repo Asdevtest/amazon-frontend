@@ -41,7 +41,7 @@ export const usePhotosInfo = ({ formFields }: PhotosInfoProps) => {
     {
       title: t(TranslationKey['Photos of current supplier']),
       element: <EyeIcon className={styles.eyeIcon} />,
-      files: formFields?.orderSupplier?.images,
+      files: formFields?.orderSupplierCard?.images,
     },
     {
       title: t(TranslationKey['Supplier payment']),

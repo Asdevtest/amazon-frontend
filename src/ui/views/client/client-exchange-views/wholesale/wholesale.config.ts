@@ -6,9 +6,10 @@ import { t } from '@utils/translations'
 
 export const wholesaleConfig = {
   showSelectShopsModal: observable,
-  supplierCardId: observable,
+  supplierCardIds: observable,
   items: computed,
   onToggleSelectShopsModal: action.bound,
+  onChangeSupplierCard: action.bound,
   onSelectSupplierCard: action.bound,
   onAddToInventory: action.bound,
 }
@@ -19,6 +20,6 @@ export enum WholesaleTabs {
 }
 
 export const generateWholesaleTabs = () => [
-  { label: t(TranslationKey.Suppliers), value: WholesaleTabs.Suppliers },
   { label: t(TranslationKey.Cards), value: WholesaleTabs.Cards },
+  { label: t(TranslationKey.Suppliers), value: WholesaleTabs.Suppliers },
 ]

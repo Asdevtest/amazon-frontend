@@ -537,7 +537,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
       const updateOrderDataFiltered = getObjectFilteredByKeyArrayWhiteList(
         {
           ...updateOrderData,
-          orderSupplierId: updateOrderData.orderSupplier._id,
+          orderSupplierCardId: updateOrderData.orderSupplierCard?._id,
           amount: updateOrderData?.amount,
           priceInYuan: updateOrderData.priceInYuan,
           priceBatchDeliveryInYuan: updateOrderData?.priceBatchDeliveryInYuan,
@@ -545,9 +545,8 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         updateOrderKeys,
         true,
       )
-      await BuyerModel.editOrder(order._id, {
-        ...updateOrderDataFiltered,
-      })
+
+      await BuyerModel.editOrder(order._id, updateOrderDataFiltered)
     } catch (error) {
       console.error(error)
     }
@@ -586,8 +585,8 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         if (elementOrderBox.tmpUseToUpdateSupplierBoxDimensions) {
           const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
             {
-              ...order.orderSupplier,
-              paymentMethods: order?.orderSupplier?.paymentMethods?.map(paymentMethod => ({
+              ...order.orderSupplierCard,
+              paymentMethods: order?.orderSupplierCard?.paymentMethods?.map(paymentMethod => ({
                 _id: paymentMethod._id,
               })),
               boxProperties: {
@@ -601,7 +600,7 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
             patchSuppliers,
           )
 
-          await SupplierModel.updateSupplier(order.orderSupplier._id, supplierUpdateData)
+          await SupplierModel.updateSupplier(order.orderSupplierCard._id, supplierUpdateData)
         }
       }
 

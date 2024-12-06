@@ -29,13 +29,17 @@ export class CategoriesModel {
   expandedKeys: Key[] = []
   searchValue: string = ''
   autoExpandParent: boolean = true
+  loading: boolean = false
 
   get categories() {
     return filterTreeNodesWithHighlight(this.categoriesNodes, this.searchValue)
   }
 
-  constructor() {
-    this.getCategories()
+  constructor(onlyExchangeCategories?: boolean) {
+    if (!onlyExchangeCategories) {
+      this.getCategories()
+    }
+
     makeAutoObservable(this, undefined, { autoBind: true })
   }
 
@@ -65,15 +69,23 @@ export class CategoriesModel {
     this.autoExpandParent = true
   }
 
-  async getCategories() {
+  async getCategories(onlyExchangeCategories?: boolean) {
     try {
-      const response = (await OtherModel.getCategories()) as unknown as ICategory[]
+      runInAction(() => {
+        this.loading = true
+      })
+
+      const response = (await OtherModel.getCategories({ onlyExchangeCategories })) as unknown as ICategory[]
 
       runInAction(() => {
         this.categoriesNodes = transformDataToTree(response, this.onSelectCategoryToEdit, this.onRemoveCategory)
       })
     } catch (error) {
       console.error(error)
+    } finally {
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 
@@ -193,5 +205,11 @@ export class CategoriesModel {
       },
       false,
     )
+  }
+
+  onDropdownVisibleChange = (isOpen: boolean, onlyExchangeCategories?: boolean) => {
+    if (isOpen && onlyExchangeCategories) {
+      this.getCategories(onlyExchangeCategories)
+    }
   }
 }

@@ -1,3 +1,4 @@
+import { RadioChangeEvent } from 'antd'
 import { makeObservable, runInAction } from 'mobx'
 
 import { DefaultModel } from '@models/default-model'
@@ -11,8 +12,10 @@ import { TableView } from '@views/buyer/suppliers-view/suppliers-view.type'
 import { ISupplierFeedback } from '@typings/models/suppliers/supplier-feedback'
 
 import { observerConfig } from './observer.config'
+import { View } from './supplier-modal.types'
 
 export class SupplierModalModel extends DefaultModel {
+  currentTab: View = View.CARDS
   supplierCardsModel: SuppliersViewModel
 
   feedbacks: ISupplierFeedback[] = []
@@ -33,10 +36,18 @@ export class SupplierModalModel extends DefaultModel {
       guid: supplierId,
     })
     this.supplierCardsModel.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
+    this.supplierCardsModel.handleHideColumns(['supplier'])
+    this.supplierCardsModel.columnsModel = this.supplierCardsModel.columnsModel?.map(column => {
+      if (column?.field === 'supplier') {
+        column.disableCustomSort = true
+      }
+
+      return column
+    })
 
     makeObservable(this, observerConfig)
 
-    this.getCurrentData()
+    // this.getCurrentData()
     this.supplierCardsModel.getCurrentData()
     this.getSupplierFeedbacks(supplierId)
   }
@@ -51,6 +62,10 @@ export class SupplierModalModel extends DefaultModel {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  onChangeTab(event: RadioChangeEvent) {
+    this.currentTab = event.target.value
   }
 
   onOpenImportTemplateModal() {

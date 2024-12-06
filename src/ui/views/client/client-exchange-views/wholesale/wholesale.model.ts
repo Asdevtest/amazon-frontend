@@ -14,7 +14,7 @@ import { wholesaleConfig } from './wholesale.config'
 
 export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
   showSelectShopsModal = false
-  supplierCardId?: string
+  supplierCardIds: string[] = []
 
   get items() {
     return this.data
@@ -24,9 +24,11 @@ export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
   }
 
   constructor(isSupplierMode: boolean) {
+    const searchField = isSupplierMode ? 'xid' : 'cardName'
+
     super({
       method: isSupplierMode ? ClientModel.getSuppliersExchange : ClientModel.getSuppliersExchangeCards,
-      searchFields: ['xid'],
+      searchFields: [searchField],
     })
 
     this.getData()
@@ -37,25 +39,37 @@ export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
     this.showSelectShopsModal = !this.showSelectShopsModal
   }
 
-  onSelectSupplierCard(cardId?: string) {
-    this.supplierCardId = cardId
+  onChangeSupplierCard(cardId?: string) {
+    if (cardId) {
+      const foundCardById = this.supplierCardIds.find(id => id === cardId)
+
+      if (foundCardById) {
+        this.supplierCardIds = this.supplierCardIds.filter(id => id !== cardId)
+      } else {
+        this.supplierCardIds.push(cardId)
+      }
+    }
+  }
+
+  onSelectSupplierCard(cardId: string) {
+    this.supplierCardIds = [cardId]
     this.onToggleSelectShopsModal()
   }
 
   async onAddToInventory(shopId: string) {
     try {
       const data = {
-        supplierCardId: this.supplierCardId,
+        supplierCardIds: this.supplierCardIds,
         shopId,
       }
       await ClientModel.createSupplierProduct(data)
-      toast.success(t(TranslationKey['Data saved successfully']))
+      toast.success(t(TranslationKey['Selected items have been successfully added to the inventory']))
       this.onToggleSelectShopsModal()
     } catch (error) {
-      toast.error(t(TranslationKey['Data not saved']))
+      toast.error(t(TranslationKey['Selected items have not been added to the inventory']))
     } finally {
       runInAction(() => {
-        this.supplierCardId = undefined
+        this.supplierCardIds = []
       })
     }
   }

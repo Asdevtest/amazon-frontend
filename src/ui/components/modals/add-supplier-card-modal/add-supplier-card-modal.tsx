@@ -35,12 +35,13 @@ interface AddSupplierCardModalProps {
   supplierId?: string
   supplierCardId?: string
   disabled?: boolean
+  hideStatusButton?: boolean
   setOpenModal: (openModal?: boolean) => void
   handleUpdate?: (supplierCardId?: string) => void
 }
 
 export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(props => {
-  const { supplierId, supplierCardId, openModal, disabled, setOpenModal, handleUpdate } = props
+  const { supplierId, supplierCardId, openModal, disabled, hideStatusButton, setOpenModal, handleUpdate } = props
 
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
@@ -89,7 +90,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
     })
   }, [])
 
-  const handleFinish = async (values: ICreateSupplierProductModal) => {
+  const onSaveSupplierCard = async (values: ICreateSupplierProductModal) => {
     let result = supplierCardId
 
     if (supplierCardId) {
@@ -98,18 +99,24 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
       result = await viewModel.createSupplierCard(values)
     }
 
+    return result
+  }
+
+  const handleFinish = async (values: ICreateSupplierProductModal) => {
+    const result = await onSaveSupplierCard(values)
+
     handleUpdate?.(result)
     onCloseModal()
-
-    return result
   }
 
   const handleChangeStatus = async (status: SupplierCardStatus) => {
     try {
       await form.validateFields()
-      const result = (await handleFinish(form.getFieldsValue())) as string
-
+      const result = (await onSaveSupplierCard(form.getFieldsValue())) as string
       viewModel.changeSupplierCardStatus(result, status)
+      handleUpdate?.(result)
+
+      onCloseModal()
     } catch (error) {
       console.error(error)
     }
@@ -185,12 +192,16 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
         </div>
 
         <div className={styles.footerWrapper}>
-          <CustomButton
-            type="primary"
-            onClick={() => handleChangeStatus(isPublished ? SupplierCardStatus.ON_HOLD : SupplierCardStatus.PUBLISHED)}
-          >
-            {t(TranslationKey[isPublished ? 'On hold' : 'Publish'])}
-          </CustomButton>
+          {!hideStatusButton ? (
+            <CustomButton
+              type="primary"
+              onClick={() =>
+                handleChangeStatus(isPublished ? SupplierCardStatus.ON_HOLD : SupplierCardStatus.PUBLISHED)
+              }
+            >
+              {t(TranslationKey[isPublished ? 'On hold' : 'Publish'])}
+            </CustomButton>
+          ) : null}
 
           <Form.Item shouldUpdate className={sharedStyles.field}>
             <CustomButton type="primary" htmlType="submit" loading={viewModel.loading}>

@@ -88,8 +88,8 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
       renderCell: params => <Text isCell text={params.row?.product?.marketPlaceCountry?.shortTitle} />,
       valueGetter: ({ row }) => row?.product?.marketPlaceCountry?.shortTitle,
       width: 100,
-      disableCustomSort: true,
       columnKey: columnnsKeys.shared.OBJECT_VALUE,
+      titleKey: 'shortTitle',
       table: DataGridFilterTables.PRODUCTS,
     },
 
@@ -105,8 +105,6 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
         />
       ),
       width: 75,
-      //
-
       columnKey: columnnsKeys.client.MY_ORDERS_PRIORITY,
     },
 
@@ -278,7 +276,7 @@ export const clientOrdersViewColumns = (rowHandlers: IRowHandlers) => {
         )
       },
       valueGetter: params => {
-        const supplier = params.row?.orderSupplier
+        const supplier = params.row?.orderSupplierCard
 
         return `${supplier?.minProductionTerm} - ${supplier?.maxProductionTerm}`
       },

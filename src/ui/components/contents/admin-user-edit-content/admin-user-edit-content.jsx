@@ -26,6 +26,8 @@ import { UserLink } from '@components/user/user-link'
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot, validateEmail } from '@utils/checks'
 import { t } from '@utils/translations'
 
+import { isCandidate } from '@typings/guards/roles'
+
 import { useStyles } from './admin-user-edit-content.style'
 
 const activeOptions = [
@@ -53,9 +55,6 @@ export const AdminUserEditContent = observer(
       hideSuppliers: editUserFormFields?.hideSuppliers || false,
       overdraft: editUserFormFields?.overdraft || 0,
       isUserPreprocessingCenterUSA: editUserFormFields?.isUserPreprocessingCenterUSA || false,
-
-      permissions: editUserFormFields?.permissions.map(perm => perm._id) || [],
-      permissionGroups: editUserFormFields?.permissionGroups.map(permGroup => permGroup._id) || [],
     }
 
     const [formFields, setFormFields] = useState(sourceFormFields)
@@ -109,11 +108,6 @@ export const AdminUserEditContent = observer(
         newFormFields[fieldName] = event.target.value
       }
 
-      if (fieldName === 'role' && fieldName === 'permissions' && fieldName === 'permissionGroups') {
-        newFormFields.name = ''
-        newFormFields.email = ''
-      }
-
       if (fieldName === 'name') {
         newFormFields.name = event.target.value
       }
@@ -137,13 +131,6 @@ export const AdminUserEditContent = observer(
       const arr = [...selectedAllowedRoles]
       setChangedAllowedRoles(arr)
     }, [])
-
-    const onSubmitUserPermissionsForm = permissions => {
-      const newFormFields = { ...formFields }
-      newFormFields.permissions = permissions
-      newFormFields.permissionGroups = []
-      setFormFields(newFormFields)
-    }
 
     const onClickSubmit = () => {
       const { password, confirmPassword } = passwords
@@ -476,7 +463,10 @@ export const AdminUserEditContent = observer(
             <Field
               label={t(TranslationKey['Security/Sharing options'])}
               inputComponent={
-                <CustomButton onClick={() => setShowPermissionModal(!showPermissionModal)}>
+                <CustomButton
+                  disabled={isCandidate(editUserFormFields?.role)}
+                  onClick={() => setShowPermissionModal(!showPermissionModal)}
+                >
                   {t(TranslationKey['Manage permissions'])}
                 </CustomButton>
               }
