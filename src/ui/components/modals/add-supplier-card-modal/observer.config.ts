@@ -11,6 +11,7 @@ export const observerConfig = {
 
   systemYuanToDollarRate: computed,
   volumeWeightCoefficient: computed,
+  requestIsloading: computed,
 
   setImages: action.bound,
   setUnitImages: action.bound,

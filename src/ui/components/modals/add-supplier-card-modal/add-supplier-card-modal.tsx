@@ -195,6 +195,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
           {!hideStatusButton ? (
             <CustomButton
               type="primary"
+              loading={viewModel.requestIsloading}
               onClick={() =>
                 handleChangeStatus(isPublished ? SupplierCardStatus.ON_HOLD : SupplierCardStatus.PUBLISHED)
               }
@@ -204,7 +205,7 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
           ) : null}
 
           <Form.Item shouldUpdate className={sharedStyles.field}>
-            <CustomButton type="primary" htmlType="submit" loading={viewModel.loading}>
+            <CustomButton type="primary" htmlType="submit" loading={viewModel.requestIsloading}>
               {t(TranslationKey.Save)}
             </CustomButton>
           </Form.Item>

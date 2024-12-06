@@ -40,6 +40,9 @@ export class AddSupplierProductModalModel extends DefaultModel {
   get volumeWeightCoefficient() {
     return (UserModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient
   }
+  get requestIsloading() {
+    return this.requestStatus === loadingStatus.IS_LOADING
+  }
 
   constructor({ supplierId, supplierCardId }: { supplierId?: string; supplierCardId?: string }) {
     super({
