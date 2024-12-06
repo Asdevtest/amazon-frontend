@@ -101,7 +101,7 @@ export const IdeaViewAndEditCard = observer(
       {
         label: 'Supplier found',
         value: ideaStatusByKey[ideaStatus.SUPPLIER_FOUND],
-        disabled: !formFields?.suppliers?.length,
+        disabled: !formFields?.supplierCards?.length,
       },
       {
         label: 'Supplier not found',
