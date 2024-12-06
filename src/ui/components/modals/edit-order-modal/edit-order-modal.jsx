@@ -655,7 +655,7 @@ export const EditOrderModal = memo(
 
           <ListSuppliers
             formFields={orderFields}
-            // defaultSupplierId={order?.orderSupplierCard?._id}
+            defaultSupplierId={order?.orderSupplierCard?._id}
             checkIsPlanningPrice={checkIsPlanningPrice}
             onClickSaveSupplier={onClickSaveSupplierBtn}
             onSaveProduct={handleSaveProduct}
