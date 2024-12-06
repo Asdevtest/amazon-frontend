@@ -11,15 +11,16 @@ export interface ICustomRadioButtonOption extends CheckboxOptionType {
 interface CustomRadioButtonProps extends RadioGroupProps {
   options: ICustomRadioButtonOption[]
   buttonStyle?: RadioGroupButtonStyle
+  disabled?: boolean
 }
 
 export const CustomRadioButton: FC<CustomRadioButtonProps> = memo(props => {
-  const { options, buttonStyle = 'solid', ...restProps } = props
+  const { options, disabled, buttonStyle = 'solid', ...restProps } = props
 
   const { classes: styles } = useStyles()
 
   return (
-    <Radio.Group buttonStyle={buttonStyle} {...restProps}>
+    <Radio.Group disabled={disabled} buttonStyle={buttonStyle} {...restProps}>
       {options.map((option, index) => (
         <Radio.Button key={index} value={option.value}>
           {option.label}
