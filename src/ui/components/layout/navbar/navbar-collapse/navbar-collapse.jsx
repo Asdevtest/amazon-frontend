@@ -45,238 +45,141 @@ export const NavbarCollapse = ({
     shortNavbar && handleClose()
   }
 
-  const renderNotificationBySubRoute = subRoute => {
+  const getBadgeCountForSubRoute = subRoute => {
     switch (subRoute) {
       case '/warehouse/tasks/vacant-tasks':
-        return (
-          <div>
-            <Badge className={styles.badge} count={userInfo?.tasksNewAll || 0} color="blue" overflowCount={100000} />
-          </div>
-        )
+        return userInfo?.tasksNewAll || 0
 
       case '/warehouse/tasks/my-tasks':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.tasksAtProcessAll || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.tasksAtProcessAll || 0
 
       case '/client/notifications/ideas-notifications':
       case '/buyer/notifications/ideas-notifications':
-        return (
-          <Badge className={styles.badge} count={userInfo?.updatesOnIdeas || 0} color="blue" overflowCount={100000} />
-        )
+        return userInfo?.updatesOnIdeas || 0
 
       case '/client/notifications/orders-notifications':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.needConfirmPriceChange?.orders || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.needConfirmPriceChange?.orders || 0
 
       case '/client/notifications/boxes-notifications':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.needConfirmPriceChange?.boxes || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.needConfirmPriceChange?.boxes || 0
 
       case '/client/notifications/tariffs-notifications':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.needUpdateTariff?.boxes || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.needUpdateTariff?.boxes || 0
 
       case '/client/notifications/freelance-notifications':
       case '/freelancer/notifications/freelance-notifications':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.freelanceNotices?.length || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.freelanceNotices?.length || 0
 
       case '/client/my-orders/pending-orders':
-        return (
-          <Badge className={styles.badge} count={userInfo?.pendingOrders || 0} color="blue" overflowCount={100000} />
-        )
+        return userInfo?.pendingOrders || 0
 
       case '/client/my-orders/orders':
-        return <Badge className={styles.badge} count={userInfo?.orders || 0} color="blue" overflowCount={100000} />
+        return userInfo?.orders || 0
 
       case '/buyer/not-paid-orders':
-        return <Badge className={styles.badge} count={userInfo?.notPaid || 0} color="blue" overflowCount={100000} />
+        return userInfo?.notPaid || 0
 
       case '/buyer/need-track-number-orders':
-        return (
-          <Badge className={styles.badge} count={userInfo?.needTrackNumber || 0} color="blue" overflowCount={100000} />
-        )
+        return userInfo?.needTrackNumber || 0
 
       case '/buyer/inbound-orders':
-        return <Badge className={styles.badge} count={userInfo?.inbound || 0} color="blue" overflowCount={100000} />
+        return userInfo?.inbound || 0
 
       case '/buyer/confirmation-required-orders':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.confirmationRequired || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.confirmationRequired || 0
 
       case '/buyer/closed-and-canceled-orders':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.closedAndCanceled || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.closedAndCanceled || 0
 
       case '/buyer/ready-for-payment-orders':
-        return (
-          <Badge className={styles.badge} count={userInfo?.readyForPayment || 0} color="blue" overflowCount={100000} />
-        )
+        return userInfo?.readyForPayment || 0
 
       case '/buyer/partially-paid-orders':
-        return (
-          <Badge className={styles.badge} count={userInfo?.partiallyPaid || 0} color="blue" overflowCount={100000} />
-        )
+        return userInfo?.partiallyPaid || 0
 
       case '/buyer/all-orders':
-        return <Badge className={styles.badge} count={userInfo?.allOrders || 0} color="blue" overflowCount={100000} />
+        return userInfo?.allOrders || 0
 
       case '/client/ideas/new':
-        return <Badge className={styles.badge} count={userInfo?.ideas?.new || 0} color="blue" overflowCount={100000} />
+        return userInfo?.ideas?.new || 0
 
       case '/client/ideas/on-checking':
-        return (
-          <Badge className={styles.badge} count={userInfo?.ideas?.onCheck || 0} color="blue" overflowCount={100000} />
-        )
+        return userInfo?.ideas?.onCheck || 0
 
       case '/client/ideas/search-suppliers':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.ideas?.supplierSearch || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.ideas?.supplierSearch || 0
 
       case '/client/ideas/create-card':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.ideas?.productCreating || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.ideas?.productCreating || 0
 
       case '/client/ideas/add-asin':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.ideas?.addingAsin || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.ideas?.addingAsin || 0
 
       case '/client/ideas/realized':
-        return (
-          <Badge className={styles.badge} count={userInfo?.ideas?.finished || 0} color="blue" overflowCount={100000} />
-        )
+        return userInfo?.ideas?.finished || 0
 
       case '/client/ideas/closed':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.ideas?.rejectedOrClosed || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.ideas?.rejectedOrClosed || 0
 
       case `/${UserRoleCodeMapForRoutes[userInfo?.role]}/notifications/general-notifications-view`:
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.notificationCounter || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.notificationCounter || 0
 
       case '/client/ideas/all':
         return (
-          <Badge
-            className={styles.badge}
-            count={
-              (userInfo?.ideas?.new || 0) +
-              (userInfo?.ideas?.onCheck || 0) +
-              (userInfo?.ideas?.supplierSearch || 0) +
-              (userInfo?.ideas?.productCreating || 0) +
-              (userInfo?.ideas?.addingAsin || 0) +
-              (userInfo?.ideas?.finished || 0) +
-              (userInfo?.ideas?.rejectedOrClosed || 0)
-            }
-            color="blue"
-            overflowCount={100000}
-          />
+          (userInfo?.ideas?.new || 0) +
+          (userInfo?.ideas?.onCheck || 0) +
+          (userInfo?.ideas?.supplierSearch || 0) +
+          (userInfo?.ideas?.productCreating || 0) +
+          (userInfo?.ideas?.addingAsin || 0) +
+          (userInfo?.ideas?.finished || 0) +
+          (userInfo?.ideas?.rejectedOrClosed || 0)
         )
 
       case '/freelancer/freelance/vacant-requests':
-        return (
-          <Badge className={styles.badge} count={userInfo?.vacantRequests || 0} color="blue" overflowCount={100000} />
-        )
+        return userInfo?.vacantRequests || 0
 
       case '/freelancer/freelance/my-proposals':
-        return (
-          <Badge
-            className={styles.badge}
-            count={getSumPropertiesObject(userInfo?.myProposals) || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return getSumPropertiesObject(userInfo?.myProposals) || 0
 
       case '/buyer/search-supplier-by-supervisor':
-        return (
-          <Badge
-            className={styles.badge}
-            count={userInfo?.searchFromSupervisor || 0}
-            color="blue"
-            overflowCount={100000}
-          />
-        )
+        return userInfo?.searchFromSupervisor || 0
 
       case '/buyer/search-supplier-by-client':
-        return (
-          <Badge className={styles.badge} count={userInfo?.searchFromClient || 0} color="blue" overflowCount={100000} />
-        )
+        return userInfo?.searchFromClient || 0
 
       default:
-        return null
+        return 0
     }
+  }
+
+  const renderNotificationBySubRoute = subRoute => {
+    const count = getBadgeCountForSubRoute(subRoute)
+    return count ? <Badge className={styles.badge} count={count} color="blue" overflowCount={100000} /> : null
+  }
+
+  const getBigBadgeCount = route => {
+    switch (route) {
+      case '/client/my-orders/pending-orders':
+        return userInfo?.purchaseOrderRequired?.length || 0
+
+      case '/supervisor/ready-to-check-by-researcher':
+        return userInfo?.vacFromResearcher || 0
+
+      case '/supervisor/ready-to-check-by-client':
+        return userInfo?.vacFromClient || 0
+
+      case '/client/freelance/my-requests':
+      case '/freelancer/freelance/my-proposals':
+        return userInfo?.freelanceNotices?.length || 0
+
+      default:
+        return 0
+    }
+  }
+
+  const getBigBadge = route => {
+    const count = getBigBadgeCount(route)
+    return count ? <Badge count={count} color="red" className={styles.bigBadge} overflowCount={100000} /> : null
   }
 
   const getNotificationCountBySubRoute = subRoute => {
@@ -285,38 +188,6 @@ export const NavbarCollapse = ({
         return userInfo?.tasksNewHigh
       case '/warehouse/tasks/my-tasks':
         return userInfo?.tasksAtProcessHigh
-      default:
-        return null
-    }
-  }
-
-  const getBigBadge = route => {
-    switch (route) {
-      case '/client/my-orders/pending-orders':
-        return (
-          <Badge
-            count={userInfo?.purchaseOrderRequired?.length ? userInfo?.purchaseOrderRequired?.length : 0}
-            color="red"
-            className={styles.bigBadge}
-            overflowCount={100000}
-          />
-        )
-      case '/supervisor/ready-to-check-by-researcher':
-        return (
-          <Badge count={userInfo?.vacFromResearcher} color="red" className={styles.bigBadge} overflowCount={100000} />
-        )
-      case '/supervisor/ready-to-check-by-client':
-        return <Badge count={userInfo?.vacFromClient} color="red" className={styles.bigBadge} overflowCount={100000} />
-      case '/client/freelance/my-requests':
-      case '/freelancer/freelance/my-proposals':
-        return userInfo?.freelanceNotices.length > 0 ? (
-          <Badge
-            count={userInfo?.freelanceNotices.length}
-            color="red"
-            className={styles.bigBadge}
-            overflowCount={100000}
-          />
-        ) : null
       default:
         return null
     }

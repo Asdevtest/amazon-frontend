@@ -33,45 +33,24 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
     }
   }
 
-  const getBigBadge = route => {
+  const getCountByRoute = route => {
     switch (route) {
       case '/buyer/pending-orders':
-        return (
-          <Badge
-            count={userInfo.pendingOrdersByDeadline}
-            color="red"
-            className={styles.bigBadge}
-            overflowCount={100000}
-          />
-        )
+        return userInfo.pendingOrdersByDeadline
       case '/buyer/ideas':
-        return (
-          <Badge
-            count={userInfo.ideas?.supplierSearch}
-            color="red"
-            className={styles.bigBadge}
-            overflowCount={100000}
-          />
-        )
+        return userInfo.ideas?.supplierSearch
       case '/client/my-orders/orders':
-        return (
-          <Badge
-            count={userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired?.length : 0}
-            color="red"
-            className={styles.bigBadge}
-            overflowCount={100000}
-          />
-        )
+        return userInfo.purchaseOrderRequired?.length || 0
       case '/client/freelance/service-exchange':
-        return userInfo.freelanceNotices?.length > 0 ? (
-          <Badge
-            count={userInfo.freelanceNotices?.length}
-            color="red"
-            className={styles.bigBadge}
-            overflowCount={100000}
-          />
-        ) : null
+        return userInfo.freelanceNotices?.length || 0
+      default:
+        return 0
     }
+  }
+
+  const getBigBadge = route => {
+    const count = getCountByRoute(route)
+    return count ? <Badge count={count} color="red" className={styles.bigBadge} overflowCount={100000} /> : null
   }
 
   const getSubRoutes = () => {
