@@ -75,8 +75,6 @@ export class SupervisorProductViewModel {
 
     makeAutoObservable(this, undefined, { autoBind: true })
 
-    this.loadData()
-
     reaction(
       () => this.productId,
       () => this.loadData(),
