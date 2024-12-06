@@ -216,7 +216,7 @@ export const suppliersViewColumns = (handlers: IHandlers) => {
           totalFeedback={row?.totalCountFeedback}
         />
       ),
-      width: 180,
+      width: 130,
       columnKey: columnnsKeys.shared.NUMBER,
     },
 
