@@ -624,6 +624,7 @@ export const FieldsAndSuppliers = memo(props => {
 
           <CountrySelect
             labelClassName={styles.spanLabelSmall}
+            wrapperClassName={styles.countrySelectWrapper}
             defaultCountry={product.marketPlaceCountry}
             onChangeData={onChangeMarketPlace}
           />
