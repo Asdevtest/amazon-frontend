@@ -36,19 +36,16 @@ export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
   }
 
   onToggleSelectShopsModal() {
+    if (!this.supplierCardIds.length) {
+      toast.warn(t(TranslationKey['Please select at least one supplier card']))
+      return
+    }
+
     this.showSelectShopsModal = !this.showSelectShopsModal
   }
 
-  onChangeSupplierCard(cardId?: string) {
-    if (cardId) {
-      const foundCardById = this.supplierCardIds.find(id => id === cardId)
-
-      if (foundCardById) {
-        this.supplierCardIds = this.supplierCardIds.filter(id => id !== cardId)
-      } else {
-        this.supplierCardIds.push(cardId)
-      }
-    }
+  onChangeSupplierCards(checkedValues: string[]) {
+    this.supplierCardIds = checkedValues
   }
 
   onSelectSupplierCard(cardId: string) {

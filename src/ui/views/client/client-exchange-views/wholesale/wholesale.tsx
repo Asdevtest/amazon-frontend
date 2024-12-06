@@ -55,7 +55,6 @@ export const WholesaleView = observer(() => {
           <CustomButton
             size="large"
             type="primary"
-            disabled={!viewModel.supplierCardIds.length}
             className={styles.addInventoryBtn}
             onClick={viewModel.onToggleSelectShopsModal}
           >
@@ -65,21 +64,18 @@ export const WholesaleView = observer(() => {
 
         <div className={styles.container}>
           <DynamicVirtualList<ISupplierExchange | ISupplierCard>
+            checkboxes
             listClassName={listClassName}
             data={viewModel.items}
             itemContent={({ item }) =>
               isSupplierMode ? (
                 <SupplierCard supplier={item as ISupplierExchange} />
               ) : (
-                <SupplierProductCard
-                  product={item as ISupplierCard}
-                  checkedItems={viewModel.supplierCardIds}
-                  onChange={viewModel.onChangeSupplierCard}
-                  onSubmit={viewModel.onSelectSupplierCard}
-                />
+                <SupplierProductCard product={item as ISupplierCard} onSubmit={viewModel.onSelectSupplierCard} />
               )
             }
             onScrollEnd={viewModel.loadMoreData}
+            onChangeCheckbox={viewModel.onChangeSupplierCards}
           />
 
           <CardsFilter

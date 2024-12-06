@@ -50,19 +50,16 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
   }
 
   onToggleSelectShopsModal() {
+    if (!this.supplierCardIds.length) {
+      toast.warn('Вы не выбрали элементы')
+      return
+    }
+
     this.showSelectShopsModal = !this.showSelectShopsModal
   }
 
-  onChangeSupplierCard(cardId?: string) {
-    if (cardId) {
-      const foundCardById = this.supplierCardIds.find(id => id === cardId)
-
-      if (foundCardById) {
-        this.supplierCardIds = this.supplierCardIds.filter(id => id !== cardId)
-      } else {
-        this.supplierCardIds.push(cardId)
-      }
-    }
+  onChangeSupplierCards(checkedValues: string[]) {
+    this.supplierCardIds = checkedValues
   }
 
   onSelectSupplierCard(cardId: string) {
@@ -77,10 +74,10 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
         shopId,
       }
       await ClientModel.createSupplierProduct(data)
-      toast.success(t(TranslationKey['Data saved successfully']))
+      toast.success(t(TranslationKey['Selected items have been successfully added to the inventory']))
       this.onToggleSelectShopsModal()
     } catch (error) {
-      toast.error(t(TranslationKey['Data not saved']))
+      toast.error(t(TranslationKey['Selected items have not been added to the inventory']))
     } finally {
       runInAction(() => {
         this.supplierCardIds = []
