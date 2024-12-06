@@ -1,17 +1,21 @@
-import { Empty } from 'antd'
-import { CSSProperties, HTMLAttributes, ReactNode, forwardRef } from 'react'
+import { Checkbox, Empty } from 'antd'
+import { CheckboxGroupProps } from 'antd/es/checkbox'
+import { ReactNode, forwardRef } from 'react'
 import { VirtuosoGrid } from 'react-virtuoso'
+
+import { CustomCheckbox } from '../custom-checkbox'
 
 interface DynamicVirtualListProps<T> {
   data: T[]
   itemContent: (props: { item: T }) => ReactNode
   onScrollEnd: () => void
-  listStyles?: CSSProperties
   listClassName?: string
+  checkboxes?: boolean
+  onChangeCheckbox?: (values: string[]) => void
 }
 
 export const DynamicVirtualList = <T,>(props: DynamicVirtualListProps<T>) => {
-  const { data, itemContent, onScrollEnd, listStyles, listClassName } = props
+  const { data, itemContent, onScrollEnd, listClassName, checkboxes, onChangeCheckbox } = props
 
   return (
     <>
@@ -20,21 +24,24 @@ export const DynamicVirtualList = <T,>(props: DynamicVirtualListProps<T>) => {
           data={data}
           totalCount={data.length}
           components={{
-            List: forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-              ({ style, children, ...restListProps }, ref) => (
-                <div
-                  {...restListProps}
-                  ref={ref}
-                  style={{
-                    ...listStyles,
-                    ...style,
-                  }}
-                  className={listClassName}
-                >
+            List: forwardRef<HTMLDivElement, CheckboxGroupProps>(({ children, ...listProps }, ref) => (
+              <Checkbox.Group {...listProps} ref={ref} className={listClassName} onChange={onChangeCheckbox}>
+                {children}
+              </Checkbox.Group>
+            )),
+            Item: ({ children, ...itemProps }) => {
+              // @ts-ignore
+              const itemId = children?.props?.product?._id
+
+              return (
+                <div style={{ position: 'relative' }} {...itemProps}>
                   {children}
+                  {checkboxes ? (
+                    <CustomCheckbox value={itemId} style={{ position: 'absolute', top: 10, right: 10 }} />
+                  ) : null}
                 </div>
-              ),
-            ),
+              )
+            },
           }}
           itemContent={(_, item) => itemContent({ item })}
           endReached={onScrollEnd}

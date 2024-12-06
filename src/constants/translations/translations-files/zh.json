@@ -2115,5 +2115,6 @@
   "Not enough money on balance": "余额中的资金不足",
   "Support": "支持",
   "Selected items have been successfully added to the inventory": "选定的物品已成功添加到库存中",
-  "Selected items have not been added to the inventory": "选定的物品未添加到库存中"
+  "Selected items have not been added to the inventory": "选定的物品未添加到库存中",
+  "Please select at least one supplier card": "请至少选择-张供应商卡"
 }
