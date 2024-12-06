@@ -53,7 +53,7 @@ export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
     this.onToggleSelectShopsModal()
   }
 
-  async onAddToInventory(shopId: string) {
+  async onAddToInventory(shopId: string | null) {
     try {
       const data = {
         supplierCardIds: this.supplierCardIds,

@@ -217,7 +217,7 @@ export class ClientShopsViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async bindReportInventoryHandler(id: string) {
+  async bindReportInventoryHandler(id: string | null) {
     try {
       await SellerBoardModel.patchReportInventoryProductsLinkSku({ shopIds: [id] })
 

@@ -1,19 +1,24 @@
-import { action, computed } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
-import { IPermissionsData } from '@hooks/use-products-permissions'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
+
+import { IShop } from '@typings/models/shops/shop'
 
 export const shopsSelectConfig = {
+  selectedShopId: observable,
   items: computed,
-  onGetData: action.bound,
-  onScroll: action.bound,
   onDropdownVisibleChange: action.bound,
+  onSelectShop: action.bound,
 }
 
-export const generateItems = (data: IPermissionsData[]) => {
+export const generateItems = (data: IShop[]) => {
+  const defaultOption = { value: null, label: t(TranslationKey['Not chosen']) }
   const generatedUsetOptions = data?.map(item => ({
     value: item?._id,
     label: item?.name,
   }))
 
-  return generatedUsetOptions
+  return [defaultOption, ...generatedUsetOptions]
 }
