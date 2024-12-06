@@ -67,7 +67,6 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
     handleShowModalBatchModal()
   }
 
-  const selectedProductShop = shops?.find(shop => shop._id === selectedProduct?.shopId)
   const switchCurrentCondition = currentSwitch === ProductAndBatchModalSwitcherConditions.BATCH_DATA
   const columns = switchCurrentCondition ? batchDataColumns(handleOpenBatchModal) : aboutProductsColumns
 
@@ -105,7 +104,7 @@ export const ProductAndBatchModal: FC<ProductAndBatchModalProps> = memo(props =>
           <div className={styles.additionInfo}>
             <div className={styles.shopContainer}>
               <p className={styles.shopName}>{`${t(TranslationKey.Shop)}:`}</p>
-              <p className={styles.shopValue}>{selectedProductShop?.name || t(TranslationKey['Not available'])}</p>
+              <p className={styles.shopValue}>{selectedProduct?.shop?.name || t(TranslationKey['Not available'])}</p>
             </div>
             <AsinOrSkuLink withCopyValue withAttributeTitle="asin" link={selectedProduct?.asin} />
             <AsinOrSkuLink withCopyValue withAttributeTitle="sku" link={selectedProduct?.skuByClient} />
