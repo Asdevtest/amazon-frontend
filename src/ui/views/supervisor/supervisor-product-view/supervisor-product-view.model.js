@@ -174,16 +174,16 @@ export class SupervisorProductViewModel {
       (statusKey === ProductStatus.COMPLETE_SUCCESS ||
         statusKey === ProductStatus.COMPLETE_PRICE_WAS_NOT_ACCEPTABLE ||
         statusKey === ProductStatus.FROM_CLIENT_COMPLETE_PRICE_WAS_NOT_ACCEPTABLE) &&
-      !this.product.currentSupplierId
+      !this.product.currentSupplierCard?._id
     ) {
       if (
         this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] &&
-        this.product.currentSupplierId
+        this.product.currentSupplierCard?._id
       ) {
         toast.warning(warningModalTitleVariants().PRICE_WAS_NOT_ACCEPTABLE)
       } else if (this.productBase.status === ProductStatusByKey[ProductStatus.SUPPLIER_WAS_NOT_FOUND_BY_BUYER]) {
         toast.warning(warningModalTitleVariants().SUPPLIER_WAS_NOT_FOUND_BY_BUYER)
-      } else if (!this.product.currentSupplierId) {
+      } else if (!this.product.currentSupplierCard?._id) {
         toast.warning(warningModalTitleVariants().NO_SUPPLIER)
       } else {
         toast.warning(warningModalTitleVariants().ERROR)
