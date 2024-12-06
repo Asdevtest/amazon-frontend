@@ -5,6 +5,7 @@ import { VscFeedback } from 'react-icons/vsc'
 import { ReviewsForm } from '@components/forms/reviews-form'
 import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
+import { Text } from '@components/shared/text'
 
 import { useStyles } from './rating-cell.style'
 
@@ -26,6 +27,11 @@ export const RatingCell: FC<RatingCellProps> = memo(props => {
   return (
     <>
       <div className={styles.root}>
+        <div className={styles.flexRow}>
+          <Rate count={1} value={5} {...restProps} />
+          <Text strong copyable={false} text={String(rating || 5)} />
+        </div>
+
         {!hideTotalCountFeedback && totalFeedback ? (
           <CustomButton
             size="small"
@@ -37,15 +43,6 @@ export const RatingCell: FC<RatingCellProps> = memo(props => {
             {totalFeedback || ''}
           </CustomButton>
         ) : null}
-
-        <Rate
-          {...restProps}
-          allowHalf
-          value={rating}
-          className={styles.rate}
-          // @ts-ignore
-          onClick={() => setShowModal(true)} // this method is not in antd type but it works
-        />
       </div>
 
       {id && name ? (
