@@ -67,7 +67,7 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
     this.onToggleSelectShopsModal()
   }
 
-  async onAddToInventory(shopId: string) {
+  async onAddToInventory(shopId: string | null) {
     try {
       const data = {
         supplierCardId: this.supplierCardIds,

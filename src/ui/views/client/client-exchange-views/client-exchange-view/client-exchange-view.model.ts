@@ -201,7 +201,7 @@ export class ClientExchangeViewModel extends DataGridTableModel {
     }
   }
 
-  async onClickBuyProductBtn(id?: string) {
+  async onClickBuyProductBtn(id?: string | null) {
     try {
       await ClientModel.makePayments([this.selectedProduct?._id])
 
