@@ -177,7 +177,14 @@ export const EditOrderModal = memo(
     }, [order])
 
     const handleSaveProduct = product => {
-      setOrderFields(prev => ({ ...prev, product, orderSupplierCard: product.currentSupplier }))
+      setOrderFields(prev => ({
+        ...prev,
+        product: {
+          ...product,
+          currentSupplierCard: product.currentSupplier,
+        },
+        orderSupplierCard: product.currentSupplier,
+      }))
     }
 
     useEffect(() => {
@@ -648,7 +655,7 @@ export const EditOrderModal = memo(
 
           <ListSuppliers
             formFields={orderFields}
-            defaultSupplierId={order?.orderSupplierCard?._id}
+            // defaultSupplierId={order?.orderSupplierCard?._id}
             checkIsPlanningPrice={checkIsPlanningPrice}
             onClickSaveSupplier={onClickSaveSupplierBtn}
             onSaveProduct={handleSaveProduct}

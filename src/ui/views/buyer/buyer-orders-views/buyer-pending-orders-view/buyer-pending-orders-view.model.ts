@@ -216,8 +216,11 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
         {
           ...updateOrderData,
           orderSupplierCardId: updateOrderData.orderSupplierCard?._id,
-          totalPrice: toFixed(calcOrderTotalPrice(updateOrderData?.orderSupplier, updateOrderData?.amount), 2),
-          priceInYuan: toFixed(calcOrderTotalPriceInYuann(updateOrderData?.orderSupplier, updateOrderData?.amount), 2),
+          totalPrice: toFixed(calcOrderTotalPrice(updateOrderData?.orderSupplierCard, updateOrderData?.amount), 2),
+          priceInYuan: toFixed(
+            calcOrderTotalPriceInYuann(updateOrderData?.orderSupplierCard, updateOrderData?.amount),
+            2,
+          ),
         },
         updateOrderKeys,
         true,
