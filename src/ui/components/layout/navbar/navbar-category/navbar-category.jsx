@@ -36,20 +36,40 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
   const getBigBadge = route => {
     switch (route) {
       case '/buyer/pending-orders':
-        return <Badge count={userInfo.pendingOrdersByDeadline} color="red" className={styles.bigBadge} />
+        return (
+          <Badge
+            count={userInfo.pendingOrdersByDeadline}
+            color="red"
+            className={styles.bigBadge}
+            overflowCount={100000}
+          />
+        )
       case '/buyer/ideas':
-        return <Badge count={userInfo.ideas?.supplierSearch} color="red" className={styles.bigBadge} />
+        return (
+          <Badge
+            count={userInfo.ideas?.supplierSearch}
+            color="red"
+            className={styles.bigBadge}
+            overflowCount={100000}
+          />
+        )
       case '/client/my-orders/orders':
         return (
           <Badge
             count={userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired?.length : 0}
             color="red"
             className={styles.bigBadge}
+            overflowCount={100000}
           />
         )
       case '/client/freelance/service-exchange':
         return userInfo.freelanceNotices?.length > 0 ? (
-          <Badge count={userInfo.freelanceNotices?.length} color="red" className={styles.bigBadge} />
+          <Badge
+            count={userInfo.freelanceNotices?.length}
+            color="red"
+            className={styles.bigBadge}
+            overflowCount={100000}
+          />
         ) : null
     }
   }
@@ -98,8 +118,13 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
           <category.icon className={cx(styles.icon, { [styles.selectedIcon]: isSelected })} />
 
           {Number(badge) > 0 ? (
-            // <div className={cx(styles.badge, { [styles.redBadge]: isRedBadge })}>{badge}</div>
-            <Badge count={badge} color={isRedBadge ? 'red' : 'blue'} size="small" className={styles.badge} />
+            <Badge
+              count={badge}
+              color={isRedBadge ? 'red' : 'blue'}
+              size="small"
+              className={styles.badge}
+              overflowCount={100000}
+            />
           ) : null}
         </ListItemIcon>
         {!shortNavbar && (
