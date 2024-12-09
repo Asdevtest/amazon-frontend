@@ -1,15 +1,14 @@
 import { BaseOptionType } from 'antd/es/select'
 import { makeObservable } from 'mobx'
 
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { OtherModel } from '@models/other-model'
 
 import { ICountry } from '@typings/shared/country'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
-
 import { IChangeData, countrySelectConfig, getCounryOptions, getDefaultCountryOption } from './country-select.config'
 
-export class CountrySelectModel extends UseProductsPermissions {
+export class CountrySelectModel extends InfiniteScrollModel<ICountry> {
   countryTemplate?: ICountry
   onChangeData?: IChangeData
   searchValue: string = ''
@@ -20,7 +19,7 @@ export class CountrySelectModel extends UseProductsPermissions {
   }
 
   get getCountriesOption() {
-    const countries = getCounryOptions(this.currentPermissionsData, this.defaultCountry)
+    const countries = getCounryOptions(this.data, this.defaultCountry)
 
     if (this.searchValue) {
       const searchLower = this.searchValue.toLowerCase().trim()
@@ -34,7 +33,7 @@ export class CountrySelectModel extends UseProductsPermissions {
   }
 
   constructor(defaultCountry: ICountry, onChangeData: IChangeData) {
-    super(OtherModel.getCountries)
+    super({ method: OtherModel.getCountries })
     this.onChangeData = onChangeData
     this.defaultCountry = defaultCountry
     makeObservable(this, countrySelectConfig)
@@ -47,16 +46,9 @@ export class CountrySelectModel extends UseProductsPermissions {
     }
   }
 
-  onGetCounriers = () => {
-    this.permissionsData = []
-    this.isCanLoadMore = true
-    this.setOptions({ offset: 0, filters: '' })
-    this.getPermissionsData()
-  }
-
   onDropdownVisibleChange = (isOpen: boolean) => {
     if (isOpen) {
-      this.onGetCounriers()
+      this.getData()
     }
   }
 

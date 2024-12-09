@@ -19,7 +19,6 @@ export const profilesFormConfig = {
   isAlreadyProfile: computed,
   profiles: computed,
   onChange: action.bound,
-  onScroll: action.bound,
 }
 
 export const searchFields = ['name', 'email']

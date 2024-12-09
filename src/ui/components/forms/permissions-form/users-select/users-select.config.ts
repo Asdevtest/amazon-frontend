@@ -2,18 +2,14 @@ import { action, computed, observable } from 'mobx'
 
 import { IFullUser } from '@typings/shared/full-user'
 
-import { IPermissionsData } from '@hooks/use-products-permissions'
-
 export const usersSelectConfig = {
   defaultUser: observable,
   defaultUserOption: computed,
   userOptions: computed,
-  onGetUsers: action.bound,
-  onScroll: action.bound,
   onDropdownVisibleChange: action.bound,
 }
 
-export const getUserOptions = (users: IPermissionsData[], defaultPerformer?: IFullUser) => {
+export const getUserOptions = (users: IFullUser[], defaultPerformer?: IFullUser) => {
   const filteredUsers = users.filter(user => user?._id !== defaultPerformer?._id)
 
   const generatedUsetOptions = filteredUsers?.map(user => ({
@@ -35,5 +31,3 @@ export const getDefaultUserOption = (defaultPerformer?: IFullUser) => {
     }
   }
 }
-
-export type IChangeData = (id: string) => void

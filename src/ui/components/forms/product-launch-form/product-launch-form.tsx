@@ -57,8 +57,8 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
             value={viewModel.defaultAsinOption}
             optionRender={({ data }) => <AsinOption data={data} />}
             onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
-            onSearch={viewModel.onClickSubmitSearch}
-            onPopupScroll={viewModel.onPopupScroll}
+            onSearch={viewModel.onSearchSubmit}
+            onPopupScroll={viewModel.loadMoreData}
             onChange={viewModel.onChangeProduct}
           />
         </div>

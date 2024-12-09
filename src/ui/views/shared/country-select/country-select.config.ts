@@ -10,11 +10,10 @@ export const countrySelectConfig = {
   getDefaultCountryOption: computed,
 
   onSelectCountry: action.bound,
-  onGetCounriers: action.bound,
   onDropdownVisibleChange: action.bound,
 }
 
-export const getCounryOptions = (coutries: any[], defaultPerformer?: ICountry) => {
+export const getCounryOptions = (coutries: ICountry[], defaultPerformer?: ICountry) => {
   const filteredCountries = coutries.filter(coutry => coutry?._id !== defaultPerformer?._id)
 
   const generatedUsetOptions = filteredCountries?.map(coutry => ({

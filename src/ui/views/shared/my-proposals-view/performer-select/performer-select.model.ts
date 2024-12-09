@@ -1,22 +1,22 @@
 import { makeObservable } from 'mobx'
 
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { UserModel } from '@models/user-model'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
+import { IFullUser } from '@typings/shared/full-user'
 
 import { performersSelectConfig } from './performer-select.config'
 
-export class PerformerSelectModel extends UseProductsPermissions {
+export class PerformerSelectModel extends InfiniteScrollModel<IFullUser> {
   constructor() {
-    super(UserModel.getMySubUsers)
+    super({ method: UserModel.getMySubUsers })
 
     makeObservable(this, performersSelectConfig)
   }
 
-  onGetUsers = () => {
-    this.permissionsData = []
-    this.isCanLoadMore = true
-    this.setOptions({ offset: 0, filters: '' })
-    this.getPermissionsData()
+  onDropdownVisibleChange = (isOpen: boolean) => {
+    if (isOpen) {
+      this.getData()
+    }
   }
 }

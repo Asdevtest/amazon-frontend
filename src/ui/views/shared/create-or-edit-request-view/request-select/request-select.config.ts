@@ -7,8 +7,6 @@ import { t } from '@utils/translations'
 import { RequestSubType } from '@typings/enums/request/request-type'
 import { IRequest } from '@typings/models/requests/request'
 
-import { IPermissionsData } from '@hooks/use-products-permissions'
-
 export const requestSelectConfig = {
   requestTemplate: observable,
   onChangeData: observable,
@@ -16,10 +14,9 @@ export const requestSelectConfig = {
   requestTemplateOptions: computed,
 
   onSelectProduct: action.bound,
-  onGetProducts: action.bound,
 }
 
-export const getRequestTemplateOptions = (requests: IPermissionsData[]) =>
+export const getRequestTemplateOptions = (requests: IRequest[]) =>
   requests?.map(request => ({
     ...request,
     value: request?._id,
