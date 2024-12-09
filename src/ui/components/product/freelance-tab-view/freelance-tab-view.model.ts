@@ -14,7 +14,6 @@ import { UserModel } from '@models/user-model'
 
 import { productMyRequestsViewColumns } from '@components/table/table-columns/overall/product-my-requests-columns'
 
-import { loadingStatus } from '@typings/enums/loading-status'
 import { RequestSubType } from '@typings/enums/request/request-type'
 import { Specs } from '@typings/enums/specs'
 import { IProposal } from '@typings/models/proposals/proposal'
@@ -22,12 +21,10 @@ import { IRequest } from '@typings/models/requests/request'
 import { IFullUser } from '@typings/shared/full-user'
 import { ISpec } from '@typings/shared/spec'
 
-import { freelanceTabConfig } from './freelance-tab-view.config'
 import { fieldsForSearch, filtersFields } from './freelance-tab-view.constants'
+import { observerConfig } from './observer.config.ts'
 
 export class FreelanceModel extends DataGridFilterTableModel {
-  nameSearchValue = ''
-
   curRequest?: IRequest
   curProposal?: IProposal
 
@@ -37,7 +34,6 @@ export class FreelanceModel extends DataGridFilterTableModel {
   showMainRequestResultModal = false
   showRequestResultModal = false
 
-  searchRequests = []
   specs: ISpec[] = []
 
   get userInfo() {
@@ -74,22 +70,14 @@ export class FreelanceModel extends DataGridFilterTableModel {
       additionalPropertiesGetFilters,
       defaultSortModel: [{ field: 'updatedAt', sort: 'desc' }],
     })
-    makeObservable(this, freelanceTabConfig)
+    makeObservable(this, observerConfig)
 
     if (filterStatus === 'inProgress') {
       this.onChangeFullFieldMenuItem(inProgressRequestProposalsStatuses, 'status')
     }
 
-    this.loadData()
-  }
-
-  loadData() {
-    try {
-      this.getCurrentData()
-      this.getSpecs()
-    } catch (error) {
-      console.error(error)
-    }
+    this.getCurrentData()
+    this.getSpecs()
   }
 
   onChangeSpec(value: Specs) {
@@ -97,10 +85,6 @@ export class FreelanceModel extends DataGridFilterTableModel {
     this.onChangeFullFieldMenuItem([], 'spec')
 
     this.getCurrentData()
-  }
-
-  setRequestStatus(requestStatus: loadingStatus) {
-    this.requestStatus = requestStatus
   }
 
   onClickOpenRequest(itemId: string) {

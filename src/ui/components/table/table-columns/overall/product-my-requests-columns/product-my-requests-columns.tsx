@@ -42,7 +42,7 @@ export const productMyRequestsViewColumns = (handlers: ColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={'ID'} />,
       renderCell: (params: GridCellParams) => <Text isCell text={String(params.value)} />,
       width: 65,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -53,7 +53,8 @@ export const productMyRequestsViewColumns = (handlers: ColumnProps) => {
         <Text isCell text={MyRequestStatusTranslate(params.value)} color={colorByStatus(params.value)} />
       ),
       width: 140,
-      columnKey: columnnsKeys.client.FREELANCE_MY_REQUESTS,
+      transformValueMethod: MyRequestStatusTranslate,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -62,7 +63,7 @@ export const productMyRequestsViewColumns = (handlers: ColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Title)} />,
       renderCell: (params: GridCellParams) => <Text isCell text={String(params.value)} />,
       width: 390,
-      columnKey: columnnsKeys.shared.STRING,
+      columnKey: columnnsKeys.shared.STRING_VALUE,
     },
 
     {
@@ -71,7 +72,7 @@ export const productMyRequestsViewColumns = (handlers: ColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Request type'])} />,
       renderCell: (params: GridCellParams) => <Text isCell text={params.row.spec?.title} />,
       width: 110,
-      columnKey: columnnsKeys.shared.OBJECT,
+      columnKey: columnnsKeys.shared.OBJECT_VALUE,
     },
 
     {
@@ -80,7 +81,7 @@ export const productMyRequestsViewColumns = (handlers: ColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost)} />,
       renderCell: (params: GridCellParams) => <Text isCell text={toFixedWithDollarSign(params.value, 2)} />,
       width: 115,
-      columnKey: columnnsKeys.shared.QUANTITY,
+      columnKey: columnnsKeys.shared.NUMBER,
     },
 
     {
@@ -153,6 +154,7 @@ export const productMyRequestsViewColumns = (handlers: ColumnProps) => {
     if (!column.table) {
       column.table = DataGridFilterTables.REQUESTS
     }
+    column.sortable = false
   }
   return columns
 }
