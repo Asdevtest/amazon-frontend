@@ -76,6 +76,7 @@ export const ActualCostWithDeliveryPerUnit: FC<ActualCostWithDeliveryPerUnitProp
           )
 
           const partOfWeight = getPartOfWeight(weightPerAllUnitsByProduct, rowMemo.finalWeight)
+
           const deliveryCostByProduct = getDeliveryCostByProduct(rowMemo?.actualShippingCost, partOfWeight)
 
           const deliveryCostByProductPerUnit = getDeliveryCostByProductPerUnit(

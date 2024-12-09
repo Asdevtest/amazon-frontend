@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, useMemo, useState } from 'react'
+import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -16,7 +16,7 @@ import { useStyles } from './select-shops-form.style'
 import { SelectShopFormModel } from './select-shops-form.model'
 
 export interface SelectShopsModalProps {
-  onSubmit: (id: string) => void
+  onSubmit: (id: string | null) => void
   onClose: () => void
   title?: string
   message?: string
@@ -27,7 +27,6 @@ export const SelectShopsForm: FC<SelectShopsModalProps> = observer(props => {
 
   const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new SelectShopFormModel(), [])
-  const [selectedShopId, setSelectedShopId] = useState('')
 
   return (
     <div className={styles.root}>
@@ -45,14 +44,14 @@ export const SelectShopsForm: FC<SelectShopsModalProps> = observer(props => {
         onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
         onSearch={viewModel.onSearchSubmit}
         onPopupScroll={viewModel.loadMoreData}
-        onSelect={id => setSelectedShopId(id)}
+        onSelect={viewModel.onSelectShop}
       />
 
       {message ? <Text copyable={false} text={message || ''} /> : null}
 
       <div className={styles.buttons}>
         <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
-        <CustomButton type="primary" disabled={!selectedShopId} onClick={() => onSubmit(selectedShopId)}>
+        <CustomButton type="primary" onClick={() => onSubmit(viewModel.selectedShopId)}>
           {t(TranslationKey.Save)}
         </CustomButton>
       </div>

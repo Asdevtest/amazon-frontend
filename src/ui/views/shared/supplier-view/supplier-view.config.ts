@@ -9,7 +9,7 @@ export const supplierConfig = {
   productsAll: computed,
   productsBig: computed,
   onToggleSelectShopsModal: action.bound,
-  onChangeSupplierCard: action.bound,
+  onChangeSupplierCards: action.bound,
   onSelectSupplierCard: action.bound,
   onAddToInventory: action.bound,
 }

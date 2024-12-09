@@ -6,13 +6,7 @@ export const useStyles = makeStyles()(() => ({
     padding: '5px 0',
     display: 'flex',
     alignItems: 'center',
-    gap: '15px',
-  },
-
-  rate: {
-    li: {
-      cursor: 'pointer !important',
-    },
+    gap: '10px',
   },
 
   feedback: {
@@ -20,13 +14,9 @@ export const useStyles = makeStyles()(() => ({
     padding: 0,
   },
 
-  totalFeedbackWrapper: {
+  flexRow: {
     display: 'flex',
     alignItems: 'center',
-    gap: 5,
-  },
-
-  totalFeedback: {
-    fontSize: '14px',
+    gap: '5px',
   },
 }))

@@ -1,6 +1,7 @@
 import { Button, ButtonProps, Dropdown, Popconfirm } from 'antd'
 import { ItemType } from 'antd/es/menu/interface'
-import { FC, MouseEvent, memo } from 'react'
+import { observer } from 'mobx-react'
+import { FC, MouseEvent } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -17,7 +18,7 @@ interface CustomButtonProps extends ButtonProps {
   menuItems?: ItemType[]
 }
 
-export const CustomButton: FC<CustomButtonProps> = memo(props => {
+export const CustomButton: FC<CustomButtonProps> = observer(props => {
   const {
     isCell,
     icon,

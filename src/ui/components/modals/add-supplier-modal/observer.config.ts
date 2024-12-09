@@ -14,6 +14,7 @@ export const observerConfig = {
   productsInfinityModel: observable,
 
   productIsloading: computed,
+  requestIsloading: computed,
 
   getSuppliersPaymentMethods: action.bound,
   getCountries: action.bound,

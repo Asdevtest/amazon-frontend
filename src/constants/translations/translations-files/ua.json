@@ -2117,5 +2117,6 @@
   "Not enough money on balance": "Недостатньо грошових коштів на балансі",
   "Support": "Підтримка",
   "Selected items have been successfully added to the inventory": "Вибрані товари успішно додані до інвентарю",
-  "Selected items have not been added to the inventory": "Вибрані товари не були додані до інвентарю"
+  "Selected items have not been added to the inventory": "Вибрані товари не були додані до інвентарю",
+  "Please select at least one supplier card": "Будь ласка, виберіть хоча б одну картку постачальника"
 }
