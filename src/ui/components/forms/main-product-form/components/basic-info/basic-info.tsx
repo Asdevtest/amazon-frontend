@@ -1,4 +1,4 @@
-import { Badge, Spin } from 'antd'
+import { Badge, Divider, Space, Spin } from 'antd'
 import { FC, memo, useState } from 'react'
 import { LuExternalLink } from 'react-icons/lu'
 import { MdEdit } from 'react-icons/md'
@@ -13,6 +13,8 @@ import { CustomSwitch } from '@components/shared/custom-switch'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+
+import { CountrySelect } from '@views/shared/country-select/country-select'
 
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
@@ -42,8 +44,8 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
 
   const basicInfoTabsContent = {
     [BasicInfoConfig.PRODUCT_INFO]: (
-      <div className={styles.flexColumn}>
-        <div className={styles.flexRow}>
+      <div className={styles.productInfoWrapper}>
+        <div className={styles.gridLayout}>
           <CustomSelect
             label="Product Strategy"
             value={product?.strategyStatus}
@@ -60,46 +62,48 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
             ]}
             value={product?.fba}
           />
+          <CustomSwitch medium label="Transparency codes" />
           <CustomInput
             label="SEO file"
             placeholder={product?.latestSeoFiles?.[0] ? '' : 'Not available'}
             value={getFileNameFromUrl(product?.latestSeoFiles?.[0])?.name}
           />
-          <CustomInput label="Shop" value={0} />
-          <CustomSwitch label="Transparency codes" value={product?.transparency} />
           <CustomButton type="primary">HS code</CustomButton>
         </div>
-        <div className={styles.flexRow}>
-          <CustomInput label="Category" value={product?.category} />
-          <CustomInput label="Marketplace" value={product?.marketPlaceCountry.title} />
+
+        <div className={cx(styles.gridLayout, styles.privatesColumns)}>
           <CustomInput label="Niche" value={'Niche'} />
           <CustomInput label="Total revenue" value={'Total revenue'} />
           <CustomInput label="ASINs" value={'ASINs'} />
           <CustomInput label="Coefficient" value={'Coefficient'} />
-        </div>
-        <div className={styles.flexRow}>
           <CustomInput label="Avg Revenue" value={'Avg Revenue'} />
           <CustomInput label="Avg BSR" value={'Avg BSR'} />
           <CustomInput label="Avg Price" value={'Avg Price'} />
           <CustomInput label="Avg Review" value={'Avg Review'} />
-          <CustomInput label="Status" value={product?.status} />
-          <CustomInput label="Amazon price" value={product?.amazon} />
         </div>
-        <div className={styles.flexRow}>
+
+        <Divider style={{ margin: 0 }} />
+
+        <div className={styles.gridLayout}>
+          <CountrySelect defaultCountry={product?.marketPlaceCountry} onChangeData={() => {}} />
+          <CustomInput label="Shop" value={0} />
+          <CustomInput label="Status" value={product?.status} />
+          <CustomInput label="Category" value={product?.category} />
+          <CustomInput label="Amazon price" value={product?.amazon} />
           <CustomInput label="FBA fees" value={product?.fbafee} />
           <CustomInput label="Referral fee" value={product?.reffee} />
           <CustomInput label="Min purchase price" value={product?.minpurchase} />
           <CustomInput label="Total FBA" value={0} />
           <CustomInput label="Profit" value={product?.profit} />
           <CustomInput label="BSR" value={product?.bsr} />
-        </div>
-        <div className={styles.flexRow}>
           <CustomInput label="Recommended batch" value={product?.fbaamount} />
           <CustomInput label="Margin" value={product?.margin} />
+          <Space.Compact>
+            <CustomInput label="Width" value={product?.width} />
+            <CustomInput label="Height" value={product?.height} />
+            <CustomInput label="Length" value={product?.length} />
+          </Space.Compact>
           <CustomInput label="Weight" value={product?.weight} />
-          <CustomInput label="Width" value={product?.width} />
-          <CustomInput label="Height" value={product?.height} />
-          <CustomInput label="Length" value={product?.length} />
         </div>
       </div>
     ),

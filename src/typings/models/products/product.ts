@@ -107,7 +107,9 @@ export interface IMarketPlace {
   image: string
   shortTitle: string
   title: string
-  id: string
+  _id: string
+  createdAt: string
+  updatedAt: string
 }
 
 export interface IBoxAmount {

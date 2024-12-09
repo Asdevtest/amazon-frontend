@@ -74,4 +74,22 @@ export const useStyles = makeStyles()(theme => ({
   externalLinkButton: {
     marginRight: 'auto',
   },
+
+  productInfoWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+
+  gridLayout: {
+    display: 'grid',
+    alignItems: 'end',
+    gridAutoRows: 'min-content',
+    gridTemplateColumns: 'repeat(5, 1fr)',
+    gap: '10px',
+  },
+
+  privatesColumns: {
+    gridTemplateColumns: 'repeat(8, 1fr)',
+  },
 }))
