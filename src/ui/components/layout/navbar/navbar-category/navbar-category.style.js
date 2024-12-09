@@ -46,40 +46,19 @@ export const useStyles = makeStyles()(theme => ({
     minWidth: '0',
     margin: '16px 16px 16px 11px',
   },
+
   badge: {
     position: 'absolute',
     top: 0,
-    left: 30,
-    width: 'fit-content',
-    padding: '1px 6px',
-    background: theme.palette.primary.main,
-    borderRadius: '22px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#fff',
+    left: 25,
     fontSize: '12px',
     fontWeight: '400',
     lineHeight: '14px',
   },
 
   bigBadge: {
-    width: 'fit-content',
-    padding: '2px 4px',
-    background: theme.palette.primary.main,
-    borderRadius: '50%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#fff',
     fontSize: '12px',
     lineHeight: '16px',
-  },
-
-  redBadge: {
-    borderRadius: '22px',
-    padding: '1px 6px',
-    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
   },
 
   icon: {

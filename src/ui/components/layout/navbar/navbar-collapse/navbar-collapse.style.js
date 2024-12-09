@@ -25,20 +25,8 @@ export const useStyles = makeStyles()(theme => ({
   },
 
   badge: {
-    margin: '0 auto',
-    height: 20,
-    width: 'fit-content',
-    background: theme.palette.primary.main,
-
-    padding: '1px 6px',
-
+    minWidth: '25px',
     fontSize: '12px',
-
-    borderRadius: 30,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#fff',
   },
 
   menuItem: {
@@ -55,21 +43,7 @@ export const useStyles = makeStyles()(theme => ({
     '&:hover': { backgroundColor: '#0000ff0a' },
   },
 
-  redBadge: {
-    borderRadius: '22px',
-    padding: '1px 6px',
-    background: 'linear-gradient(180deg, #FF1616 0%, #DF0C0C 100%) !important',
-  },
-
   bigBadge: {
-    width: 'fit-content',
-    padding: '1px 4px',
-    background: theme.palette.primary.main,
-    borderRadius: 12,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: '#fff',
     fontSize: '12px',
     lineHeight: '16px',
   },

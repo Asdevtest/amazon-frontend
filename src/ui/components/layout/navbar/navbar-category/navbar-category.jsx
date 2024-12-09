@@ -1,3 +1,4 @@
+import { Badge } from 'antd'
 import { memo, useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -32,23 +33,24 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
     }
   }
 
-  const getBigBadge = route => {
+  const getCountByRoute = route => {
     switch (route) {
       case '/buyer/pending-orders':
-        return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo.pendingOrdersByDeadline}</div>
+        return userInfo.pendingOrdersByDeadline
       case '/buyer/ideas':
-        return <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo.ideas?.supplierSearch}</div>
+        return userInfo.ideas?.supplierSearch
       case '/client/my-orders/orders':
-        return (
-          <div className={cx(styles.bigBadge, styles.redBadge)}>
-            {userInfo.purchaseOrderRequired?.length ? userInfo.purchaseOrderRequired?.length : 0}
-          </div>
-        )
+        return userInfo.purchaseOrderRequired?.length || 0
       case '/client/freelance/service-exchange':
-        return userInfo.freelanceNotices?.length > 0 ? (
-          <div className={cx(styles.bigBadge, styles.redBadge)}>{userInfo.freelanceNotices?.length}</div>
-        ) : null
+        return userInfo.freelanceNotices?.length || 0
+      default:
+        return 0
     }
+  }
+
+  const getBigBadge = route => {
+    const count = getCountByRoute(route)
+    return count ? <Badge count={count} color="red" className={styles.bigBadge} overflowCount={100000} /> : null
   }
 
   const getSubRoutes = () => {
@@ -95,7 +97,13 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
           <category.icon className={cx(styles.icon, { [styles.selectedIcon]: isSelected })} />
 
           {Number(badge) > 0 ? (
-            <div className={cx(styles.badge, { [styles.redBadge]: isRedBadge })}>{badge}</div>
+            <Badge
+              count={badge}
+              color={isRedBadge ? 'red' : 'blue'}
+              size="small"
+              className={styles.badge}
+              overflowCount={100000}
+            />
           ) : null}
         </ListItemIcon>
         {!shortNavbar && (
