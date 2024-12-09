@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { action, makeObservable, observable, runInAction } from 'mobx'
 
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
