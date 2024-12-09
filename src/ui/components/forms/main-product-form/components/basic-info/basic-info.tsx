@@ -5,16 +5,16 @@ import { MdEdit } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { CountrySelect } from '@components/shared/country-select/country-select'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSwitch } from '@components/shared/custom-switch'
 import { CustomTextarea } from '@components/shared/custom-textarea'
+import { ShopSelect } from '@components/shared/shop-select/shop-select'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
-
-import { CountrySelect } from '@views/shared/country-select/country-select'
 
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
@@ -86,7 +86,7 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
 
         <div className={styles.gridLayout}>
           <CountrySelect defaultCountry={product?.marketPlaceCountry} onChangeData={() => {}} />
-          <CustomInput label="Shop" value={0} />
+          <ShopSelect />
           <CustomInput label="Status" value={product?.status} />
           <CustomInput label="Category" value={product?.category} />
           <CustomInput label="Amazon price" value={product?.amazon} />

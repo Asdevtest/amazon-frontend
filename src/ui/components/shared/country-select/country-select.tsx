@@ -6,20 +6,19 @@ import { CustomSelect } from '@components/shared/custom-select'
 import { ICountry } from '@typings/shared/country'
 
 import { CountryOption } from './country-option'
-import { IChangeData } from './country-select.config'
+import { IChangeData, getDefaultCountryOption } from './country-select.config'
 import { CountrySelectModel } from './country-select.model'
 
 interface CountrySelectProps {
-  defaultCountry: ICountry
-  onChangeData: IChangeData
+  defaultCountry?: ICountry
+  onChangeData?: IChangeData
 }
 
-export const CountrySelect: FC<CountrySelectProps> = observer(({ defaultCountry, onChangeData, ...restProps }) => {
-  const viewModel = useMemo(() => new CountrySelectModel(defaultCountry, onChangeData), [])
+export const CountrySelect: FC<CountrySelectProps> = observer(({ defaultCountry, onChangeData }) => {
+  const viewModel = useMemo(() => new CountrySelectModel(), [])
 
   return (
     <CustomSelect
-      {...restProps}
       showSearch
       allowClear
       label="Marketplace"
@@ -27,11 +26,11 @@ export const CountrySelect: FC<CountrySelectProps> = observer(({ defaultCountry,
       defaultActiveFirstOption={false}
       placeholder="Search"
       options={viewModel.getCountriesOption}
-      defaultValue={viewModel.getDefaultCountryOption}
+      defaultValue={getDefaultCountryOption(defaultCountry)}
       optionRender={({ data }) => <CountryOption data={data} />}
       onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
       onSearch={viewModel.onSearchChange}
-      onChange={viewModel.onSelectCountry}
+      onChange={value => onChangeData?.(value)}
     />
   )
 })

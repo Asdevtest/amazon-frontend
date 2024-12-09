@@ -18,6 +18,7 @@ import { UserCell } from '@components/data-grid/data-grid-cells'
 import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
+import { CountrySelect } from '@components/shared/country-select/country-select'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
@@ -27,8 +28,6 @@ import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { DownloadRoundIcon } from '@components/shared/svg-icons'
 import { TagList } from '@components/shared/tag-list'
-
-import { CountrySelect } from '@views/shared/country-select/country-select'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
@@ -620,12 +619,7 @@ export const FieldsAndSuppliers = memo(props => {
             }
           />
 
-          <CountrySelect
-            labelClassName={styles.spanLabelSmall}
-            wrapperClassName={styles.countrySelectWrapper}
-            defaultCountry={product.marketPlaceCountry}
-            onChangeData={onChangeMarketPlace}
-          />
+          <CountrySelect defaultCountry={product.marketPlaceCountry} onChangeData={onChangeMarketPlace} />
 
           <div className={styles.tariffWrapper}>
             <div className={styles.tariffLabel}>

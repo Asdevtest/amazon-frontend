@@ -1,6 +1,7 @@
 import { action, computed } from 'mobx'
 
 import { IShop } from '@typings/models/shops/shop'
+import { ICountry } from '@typings/shared/country'
 
 export const shopsSelectConfig = {
   items: computed,
@@ -15,3 +16,5 @@ export const generateItems = (data: IShop[]) => {
 
   return generatedUsetOptions
 }
+
+export type IChangeData = (data: ICountry) => void

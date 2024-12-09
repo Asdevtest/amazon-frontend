@@ -18,11 +18,11 @@ import { MainProductFormModel } from './main-product-form.model'
 export interface MainProductFormProps {
   productId: string
   onClose: () => void
-  onUpdateData?: () => void
+  onSubmit?: () => void
 }
 
 export const MainProductForm: FC<MainProductFormProps> = observer(props => {
-  const { productId, onClose, onUpdateData } = props
+  const { productId, onClose, onSubmit } = props
 
   const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new MainProductFormModel(productId), [])
