@@ -149,7 +149,9 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
 
   async onClickSaveSupplierBtn(supplierCardId: string) {
     try {
-      await ProductModel.addSuppliersToProduct(this.selectedOrder?.product?._id, [supplierCardId])
+      if (supplierCardId) {
+        await ProductModel.addSuppliersToProduct(this.selectedOrder?.product?._id, [supplierCardId])
+      }
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder?._id)
 
