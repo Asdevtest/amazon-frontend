@@ -1,14 +1,14 @@
 import { RadioChangeEvent } from 'antd'
 import { makeObservable } from 'mobx'
-import { UIEvent } from 'react'
 
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { ParserModel } from '@models/parser-model'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
+import { IParsingProfile } from '@typings/models/parser/parsing-profile'
 
 import { profilesFormConfig, searchFields } from './profiles-form.config'
 
-export class ProfilesFormModel extends UseProductsPermissions {
+export class ProfilesFormModel extends InfiniteScrollModel<IParsingProfile> {
   value = ''
   shopId?: string
 
@@ -19,7 +19,7 @@ export class ProfilesFormModel extends UseProductsPermissions {
     return this.meta?.unlinkedProfiles || []
   }
   get profiles() {
-    const combinedProfiles = [...this.reservedProfile, ...this.unlinkedProfiles, ...this.permissionsData]
+    const combinedProfiles = [...this.reservedProfile, ...this.unlinkedProfiles, ...this.data]
 
     // additional filtering, as the backend does't filter data from metadata
     const filteredProfiles = combinedProfiles.filter(profile => {
@@ -38,35 +38,20 @@ export class ProfilesFormModel extends UseProductsPermissions {
   }
 
   constructor(profileId?: string, requestId?: string, shopId?: string) {
-    const requestOptions = {
-      sortField: 'updatedAt',
-      sortType: 'DESC',
+    const options = {
       guid: requestId,
     }
 
-    super(ParserModel.getProfilesForRequest, requestOptions, searchFields)
+    super({ method: ParserModel.getProfilesForRequest, options, searchFields })
 
     this.shopId = shopId
     this.value = profileId || ''
-    this.permissionsData = []
-    this.isCanLoadMore = true
-    this.getPermissionsData()
+    this.getData()
 
     makeObservable(this, profilesFormConfig)
   }
 
   onChange = (e: RadioChangeEvent) => {
     this.value = e.target.value
-  }
-
-  onScroll = (e: UIEvent<HTMLElement>) => {
-    const element = e.target as HTMLElement
-    const scrollTop = element?.scrollTop
-    const containerHeight = element?.clientHeight
-    const contentHeight = element?.scrollHeight
-
-    if (contentHeight - (scrollTop + containerHeight) < 44) {
-      this.loadMoreDataHadler()
-    }
   }
 }

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { FC, UIEvent, useCallback, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
@@ -21,33 +21,8 @@ export const PerformerSelect: FC<PerformerSelectProps> = observer(props => {
   const { onChangeData, spec, defaultPerformer, ...restProps } = props
 
   const viewModel = useMemo(() => new PerformerSelectModel(), [])
-
-  const handlePopupScroll = useCallback(
-    (e: UIEvent<HTMLElement>) => {
-      const element = e.target as HTMLElement
-      const scrollTop = element?.scrollTop
-      const containerHeight = element?.clientHeight
-      const contentHeight = element?.scrollHeight
-
-      if (contentHeight - (scrollTop + containerHeight) < 128) {
-        viewModel.loadMoreDataHadler()
-      }
-    },
-    [viewModel.loadMoreDataHadler],
-  )
-  const handleDropdownVisibleChange = useCallback(
-    (isOpen: boolean) => {
-      if (isOpen) {
-        viewModel.onGetUsers()
-      }
-    },
-    [viewModel.onGetUsers],
-  )
   const defaultUserOption = useMemo(() => getDefaultUserOption(defaultPerformer), [defaultPerformer])
-  const userOptions = useMemo(
-    () => getUserOptions(viewModel.currentPermissionsData, spec, defaultPerformer),
-    [viewModel.currentPermissionsData],
-  )
+  const userOptions = useMemo(() => getUserOptions(viewModel.data, spec, defaultPerformer), [viewModel.data])
 
   return (
     <div onClick={e => e.stopPropagation()}>
@@ -60,9 +35,9 @@ export const PerformerSelect: FC<PerformerSelectProps> = observer(props => {
         options={userOptions}
         value={defaultUserOption}
         optionRender={({ data }) => <PerformerOption data={data} onChangeData={onChangeData} />}
-        onDropdownVisibleChange={handleDropdownVisibleChange}
-        onSearch={viewModel.onClickSubmitSearch}
-        onPopupScroll={handlePopupScroll}
+        onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
+        onSearch={viewModel.onSearchSubmit}
+        onPopupScroll={viewModel.loadMoreData}
       />
     </div>
   )

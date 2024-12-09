@@ -8,18 +8,15 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
-import { IChangeData } from '../users-select.config'
-
 interface UserOptionProps {
   user: BaseOptionType
-  onChangeData?: IChangeData
 }
 
-export const UserOption: FC<UserOptionProps> = memo(({ user, onChangeData }) => {
+export const UserOption: FC<UserOptionProps> = memo(({ user }) => {
   const avatar = getUserAvatarSrc(user?.value)
 
   return (
-    <Space typeof="button" onClick={() => onChangeData?.(user?.value)}>
+    <Space typeof="button">
       {user?.value ? <Avatar size={24} src={avatar} /> : null}
       <Text ellipsis style={{ width: '165px' }}>
         {user?.value ? user?.name : t(TranslationKey.Empty)}

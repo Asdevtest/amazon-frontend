@@ -43,8 +43,8 @@ export const SelectShopsForm: FC<SelectShopsModalProps> = observer(props => {
         options={viewModel.items}
         optionRender={({ label }) => <Text copyable={false} text={String(label)} rows={1} />}
         onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
-        onSearch={viewModel.onClickSubmitSearch}
-        onPopupScroll={viewModel.onScroll}
+        onSearch={viewModel.onSearchSubmit}
+        onPopupScroll={viewModel.loadMoreData}
         onSelect={id => setSelectedShopId(id)}
       />
 

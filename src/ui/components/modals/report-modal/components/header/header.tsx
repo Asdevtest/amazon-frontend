@@ -1,5 +1,5 @@
 import { BaseOptionType } from 'antd/es/select'
-import { FC, UIEvent, memo, useMemo } from 'react'
+import { FC, memo, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
@@ -29,7 +29,7 @@ interface HeaderProps {
   onSelectProduct: (value: string, option: BaseOptionType) => void
   onDropdownVisibleChange: (value: boolean) => void
   onSearchAsinSelect: (value: string) => void
-  onPopupScroll: (e: UIEvent<HTMLElement>) => void
+  onPopupScroll: () => void
   subView?: boolean
   product?: IProduct
 }

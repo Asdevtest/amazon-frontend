@@ -1,17 +1,18 @@
 import { BaseOptionType } from 'antd/es/select'
-import { action } from 'mobx'
+import { action, computed } from 'mobx'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
-import { IPermissionsData } from '@hooks/use-products-permissions'
+import { IProduct } from '@typings/models/products/product'
 
 export const selectConfig = {
-  onGetData: action.bound,
+  asinOptions: computed,
+  onDropdownVisibleChange: action.bound,
 }
 
-export const getOptions = (data: IPermissionsData[]) => {
+export const getOptions = (data: IProduct[]) => {
   const generatedOptions = data?.map(item => ({
     ...item,
     value: item?._id,

@@ -1,44 +1,26 @@
 import { makeObservable } from 'mobx'
-import { UIEvent } from 'react'
 
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { ShopModel } from '@models/shop-model'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
+import { IShop } from '@typings/models/shops/shop'
 
 import { generateItems, shopsSelectConfig } from './select-shops-form.config'
 
-export class SelectShopFormModel extends UseProductsPermissions {
+export class SelectShopFormModel extends InfiniteScrollModel<IShop> {
   get items() {
-    return generateItems(this.currentPermissionsData)
+    return generateItems(this.data)
   }
 
   constructor() {
-    super(ShopModel.getMyShops)
+    super({ method: ShopModel.getMyShops })
 
     makeObservable(this, shopsSelectConfig)
   }
 
-  onGetData = () => {
-    this.permissionsData = []
-    this.isCanLoadMore = true
-    this.setOptions({ offset: 0, filters: '' })
-    this.getPermissionsData()
-  }
-
-  onScroll = (e: UIEvent<HTMLElement>) => {
-    const element = e.target as HTMLElement
-    const scrollTop = element?.scrollTop
-    const containerHeight = element?.clientHeight
-    const contentHeight = element?.scrollHeight
-
-    if (contentHeight - (scrollTop + containerHeight) < 90) {
-      this.loadMoreDataHadler()
-    }
-  }
-
   onDropdownVisibleChange = (isOpen: boolean) => {
     if (isOpen) {
-      this.onGetData()
+      this.getData()
     }
   }
 }

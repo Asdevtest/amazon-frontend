@@ -1,24 +1,29 @@
 import { BaseOptionType } from 'antd/es/select'
 import { makeObservable } from 'mobx'
 
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { RequestModel } from '@models/request-model'
 
 import { IRequest } from '@typings/models/requests/request'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
+import {
+  IChangeData,
+  getRequestTemplateOptions,
+  options,
+  requestSelectConfig,
+  searchFields,
+} from './request-select.config'
 
-import { IChangeData, options, requestSelectConfig, searchFields } from './request-select.config'
-
-export class RequestSelectModel extends UseProductsPermissions {
+export class RequestSelectModel extends InfiniteScrollModel<IRequest> {
   requestTemplate?: IRequest
   onChangeData?: IChangeData
 
   get requestTemplateOptions() {
-    return this.permissionsData
+    return getRequestTemplateOptions(this.data)
   }
 
   constructor(onChangeData: IChangeData) {
-    super(RequestModel.getRequests, options, searchFields)
+    super({ method: RequestModel.getRequests, options, searchFields })
     this.onChangeData = onChangeData
     makeObservable(this, requestSelectConfig)
   }
@@ -30,10 +35,9 @@ export class RequestSelectModel extends UseProductsPermissions {
     }
   }
 
-  onGetProducts = () => {
-    this.permissionsData = []
-    this.isCanLoadMore = true
-    this.setOptions({ offset: 0, filters: '' })
-    this.getPermissionsData()
+  onDropdownVisibleChange = (isOpen: boolean) => {
+    if (isOpen) {
+      this.getData()
+    }
   }
 }
