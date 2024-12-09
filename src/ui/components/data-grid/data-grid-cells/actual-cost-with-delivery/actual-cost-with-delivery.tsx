@@ -42,6 +42,8 @@ export const ActualCostWithDelivery: FC<ActualCostWithDeliveryProps> = memo(prop
     return itemsQuantity * singleProductPrice + shippingCost
   }
 
+  console.log('actualShippingCost', actualShippingCost, typeof actualShippingCost)
+
   const renderItem = () => {
     return (
       <>
@@ -61,10 +63,11 @@ export const ActualCostWithDelivery: FC<ActualCostWithDeliveryProps> = memo(prop
           const actualCostWithDeliveryPerUnit = getActualCostWithDeliveryPerUnit(rowMemo, el)
 
           const actualCostWithDelivery = actualCostWithDeliveryPerUnit * el.amount
+          const showCellValue = actualShippingCost && actualCostWithDelivery
 
           return (
             <p key={index} className={styles.multilineText}>
-              {toFixedWithDollarSign(actualCostWithDelivery, 2) || '-'}
+              {showCellValue ? toFixedWithDollarSign(actualCostWithDelivery, 2) : '-'}
             </p>
           )
         })}
