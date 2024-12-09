@@ -6,4 +6,5 @@ export enum TableView {
 export interface IHandlers {
   onClickEdit: (id: string) => void
   onClickDelete: (id: string) => void
+  onClickBindProduct?: (id: string, supplierId: string) => void
 }

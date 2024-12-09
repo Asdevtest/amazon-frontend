@@ -19,6 +19,7 @@ import { useStyles } from './supplier-modal.style'
 
 import { AddSupplierCardModal } from '../add-supplier-card-modal'
 import { AddSupplierModal } from '../add-supplier-modal'
+import { BindSupplierCardToProductModal } from '../bind-supplier-card-to-product-modal'
 import { ImportTemplateModal } from '../import-template-modal'
 
 import { SupplierModalModel } from './supplier-modal.model'
@@ -148,6 +149,15 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
           handleUpdate={() => supplierCardsModel.getCurrentData()}
           openModal={supplierCardsModel.showAddSupplierProductModal}
           setOpenModal={supplierCardsModel.onCloseAddSupplierProductModal}
+        />
+      ) : null}
+
+      {supplierCardsModel.showBindSupplierCardToProductModal ? (
+        <BindSupplierCardToProductModal
+          supplierId={supplierId}
+          supplierCardId={supplierCardsModel.supplierCardIdToEdit}
+          openModal={supplierCardsModel.showBindSupplierCardToProductModal}
+          setOpenModal={supplierCardsModel.onCloseBindProductModal}
         />
       ) : null}
     </Modal>
