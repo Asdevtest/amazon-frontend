@@ -42,14 +42,14 @@ export const ProfilesForm: FC<ProfilesFormProps> = observer(props => {
         allowClear
         wrapperClassName={styles.searchInput}
         placeholder="Search by name, email"
-        onSearch={viewModel.onClickSubmitSearch}
+        onSearch={viewModel.onSearchSubmit}
       />
       <CustomRadio
         options={getProfilesOptions(viewModel.profiles)}
         value={viewModel.value}
         wrapperClassName={styles.optionsWrapper}
         onChange={viewModel.onChange}
-        onScroll={viewModel.onScroll}
+        onScroll={viewModel.loadMoreData}
       />
       <div className={styles.buttons}>
         <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>

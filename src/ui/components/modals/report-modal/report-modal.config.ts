@@ -11,8 +11,6 @@ import { t } from '@utils/translations'
 import { Launches } from '@typings/enums/launches'
 import { IProduct } from '@typings/models/products/product'
 
-import { IPermissionsData } from '@hooks/use-products-permissions'
-
 export const reportModalConfig = {
   requestTableStatus: observable,
   product: observable,
@@ -46,8 +44,6 @@ export const reportModalConfig = {
   onRemoveLaunch: action.bound,
   setRequestTableStatus: action.bound,
   updateProductAndColumns: action.bound,
-  onGetProducts: action.bound,
-  onPopupScroll: action.bound,
   onDropdownVisibleChange: action.bound,
 }
 
@@ -58,7 +54,7 @@ export const launchOptions = Object.values(Launches).map(value => ({
 
 export const excludedLaunches = [Launches.CUSTOM, Launches.AB_TEST, Launches.PRICE_CHANGE]
 
-export const getAsinOptions = (products: IPermissionsData[]) =>
+export const getAsinOptions = (products: IProduct[]) =>
   products?.map(product => {
     const mediaFile = product?.images?.[0]
     const displayedMediaFile = checkIsImageLink(mediaFile)

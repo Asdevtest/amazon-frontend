@@ -1,21 +1,25 @@
 import { makeObservable } from 'mobx'
 
 import { ClientModel } from '@models/client-model'
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
+import { IProduct } from '@typings/models/products/product'
 
-import { selectConfig } from './asin-select.config'
+import { getOptions, selectConfig } from './asin-select.config'
 
-export class AsinSelectModel extends UseProductsPermissions {
+export class AsinSelectModel extends InfiniteScrollModel<IProduct> {
+  get asinOptions() {
+    return getOptions(this.data)
+  }
+
   constructor() {
-    super(ClientModel.getProductPermissionsData)
+    super({ method: ClientModel.getProductPermissionsData })
     makeObservable(this, selectConfig)
   }
 
-  onGetData = () => {
-    this.permissionsData = []
-    this.isCanLoadMore = true
-    this.setOptions({ offset: 0, filters: '' })
-    this.getPermissionsData()
+  onDropdownVisibleChange = (isOpen: boolean) => {
+    if (isOpen) {
+      this.getData()
+    }
   }
 }

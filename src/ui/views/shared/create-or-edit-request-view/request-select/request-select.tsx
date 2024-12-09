@@ -1,13 +1,11 @@
 import { observer } from 'mobx-react'
-import { FC, UIEvent, useCallback, useMemo } from 'react'
+import { FC, useMemo } from 'react'
 
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
 
-import { debounce } from '@utils/debounce'
-
 import { RequestOption } from './request-option'
-import { IChangeData, getRequestTemplateOptions } from './request-select.config'
+import { IChangeData } from './request-select.config'
 import { RequestSelectModel } from './request-select.model'
 
 interface RequestSelectProps extends CustomSelectProps {
@@ -16,35 +14,6 @@ interface RequestSelectProps extends CustomSelectProps {
 
 export const RequestSelect: FC<RequestSelectProps> = observer(({ onChangeData, ...restProps }) => {
   const viewModel = useMemo(() => new RequestSelectModel(onChangeData), [])
-
-  const handlePopupScroll = useCallback(
-    (e: UIEvent<HTMLElement>) => {
-      const element = e.target as HTMLElement
-      const scrollTop = element?.scrollTop
-      const containerHeight = element?.clientHeight
-      const contentHeight = element?.scrollHeight
-
-      if (contentHeight - (scrollTop + containerHeight) < 128) {
-        viewModel.loadMoreDataHadler()
-      }
-    },
-    [viewModel.loadMoreDataHadler],
-  )
-  const handleDropdownVisibleChange = useCallback(
-    (isOpen: boolean) => {
-      if (isOpen) {
-        viewModel.onGetProducts()
-      }
-    },
-    [viewModel.onGetProducts],
-  )
-
-  const requestTemplateOptions = useMemo(
-    () => getRequestTemplateOptions(viewModel.requestTemplateOptions),
-    [viewModel.requestTemplateOptions],
-  )
-
-  const handleSearch = debounce((value: string) => viewModel.onClickSubmitSearch(value))
 
   return (
     <CustomSelect
@@ -56,11 +25,11 @@ export const RequestSelect: FC<RequestSelectProps> = observer(({ onChangeData, .
       filterOption={false}
       defaultActiveFirstOption={false}
       placeholder="Select request ID"
-      options={requestTemplateOptions}
+      options={viewModel.requestTemplateOptions}
       optionRender={({ data }) => <RequestOption data={data} />}
-      onDropdownVisibleChange={handleDropdownVisibleChange}
-      onSearch={handleSearch}
-      onPopupScroll={handlePopupScroll}
+      onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
+      onSearch={viewModel.onSearchSubmit}
+      onPopupScroll={viewModel.loadMoreData}
       onChange={viewModel.onSelectProduct}
     />
   )

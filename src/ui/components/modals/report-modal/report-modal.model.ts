@@ -1,13 +1,14 @@
 import { BaseOptionType } from 'antd/es/select'
 import dayjs from 'dayjs'
 import { makeObservable, runInAction } from 'mobx'
-import { ChangeEvent, UIEvent } from 'react'
+import { ChangeEvent } from 'react'
 import { toast } from 'react-toastify'
 import { v4 as uuid } from 'uuid'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ClientModel } from '@models/client-model'
+import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 
 import { t } from '@utils/translations'
 
@@ -18,8 +19,6 @@ import { IProduct } from '@typings/models/products/product'
 import { IRequest } from '@typings/models/requests/request'
 import { IGridColumn } from '@typings/shared/grid-column'
 import { ILaunch } from '@typings/shared/launch'
-
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { reportModalColumns } from './report-modal.columns'
 import { excludedLaunches, getAsinOptions, launchOptions, reportModalConfig } from './report-modal.config'
@@ -33,7 +32,7 @@ import {
   ReportModalColumnsProps,
 } from './report-modal.type'
 
-export class ReportModalModel extends UseProductsPermissions {
+export class ReportModalModel extends InfiniteScrollModel<IProduct> {
   requestTableStatus: loadingStatus = loadingStatus.SUCCESS
   product?: IProduct
   reportId?: string
@@ -77,11 +76,11 @@ export class ReportModalModel extends UseProductsPermissions {
       })) as IRequestWithLaunch[]
   }
   get asinOptions() {
-    return getAsinOptions(this.currentPermissionsData)
+    return getAsinOptions(this.data)
   }
 
   constructor({ reportId, defaultProduct }: IReportModalModelProps) {
-    super(ClientModel.getProductPermissionsData)
+    super({ method: ClientModel.getProductPermissionsData })
 
     this.reportId = reportId
     this.updateProductAndColumns(defaultProduct)
@@ -304,13 +303,6 @@ export class ReportModalModel extends UseProductsPermissions {
     this.columnsModel = reportModalColumns(this.columnsProps)
   }
 
-  onGetProducts = () => {
-    this.permissionsData = []
-    this.isCanLoadMore = true
-    this.setOptions({ offset: 0, filters: '' })
-    this.getPermissionsData()
-  }
-
   /* onGetListingReportByProductId = async (id: string) => {
     try {
       const response = await ClientModel.getListingReportByProductId({ guid: id })
@@ -327,20 +319,9 @@ export class ReportModalModel extends UseProductsPermissions {
     }
   } */
 
-  onPopupScroll = (e: UIEvent<HTMLElement>) => {
-    const element = e.target as HTMLElement
-    const scrollTop = element?.scrollTop
-    const containerHeight = element?.clientHeight
-    const contentHeight = element?.scrollHeight
-
-    if (contentHeight - (scrollTop + containerHeight) < 90) {
-      this.loadMoreDataHadler()
-    }
-  }
-
   onDropdownVisibleChange = (isOpen: boolean) => {
     if (isOpen) {
-      this.onGetProducts()
+      this.getData()
     }
   }
 }

@@ -7,16 +7,14 @@ import { CustomSelectProps } from '@components/shared/custom-select/custom-selec
 import { IFullUser } from '@typings/shared/full-user'
 
 import { UserOption } from './user-option'
-import { IChangeData } from './users-select.config'
 import { UsersSelectModel } from './users-select.model'
 
 interface UsersSelectProps extends Omit<CustomSelectProps, 'options'> {
   defaultUser?: IFullUser
-  onChangeData?: IChangeData
 }
 
 export const UsersSelect: FC<UsersSelectProps> = observer(props => {
-  const { defaultUser, onChangeData, ...restProps } = props
+  const { defaultUser, ...restProps } = props
 
   const viewModel = useMemo(() => new UsersSelectModel(defaultUser), [])
 
@@ -29,10 +27,10 @@ export const UsersSelect: FC<UsersSelectProps> = observer(props => {
       style={{ width: '320px' }}
       options={viewModel.userOptions}
       value={viewModel.defaultUserOption}
-      optionRender={({ data }) => <UserOption user={data} onChangeData={onChangeData} />}
+      optionRender={({ data }) => <UserOption user={data} />}
       onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
-      onSearch={viewModel.onClickSubmitSearch}
-      onPopupScroll={viewModel.onScroll}
+      onSearch={viewModel.onSearchSubmit}
+      onPopupScroll={viewModel.loadMoreData}
     />
   )
 })

@@ -10,8 +10,6 @@ export const productLaunchConfig = {
 
   onChangeRadioValue: action.bound,
   onChangeProduct: action.bound,
-  onGetProducts: action.bound,
-  onPopupScroll: action.bound,
   onDropdownVisibleChange: action.bound,
 }
 

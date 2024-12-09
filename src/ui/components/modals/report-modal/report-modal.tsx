@@ -51,8 +51,8 @@ export const ReportModal: FC<ReportModalProps> = observer(props => {
         onSelectLaunch={viewModel.onSelectLaunch}
         onSelectProduct={viewModel.onSelectProduct}
         onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
-        onSearchAsinSelect={viewModel.onClickSubmitSearch}
-        onPopupScroll={viewModel.onPopupScroll}
+        onSearchAsinSelect={viewModel.onSearchSubmit}
+        onPopupScroll={viewModel.loadMoreData}
       />
 
       <CustomDataGrid

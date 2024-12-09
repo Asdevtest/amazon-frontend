@@ -1,15 +1,13 @@
 import { action, computed } from 'mobx'
 
-import { IPermissionsData } from '@hooks/use-products-permissions'
+import { IShop } from '@typings/models/shops/shop'
 
 export const shopsSelectConfig = {
   items: computed,
-  onGetData: action.bound,
-  onScroll: action.bound,
   onDropdownVisibleChange: action.bound,
 }
 
-export const generateItems = (data: IPermissionsData[]) => {
+export const generateItems = (data: IShop[]) => {
   const generatedUsetOptions = data?.map(item => ({
     value: item?._id,
     label: item?.name,
