@@ -61,9 +61,10 @@ export class ShopsViewModel extends DataGridFilterTableModel {
 
   async onUpdateShops() {
     try {
+      const isMoreThenThree = this.selectedRows?.length > 3
       toast.success(t(TranslationKey['Store data will be updated soon']))
 
-      await ClientModel.updateShops(this.selectedRows)
+      await ClientModel.updateShops(this.selectedRows, isMoreThenThree)
 
       toast.success(t(TranslationKey.Updated))
 
