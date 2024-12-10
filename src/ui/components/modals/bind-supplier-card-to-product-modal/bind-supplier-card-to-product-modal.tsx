@@ -110,7 +110,6 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
           <CustomSelect
             allowClear
             showSearch
-            labelInValue
             loading={viewModel?.loading}
             size="large"
             className={styles.modalSelect}
