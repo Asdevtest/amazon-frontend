@@ -6,9 +6,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddOrEditTagForm } from '@components/forms/add-or-edit-tag-form'
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTag } from '@components/shared/custom-tag'
 import { Modal } from '@components/shared/modal'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { t } from '@utils/translations'
 

@@ -2,7 +2,7 @@ import { Avatar, Form } from 'antd'
 import { FC, memo } from 'react'
 
 import { CustomInput } from '@components/shared/custom-input'
-import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'

@@ -4,16 +4,15 @@ import { MdDeleteOutline } from 'react-icons/md'
 
 import { IconButton, Input, MenuItem, Select, Tooltip } from '@mui/material'
 import ListItemText from '@mui/material/ListItemText'
-import ListSubheader from '@mui/material/ListSubheader'
 
-import { UserRole, UserRoleCodeMap, UserRolePrettyMap, mapUserRoleEnumToKey } from '@constants/keys/user-roles'
+import { UserRoleCodeMap, UserRolePrettyMap } from '@constants/keys/user-roles'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
-import { CustomSelect } from '@components/shared/custom-select'
 import { Field } from '@components/shared/field/field'
 import { Modal } from '@components/shared/modal'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { checkIsPositiveNum } from '@utils/checks'
 import { t } from '@utils/translations'

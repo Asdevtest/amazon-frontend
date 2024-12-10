@@ -41,7 +41,7 @@ interface InfiniteScrollModelProps {
   filterFields?: string[]
 }
 
-interface ICallback {
+export interface ICallback {
   (options: any): any
 }
 

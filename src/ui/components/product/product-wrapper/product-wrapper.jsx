@@ -87,13 +87,9 @@ export const ProductWrapper = memo(
     onClickParseProductData,
     onChangeImagesForLoad,
     showBindProductModal,
-    productsToBind,
     onTriggerOpenModal,
-    onClickGetProductsToBind,
     onClickHsCode,
     onClickNextButton,
-    loadMorePermissionsDataHadler,
-    onClickSubmitSearch,
     onClickSaveSupplierBtn,
     onSaveForceProductData,
     onRemoveSupplier,
@@ -189,12 +185,10 @@ export const ProductWrapper = memo(
             actionStatus={actionStatus}
             disableField={disableField}
             showBindProductModal={showBindProductModal}
-            productsToBind={productsToBind}
             handleProductActionButtons={handleProductActionButtons}
             formFieldsValidationErrors={formFieldsValidationErrors}
             onClickNextButton={onClickNextButton}
             onTriggerOpenModal={onTriggerOpenModal}
-            onClickGetProductsToBind={onClickGetProductsToBind}
             onChangeField={onChangeField}
             onClickSetProductStatusBtn={onClickSetProductStatusBtn}
             onClickParseProductData={onClickParseProductData}

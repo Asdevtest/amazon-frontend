@@ -5,9 +5,9 @@ import { FC, useEffect, useMemo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 import { Modal } from '@components/shared/modal'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -137,14 +137,12 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
             label="Payment methods"
             options={viewModel.paymentMethods}
             fieldNames={{ label: 'title', value: '_id' }}
-            optionRender={option => {
-              return (
-                <div className={sharedStyles.selectOption}>
-                  <Avatar size={20} src={getAmazonImageUrl(option.data.iconImage)} />
-                  <p>{option.data.title}</p>
-                </div>
-              )
-            }}
+            optionRender={option => (
+              <div className={sharedStyles.selectOption}>
+                <Avatar size={20} src={getAmazonImageUrl(option.data.iconImage)} />
+                <p>{option.data.title}</p>
+              </div>
+            )}
           />
         </Form.Item>
 

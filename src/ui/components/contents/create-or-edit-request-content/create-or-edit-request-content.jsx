@@ -10,6 +10,7 @@ import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/stat
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ClientModel } from '@models/client-model'
 import { SettingsModel } from '@models/settings-model'
 
 import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
@@ -44,7 +45,7 @@ import { Specs } from '@typings/enums/specs'
 
 import { useStyles } from './create-or-edit-request-content.style'
 
-import { AsinSelect } from '../../shared/asin-select'
+import { AsinOption, InfiniteScrollSelect } from '../../shared/selects/infinite-scroll-select'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -56,7 +57,6 @@ export const CreateOrEditRequestContent = memo(props => {
     buttonStatus,
     announcements,
     specs,
-    permissionsData,
     masterUsersData,
     choosenAnnouncements,
     executor,
@@ -68,8 +68,6 @@ export const CreateOrEditRequestContent = memo(props => {
     checkRequestByTypeExists,
     createRequestForIdeaData,
     getMasterUsersData,
-    loadMorePermissionsDataHadler,
-    onClickSubmitSearch,
     onClickExistingRequest,
     onClickChoosePerformer,
     onCreateSubmit,
@@ -523,13 +521,18 @@ export const CreateOrEditRequestContent = memo(props => {
                     }
                   />
 
-                  <AsinSelect
+                  <InfiniteScrollSelect
                     required
+                    optionLabel="asin"
+                    optionValue="_id"
+                    method={ClientModel.getProductPermissionsData}
+                    optionNode={AsinOption}
                     size="large"
                     label="ASIN"
                     placeholder="Select ASIN"
                     defaultValue={formFields?.request?.asin}
                     onChange={(_, option) => {
+                      console.log(option)
                       onChangeField('request')('asin')(option.asin)
                       onChangeField('request')('productId')(option._id)
                     }}

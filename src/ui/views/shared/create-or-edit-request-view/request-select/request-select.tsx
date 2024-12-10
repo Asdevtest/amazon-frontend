@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { CustomSelect } from '@components/shared/custom-select'
-import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
+import { CustomSelectProps } from '@components/shared/selects/custom-select/custom-select'
 
 import { RequestOption } from './request-option'
 import { IChangeData } from './request-select.config'

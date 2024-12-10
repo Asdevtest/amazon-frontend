@@ -3,7 +3,7 @@ import { FC, memo, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { t } from '@utils/translations'
 
@@ -12,10 +12,10 @@ import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './header.style'
 
+import { AsinOption } from '../../../../shared/selects/infinite-scroll-select/options'
 import { getDefaultAsinOption } from '../../report-modal.config'
 import { ILaunchOption, IRequestWithLaunch } from '../../report-modal.type'
 
-import { AsinOption } from './asin-option'
 import { Requests } from './requests'
 
 interface HeaderProps {
