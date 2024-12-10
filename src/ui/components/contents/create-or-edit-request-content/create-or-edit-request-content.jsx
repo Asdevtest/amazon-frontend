@@ -541,31 +541,6 @@ export const CreateOrEditRequestContent = memo(props => {
                     }}
                   />
 
-                  {/* <Field
-                    label={t(TranslationKey['Request type']) + '*'}
-                    labelClasses={styles.label}
-                    containerClasses={styles.fieldContainer}
-                    tooltipInfoContent={t(TranslationKey['Current request type'])}
-                    inputComponent={
-                      <Select
-                        displayEmpty
-                        value={formFields.request.specId || ''}
-                        className={cx(styles.field, styles.requestTypeField)}
-                        onChange={onChangeField('request')('specId')}
-                      >
-                        <MenuItem disabled value="">
-                          {t(TranslationKey['Select from the list'])}
-                        </MenuItem>
-
-                        {specs.map(spec => (
-                          <MenuItem key={spec._id} value={spec?._id} className={styles.requestItem}>
-                            <Text text={spec?.title} copyable={false} rows={1} />
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    }
-                  /> */}
-
                   <CustomSelect
                     required
                     placeholder="Select from the list"
