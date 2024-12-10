@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom'
 import { Box, ListItemIcon, ListItemText } from '@mui/material'
 import MuiListItem from '@mui/material/ListItem'
 
-import { SettingsModel } from '@models/settings-model'
-
 import { Button } from '@components/shared/button'
 import { HighPriorityValue } from '@components/shared/high-priority-value'
 
@@ -15,15 +13,15 @@ import { renderTooltipTitle } from '@utils/renders'
 import { HintsContext } from '@contexts/hints-context'
 
 import '@typings/enums/button-style'
-import { UiTheme } from '@typings/enums/ui-theme'
 
 import { useStyles } from './navbar-category.style'
 
 export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, shortNavbar }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles, cx, theme } = useStyles()
 
   const [subRoutes, setSubRoutes] = useState([])
   const isRedBadge = category.route?.includes('/buyer/free-orders')
+  const backgroundColorForBadge = isRedBadge ? 'red' : theme.palette.primary.main
 
   const { hints } = useContext(HintsContext)
 
@@ -102,7 +100,7 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
           {Number(badge) > 0 ? (
             <Badge
               count={badge}
-              color={isRedBadge ? 'red' : SettingsModel.uiTheme === UiTheme.dark ? '#4ca1de' : 'blue'}
+              color={isRedBadge ? 'red' : theme.palette.primary.main}
               size="small"
               className={styles.badge}
               overflowCount={100000}
