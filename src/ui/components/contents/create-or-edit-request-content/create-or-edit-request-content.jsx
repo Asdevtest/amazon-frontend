@@ -338,7 +338,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
     setFormFields(newFormFields)
   }
-  console.log('formFields', formFields)
+
   const isDeadlineError = formFields.request.timeoutAt < new Date()
 
   const [withPublish, setWithPublish] = useState({ withPublish: false })
