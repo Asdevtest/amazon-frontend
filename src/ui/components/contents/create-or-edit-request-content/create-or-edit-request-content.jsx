@@ -18,6 +18,7 @@ import { GalleryRequestModal } from '@components/modals/gallery-request-modal'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
+import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { DatePicker } from '@components/shared/date-picker'
 import { Field } from '@components/shared/field'
@@ -252,6 +253,12 @@ export const CreateOrEditRequestContent = memo(props => {
 
   const [deadlineError, setDeadlineError] = useState(false)
 
+  const specOptions = specs.map(spec => ({
+    value: spec._id,
+    label: spec.title,
+  }))
+
+  console.log(specs)
   const onChangeField = section => fieldName => event => {
     const newFormFields = { ...formFields }
 
@@ -307,10 +314,10 @@ export const CreateOrEditRequestContent = memo(props => {
         setAnnouncement('')
         setChosenExecutor(undefined)
 
-        newFormFields[section][fieldName] = event.target.value
+        newFormFields[section][fieldName] = event
         // getMasterUsersData(event.target.value)
 
-        if (`${event.target.value}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`) {
+        if (`${event}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`) {
           newFormFields.request.discountedPrice = 0
           newFormFields.request.cashBackInPercent = 0
           newFormFields.request.priceAmazon = 0
@@ -331,7 +338,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
     setFormFields(newFormFields)
   }
-
+  console.log('formFields', formFields)
   const isDeadlineError = formFields.request.timeoutAt < new Date()
 
   const [withPublish, setWithPublish] = useState({ withPublish: false })
@@ -534,7 +541,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     }}
                   />
 
-                  <Field
+                  {/* <Field
                     label={t(TranslationKey['Request type']) + '*'}
                     labelClasses={styles.label}
                     containerClasses={styles.fieldContainer}
@@ -557,6 +564,16 @@ export const CreateOrEditRequestContent = memo(props => {
                         ))}
                       </Select>
                     }
+                  /> */}
+
+                  <CustomSelect
+                    required
+                    placeholder="Select from the list"
+                    label={'Request type'}
+                    size="large"
+                    options={specOptions}
+                    value={specOptions.find(spec => spec.value === formFields.request.specId)}
+                    onChange={onChangeField('request')('specId')}
                   />
                 </div>
 
