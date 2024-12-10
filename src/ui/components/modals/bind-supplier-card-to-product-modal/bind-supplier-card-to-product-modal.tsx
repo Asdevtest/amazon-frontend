@@ -15,6 +15,8 @@ import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './bind-supplier-card-to-product-modal.style'
 
+import { AsinOption } from '../report-modal/components/header/asin-option'
+
 import { BindSupplierCardModal } from './bind-supplier-card-to-product-modal.model'
 
 interface BindSupplierCardToProductModalProps {
@@ -115,6 +117,7 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
             label="Product"
             value={viewModel.selectedProductId}
             options={viewModel?.currentData || []}
+            optionRender={({ data }) => <AsinOption data={data} />}
             fieldNames={{ label: 'amazonTitle', value: '_id' }}
             onChange={viewModel?.onChangeSelectedProduct}
           />

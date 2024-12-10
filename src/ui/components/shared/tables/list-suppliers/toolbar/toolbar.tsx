@@ -186,6 +186,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
         <Dropdown
           disabled={isAtProcessOrder || disabledAddSupplierButtonWhenCreateIdea || !showAddSupplierButton}
           menu={{ items: menuProps }}
+          trigger={['click']}
           placement="bottomLeft"
         >
           <CustomButton icon={<FiPlus size={18} />} className={styles.button} />
