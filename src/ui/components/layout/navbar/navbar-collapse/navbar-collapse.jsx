@@ -181,7 +181,9 @@ export const NavbarCollapse = ({
 
   const getBigBadge = route => {
     const count = getBigBadgeCount(route)
-    return count ? <Badge count={count} color="red" className={styles.bigBadge} overflowCount={100000} /> : null
+    return count ? (
+      <Badge count={count} color={theme.palette.error.main} className={styles.bigBadge} overflowCount={100000} />
+    ) : null
   }
 
   const getNotificationCountBySubRoute = subRoute => {
