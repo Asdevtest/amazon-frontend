@@ -145,10 +145,18 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
 
   const menuProps: MenuProps['items'] = [
     {
+      key: 'bindSupplierCardToProduct',
+      label: (
+        <CustomButton onClick={() => onSupplierActions(ModalModes.ADD_SUPPLIER_CARD_TO_PRODUCT)}>
+          {t(TranslationKey['Add a new card'])}
+        </CustomButton>
+      ),
+    },
+    {
       key: 'addSupplierCard',
       label: (
         <CustomButton onClick={() => onSupplierActions(ModalModes.ADD_SUPPLIER_CARD)}>
-          {t(TranslationKey['Add a new card'])}
+          {t(TranslationKey['Create a supplier card'])}
         </CustomButton>
       ),
     },
@@ -156,7 +164,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
       key: 'addSupplier',
       label: (
         <CustomButton onClick={() => onSupplierActions(ModalModes.ADD)}>
-          {t(TranslationKey['Add a supplier'])}
+          {t(TranslationKey['Create a supplier'])}
         </CustomButton>
       ),
     },

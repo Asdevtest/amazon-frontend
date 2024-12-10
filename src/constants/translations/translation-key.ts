@@ -2122,4 +2122,6 @@ export enum TranslationKey {
   'Bind supplier card to product' = 'Bind supplier card to product',
   'Supplier card' = 'Supplier card',
   'Permission changes will be reset, wish to save?' = 'Permission changes will be reset, wish to save?',
+  'Supplier card successfully added to product' = 'Supplier card successfully added to product',
+  'Create a supplier card' = 'Create a supplier card',
 }

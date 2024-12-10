@@ -151,7 +151,6 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
           label="Supplier card"
           value={viewModel.selectedSupplierCardId}
           options={viewModel?.supplierCardModal?.data}
-          labelRender={option => option.label || 'access denied'}
           fieldNames={{ label: 'cardName', value: '_id' }}
           onChange={viewModel?.onChangeSelectedSupplierCard}
           onSearch={debouncedSupplierCardSearch}

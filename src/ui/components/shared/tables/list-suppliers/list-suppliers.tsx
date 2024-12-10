@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddSupplierCardModal } from '@components/modals/add-supplier-card-modal'
 import { AddSupplierModal } from '@components/modals/add-supplier-modal'
+import { BindSupplierCardToProductModal } from '@components/modals/bind-supplier-card-to-product-modal'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { IOrderWithAdditionalFields } from '@components/modals/my-order-modal/my-order-modal.type'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
@@ -134,6 +135,15 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           onRowSelectionModelChange={viewModel.onRowSelectionModelChange}
         />
       </div>
+
+      {viewModel.showBindSupplierCardToProductModal ? (
+        <BindSupplierCardToProductModal
+          product={extractProduct(formFields)}
+          openModal={viewModel.showBindSupplierCardToProductModal}
+          handleUpdate={viewModel.saveProduct}
+          setOpenModal={() => viewModel.onToggleModal(ModalNames.BIND_SUPPLIER_CARD_TO_PRODUCT)}
+        />
+      ) : null}
 
       {viewModel.showAddOrEditSupplierModal ? (
         <AddSupplierModal

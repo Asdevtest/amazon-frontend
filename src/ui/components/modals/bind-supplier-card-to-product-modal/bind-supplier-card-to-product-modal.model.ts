@@ -1,10 +1,15 @@
 import { makeObservable, runInAction } from 'mobx'
+import { toast } from 'react-toastify'
+
+import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
 import { DefaultModel } from '@models/default-model'
 import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { ProductModel } from '@models/product-model'
 import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
+
+import { t } from '@utils/translations'
 
 import { ISupplierCardFull } from '@typings/models/suppliers/supplier-card'
 import { ISupplierV2Light } from '@typings/models/suppliers/supplier-v2'
@@ -105,7 +110,9 @@ export class BindSupplierCardModal extends DefaultModel {
     try {
       this.setLoading(true)
 
-      ProductModel.addSuppliersToProduct(productId, supplierCardIds)
+      await ProductModel.addSuppliersToProduct(productId, supplierCardIds)
+
+      toast.success(t(TranslationKey['Supplier card successfully added to product']))
     } catch (error) {
       console.error(error)
     } finally {
