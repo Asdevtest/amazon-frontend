@@ -42,8 +42,6 @@ export const ActualCostWithDelivery: FC<ActualCostWithDeliveryProps> = memo(prop
     return itemsQuantity * singleProductPrice + shippingCost
   }
 
-  console.log('actualShippingCost', actualShippingCost, typeof actualShippingCost)
-
   const renderItem = () => {
     return (
       <>

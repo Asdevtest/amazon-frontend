@@ -150,6 +150,8 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
       <Modal
         title={t(TranslationKey['Permission changes will be reset, wish to save?'])}
         open={viewModel.showConfirmModal}
+        okButtonProps={{ loading: viewModel.buttonLoading }}
+        okText="Ok"
         onOk={viewModel.onOkConfirmModal}
         onCancel={viewModel.onCancelConfirmModal}
       />
