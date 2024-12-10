@@ -40,6 +40,7 @@ export const TopCard = memo(
     actionStatus,
     product,
     productVariations,
+    disableField,
     navigateToProduct,
     unbindProductHandler,
     shops,
@@ -139,6 +140,7 @@ export const TopCard = memo(
                 navigateToProduct={navigateToProduct}
                 unbindProductHandler={unbindProductHandler}
                 shops={shops}
+                disableField={disableField}
                 destinations={destinations}
                 storekeepers={storekeepers}
                 productBase={productBase}
