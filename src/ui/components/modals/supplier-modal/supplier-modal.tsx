@@ -47,6 +47,7 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
     <Modal openModal={openModal} setOpenModal={setOpenModal}>
       <div className={styles.root}>
         <SupplierCard
+          showSupplierTitle
           hideTotalCountFeedback
           showViewMore={false}
           supplier={supplierCardsModel?.meta?.supplier as unknown as ISupplierExchange}

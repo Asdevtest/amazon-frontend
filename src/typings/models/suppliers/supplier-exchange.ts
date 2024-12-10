@@ -8,6 +8,7 @@ export interface ISupplierExchange {
   _id: string
   xid: number
   images: string[]
+  companyName: string
   comment: string
   originCountry: ICountry
   paymentMethods: IPaymentMethod[]
