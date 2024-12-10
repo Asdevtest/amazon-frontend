@@ -9,17 +9,17 @@ import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'
 
 interface UserOptionProps {
-  user: BaseOptionType
+  data: BaseOptionType
 }
 
-export const UserOption: FC<UserOptionProps> = memo(({ user }) => {
-  const avatar = getUserAvatarSrc(user?.value)
+export const UserOption: FC<UserOptionProps> = memo(({ data }) => {
+  const avatar = getUserAvatarSrc(data?.value)
 
   return (
     <Space typeof="button">
-      {user?.value ? <Avatar size={24} src={avatar} /> : null}
+      {data?.value ? <Avatar size={24} src={avatar} /> : null}
       <Text ellipsis style={{ width: '165px' }}>
-        {user?.value ? user?.name : t(TranslationKey.Empty)}
+        {data?.value ? data?.name : t(TranslationKey.Empty)}
       </Text>
     </Space>
   )

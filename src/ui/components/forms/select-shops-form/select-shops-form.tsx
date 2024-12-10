@@ -4,7 +4,7 @@ import { FC, useMemo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'

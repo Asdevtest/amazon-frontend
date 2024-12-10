@@ -9,8 +9,8 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
-import { CustomSelect } from '@components/shared/custom-select'
 import { Modal } from '@components/shared/modal'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 import { EditTaskModal } from '@components/warehouse/edit-task-modal'
 import { EditTaskPriorityModal } from '@components/warehouse/edit-task-priority-modal'
 

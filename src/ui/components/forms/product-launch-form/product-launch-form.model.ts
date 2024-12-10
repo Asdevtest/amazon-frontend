@@ -26,7 +26,11 @@ export class ProductLaunchFormModel extends InfiniteScrollModel<IProduct> {
   }
 
   constructor(selectedProduct?: IProduct) {
-    super({ method: ClientModel.getProductPermissionsData, options: { isChild: false } })
+    const filterOptions = {
+      isChild: false,
+    }
+
+    super({ method: ClientModel.getProductPermissionsData, filterOptions })
     this.radioValue = selectedProduct ? RadioValue.VARIATION : RadioValue.NEW
     this.selectedProduct = selectedProduct
     makeObservable(this, productLaunchConfig)

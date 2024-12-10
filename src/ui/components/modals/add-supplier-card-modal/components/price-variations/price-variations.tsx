@@ -4,7 +4,7 @@ import { FaPlus } from 'react-icons/fa'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInputNumber } from '@components/shared/custom-input-number'
-import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './price-variations.style'

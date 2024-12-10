@@ -7,7 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { ProductCardModal } from '@components/modals/product-card-modal/product-card-modal'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
 import { CustomInputSearch } from '@components/shared/custom-input-search'
-import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { t } from '@utils/translations'
 

@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { ClientModel } from '@models/client-model'
 
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
 import { ProductWrapper } from '@components/product/product-wrapper'
@@ -11,16 +9,10 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 
 import { t } from '@utils/translations'
 
-import { ProductVariation } from '@typings/enums/product/product-variation'
-
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
-
 import { ClientProductViewModel } from './client-product-view.model'
 
 export const ClientProductView = observer(({ history }) => {
   const viewModel = useMemo(() => new ClientProductViewModel({ history }), [])
-
-  const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   useEffect(() => {
     viewModel.loadData()
@@ -44,24 +36,12 @@ export const ClientProductView = observer(({ history }) => {
           destinations={viewModel.destinations}
           storekeepers={viewModel.storekeepers}
           showBindProductModal={viewModel.showBindProductModal}
-          productsToBind={useProductsPermissions.currentPermissionsData}
           actionStatus={viewModel.requestStatus}
           productBase={viewModel.productBase}
           handleProductActionButtons={viewModel.handleProductActionButtons}
           formFieldsValidationErrors={viewModel.formFieldsValidationErrors}
-          loadMorePermissionsDataHadler={useProductsPermissions.loadMoreDataHadler}
           patchProductTransparencyHandler={viewModel.patchProductTransparencyHandler}
-          onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.bindUnbindProducts}
-          onClickGetProductsToBind={option =>
-            useProductsPermissions.getPermissionsData({
-              isChild: false,
-              isParent: option === ProductVariation.CHILD ? false : undefined,
-              shopId: viewModel.product?.shopId,
-              offset: 0,
-              filters: '',
-            })
-          }
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onChangeField={viewModel.onChangeProductFields}
           onChangeImagesForLoad={viewModel.onChangeImagesForLoad}

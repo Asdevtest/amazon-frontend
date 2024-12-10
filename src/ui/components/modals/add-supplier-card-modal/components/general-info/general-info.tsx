@@ -2,8 +2,8 @@ import { Form } from 'antd'
 import { FC, UIEvent, memo, useCallback } from 'react'
 
 import { CustomInput } from '@components/shared/custom-input'
-import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTreeSelect } from '@components/shared/custom-tree-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { throttle } from '@utils/throttle'
