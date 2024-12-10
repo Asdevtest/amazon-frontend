@@ -7,6 +7,8 @@ import { Collapse, List, ListItemIcon, ListItemText, Menu } from '@mui/material'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 
+import { SettingsModel } from '@models/settings-model'
+
 import { Button } from '@components/shared/button'
 import { HighPriorityValue } from '@components/shared/high-priority-value'
 
@@ -14,6 +16,7 @@ import { getSumPropertiesObject } from '@utils/object'
 import { renderAttentionTooltipTitle, renderTooltipTitle } from '@utils/renders'
 
 import '@typings/enums/button-style'
+import { UiTheme } from '@typings/enums/ui-theme'
 
 import { useStyles } from './navbar-collapse.style'
 
@@ -154,7 +157,14 @@ export const NavbarCollapse = ({
 
   const renderNotificationBySubRoute = subRoute => {
     const count = getBadgeCountForSubRoute(subRoute)
-    return count ? <Badge className={styles.badge} count={count} color="blue" overflowCount={100000} /> : null
+    return count ? (
+      <Badge
+        className={styles.badge}
+        count={count}
+        color={SettingsModel.uiTheme === UiTheme.dark ? '#4ca1de' : 'blue'}
+        overflowCount={100000}
+      />
+    ) : null
   }
 
   const getBigBadgeCount = route => {
