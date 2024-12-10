@@ -1,39 +1,18 @@
-import { action, computed, observable } from 'mobx'
+import { action } from 'mobx'
 
-import { IFullUser } from '@typings/shared/full-user'
+import { TranslationKey } from '@constants/translations/translation-key'
+
+import { t } from '@utils/translations'
 
 import { IPermissionsData } from '@hooks/use-products-permissions'
 
-export const usersSelectConfig = {
-  defaultUser: observable,
-  defaultUserOption: computed,
-  userOptions: computed,
-  onGetUsers: action.bound,
-  onScroll: action.bound,
-  onDropdownVisibleChange: action.bound,
+export const selectConfig = {
+  onGetData: action.bound,
 }
 
-export const getUserOptions = (users: IPermissionsData[], defaultPerformer?: IFullUser) => {
-  const filteredUsers = users.filter(user => user?._id !== defaultPerformer?._id)
-
-  const generatedUsetOptions = filteredUsers?.map(user => ({
-    ...user,
-    value: user?._id,
-    label: user?.name,
+export const getOptions = (data: IPermissionsData[]) =>
+  data?.map(item => ({
+    ...item,
+    value: item?._id,
+    label: item?.asin || t(TranslationKey.Missing),
   }))
-  // const defaultUserOption = { value: null, label: t(TranslationKey['Select user']) }
-
-  return generatedUsetOptions /* [defaultUserOption, ...generatedUsetOptions] */
-}
-
-export const getDefaultUserOption = (defaultPerformer?: IFullUser) => {
-  if (defaultPerformer) {
-    return {
-      ...defaultPerformer,
-      value: defaultPerformer?._id,
-      label: defaultPerformer?.name,
-    }
-  }
-}
-
-export type IChangeData = (id: string) => void

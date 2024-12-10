@@ -1,38 +1,53 @@
 import { observer } from 'mobx-react'
-import { FC, useMemo } from 'react'
+import { FC, UIEvent, useCallback, useMemo } from 'react'
 
-import { UserOption } from '@components/forms/permissions-form/users-select/user-option'
+import { AsinOption } from '@components/modals/report-modal/components/header/asin-option'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
 
-import { IFullUser } from '@typings/shared/full-user'
+import { getOptions } from './asin-select.config'
+import { AsinSelectModel } from './asin-select.model'
 
-import { IChangeData } from './asin-select.config'
-import { UsersSelectModel } from './asin-select.model'
+interface AsinSelectProps extends CustomSelectProps {}
 
-interface UsersSelectProps extends Omit<CustomSelectProps, 'options'> {
-  defaultUser?: IFullUser
-  onChangeData?: IChangeData
-}
+export const AsinSelect: FC<AsinSelectProps> = observer(props => {
+  const viewModel = useMemo(() => new AsinSelectModel(), [])
 
-export const UsersSelect: FC<UsersSelectProps> = observer(props => {
-  const { defaultUser, onChangeData, ...restProps } = props
+  const handlePopupScroll = useCallback(
+    (e: UIEvent<HTMLElement>) => {
+      const element = e.target as HTMLElement
+      const scrollTop = element?.scrollTop
+      const containerHeight = element?.clientHeight
+      const contentHeight = element?.scrollHeight
 
-  const viewModel = useMemo(() => new UsersSelectModel(defaultUser), [])
+      if (contentHeight - (scrollTop + containerHeight) < 128) {
+        viewModel.loadMoreDataHadler()
+      }
+    },
+    [viewModel.loadMoreDataHadler],
+  )
+  const handleDropdownVisibleChange = useCallback(
+    (isOpen: boolean) => {
+      if (isOpen) {
+        viewModel.onGetData()
+      }
+    },
+    [viewModel.onGetData],
+  )
+
+  const options = useMemo(() => getOptions(viewModel.currentPermissionsData), [viewModel.currentPermissionsData])
 
   return (
     <CustomSelect
-      {...restProps}
+      {...props}
       showSearch
       filterOption={false}
       defaultActiveFirstOption={false}
-      style={{ width: '320px' }}
-      options={viewModel.userOptions}
-      value={viewModel.defaultUserOption}
-      optionRender={({ data }) => <UserOption user={data} />}
-      onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
+      options={options}
+      optionRender={({ data }) => <AsinOption data={data} />}
+      onDropdownVisibleChange={handleDropdownVisibleChange}
       onSearch={viewModel.onClickSubmitSearch}
-      onPopupScroll={viewModel.onScroll}
+      onPopupScroll={handlePopupScroll}
     />
   )
 })
