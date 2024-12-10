@@ -44,6 +44,7 @@ export const OwnerRequestProposalsCard = ({
   item,
   request,
   userInfo,
+  onJoinChat,
   onClickContactWithExecutor,
   onClickReview,
   onClickOrderProposal,
@@ -177,6 +178,11 @@ export const OwnerRequestProposalsCard = ({
                   {`${t(TranslationKey['Order for'])} ${toFixedWithDollarSign(item.proposal.price, 2)}`}
                 </CustomButton>
               )}
+
+            <CustomButton disabled={item.proposal.chatMember} onClick={() => onJoinChat(item.proposal)}>
+              {t(TranslationKey['Join chat'])}
+            </CustomButton>
+
             <CustomButton onClick={() => onClickContactWithExecutor(item.proposal)}>
               {t(TranslationKey['Contact the performer'])}
             </CustomButton>
