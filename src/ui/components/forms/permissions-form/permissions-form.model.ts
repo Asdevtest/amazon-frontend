@@ -351,7 +351,10 @@ export class PermissionsFormModel {
   }
 
   async loadData() {
-    runInAction(() => (this.mainLoading = true))
+    runInAction(() => {
+      this.mainLoading = true
+      this.currentPermissionOptions = []
+    })
 
     await this.getGroupPermissions()
     await this.getWithoutGroupPermissions()
@@ -376,7 +379,9 @@ export class PermissionsFormModel {
         })
       })
 
-      const allPermissionsExist = this.groupPermissions.every(option => permissionGroups?.includes(option._id))
+      const allPermissionsExist = this.groupPermissions.every(option => {
+        return permissionGroups?.includes(option._id)
+      })
 
       if (allPermissionsExist) {
         this.currentPermissionOptions.push([SELECT_ALL_PERMISSION])
@@ -396,7 +401,7 @@ export class PermissionsFormModel {
       )) as IPermissionGroup[]
 
       runInAction(() => {
-        this.groupPermissions = response || []
+        this.groupPermissions = response
       })
     } catch (error) {
       console.error(error)
@@ -414,7 +419,7 @@ export class PermissionsFormModel {
       })) as IPermissions
 
       runInAction(() => {
-        this.withoutGroupPermissions = response?.rows || []
+        this.withoutGroupPermissions = response?.rows
       })
     } catch (error) {
       console.error(error)
