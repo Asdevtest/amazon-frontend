@@ -465,6 +465,13 @@ export class SuppliersAndIdeasModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
+  onUpdateCurrentIdea() {
+    if (this.currentIdeaId) {
+      this.getIdea(this.currentIdeaId)
+      this.updateData?.()
+    }
+  }
+
   async onSubmitRejectOrRemoveIdea(ideaId, close) {
     try {
       if (close) {
