@@ -51,7 +51,7 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
 
   onToggleSelectShopsModal() {
     if (!this.supplierCardIds.length) {
-      toast.warn('Вы не выбрали элементы')
+      toast.warn(t(TranslationKey['Please select at least one supplier card']))
       return
     }
 

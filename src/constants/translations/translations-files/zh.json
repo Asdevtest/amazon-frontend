@@ -2117,6 +2117,10 @@
   "Selected items have been successfully added to the inventory": "选定的物品已成功添加到库存中",
   "Selected items have not been added to the inventory": "选定的物品未添加到库存中",
   "Please select at least one supplier card": "请至少选择-张供应商卡",
+<<<<<<< HEAD
   "Bind supplier card to product": "绑定供应商卡到产品",
   "Supplier card": "供应商卡"
+=======
+  "Permission changes will be reset, wish to save?": "权限更改将被重置,是否保存?"
+>>>>>>> pre-release
 }

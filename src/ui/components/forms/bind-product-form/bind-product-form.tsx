@@ -95,8 +95,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           disabled={!selectedRadioValue}
           options={productsToBind}
           placeholder="Select product"
-          // @ts-ignore
-          onChangeData={selectProductHandler}
+          onChange={selectProductHandler}
         />
 
         <div className={styles.selectedVariationsWrapper}>
