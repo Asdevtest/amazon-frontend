@@ -75,6 +75,7 @@ export const ProductWrapper = memo(
     destinations,
     storekeepers,
     productBase,
+    disableField,
     userRole,
     modal,
     formFieldsValidationErrors,
@@ -186,6 +187,7 @@ export const ProductWrapper = memo(
             storekeepers={storekeepers}
             productBase={productBase}
             actionStatus={actionStatus}
+            disableField={disableField}
             showBindProductModal={showBindProductModal}
             productsToBind={productsToBind}
             handleProductActionButtons={handleProductActionButtons}
