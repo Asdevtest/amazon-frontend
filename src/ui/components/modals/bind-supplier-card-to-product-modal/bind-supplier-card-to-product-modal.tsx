@@ -5,8 +5,9 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { ProductCell } from '@components/data-grid/data-grid-cells'
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomSelect } from '@components/shared/custom-select'
 import { Modal } from '@components/shared/modal'
+import { CustomSelect } from '@components/shared/selects/custom-select'
+import { AsinOption } from '@components/shared/selects/infinite-scroll-select'
 
 import { debounce } from '@utils/debounce'
 import { t } from '@utils/translations'
@@ -14,8 +15,6 @@ import { t } from '@utils/translations'
 import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './bind-supplier-card-to-product-modal.style'
-
-import { AsinOption } from '../report-modal/components/header/asin-option'
 
 import { BindSupplierCardModal } from './bind-supplier-card-to-product-modal.model'
 import { SupplierCardOption } from './components/supplier-card-option/supplier-card-option'
