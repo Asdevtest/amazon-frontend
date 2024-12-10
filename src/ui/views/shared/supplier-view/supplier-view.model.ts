@@ -35,13 +35,13 @@ export class SupplierViewModel extends InfiniteScrollModel<ISupplierCard> {
   }
 
   constructor(history: HistoryType) {
-    const options = {
+    const filterOptions = {
       guid: history.location.search.slice(1),
     }
 
     super({
       method: SupplierV2Model.getSupplierCards,
-      options,
+      filterOptions,
       filterFields,
     })
 

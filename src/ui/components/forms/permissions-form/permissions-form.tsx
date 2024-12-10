@@ -5,9 +5,12 @@ import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { UserModel } from '@models/user-model'
+
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { CustomSelect } from '@components/shared/selects/custom-select'
+import { InfiniteScrollSelect, UserOption } from '@components/shared/selects/infinite-scroll-select'
 
 import { t } from '@utils/translations'
 
@@ -19,7 +22,6 @@ import { createPermissionOptions } from './permissions-form.config'
 import { PermissionsFormModel } from './permissions-form.model'
 import { ProductOption } from './product-option'
 import { RolesSelect } from './roles-select'
-import { UsersSelect } from './users-select'
 
 export interface PermissionsFormProps {
   onCloseModal: () => void
@@ -70,14 +72,19 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
               onChangeRole={viewModel.onChangeMultipleRole}
             />
           ) : null}
-          <UsersSelect
+          <InfiniteScrollSelect<IFullUser>
+            optionLabel="name"
+            optionValue="_id"
             disabled={!!viewModel.subUser || viewModel.mainLoading}
             size="large"
+            style={{ width: '320px' }}
             suffixIcon={viewModel.subUser && null}
             mode={viewModel.subUser ? undefined : 'multiple'}
             maxTagCount="responsive"
-            defaultUser={viewModel.subUser}
+            defaultValue={viewModel.subUser?.name}
             placeholder={props.subUser ? 'Select user' : 'Select at least 2 users'}
+            method={UserModel.getMySubUsers}
+            optionNode={UserOption}
             onChange={viewModel.onChangeUsersData}
           />
         </div>

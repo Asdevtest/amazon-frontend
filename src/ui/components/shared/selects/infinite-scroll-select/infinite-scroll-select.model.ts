@@ -5,7 +5,7 @@ import { action, computed, makeObservable } from 'mobx'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { InfiniteScrollModel } from '@models/infinite-scroll-model'
-import { ICallback } from '@models/infinite-scroll-model/infinite-scroll.model'
+import { FilterOptionsType, ICallback } from '@models/infinite-scroll-model/infinite-scroll.model'
 
 type GetOptionsProps<T> = {
   data: T[]
@@ -19,6 +19,9 @@ interface InfiniteScrollSelectModelProps<T> {
   method: ICallback
   optionValue: keyof T
   optionLabel: keyof T
+  filterOptions?: FilterOptionsType
+  searchFields?: string[]
+  filterFields?: string[]
 }
 
 const observerConfig = {
@@ -41,8 +44,15 @@ export class InfiniteScrollSelectModel<T> extends InfiniteScrollModel<T> {
     return getOptions<T>({ data: this.data, value: this.optionValue, label: this.optionLabel })
   }
 
-  constructor({ method, optionValue, optionLabel }: InfiniteScrollSelectModelProps<T>) {
-    super({ method })
+  constructor({
+    method,
+    optionValue,
+    optionLabel,
+    filterOptions,
+    searchFields,
+    filterFields,
+  }: InfiniteScrollSelectModelProps<T>) {
+    super({ method, filterOptions, searchFields, filterFields })
     this.optionValue = optionValue
     this.optionLabel = optionLabel
 

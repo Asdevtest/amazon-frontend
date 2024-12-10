@@ -7,9 +7,9 @@ import { CustomSelectProps } from '@components/shared/selects/custom-select/cust
 import { IFullUser } from '@typings/shared/full-user'
 import { ISpec } from '@typings/shared/spec'
 
+import { PerformerOption } from './performer-option'
 import { IChangeData, getDefaultUserOption, getUserOptions } from './performer-select.config'
 import { PerformerSelectModel } from './performer-select.model'
-import { PerformerOption } from './request-option'
 
 interface PerformerSelectProps extends Omit<CustomSelectProps, 'options'> {
   onChangeData: IChangeData

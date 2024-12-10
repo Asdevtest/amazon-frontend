@@ -32,11 +32,11 @@ const DEFAULT_OPTIONS = {
   filters: '',
 }
 
-export type FilterOptionsType = Record<string, Record<string, string | number | boolean>>
+export type FilterOptionsType = Record<string, Record<string, string | number | boolean | null>>
 
 interface InfiniteScrollModelProps {
   method: ICallback
-  options?: any
+  filterOptions?: any
   searchFields?: string[]
   filterFields?: string[]
 }
@@ -58,9 +58,9 @@ export class InfiniteScrollModel<T, M = any> {
   loading: boolean = false
   filtersOtions?: FilterOptionsType
 
-  constructor({ method, options, searchFields = [], filterFields = [] }: InfiniteScrollModelProps) {
+  constructor({ method, filterOptions, searchFields = [], filterFields = [] }: InfiniteScrollModelProps) {
     this.method = method
-    this.setOptions(options)
+    this.setOptions(filterOptions)
     this.searchFields = searchFields
     this.filterFields = filterFields
 

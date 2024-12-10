@@ -38,11 +38,11 @@ export class ProfilesFormModel extends InfiniteScrollModel<IParsingProfile> {
   }
 
   constructor(profileId?: string, requestId?: string, shopId?: string) {
-    const options = {
+    const filterOptions = {
       guid: requestId,
     }
 
-    super({ method: ParserModel.getProfilesForRequest, options, searchFields })
+    super({ method: ParserModel.getProfilesForRequest, filterOptions, searchFields })
 
     this.shopId = shopId
     this.value = profileId || ''

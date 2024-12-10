@@ -2,7 +2,7 @@ import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { ComponentType, createElement, useMemo } from 'react'
 
-import { ICallback } from '@models/infinite-scroll-model/infinite-scroll.model'
+import { FilterOptionsType, ICallback } from '@models/infinite-scroll-model/infinite-scroll.model'
 
 import { CustomSelect } from '@components/shared/selects/custom-select'
 import { CustomSelectProps } from '@components/shared/selects/custom-select/custom-select'
@@ -14,17 +14,21 @@ interface InfiniteScrollSelectProps<T> extends CustomSelectProps {
   optionNode: ComponentType<{ data: BaseOptionType }>
   optionValue: keyof T
   optionLabel: keyof T
+  filterOptions?: FilterOptionsType
+  searchFields?: string[]
+  filterFields?: string[]
 }
 
 export const InfiniteScrollSelect = observer(<T,>(props: InfiniteScrollSelectProps<T>) => {
-  const { method, optionNode, optionLabel, optionValue, ...restProps } = props
+  const { optionNode, ...restProps } = props
 
-  const viewModel = useMemo(() => new InfiniteScrollSelectModel<T>({ method, optionLabel, optionValue }), [])
+  const viewModel = useMemo(() => new InfiniteScrollSelectModel<T>(props), [])
 
   return (
     <CustomSelect
       {...restProps}
       showSearch
+      allowClear
       loading={viewModel.loading}
       filterOption={false}
       defaultActiveFirstOption={false}
