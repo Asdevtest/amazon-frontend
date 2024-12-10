@@ -50,6 +50,8 @@ export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(prop
 
   const viewModel = useMemo(() => new AddSupplierProductModalModel({ supplierId, supplierCardId }), [])
 
+  console.log('supplierId', supplierId)
+
   const isPublished = SupplierCardStatus.PUBLISHED === (viewModel.currentData as unknown as ISupplierCardFull)?.status
 
   const isPrimeValue = Form.useWatch('isPrime', form)

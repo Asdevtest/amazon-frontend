@@ -21,10 +21,11 @@ interface SupplierCardProps {
   supplier?: ISupplierExchange
   showViewMore?: boolean
   hideTotalCountFeedback?: boolean
+  showSupplierTitle?: boolean
 }
 
 export const SupplierCard: FC<SupplierCardProps> = memo(props => {
-  const { supplier, showViewMore = true, hideTotalCountFeedback } = props
+  const { supplier, showSupplierTitle, showViewMore = true, hideTotalCountFeedback } = props
 
   const { isPcMiddleResolution } = useCreateBreakpointResolutions()
   const { classes: styles, cx } = useStyles()
@@ -35,6 +36,8 @@ export const SupplierCard: FC<SupplierCardProps> = memo(props => {
     const url = `/client/product-exchange/wholesale/supplier?${supplier?._id}`
     window.open(url, '_blank')
   }
+
+  const isShowCompanyName = supplier?.companyName && showSupplierTitle
 
   return (
     <div className={cx(styles.root, { [styles.fixHeight]: showViewMore })}>
@@ -47,6 +50,8 @@ export const SupplierCard: FC<SupplierCardProps> = memo(props => {
           userId={supplier?._id}
           totalCountFeedback={supplier?.totalCountFeedback}
         />
+
+        {isShowCompanyName ? <Text copyable={false} text={supplier?.companyName || ''} rows={2} /> : null}
 
         <Text
           collapsible={!showViewMore}

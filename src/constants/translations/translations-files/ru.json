@@ -2120,5 +2120,10 @@
   "Selected items have been successfully added to the inventory": "Выбранные товары успешно добавлены в инвентарь",
   "Selected items have not been added to the inventory": "Выбранные товары не были добавлены в инвентарь",
   "Please select at least one supplier card": "Пожалуйста, выберите хотя бы одну карточку поставщика",
-  "Permission changes will be reset, wish to save?": "Изменения разрешений будут сброшены, желаете сохранить?"
+  "Bind supplier card to product": "Привязать карточку поставщика к товару",
+  "Supplier card": "Карточка поставщика",
+  "Permission changes will be reset, wish to save?": "Изменения разрешений будут сброшены, желаете сохранить?",
+  "Supplier card successfully added to product": "Карточка поставщика успешно добавлена к продукту",
+  "Create a supplier card": "Создать карточку поставщика",
+  "Add supplier card": "Добавить карточку поставщика"
 }

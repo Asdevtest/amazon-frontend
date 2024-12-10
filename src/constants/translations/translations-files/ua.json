@@ -2119,5 +2119,10 @@
   "Selected items have been successfully added to the inventory": "Вибрані товари успішно додані до інвентарю",
   "Selected items have not been added to the inventory": "Вибрані товари не були додані до інвентарю",
   "Please select at least one supplier card": "Будь ласка, виберіть хоча б одну картку постачальника",
-  "Permission changes will be reset, wish to save?": "Зміни дозволів буде скинуто, бажаєте зберегти?"
+  "Bind supplier card to product": "Приєднати картку постачальника до товару",
+  "Supplier card": "Картка постачальника",
+  "Permission changes will be reset, wish to save?": "Зміни дозволів буде скинуто, бажаєте зберегти?",
+  "Supplier card successfully added to product": "Картка постачальника успішно додана до товару",
+  "Create a supplier card": "Створити картку постачальника",
+  "Add supplier card": "Додати картку постачальника"
 }

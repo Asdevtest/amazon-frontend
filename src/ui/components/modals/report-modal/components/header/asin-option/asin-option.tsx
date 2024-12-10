@@ -19,7 +19,7 @@ export const AsinOption: FC<AsinOptionProps> = observer(({ data }) => {
   return (
     <div className={styles.optionWrapper}>
       <div className={styles.flexContainer}>
-        <CustomImage width={32} height={32} src={data.images?.[0]} />
+        <CustomImage width={32} height={32} src={data?.images?.[0]} />
         <div className={styles.asinContainer}>
           <AsinOrSkuLink
             withCopyValue
@@ -38,7 +38,7 @@ export const AsinOption: FC<AsinOptionProps> = observer(({ data }) => {
         </div>
       </div>
 
-      {data.marketPlaceCountry ? (
+      {data?.marketPlaceCountry ? (
         <div className={styles.flexContainer}>
           <Avatar size={20} src={getAmazonImageUrl(data.marketPlaceCountry?.image)} />
           <p>{data.marketPlaceCountry?.shortTitle}</p>
