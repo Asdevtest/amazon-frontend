@@ -14,3 +14,5 @@ export const filtersFields = [
   'subUsers',
   'specType',
 ]
+
+export const fieldsForSearch = ['title', 'xid']
