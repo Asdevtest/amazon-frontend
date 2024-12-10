@@ -1,4 +1,3 @@
-import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { FC, UIEvent, useCallback, useMemo } from 'react'
 
@@ -6,17 +5,12 @@ import { AsinOption } from '@components/modals/report-modal/components/header/as
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
 
-import { IChangeData, getDefaultOption, getOptions } from './asin-select.config'
+import { getOptions } from './asin-select.config'
 import { AsinSelectModel } from './asin-select.model'
 
-interface AsinSelectProps extends Omit<CustomSelectProps, 'options'> {
-  onChangeData: IChangeData
-  defaultData?: BaseOptionType
-}
+interface AsinSelectProps extends CustomSelectProps {}
 
 export const AsinSelect: FC<AsinSelectProps> = observer(props => {
-  const { onChangeData, defaultData, ...restProps } = props
-
   const viewModel = useMemo(() => new AsinSelectModel(), [])
 
   const handlePopupScroll = useCallback(
@@ -42,21 +36,18 @@ export const AsinSelect: FC<AsinSelectProps> = observer(props => {
   )
 
   const options = useMemo(() => getOptions(viewModel.currentPermissionsData), [viewModel.currentPermissionsData])
-  const defaultOption = useMemo(() => getDefaultOption(defaultData), [defaultData])
 
   return (
     <CustomSelect
-      {...restProps}
+      {...props}
       showSearch
       filterOption={false}
       defaultActiveFirstOption={false}
       options={options}
-      value={defaultOption}
       optionRender={({ data }) => <AsinOption data={data} />}
       onDropdownVisibleChange={handleDropdownVisibleChange}
       onSearch={viewModel.onClickSubmitSearch}
       onPopupScroll={handlePopupScroll}
-      onSelect={(_, option) => onChangeData(option)}
     />
   )
 })
