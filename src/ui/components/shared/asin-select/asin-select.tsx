@@ -1,24 +1,24 @@
-import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { AsinOption } from '@components/modals/report-modal/components/header/asin-option'
+import { UserOption } from '@components/forms/permissions-form/users-select/user-option'
 import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
 
-import { IChangeData, getDefaultOption } from './asin-select.config'
-import { AsinSelectModel } from './asin-select.model'
+import { IFullUser } from '@typings/shared/full-user'
 
-interface AsinSelectProps extends Omit<CustomSelectProps, 'options'> {
-  onChangeData: IChangeData
-  defaultData?: BaseOptionType
+import { IChangeData } from './asin-select.config'
+import { UsersSelectModel } from './asin-select.model'
+
+interface UsersSelectProps extends Omit<CustomSelectProps, 'options'> {
+  defaultUser?: IFullUser
+  onChangeData?: IChangeData
 }
 
-export const AsinSelect: FC<AsinSelectProps> = observer(props => {
-  const { onChangeData, defaultData, ...restProps } = props
+export const UsersSelect: FC<UsersSelectProps> = observer(props => {
+  const { defaultUser, onChangeData, ...restProps } = props
 
-  const viewModel = useMemo(() => new AsinSelectModel(), [])
-  const defaultOption = useMemo(() => getDefaultOption(defaultData), [defaultData])
+  const viewModel = useMemo(() => new UsersSelectModel(defaultUser), [])
 
   return (
     <CustomSelect
@@ -26,13 +26,13 @@ export const AsinSelect: FC<AsinSelectProps> = observer(props => {
       showSearch
       filterOption={false}
       defaultActiveFirstOption={false}
-      options={viewModel.asinOptions}
-      value={defaultOption}
-      optionRender={({ data }) => <AsinOption data={data} />}
+      style={{ width: '320px' }}
+      options={viewModel.userOptions}
+      value={viewModel.defaultUserOption}
+      optionRender={({ data }) => <UserOption user={data} />}
       onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
-      onSearch={viewModel.onSearchSubmit}
-      onPopupScroll={viewModel.loadMoreData}
-      onSelect={(_, option) => onChangeData(option)}
+      onSearch={viewModel.onClickSubmitSearch}
+      onPopupScroll={viewModel.onScroll}
     />
   )
 })

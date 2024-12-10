@@ -1,38 +1,39 @@
-import { BaseOptionType } from 'antd/es/select'
-import { action, computed } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
-import { TranslationKey } from '@constants/translations/translation-key'
+import { IFullUser } from '@typings/shared/full-user'
 
-import { t } from '@utils/translations'
+import { IPermissionsData } from '@hooks/use-products-permissions'
 
-import { IProduct } from '@typings/models/products/product'
-
-export const selectConfig = {
-  asinOptions: computed,
+export const usersSelectConfig = {
+  defaultUser: observable,
+  defaultUserOption: computed,
+  userOptions: computed,
+  onGetUsers: action.bound,
+  onScroll: action.bound,
   onDropdownVisibleChange: action.bound,
 }
 
-export const getOptions = (data: IProduct[]) => {
-  const generatedOptions = data?.map(item => ({
-    ...item,
-    value: item?._id,
-    label: item?.asin,
-  }))
-  const defaultOption = { value: null, label: t(TranslationKey['Select ASIN']) }
+export const getUserOptions = (users: IPermissionsData[], defaultPerformer?: IFullUser) => {
+  const filteredUsers = users.filter(user => user?._id !== defaultPerformer?._id)
 
-  return [defaultOption, ...generatedOptions]
+  const generatedUsetOptions = filteredUsers?.map(user => ({
+    ...user,
+    value: user?._id,
+    label: user?.name,
+  }))
+  // const defaultUserOption = { value: null, label: t(TranslationKey['Select user']) }
+
+  return generatedUsetOptions /* [defaultUserOption, ...generatedUsetOptions] */
 }
 
-export const getDefaultOption = (data?: BaseOptionType) => {
-  if (data) {
+export const getDefaultUserOption = (defaultPerformer?: IFullUser) => {
+  if (defaultPerformer) {
     return {
-      ...data,
-      value: data?._id,
-      label: data?.asin,
+      ...defaultPerformer,
+      value: defaultPerformer?._id,
+      label: defaultPerformer?.name,
     }
   }
-
-  return undefined
 }
 
-export type IChangeData = (data: BaseOptionType) => void
+export type IChangeData = (id: string) => void
