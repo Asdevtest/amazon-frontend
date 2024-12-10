@@ -100,7 +100,7 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
           {Number(badge) > 0 ? (
             <Badge
               count={badge}
-              color={isRedBadge ? 'red' : theme.palette.primary.main}
+              color={backgroundColorForBadge}
               size="small"
               className={styles.badge}
               overflowCount={100000}
