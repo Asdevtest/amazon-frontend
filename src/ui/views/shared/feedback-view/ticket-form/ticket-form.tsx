@@ -7,8 +7,8 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomPreviewGroup } from '@components/shared/custom-preview-group'
-import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTextarea } from '@components/shared/custom-textarea'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 

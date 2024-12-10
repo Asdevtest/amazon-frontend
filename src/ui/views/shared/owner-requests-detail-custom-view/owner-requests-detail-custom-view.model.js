@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AnnouncementsModel } from '@models/announcements-model'
 import { ChatModel } from '@models/chat-model'
+import { ChatsModel } from '@models/chats-model'
 import { ClientModel } from '@models/client-model'
 import { FeedbackModel } from '@models/feedback-model'
 import { RequestModel } from '@models/request-model'
@@ -353,6 +354,17 @@ export class OwnerRequestDetailCustomViewModel {
 
   onClickHideChat() {
     this.showChat = false
+  }
+
+  async onJoinChat(proposal) {
+    try {
+      await ChatsModel.joinChat(proposal.chatId)
+      this.loadData()
+      ChatModel.getChats(this.requestId, 'REQUEST')
+      this.onClickContactWithExecutor(proposal)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async onClickAcceptProposal(proposalId) {

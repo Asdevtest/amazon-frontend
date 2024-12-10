@@ -5,7 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
-import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { t } from '@utils/translations'
 

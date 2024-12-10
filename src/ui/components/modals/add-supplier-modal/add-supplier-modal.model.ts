@@ -57,7 +57,7 @@ export class AddSupplierModalModel extends DefaultModel {
     if (supplierId) {
       this.productsInfinityModel = new InfiniteScrollModel({
         method: SupplierV2Model.getSupplierCards,
-        options: { guid: supplierId },
+        filterOptions: { guid: supplierId },
       })
       this.getCurrentData()
       this.productsInfinityModel?.getData()

@@ -5,7 +5,7 @@ import { useGridApiContext } from '@mui/x-data-grid-premium'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { t } from '@utils/translations'
 

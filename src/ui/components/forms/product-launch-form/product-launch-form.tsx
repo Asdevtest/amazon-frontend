@@ -4,9 +4,9 @@ import { FC, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AsinOption } from '@components/modals/report-modal/components/header/asin-option'
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
+import { AsinOption } from '@components/shared/selects/infinite-scroll-select/options'
 import { ChildProductLaunchIcon, ParentProductLaunchIcon } from '@components/shared/svg-icons'
 
 import { t } from '@utils/translations'

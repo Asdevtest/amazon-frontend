@@ -17,10 +17,11 @@ import '@typings/enums/button-style'
 import { useStyles } from './navbar-category.style'
 
 export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, shortNavbar }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles, cx, theme } = useStyles()
 
   const [subRoutes, setSubRoutes] = useState([])
   const isRedBadge = category.route?.includes('/buyer/free-orders')
+  const backgroundColorForBadge = isRedBadge ? theme.palette.error.main : theme.palette.primary.main
 
   const { hints } = useContext(HintsContext)
 
@@ -50,7 +51,9 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
 
   const getBigBadge = route => {
     const count = getCountByRoute(route)
-    return count ? <Badge count={count} color="red" className={styles.bigBadge} overflowCount={100000} /> : null
+    return count ? (
+      <Badge count={count} color={theme.palette.error.main} className={styles.bigBadge} overflowCount={100000} />
+    ) : null
   }
 
   const getSubRoutes = () => {
@@ -99,7 +102,7 @@ export const NavbarCategory = memo(({ badge, isSelected, userInfo, category, sho
           {Number(badge) > 0 ? (
             <Badge
               count={badge}
-              color={isRedBadge ? 'red' : 'blue'}
+              color={backgroundColorForBadge}
               size="small"
               className={styles.badge}
               overflowCount={100000}

@@ -10,7 +10,7 @@ import { ChatContract } from '@models/chat-model/contracts'
 import { CustomAvatar } from '@components/shared/custom-avatar'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
-import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
 import { t } from '@utils/translations'

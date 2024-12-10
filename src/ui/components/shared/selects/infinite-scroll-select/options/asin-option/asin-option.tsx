@@ -1,7 +1,6 @@
 import { Avatar } from 'antd'
 import { BaseOptionType } from 'antd/es/select'
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomImage } from '@components/shared/custom-image'
@@ -14,8 +13,9 @@ interface AsinOptionProps {
   data: BaseOptionType
 }
 
-export const AsinOption: FC<AsinOptionProps> = observer(({ data }) => {
+export const AsinOption: FC<AsinOptionProps> = memo(({ data }) => {
   const { classes: styles } = useStyles()
+
   return (
     <div className={styles.optionWrapper}>
       <div className={styles.flexContainer}>

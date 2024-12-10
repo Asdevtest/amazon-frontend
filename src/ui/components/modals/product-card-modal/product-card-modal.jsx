@@ -6,8 +6,6 @@ import { ProductStatus, ProductStatusByKey } from '@constants/product/product-st
 import { productStatusButtonsConfigs } from '@constants/product/product-status-buttons-configs'
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ClientModel } from '@models/client-model'
-
 import { ProductWrapper } from '@components/product/product-wrapper'
 import { getTab } from '@components/product/product-wrapper/product-wrapper'
 import { ProductStatusButtons } from '@components/product/product-wrapper/top-card/right-side-comments/product-status-buttons'
@@ -25,9 +23,6 @@ import { t } from '@utils/translations'
 
 import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
-import { ProductVariation } from '@typings/enums/product/product-variation'
-
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { useStyles } from './product-card-modal.style'
 
@@ -65,7 +60,6 @@ export const ProductCardModal = observer(props => {
   }
 
   const viewModel = useMemo(setCurrentModel(), [])
-  const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   const [currentTab, setCurrentTab] = useState(getTab(viewModel.showTab))
 
@@ -132,8 +126,6 @@ export const ProductCardModal = observer(props => {
             navigateToProduct={viewModel.navigateToProduct}
             unbindProductHandler={viewModel.unbindProductHandler}
             showBindProductModal={viewModel.showBindProductModal}
-            loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
-            productsToBind={useProductsPermissions.currentPermissionsData}
             onTriggerOpenModal={viewModel.onTriggerOpenModal}
             onChangeField={viewModel?.onChangeProductFields}
             onChangeImagesForLoad={viewModel?.onChangeImagesForLoad}
@@ -141,16 +133,6 @@ export const ProductCardModal = observer(props => {
             onClickSetProductStatusBtn={viewModel?.onClickSetProductStatusBtn}
             onClickHsCode={viewModel?.onClickHsCode}
             onClickNextButton={viewModel.bindUnbindProducts}
-            onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
-            onClickGetProductsToBind={option =>
-              useProductsPermissions.getPermissionsData({
-                isChild: false,
-                isParent: option === ProductVariation.CHILD ? false : undefined,
-                shopId: viewModel.product?.shopId,
-                offset: 0,
-                filters: '',
-              })
-            }
             onClickSaveSupplierBtn={viewModel?.onClickSaveSupplierBtn}
             onRemoveSupplier={viewModel?.onRemoveSupplier}
             onSaveForceProductData={viewModel.onSaveForceProductData}

@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
-
-import { ClientModel } from '@models/client-model'
 
 import { CreateOrEditRequestContent } from '@components/contents/create-or-edit-request-content'
 import { ConfirmationModal } from '@components/modals/confirmation-modal'
@@ -13,18 +11,14 @@ import { t } from '@utils/translations'
 
 import { loadingStatus } from '@typings/enums/loading-status'
 
-import { UseProductsPermissions } from '@hooks/use-products-permissions'
-
 import { CreateOrEditRequestViewModel } from './create-or-edit-request-view.model'
 
 export const CreateOrEditRequestView = observer(({ history }) => {
   const mainContentRef = useRef()
   const viewModel = useMemo(() => new CreateOrEditRequestViewModel({ history }), [])
-  const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   useEffect(() => {
     viewModel.loadData()
-    useProductsPermissions.getPermissionsData()
   }, [])
 
   return (
@@ -38,7 +32,6 @@ export const CreateOrEditRequestView = observer(({ history }) => {
             specs={viewModel.specs}
             executor={viewModel.executor}
             choosenAnnouncements={viewModel.choosenAnnouncements}
-            permissionsData={useProductsPermissions.permissionsData}
             masterUsersData={viewModel.masterUsersData}
             announcements={viewModel.announcements}
             platformSettingsData={viewModel.platformSettings}
@@ -48,8 +41,6 @@ export const CreateOrEditRequestView = observer(({ history }) => {
             checkRequestByTypeExists={viewModel.checkRequestByTypeExists}
             createRequestForIdeaData={viewModel.createRequestForIdeaData}
             getMasterUsersData={viewModel.getMasterUsersData}
-            loadMorePermissionsDataHadler={() => useProductsPermissions.loadMoreDataHadler()}
-            onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
             onClickExistingRequest={viewModel.onClickExistingRequest}
             onCreateSubmit={viewModel.onSubmitCreateRequest}
             onEditSubmit={viewModel.onSubmitEditRequest}

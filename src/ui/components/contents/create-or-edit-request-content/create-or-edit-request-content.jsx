@@ -10,6 +10,8 @@ import { difficultyLevelByCode, difficultyLevelTranslate } from '@constants/stat
 import { freelanceRequestType, freelanceRequestTypeByKey } from '@constants/statuses/freelance-request-type'
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ClientModel } from '@models/client-model'
+import { RequestModel } from '@models/request-model'
 import { SettingsModel } from '@models/settings-model'
 
 import { CheckRequestByTypeExists } from '@components/forms/check-request-by-type-exists'
@@ -30,8 +32,6 @@ import { FireIcon } from '@components/shared/svg-icons'
 import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
-import { RequestSelect } from '@views/shared/create-or-edit-request-view/request-select/request-select'
-
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
 import { checkIsPositiveNummberAndNoMoreTwoCharactersAfterDot } from '@utils/checks'
 import { convertLocalDateToUTC, formatDateForShowWithoutParseISO } from '@utils/date-time'
@@ -40,11 +40,12 @@ import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import '@typings/enums/button-style'
+import { RequestSubType } from '@typings/enums/request/request-type'
 import { Specs } from '@typings/enums/specs'
 
 import { useStyles } from './create-or-edit-request-content.style'
 
-import { AsinSelect } from '../../shared/asin-select'
+import { AsinOption, InfiniteScrollSelect, RequestOption } from '../../shared/selects/infinite-scroll-select'
 
 const stepVariant = {
   STEP_ONE: 'STEP_ONE',
@@ -56,7 +57,6 @@ export const CreateOrEditRequestContent = memo(props => {
     buttonStatus,
     announcements,
     specs,
-    permissionsData,
     masterUsersData,
     choosenAnnouncements,
     executor,
@@ -68,8 +68,6 @@ export const CreateOrEditRequestContent = memo(props => {
     checkRequestByTypeExists,
     createRequestForIdeaData,
     getMasterUsersData,
-    loadMorePermissionsDataHadler,
-    onClickSubmitSearch,
     onClickExistingRequest,
     onClickChoosePerformer,
     onCreateSubmit,
@@ -398,16 +396,7 @@ export const CreateOrEditRequestContent = memo(props => {
   const isSecondStep = curStep === stepVariant.STEP_TWO
   const showScrollArrows = isFirstStep && (showScrollUp || showScrollDown)
 
-  const [defaultRequestTemplateSelectValue, setDefaultRequestTemplateSelectValue] = useState(null)
-
   const handleChangeData = request => {
-    const createdDefaultRequestTemplateSelectValue = {
-      ...request,
-      value: request?._id,
-      label: `${t(TranslationKey['Request ID'])}: ${request?.xid || t(TranslationKey.Missing)}`,
-    }
-    setDefaultRequestTemplateSelectValue(createdDefaultRequestTemplateSelectValue)
-
     const data = {
       title: request?.title || '',
       maxAmountOfProposals: request?.maxAmountOfProposals || '',
@@ -443,7 +432,6 @@ export const CreateOrEditRequestContent = memo(props => {
 
   const handleClear = () => {
     setFormFields(getSourceFormFields())
-    setDefaultRequestTemplateSelectValue(null)
     setAnnouncement(undefined)
     setChosenExecutor(undefined)
   }
@@ -479,10 +467,17 @@ export const CreateOrEditRequestContent = memo(props => {
             <div className={styles.stepWrapper}>
               <div className={styles.stepContent}>
                 <div className={styles.fields}>
-                  <RequestSelect
-                    defaultValue={defaultRequestTemplateSelectValue}
-                    onChangeData={handleChangeData}
-                    onClear={handleClear}
+                  <InfiniteScrollSelect
+                    optionLabel="xid"
+                    optionValue="_id"
+                    size="large"
+                    label="Request templates"
+                    placeholder="Select request ID"
+                    method={RequestModel.getRequests}
+                    optionNode={RequestOption}
+                    filterOptions={{ kind: RequestSubType.MY }}
+                    searchFields={['asin', 'title', 'xid']}
+                    onChange={(_, option) => handleChangeData(option)}
                   />
 
                   <Field
@@ -523,8 +518,12 @@ export const CreateOrEditRequestContent = memo(props => {
                     }
                   />
 
-                  <AsinSelect
+                  <InfiniteScrollSelect
                     required
+                    optionLabel="asin"
+                    optionValue="_id"
+                    method={ClientModel.getProductPermissionsData}
+                    optionNode={AsinOption}
                     size="large"
                     label="ASIN"
                     placeholder="Select ASIN"
