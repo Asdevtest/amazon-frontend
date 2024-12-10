@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { Reviews } from '@components/forms/reviews-form'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
+import { CustomInputSearch } from '@components/shared/custom-input-search'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
 import { Modal } from '@components/shared/modal'
 import { SupplierCard } from '@components/shared/supplier'
@@ -61,6 +62,15 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
             ]}
             onChange={viewModel.onChangeTab}
           />
+
+          {isCardsTab ? (
+            <CustomInputSearch
+              enterButton
+              allowClear
+              placeholder="ID, Title"
+              onSearch={supplierCardsModel.onSearchSubmit}
+            />
+          ) : null}
 
           {isCardsTab ? (
             <div className={styles.buttons}>
