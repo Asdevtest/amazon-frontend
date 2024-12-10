@@ -54,12 +54,15 @@ export class AddSupplierProductModalModel extends DefaultModel {
     this.suppliersInfinityModel = new InfiniteScrollModel({
       method: SupplierV2Model.getSuppliersLight,
       searchFields: ['companyName'],
+      filterFields: ['supplier'],
     })
 
     if (supplierId) {
-      this.suppliersInfinityModel.setOptions({
-        filters: `supplier[$eq]=${supplierId}`,
-      })
+      this.suppliersInfinityModel.filtersOtions = {
+        supplier: {
+          $eq: supplierId,
+        },
+      }
     }
 
     if (supplierCardId) {

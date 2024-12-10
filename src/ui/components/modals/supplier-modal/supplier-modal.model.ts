@@ -35,6 +35,7 @@ export class SupplierModalModel extends DefaultModel {
     this.supplierCardsModel.defaultGetCurrentDataOptions = () => ({
       guid: supplierId,
     })
+    this.supplierCardsModel.mainMethodURL = `v2/suppliers/${supplierId}/cards?`
     this.supplierCardsModel.sortModel = [{ field: 'updatedAt', sort: 'desc' }]
     this.supplierCardsModel.handleHideColumns(['supplier'])
     this.supplierCardsModel.columnsModel = this.supplierCardsModel.columnsModel?.map(column => {

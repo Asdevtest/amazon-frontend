@@ -1,4 +1,5 @@
 import { MdOutlineDelete, MdOutlineEdit } from 'react-icons/md'
+import { RiLink } from 'react-icons/ri'
 
 import { GridRowModel } from '@mui/x-data-grid-premium'
 
@@ -158,11 +159,15 @@ export const supplierCardsViewColumns = (handlers: IHandlers) => {
           secondDanger
           firstGhost
           secondGhost
+          showThird
+          thirdGhost
           firstIcon={<MdOutlineEdit size={16} />}
           secondIcon={<MdOutlineDelete size={16} />}
+          thirdIcon={<RiLink size={16} />}
           secondConfirmText="Are you sure?"
           onClickFirst={() => handlers?.onClickEdit(row?._id)}
           onClickSecond={() => handlers?.onClickDelete(row._id)}
+          onClickThird={() => handlers?.onClickBindProduct?.(row._id, row.supplier?._id)}
         />
       ),
       width: 100,
