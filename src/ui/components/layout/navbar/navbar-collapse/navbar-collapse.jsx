@@ -29,7 +29,7 @@ export const NavbarCollapse = ({
   shortNavbar,
   showHighPriorityNotification,
 }) => {
-  const { classes: styles, cx } = useStyles()
+  const { classes: styles, cx, theme } = useStyles()
 
   const [menuAnchor, setMenuAnchor] = useState(null)
 
@@ -154,7 +154,9 @@ export const NavbarCollapse = ({
 
   const renderNotificationBySubRoute = subRoute => {
     const count = getBadgeCountForSubRoute(subRoute)
-    return count ? <Badge className={styles.badge} count={count} color="blue" overflowCount={100000} /> : null
+    return count ? (
+      <Badge className={styles.badge} count={count} color={theme.palette.primary.main} overflowCount={100000} />
+    ) : null
   }
 
   const getBigBadgeCount = route => {
@@ -179,7 +181,9 @@ export const NavbarCollapse = ({
 
   const getBigBadge = route => {
     const count = getBigBadgeCount(route)
-    return count ? <Badge count={count} color="red" className={styles.bigBadge} overflowCount={100000} /> : null
+    return count ? (
+      <Badge count={count} color={theme.palette.error.main} className={styles.bigBadge} overflowCount={100000} />
+    ) : null
   }
 
   const getNotificationCountBySubRoute = subRoute => {
