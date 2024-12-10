@@ -7,15 +7,23 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { ICallback } from '@models/infinite-scroll-model/infinite-scroll.model'
 
-const observerConfig = {
-  items: computed,
-  onDropdownVisibleChange: action.bound,
-}
-
 type GetOptionsProps<T> = {
   data: T[]
   value?: keyof T
   label?: keyof T
+}
+
+export type OptionGeneratorType<T> = (data: T[]) => BaseOptionType[]
+
+interface InfiniteScrollSelectModelProps<T> {
+  method: ICallback
+  optionValue: keyof T
+  optionLabel: keyof T
+}
+
+const observerConfig = {
+  items: computed,
+  onDropdownVisibleChange: action.bound,
 }
 
 const getOptions = <T>({ data, value, label }: GetOptionsProps<T>): BaseOptionType[] =>
@@ -25,24 +33,18 @@ const getOptions = <T>({ data, value, label }: GetOptionsProps<T>): BaseOptionTy
     label: label ? item?.[label] : t(TranslationKey.Missing),
   }))
 
-export type GenerateOptionType<T> = (data: T[]) => BaseOptionType[]
-
-interface InfiniteScrollSelectModelProps<T> {
-  method: ICallback
-  optionValue?: keyof T
-  optionLabel?: keyof T
-}
-
 export class InfiniteScrollSelectModel<T> extends InfiniteScrollModel<T> {
-  optionValue?: keyof T
-  optionLabel?: keyof T
+  optionValue: keyof T
+  optionLabel: keyof T
 
   get items() {
     return getOptions<T>({ data: this.data, value: this.optionValue, label: this.optionLabel })
   }
 
-  constructor({ method }: InfiniteScrollSelectModelProps<T>) {
+  constructor({ method, optionValue, optionLabel }: InfiniteScrollSelectModelProps<T>) {
     super({ method })
+    this.optionValue = optionValue
+    this.optionLabel = optionLabel
 
     makeObservable(this, observerConfig)
   }

@@ -532,7 +532,6 @@ export const CreateOrEditRequestContent = memo(props => {
                     placeholder="Select ASIN"
                     defaultValue={formFields?.request?.asin}
                     onChange={(_, option) => {
-                      console.log(option)
                       onChangeField('request')('asin')(option.asin)
                       onChangeField('request')('productId')(option._id)
                     }}
