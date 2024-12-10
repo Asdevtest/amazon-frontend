@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 export const observerConfig = {
   supplierModel: observable,
@@ -6,6 +6,8 @@ export const observerConfig = {
   selectedProductId: observable,
   selectedSupplierId: observable,
   selectedSupplierCardId: observable,
+
+  productsMap: computed,
 
   onChangeSelectedSupplier: action.bound,
   onChangeSelectedSupplierCard: action.bound,

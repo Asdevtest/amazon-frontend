@@ -18,6 +18,7 @@ import { useStyles } from './bind-supplier-card-to-product-modal.style'
 import { AsinOption } from '../report-modal/components/header/asin-option'
 
 import { BindSupplierCardModal } from './bind-supplier-card-to-product-modal.model'
+import { SupplierCardOption } from './components/supplier-card-option/supplier-card-option'
 
 interface BindSupplierCardToProductModalProps {
   openModal: boolean
@@ -109,10 +110,22 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
           <CustomSelect
             allowClear
             showSearch
+            labelInValue
             loading={viewModel?.loading}
             size="large"
             className={styles.modalSelect}
             wrapperClassName={styles.modalSelect}
+            labelRender={option => {
+              const currentProduct = viewModel?.productsMap?.[option?.value]
+
+              return (
+                <ProductCell
+                  image={currentProduct?.images?.[0]}
+                  asin={currentProduct?.asin}
+                  sku={currentProduct?.skuByClient}
+                />
+              )
+            }}
             filterOption={(inputValue, option) => option?.amazonTitle?.toLowerCase().includes(inputValue.toLowerCase())}
             label="Product"
             value={viewModel.selectedProductId}
@@ -154,6 +167,7 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
           label="Supplier card"
           value={viewModel.selectedSupplierCardId}
           options={viewModel?.supplierCardModal?.data}
+          optionRender={({ data }) => <SupplierCardOption image={data?.images?.[0]} title={data?.cardName} />}
           fieldNames={{ label: 'cardName', value: '_id' }}
           onChange={viewModel?.onChangeSelectedSupplierCard}
           onSearch={debouncedSupplierCardSearch}

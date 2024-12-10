@@ -11,6 +11,7 @@ import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
 
 import { t } from '@utils/translations'
 
+import { IProduct } from '@typings/models/products/product'
 import { ISupplierCardFull } from '@typings/models/suppliers/supplier-card'
 import { ISupplierV2Light } from '@typings/models/suppliers/supplier-v2'
 
@@ -24,6 +25,13 @@ export class BindSupplierCardModal extends DefaultModel {
   selectedProductId?: string
   selectedSupplierId?: string
   selectedSupplierCardId?: string
+
+  get productsMap() {
+    return this.currentData.reduce((acc, item) => {
+      acc[item._id] = item
+      return acc
+    }, {})
+  }
 
   constructor({ product, supplierId, supplierCardId }: ModelParams) {
     super({
