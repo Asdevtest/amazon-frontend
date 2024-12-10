@@ -258,7 +258,6 @@ export const CreateOrEditRequestContent = memo(props => {
     label: spec.title,
   }))
 
-  console.log(specs)
   const onChangeField = section => fieldName => event => {
     const newFormFields = { ...formFields }
 
