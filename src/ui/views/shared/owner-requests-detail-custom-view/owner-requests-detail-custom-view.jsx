@@ -103,6 +103,7 @@ export const OwnerRequestDetailCustomView = observer(({ history }) => {
           requestProposals={viewModel.requestProposals}
           request={viewModel.request}
           userInfo={viewModel.userInfo}
+          onJoinChat={viewModel.onJoinChat}
           onClickContactWithExecutor={viewModel.onClickContactWithExecutor}
           onClickOrderProposal={viewModel.onClickOrderProposal}
           onClickRejectProposal={viewModel.onClickRejectProposal}
