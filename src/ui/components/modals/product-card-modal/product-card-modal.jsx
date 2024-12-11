@@ -26,6 +26,7 @@ import { t } from '@utils/translations'
 import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { ProductVariation } from '@typings/enums/product/product-variation'
+import { isSupervisor } from '@typings/guards/roles'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
@@ -68,10 +69,6 @@ export const ProductCardModal = observer(props => {
   const [useProductsPermissions] = useState(() => new UseProductsPermissions(ClientModel.getProductPermissionsData))
 
   const [currentTab, setCurrentTab] = useState(getTab(viewModel.showTab))
-
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
 
   const clientToEditStatuses = [
     ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
@@ -226,7 +223,13 @@ export const ProductCardModal = observer(props => {
               </CustomButton>
             </div>
           ) : (
-            <CustomButton onClick={() => viewModel?.handleProductActionButtons('closeModal')}>
+            <CustomButton
+              onClick={() =>
+                isSupervisor(viewModel.userInfo.role)
+                  ? viewModel?.onProductActionButtons('closeModal')
+                  : viewModel?.handleProductActionButtons('closeModal')
+              }
+            >
               {t(TranslationKey.Close)}
             </CustomButton>
           )}

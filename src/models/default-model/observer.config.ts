@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 
 export const observerConfig = {
   history: observable,
@@ -7,6 +7,8 @@ export const observerConfig = {
   rowCount: observable,
   meta: observable,
   loading: observable,
+
+  isLoadingRequestStatus: computed,
 
   getCurrentData: action.bound,
   setRequestStatus: action.bound,

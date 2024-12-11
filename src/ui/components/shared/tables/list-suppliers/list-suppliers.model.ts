@@ -44,7 +44,7 @@ export class ListSuppliersModel {
     onClickOkBtn: () => {},
   }
 
-  onSaveProduct?: (product: IProduct) => void
+  onSaveProduct?: (product: IProduct, withoutPatch?: boolean) => void
   onRemoveSupplier?: (supplierId: string, itemId?: string) => void
 
   get userInfo(): IFullUser | undefined {
@@ -57,7 +57,7 @@ export class ListSuppliersModel {
 
   constructor(
     product: IProduct,
-    onSaveProduct?: (product: IProduct) => void,
+    onSaveProduct?: (product: IProduct, withoutPatch?: boolean) => void,
     onRemoveSupplier?: (supplierId: string, itemId?: string) => void,
   ) {
     this.product = product
@@ -216,11 +216,9 @@ export class ListSuppliersModel {
     }
   }
 
-  saveProduct() {
-    console.log('this.product', this.product)
+  saveProduct(withoutPatch?: boolean) {
     if (this.onSaveProduct && this.product) {
-      console.log('this.onSaveProduct', this.onSaveProduct)
-      this.onSaveProduct(this.product)
+      this.onSaveProduct(this.product, withoutPatch)
 
       this.onGetSuppliers()
     }

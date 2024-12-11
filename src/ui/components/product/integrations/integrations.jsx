@@ -29,6 +29,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
     selectedRowIds,
     product,
     getCurrentData,
+    loadData,
     showBindInventoryGoodsToStockModal,
     requestStatus,
     columnsModel,
@@ -95,6 +96,7 @@ export const Integrations = observer(({ productId, modal, userRole }) => {
         <BindInventoryGoodsToStockForm
           asin={product?.asin}
           productId={product?._id}
+          updateInventoryGoods={loadData}
           onCloseModal={() => onTriggerOpenModal('showBindInventoryGoodsToStockModal')}
         />
       </Modal>

@@ -80,7 +80,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    width: '200px',
+    maxWidth: '200px',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
