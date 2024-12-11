@@ -142,7 +142,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
         <BindSupplierCardToProductModal
           product={extractProduct(formFields)}
           openModal={viewModel.showBindSupplierCardToProductModal}
-          handleUpdate={viewModel.saveProduct}
+          handleUpdate={() => viewModel.saveProduct(true)}
           setOpenModal={() => viewModel.onToggleModal(ModalNames.BIND_SUPPLIER_CARD_TO_PRODUCT)}
         />
       ) : null}

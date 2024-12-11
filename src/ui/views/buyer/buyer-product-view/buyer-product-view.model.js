@@ -267,7 +267,7 @@ export class BuyerProductViewModel {
     }
   }
 
-  async onSaveForceProductData(product) {
+  async onSaveForceProductData(product, withoutPatch) {
     try {
       const dataToSave = getObjectFilteredByKeyArrayWhiteList(
         product,
@@ -283,7 +283,9 @@ export class BuyerProductViewModel {
         true,
       )
 
-      await BuyerModel.updateProduct(this.productId, dataToSave)
+      if (!withoutPatch) {
+        await BuyerModel.updateProduct(this.productId, dataToSave)
+      }
 
       this.loadData()
     } catch (error) {
