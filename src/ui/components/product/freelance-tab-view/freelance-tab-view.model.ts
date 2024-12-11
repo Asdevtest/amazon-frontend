@@ -76,7 +76,7 @@ export class FreelanceModel extends DataGridFilterTableModel {
       this.onChangeFullFieldMenuItem(inProgressRequestProposalsStatuses, 'status')
     }
 
-    this.getCurrentData()
+    this.getTableSettingsPreset()
     this.getSpecs()
   }
 
