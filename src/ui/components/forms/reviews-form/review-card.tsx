@@ -27,15 +27,16 @@ export const ReviewCard: FC<ReviewCardProps> = memo(({ review }) => {
   return (
     <div className={styles.card}>
       <div className={styles.cardHeader}>
-        <UserLink
-          withAvatar
-          readOnlyRating
-          name={reviewer?.name}
-          userId={reviewer?._id}
-          rating={reviewer?.rating}
-          customRatingClass={{ opacity: 1, fontSize: 14 }}
-        />
-
+        <div className={styles.userLinkWrapper}>
+          <UserLink
+            withAvatar
+            readOnlyRating
+            name={reviewer?.name}
+            userId={reviewer?._id}
+            rating={reviewer?.rating}
+            customRatingClass={{ opacity: 1, fontSize: 14 }}
+          />
+        </div>
         {'role' in review ? (
           <div className={styles.flexRow}>
             <p>{`${t(TranslationKey.Role)}:`}</p>
