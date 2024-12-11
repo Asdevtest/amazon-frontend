@@ -20,8 +20,9 @@ export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel
   productId: string
   targetKeys: Key[] = []
   onCloseModal: () => void
+  updateInventoryGoods?: () => void
 
-  constructor(props: { asin: string; productId: string; onCloseModal: () => void }) {
+  constructor(props: { asin: string; productId: string; onCloseModal: () => void; updateInventoryGoods?: () => void }) {
     const defaultFilterParams = () => {
       if (this.currentSearchValue) {
         return
@@ -50,6 +51,7 @@ export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel
     this.initialAsin = props.asin
     this.productId = props.productId
     this.onCloseModal = props.onCloseModal
+    this.updateInventoryGoods = props.updateInventoryGoods
 
     this.getCurrentData()
     makeObservable(this, bindInventoryGoodsToStockFormConfig)
@@ -77,6 +79,7 @@ export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel
         warehouseStocks,
       }
       await SellerBoardModel.bindStockProductsBySku(data)
+      this.updateInventoryGoods?.()
       this.onCloseModal()
 
       toast.success(t(TranslationKey['Goods are bound']))
