@@ -559,7 +559,7 @@ export class SuppliersAndIdeasModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      if (ideaId) {
+      if (supplierCardId && ideaId) {
         await IdeaModel.addSuppliersToIdea(ideaId, {
           supplierCardIds: [supplierCardId],
         })

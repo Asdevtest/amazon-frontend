@@ -162,9 +162,18 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           disabled={viewModel.supplierModalReadOnly}
           supplierId={viewModel.currentSupplier?.supplier?._id}
           supplierCardId={viewModel.currentSupplier?._id}
-          handleUpdate={supplierCardId =>
-            onClickSaveSupplier?.(supplierCardId === viewModel.currentSupplier?._id ? undefined : supplierCardId)
-          }
+          handleUpdate={supplierCardId => {
+            let valueToSave = supplierCardId
+
+            if (
+              supplierCardId === viewModel.currentSupplier?._id ||
+              viewModel.suppliers?.some(supplier => supplier._id === supplierCardId)
+            ) {
+              valueToSave = undefined
+            }
+
+            onClickSaveSupplier?.(valueToSave)
+          }}
           openModal={viewModel.showAddSupplierProductModal}
           setOpenModal={() => viewModel.onToggleModal(ModalNames.SUPPLIER_CARD)}
         />
