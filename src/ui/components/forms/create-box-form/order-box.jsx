@@ -136,22 +136,16 @@ export const OrderBox = memo(props => {
         </div>
       </div>
 
-      <div className={styles.checkboxWithLabelWrapper}>
-        <CustomCheckbox
-          disabled={!order.orderSupplierCard?.boxProperties}
-          checked={orderBox?.tmpUseCurrentSupplierDimensions}
-          onChange={setDimensionsOfSupplierField(orderBoxIndex)}
-        />
-        <Field
-          tooltipInfoContent={t(
-            TranslationKey['Allows you to use the box parameters specified when creating a supplier'],
-          )}
-          label={t(TranslationKey['Use the supplier standard'])}
-          containerClasses={styles.checkboxLabelContainer}
-          inputClasses={styles.hidden}
-          labelClasses={styles.checkboxLabel}
-        />
-      </div>
+      <CustomCheckbox
+        disabled={!order.orderSupplierCard?.boxProperties}
+        checked={orderBox?.tmpUseCurrentSupplierDimensions}
+        wrapperClassName={styles.checkboxWithLabelWrapper}
+        labelClassName={styles.checkboxLabel}
+        tooltip="Allows you to use the box parameters specified when creating a supplier"
+        onChange={setDimensionsOfSupplierField(orderBoxIndex)}
+      >
+        Use the supplier standard
+      </CustomCheckbox>
 
       <div>
         <CustomButton icon={<MdDeleteOutline size={24} />} onClick={() => onRemoveBox(orderBoxIndex)} />

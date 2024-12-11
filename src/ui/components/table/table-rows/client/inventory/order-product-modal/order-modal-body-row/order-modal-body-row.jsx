@@ -451,8 +451,13 @@ export const OrderModalBodyRow = ({
                 <img className={styles.deliveryImg} src="/assets/icons/fire.svg" alt="" />
               </div>
               <div className={styles.expressWrapper} onClick={onClickExpressChinaDelivery}>
-                <CustomCheckbox className={styles.checkbox} checked={item.expressChinaDelivery} />
-                <p className={styles.sumText}>{t(TranslationKey['Order express delivery in China'])}</p>
+                <CustomCheckbox
+                  className={styles.checkbox}
+                  checked={item.expressChinaDelivery}
+                  labelClassName={styles.sumText}
+                >
+                  Order express delivery in China
+                </CustomCheckbox>
                 <TruckIcon className={styles.deliveryImg} />
               </div>
             </div>
