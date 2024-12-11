@@ -269,6 +269,18 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
+  async onUpdateSuppliersData(orderId: string) {
+    try {
+      const orderData = await BuyerModel.getOrderById(orderId)
+
+      runInAction(() => {
+        this.selectedOrder = orderData as unknown as IOrder
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async onSubmitCancelOrder() {
     try {
       await BuyerModel.returnOrder(this.dataToCancelOrder.orderId, {
