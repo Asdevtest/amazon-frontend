@@ -314,9 +314,8 @@ export const CreateOrEditRequestContent = memo(props => {
         setChosenExecutor(undefined)
 
         newFormFields[section][fieldName] = event
-        // getMasterUsersData(event.target.value)
-
-        if (`${event}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`) {
+        const selectedSpec = specOptions.find(spec => spec.value === event)
+        if (freelanceRequestTypeByKey[selectedSpec.label] !== freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]) {
           newFormFields.request.discountedPrice = 0
           newFormFields.request.cashBackInPercent = 0
           newFormFields.request.priceAmazon = 0
