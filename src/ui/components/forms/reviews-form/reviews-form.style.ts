@@ -67,6 +67,6 @@ export const useStyles = makeStyles()(() => ({
   },
 
   userLinkWrapper: {
-    width: '250px',
+    width: '200px',
   },
 }))
