@@ -26,6 +26,7 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
   showSupplierModal: boolean = false
   showAddSupplierModal: boolean = false
   showAddSupplierProductModal: boolean = false
+  showBindSupplierCardToProductModal: boolean = false
 
   constructor(table?: TableView) {
     const initialTable = table || TableView.SUPLLIERS
@@ -37,6 +38,7 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
     const cardHandlers: IHandlers = {
       onClickEdit: (id: string) => this.onClickEditSupplierCard(id),
       onClickDelete: (id: string) => this.onClickDeleteSupplierCard(id),
+      onClickBindProduct: (id: string, supplierId: string) => this.onClickBindProduct(id, supplierId),
     }
 
     const initialHandlers = initialTable === TableView.SUPLLIERS ? supplierHandlers : cardHandlers
@@ -159,6 +161,18 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  onClickBindProduct(id: string, supplierId: string) {
+    runInAction(() => {
+      this.supplierCardIdToEdit = id
+      this.supplierIdToEdit = supplierId
+    })
+
+    this.onTriggerOpenModal('showBindSupplierCardToProductModal', true)
+  }
+  onCloseBindProductModal() {
+    this.onTriggerOpenModal('showBindSupplierCardToProductModal', false)
   }
 
   onTriggerArchive() {

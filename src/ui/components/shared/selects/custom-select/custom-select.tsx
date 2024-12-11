@@ -1,6 +1,5 @@
 import type { SelectProps } from 'antd'
 import { Select } from 'antd'
-import { BaseOptionType } from 'antd/es/select'
 import { FC, memo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -11,9 +10,7 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-select.style'
 
-export interface CustomSelectProps extends Omit<SelectProps, 'options'>, IDefaultPropsExtensionAntdComponent {
-  options: BaseOptionType[]
-}
+export interface CustomSelectProps extends SelectProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomSelect: FC<CustomSelectProps> = memo(props => {
   const { isRow, isCell, label, required, placeholder, className, labelClassName, wrapperClassName, ...restProps } =

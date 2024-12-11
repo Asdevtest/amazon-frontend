@@ -212,7 +212,7 @@ export class BuyerProductViewModel {
           this.curUpdateProductData.status === ProductStatusByKey[ProductStatus.SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE] ||
           this.curUpdateProductData.status ===
             ProductStatusByKey[ProductStatus.FROM_CLIENT_SUPPLIER_PRICE_WAS_NOT_ACCEPTABLE]) &&
-          this.curUpdateProductData.currentSupplierId)
+          this.curUpdateProductData.currentSupplierCardId)
       ) {
         runInAction(() => {
           this.confirmModalSettings = {

@@ -147,59 +147,10 @@ export class BuyerMyOrdersViewModel extends DataGridFilterTableModel {
     }
   }
 
-  async onClickSaveSupplierBtn({
-    supplier,
-    itemId,
-    editPhotosOfSupplier,
-    editPhotosOfUnit,
-  }: {
-    supplier: any
-    itemId: string
-    editPhotosOfSupplier: string[]
-    editPhotosOfUnit: string[]
-  }) {
+  async onClickSaveSupplierBtn(supplierCardId: string) {
     try {
-      supplier = {
-        ...supplier,
-        amount: parseFloat(supplier?.amount) || '',
-        paymentMethods: supplier.paymentMethods.map((item: any) => getObjectFilteredByKeyArrayWhiteList(item, ['_id'])),
-        minlot: parseInt(supplier?.minlot) || '',
-        price: parseFloat(supplier?.price) || '',
-        heightUnit: supplier?.heightUnit || null,
-        widthUnit: supplier?.widthUnit || null,
-        lengthUnit: supplier?.lengthUnit || null,
-        weighUnit: supplier?.weighUnit || null,
-      }
-
-      // @ts-ignore
-      await onSubmitPostImages.call(this, { images: editPhotosOfSupplier, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        images: this.readyImages,
-      }
-
-      // @ts-ignore
-      await onSubmitPostImages.call(this, { images: editPhotosOfUnit, type: 'readyImages' })
-      supplier = {
-        ...supplier,
-        imageUnit: this.readyImages,
-      }
-
-      if (supplier._id) {
-        const supplierUpdateData = getObjectFilteredByKeyArrayWhiteList(
-          supplier,
-          patchSuppliers,
-          undefined,
-          undefined,
-          true,
-        )
-
-        await SupplierModel.updateSupplier(supplier._id, supplierUpdateData)
-      } else {
-        const supplierCreat = getObjectFilteredByKeyArrayWhiteList(supplier, creatSupplier)
-        const createSupplierResult = await SupplierModel.createSupplier(supplierCreat)
-
-        await ProductModel.addSuppliersToProduct(itemId, [createSupplierResult.guid])
+      if (supplierCardId) {
+        await ProductModel.addSuppliersToProduct(this.selectedOrder?.product?._id, [supplierCardId])
       }
 
       const orderData = await BuyerModel.getOrderById(this.selectedOrder?._id)

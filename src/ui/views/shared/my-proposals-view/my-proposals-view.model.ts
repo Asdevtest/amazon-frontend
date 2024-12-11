@@ -200,10 +200,6 @@ export class MyProposalsViewModel extends DataGridFilterTableModel {
   }
 
   onOpenRequestDetailModal(id: string) {
-    if (window?.getSelection?.()?.toString?.()) {
-      return
-    }
-
     try {
       this.getRequestById(id)
       this.onTriggerOpenModal('showRequestDetailModal')

@@ -17,6 +17,7 @@ export interface ICustomRadioButtonOption extends CheckboxOptionType {
 interface CustomRadioButtonProps extends RadioGroupProps, IDefaultPropsExtensionAntdComponent {
   options: ICustomRadioButtonOption[]
   buttonStyle?: RadioGroupButtonStyle
+  disabled?: boolean
 }
 
 export const CustomRadioButton: FC<CustomRadioButtonProps> = memo(props => {

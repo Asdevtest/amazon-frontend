@@ -49,6 +49,8 @@ export const UserLink: FC<UserLinkProps> = memo(
 
     const curUserId = UserModel.userId
 
+    const showUserInfo = !notShowName && (name || rating)
+
     return (
       <>
         {name || userId ? (
@@ -72,9 +74,8 @@ export const UserLink: FC<UserLinkProps> = memo(
                 />
               </Tooltip>
             ) : null}
-
-            <div className={styles.userInfoWrapper}>
-              {name && !notShowName && (
+            {showUserInfo ? (
+              <div className={styles.userInfoWrapper}>
                 <p
                   className={cx(styles.linkText, customClassNames, {
                     [styles.blackLinkText]: blackText,
@@ -84,18 +85,17 @@ export const UserLink: FC<UserLinkProps> = memo(
                 >
                   {name}
                 </p>
-              )}
-
-              {rating && (
-                <Rating
-                  disabled={!readOnlyRating}
-                  readOnly={readOnlyRating}
-                  value={rating}
-                  size={ratingSize || 'medium'}
-                  style={customRatingClass}
-                />
-              )}
-            </div>
+                {rating && (
+                  <Rating
+                    disabled={!readOnlyRating}
+                    readOnly={readOnlyRating}
+                    value={rating}
+                    size={ratingSize || 'medium'}
+                    style={customRatingClass}
+                  />
+                )}
+              </div>
+            ) : null}
           </Link>
         ) : (
           <p>{'-'}</p>

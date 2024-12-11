@@ -31,7 +31,6 @@ export const SupplierView = observer(({ history }: { history: HistoryType }) => 
         <CustomButton
           size="large"
           type="primary"
-          disabled={!viewModel.supplierCardIds.length}
           className={styles.addInventoryBtn}
           onClick={viewModel.onToggleSelectShopsModal}
         >
@@ -40,6 +39,7 @@ export const SupplierView = observer(({ history }: { history: HistoryType }) => 
 
         <div className={styles.productsWrapper}>
           <DynamicVirtualList<ISupplierCard>
+            checkboxes
             listClassName={cx(styles.products, {
               [styles.productsAll]: viewModel.productsAll,
               [styles.productsBig]: viewModel.productsBig,
@@ -49,12 +49,11 @@ export const SupplierView = observer(({ history }: { history: HistoryType }) => 
               <SupplierProductCard
                 gorizontal={viewModel.productsBig}
                 product={item}
-                checkedItems={viewModel.supplierCardIds}
-                onChange={viewModel.onChangeSupplierCard}
                 onSubmit={viewModel.onSelectSupplierCard}
               />
             )}
             onScrollEnd={viewModel.loadMoreData}
+            onChangeCheckbox={viewModel.onChangeSupplierCards}
           />
 
           <CardsFilter

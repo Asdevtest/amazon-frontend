@@ -1,20 +1,20 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { CustomSelect } from '@components/shared/custom-select'
-import { CustomSelectProps } from '@components/shared/custom-select/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 import { Text } from '@components/shared/text'
 
 import { Roles } from '@typings/enums/roles'
 import { IFullUser } from '@typings/shared/full-user'
 
-interface RolesSelectProps extends Omit<CustomSelectProps, 'options'> {
+interface RolesSelectProps {
   user?: IFullUser
+  value?: Roles
   onChangeRole: (role: Roles) => void
 }
 
 export const RolesSelect: FC<RolesSelectProps> = observer(props => {
-  const { user, onChangeRole, ...restProps } = props
+  const { user, value, onChangeRole } = props
 
   if (!user || user.allowedRoles.length <= 1) {
     return null
@@ -24,13 +24,12 @@ export const RolesSelect: FC<RolesSelectProps> = observer(props => {
 
   return (
     <CustomSelect
-      {...restProps}
       size="large"
       filterOption={false}
       style={{ width: '160px' }}
       defaultActiveFirstOption={false}
       options={options}
-      defaultValue={user.role}
+      value={value}
       optionRender={({ label }) => <Text copyable={false} text={label as string} />}
       onChange={onChangeRole}
     />

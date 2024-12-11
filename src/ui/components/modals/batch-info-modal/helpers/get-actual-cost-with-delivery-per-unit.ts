@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getCostPerUnitWithDeliveryByProduct } from './get-cost-per-unit-with-delivery-by-product'
 import { getDeliveryCostByProduct } from './get-delivery-cost-by-product'
 import { getDeliveryCostByProductPerUnit } from './get-delivery-cost-by-product-per-unit'

@@ -2124,4 +2124,11 @@ export enum TranslationKey {
   'ASINs' = 'ASINs',
   'Avg Price' = 'Avg Price',
   'Avg Review' = 'Avg Review',
+  'Please select at least one supplier card' = 'Please select at least one supplier card',
+  'Bind supplier card to product' = 'Bind supplier card to product',
+  'Supplier card' = 'Supplier card',
+  'Permission changes will be reset, wish to save?' = 'Permission changes will be reset, wish to save?',
+  'Supplier card successfully added to product' = 'Supplier card successfully added to product',
+  'Create a supplier card' = 'Create a supplier card',
+  'Add supplier card' = 'Add supplier card',
 }

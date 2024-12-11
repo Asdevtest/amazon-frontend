@@ -33,6 +33,7 @@ export class ListSuppliersModel {
   showAddOrEditSupplierModal = false
   showAddSupplierProductModal = false
   showSupplierApproximateCalculationsModal = false
+  showBindSupplierCardToProductModal = false
   showConfirmModal = false
 
   confirmModalSettings = {
@@ -186,6 +187,10 @@ export class ListSuppliersModel {
         this.onToggleModal(ModalNames.SUPPLIER_CARD)
         break
 
+      case ModalModes.ADD_SUPPLIER_CARD_TO_PRODUCT:
+        this.onToggleModal(ModalNames.BIND_SUPPLIER_CARD_TO_PRODUCT)
+        break
+
       case ModalModes.ACCEPT:
         runInAction(() => {
           if (this.currentSupplier && this.product) {
@@ -208,29 +213,13 @@ export class ListSuppliersModel {
 
         this.saveProduct()
         break
-
-      // The button of deleting a supplier was commented because it wasnt necessary
-      // case ModalModes.DELETE:
-      //   runInAction(() => {
-      //     this.confirmModalSettings = {
-      //       isWarning: true,
-      //       message: t(TranslationKey['Are you sure you want to remove the supplier?']),
-      //       successBtnText: t(TranslationKey.Yes),
-      //       cancelBtnText: t(TranslationKey.Close),
-      //       onClickOkBtn: () => {
-      //         this.removeSupplier()
-      //         this.onToggleModal(ModalNames.CONFIRM)
-      //       },
-      //     }
-      //   })
-
-      //   this.onToggleModal(ModalNames.CONFIRM)
-      //   break
     }
   }
 
   saveProduct() {
+    console.log('this.product', this.product)
     if (this.onSaveProduct && this.product) {
+      console.log('this.onSaveProduct', this.onSaveProduct)
       this.onSaveProduct(this.product)
 
       this.onGetSuppliers()

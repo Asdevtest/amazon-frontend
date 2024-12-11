@@ -20,13 +20,14 @@ interface DimentionsHeaderProps {
     length: number
     weight: number
   }
+  disabled?: boolean
   sizeSetting: Dimensions
   dimentionsHeaderTitle: keyof typeof TranslationKey
   onChangeUnitsOption: (option: RadioChangeEvent) => void
 }
 
 export const DimentionsHeader: FC<DimentionsHeaderProps> = memo(props => {
-  const { data, sizeSetting, dimentionsHeaderTitle, onChangeUnitsOption } = props
+  const { data, sizeSetting, dimentionsHeaderTitle, disabled, onChangeUnitsOption } = props
 
   const { classes: styles } = useStyles()
 
@@ -46,7 +47,13 @@ export const DimentionsHeader: FC<DimentionsHeaderProps> = memo(props => {
     <div className={styles.root}>
       <p className={styles.title}>{title}</p>
 
-      <CustomRadioButton size="small" options={options} value={sizeSetting} onChange={onChangeUnitsOption} />
+      <CustomRadioButton
+        disabled={disabled}
+        size="small"
+        options={options}
+        value={sizeSetting}
+        onChange={onChangeUnitsOption}
+      />
     </div>
   )
 })

@@ -39,6 +39,7 @@ export const BuyerProductView = observer(({ history }) => {
           onChangeField={viewModel.onChangeProductFields}
           onClickHsCode={viewModel.onClickHsCode}
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
+          onSaveForceProductData={viewModel.onSaveForceProductData}
           onRemoveSupplier={viewModel.onRemoveSupplier}
         />
       ) : (

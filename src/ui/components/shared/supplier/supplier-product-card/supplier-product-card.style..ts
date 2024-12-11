@@ -2,7 +2,6 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    position: 'relative',
     height: '100%',
     padding: '10px',
     display: 'flex',
@@ -59,11 +58,5 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
-  },
-
-  checkbox: {
-    position: 'absolute',
-    top: '10px',
-    right: '10px',
   },
 }))

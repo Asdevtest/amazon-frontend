@@ -54,6 +54,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
     <div className={styles.boxInfoWrapper}>
       <Form.Item<ICreateSupplierProductModal> name={dimentionName} className={cx(sharedStyles.field)}>
         <DimentionsHeader
+          disabled={false}
           data={{
             height: 0,
             width: 0,
@@ -117,7 +118,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
             <CustomInputNumber
               size="large"
               label="Number of units in box"
-              precision={2}
+              precision={0}
               wrapperClassName={sharedStyles.input}
             />
           </Form.Item>

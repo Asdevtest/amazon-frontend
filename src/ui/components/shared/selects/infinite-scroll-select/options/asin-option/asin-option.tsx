@@ -1,7 +1,6 @@
 import { Avatar } from 'antd'
 import { BaseOptionType } from 'antd/es/select'
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, memo } from 'react'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomImage } from '@components/shared/custom-image'
@@ -14,12 +13,13 @@ interface AsinOptionProps {
   data: BaseOptionType
 }
 
-export const AsinOption: FC<AsinOptionProps> = observer(({ data }) => {
+export const AsinOption: FC<AsinOptionProps> = memo(({ data }) => {
   const { classes: styles } = useStyles()
+
   return (
     <div className={styles.optionWrapper}>
       <div className={styles.flexContainer}>
-        <CustomImage width={32} height={32} src={data.images?.[0]} />
+        <CustomImage width={32} height={32} src={data?.images?.[0]} />
         <div className={styles.asinContainer}>
           <AsinOrSkuLink
             withCopyValue
@@ -38,7 +38,7 @@ export const AsinOption: FC<AsinOptionProps> = observer(({ data }) => {
         </div>
       </div>
 
-      {data.marketPlaceCountry ? (
+      {data?.marketPlaceCountry ? (
         <div className={styles.flexContainer}>
           <Avatar size={20} src={getAmazonImageUrl(data.marketPlaceCountry?.image)} />
           <p>{data.marketPlaceCountry?.shortTitle}</p>

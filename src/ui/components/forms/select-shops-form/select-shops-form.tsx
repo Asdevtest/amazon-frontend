@@ -14,7 +14,7 @@ import '@typings/enums/button-style'
 import { useStyles } from './select-shops-form.style'
 
 export interface SelectShopsModalProps {
-  onSubmit: (id: string) => void
+  onSubmit: (id: string | null) => void
   onClose: () => void
   title?: string
   message?: string
@@ -36,7 +36,7 @@ export const SelectShopsForm: FC<SelectShopsModalProps> = observer(props => {
 
       <div className={styles.buttons}>
         <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
-        <CustomButton type="primary" disabled={!selectedShopId} onClick={() => onSubmit(selectedShopId)}>
+        <CustomButton type="primary" onClick={() => onSubmit(selectedShopId)}>
           {t(TranslationKey.Save)}
         </CustomButton>
       </div>

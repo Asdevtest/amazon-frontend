@@ -40,6 +40,9 @@ export class AddSupplierProductModalModel extends DefaultModel {
   get volumeWeightCoefficient() {
     return (UserModel.platformSettings as unknown as IPlatformSettings)?.volumeWeightCoefficient
   }
+  get requestIsloading() {
+    return this.requestStatus === loadingStatus.IS_LOADING
+  }
 
   constructor({ supplierId, supplierCardId }: { supplierId?: string; supplierCardId?: string }) {
     super({
@@ -51,12 +54,15 @@ export class AddSupplierProductModalModel extends DefaultModel {
     this.suppliersInfinityModel = new InfiniteScrollModel({
       method: SupplierV2Model.getSuppliersLight,
       searchFields: ['companyName'],
+      filterFields: ['supplier'],
     })
 
     if (supplierId) {
-      this.suppliersInfinityModel.setOptions({
-        filters: `supplier[$eq]=${supplierId}`,
-      })
+      this.suppliersInfinityModel.filtersOtions = {
+        supplier: {
+          $eq: supplierId,
+        },
+      }
     }
 
     if (supplierCardId) {

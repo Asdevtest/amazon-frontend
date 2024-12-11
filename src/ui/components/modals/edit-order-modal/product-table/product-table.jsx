@@ -56,8 +56,9 @@ export const ProductTable = props => {
                 : t(TranslationKey['Not available'])}
             </TableCell>
             <TableCell className={styles.tableCell}>
-              {toFixed(order?.orderSupplierCard?.batchDeliveryCostInDollar / order?.orderSupplierCard?.amount, 2) ||
-                t(TranslationKey['Not available'])}
+              {order?.orderSupplierCard
+                ? toFixed(order?.orderSupplierCard?.batchDeliveryCostInDollar / order?.orderSupplierCard?.amount, 2)
+                : t(TranslationKey['Not available'])}
             </TableCell>
             <TableCell className={styles.tableCell}>
               <div className={styles.fieldWrapper}>

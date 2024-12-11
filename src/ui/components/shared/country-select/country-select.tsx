@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { CustomSelect } from '@components/shared/custom-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { ICountry } from '@typings/shared/country'
 

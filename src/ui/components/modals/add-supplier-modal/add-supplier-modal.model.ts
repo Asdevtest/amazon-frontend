@@ -37,6 +37,9 @@ export class AddSupplierModalModel extends DefaultModel {
   get productIsloading() {
     return this.productsRequestStatus === loadingStatus.IS_LOADING
   }
+  get requestIsloading() {
+    return this.requestStatus === loadingStatus.IS_LOADING
+  }
 
   constructor(supplierId?: string) {
     const defaultGetCurrentDataOptions = () => supplierId
@@ -54,7 +57,7 @@ export class AddSupplierModalModel extends DefaultModel {
     if (supplierId) {
       this.productsInfinityModel = new InfiniteScrollModel({
         method: SupplierV2Model.getSupplierCards,
-        options: { guid: supplierId },
+        filterOptions: { guid: supplierId },
       })
       this.getCurrentData()
       this.productsInfinityModel?.getData()
@@ -139,6 +142,8 @@ export class AddSupplierModalModel extends DefaultModel {
 
   async createSupplier(value: CreateSupplier) {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const images = await this.uploadFiles(value?.images)
 
       const data = this.transformSupplierToCreateEditSupplier(value, images)
@@ -148,11 +153,15 @@ export class AddSupplierModalModel extends DefaultModel {
       return result.guid
     } catch (error) {
       console.error(error)
+    } finally {
+      this.setRequestStatus(loadingStatus.SUCCESS)
     }
   }
 
   async editSupplier(supplierId: string, value: CreateSupplier) {
     try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const images = await this.uploadFiles(value?.images)
 
       const data = this.transformSupplierToCreateEditSupplier(value, images)
@@ -162,6 +171,8 @@ export class AddSupplierModalModel extends DefaultModel {
       return supplierId
     } catch (error) {
       console.error(error)
+    } finally {
+      this.setRequestStatus(loadingStatus.SUCCESS)
     }
   }
 

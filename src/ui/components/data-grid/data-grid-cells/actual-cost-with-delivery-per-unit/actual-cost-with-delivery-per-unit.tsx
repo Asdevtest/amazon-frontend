@@ -76,6 +76,7 @@ export const ActualCostWithDeliveryPerUnit: FC<ActualCostWithDeliveryPerUnitProp
           )
 
           const partOfWeight = getPartOfWeight(weightPerAllUnitsByProduct, rowMemo.finalWeight)
+
           const deliveryCostByProduct = getDeliveryCostByProduct(rowMemo?.actualShippingCost, partOfWeight)
 
           const deliveryCostByProductPerUnit = getDeliveryCostByProductPerUnit(
@@ -91,9 +92,11 @@ export const ActualCostWithDeliveryPerUnit: FC<ActualCostWithDeliveryPerUnitProp
             deliveryCostByProductPerUnit,
           )
 
+          const showCellValue = actualShippingCost && costPerUnitWithDeliveryByProduct
+
           return (
             <p key={index} className={styles.multilineText}>
-              {costPerUnitWithDeliveryByProduct ? toFixedWithDollarSign(costPerUnitWithDeliveryByProduct, 2) : '-'}
+              {showCellValue ? toFixedWithDollarSign(costPerUnitWithDeliveryByProduct, 2) : '-'}
             </p>
           )
         })}

@@ -85,6 +85,7 @@ export const SuppliersAndIdeas = observer(props => {
     currentData,
     showCommentsModal,
     showSelectShopsModal,
+    onUpdateCurrentIdea,
     setRejectStatusHandler,
     onClickToOrder,
     onClickSaveBarcode,
@@ -300,7 +301,7 @@ export const SuppliersAndIdeas = observer(props => {
         <LinkRequestForm
           idea={curIdea}
           onClose={() => onTriggerOpenModal('showLinkRequestModal')}
-          onUpdateData={updateData}
+          onUpdateData={onUpdateCurrentIdea}
         />
       </Modal>
 

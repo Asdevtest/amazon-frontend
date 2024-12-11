@@ -5,9 +5,9 @@ import { FC, useEffect, useMemo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomSelect } from '@components/shared/custom-select'
 import { CustomTextarea } from '@components/shared/custom-textarea'
 import { Modal } from '@components/shared/modal'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 import { t } from '@utils/translations'
@@ -137,14 +137,12 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
             label="Payment methods"
             options={viewModel.paymentMethods}
             fieldNames={{ label: 'title', value: '_id' }}
-            optionRender={option => {
-              return (
-                <div className={sharedStyles.selectOption}>
-                  <Avatar size={20} src={getAmazonImageUrl(option.data.iconImage)} />
-                  <p>{option.data.title}</p>
-                </div>
-              )
-            }}
+            optionRender={option => (
+              <div className={sharedStyles.selectOption}>
+                <Avatar size={20} src={getAmazonImageUrl(option.data.iconImage)} />
+                <p>{option.data.title}</p>
+              </div>
+            )}
           />
         </Form.Item>
 
@@ -154,23 +152,30 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
           <CustomTextarea size="large" rows={4} label="Description" maxLength={2000} />
         </Form.Item>
 
-        <ProductList
-          disabled={!supplierId}
-          isLoading={viewModel.productsInfinityModel?.loading || false}
-          products={viewModel.productsInfinityModel?.data || []}
-          loadMoreProducts={viewModel.productsInfinityModel?.loadMoreData}
-          onOpenAddProductModal={viewModel.onOpenAddSupplierProductModal}
-        />
+        {supplierId ? (
+          <ProductList
+            disabled={!supplierId}
+            isLoading={viewModel.productsInfinityModel?.loading || false}
+            products={viewModel.productsInfinityModel?.data || []}
+            loadMoreProducts={viewModel.productsInfinityModel?.loadMoreData}
+            onOpenAddProductModal={viewModel.onOpenAddSupplierProductModal}
+          />
+        ) : null}
 
         <div className={styles.footerWrapper}>
-          <CustomButton disabled={!supplierId} onClick={viewModel.onOpenImportTemplateModal}>
-            {t(TranslationKey['Import products'])}
-          </CustomButton>
+          {supplierId ? (
+            <CustomButton disabled={!supplierId} onClick={viewModel.onOpenImportTemplateModal}>
+              {t(TranslationKey['Import products'])}
+            </CustomButton>
+          ) : (
+            <div />
+          )}
 
           <div className={styles.buttons}>
             {!hideStatusButton ? (
               <CustomButton
                 type="primary"
+                loading={viewModel.requestIsloading}
                 onClick={() =>
                   handleChangeStatus(isPublished ? SupplierCardStatus.DRAFT : SupplierCardStatus.PUBLISHED)
                 }
@@ -180,7 +185,7 @@ export const AddSupplierModal: FC<AddSupplierModalProps> = observer(props => {
             ) : null}
 
             <Form.Item shouldUpdate className={sharedStyles.field}>
-              <CustomButton type="primary" htmlType="submit">
+              <CustomButton loading={viewModel.requestIsloading} type="primary" htmlType="submit">
                 {t(TranslationKey.Save)}
               </CustomButton>
             </Form.Item>

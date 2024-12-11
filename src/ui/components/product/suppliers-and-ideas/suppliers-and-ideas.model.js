@@ -455,13 +455,21 @@ export class SuppliersAndIdeasModel {
     this.confirmModalSettings = {
       isWarning: false,
       confirmMessage: t(TranslationKey['Are you sure you want to change the status of an idea']),
-      onClickConfirm: () => {
-        this.changeIdeaStatus(ideaData, chesenStatus)
+      onClickConfirm: async () => {
+        await this.changeIdeaStatus(ideaData, chesenStatus)
+        this.updateData?.()
         this.onTriggerOpenModal('showConfirmModal')
         toast.success(t(TranslationKey['Idea status changed successfully']))
       },
     }
     this.onTriggerOpenModal('showConfirmModal')
+  }
+
+  onUpdateCurrentIdea() {
+    if (this.currentIdeaId) {
+      this.getIdea(this.currentIdeaId)
+      this.updateData?.()
+    }
   }
 
   async onSubmitRejectOrRemoveIdea(ideaId, close) {

@@ -4,9 +4,12 @@ import { FC, useEffect, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { AsinSelect } from '@components/shared/asin-select'
+import { ClientModel } from '@models/client-model'
+
 import { CustomButton } from '@components/shared/custom-button'
 import { RadioButtons } from '@components/shared/radio-buttons'
+import { InfiniteScrollSelect } from '@components/shared/selects/infinite-scroll-select'
+import { AsinOption } from '@components/shared/selects/infinite-scroll-select/options'
 
 import { t } from '@utils/translations'
 
@@ -20,7 +23,6 @@ import { SelectedProduct } from './selected-product/selected-product'
 
 interface BindProductFormProps {
   sourceProduct: IProduct
-  productsToBind: Array<IProduct>
   onClickGetProductsToBind: (options: string) => void
   onClickNextButton: (option?: string, products?: Array<IProduct>) => void
   onClickCancelButton: () => void
@@ -29,7 +31,7 @@ interface BindProductFormProps {
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   const { classes: styles } = useStyles()
 
-  const { sourceProduct, productsToBind, onClickGetProductsToBind, onClickNextButton, onClickCancelButton } = props
+  const { sourceProduct, onClickGetProductsToBind, onClickNextButton, onClickCancelButton } = props
 
   const [selectedProducts, setSelectedProducts] = useState<Array<IProduct>>([])
   const [selectedRadioValue, setSelectedRadioValue] = useState<string>()
@@ -91,12 +93,14 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
       </div>
 
       <div className={styles.selectWrapper}>
-        <AsinSelect
+        <InfiniteScrollSelect<IProduct>
+          optionLabel="asin"
+          optionValue="_id"
+          method={ClientModel.getProductPermissionsData}
+          optionNode={AsinOption}
           disabled={!selectedRadioValue}
-          options={productsToBind}
           placeholder="Select product"
-          // @ts-ignore
-          onChangeData={selectProductHandler}
+          onChange={selectProductHandler}
         />
 
         <div className={styles.selectedVariationsWrapper}>

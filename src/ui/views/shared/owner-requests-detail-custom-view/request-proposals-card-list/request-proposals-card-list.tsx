@@ -17,6 +17,7 @@ interface RequestProposalsCardListProps {
   requestProposals: ICustomProposal[]
   request: IRequest
   userInfo: IFullUser
+  onJoinChat: () => void
   onClickRejectProposal: () => void
   onClickReview: () => void
   onSendInForRework: () => void
@@ -32,6 +33,7 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(
     requestProposals,
     request,
     userInfo,
+    onJoinChat,
     onClickContactWithExecutor,
     onClickOrderProposal,
     onClickRejectProposal,
@@ -51,6 +53,7 @@ export const RequestProposalsCardList: FC<RequestProposalsCardListProps> = memo(
                 item={item}
                 request={request}
                 userInfo={userInfo}
+                onJoinChat={onJoinChat}
                 onClickContactWithExecutor={onClickContactWithExecutor}
                 onClickOrderProposal={onClickOrderProposal}
                 onClickRejectProposal={onClickRejectProposal}

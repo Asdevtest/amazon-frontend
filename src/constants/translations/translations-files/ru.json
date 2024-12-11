@@ -2124,5 +2124,12 @@
   "Total revenue": "Total revenue",
   "ASINs": "ASINs",
   "Avg Price": "Avg Price",
-  "Avg Review": "Avg Review"
+  "Avg Review": "Avg Review",
+  "Please select at least one supplier card": "Пожалуйста, выберите хотя бы одну карточку поставщика",
+  "Bind supplier card to product": "Привязать карточку поставщика к товару",
+  "Supplier card": "Карточка поставщика",
+  "Permission changes will be reset, wish to save?": "Изменения разрешений будут сброшены, желаете сохранить?",
+  "Supplier card successfully added to product": "Карточка поставщика успешно добавлена к продукту",
+  "Create a supplier card": "Создать карточку поставщика",
+  "Add supplier card": "Добавить карточку поставщика"
 }

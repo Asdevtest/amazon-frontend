@@ -39,6 +39,7 @@ export const TopCard = memo(
     onChangeField,
     actionStatus,
     product,
+    disableField,
     productVariations,
     navigateToProduct,
     unbindProductHandler,
@@ -53,12 +54,10 @@ export const TopCard = memo(
     handleProductActionButtons,
     onChangeImagesForLoad,
     showBindProductModal,
-    productsToBind,
     onTriggerOpenModal,
     onClickGetProductsToBind,
     onClickHsCode,
     onClickNextButton,
-    loadMorePermissionsDataHadler,
     onClickSubmitSearch,
     onClickSaveSupplierBtn,
     onSaveForceProductData,
@@ -139,6 +138,7 @@ export const TopCard = memo(
                 navigateToProduct={navigateToProduct}
                 unbindProductHandler={unbindProductHandler}
                 shops={shops}
+                disableField={disableField}
                 destinations={destinations}
                 storekeepers={storekeepers}
                 productBase={productBase}
@@ -186,7 +186,6 @@ export const TopCard = memo(
           >
             <BindProductForm
               sourceProduct={product}
-              productsToBind={productsToBind}
               onClickGetProductsToBind={onClickGetProductsToBind}
               onClickNextButton={onClickNextButton}
               onClickCancelButton={() => onTriggerOpenModal('showBindProductModal')}
