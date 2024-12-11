@@ -32,6 +32,7 @@ interface ListSuppliersProps {
   checkIsPlanningPrice?: boolean
   isNotProductNameForIdea?: boolean
   isIdea?: boolean
+  tableWrapperClassName?: string
   onSaveProduct?: () => void
   onRemoveSupplier?: () => void // can be transferred inside the table model
   onClickSaveSupplier?: (suplierCardId?: string) => void // can be transferred inside the table model
@@ -45,12 +46,13 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
     checkIsPlanningPrice,
     isNotProductNameForIdea,
     isIdea,
+    tableWrapperClassName,
     onClickSaveSupplier,
     onSaveProduct,
     onRemoveSupplier,
   } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   const orderSupplier = 'orderSupplierCard' in formFields ? formFields?.orderSupplierCard : undefined
 
@@ -91,7 +93,7 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
 
   return (
     <>
-      <div className={styles.wrapper}>
+      <div className={cx(styles.wrapper, tableWrapperClassName)}>
         <CustomDataGrid
           disableColumnMenu
           sortingMode="client"
