@@ -1,17 +1,36 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useRedFlagStyles = makeStyles()(() => ({
-  flagIcon: {
-    marginLeft: '10px',
+export const useStyles = makeStyles()(theme => ({
+  root: {
+    width: '100%',
+    height: '100%',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 24,
-    height: 24,
+    flexDirection: 'column',
+    gap: '10px',
+  },
 
-    '& > img': {
-      width: '100%',
-      height: '100%',
-    },
+  title: {
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.secondary,
+  },
+
+  checkboxes: {
+    height: '100%',
+    overflowY: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'nowrap',
+    gap: '5px',
+  },
+
+  option: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '5px',
+  },
+
+  empty: {
+    justifyContent: 'center',
   },
 }))

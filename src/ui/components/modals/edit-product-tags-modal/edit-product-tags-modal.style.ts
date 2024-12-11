@@ -45,7 +45,6 @@ export const useStyles = makeStyles()(theme => ({
     display: 'flex',
     gap: '5px',
     justifyContent: 'flex-end',
-    margin: '0 3px 5px 0',
   },
 
   noTagsWrapper: {

@@ -1,29 +1,37 @@
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
-  tagsList: {
+  root: {
+    width: '100%',
+    height: '100%',
     display: 'flex',
-    alignItems: 'flex-start',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+
+  text: {
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.secondary,
+  },
+
+  search: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
+
+  tags: {
+    height: '100%',
+    overflowY: 'auto',
+    display: 'flex',
     alignContent: 'flex-start',
     flexWrap: 'wrap',
-    height: '160px',
-    gap: 5,
-
-    overflowY: 'auto',
-    padding: '5px',
-    borderRadius: '20px',
-
-    boxShadow: theme.palette.boxShadow.filter,
-    backgroundColor: theme.palette.background.general,
+    gap: '5px',
   },
 
-  noTagsWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  empty: {
     alignContent: 'center',
-  },
-
-  noTagsText: {
-    color: theme.palette.text.second,
+    justifyContent: 'center',
   },
 }))

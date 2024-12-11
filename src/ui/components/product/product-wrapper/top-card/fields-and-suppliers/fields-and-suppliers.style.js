@@ -409,6 +409,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     flexWrap: 'nowrap',
     gap: '3px',
+
     span: {
       maxWidth: '100px',
       overflow: 'hidden',

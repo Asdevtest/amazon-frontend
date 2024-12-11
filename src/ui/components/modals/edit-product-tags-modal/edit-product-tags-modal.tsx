@@ -23,23 +23,22 @@ import { EditProductTagModel } from './edit-product-tags-modal.model'
 import { IHandleUpdateRow } from './edit-product-tags.type'
 
 interface EditProductTagsProps {
-  openModal: boolean
   productId: string
-  setOpenModal: (openModal: boolean) => void
-  handleUpdateRow: IHandleUpdateRow
+  onCloseModal: () => void
+  onUpdateRow: IHandleUpdateRow
 }
 
 export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
   const { classes: styles } = useStyles()
 
-  const { openModal, productId, setOpenModal, handleUpdateRow } = props
+  const { productId, onCloseModal, onUpdateRow } = props
 
   const viewModel = useMemo(() => new EditProductTagModel(productId), [])
 
   viewModel.setDebounceSearchValue = useDebounce(viewModel.searchValue)
 
   return (
-    <Modal missClickModalOn openModal={openModal} setOpenModal={setOpenModal}>
+    <>
       <div className={styles.container}>
         <p className={styles.title}>{t(TranslationKey['Edit product tags'])}</p>
 
@@ -94,13 +93,13 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
               type="primary"
               disabled={isEqual(viewModel.selectedTags, viewModel.selectedTagsBase)}
               onClick={async () => {
-                await viewModel.handleBindTagsToProduct(handleUpdateRow)
-                setOpenModal(false)
+                await viewModel.handleBindTagsToProduct(onUpdateRow)
+                onCloseModal()
               }}
             >
               {t(TranslationKey.Save)}
             </CustomButton>
-            <CustomButton type="text" onClick={() => setOpenModal(false)}>
+            <CustomButton type="text" onClick={onCloseModal}>
               {t(TranslationKey.Close)}
             </CustomButton>
           </div>
@@ -114,6 +113,6 @@ export const EditProductTags: FC<EditProductTagsProps> = observer(props => {
           onCreateSubmit={viewModel.handleCreateTag}
         />
       </Modal>
-    </Modal>
+    </>
   )
 })

@@ -40,7 +40,13 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
   const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
 
   return (
-    <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
+    <div
+      className={cx(
+        styles.root,
+        { [styles.cell]: isCell, [styles.row]: isRow, [styles.autoHeight]: autoHeight },
+        wrapperClassName,
+      )}
+    >
       {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
       <Input.TextArea
         {...restProps}

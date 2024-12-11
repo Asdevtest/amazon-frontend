@@ -7,9 +7,9 @@ export const useStyles = makeStyles()(() => ({
     flexDirection: 'column',
     gap: '20px',
     width: '1200px', // TODO
-    height: '100%', // TODO
+    height: '80vh', // TODO
     // minWidth: '1200px', // TODO
-    minHeight: '600px', // TODO
+    // minHeight: '600px', // TODO
 
     '.ant-tabs-content': {
       paddingLeft: '8px',

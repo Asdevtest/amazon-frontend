@@ -403,14 +403,17 @@ export const ClientInventoryView = observer(({ history }) => {
         />
       ) : null}
 
-      {viewModel.showEditProductTagsModal ? (
+      <Modal
+        missClickModalOn
+        openModal={viewModel.showEditProductTagsModal}
+        setOpenModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
+      >
         <EditProductTags
-          openModal={viewModel.showEditProductTagsModal}
-          setOpenModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
           productId={viewModel.selectedRowId}
-          handleUpdateRow={tags => apiRef.current.updateRows([{ _id: viewModel.selectedRowId, tags }])}
+          onCloseModal={() => viewModel.onTriggerOpenModal('showEditProductTagsModal')}
+          onUpdateRow={tags => apiRef.current.updateRows([{ _id: viewModel.selectedRowId, tags }])}
         />
-      ) : null}
+      </Modal>
 
       {viewModel.showParsingReportsModal ? (
         <ParsingReportsModal

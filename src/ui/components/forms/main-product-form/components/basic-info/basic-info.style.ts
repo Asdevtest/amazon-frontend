@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(theme => ({
     transform: 'translate(-50%, -50%)',
   },
 
-  root: {
+  fullWidth: {
     width: '100%',
   },
 
@@ -81,6 +81,11 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
+  tabHeight: {
+    height: '320px',
+    overflowY: 'auto',
+  },
+
   gridLayout: {
     display: 'grid',
     alignItems: 'end',
@@ -89,7 +94,34 @@ export const useStyles = makeStyles()(theme => ({
     gap: '10px',
   },
 
+  productInfo: {
+    gridTemplateColumns: 'repeat(6, 1fr)',
+  },
+
   privatesColumns: {
     gridTemplateColumns: 'repeat(8, 1fr)',
+  },
+
+  divider: {
+    margin: 0,
+  },
+
+  tariffText: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    gap: '3px',
+
+    span: {
+      maxWidth: '100px',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+  },
+
+  tabContent: {
+    padding: '10px',
+    background: theme.palette.background.general,
+    borderRadius: '16px',
   },
 }))

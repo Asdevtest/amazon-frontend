@@ -3,7 +3,7 @@ import { FC, useMemo } from 'react'
 
 import { CustomSelect } from '@components/shared/selects/custom-select'
 
-import { CustomSelectProps } from '../selects/custom-select/custom-select'
+import { CustomSelectProps } from '../custom-select/custom-select'
 
 import { CountryOption } from './country-option'
 import { CountrySelectModel } from './country-select.model'

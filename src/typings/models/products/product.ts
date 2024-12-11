@@ -1,3 +1,5 @@
+import { IDestination } from '@typings/shared/destinations'
+
 import { ICreatedBy } from '../../shared/created-by'
 import { IFullUser } from '../../shared/full-user'
 import { IRedFlag } from '../../shared/red-flag'
@@ -101,6 +103,8 @@ export interface IProduct {
   shop: ICreatedBy
   marketPlaceCountry: IMarketPlace
   selected?: boolean
+  subUsersByShop: Array<ICreatedBy>
+  mainTariffVariation: IMainTariffVariation
 }
 
 export interface IMarketPlace {
@@ -117,4 +121,17 @@ export interface IBoxAmount {
   storekeeper: ICreatedBy
   amountInBoxes: number
   productId?: string
+}
+
+export interface IMainTariffVariation {
+  _id: string
+  storekeeperTariffLogistics: IStorekeeperTariffLogistics
+  pricePerKgUsd: number
+  destination: IDestination
+}
+
+export interface IStorekeeperTariffLogistics {
+  _id: string
+  name: string
+  storekeeperId: string
 }

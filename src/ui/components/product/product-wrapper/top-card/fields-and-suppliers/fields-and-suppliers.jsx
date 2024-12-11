@@ -18,13 +18,14 @@ import { UserCell } from '@components/data-grid/data-grid-cells'
 import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CopyValue } from '@components/shared/copy-value/copy-value'
-import { CountrySelect } from '@components/shared/country-select/country-select'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { InterconnectedProducts } from '@components/shared/interconnected-products'
+import { Modal } from '@components/shared/modal'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
+import { CountrySelect } from '@components/shared/selects/country-select/country-select'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { DownloadRoundIcon } from '@components/shared/svg-icons'
 import { TagList } from '@components/shared/tag-list'
@@ -351,7 +352,7 @@ export const FieldsAndSuppliers = memo(props => {
               ) : null}
             </div>
 
-            <TagList selectedTags={product?.tags} />
+            <TagList tags={product?.tags} />
           </div>
         )}
 
@@ -643,14 +644,17 @@ export const FieldsAndSuppliers = memo(props => {
         </div>
       ) : null}
 
-      {showEditProductTagsModal ? (
+      <Modal
+        missClickModalOn
+        openModal={showEditProductTagsModal}
+        setOpenModal={() => setShowEditProductTagsModal(!showEditProductTagsModal)}
+      >
         <EditProductTags
-          openModal={showEditProductTagsModal}
-          setOpenModal={() => setShowEditProductTagsModal(false)}
           productId={product?._id}
-          handleUpdateRow={tags => onChangeField?.('tags')({ target: { value: tags } })}
+          onCloseModal={() => setShowEditProductTagsModal(!showEditProductTagsModal)}
+          onUpdateRow={tags => onChangeField?.('tags')({ target: { value: tags } })}
         />
-      ) : null}
+      </Modal>
 
       {showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal
