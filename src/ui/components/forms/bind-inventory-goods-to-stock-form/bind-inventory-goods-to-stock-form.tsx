@@ -18,11 +18,15 @@ interface BindInventoryGoodsToStockFormProps {
   asin: string
   productId: string
   onCloseModal: () => void
+  updateInventoryGoods?: () => void
 }
 
 export const BindInventoryGoodsToStockForm: FC<BindInventoryGoodsToStockFormProps> = observer(props => {
-  const { asin, productId, onCloseModal } = props
-  const viewModel = useMemo(() => new BindInventoryGoodsToStockFormModel({ asin, productId, onCloseModal }), [])
+  const { asin, productId, onCloseModal, updateInventoryGoods } = props
+  const viewModel = useMemo(
+    () => new BindInventoryGoodsToStockFormModel({ asin, productId, onCloseModal, updateInventoryGoods }),
+    [],
+  )
   const { classes: styles } = useStyles()
 
   return (
