@@ -1,4 +1,4 @@
-import { BaseOptionType } from 'antd/es/select'
+import { DefaultOptionType } from 'antd/es/select'
 import { makeObservable } from 'mobx'
 
 import { InfiniteScrollModel } from '@models/infinite-scroll-model'
@@ -39,7 +39,7 @@ export class CountrySelectModel extends InfiniteScrollModel<ICountry> {
     makeObservable(this, countrySelectConfig)
   }
 
-  onSelectCountry = (value: string, option: BaseOptionType) => {
+  onSelectCountry = (value: string, option?: DefaultOptionType) => {
     if (value) {
       this.countryTemplate = option as ICountry
       this.onChangeData?.(this.countryTemplate)

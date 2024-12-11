@@ -63,10 +63,6 @@ export const useStyles = makeStyles()(theme => ({
     width: '100%',
   },
 
-  requestTypeField: {
-    maxWidth: 250,
-  },
-
   fieldContainer: {
     marginBottom: 0,
   },
@@ -89,10 +85,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     gap: 20,
-  },
-
-  requestItem: {
-    maxWidth: '250px',
   },
 
   dateField: {
