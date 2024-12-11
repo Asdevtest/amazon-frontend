@@ -201,7 +201,7 @@ export const batchInfoModalColumn = (
     renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Actual cost with delivery per unit'])} />,
     renderCell: params => (
       <ActualCostWithDeliveryPerUnit
-        actualShippingCost={actualShippingCost}
+        actualShippingCost={Number(actualShippingCost)}
         rowMemo={params.row}
         finalWeight={finalWeight}
         calculationMethod={calculationMethod}
@@ -240,7 +240,7 @@ export const batchInfoModalColumn = (
     ),
     renderCell: params => (
       <ActualCostWithDelivery
-        actualShippingCost={actualShippingCost}
+        actualShippingCost={Number(actualShippingCost)}
         rowMemo={params.row}
         finalWeight={finalWeight}
         calculationMethod={calculationMethod}

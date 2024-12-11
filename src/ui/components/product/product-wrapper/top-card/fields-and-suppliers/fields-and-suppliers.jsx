@@ -59,6 +59,7 @@ export const FieldsAndSuppliers = memo(props => {
     curUserRole,
     onChangeField,
     product,
+    disableField,
     productVariations,
     navigateToProduct,
     unbindProductHandler,
@@ -607,7 +608,7 @@ export const FieldsAndSuppliers = memo(props => {
                       clientToEditStatuses.includes(productBase.status) &&
                       checkIsClient(curUserRole) &&
                       !product?.archive)
-                  )
+                  ) || disableField
                 }
                 customSubMainWrapper={styles.customSubMainWrapper}
                 customSearchInput={styles.customSearchInput}
@@ -623,7 +624,9 @@ export const FieldsAndSuppliers = memo(props => {
           />
 
           <CountrySelect
+            disabled={disableField}
             labelClassName={styles.spanLabelSmall}
+            wrapperClassName={styles.countrySelectWrapper}
             defaultCountry={product.marketPlaceCountry}
             onChangeData={onChangeMarketPlace}
           />
@@ -633,6 +636,7 @@ export const FieldsAndSuppliers = memo(props => {
               <FaStar /> <p className={styles.spanLabelSmall}>{t(TranslationKey['Favorite tariff'])}</p>
             </div>
             <CustomButton
+              disabled={disableField}
               type={tariffName ? 'default' : 'primary'}
               onClick={() => setShowSelectionStorekeeperAndTariffModal(!showSelectionStorekeeperAndTariffModal)}
             >

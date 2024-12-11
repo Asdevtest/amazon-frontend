@@ -12,6 +12,7 @@ export const observerConfig = {
   showSupplierModal: observable,
   showAddSupplierModal: observable,
   showAddSupplierProductModal: observable,
+  showBindSupplierCardToProductModal: observable,
 
   onChangeRadioButtonOption: action.bound,
   onClickCreateSupplier: action.bound,
@@ -25,4 +26,6 @@ export const observerConfig = {
   onTriggerArchive: action.bound,
   onOpenSupplierModal: action.bound,
   onCloseSupplierModal: action.bound,
+  onClickBindProduct: action.bound,
+  onCloseBindProductModal: action.bound,
 }

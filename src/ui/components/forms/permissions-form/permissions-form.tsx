@@ -1,4 +1,4 @@
-import { Cascader, Skeleton } from 'antd'
+import { Cascader, Modal, Skeleton } from 'antd'
 import { DefaultOptionType } from 'antd/es/cascader'
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
@@ -47,99 +47,114 @@ export const PermissionsForm: FC<PermissionsFormProps> = observer(props => {
   }
 
   return (
-    <div className={styles.root}>
-      <div className={styles.header}>
-        {viewModel.hasExpiredRoles ? (
-          <p className={styles.title}>{t(TranslationKey['Assign permissions'])}</p>
-        ) : (
-          <CustomRadioButton
-            disabled={viewModel.mainLoading}
-            size="large"
-            buttonStyle="solid"
-            value={viewModel.permissionTab}
-            options={createPermissionOptions()}
-            onChange={viewModel.onChangePermissionTab}
-          />
-        )}
-
-        {viewModel.showRolesSelect ? (
-          <RolesSelect user={props.subUser} onChangeRole={viewModel.onChangeMultipleRole} />
-        ) : null}
-        <UsersSelect
-          disabled={!!viewModel.subUser || viewModel.mainLoading}
-          size="large"
-          suffixIcon={viewModel.subUser && null}
-          mode={viewModel.subUser ? undefined : 'multiple'}
-          maxTagCount="responsive"
-          defaultUser={viewModel.subUser}
-          placeholder={props.subUser ? 'Select user' : 'Select at least 2 users'}
-          onChange={viewModel.onChangeUsersData}
-        />
-      </div>
-
-      <div className={styles.content}>
-        {viewModel.showSkeleton ? (
-          <Skeleton.Button active block className={styles.skeleton} />
-        ) : (
-          <>
-            <Cascader
-              open
-              multiple
-              size="large"
-              maxTagCount="responsive"
-              disabled={viewModel.mainLoading}
-              showSearch={{ filter: viewModel.searchFilter }}
-              options={viewModel.mainOptions}
-              rootClassName={styles.cascader}
-              popupClassName={styles.cascaderPopup}
-              optionRender={optionRender}
-              value={viewModel.currentMainOptions}
-              onInputKeyDown={viewModel.onInputKeyDown}
-              onSearch={viewModel.onSeacrh}
-              onBlur={() => viewModel.onChangeSearchFocus(false)}
-              // @ts-ignore
-              onChange={viewModel.mainChangeMethod}
-            />
-            {!viewModel.searchFocus ? (
-              <p className={styles.searchPlaseholder}>{t(TranslationKey[viewModel.customSearchPlaseholder])}</p>
-            ) : null}
-          </>
-        )}
-      </div>
-
-      <div className={styles.footer}>
-        {viewModel.isFreelancer ? (
-          viewModel.mainLoading ? (
-            <Skeleton.Button active block size="large" />
+    <>
+      <div className={styles.root}>
+        <div className={styles.header}>
+          {viewModel.hasExpiredRoles ? (
+            <p className={styles.title}>{t(TranslationKey['Assign permissions'])}</p>
           ) : (
-            <CustomSelect
-              isRow
-              label="Available request types"
-              mode="multiple"
+            <CustomRadioButton
+              disabled={viewModel.mainLoading}
               size="large"
-              maxTagCount="responsive"
-              optionFilterProp="label"
-              defaultValue={viewModel.selectedSpecs}
-              options={viewModel.specsOptions}
-              wrapperClassName={styles.specCascader}
-              onChange={viewModel.onChangeSpecs}
+              buttonStyle="solid"
+              value={viewModel.permissionTab}
+              options={createPermissionOptions()}
+              onChange={viewModel.onChangePermissionTab}
             />
-          )
-        ) : null}
+          )}
 
-        <CustomButton
-          type="primary"
-          size="large"
-          disabled={viewModel.disableSubmit}
-          loading={viewModel.buttonLoading}
-          onClick={viewModel.onEditSubUser}
-        >
-          {t(TranslationKey.Save)}
-        </CustomButton>
-        <CustomButton size="large" onClick={props.onCloseModal}>
-          {t(TranslationKey.Close)}
-        </CustomButton>
+          {viewModel.showRolesSelect ? (
+            <RolesSelect
+              user={props.subUser}
+              value={viewModel.currentMultupleRole}
+              onChangeRole={viewModel.onChangeMultipleRole}
+            />
+          ) : null}
+          <UsersSelect
+            disabled={!!viewModel.subUser || viewModel.mainLoading}
+            size="large"
+            suffixIcon={viewModel.subUser && null}
+            mode={viewModel.subUser ? undefined : 'multiple'}
+            maxTagCount="responsive"
+            defaultUser={viewModel.subUser}
+            placeholder={props.subUser ? 'Select user' : 'Select at least 2 users'}
+            onChange={viewModel.onChangeUsersData}
+          />
+        </div>
+
+        <div className={styles.content}>
+          {viewModel.showSkeleton ? (
+            <Skeleton.Button active block className={styles.skeleton} />
+          ) : (
+            <>
+              <Cascader
+                open
+                multiple
+                size="large"
+                maxTagCount="responsive"
+                disabled={viewModel.mainLoading}
+                showSearch={{ filter: viewModel.searchFilter }}
+                options={viewModel.mainOptions}
+                rootClassName={styles.cascader}
+                popupClassName={styles.cascaderPopup}
+                optionRender={optionRender}
+                value={viewModel.currentMainOptions}
+                onInputKeyDown={viewModel.onInputKeyDown}
+                onSearch={viewModel.onSeacrh}
+                onBlur={() => viewModel.onChangeSearchFocus(false)}
+                // @ts-ignore
+                onChange={viewModel.mainChangeMethod}
+              />
+              {!viewModel.searchFocus ? (
+                <p className={styles.searchPlaseholder}>{t(TranslationKey[viewModel.customSearchPlaseholder])}</p>
+              ) : null}
+            </>
+          )}
+        </div>
+
+        <div className={styles.footer}>
+          {viewModel.isFreelancer ? (
+            viewModel.mainLoading ? (
+              <Skeleton.Button active block size="large" />
+            ) : (
+              <CustomSelect
+                isRow
+                label="Available request types"
+                mode="multiple"
+                size="large"
+                maxTagCount="responsive"
+                optionFilterProp="label"
+                defaultValue={viewModel.selectedSpecs}
+                options={viewModel.specsOptions}
+                wrapperClassName={styles.specCascader}
+                onChange={viewModel.onChangeSpecs}
+              />
+            )
+          ) : null}
+
+          <CustomButton
+            type="primary"
+            size="large"
+            disabled={viewModel.disableSubmit}
+            loading={viewModel.buttonLoading}
+            onClick={viewModel.onEditSubUser}
+          >
+            {t(TranslationKey.Save)}
+          </CustomButton>
+          <CustomButton size="large" onClick={props.onCloseModal}>
+            {t(TranslationKey.Close)}
+          </CustomButton>
+        </div>
       </div>
-    </div>
+
+      <Modal
+        title={t(TranslationKey['Permission changes will be reset, wish to save?'])}
+        open={viewModel.showConfirmModal}
+        okButtonProps={{ loading: viewModel.buttonLoading }}
+        okText="Ok"
+        onOk={viewModel.onOkConfirmModal}
+        onCancel={viewModel.onCancelConfirmModal}
+      />
+    </>
   )
 })

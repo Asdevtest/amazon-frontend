@@ -2119,4 +2119,10 @@ export enum TranslationKey {
   'Selected items have been successfully added to the inventory' = 'Selected items have been successfully added to the inventory',
   'Selected items have not been added to the inventory' = 'Selected items have not been added to the inventory',
   'Please select at least one supplier card' = 'Please select at least one supplier card',
+  'Bind supplier card to product' = 'Bind supplier card to product',
+  'Supplier card' = 'Supplier card',
+  'Permission changes will be reset, wish to save?' = 'Permission changes will be reset, wish to save?',
+  'Supplier card successfully added to product' = 'Supplier card successfully added to product',
+  'Create a supplier card' = 'Create a supplier card',
+  'Add supplier card' = 'Add supplier card',
 }

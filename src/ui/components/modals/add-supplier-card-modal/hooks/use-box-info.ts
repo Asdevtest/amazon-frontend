@@ -23,8 +23,8 @@ export const useBoxInfo = (form: FormInstance<ICreateSupplierProductModal>, volu
   }, form)
 
   const packageVolumeWeight = Form.useWatch<ICreateSupplierProductModal, number>(
-    ({ lengthUnit, widthUnit, heightUnit, boxProperties }) => {
-      const volumeCoefficient = getVolumeCoefficient(boxProperties?.dimensionType, volumeWeightCoefficient)
+    ({ lengthUnit, widthUnit, heightUnit, unitDimensionType }) => {
+      const volumeCoefficient = getVolumeCoefficient(unitDimensionType, volumeWeightCoefficient)
 
       return getVolumeWeight(
         {

@@ -6,7 +6,7 @@ import { GridColDef } from '@mui/x-data-grid-premium'
 
 import { UserRoleCodeMapForRoutes } from '@constants/keys/user-roles'
 import { freelanceRequestType } from '@constants/statuses/freelance-request-type'
-import { ideaStatus, ideaStatusByKey } from '@constants/statuses/idea-status'
+import { ideaStatusByKey } from '@constants/statuses/idea-status'
 import { TranslationKey } from '@constants/translations/translation-key'
 import { createOrderRequestWhiteList, createProductByClient } from '@constants/white-list'
 
@@ -26,6 +26,7 @@ import { toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
+import { IdeaStatus } from '@typings/enums/idea/idea-status'
 import { loadingStatus } from '@typings/enums/loading-status'
 import { IIdea } from '@typings/models/ideas/idea'
 import { IProduct } from '@typings/models/products/product'
@@ -528,13 +529,28 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
   }
 
   async onClickCreateRequestButton(ideaData: IIdea) {
-    const isCreateByChildProduct = ideaData?.status >= ideaStatusByKey[ideaStatus.ADDING_ASIN] && ideaData?.childProduct
+    const isCreateByChildProduct = ideaData?.status >= IdeaStatus.ADDING_ASIN && ideaData?.childProduct
+
+    const getProductAsin = () => {
+      if ([IdeaStatus.NEW, IdeaStatus.ON_CHECK].includes(ideaData?.status)) {
+        return ideaData?.parentProduct?.asin || null
+      }
+
+      if ([IdeaStatus.ADDING_ASIN, IdeaStatus.VERIFIED].includes(ideaData?.status)) {
+        return ideaData?.childProduct?.asin || ideaData?.parentProduct?.asin || null
+      }
+
+      return null
+    }
+
+    const selectedAsin = getProductAsin()
+    const asinPath = selectedAsin ? `&asin=${selectedAsin}` : ''
 
     window
       ?.open(
         `/${UserRoleCodeMapForRoutes[this.userInfo.role]}/freelance/my-requests/create-request?parentProduct=${
           isCreateByChildProduct ? ideaData?.childProduct?._id : ideaData?.parentProduct?._id
-        }&asin=${isCreateByChildProduct ? ideaData?.childProduct?.asin : ideaData?.parentProduct?.asin}`,
+        }${asinPath}`,
         '_blank',
       )
       ?.focus()

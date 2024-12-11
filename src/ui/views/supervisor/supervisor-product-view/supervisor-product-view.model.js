@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, reaction, runInAction } from 'mobx'
+import { action, makeAutoObservable, runInAction } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
@@ -73,12 +73,9 @@ export class SupervisorProductViewModel {
       this.setOpenModal = setOpenModal
     }
 
-    makeAutoObservable(this, undefined, { autoBind: true })
+    this.loadData()
 
-    reaction(
-      () => this.productId,
-      () => this.loadData(),
-    )
+    makeAutoObservable(this, undefined, { autoBind: true })
   }
 
   async loadData() {
@@ -106,14 +103,13 @@ export class SupervisorProductViewModel {
   async getProductById() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
+
       const result = await ProductModel.getProductById(this.productId)
 
       runInAction(() => {
         this.product = result
         this.productBase = result
         this.imagesForLoad = result.images
-
-        updateProductAutoCalculatedFields.call(this)
       })
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
@@ -191,7 +187,7 @@ export class SupervisorProductViewModel {
     }
   }
 
-  handleProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
+  onProductActionButtons(actionType, withoutStatus, isModal, updateDataHandler) {
     switch (actionType) {
       case 'accept':
         this.openConfirmModalWithTextByStatus(withoutStatus, updateDataHandler)

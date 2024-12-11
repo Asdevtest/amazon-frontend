@@ -331,7 +331,9 @@ export const AdminUserEditContent = observer(
                   label={t(TranslationKey.Rate)}
                 />
 
-                <div onClick={() => removeAllowedRole(role)}>{'-'}</div>
+                <CustomButton type="text" onClick={() => removeAllowedRole(role)}>
+                  -
+                </CustomButton>
               </div>
             ))}
             <div className={styles.allowedRoleWrapper}>

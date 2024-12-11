@@ -7,6 +7,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AddSupplierCardModal } from '@components/modals/add-supplier-card-modal'
 import { AddSupplierModal } from '@components/modals/add-supplier-modal'
+import { BindSupplierCardToProductModal } from '@components/modals/bind-supplier-card-to-product-modal'
 import { SupplierModal } from '@components/modals/supplier-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomDataGrid } from '@components/shared/custom-data-grid'
@@ -146,6 +147,15 @@ export const SuppliersView: FC = observer(() => {
           openModal={viewModel.showSupplierModal}
           setOpenModal={viewModel.onCloseSupplierModal}
           supplierId={viewModel.supplierIdToShow}
+        />
+      ) : null}
+
+      {viewModel.showBindSupplierCardToProductModal ? (
+        <BindSupplierCardToProductModal
+          supplierId={viewModel.supplierIdToEdit}
+          supplierCardId={viewModel.supplierCardIdToEdit}
+          openModal={viewModel.showBindSupplierCardToProductModal}
+          setOpenModal={viewModel.onCloseBindProductModal}
         />
       ) : null}
     </div>

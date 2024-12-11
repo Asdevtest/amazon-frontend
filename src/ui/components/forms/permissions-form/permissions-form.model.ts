@@ -1,5 +1,6 @@
 import { RadioChangeEvent } from 'antd'
 import { DefaultOptionType } from 'antd/es/cascader'
+import isEqual from 'lodash.isequal'
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { KeyboardEvent } from 'react'
 import { toast } from 'react-toastify'
@@ -47,6 +48,10 @@ export class PermissionsFormModel {
   onUpdateData?: () => void
   searchValue: string = ''
   currentMultupleRole?: Roles
+  intermediateRole?: Roles
+  showConfirmModal = false
+  intermediatePermissionOptions: string[][] = []
+  // intermediateProductOptions: string[][] = []
 
   get userInfo() {
     return UserModel?.userInfo as unknown as IFullUser
@@ -317,11 +322,39 @@ export class PermissionsFormModel {
   }
 
   onChangeMultipleRole(role: Roles) {
-    this.currentMultupleRole = role
+    this.intermediateRole = role
+
+    const hasUnsavedChanges =
+      this.currentMultupleRole !== role && !isEqual(this.currentPermissionOptions, this.intermediatePermissionOptions) // || !isEqual(this.currentProductOptions, this.intermediateProductOptions)
+
+    if (hasUnsavedChanges) {
+      this.showConfirmModal = true
+    } else {
+      this.currentMultupleRole = role
+    }
+  }
+
+  async onOkConfirmModal() {
+    await this.onEditSubUser()
+
+    runInAction(() => {
+      this.currentMultupleRole = this.intermediateRole
+      this.showConfirmModal = false
+      this.intermediatePermissionOptions = []
+      // this.intermediateProductOptions = []
+    })
+  }
+
+  onCancelConfirmModal() {
+    this.showConfirmModal = false
+    this.intermediateRole = undefined
   }
 
   async loadData() {
-    runInAction(() => (this.mainLoading = true))
+    runInAction(() => {
+      this.mainLoading = true
+      this.currentPermissionOptions = []
+    })
 
     await this.getGroupPermissions()
     await this.getWithoutGroupPermissions()
@@ -346,11 +379,16 @@ export class PermissionsFormModel {
         })
       })
 
-      const allPermissionsExist = this.groupPermissions.every(option => permissionGroups?.includes(option._id))
+      const allPermissionsExist = this.groupPermissions.every(option => {
+        return permissionGroups?.includes(option._id)
+      })
 
       if (allPermissionsExist) {
         this.currentPermissionOptions.push([SELECT_ALL_PERMISSION])
       }
+
+      // for comparison when changing roles
+      this.intermediatePermissionOptions = this.currentPermissionOptions
     })
 
     this.getProduts()
@@ -363,7 +401,7 @@ export class PermissionsFormModel {
       )) as IPermissionGroup[]
 
       runInAction(() => {
-        this.groupPermissions = response || []
+        this.groupPermissions = response
       })
     } catch (error) {
       console.error(error)
@@ -381,7 +419,7 @@ export class PermissionsFormModel {
       })) as IPermissions
 
       runInAction(() => {
-        this.withoutGroupPermissions = response?.rows || []
+        this.withoutGroupPermissions = response?.rows
       })
     } catch (error) {
       console.error(error)
@@ -501,6 +539,9 @@ export class PermissionsFormModel {
       }
 
       this.productsLoading = false
+
+      // for comparison when changing roles
+      // this.intermediateProductOptions = this.currentProductOptions
     })
   }
 
