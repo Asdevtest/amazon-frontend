@@ -69,10 +69,6 @@ export const ProductCardModal = observer(props => {
 
   const [currentTab, setCurrentTab] = useState(getTab(viewModel.showTab))
 
-  useEffect(() => {
-    viewModel.loadData()
-  }, [])
-
   const clientToEditStatuses = [
     ProductStatusByKey[ProductStatus.CREATED_BY_CLIENT],
     ProductStatusByKey[ProductStatus.FROM_CLIENT_COMPLETE_SUCCESS],
