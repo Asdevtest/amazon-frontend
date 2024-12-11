@@ -19,6 +19,7 @@ import { AsinOption } from '../report-modal/components/header/asin-option'
 
 import { BindSupplierCardModal } from './bind-supplier-card-to-product-modal.model'
 import { SupplierCardOption } from './components/supplier-card-option/supplier-card-option'
+import { filterProducts } from './helpers/filter-products'
 
 interface BindSupplierCardToProductModalProps {
   openModal: boolean
@@ -125,7 +126,11 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
                 />
               )
             }}
-            filterOption={(inputValue, option) => option?.amazonTitle?.toLowerCase().includes(inputValue.toLowerCase())}
+            filterOption={(inputValue, option) =>
+              filterProducts(inputValue, option?.amazonTitle) ||
+              filterProducts(inputValue, option?.asin) ||
+              filterProducts(inputValue, option?.skuByClient)
+            }
             label="Product"
             value={viewModel.selectedProductId}
             options={viewModel?.currentData || []}
