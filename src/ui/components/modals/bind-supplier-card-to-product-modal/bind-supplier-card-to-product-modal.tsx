@@ -25,6 +25,7 @@ interface BindSupplierCardToProductModalProps {
   openModal: boolean
   setOpenModal: (openModal: boolean) => void
 
+  isIdea?: boolean
   supplierId?: string
   supplierCardId?: string
 
@@ -35,7 +36,7 @@ interface BindSupplierCardToProductModalProps {
 export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalProps> = observer(props => {
   const { classes: styles } = useStyles()
 
-  const { openModal, setOpenModal, product, handleUpdate, supplierId, supplierCardId } = props
+  const { openModal, setOpenModal, isIdea, product, handleUpdate, supplierId, supplierCardId } = props
 
   const viewModel = useMemo(
     () =>
@@ -90,7 +91,10 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
     const selectedProductId = (product?._id || viewModel.selectedProductId) as string
     const selectedSupplierCardId = [viewModel.selectedSupplierCardId] as string[]
 
-    await viewModel.onBindSupplierCardToProduct(selectedProductId, selectedSupplierCardId)
+    await viewModel[isIdea ? 'onBindSupplierCardToIdea' : 'onBindSupplierCardToProduct'](
+      selectedProductId,
+      selectedSupplierCardId,
+    )
     handleUpdate?.()
     setOpenModal(false)
   }

@@ -559,9 +559,11 @@ export class SuppliersAndIdeasModel {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
 
-      await IdeaModel.addSuppliersToIdea(ideaId, {
-        supplierCardIds: [supplierCardId],
-      })
+      if (ideaId) {
+        await IdeaModel.addSuppliersToIdea(ideaId, {
+          supplierCardIds: [supplierCardId],
+        })
+      }
 
       await this.getIdea(ideaId)
       this.getIdeas()

@@ -2125,5 +2125,6 @@
   "Permission changes will be reset, wish to save?": "Изменения разрешений будут сброшены, желаете сохранить?",
   "Supplier card successfully added to product": "Карточка поставщика успешно добавлена к продукту",
   "Create a supplier card": "Создать карточку поставщика",
-  "Add supplier card": "Добавить карточку поставщика"
+  "Add supplier card": "Добавить карточку поставщика",
+  "Supplier card successfully added to idea": "Карточка поставщика успешно добавлена к идеи"
 }
