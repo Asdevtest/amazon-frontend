@@ -69,6 +69,7 @@ export const DataGridCustomToolbar = memo(props => {
       {tagSearchSettings?.activeTags ? (
         <SelectedTags
           activeTags={tagSearchSettings?.activeTags}
+          tagList={tagSearchSettings?.tagList}
           setActiveProductsTag={tagSearchSettings?.setActiveProductsTag}
         />
       ) : null}
