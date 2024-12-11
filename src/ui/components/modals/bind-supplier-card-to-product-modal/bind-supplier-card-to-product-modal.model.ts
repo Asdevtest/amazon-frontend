@@ -11,6 +11,7 @@ import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
 
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { ISupplierCardFull } from '@typings/models/suppliers/supplier-card'
 import { ISupplierV2Light } from '@typings/models/suppliers/supplier-v2'
 
@@ -115,7 +116,7 @@ export class BindSupplierCardModal extends DefaultModel {
 
   async onBindSupplierCardToProduct(productId: string, supplierCardIds: string[]) {
     try {
-      this.setLoading(true)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ProductModel.addSuppliersToProduct(productId, supplierCardIds)
 
@@ -123,7 +124,7 @@ export class BindSupplierCardModal extends DefaultModel {
     } catch (error) {
       console.error(error)
     } finally {
-      this.setLoading(false)
+      this.setRequestStatus(loadingStatus.SUCCESS)
     }
   }
 }
