@@ -110,7 +110,7 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
           <CustomSelect
             allowClear
             showSearch
-            loading={viewModel?.getIsLoadingRequestStatus}
+            loading={viewModel?.isLoadingRequestStatus}
             size="large"
             className={styles.modalSelect}
             wrapperClassName={styles.modalSelect}
@@ -178,7 +178,7 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
           <CustomButton
             size="large"
             type="primary"
-            loading={viewModel?.getIsLoadingRequestStatus}
+            loading={viewModel?.isLoadingRequestStatus}
             disabled={disableSaveButton}
             onClick={onClickSave}
           >

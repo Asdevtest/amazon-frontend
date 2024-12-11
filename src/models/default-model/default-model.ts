@@ -21,7 +21,7 @@ export class DefaultModel extends ModalsModel {
 
   history: any
 
-  get getIsLoadingRequestStatus() {
+  get isLoadingRequestStatus() {
     return this.requestStatus === loadingStatus.IS_LOADING
   }
 

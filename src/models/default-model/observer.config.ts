@@ -8,7 +8,7 @@ export const observerConfig = {
   meta: observable,
   loading: observable,
 
-  getIsLoadingRequestStatus: computed,
+  isLoadingRequestStatus: computed,
 
   getCurrentData: action.bound,
   setRequestStatus: action.bound,
