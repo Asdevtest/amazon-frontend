@@ -1,4 +1,4 @@
-import { BaseOptionType } from 'antd/es/select'
+import { DefaultOptionType } from 'antd/es/select'
 import dayjs from 'dayjs'
 import { makeObservable, runInAction } from 'mobx'
 import { ChangeEvent, UIEvent } from 'react'
@@ -196,7 +196,7 @@ export class ReportModalModel extends UseProductsPermissions {
     }
   }
 
-  onSelectProduct = (value: string, option: BaseOptionType) => {
+  onSelectProduct = (value: string, option?: DefaultOptionType) => {
     if (value) {
       this.updateProductAndColumns(option as IProduct)
       // this.onGetListingReportByProductId(value) // value is productId

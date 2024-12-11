@@ -1,4 +1,4 @@
-import { BaseOptionType } from 'antd/es/select'
+import { BaseOptionType, DefaultOptionType } from 'antd/es/select'
 import { FC, UIEvent, memo, useMemo } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
@@ -26,7 +26,7 @@ interface HeaderProps {
   requests: IRequestWithLaunch[]
   onRemoveRequest: (id?: string) => void
   onSelectLaunch: (value: LaunchesEnum) => void
-  onSelectProduct: (value: string, option: BaseOptionType) => void
+  onSelectProduct: (value: string, option?: DefaultOptionType) => void
   onDropdownVisibleChange: (value: boolean) => void
   onSearchAsinSelect: (value: string) => void
   onPopupScroll: (e: UIEvent<HTMLElement>) => void

@@ -1,5 +1,5 @@
 import { RadioChangeEvent } from 'antd'
-import { BaseOptionType } from 'antd/es/select'
+import { DefaultOptionType } from 'antd/es/select'
 import { makeObservable } from 'mobx'
 import { UIEvent } from 'react'
 
@@ -39,7 +39,7 @@ export class ProductLaunchFormModel extends UseProductsPermissions {
     this.radioValue = e.target.value
   }
 
-  onChangeProduct = (value: string, option: BaseOptionType) => {
+  onChangeProduct = (value: string, option?: DefaultOptionType) => {
     if (value) {
       this.selectedProduct = option as IProduct
     }

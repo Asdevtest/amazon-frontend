@@ -1,4 +1,4 @@
-import { BaseOptionType } from 'antd/es/select'
+import { DefaultOptionType } from 'antd/es/select'
 import { makeObservable } from 'mobx'
 
 import { RequestModel } from '@models/request-model'
@@ -23,7 +23,7 @@ export class RequestSelectModel extends UseProductsPermissions {
     makeObservable(this, requestSelectConfig)
   }
 
-  onSelectProduct = (value: string, option: BaseOptionType) => {
+  onSelectProduct = (value: string, option?: DefaultOptionType) => {
     if (value) {
       this.requestTemplate = option as IRequest
       this.onChangeData?.(this.requestTemplate)
