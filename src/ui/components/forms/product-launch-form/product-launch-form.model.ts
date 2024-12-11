@@ -1,5 +1,4 @@
 import { RadioChangeEvent } from 'antd'
-import { BaseOptionType } from 'antd/es/select'
 import { makeObservable } from 'mobx'
 
 import { ClientModel } from '@models/client-model'
@@ -40,10 +39,8 @@ export class ProductLaunchFormModel extends InfiniteScrollModel<IProduct> {
     this.radioValue = e.target.value
   }
 
-  onChangeProduct = (value: string, option: BaseOptionType) => {
-    if (value) {
-      this.selectedProduct = option as IProduct
-    }
+  onChangeProduct = (option: IProduct) => {
+    this.selectedProduct = option
   }
 
   onDropdownVisibleChange = (isOpen: boolean) => {

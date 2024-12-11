@@ -26,7 +26,7 @@ interface HeaderProps {
   requests: IRequestWithLaunch[]
   onRemoveRequest: (id?: string) => void
   onSelectLaunch: (value: LaunchesEnum) => void
-  onSelectProduct: (value: string, option: BaseOptionType) => void
+  onSelectProduct: (option: IProduct) => void
   onDropdownVisibleChange: (value: boolean) => void
   onSearchAsinSelect: (value: string) => void
   onPopupScroll: () => void
@@ -79,7 +79,7 @@ export const Header: FC<HeaderProps> = memo(props => {
             onDropdownVisibleChange={onDropdownVisibleChange}
             onSearch={onSearchAsinSelect}
             onPopupScroll={onPopupScroll}
-            onChange={onSelectProduct}
+            onChange={(_, option) => onSelectProduct(option as IProduct)}
           />
 
           <CustomSelect

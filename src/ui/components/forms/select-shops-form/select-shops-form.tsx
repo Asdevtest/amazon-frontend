@@ -4,7 +4,7 @@ import { FC, useState } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { ShopSelect } from '@components/shared/shop-select/shop-select'
+import { ShopSelect } from '@components/shared/selects/shop-select/shop-select'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'

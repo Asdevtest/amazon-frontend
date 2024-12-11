@@ -7,7 +7,7 @@ import { IShop } from '@typings/models/shops/shop'
 
 import { generateItems, shopsSelectConfig } from './shop-select.config'
 
-export class SelectShopFormModel extends InfiniteScrollModel<IShop> {
+export class ShopSelectModel extends InfiniteScrollModel<IShop> {
   selectedShopId: string | null = null
 
   get items() {

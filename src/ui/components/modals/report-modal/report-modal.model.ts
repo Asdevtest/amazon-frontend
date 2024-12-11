@@ -1,4 +1,3 @@
-import { BaseOptionType } from 'antd/es/select'
 import dayjs from 'dayjs'
 import { makeObservable, runInAction } from 'mobx'
 import { ChangeEvent } from 'react'
@@ -195,11 +194,9 @@ export class ReportModalModel extends InfiniteScrollModel<IProduct> {
     }
   }
 
-  onSelectProduct = (value: string, option: BaseOptionType) => {
-    if (value) {
-      this.updateProductAndColumns(option as IProduct)
-      // this.onGetListingReportByProductId(value) // value is productId
-    }
+  onSelectProduct = (option: IProduct) => {
+    this.updateProductAndColumns(option)
+    // this.onGetListingReportByProductId(value) // value is productId
   }
 
   findLaunchIndex = (id: string) => {

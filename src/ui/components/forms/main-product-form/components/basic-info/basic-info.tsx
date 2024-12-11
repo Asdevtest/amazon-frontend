@@ -9,10 +9,10 @@ import { CountrySelect } from '@components/shared/country-select/country-select'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
 import { CustomRadioButton } from '@components/shared/custom-radio-button'
-import { CustomSelect } from '@components/shared/custom-select'
 import { CustomSwitch } from '@components/shared/custom-switch'
 import { CustomTextarea } from '@components/shared/custom-textarea'
-import { ShopSelect } from '@components/shared/shop-select/shop-select'
+import { CustomSelect } from '@components/shared/selects/custom-select'
+import { ShopSelect } from '@components/shared/selects/shop-select/shop-select'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
@@ -85,7 +85,7 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
         <Divider style={{ margin: 0 }} />
 
         <div className={styles.gridLayout}>
-          <CountrySelect defaultCountry={product?.marketPlaceCountry} onChangeData={() => {}} />
+          <CountrySelect defaultValue={product?.marketPlaceCountry.shortTitle} />
           <ShopSelect />
           <CustomInput label="Status" value={product?.status} />
           <CustomInput label="Category" value={product?.category} />

@@ -8,8 +8,6 @@ import { ICountry } from '@typings/shared/country'
 import { countrySelectConfig, getCounryOptions } from './country-select.config'
 
 export class CountrySelectModel extends InfiniteScrollModel<ICountry> {
-  searchValue: string = ''
-
   get getCountriesOption() {
     const countries = getCounryOptions(this.data)
 

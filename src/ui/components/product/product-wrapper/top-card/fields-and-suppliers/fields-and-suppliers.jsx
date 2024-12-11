@@ -82,8 +82,8 @@ export const FieldsAndSuppliers = memo(props => {
     onChangeField?.('shopId')({ target: { value: shopId } })
   }
 
-  const onChangeMarketPlace = marketplace => {
-    onChangeField?.('marketPlaceCountryId')({ target: { value: marketplace._id } })
+  const onChangeMarketPlace = value => {
+    onChangeField?.('marketPlaceCountryId')({ target: { value } })
   }
 
   const { tariffName, tariffRate, tariffDestination } = useGetDestinationTariffInfo(
@@ -624,8 +624,8 @@ export const FieldsAndSuppliers = memo(props => {
             disabled={disableField}
             labelClassName={styles.spanLabelSmall}
             wrapperClassName={styles.countrySelectWrapper}
-            defaultCountry={product.marketPlaceCountry}
-            onChangeData={onChangeMarketPlace}
+            defaultValue={product.marketPlaceCountry?.title}
+            onChange={onChangeMarketPlace}
           />
 
           <div className={styles.tariffWrapper}>

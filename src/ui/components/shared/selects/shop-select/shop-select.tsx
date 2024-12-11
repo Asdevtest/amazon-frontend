@@ -1,9 +1,9 @@
 import { observer } from 'mobx-react'
 import { FC, useMemo } from 'react'
 
-import { CustomSelect } from '@components/shared/custom-select'
+import { Text } from '@components/shared/text'
 
-import { Text } from '../text'
+import { CustomSelect } from '../custom-select'
 
 import { ShopSelectModel } from './shop-select.model'
 
