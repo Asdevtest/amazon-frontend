@@ -20,6 +20,7 @@ import { RadioButtons } from '@components/shared/radio-buttons/radio-buttons'
 import { SizeSwitcher } from '@components/shared/size-switcher'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
+import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { deepArrayCompare } from '@utils/array'
@@ -434,10 +435,10 @@ export const IdeaViewAndEditCard = observer(
 
             <div className={styles.commentsWrapper}>
               {idea ? (
-                <p className={styles.ideaID}>
-                  {t(TranslationKey['Idea ID'])}
-                  <span className={styles.idText}>{`: ${idea?.xid}`}</span>
-                </p>
+                <div className={styles.ideaID}>
+                  <p> {t(TranslationKey['Idea ID'])}:</p>
+                  <Text className={styles.idText} text={idea?.xid} />
+                </div>
               ) : null}
 
               <Field
