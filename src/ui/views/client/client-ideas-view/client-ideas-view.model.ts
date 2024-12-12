@@ -119,7 +119,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       onClickAcceptOnCheckingStatus: (id: string) => this.handleStatusToSupplierSearch(id),
       onClickAcceptOnSuppliersSearch: (id: string, ideaData: IIdea) => this.handleStatusToProductCreating(id, ideaData),
       onClickAcceptOnCreatingProduct: (id: string) => this.handleStatusToAddingAsin(id),
-      onClickAcceptOnAddingAsin: (id: string) => this.handleStatusToFinished(id),
+      onClickAcceptOnAddingAsin: (idea: IIdea) => this.handleStatusToFinished(idea),
       onClickToOrder: (id: string) => this.onClickToOrder(id),
       onClickRequestId: (id: string) => this.onClickRequestId(id),
       onClickAddSupplierButton: (id: string) => this.onClickAddSupplierButton(id),
@@ -325,13 +325,16 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
     this.onTriggerOpenModal('showConfirmModal')
   }
 
-  handleStatusToFinished(id: string) {
+  handleStatusToFinished(idea: IIdea) {
     this.confirmModalSettings = {
       isWarning: false,
       title: '',
       message: t(TranslationKey['Are you sure you want to change the status of an idea']),
       onSubmit: () => {
-        this.statusHandler(IdeaModel.setStatusToFinished, id)
+        if (!idea?.variation) {
+          this.setFirstSupplierCardCurrent(idea)
+        }
+        this.statusHandler(IdeaModel.setStatusToFinished, idea?._id)
         this.onTriggerOpenModal('showConfirmModal')
         toast.success(t(TranslationKey['Idea status changed successfully']))
       },
@@ -812,5 +815,15 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
     })
 
     this.onTriggerOpenModal('showAddSupplierProductModal')
+  }
+
+  async setFirstSupplierCardCurrent(idea: IIdea) {
+    try {
+      const productId = idea?.childProduct?._id || idea?.parentProduct?._id
+
+      await ClientModel.updateProduct(productId, { currentSupplierCardId: idea?.supplierCards?.[0]?._id })
+    } catch (error) {
+      console.error(error)
+    }
   }
 }

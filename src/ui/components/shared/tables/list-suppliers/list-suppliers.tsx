@@ -91,8 +91,6 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   const isCurrentSupplierSelected = extractProduct(formFields).currentSupplierCard?._id === viewModel.selectionModel[0]
   const isDefaultSupplier = !!orderStatus && defaultSupplierId === extractProduct(formFields).currentSupplierCard?._id
 
-  console.log('viewModel.currentSupplier', viewModel.currentSupplier)
-
   return (
     <>
       <div className={cx(styles.wrapper, tableWrapperClassName)}>
