@@ -11,18 +11,19 @@ interface UserCellProps {
   id?: string
   name?: string
   email?: string
+  isCell?: boolean
 }
 
 export const UserCell: FC<UserCellProps> = memo(props => {
-  const { id, name, email } = props
+  const { id, name, email, isCell = true } = props
 
-  const { classes: styles } = useStyles()
+  const { classes: styles, cx } = useStyles()
 
   return (
-    <div className={styles.root}>
+    <div className={cx(styles.root, { [styles.cell]: isCell })}>
       {id ? (
         <div>
-          <Avatar size={38} src={getUserAvatarSrc(id)} />
+          <Avatar size={32} src={getUserAvatarSrc(id)} />
         </div>
       ) : null}
       <div className={styles.vertical}>

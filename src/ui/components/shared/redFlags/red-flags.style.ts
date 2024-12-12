@@ -6,13 +6,17 @@ export const useStyles = makeStyles()(theme => ({
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
   },
 
   title: {
+    marginBottom: '5px',
     fontSize: 12,
     lineHeight: '16px',
     color: theme.palette.text.secondary,
+  },
+
+  search: {
+    marginBottom: '10px',
   },
 
   checkboxes: {

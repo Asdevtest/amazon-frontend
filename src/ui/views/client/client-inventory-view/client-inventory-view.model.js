@@ -59,7 +59,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   curProduct = undefined
   parsingTable = undefined
   productsToLaunch = []
-  productVariations = []
+  productVariations = undefined
   selectedProductToLaunch = undefined
   dataForOrderModal = []
   existingProducts = []

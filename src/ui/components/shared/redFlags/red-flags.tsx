@@ -46,7 +46,8 @@ export const RedFlags: FC<RedFlagsProps> = observer(props => {
         <CustomInputSearch
           fullWidth
           loading={viewModel.loading}
-          placeholder={t(TranslationKey.Search)}
+          placeholder="Search"
+          className={styles.search}
           onChange={viewModel.onChangeSearchValue}
         />
       ) : null}

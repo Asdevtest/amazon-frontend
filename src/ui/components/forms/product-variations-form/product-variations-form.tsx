@@ -1,66 +1,63 @@
-import { FC, memo } from 'react'
+import { FC, memo, useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
-import { InterconnectedProducts } from '@components/shared/interconnected-products'
+import { CustomButton } from '@components/shared/custom-button'
+import { InterconnectedProduct } from '@components/shared/interconnected-product'
 
 import { t } from '@utils/translations'
 
+import { IVariationProduct } from '@typings/models/products/product-variation'
+
 import { useStyles } from './product-variations-form.style'
 
-interface IProduct {
-  childProducts: IProduct[]
-  parentProduct: IProduct
-  _id: string
-  asin: string
-  skuByClient: string
-  images: string[]
-  shopId: string
-  amazonTitle: string
-}
-
 interface ProductVariationsFormProps {
-  product: IProduct
-  onClickShowProduct: () => void
+  variationProduct: IVariationProduct
+  onRemove?: (id: string) => void
+  onAdd?: () => void
 }
 
-export const ProductVariationsForm: FC<ProductVariationsFormProps> = memo(({ product, onClickShowProduct }) => {
+export const ProductVariationsForm: FC<ProductVariationsFormProps> = memo(props => {
+  const { variationProduct, onRemove, onAdd } = props
+
   const { classes: styles } = useStyles()
+  const [showBindProductModal, setShowBindProductModal] = useState(false)
+
+  const parentProduct = variationProduct?.parentProduct || variationProduct
 
   return (
-    <div className={styles.root}>
-      <p className={styles.title}>{t(TranslationKey['Interconnected products'])}</p>
+    <>
+      <div className={styles.root}>
+        <div className={styles.header}>
+          <p className={styles.title}>{t(TranslationKey['Interconnected products'])}</p>
 
-      <div className={styles.interconnectedProductsBodyWrapper}>
-        {product?.parentProduct ? (
-          <InterconnectedProducts
-            isParent
-            variationProduct={product?.parentProduct}
-            navigateToProduct={onClickShowProduct}
-          />
-        ) : (
-          <InterconnectedProducts
-            isParent
-            variationProduct={{
-              _id: product?._id,
-              asin: product?.asin,
-              skuByClient: product?.skuByClient,
-              images: product?.images,
-              shopId: product?.shopId,
-              amazonTitle: product?.amazonTitle,
-            }}
-            navigateToProduct={onClickShowProduct}
-          />
-        )}
+          {onAdd ? (
+            <CustomButton
+              size="small"
+              icon={<FiPlus size={16} />}
+              onClick={() => setShowBindProductModal(!showBindProductModal)}
+            />
+          ) : null}
+        </div>
 
-        {product?.childProducts?.map((variationProduct, variationProductIndex) => (
-          <InterconnectedProducts
-            key={variationProductIndex}
-            variationProduct={variationProduct}
-            navigateToProduct={onClickShowProduct}
-          />
-        ))}
+        <div className={styles.content}>
+          <InterconnectedProduct isParent variationProduct={parentProduct} onRemove={onRemove} />
+
+          {variationProduct?.childProducts?.map(product => (
+            <InterconnectedProduct key={product?._id} variationProduct={product} onRemove={onRemove} />
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* <Modal openModal={showBindProductModal} setOpenModal={() => setShowBindProductModal(!showBindProductModal)}>
+        <BindProductForm
+          sourceProduct={variationProduct}
+          onClickGetProductsToBind={onClickGetProductsToBind}
+          onClickNextButton={onClickNextButton}
+          onClose={() => setShowBindProductModal(!showBindProductModal)}
+        />
+      </Modal> */}
+    </>
   )
 })

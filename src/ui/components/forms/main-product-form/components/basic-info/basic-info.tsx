@@ -19,6 +19,7 @@ import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { ListSuppliers } from '@components/shared/tables/list-suppliers'
 import { TagList } from '@components/shared/tag-list'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
+import { UsersList } from '@components/shared/users-list'
 
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
 import { t } from '@utils/translations'
@@ -85,16 +86,9 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
             ]}
             value={product?.fba}
           />
-          <CustomSwitch medium label="Transparency codes" />
-          <CustomInput
-            label="SEO file"
-            placeholder={product?.latestSeoFiles?.[0] ? '' : 'Not available'}
-            value={getFileNameFromUrl(product?.latestSeoFiles?.[0])?.name}
-          />
-          <CustomButton type="primary">HS code</CustomButton>
-          <CustomButton type={tariffName ? 'default' : 'primary'} onClick={() => setShowTariffModal(!showTariffModal)}>
-            {tariffName ? tariffForRender : t(TranslationKey['Select tariff'])}
-          </CustomButton>
+          <CountrySelect defaultValue={product?.marketPlaceCountry?.title} />
+          <ShopSelect />
+          <CustomInput label="Status" value={product?.status} />
         </div>
 
         <div className={cx(styles.gridLayout, styles.privatesColumns)}>
@@ -111,10 +105,7 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
         <Divider className={styles.divider} />
 
         <div className={styles.gridLayout}>
-          <CountrySelect defaultValue={product?.marketPlaceCountry?.title} />
-          <ShopSelect />
-          <CustomInput label="Status" value={product?.status} />
-          <CustomInput label="Category" value={product?.category} />
+          <CustomInput label="Category" />
           <CustomInput label="Amazon price" value={product?.amazon} />
           <CustomInput label="FBA fees" value={product?.fbafee} />
           <CustomInput label="Referral fee" value={product?.reffee} />
@@ -135,10 +126,35 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
     ),
     [BasicInfoConfig.PARAMETERS]: (
       <div className={cx(styles.tabHeight, styles.flexRow)}>
-        <div style={{ width: '100%' }}>Вариации</div>
+        <div style={{ width: '100%' }}>
+          <CustomInput
+            label="SEO file"
+            placeholder={product?.latestSeoFiles?.[0] ? '' : 'Not available'}
+            value={getFileNameFromUrl(product?.latestSeoFiles?.[0])?.name}
+          />
+        </div>
         <TagList tags={product?.tags} productId={product?._id} />
         <RedFlags editMode withSearch withTitle flags={product?.redFlags} />
-        <div style={{ width: '100%' }}>Юзеры</div>
+        <div style={{ width: '100%' }} className={styles.flexColumn}>
+          <div className={cx(styles.flexRow, styles.alignEnd)}>
+            <CustomSwitch medium label="Transparency codes" />
+            <CustomButton type="primary">HS code</CustomButton>
+          </div>
+
+          <CustomButton
+            block
+            type={tariffName ? 'default' : 'primary'}
+            onClick={() => setShowTariffModal(!showTariffModal)}
+          >
+            {tariffName ? tariffForRender : t(TranslationKey['Select tariff'])}
+          </CustomButton>
+
+          <UsersList
+            title="Access to product"
+            users={[...(product?.subUsers || []), ...(product?.subUsersByShop || [])]}
+            wrapperClassName={styles.usersList}
+          />
+        </div>
       </div>
     ),
     [BasicInfoConfig.SUPPLIERS]: (

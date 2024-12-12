@@ -25,13 +25,13 @@ interface BindProductFormProps {
   sourceProduct: IProduct
   onClickGetProductsToBind: (options: string) => void
   onClickNextButton: (option?: string, products?: Array<IProduct>) => void
-  onClickCancelButton: () => void
+  onClose: () => void
 }
 
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   const { classes: styles } = useStyles()
 
-  const { sourceProduct, onClickGetProductsToBind, onClickNextButton, onClickCancelButton } = props
+  const { sourceProduct, onClickGetProductsToBind, onClickNextButton, onClose } = props
 
   const [selectedProducts, setSelectedProducts] = useState<Array<IProduct>>([])
   const [selectedRadioValue, setSelectedRadioValue] = useState<string>()
@@ -40,7 +40,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     {
       label: 'Add parent',
       value: ProductVariation.PARENT,
-      disabled: !sourceProduct?.parentProductId && sourceProduct?.hasChildren,
+      // disabled: !sourceProduct?.parentProductId && sourceProduct?.hasChildren,
     },
     {
       label: 'Add variations',
@@ -52,7 +52,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     if (typeof value === 'string') {
       setSelectedProducts([])
       setSelectedRadioValue(value)
-      onClickGetProductsToBind(value)
+      onClickGetProductsToBind?.(value)
     }
   }
 
@@ -120,7 +120,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
           {t(TranslationKey.Next)}
         </CustomButton>
 
-        <CustomButton onClick={onClickCancelButton}>{t(TranslationKey.Close)}</CustomButton>
+        <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>
   )

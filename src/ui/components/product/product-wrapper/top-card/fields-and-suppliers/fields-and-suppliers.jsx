@@ -22,7 +22,7 @@ import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
-import { InterconnectedProducts } from '@components/shared/interconnected-products'
+import { InterconnectedProduct } from '@components/shared/interconnected-product'
 import { Modal } from '@components/shared/modal'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
 import { CountrySelect } from '@components/shared/selects/country-select/country-select'
@@ -503,33 +503,24 @@ export const FieldsAndSuppliers = memo(props => {
             </div>
             <div className={styles.interconnectedProductsBodyWrapper}>
               {product?.parentProductId && (
-                <InterconnectedProducts
+                <InterconnectedProduct
                   isParent
-                  showRemoveButton={checkIsClient(curUserRole)}
-                  variationProduct={{
-                    _id: productVariations?._id,
-                    asin: productVariations?.asin,
-                    skuByClient: productVariations?.skuByClient,
-                    images: productVariations?.images,
-                    shopId: productVariations?.shopId,
-                    amazonTitle: productVariations?.amazonTitle,
-                  }}
-                  navigateToProduct={navigateToProduct}
-                  unbindProductHandler={unbindProductHandler}
-                  productId={product?._id}
+                  // showRemoveButton={checkIsClient(curUserRole)}
+                  variationProduct={productVariations}
+                  // navigateToProduct={navigateToProduct}
+                  onRemove={unbindProductHandler}
                 />
               )}
 
               {productVariations?.childProducts
                 ?.filter(variationProduct => variationProduct?._id !== product?._id)
                 .map((variationProduct, variationProductIndex) => (
-                  <InterconnectedProducts
+                  <InterconnectedProduct
                     key={variationProductIndex}
-                    showRemoveButton={!product?.parentProductId && checkIsClient(curUserRole)}
-                    productId={product?._id}
+                    // showRemoveButton={!product?.parentProductId && checkIsClient(curUserRole)}
                     variationProduct={variationProduct}
-                    navigateToProduct={navigateToProduct}
-                    unbindProductHandler={unbindProductHandler}
+                    // navigateToProduct={navigateToProduct}
+                    onRemove={unbindProductHandler}
                   />
                 ))}
             </div>

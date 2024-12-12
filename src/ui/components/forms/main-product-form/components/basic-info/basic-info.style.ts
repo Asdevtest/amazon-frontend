@@ -61,7 +61,7 @@ export const useStyles = makeStyles()(theme => ({
     display: 'grid',
     gridTemplateColumns: 'repeat(2, 1fr)',
     justifyContent: 'space-between',
-    gap: '15px',
+    gap: '20px',
   },
 
   buttons: {
@@ -78,11 +78,11 @@ export const useStyles = makeStyles()(theme => ({
   productInfoWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
+    gap: '20px',
   },
 
   tabHeight: {
-    height: '320px',
+    height: '380px',
     overflowY: 'auto',
   },
 
@@ -90,12 +90,12 @@ export const useStyles = makeStyles()(theme => ({
     display: 'grid',
     alignItems: 'end',
     gridAutoRows: 'min-content',
-    gridTemplateColumns: 'repeat(5, 1fr)',
-    gap: '10px',
+    gridTemplateColumns: 'repeat(6, 1fr)',
+    gap: '20px',
   },
 
   productInfo: {
-    gridTemplateColumns: 'repeat(6, 1fr)',
+    gridTemplateColumns: 'repeat(5, 1fr)',
   },
 
   privatesColumns: {
@@ -123,5 +123,9 @@ export const useStyles = makeStyles()(theme => ({
     padding: '10px',
     background: theme.palette.background.general,
     borderRadius: '16px',
+  },
+
+  usersList: {
+    height: 'calc(100% - 125px)',
   },
 }))

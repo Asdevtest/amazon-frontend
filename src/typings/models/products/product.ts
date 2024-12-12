@@ -89,7 +89,7 @@ export interface IProduct {
   ideasFinished: number
   buyerId: number
   ideasClosed: number
-  subUsers: ICreatedBy
+  subUsers: ICreatedBy[]
   redFlags: IRedFlag[]
   tags: ITag[]
   checkedby: IFullUser

@@ -2,24 +2,30 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(() => ({
   root: {
-    width: '100%',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    gap: 20,
+    gap: '20px',
+  },
+
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '20px',
   },
 
   title: {
     fontSize: '18px',
+    lineHeight: '25px',
     fontWeight: 600,
   },
 
-  interconnectedProductsBodyWrapper: {
+  content: {
     display: 'flex',
     flexDirection: 'column',
     gap: '10px',
-    maxHeight: 240,
+    maxHeight: '300px',
     overflowY: 'auto',
-    paddingRight: '10px',
   },
 }))

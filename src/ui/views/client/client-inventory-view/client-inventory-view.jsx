@@ -385,10 +385,7 @@ export const ClientInventoryView = observer(({ history }) => {
         openModal={viewModel.showProductVariationsForm}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductVariationsForm')}
       >
-        <ProductVariationsForm
-          product={viewModel.productVariations}
-          onClickShowProduct={viewModel.onClickShowProduct}
-        />
+        <ProductVariationsForm variationProduct={viewModel.productVariations} />
       </Modal>
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}

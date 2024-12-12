@@ -15,14 +15,7 @@ export const useStyles = makeStyles()(theme => ({
     color: theme.palette.text.secondary,
   },
 
-  search: {
-    marginBottom: '10px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-  },
-
-  tags: {
+  items: {
     height: '100%',
     overflowY: 'auto',
     display: 'flex',
