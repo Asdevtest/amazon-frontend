@@ -161,7 +161,11 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
       <p className={styles.tableTitle}>{t(TranslationKey['List of suppliers'])}</p>
 
       <div className={styles.buttons}>
-        <CustomButton className={styles.buttonWithText} onClick={onSupplierApproximateCalculationsModal}>
+        <CustomButton
+          className={styles.buttonWithText}
+          disabled={!isSupplerSelected}
+          onClick={onSupplierApproximateCalculationsModal}
+        >
           {t(TranslationKey['View an oriented calculation'])}
         </CustomButton>
 

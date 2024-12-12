@@ -33,6 +33,7 @@ import { IProduct } from '@typings/models/products/product'
 import { IProposal } from '@typings/models/proposals/proposal'
 import { IStorekeeper } from '@typings/models/storekeepers/storekeeper'
 import { ISupplier } from '@typings/models/suppliers/supplier'
+import { ISupplierCard } from '@typings/models/suppliers/supplier-exchange'
 import { IDestination } from '@typings/shared/destinations'
 import { IFullUser } from '@typings/shared/full-user'
 import { IUploadFile } from '@typings/shared/upload-file'
@@ -235,7 +236,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
       if (addSupliersToParentProductData) {
         await ProductModel.addSuppliersToProduct(
           addSupliersToParentProductData?.parentProduct?._id,
-          addSupliersToParentProductData?.suppliers?.map((supplier: ISupplier) => supplier._id),
+          addSupliersToParentProductData?.supplierCards?.map((supplier: ISupplierCard) => supplier._id),
         )
       }
 
@@ -299,7 +300,7 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
         this.statusHandler(
           ideaData?.variation ? IdeaModel.setStatusToProductCreating : IdeaModel.setStatusToAddingAsin,
           id,
-          !ideaData?.variation && ideaData?.parentProduct?._id && ideaData,
+          !ideaData?.variation && !!ideaData?.parentProduct?._id && ideaData,
         )
         this.onTriggerOpenModal('showConfirmModal')
         toast.success(t(TranslationKey['Idea status changed successfully']))

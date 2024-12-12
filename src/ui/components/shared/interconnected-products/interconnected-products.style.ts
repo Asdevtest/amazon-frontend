@@ -24,6 +24,6 @@ export const useStyles = makeStyles()(theme => ({
   sourceProductWrapper: {
     display: 'flex',
     alignItems: 'center',
-    width: '210px',
+    width: '230px',
   },
 }))

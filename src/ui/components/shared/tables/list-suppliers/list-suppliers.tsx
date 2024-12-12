@@ -91,6 +91,8 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
   const isCurrentSupplierSelected = extractProduct(formFields).currentSupplierCard?._id === viewModel.selectionModel[0]
   const isDefaultSupplier = !!orderStatus && defaultSupplierId === extractProduct(formFields).currentSupplierCard?._id
 
+  console.log('viewModel.currentSupplier', viewModel.currentSupplier)
+
   return (
     <>
       <div className={cx(styles.wrapper, tableWrapperClassName)}>
@@ -184,7 +186,8 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           openModal={viewModel.showSupplierApproximateCalculationsModal}
           productId={isIdea ? '' : extractProduct(formFields)?._id}
           ideaId={isIdea ? extractProduct(formFields)?._id : ''}
-          currentSupplierId={viewModel.currentSupplier?._id || ''}
+          supplierCardId={viewModel.currentSupplier?._id}
+          currentSupplierId={viewModel.currentSupplier?.supplier?._id || ''}
           setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
         />
       ) : null}
