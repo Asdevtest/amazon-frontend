@@ -34,6 +34,7 @@ interface SupplierApproximateCalculationsModalProps {
   tariffModalType?: TariffModal
   currentSupplierId?: string
   productId?: string
+  supplierCardId?: string
   ideaId?: string
   onClickSubmit?: (body: INewDataOfVariation) => void
   boxId?: string
@@ -50,6 +51,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
     setOpenModal,
     currentSupplierId,
     productId,
+    supplierCardId,
     ideaId,
     boxId,
     isTariffsSelect,
@@ -68,6 +70,7 @@ export const SupplierApproximateCalculationsModal: FC<SupplierApproximateCalcula
       new SupplierApproximateCalculationsModel({
         supplierId: currentSupplierId,
         productId,
+        supplierCardId,
         boxId,
         onClickSubmit,
         box,

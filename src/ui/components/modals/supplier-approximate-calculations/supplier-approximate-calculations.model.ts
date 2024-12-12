@@ -68,6 +68,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
 
   constructor({
     supplierId,
+    supplierCardId,
     productId,
     ideaId,
     boxId,
@@ -79,6 +80,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
   }: {
     box?: IBox
     supplierId?: string
+    supplierCardId?: string
     productId?: string
     ideaId?: string
     boxId?: string
@@ -98,6 +100,7 @@ export class SupplierApproximateCalculationsModel extends DataGridFilterTableMod
       guid: this.productId || '',
       ...(ideaId ? { ideaId } : {}),
       ...(this.productId ? { productId: this.productId } : {}),
+      ...(supplierCardId ? { supplierCardId } : {}),
       ...(this.supplierId ? { supplierId: this.supplierId } : {}),
       ...(this.currentLogicsTariffId ? { activeTariffLogisticsId: this.currentLogicsTariffId } : {}),
     })
