@@ -9,7 +9,9 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-field.style'
 
-interface CustomFieldProps extends IDefaultPropsExtensionAntdComponent {}
+interface CustomFieldProps extends Omit<IDefaultPropsExtensionAntdComponent, 'label'> {
+  label: string
+}
 
 export const CustomField: FC<CustomFieldProps> = memo(props => {
   const { children, isRow, label, required, labelClassName, wrapperClassName, tooltip } = props
@@ -21,7 +23,7 @@ export const CustomField: FC<CustomFieldProps> = memo(props => {
   return (
     <div className={cx(styles.root, { [styles.row]: isRow }, wrapperClassName)}>
       <Tooltip title={tooltip ? t(TranslationKey[tooltip as TranslationKey]) : ''}>
-        {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
+        <p className={cx(styles.label, labelClassName)}>{labelText}</p>
       </Tooltip>
       {children}
     </div>
