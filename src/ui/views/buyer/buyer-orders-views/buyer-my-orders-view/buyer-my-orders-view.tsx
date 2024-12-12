@@ -144,6 +144,7 @@ export const BuyerMyOrdersView = observer(({ history }: any) => {
           onSubmitSaveOrder={viewModel.onSubmitSaveOrder}
           onSaveOrderItem={viewModel.onSaveOrderItem}
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
+          onUpdateSuppliersData={viewModel.onUpdateSuppliersData}
         />
       </Modal>
 

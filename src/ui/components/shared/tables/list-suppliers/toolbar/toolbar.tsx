@@ -11,7 +11,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 
-import { checkIsBuyer, checkIsClient, checkIsSupervisor } from '@utils/checks'
+import { checkIsBuyer, checkIsClient } from '@utils/checks'
 import { t } from '@utils/translations'
 
 import { OrderStatus } from '@typings/enums/order/order-status'
@@ -60,13 +60,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
   const isSelectedOwner =
     userInfo?._id === supplier?.createdBy?._id || userInfo?.masterUser?._id === supplier?.createdBy?._id
 
-  const showViewCalculationButton =
-    isSupplerSelected &&
-    !!userInfo &&
-    (checkIsClient(UserRoleCodeMap[userInfo?.role]) ||
-      checkIsBuyer(UserRoleCodeMap[userInfo?.role]) ||
-      checkIsSupervisor(UserRoleCodeMap[userInfo?.role])) /* && !ideaValidStatuses.includes(status) */
-
   const showAddSupplierButton =
     !readOnly &&
     !!userInfo &&
@@ -108,16 +101,6 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
   //   (checkIsClient(UserRoleCodeMap[userInfo?.role]) || checkIsBuyer(UserRoleCodeMap[userInfo?.role])) &&
   //   (status === ProductStatus.BUYER_PICKED_PRODUCT || (ideaValidStatuses.includes(status) && isSelectedOwner))
 
-  const boxPropertiesIsFullAndMainsValues =
-    supplier?.boxProperties?.amountInBox &&
-    supplier?.boxProperties?.boxLengthCm &&
-    supplier?.boxProperties?.boxWidthCm &&
-    supplier?.boxProperties?.boxHeightCm &&
-    supplier?.boxProperties?.boxWeighGrossKg &&
-    supplier?.amount &&
-    supplier?.minlot &&
-    supplier?.priceInYuan &&
-    supplier?.priceInUsd
   const isPendingOrderAndNotDefaultSupplier =
     userInfo &&
     checkIsBuyer(UserRoleCodeMap[userInfo?.role]) &&
@@ -158,7 +141,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     {
       key: 'addSupplierCard',
       label: (
-        <CustomButton onClick={() => onSupplierActions(ModalModes.ADD_SUPPLIER_CARD)}>
+        <CustomButton stopPropagation={false} onClick={() => onSupplierActions(ModalModes.ADD_SUPPLIER_CARD)}>
           {t(TranslationKey['Create a supplier card'])}
         </CustomButton>
       ),
@@ -166,7 +149,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
     {
       key: 'addSupplier',
       label: (
-        <CustomButton onClick={() => onSupplierActions(ModalModes.ADD)}>
+        <CustomButton stopPropagation={false} onClick={() => onSupplierActions(ModalModes.ADD)}>
           {t(TranslationKey['Create a supplier'])}
         </CustomButton>
       ),
@@ -178,11 +161,7 @@ export const Toolbar: FC<ToolbarProps> = memo(props => {
       <p className={styles.tableTitle}>{t(TranslationKey['List of suppliers'])}</p>
 
       <div className={styles.buttons}>
-        <CustomButton
-          disabled={!boxPropertiesIsFullAndMainsValues || !showViewCalculationButton}
-          className={styles.buttonWithText}
-          onClick={onSupplierApproximateCalculationsModal}
-        >
+        <CustomButton className={styles.buttonWithText} onClick={onSupplierApproximateCalculationsModal}>
           {t(TranslationKey['View an oriented calculation'])}
         </CustomButton>
 

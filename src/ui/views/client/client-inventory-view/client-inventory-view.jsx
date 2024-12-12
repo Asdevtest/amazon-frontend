@@ -56,6 +56,9 @@ export const ClientInventoryView = observer(({ history }) => {
     if (clickableCells.includes(params.field) || params.field?.includes('counter')) {
       return styles.clickableCell
     }
+    if (params.field?.includes('stockUSA')) {
+      return styles.stockCell
+    }
   }
 
   return (

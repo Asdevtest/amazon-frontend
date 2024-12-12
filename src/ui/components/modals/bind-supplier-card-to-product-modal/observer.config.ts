@@ -13,4 +13,5 @@ export const observerConfig = {
   onChangeSelectedSupplierCard: action.bound,
   onChangeSelectedProduct: action.bound,
   onBindSupplierCardToProduct: action.bound,
+  onBindSupplierCardToIdea: action.bound,
 }

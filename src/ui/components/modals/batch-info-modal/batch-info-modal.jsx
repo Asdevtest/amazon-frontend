@@ -178,7 +178,7 @@ export const BatchInfoModal = observer(
                   <p className={styles.subFieldLabel}>{`${t(TranslationKey['Total price'])} (${t(
                     TranslationKey.China,
                   )})`}</p>
-                  <Text strong rows={1} text={currentBatch?.totalPriceFromOrderSupplier || 0} />
+                  <Text strong rows={1} text={`${currentBatch?.totalPriceFromOrderSupplier || 0} $`} />
                 </div>
 
                 <div>
@@ -188,7 +188,7 @@ export const BatchInfoModal = observer(
                     rows={1}
                     text={`${t(BatchWeightCalculationMethodTranslateKey(currentBatch?.calculationMethod))} / ${
                       currentBatch?.volumeWeightDivide
-                    }`}
+                    } $`}
                   />
                 </div>
               </div>
@@ -210,7 +210,7 @@ export const BatchInfoModal = observer(
 
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Calculated shipping cost'])}</p>
-                  <Text strong rows={1} text={toFixed(currentBatch?.calculatedShippingCost, 2) || 0} />
+                  <Text strong rows={1} text={`${toFixed(currentBatch?.calculatedShippingCost, 2) || 0} $`} />
                 </div>
 
                 <Field
@@ -237,7 +237,7 @@ export const BatchInfoModal = observer(
                 />
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Final weight'])}</p>
-                  <Text strong rows={1} text={toFixed(currentBatch?.finalWeight, 4) || 0} />
+                  <Text strong rows={1} text={`${toFixed(currentBatch?.finalWeight, 4) || 0} kg`} />
                 </div>
 
                 <div className={styles.fieldWrapper}>
@@ -245,19 +245,19 @@ export const BatchInfoModal = observer(
                   <Text
                     strong
                     rows={1}
-                    text={toFixed(
+                    text={`${toFixed(
                       currentBatch?.boxes?.reduce(
                         (ac, cur) => (ac += calcVolumeWeightForBox(cur, currentBatch?.volumeWeightDivide) * cur.amount),
                         0,
                       ),
                       4,
-                    )}
+                    )} kg`}
                   />
                 </div>
 
                 <div className={styles.fieldWrapper}>
                   <p className={styles.subFieldLabel}>{t(TranslationKey['Gross weight'])}</p>
-                  <Text strong rows={1} text={toFixed(calcActualBatchWeight(currentBatch?.boxes), 4)} />
+                  <Text strong rows={1} text={`${toFixed(calcActualBatchWeight(currentBatch?.boxes), 4)} kg`} />
                 </div>
               </div>
             </div>

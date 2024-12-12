@@ -2132,4 +2132,5 @@ export enum TranslationKey {
   'Create a supplier card' = 'Create a supplier card',
   'Add supplier card' = 'Add supplier card',
   'Select tariff' = 'Select tariff',
+  'Supplier card successfully added to idea' = 'Supplier card successfully added to idea',
 }

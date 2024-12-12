@@ -142,6 +142,7 @@ export class IntegrationsModel {
       })
     } catch (error) {
       console.error(error)
+      this.sellerBoardData = []
     }
   }
 

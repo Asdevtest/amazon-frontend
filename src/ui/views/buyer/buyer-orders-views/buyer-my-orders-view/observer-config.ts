@@ -38,4 +38,5 @@ export const observerConfig = {
   onSubmitCreateBoxes: action.bound,
   onCreateBox: action.bound,
   onClickHsCode: action.bound,
+  onUpdateSuppliersData: action.bound,
 }

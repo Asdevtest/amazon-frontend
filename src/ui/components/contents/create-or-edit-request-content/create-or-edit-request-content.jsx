@@ -26,6 +26,7 @@ import { Field } from '@components/shared/field'
 import { MasterUserItem } from '@components/shared/master-user-item'
 import { Modal } from '@components/shared/modal'
 import { ScrollToTopOrBottom } from '@components/shared/scroll-to-top-or-bottom/scroll-to-top-or-bottom'
+import { CustomSelect } from '@components/shared/selects/custom-select'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { FireIcon } from '@components/shared/svg-icons'
@@ -250,6 +251,11 @@ export const CreateOrEditRequestContent = memo(props => {
 
   const [deadlineError, setDeadlineError] = useState(false)
 
+  const specOptions = specs.map(spec => ({
+    value: spec._id,
+    label: spec.title,
+  }))
+
   const onChangeField = section => fieldName => event => {
     const newFormFields = { ...formFields }
 
@@ -305,10 +311,9 @@ export const CreateOrEditRequestContent = memo(props => {
         setAnnouncement('')
         setChosenExecutor(undefined)
 
-        newFormFields[section][fieldName] = event.target.value
-        // getMasterUsersData(event.target.value)
-
-        if (`${event.target.value}` !== `${freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]}`) {
+        newFormFields[section][fieldName] = event
+        const selectedSpec = specOptions.find(spec => spec.value === event)
+        if (freelanceRequestTypeByKey[selectedSpec.label] !== freelanceRequestTypeByKey[freelanceRequestType.BLOGGER]) {
           newFormFields.request.discountedPrice = 0
           newFormFields.request.cashBackInPercent = 0
           newFormFields.request.priceAmazon = 0
@@ -534,29 +539,14 @@ export const CreateOrEditRequestContent = memo(props => {
                     }}
                   />
 
-                  <Field
-                    label={t(TranslationKey['Request type']) + '*'}
-                    labelClasses={styles.label}
-                    containerClasses={styles.fieldContainer}
-                    tooltipInfoContent={t(TranslationKey['Current request type'])}
-                    inputComponent={
-                      <Select
-                        displayEmpty
-                        value={formFields.request.specId || ''}
-                        className={cx(styles.field, styles.requestTypeField)}
-                        onChange={onChangeField('request')('specId')}
-                      >
-                        <MenuItem disabled value="">
-                          {t(TranslationKey['Select from the list'])}
-                        </MenuItem>
-
-                        {specs.map(spec => (
-                          <MenuItem key={spec._id} value={spec?._id} className={styles.requestItem}>
-                            <Text text={spec?.title} copyable={false} rows={1} />
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    }
+                  <CustomSelect
+                    required
+                    placeholder="Select from the list"
+                    label={'Request type'}
+                    size="large"
+                    options={specOptions}
+                    value={specOptions.find(spec => spec.value === formFields.request.specId)}
+                    onChange={onChangeField('request')('specId')}
                   />
                 </div>
 
