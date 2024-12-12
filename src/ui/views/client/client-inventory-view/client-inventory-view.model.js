@@ -2,6 +2,7 @@ import { makeObservable, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
+import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
@@ -1487,7 +1488,6 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     )
 
     const queryString = this.parseToQueryString(obj)
-    const oldQuery = objectToUrlQs(obj)
 
     return queryString
   }

@@ -94,6 +94,7 @@ export const EditOrderModal = memo(
     progressValue,
     onSaveOrderItem,
     onClickSaveSupplierBtn,
+    onUpdateSuppliersData,
     updateSupplierData,
     onClickSaveWithoutUpdateSupData,
     onClickUpdataSupplierData,
@@ -176,7 +177,12 @@ export const EditOrderModal = memo(
       setOrderFields({ ...orderFields, product: order.product, orderSupplierCard: order.orderSupplierCard })
     }, [order])
 
-    const handleSaveProduct = product => {
+    const handleSaveProduct = (product, updateSupplier) => {
+      if (updateSupplier) {
+        onUpdateSuppliersData(order?._id)
+        return
+      }
+
       setOrderFields(prev => ({
         ...prev,
         product: {

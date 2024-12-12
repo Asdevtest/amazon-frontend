@@ -65,4 +65,8 @@ export const useStyles = makeStyles()(() => ({
       minHeight: 'max-content !important',
     },
   },
+
+  userLinkWrapper: {
+    width: '200px',
+  },
 }))

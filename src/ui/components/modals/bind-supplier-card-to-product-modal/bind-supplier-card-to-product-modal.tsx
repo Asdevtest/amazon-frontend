@@ -18,11 +18,13 @@ import { useStyles } from './bind-supplier-card-to-product-modal.style'
 
 import { BindSupplierCardModal } from './bind-supplier-card-to-product-modal.model'
 import { SupplierCardOption } from './components/supplier-card-option/supplier-card-option'
+import { filterProducts } from './helpers/filter-products'
 
 interface BindSupplierCardToProductModalProps {
   openModal: boolean
   setOpenModal: (openModal: boolean) => void
 
+  isIdea?: boolean
   supplierId?: string
   supplierCardId?: string
 
@@ -33,7 +35,7 @@ interface BindSupplierCardToProductModalProps {
 export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalProps> = observer(props => {
   const { classes: styles } = useStyles()
 
-  const { openModal, setOpenModal, product, handleUpdate, supplierId, supplierCardId } = props
+  const { openModal, setOpenModal, isIdea, product, handleUpdate, supplierId, supplierCardId } = props
 
   const viewModel = useMemo(
     () =>
@@ -88,7 +90,10 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
     const selectedProductId = (product?._id || viewModel.selectedProductId) as string
     const selectedSupplierCardId = [viewModel.selectedSupplierCardId] as string[]
 
-    await viewModel.onBindSupplierCardToProduct(selectedProductId, selectedSupplierCardId)
+    await viewModel[isIdea ? 'onBindSupplierCardToIdea' : 'onBindSupplierCardToProduct'](
+      selectedProductId,
+      selectedSupplierCardId,
+    )
     handleUpdate?.()
     setOpenModal(false)
   }
@@ -109,7 +114,7 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
           <CustomSelect
             allowClear
             showSearch
-            loading={viewModel?.loading}
+            loading={viewModel?.isLoadingRequestStatus}
             size="large"
             className={styles.modalSelect}
             wrapperClassName={styles.modalSelect}
@@ -124,7 +129,11 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
                 />
               )
             }}
-            filterOption={(inputValue, option) => option?.amazonTitle?.toLowerCase().includes(inputValue.toLowerCase())}
+            filterOption={(inputValue, option) =>
+              filterProducts(inputValue, option?.amazonTitle) ||
+              filterProducts(inputValue, option?.asin) ||
+              filterProducts(inputValue, option?.skuByClient)
+            }
             label="Product"
             value={viewModel.selectedProductId}
             options={viewModel?.currentData || []}
@@ -177,7 +186,7 @@ export const BindSupplierCardToProductModal: FC<BindSupplierCardToProductModalPr
           <CustomButton
             size="large"
             type="primary"
-            loading={viewModel.loading}
+            loading={viewModel?.isLoadingRequestStatus}
             disabled={disableSaveButton}
             onClick={onClickSave}
           >

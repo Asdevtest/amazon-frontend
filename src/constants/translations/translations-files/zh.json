@@ -2122,5 +2122,6 @@
   "Permission changes will be reset, wish to save?": "权限更改将被重置,是否保存?",
   "Supplier card successfully added to product": "供应商卡成功添加到产品",
   "Create a supplier card": "创建供应商卡",
-  "Add supplier card": "添加供应商卡"
+  "Add supplier card": "添加供应商卡",
+  "Supplier card successfully added to idea": "供应商卡成功添加到想法"
 }

@@ -6,4 +6,8 @@ export const useStyles = makeStyles()(() => ({
     flexDirection: 'column',
     gap: 10,
   },
+
+  tableWrapper: {
+    height: '300px',
+  },
 }))

@@ -5,12 +5,14 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { BuyerModel } from '@models/buyer-model'
 import { DefaultModel } from '@models/default-model'
+import { IdeaModel } from '@models/ideas-model'
 import { InfiniteScrollModel } from '@models/infinite-scroll-model'
 import { ProductModel } from '@models/product-model'
 import { SupplierV2Model } from '@models/supplier-v2-model/supplier-v2-model'
 
 import { t } from '@utils/translations'
 
+import { loadingStatus } from '@typings/enums/loading-status'
 import { ISupplierCardFull } from '@typings/models/suppliers/supplier-card'
 import { ISupplierV2Light } from '@typings/models/suppliers/supplier-v2'
 
@@ -115,7 +117,7 @@ export class BindSupplierCardModal extends DefaultModel {
 
   async onBindSupplierCardToProduct(productId: string, supplierCardIds: string[]) {
     try {
-      this.setLoading(true)
+      this.setRequestStatus(loadingStatus.IS_LOADING)
 
       await ProductModel.addSuppliersToProduct(productId, supplierCardIds)
 
@@ -123,7 +125,21 @@ export class BindSupplierCardModal extends DefaultModel {
     } catch (error) {
       console.error(error)
     } finally {
-      this.setLoading(false)
+      this.setRequestStatus(loadingStatus.SUCCESS)
+    }
+  }
+
+  async onBindSupplierCardToIdea(ideaId: string, supplierCardIds: string[]) {
+    try {
+      this.setRequestStatus(loadingStatus.IS_LOADING)
+
+      await IdeaModel.addSuppliersToIdea(ideaId, { supplierCardIds })
+
+      toast.success(t(TranslationKey['Supplier card successfully added to idea']))
+    } catch (error) {
+      console.error(error)
+    } finally {
+      this.setRequestStatus(loadingStatus.SUCCESS)
     }
   }
 }
