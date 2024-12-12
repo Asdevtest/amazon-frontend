@@ -8,6 +8,7 @@ import { IRedFlag } from '@typings/shared/red-flag'
 export class RedFlagsModel {
   flags: IRedFlag[] = []
   searchValue = ''
+  loading = false
 
   get filteredFlags() {
     return this.flags.filter(flag => flag.title.toLowerCase().includes(this.searchValue.toLowerCase()))
@@ -25,6 +26,10 @@ export class RedFlagsModel {
 
   async getProductRedFlags() {
     try {
+      runInAction(() => {
+        this.loading = true
+      })
+
       const response = (await ProductModel.getProductRedFlags()) as unknown as IRedFlag[]
 
       runInAction(() => {
@@ -32,6 +37,10 @@ export class RedFlagsModel {
       })
     } catch (error) {
       console.error(error)
+    } finally {
+      runInAction(() => {
+        this.loading = false
+      })
     }
   }
 

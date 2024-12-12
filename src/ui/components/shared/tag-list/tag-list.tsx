@@ -6,7 +6,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { EditProductTags } from '@components/modals/edit-product-tags-modal'
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomInput } from '@components/shared/custom-input'
 import { CustomTag } from '@components/shared/custom-tag'
 import { Modal } from '@components/shared/modal'
 
@@ -15,6 +14,8 @@ import { t } from '@utils/translations'
 import { ITag } from '@typings/shared/tag'
 
 import { useStyles } from './tag-list.style'
+
+import { CustomInputSearch } from '../custom-input-search'
 
 interface TagListProps {
   tags: ITag[]
@@ -40,7 +41,7 @@ export const TagList: FC<TagListProps> = memo(props => {
         <p className={styles.text}>{t(TranslationKey['Product tags'])}</p>
 
         <div className={styles.search}>
-          <CustomInput fullWidth placeholder="Search" onChange={e => setSearchValue(e.target.value)} />
+          <CustomInputSearch fullWidth placeholder="Search" onChange={e => setSearchValue(e.target.value)} />
           <div>
             <CustomButton icon={<MdOutlineEdit size={16} />} onClick={() => setShowEditProductTagsModal(true)} />
           </div>

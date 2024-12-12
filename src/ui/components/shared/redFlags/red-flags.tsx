@@ -12,7 +12,7 @@ import { useStyles } from './red-flags.style'
 
 import { CustomCheckbox } from '../custom-checkbox'
 import { CustomImage } from '../custom-image'
-import { CustomInput } from '../custom-input'
+import { CustomInputSearch } from '../custom-input-search'
 import { Text } from '../text'
 
 import { RedFlagsModel } from './red-flags.model'
@@ -43,7 +43,12 @@ export const RedFlags: FC<RedFlagsProps> = observer(props => {
     <div className={styles.root}>
       {withTitle ? <p className={styles.title}>{t(TranslationKey['Red flags'])}</p> : null}
       {withSearch ? (
-        <CustomInput fullWidth placeholder={t(TranslationKey.Search)} onChange={viewModel.onChangeSearchValue} />
+        <CustomInputSearch
+          fullWidth
+          loading={viewModel.loading}
+          placeholder={t(TranslationKey.Search)}
+          onChange={viewModel.onChangeSearchValue}
+        />
       ) : null}
 
       <Checkbox.Group

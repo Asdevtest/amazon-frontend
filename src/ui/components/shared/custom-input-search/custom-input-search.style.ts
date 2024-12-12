@@ -2,7 +2,7 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()(theme => ({
   root: {
-    width: 400,
+    // width: 400,
     display: 'flex',
     flexDirection: 'column',
     gap: 5,
@@ -17,7 +17,7 @@ export const useStyles = makeStyles()(theme => ({
     flexDirection: 'row',
   },
 
-  input: {
+  fullWidth: {
     width: '100%',
   },
 
