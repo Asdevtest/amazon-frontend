@@ -3,8 +3,7 @@ import { BaseOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 
-import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
-import { CustomImage } from '@components/shared/custom-image'
+import { ProductCell } from '@components/data-grid/data-grid-cells'
 
 import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
 
@@ -16,32 +15,15 @@ interface AsinOptionProps {
 
 export const AsinOption: FC<AsinOptionProps> = observer(({ data }) => {
   const { classes: styles } = useStyles()
+
   return (
     <div className={styles.optionWrapper}>
-      <div className={styles.flexContainer}>
-        <CustomImage width={32} height={32} src={data?.images?.[0]} />
-        <div className={styles.asinContainer}>
-          <AsinOrSkuLink
-            withCopyValue
-            withAttributeTitle="asin"
-            link={data.asin}
-            textStyles={styles.optionText}
-            iconStyles={styles.optionIcon}
-          />
-          <AsinOrSkuLink
-            withCopyValue
-            withAttributeTitle="sku"
-            link={data.skuByClient}
-            textStyles={styles.optionText}
-            iconStyles={styles.optionIcon}
-          />
-        </div>
-      </div>
+      <ProductCell isCell={false} image={data?.images?.[0]} asin={data?.asin} sku={data?.sku} />
 
       {data?.marketPlaceCountry ? (
-        <div className={styles.flexContainer}>
+        <div className={styles.country}>
           <Avatar size={20} src={getAmazonImageUrl(data.marketPlaceCountry?.image)} />
-          <p>{data.marketPlaceCountry?.shortTitle}</p>
+          <span className={styles.optionText}>{data.marketPlaceCountry?.shortTitle}</span>
         </div>
       ) : null}
     </div>
