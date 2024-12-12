@@ -55,7 +55,6 @@ export const TopCard = memo(
     onChangeImagesForLoad,
     showBindProductModal,
     onTriggerOpenModal,
-    onClickGetProductsToBind,
     onClickHsCode,
     onClickNextButton,
     onClickSubmitSearch,
@@ -178,20 +177,13 @@ export const TopCard = memo(
           {actionStatus === loadingStatus.IS_LOADING && !showProgress ? <CircularProgressWithLabel /> : null}
         </div>
 
-        {showBindProductModal && (
-          <Modal
-            noPadding
-            openModal={showBindProductModal}
-            setOpenModal={() => onTriggerOpenModal('showBindProductModal')}
-          >
-            <BindProductForm
-              sourceProduct={product}
-              onClickGetProductsToBind={onClickGetProductsToBind}
-              onClickNextButton={onClickNextButton}
-              onClose={() => onTriggerOpenModal('showBindProductModal')}
-            />
-          </Modal>
-        )}
+        <Modal openModal={showBindProductModal} setOpenModal={() => onTriggerOpenModal('showBindProductModal')}>
+          <BindProductForm
+            sourceProduct={product}
+            onClickNextButton={onClickNextButton}
+            onClose={() => onTriggerOpenModal('showBindProductModal')}
+          />
+        </Modal>
       </>
     )
   },
