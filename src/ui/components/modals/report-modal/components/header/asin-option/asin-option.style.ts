@@ -1,32 +1,23 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   optionWrapper: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
-    width: '100%',
   },
 
-  flexContainer: {
+  country: {
     display: 'flex',
     alignItems: 'center',
     gap: '5px',
-  },
-
-  asinContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100px',
+    padding: '2px',
+    border: `1px solid ${theme.palette.input.customBorder}`,
+    borderRadius: '4px',
   },
 
   optionText: {
     fontSize: 12,
     lineHeight: '14px',
-  },
-
-  optionIcon: {
-    width: '12px !important',
-    height: '12px !important',
   },
 }))
