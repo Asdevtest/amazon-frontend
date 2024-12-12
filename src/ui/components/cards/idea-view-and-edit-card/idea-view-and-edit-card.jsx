@@ -676,7 +676,7 @@ export const IdeaViewAndEditCard = observer(
                 isNotProductNameForIdea={formFields?.productName.length === 0} // for disable add supplier button
                 onClickSaveSupplier={supplierCardId => onClickSaveSupplierBtn(supplierCardId, formFields?._id)}
                 onRemoveSupplier={onRemoveSupplier}
-                onSaveProduct={() => onClickSaveSupplierBtn()}
+                onSaveProduct={() => onClickSaveSupplierBtn(undefined, formFields?._id)}
               />
             ) : null}
           </div>

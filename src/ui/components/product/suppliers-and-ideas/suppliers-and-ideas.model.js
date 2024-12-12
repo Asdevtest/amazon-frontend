@@ -567,6 +567,7 @@ export class SuppliersAndIdeasModel {
 
       await this.getIdea(ideaId)
       this.getIdeas()
+      this.updateData?.()
 
       this.setRequestStatus(loadingStatus.SUCCESS)
     } catch (error) {
