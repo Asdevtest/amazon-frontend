@@ -17,7 +17,7 @@ export const AsinOption: FC<AsinOptionProps> = memo(({ data }) => {
 
   return (
     <div className={styles.optionWrapper}>
-      <ProductCell isCell={false} image={data?.images?.[0]} asin={data?.asin} sku={data?.sku} />
+      <ProductCell isCell={false} image={data?.images?.[0]} asin={data?.asin} sku={data?.skuByClient} />
 
       {data?.marketPlaceCountry ? (
         <div className={styles.country}>

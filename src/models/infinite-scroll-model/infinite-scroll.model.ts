@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { action, makeObservable, observable, runInAction } from 'mobx'
+import { UIEvent } from 'react'
 
 import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { objectToUrlQs } from '@utils/text'
@@ -99,17 +100,24 @@ export class InfiniteScrollModel<T, M = any> {
     }
   }
 
-  async loadMoreData() {
+  async loadMoreData(event?: UIEvent<HTMLDivElement>) {
     if (!this.method || !this.hasMore || this.loading) {
       return
+    }
+
+    if (event?.currentTarget) {
+      const { scrollTop, clientHeight, scrollHeight } = event.currentTarget
+
+      if (scrollHeight - (scrollTop + clientHeight) > 0) {
+        return
+      }
     }
 
     try {
       runInAction(() => {
         this.loading = true
+        this.options.offset += this.options.limit
       })
-
-      this.options.offset += this.options.limit
 
       const response = await this.method(this.options)
       const dataToAdd = response.rows || response
