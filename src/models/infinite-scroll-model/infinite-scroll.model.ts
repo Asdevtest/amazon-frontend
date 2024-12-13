@@ -33,7 +33,7 @@ const DEFAULT_OPTIONS = {
   filters: '',
 }
 
-export type FilterOptionsType = Record<string, Record<string, string | number | boolean | null>>
+export type FilterOptionsType = Record<string, any>
 
 interface InfiniteScrollModelProps {
   method: ICallback
