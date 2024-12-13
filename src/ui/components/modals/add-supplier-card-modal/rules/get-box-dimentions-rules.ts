@@ -2,7 +2,7 @@ import { Rule } from 'antd/es/form'
 
 import { Dimensions } from '@typings/enums/dimensions'
 
-export const getBoxDimentionsRules = (): Rule[] => [
+export const getBoxDimentionsRules = (checkLimits?: boolean): Rule[] => [
   ({ getFieldValue }) => ({
     validator(_, value) {
       const boxProperties = getFieldValue('boxProperties')
@@ -19,7 +19,7 @@ export const getBoxDimentionsRules = (): Rule[] => [
       const isSomeUnitFilled =
         boxHeightCm || boxWidthCm || boxLengthCm || amountInBox || boxWeighGrossKg || multiplicity
 
-      if (value > maxWeight) {
+      if (checkLimits && value > maxWeight) {
         return Promise.reject('')
       }
 

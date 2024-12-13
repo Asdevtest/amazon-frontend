@@ -27,7 +27,7 @@ interface IBoxDimentionsProps {
   amountName?: any
   dimentionName: any
 
-  getRules: () => Rule[]
+  getRules: (checkLimits?: boolean) => Rule[]
   onChangeUnitsOption: (option: RadioChangeEvent) => void
 }
 
@@ -71,7 +71,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
         <Form.Item<ICreateSupplierProductModal>
           name={heightName}
           className={cx(sharedStyles.field, styles.deliveryField)}
-          rules={getRules()}
+          rules={getRules(true)}
         >
           <CustomInputNumber size="large" label="Height" precision={2} wrapperClassName={sharedStyles.input} />
         </Form.Item>
@@ -79,7 +79,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
         <Form.Item<ICreateSupplierProductModal>
           name={widthName}
           className={cx(sharedStyles.field, styles.deliveryField)}
-          rules={getRules()}
+          rules={getRules(true)}
         >
           <CustomInputNumber size="large" label="Width" precision={2} wrapperClassName={sharedStyles.input} />
         </Form.Item>
@@ -87,7 +87,7 @@ export const BoxInfo: FC<IBoxDimentionsProps> = memo(props => {
         <Form.Item<ICreateSupplierProductModal>
           name={lengthName}
           className={cx(sharedStyles.field, styles.deliveryField)}
-          rules={getRules()}
+          rules={getRules(true)}
         >
           <CustomInputNumber size="large" label="Length" precision={2} wrapperClassName={sharedStyles.input} />
         </Form.Item>

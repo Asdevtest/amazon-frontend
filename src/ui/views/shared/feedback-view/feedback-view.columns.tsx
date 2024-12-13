@@ -163,7 +163,7 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Created)} />,
       renderCell: ({ row }: GridRowModel) => <NormDateCell value={row.createdAt} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
     {
       field: 'updatedAt',
@@ -171,7 +171,7 @@ export const feedbackViewColumns = (props: ColumnProps) => {
       renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Updated)} />,
       renderCell: ({ row }) => <NormDateCell value={row.updatedAt} />,
       width: 100,
-      columnKey: columnnsKeys.shared.DATE,
+      columnKey: columnnsKeys.shared.DATE_VALUE,
     },
   ]
 
