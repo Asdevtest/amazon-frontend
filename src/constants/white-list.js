@@ -131,7 +131,7 @@ export const createProductByClient = [
   'avgPrice',
   'avgReviews',
   'fourMonthesStock',
-  'suppliersIds',
+  'supplierCardIds',
   'tags',
 ]
 

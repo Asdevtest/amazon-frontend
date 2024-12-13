@@ -82,5 +82,4 @@ export const observerConfig = {
   createOrder: action.bound,
   setDestinationsFavouritesItem: action.bound,
   onClickAddSupplierButton: action.bound,
-  setFirstSupplierCardCurrent: action.bound,
 }
