@@ -4,6 +4,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CheckCircleIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { minsToTime } from '@utils/text'
 import { t } from '@utils/translations'
@@ -22,14 +23,15 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   const { classes: styles, cx } = useStyles()
 
-  const currentRequestId = xid ? ` / ID ${xid}` : ''
-  const title = `${t(TranslationKey['Result of the request'])}${currentRequestId}`
-
   return (
     <div className={styles.header}>
       <div className={styles.flexContainer}>
         <CheckCircleIcon className={styles.icon} />
-        <p className={cx(styles.title, styles.bold)}>{title}</p>
+        <p className={cx(styles.title, styles.bold)}>
+          {t(TranslationKey['Result of the request'])}
+          {xid ? ' / ID' : ''}
+        </p>
+        <Text text={String(xid)} />
       </div>
 
       <div className={styles.flexContainer}>

@@ -74,7 +74,7 @@ export const Text: FC<TextCellProps> = memo(props => {
     setValue('')
   }
 
-  const isCopyable = !!text?.length && isHover && copyable
+  const isCopyable = !!text && isHover && copyable
 
   const paragraph = (
     <div className={styles.container}>

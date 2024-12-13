@@ -20,6 +20,8 @@ export const useStyles = makeStyles()(theme => ({
     fontWeight: 600,
     textTransform: 'uppercase',
     color: theme.palette.text.general,
+    display: 'flex',
+    gap: '10px',
   },
 
   boxAndPrepIdInput: {
