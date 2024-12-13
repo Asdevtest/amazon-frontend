@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DefaultOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
