@@ -58,6 +58,7 @@ export const BindInventoryGoodsToStockForm: FC<BindInventoryGoodsToStockFormProp
           type="primary"
           size="large"
           disabled={!viewModel.targetKeys.length}
+          loading={viewModel.loading}
           onClick={viewModel.onSubmitBindStockGoods}
         >
           {t(TranslationKey.Bind)}
