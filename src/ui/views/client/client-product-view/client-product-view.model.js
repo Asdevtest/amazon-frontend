@@ -113,10 +113,10 @@ export class ClientProductViewModel {
 
   async loadData() {
     try {
+      await this.getProductById()
       await this.getDestinations()
       await this.getStorekeepers()
       await this.getShops()
-      await this.getProductById()
       await this.getProductsVariations()
     } catch (error) {
       console.error(error)
