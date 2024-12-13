@@ -91,7 +91,7 @@ export const CreateOrEditRequestContent = memo(props => {
   const [announcementsData, setAnnouncementsData] = useState([])
   const [announcement, setAnnouncement] = useState(choosenAnnouncements)
   const [chosenExecutor, setChosenExecutor] = useState(requestToEdit?.request?.executor || executor || undefined)
-
+  const [loading, setLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false)
 
   const [curStep, setCurStep] = useState(stepVariant.STEP_ONE)
@@ -341,28 +341,33 @@ export const CreateOrEditRequestContent = memo(props => {
 
   const [withPublish, setWithPublish] = useState({ withPublish: false })
 
-  const onSuccessSubmit = withPublish => {
+  const onSuccessSubmit = async withPublish => {
     if (isDeadlineError) {
       setDeadlineError(!deadlineError)
     } else {
       if (isFirstStep) {
         setCurStep(stepVariant.STEP_TWO)
       } else {
-        onCreateSubmit(formFields, images, withPublish, announcement)
+        await onCreateSubmit(formFields, images, withPublish, announcement)
       }
     }
   }
 
   const onClickCreate = async ({ withPublish }) => {
     setWithPublish(withPublish)
+    setLoading(true)
 
-    const result = await checkRequestByTypeExists(formFields.request.productId, currentSpec?.type)
+    try {
+      const result = await checkRequestByTypeExists(formFields.request.productId, currentSpec?.type)
 
-    if (result?.length) {
-      setRequestIds(result)
-      setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)
-    } else {
-      onSuccessSubmit(withPublish)
+      if (result?.length) {
+        setRequestIds(result)
+        setShowCheckRequestByTypeExists(!showCheckRequestByTypeExists)
+      } else {
+        await onSuccessSubmit(withPublish)
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -1119,6 +1124,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   }
                   disabled={disableSubmit}
                   icon={!isSecondStep ? <FiArrowRight size={16} /> : null}
+                  loading={loading && !withPublish}
                   onClick={() => (isSecondStep ? onClickCreate({ withPublish: false }) : onSuccessSubmit())}
                 >
                   {isSecondStep ? t(TranslationKey['Create request']) : t(TranslationKey.Next)}
@@ -1128,6 +1134,7 @@ export const CreateOrEditRequestContent = memo(props => {
                   <CustomButton
                     type="primary"
                     disabled={disableSubmit}
+                    loading={loading && withPublish}
                     onClick={throttle(() => onClickCreate({ withPublish: true }))}
                   >
                     {t(TranslationKey['Create and publish a request'])}
