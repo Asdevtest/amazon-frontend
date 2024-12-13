@@ -4,6 +4,7 @@ import { RequestProposalStatus } from '@constants/requests/request-proposal-stat
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -86,7 +87,7 @@ export const RequestInformation: FC<RequestInformationProps> = memo(props => {
           <div className={styles.moreInformationSection}>
             <p className={styles.sectionSubTitle}>ID:</p>
 
-            <p className={styles.infoText}>{xid || t(TranslationKey.Missing)}</p>
+            <Text className={styles.infoText} text={xid || t(TranslationKey.Missing)} />
           </div>
         </div>
       </div>

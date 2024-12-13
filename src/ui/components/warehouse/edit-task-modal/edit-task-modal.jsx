@@ -18,6 +18,7 @@ import { Field } from '@components/shared/field'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { BoxArrowIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { throttle } from '@utils/throttle'
@@ -54,18 +55,16 @@ export const EditTaskModal = memo(
     const [isFileDownloading, setIsFileDownloading] = useState(false)
     const [storekeeperComment, setStorekeeperComment] = useState(task.storekeeperComment)
 
-    const taskId = ' ID ' + task.xid
-
     const renderModalTitle = status => {
       switch (status) {
         case mapTaskStatusEmumToKey[TaskStatus.SOLVED]:
-          return t(TranslationKey['Viewing a completed task']) + taskId
+          return t(TranslationKey['Viewing a completed task']) + ' ID '
         case mapTaskStatusEmumToKey[TaskStatus.NOT_SOLVED]:
-          return t(TranslationKey['Viewing a canceled task']) + taskId
+          return t(TranslationKey['Viewing a canceled task']) + ' ID '
         case mapTaskStatusEmumToKey[TaskStatus.AT_PROCESS]:
-          return t(TranslationKey['Resolve task']) + taskId
+          return t(TranslationKey['Resolve task']) + ' ID '
         case mapTaskStatusEmumToKey[TaskStatus.NEW]:
-          return t(TranslationKey['New task']) + taskId
+          return t(TranslationKey['New task']) + ' ID '
       }
     }
 
@@ -186,8 +185,10 @@ export const EditTaskModal = memo(
     return (
       <div className={styles.root}>
         <div className={styles.modalHeader}>
-          <p className={styles.modalTitle}>{renderModalTitle(task.status)}</p>
-
+          <div className={styles.flexContainer}>
+            <p className={styles.modalTitle}>{renderModalTitle(task.status)}</p>
+            <Text className={styles.modalTitle} text={task.xid} />
+          </div>
           <div className={styles.modalSubHeader}>
             <div className={styles.typeTaskWrapper}>
               {isReciveTypeTask ? (

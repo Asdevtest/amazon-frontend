@@ -31,7 +31,7 @@ export const SupplierDitailsInfo: FC<SupplierDitailsInfoProps> = memo(porps => {
     <>
       <div className={styles.root}>
         {image ? <CustomImage preview={false} src={image} height={20} width={30} /> : null}
-        {xid ? <Text copyable={false} text={xidText} rows={1} /> : null}
+        {xid ? <Text text={xidText} rows={1} /> : null}
         <Rate disabled allowHalf value={rate} />
         {!hideTotalCountFeedback && totalCountFeedback ? (
           <CustomButton

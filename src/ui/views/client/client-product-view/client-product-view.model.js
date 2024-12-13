@@ -44,7 +44,6 @@ export class ClientProductViewModel {
   productBase = undefined
   productId = undefined
   productVariations = undefined
-  productsToBind = undefined
 
   shopsData = []
   destinations = []
@@ -118,22 +117,6 @@ export class ClientProductViewModel {
       await this.getShops()
       await this.getProductById()
       await this.getProductsVariations()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async onClickGetProductsToBind(option) {
-    try {
-      const result = await ClientModel.getProductPermissionsData(
-        option === ProductVariation.PARENT
-          ? { isChild: false, offset: 0 }
-          : { isChild: false, isParent: false, shopId: this.product?.shopId, offset: 0 },
-      )
-
-      runInAction(() => {
-        this.productsToBind = result.rows
-      })
     } catch (error) {
       console.error(error)
     }

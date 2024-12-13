@@ -62,6 +62,9 @@ export const useStyles = makeStyles()(theme => ({
   ideaID: {
     color: theme.palette.text.second,
     fontSize: '14px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
   },
 
   idText: {

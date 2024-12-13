@@ -55,7 +55,10 @@ export const FreelanceRequestDetailsModal = memo(props => {
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <div className={styles.headerDetails}>
-            <p>ID: {request?.xid}</p>
+            <div className={styles.flexContainer}>
+              <p>ID:</p>
+              <Text text={request?.xid} />
+            </div>
             <Text strong rows={2} text={request?.title} />
           </div>
           <div className={styles.headerDetails}>

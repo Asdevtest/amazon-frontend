@@ -13,21 +13,17 @@ import { useStyles } from './custom-select.style'
 export interface CustomSelectProps extends SelectProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomSelect: FC<CustomSelectProps> = memo(props => {
-  const { isRow, isCell, label, required, placeholder, className, labelClassName, wrapperClassName, ...restProps } =
-    props
+  const { isRow, isCell, label, required, placeholder, labelClassName, wrapperClassName, ...restProps } = props
 
   const { classes: styles, cx } = useStyles()
 
   const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
+  const placeholderText = placeholder ? t(TranslationKey[placeholder as TranslationKey]) : ''
 
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
       {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
-      <Select
-        {...restProps}
-        className={cx(styles.select, className)}
-        placeholder={placeholder ? t(TranslationKey[placeholder as TranslationKey]) : undefined}
-      />
+      <Select {...restProps} placeholder={placeholderText} />
     </div>
   )
 })

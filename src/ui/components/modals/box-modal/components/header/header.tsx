@@ -3,6 +3,7 @@ import { ChangeEvent, FC, memo } from 'react'
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { Input } from '@components/shared/input'
+import { Text } from '@components/shared/text'
 
 import { formatShortDateTime } from '@utils/date-time'
 import { t } from '@utils/translations'
@@ -22,13 +23,13 @@ export const Header: FC<HeaderProps> = memo(props => {
 
   const { classes: styles } = useStyles()
 
-  const boxAndPrepIdTitle = `${t(TranslationKey.Box)} № ${formFields?.xid}/ prep id:`
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.boxAndPrepIdContainer}>
-        <p className={styles.boxAndPrepIdTitle}>{boxAndPrepIdTitle}</p>
-
+        <p className={styles.boxAndPrepIdTitle}>
+          {t(TranslationKey.Box)} №
+          <Text text={String(formFields?.xid)} className={styles.boxAndPrepIdTitle} /> / prep id:
+        </p>
         <Input
           disabled={disabledPrepId}
           className={styles.boxAndPrepIdInput}

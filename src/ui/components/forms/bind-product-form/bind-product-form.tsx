@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { DefaultOptionType } from 'antd/es/select'
 import { observer } from 'mobx-react'
 import { FC, useEffect, useState } from 'react'
 
@@ -8,8 +9,7 @@ import { ClientModel } from '@models/client-model'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { RadioButtons } from '@components/shared/radio-buttons'
-import { InfiniteScrollSelect } from '@components/shared/selects/infinite-scroll-select'
-import { AsinOption } from '@components/shared/selects/infinite-scroll-select/options'
+import { AsinOption, InfiniteScrollSelect } from '@components/shared/selects/infinite-scroll-select'
 
 import { t } from '@utils/translations'
 
@@ -21,13 +21,12 @@ import { useStyles } from './bind-product-form.style'
 
 interface BindProductFormProps {
   sourceProduct: IProduct
-  onClickGetProductsToBind: (options: string) => void
   onClickNextButton: (option?: string, products?: string[]) => void
   onClose: () => void
 }
 
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
-  const { sourceProduct, onClickGetProductsToBind, onClickNextButton, onClose } = props
+  const { sourceProduct, onClickNextButton, onClose } = props
 
   const { classes: styles } = useStyles()
 
@@ -45,7 +44,6 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   const handleChangeRadio = (value: ProductVariation) => {
     setSelectedProducts([])
     setRadioValue(value)
-    onClickGetProductsToBind(value)
   }
 
   const handleChangeProducts = (values: any) => {
@@ -71,6 +69,12 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     },
   ]
 
+  const filterOptions = {
+    isChild: false,
+    isParent: radioValue === ProductVariation.CHILD ? false : undefined,
+    shopId: radioValue === ProductVariation.CHILD ? sourceProduct?.shopId : undefined,
+  }
+
   return (
     <div className={styles.root}>
       <p className={styles.title}>{t(TranslationKey['Select product'])}</p>
@@ -81,14 +85,21 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
         onClickRadioButton={handleChangeRadio}
       />
 
-      {/* <AsinSelect
-        label="Select products"
+      <InfiniteScrollSelect<IProduct>
+        required
         mode={radioValue === ProductVariation.CHILD ? 'multiple' : undefined}
+        optionLabel="asin"
+        optionValue="_id"
+        filterOptions={filterOptions}
+        method={ClientModel.getProductPermissionsData}
+        optionNode={AsinOption}
+        size="large"
+        label="Select products"
         style={{ width: '100%' }}
         placeholder="Select product"
         value={selectedProducts}
         onChange={(_, values) => handleChangeProducts(values)}
-      /> */}
+      />
 
       <div className={styles.buttons}>
         <CustomButton type="primary" disabled={!selectedProducts.length} onClick={handleSubmit}>
