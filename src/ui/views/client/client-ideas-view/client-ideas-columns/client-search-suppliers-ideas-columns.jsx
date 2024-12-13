@@ -111,7 +111,7 @@ export const clientSearchSuppliersIdeasColumns = rowHandlers => {
           secondDanger
           firstContent={t(TranslationKey.Accept)}
           firstDisabled={
-            params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND] || !params.row.supplierCards[0]?.supplier
+            params.row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND] || !params.row.supplierCards?.[0]
           }
           secondContent={t(TranslationKey.Reject)}
           onClickFirst={() => rowHandlers.onClickAcceptOnSuppliersSearch(params.row._id, params.row)}

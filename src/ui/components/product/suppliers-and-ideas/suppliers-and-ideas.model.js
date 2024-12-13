@@ -436,6 +436,11 @@ export class SuppliersAndIdeasModel {
             )
           }
         }
+
+        ClientModel.updateProduct(this.productId, {
+          currentSupplierCardId: ideaData?.supplierCards?.[0]?._id,
+        })
+
         this.loadData()
         break
 

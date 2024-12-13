@@ -302,6 +302,9 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
           id,
           !ideaData?.variation && !!ideaData?.parentProduct?._id && ideaData,
         )
+
+        this.setFirstSupplierCardCurrent(ideaData)
+
         this.onTriggerOpenModal('showConfirmModal')
         toast.success(t(TranslationKey['Idea status changed successfully']))
       },
@@ -812,5 +815,15 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
     })
 
     this.onTriggerOpenModal('showAddSupplierProductModal')
+  }
+
+  async setFirstSupplierCardCurrent(idea: IIdea) {
+    try {
+      const productId = idea?.childProduct?._id || idea?.parentProduct?._id
+
+      await ClientModel.updateProduct(productId, { currentSupplierCardId: idea?.supplierCards?.[0]?._id })
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
