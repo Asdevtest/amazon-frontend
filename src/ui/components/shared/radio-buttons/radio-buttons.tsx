@@ -18,7 +18,6 @@ export interface IRadioBottonsSetting {
 interface RadioButtonsProps {
   radioBottonsSettings: Array<IRadioBottonsSetting>
   currentValue?: string | number | boolean
-  verticalDirection?: boolean
   disabled?: boolean
   onClickRadioButton: (value: any) => void
 }
@@ -34,18 +33,16 @@ export const RadioButtons: FC<RadioButtonsProps> = observer(props => {
       className={styles.group}
       onChange={event => onClickRadioButton(event.target.value)}
     >
-      {radioBottonsSettings.length
-        ? radioBottonsSettings.map((setting, settingIndex: number) => (
-            <Radio
-              key={settingIndex}
-              disabled={disabled || setting?.disabled}
-              value={setting.value}
-              className={styles.radio}
-            >
-              {setting?.label ? t(TranslationKey[setting?.label as keyof typeof TranslationKey]) : null}
-            </Radio>
-          ))
-        : null}
+      {radioBottonsSettings.map((setting, settingIndex: number) => (
+        <Radio
+          key={settingIndex}
+          disabled={disabled || setting?.disabled}
+          value={setting.value}
+          className={styles.radio}
+        >
+          {setting?.label ? t(TranslationKey[setting?.label as keyof typeof TranslationKey]) : null}
+        </Radio>
+      ))}
     </Radio.Group>
   )
 })

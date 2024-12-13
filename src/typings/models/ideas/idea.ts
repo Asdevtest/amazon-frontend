@@ -1,7 +1,7 @@
 import { ICreatedBy } from '../../shared/created-by'
 import { IOrder } from '../orders/order'
 import { IProduct } from '../products/product'
-import { ISupplier } from '../suppliers/supplier'
+import { ISupplierCardFull } from '../suppliers/supplier-card'
 
 export interface IIdea {
   _id: string
@@ -13,7 +13,7 @@ export interface IIdea {
   productName: string
   variation: boolean
   childProduct: IProduct
-  suppliers: Array<ISupplier>
+  supplierCards: Array<ISupplierCardFull>
   requestsOnCheck: Array<ApiV1IdeasByParentGuidRequestsOnCheck>
   requestsOnFinished: Array<ApiV1IdeasByParentGuidRequestsOnCheck>
   comments: string

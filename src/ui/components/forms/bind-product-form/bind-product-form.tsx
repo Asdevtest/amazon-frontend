@@ -8,8 +8,7 @@ import { ClientModel } from '@models/client-model'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { RadioButtons } from '@components/shared/radio-buttons'
-import { InfiniteScrollSelect } from '@components/shared/selects/infinite-scroll-select'
-import { AsinOption } from '@components/shared/selects/infinite-scroll-select/options'
+import { AsinOption, InfiniteScrollSelect } from '@components/shared/selects/infinite-scroll-select'
 
 import { t } from '@utils/translations'
 
@@ -19,28 +18,49 @@ import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './bind-product-form.style'
 
-import { SelectedProduct } from './selected-product/selected-product'
-
 interface BindProductFormProps {
   sourceProduct: IProduct
-  onClickGetProductsToBind: (options: string) => void
-  onClickNextButton: (option?: string, products?: Array<IProduct>) => void
+  onClickNextButton: (option?: string, products?: string[]) => void
   onClose: () => void
 }
 
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
+  const { sourceProduct, onClickNextButton, onClose } = props
+
   const { classes: styles } = useStyles()
 
-  const { sourceProduct, onClickGetProductsToBind, onClickNextButton, onClose } = props
-
   const [selectedProducts, setSelectedProducts] = useState<Array<IProduct>>([])
-  const [selectedRadioValue, setSelectedRadioValue] = useState<string>()
+  const [radioValue, setRadioValue] = useState<ProductVariation>()
+
+  const notParent = !sourceProduct?.parentProductId && sourceProduct?.hasChildren
+
+  useEffect(() => {
+    if (notParent) {
+      handleChangeRadio(ProductVariation.CHILD)
+    }
+  }, [sourceProduct?.parentProductId, sourceProduct?.hasChildren])
+
+  const handleChangeRadio = (value: ProductVariation) => {
+    setSelectedProducts([])
+    setRadioValue(value)
+  }
+
+  const handleChangeProducts = (values: any) => {
+    const products = radioValue === ProductVariation.CHILD ? values : [values]
+    setSelectedProducts(products as IProduct[])
+  }
+
+  const handleSubmit = () => {
+    const selectedProductIds = selectedProducts.map(el => el._id)
+
+    onClickNextButton(radioValue, selectedProductIds)
+  }
 
   const radioBottonsSettings = [
     {
       label: 'Add parent',
       value: ProductVariation.PARENT,
-      // disabled: !sourceProduct?.parentProductId && sourceProduct?.hasChildren,
+      // disabled: notParent,
     },
     {
       label: 'Add variations',
@@ -48,78 +68,42 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     },
   ]
 
-  const chooseRadioButtonSettingHandler = (value: string | number | boolean) => {
-    if (typeof value === 'string') {
-      setSelectedProducts([])
-      setSelectedRadioValue(value)
-      onClickGetProductsToBind?.(value)
-    }
+  const filterOptions = {
+    isChild: false,
+    isParent: radioValue === ProductVariation.CHILD ? false : undefined,
+    shopId: radioValue === ProductVariation.CHILD ? sourceProduct?.shopId : undefined,
   }
-
-  const onClickDeleteButton = (product: IProduct) => {
-    setSelectedProducts(prev => prev.filter(el => el._id !== product._id))
-  }
-
-  const selectProductHandler = (selectedProduct: IProduct) => {
-    if (selectedRadioValue === ProductVariation.PARENT) {
-      return setSelectedProducts([selectedProduct])
-    }
-    setSelectedProducts(prev => {
-      if (prev.some(product => product._id === selectedProduct._id)) {
-        return prev.filter(product => product._id !== selectedProduct._id)
-      } else {
-        return prev ? [...prev, selectedProduct] : [selectedProduct]
-      }
-    })
-  }
-
-  useEffect(() => {
-    if (!sourceProduct?.parentProductId && sourceProduct?.hasChildren) {
-      chooseRadioButtonSettingHandler(ProductVariation.CHILD)
-    }
-  }, [sourceProduct?.parentProductId, sourceProduct?.hasChildren])
 
   return (
     <div className={styles.root}>
       <p className={styles.title}>{t(TranslationKey['Select product'])}</p>
 
-      <div className={styles.radioButtonsWrapper}>
-        <RadioButtons
-          verticalDirection
-          radioBottonsSettings={radioBottonsSettings}
-          currentValue={selectedRadioValue}
-          onClickRadioButton={chooseRadioButtonSettingHandler}
-        />
-      </div>
+      <RadioButtons
+        currentValue={radioValue}
+        radioBottonsSettings={radioBottonsSettings}
+        onClickRadioButton={handleChangeRadio}
+      />
 
-      <div className={styles.selectWrapper}>
-        <InfiniteScrollSelect<IProduct>
-          optionLabel="asin"
-          optionValue="_id"
-          method={ClientModel.getProductPermissionsData}
-          optionNode={AsinOption}
-          disabled={!selectedRadioValue}
-          placeholder="Select product"
-          onChange={selectProductHandler}
-        />
+      <InfiniteScrollSelect<IProduct>
+        required
+        mode={radioValue === ProductVariation.CHILD ? 'multiple' : undefined}
+        optionLabel="asin"
+        optionValue="_id"
+        filterOptions={filterOptions}
+        method={ClientModel.getProductPermissionsData}
+        optionNode={AsinOption}
+        size="large"
+        label="Select products"
+        style={{ width: '100%' }}
+        placeholder="Select product"
+        value={selectedProducts}
+        onChange={(_, values) => handleChangeProducts(values)}
+      />
 
-        <div className={styles.selectedVariationsWrapper}>
-          {!!selectedProducts.length &&
-            selectedProducts.map((product: IProduct, productIndex: number) => (
-              <SelectedProduct key={productIndex} product={product} onClickDeleteButton={onClickDeleteButton} />
-            ))}
-        </div>
-      </div>
-
-      <div className={styles.buttonsWrapper}>
-        <CustomButton
-          type="primary"
-          disabled={!selectedProducts.length}
-          onClick={() => onClickNextButton(selectedRadioValue, selectedProducts)}
-        >
+      <div className={styles.buttons}>
+        <CustomButton type="primary" disabled={!selectedProducts.length} onClick={handleSubmit}>
           {t(TranslationKey.Next)}
         </CustomButton>
-
         <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
       </div>
     </div>

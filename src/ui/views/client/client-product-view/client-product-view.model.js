@@ -4,7 +4,6 @@ import { toast } from 'react-toastify'
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { creatSupplier, patchSuppliers } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { ProductModel } from '@models/product-model'
@@ -45,7 +44,6 @@ export class ClientProductViewModel {
   productBase = undefined
   productId = undefined
   productVariations = undefined
-  productsToBind = undefined
 
   shopsData = []
   destinations = []
@@ -124,32 +122,16 @@ export class ClientProductViewModel {
     }
   }
 
-  async onClickGetProductsToBind(option) {
-    try {
-      const result = await ClientModel.getProductPermissionsData(
-        option === ProductVariation.PARENT
-          ? { isChild: false, offset: 0 }
-          : { isChild: false, isParent: false, shopId: this.product?.shopId, offset: 0 },
-      )
-
-      runInAction(() => {
-        this.productsToBind = result.rows
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  async bindUnbindProducts(option, products) {
+  async bindUnbindProducts(option, ids) {
     try {
       if (option === ProductVariation.CHILD) {
         await ProductModel.unbindProducts({
           parentProductId: this.product?._id,
-          childProductIds: products?.map(product => product?._id),
+          childProductIds: ids,
         })
       } else {
         await ProductModel.unbindProducts({
-          parentProductId: products?.[0]?._id,
+          parentProductId: ids?.[0],
           childProductIds: [this.product?._id],
         })
       }

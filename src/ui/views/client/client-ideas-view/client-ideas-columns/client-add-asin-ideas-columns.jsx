@@ -152,7 +152,7 @@ export const clientAddAsinIdeasColumns = rowHandlers => {
           showFirst
           firstContent={t(TranslationKey.Accept)}
           firstDisabled={params.row?.variation ? !params.row.childProduct?.barCode : !params.row.parentProduct?.barCode}
-          onClickFirst={() => rowHandlers.onClickAcceptOnAddingAsin(params.row._id)}
+          onClickFirst={() => rowHandlers.onClickAcceptOnAddingAsin(params.row)}
         />
       ),
       width: 130,

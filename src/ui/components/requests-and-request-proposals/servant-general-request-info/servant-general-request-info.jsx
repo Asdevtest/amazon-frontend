@@ -10,6 +10,7 @@ import { ProductCell } from '@components/data-grid/data-grid-cells'
 import { RequestTermsList } from '@components/requests-and-request-proposals/requests/request-terms-list'
 import { AsinOrSkuLink } from '@components/shared/asin-or-sku-link'
 import { CustomButton } from '@components/shared/custom-button'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { t } from '@utils/translations'
@@ -71,7 +72,11 @@ export const ServantGeneralRequestInfo = memo(({ userRole, request, onSubmit, re
               </div>
             )}
             <p className={styles.idText}>ID:</p>
-            <p className={cx(styles.idText, styles.idTextDark)}>{request?.request?.xid || t(TranslationKey.Missing)}</p>
+
+            <Text
+              className={cx(styles.idText, styles.idTextDark)}
+              Text={request?.request?.xid || t(TranslationKey.Missing)}
+            />
           </div>
         </div>
       )}

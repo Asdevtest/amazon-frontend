@@ -184,7 +184,8 @@ export const ListSuppliers: FC<ListSuppliersProps> = observer(props => {
           openModal={viewModel.showSupplierApproximateCalculationsModal}
           productId={isIdea ? '' : extractProduct(formFields)?._id}
           ideaId={isIdea ? extractProduct(formFields)?._id : ''}
-          currentSupplierId={viewModel.currentSupplier?._id || ''}
+          supplierCardId={viewModel.currentSupplier?._id}
+          currentSupplierId={viewModel.currentSupplier?.supplier?._id || ''}
           setOpenModal={() => viewModel.onToggleModal(ModalNames.CALCULATION)}
         />
       ) : null}

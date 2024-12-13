@@ -13,6 +13,7 @@ import { CustomTextEditor } from '@components/shared/custom-text-editor'
 import { Field } from '@components/shared/field'
 import { SetDuration } from '@components/shared/set-duration'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 import { UserLink } from '@components/user/user-link'
 
@@ -165,7 +166,7 @@ export const CreateOrEditProposalContent = memo(props => {
 
           <div className={styles.infoCellWrapper}>
             <p className={styles.requestTitleName}>ID</p>
-            <p>{request?.request?.xid}</p>
+            <Text text={request?.request?.xid} />
           </div>
 
           <div className={cx(styles.infoCellWrapper, styles.lastInfoCellWrapper)}>
