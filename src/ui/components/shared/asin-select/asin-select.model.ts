@@ -7,8 +7,8 @@ import { UseProductsPermissions } from '@hooks/use-products-permissions'
 import { selectConfig } from './asin-select.config'
 
 export class AsinSelectModel extends UseProductsPermissions {
-  constructor() {
-    super(ClientModel.getProductPermissionsData)
+  constructor(options?: any) {
+    super(ClientModel.getProductPermissionsData, options)
     makeObservable(this, selectConfig)
   }
 
