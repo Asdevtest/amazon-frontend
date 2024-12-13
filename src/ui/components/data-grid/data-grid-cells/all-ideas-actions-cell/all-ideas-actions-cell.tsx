@@ -7,15 +7,17 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
+import { IIdea } from '@typings/models/ideas/idea'
+
 interface AllIdeasActionsCellProps {
   row: any
   rowHandlers: {
     onClickToCheck: (id: string) => void
     onClickReject: (id: string) => void
     onClickAcceptOnCheckingStatus: (id: string) => void
-    onClickAcceptOnSuppliersSearch: (id: string) => void
+    onClickAcceptOnSuppliersSearch: (id: string, ideaData: IIdea) => void
     onClickAcceptOnCreatingProduct: (id: string) => void
-    onClickAcceptOnAddingAsin: (id: string) => void
+    onClickAcceptOnAddingAsin: (id: IIdea) => void
     onClickToOrder: (id: string) => void
     onClickRestore: (id: string) => void
     onClickClose: (id: string) => void
@@ -59,7 +61,7 @@ export const AllIdeasActionsCell: FC<AllIdeasActionsCellProps> = memo(({ row, ro
           firstContent={t(TranslationKey.Accept)}
           firstDisabled={row.status !== ideaStatusByKey[ideaStatus.SUPPLIER_FOUND]}
           secondContent={t(TranslationKey.Reject)}
-          onClickFirst={() => rowHandlers.onClickAcceptOnSuppliersSearch(row._id)}
+          onClickFirst={() => rowHandlers.onClickAcceptOnSuppliersSearch(row._id, row)}
           onClickSecond={() => rowHandlers.onClickReject(row._id)}
         />
       )}
@@ -78,7 +80,7 @@ export const AllIdeasActionsCell: FC<AllIdeasActionsCellProps> = memo(({ row, ro
           showFirst
           firstContent={t(TranslationKey.Accept)}
           firstDisabled={row.variation ? !row.childProduct?.barCode : !row.parentProduct?.barCode}
-          onClickFirst={() => rowHandlers.onClickAcceptOnAddingAsin(row._id)}
+          onClickFirst={() => rowHandlers.onClickAcceptOnAddingAsin(row)}
         />
       )}
 
