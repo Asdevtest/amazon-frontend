@@ -116,8 +116,8 @@ class ClientModelStatic {
     return response.data
   }
 
-  getOrdersByProductId = async guid => {
-    const response = await restApiService.clientApi.apiV1ClientsGetOrdersByProductIdGuidGet({ guid })
+  getOrdersByProductId = async body => {
+    const response = await restApiService.clientApi.apiV1ClientsGetOrdersByProductIdGuidGet(body)
     return response.data
   }
 

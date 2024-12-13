@@ -12,8 +12,17 @@ export const useStyles = makeStyles()(() => ({
     // minHeight: '600px', // TODO
 
     '.ant-tabs-content': {
+      height: '100%',
       paddingLeft: '8px',
       position: 'static', // TODO
+
+      '.ant-tabs-tabpane': {
+        height: '100%',
+      },
     },
+  },
+
+  tabs: {
+    height: '100%',
   },
 }))

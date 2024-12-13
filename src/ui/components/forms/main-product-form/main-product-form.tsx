@@ -11,7 +11,7 @@ import '@typings/enums/button-style'
 
 import { useStyles } from './main-product-form.style'
 
-import { BasicInfo } from './components'
+import { BasicInfo, Orders } from './components'
 import { ProductTubs } from './main-product-form.config'
 import { MainProductFormModel } from './main-product-form.model'
 
@@ -22,7 +22,7 @@ export interface MainProductFormProps {
 }
 
 export const MainProductForm: FC<MainProductFormProps> = observer(props => {
-  const { productId, onClose, onSubmit } = props
+  const { productId, onClose } = props
 
   const { classes: styles } = useStyles()
   const viewModel = useMemo(() => new MainProductFormModel(productId), [])
@@ -41,7 +41,7 @@ export const MainProductForm: FC<MainProductFormProps> = observer(props => {
         {
           key: ProductTubs.ORDERS,
           label: t(TranslationKey.Orders),
-          children: 'Orders',
+          children: <Orders productId={productId} />,
         },
         {
           key: ProductTubs.INTEGRATIONS,
@@ -88,6 +88,7 @@ export const MainProductForm: FC<MainProductFormProps> = observer(props => {
     <div className={styles.root}>
       <Tabs
         destroyInactiveTabPane
+        className={styles.tabs}
         defaultActiveKey={viewModel.tabValue}
         items={generateProductTabs()}
         onChange={viewModel.onChangeTabValue}
