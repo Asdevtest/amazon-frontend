@@ -1,63 +1,75 @@
-import { FC, memo, useState } from 'react'
+import { Empty } from 'antd'
+import { observer } from 'mobx-react'
+import { FC, useMemo } from 'react'
 import { FiPlus } from 'react-icons/fi'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { InterconnectedProduct } from '@components/shared/interconnected-product'
+import { Modal } from '@components/shared/modal'
 
 import { t } from '@utils/translations'
 
-import { IVariationProduct } from '@typings/models/products/product-variation'
+import { IProduct } from '@typings/models/products/product'
 
 import { useStyles } from './product-variations-form.style'
 
+import { BindProductForm } from '../bind-product-form'
+
+import { ProductVariationsFormModel } from './product-vatiations-form.model'
+
 interface ProductVariationsFormProps {
-  variationProduct: IVariationProduct
-  onRemove?: (id: string) => void
-  onAdd?: () => void
+  product: IProduct
+  withChangeVariation?: boolean
+  onSubmit?: () => void
 }
 
-export const ProductVariationsForm: FC<ProductVariationsFormProps> = memo(props => {
-  const { variationProduct, onRemove, onAdd } = props
+export const ProductVariationsForm: FC<ProductVariationsFormProps> = observer(props => {
+  const { product, withChangeVariation, onSubmit } = props
 
-  const { classes: styles } = useStyles()
-  const [showBindProductModal, setShowBindProductModal] = useState(false)
-
-  const parentProduct = variationProduct?.parentProduct || variationProduct
+  const { classes: styles, cx } = useStyles()
+  const viewModel = useMemo(() => new ProductVariationsFormModel(product?.parentProductId || product?._id), [])
 
   return (
     <>
       <div className={styles.root}>
-        <div className={styles.header}>
-          <p className={styles.title}>{t(TranslationKey['Interconnected products'])}</p>
+        {withChangeVariation ? (
+          <div className={styles.header}>
+            <p className={styles.label}>{t(TranslationKey['Interconnected products'])}</p>
 
-          {onAdd ? (
-            <CustomButton
-              size="small"
-              icon={<FiPlus size={16} />}
-              onClick={() => setShowBindProductModal(!showBindProductModal)}
-            />
-          ) : null}
-        </div>
+            <CustomButton size="small" icon={<FiPlus size={16} />} onClick={viewModel.onToggleBindProductModal} />
+          </div>
+        ) : null}
 
-        <div className={styles.content}>
-          <InterconnectedProduct isParent variationProduct={parentProduct} onRemove={onRemove} />
+        <div className={cx(styles.content, { [styles.empty]: viewModel.isEmpty })}>
+          {viewModel.isEmpty ? (
+            <Empty />
+          ) : (
+            <>
+              {viewModel.parentProduct ? (
+                <InterconnectedProduct
+                  isParent
+                  variationProduct={viewModel.parentProduct}
+                  onRemove={viewModel.onUnbindProduct}
+                />
+              ) : null}
 
-          {variationProduct?.childProducts?.map(product => (
-            <InterconnectedProduct key={product?._id} variationProduct={product} onRemove={onRemove} />
-          ))}
+              {viewModel.variationProduct?.childProducts?.map(item => (
+                <InterconnectedProduct
+                  key={product?._id}
+                  variationProduct={item}
+                  onRemove={viewModel.onUnbindProduct}
+                />
+              ))}
+            </>
+          )}
         </div>
       </div>
 
-      {/* <Modal openModal={showBindProductModal} setOpenModal={() => setShowBindProductModal(!showBindProductModal)}>
-        <BindProductForm
-          sourceProduct={variationProduct}
-          onClickGetProductsToBind={onClickGetProductsToBind}
-          onClickNextButton={onClickNextButton}
-          onClose={() => setShowBindProductModal(!showBindProductModal)}
-        />
-      </Modal> */}
+      <Modal openModal={viewModel.showBindProductModal} setOpenModal={viewModel.onToggleBindProductModal}>
+        <BindProductForm product={product} onSubmit={onSubmit} onClose={viewModel.onToggleBindProductModal} />
+      </Modal>
     </>
   )
 })

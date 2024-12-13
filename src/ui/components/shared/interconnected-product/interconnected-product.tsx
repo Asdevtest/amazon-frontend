@@ -36,6 +36,7 @@ export const InterconnectedProduct: FC<InterconnectedProductProps> = observer(pr
 
       <div className={styles.product}>
         <ProductCell
+          isCell={false}
           image={variationProduct?.images?.[0]}
           asin={variationProduct?.asin}
           sku={variationProduct?.skuByClient}

@@ -70,7 +70,7 @@ export const clientInventoryColumns = ({
         <ProductVariationsCell
           showVariationButton={row?.parentProductId || row?.hasChildren}
           isParentProduct={!row?.parentProductId && row?.hasChildren}
-          onClickVariationButton={() => otherHandlers.onClickVariationButton(row?.parentProductId || row?._id)}
+          onClickVariationButton={() => otherHandlers.onClickVariationButton(row)}
         />
       ),
       width: 90,

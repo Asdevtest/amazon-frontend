@@ -12,7 +12,6 @@ export const observerConfig = {
   receivedFiles: observable,
   curProduct: observable,
   productsToLaunch: observable,
-  productVariations: observable,
   selectedProductToLaunch: observable,
   existingProducts: observable,
   selectedRowId: observable,

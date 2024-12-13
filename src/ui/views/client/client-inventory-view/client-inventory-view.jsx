@@ -384,11 +384,10 @@ export const ClientInventoryView = observer(({ history }) => {
       ) : null}
 
       <Modal
-        noPadding
         openModal={viewModel.showProductVariationsForm}
         setOpenModal={() => viewModel.onTriggerOpenModal('showProductVariationsForm')}
       >
-        <ProductVariationsForm variationProduct={viewModel.productVariations} />
+        <ProductVariationsForm product={viewModel.selectedProduct} />
       </Modal>
 
       {viewModel.showCircularProgressModal ? <CircularProgressWithLabel /> : null}

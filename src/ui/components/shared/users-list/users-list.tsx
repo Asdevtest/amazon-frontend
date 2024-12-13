@@ -28,7 +28,7 @@ export const UsersList: FC<UsersListProps> = memo(props => {
 
       <div className={cx(styles.items, { [styles.empty]: !users?.length })}>
         {users?.length ? (
-          users?.map(user => <UserCell key={user?._id} isCell={false} name={user?.name} id={user?._id} />)
+          users?.map((user, index) => <UserCell key={index} isCell={false} name={user?.name} id={user?._id} />)
         ) : (
           <Empty />
         )}

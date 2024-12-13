@@ -5,6 +5,7 @@ import { MdEdit } from 'react-icons/md'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
+import { ProductVariationsForm } from '@components/forms/product-variations-form'
 import { SupplierApproximateCalculationsModal } from '@components/modals/supplier-approximate-calculations'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomInput } from '@components/shared/custom-input'
@@ -26,6 +27,7 @@ import { t } from '@utils/translations'
 
 import { TariffModal } from '@typings/enums/tariff-modal'
 import { IProduct } from '@typings/models/products/product'
+import { IVariationProduct } from '@typings/models/products/product-variation'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
 
@@ -36,6 +38,7 @@ import { BasicInfoConfig, basicInfoTabsOptions, productStrategyStatus } from './
 interface BasicInfoProps {
   onClose: () => void
   product?: IProduct
+  variationProduct?: IVariationProduct
 }
 
 export const BasicInfo: FC<BasicInfoProps> = memo(props => {
@@ -126,12 +129,13 @@ export const BasicInfo: FC<BasicInfoProps> = memo(props => {
     ),
     [BasicInfoConfig.PARAMETERS]: (
       <div className={cx(styles.tabHeight, styles.flexRow)}>
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%' }} className={styles.flexColumn}>
           <CustomInput
             label="SEO file"
             placeholder={product?.latestSeoFiles?.[0] ? '' : 'Not available'}
             value={getFileNameFromUrl(product?.latestSeoFiles?.[0])?.name}
           />
+          <ProductVariationsForm withChangeVariation product={product} onSubmit={() => {}} />
         </div>
         <TagList tags={product?.tags} productId={product?._id} />
         <RedFlags editMode withSearch withTitle flags={product?.redFlags} />

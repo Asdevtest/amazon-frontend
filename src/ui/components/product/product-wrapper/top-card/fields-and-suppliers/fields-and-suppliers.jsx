@@ -503,13 +503,7 @@ export const FieldsAndSuppliers = memo(props => {
             </div>
             <div className={styles.interconnectedProductsBodyWrapper}>
               {product?.parentProductId && (
-                <InterconnectedProduct
-                  isParent
-                  // showRemoveButton={checkIsClient(curUserRole)}
-                  variationProduct={productVariations}
-                  // navigateToProduct={navigateToProduct}
-                  onRemove={unbindProductHandler}
-                />
+                <InterconnectedProduct isParent variationProduct={productVariations} onRemove={unbindProductHandler} />
               )}
 
               {productVariations?.childProducts
@@ -517,9 +511,7 @@ export const FieldsAndSuppliers = memo(props => {
                 .map((variationProduct, variationProductIndex) => (
                   <InterconnectedProduct
                     key={variationProductIndex}
-                    // showRemoveButton={!product?.parentProductId && checkIsClient(curUserRole)}
                     variationProduct={variationProduct}
-                    // navigateToProduct={navigateToProduct}
                     onRemove={unbindProductHandler}
                   />
                 ))}

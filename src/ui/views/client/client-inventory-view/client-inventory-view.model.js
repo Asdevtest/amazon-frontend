@@ -2,7 +2,6 @@ import { makeObservable, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
-import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
@@ -27,7 +26,7 @@ import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
-import { formatCamelCaseString, objectToUrlQs, toFixed } from '@utils/text'
+import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -60,7 +59,6 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   curProduct = undefined
   parsingTable = undefined
   productsToLaunch = []
-  productVariations = undefined
   selectedProductToLaunch = undefined
   dataForOrderModal = []
   existingProducts = []
@@ -234,7 +232,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       onOpenProductDataModal: (product, onAmazon) => this.onOpenProductDataModal(product, onAmazon),
       onClickOrderCell: (productId, filterStatus) => this.onClickOrderCell(productId, filterStatus),
       onClickShowProduct: row => this.onClickShowProduct(row),
-      onClickVariationButton: id => this.onClickVariationButton(id),
+      onClickVariationButton: row => this.onClickVariationButton(row),
       onClickTag: tag => this.setActiveProductsTagFromTable(tag),
       onClickEdit: productId => this.onClickEditTags(productId),
       onClickParsingReportCell: (product, table) => this.onClickParsingReportCell(product, table),
@@ -394,18 +392,9 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     this.onTriggerOpenModal('productCardModal')
   }
 
-  async onClickVariationButton(id) {
-    try {
-      const result = await ProductModel.getProductsVariationsByGuid(id)
-
-      runInAction(() => {
-        this.productVariations = result
-      })
-
-      this.onTriggerOpenModal('showProductVariationsForm')
-    } catch (error) {
-      console.error(error)
-    }
+  onClickVariationButton(row) {
+    this.selectedProduct = row
+    this.onTriggerOpenModal('showProductVariationsForm')
   }
 
   async uploadTemplateFile(file) {
