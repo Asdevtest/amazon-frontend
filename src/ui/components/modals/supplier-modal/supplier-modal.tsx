@@ -155,6 +155,7 @@ export const SupplierModal: FC<ISupplierModalProps> = observer(props => {
 
       {supplierCardsModel.showAddSupplierProductModal ? (
         <AddSupplierCardModal
+          showOnlySupplierId={supplierCardsModel.showOnlySupplierId}
           supplierId={supplierId}
           supplierCardId={supplierCardsModel.supplierCardIdToEdit}
           handleUpdate={() => supplierCardsModel.getCurrentData()}

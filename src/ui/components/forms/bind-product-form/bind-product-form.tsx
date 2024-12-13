@@ -32,7 +32,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   const { classes: styles } = useStyles()
 
   const [selectedProducts, setSelectedProducts] = useState<Array<IProduct>>([])
-  const [radioValue, setRadioValue] = useState<ProductVariation>(ProductVariation.PARENT)
+  const [radioValue, setRadioValue] = useState<ProductVariation>()
 
   const notParent = !sourceProduct?.parentProductId && sourceProduct?.hasChildren
 
@@ -49,7 +49,8 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   }
 
   const handleChangeProducts = (values: any) => {
-    setSelectedProducts(values as IProduct[])
+    const products = radioValue === ProductVariation.CHILD ? values : [values]
+    setSelectedProducts(products as IProduct[])
   }
 
   const handleSubmit = () => {
@@ -62,7 +63,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     {
       label: 'Add parent',
       value: ProductVariation.PARENT,
-      disabled: notParent,
+      // disabled: notParent,
     },
     {
       label: 'Add variations',
@@ -82,9 +83,10 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
 
       {/* <AsinSelect
         label="Select products"
-        mode="multiple"
+        mode={radioValue === ProductVariation.CHILD ? 'multiple' : undefined}
         style={{ width: '100%' }}
         placeholder="Select product"
+        value={selectedProducts}
         onChange={(_, values) => handleChangeProducts(values)}
       /> */}
 

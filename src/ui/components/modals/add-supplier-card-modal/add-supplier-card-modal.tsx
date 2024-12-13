@@ -35,20 +35,33 @@ interface AddSupplierCardModalProps {
   supplierId?: string
   supplierCardId?: string
   disabled?: boolean
+  showOnlySupplierId?: boolean
   hideStatusButton?: boolean
   setOpenModal: (openModal?: boolean) => void
   handleUpdate?: (supplierCardId?: string) => void
 }
 
 export const AddSupplierCardModal: FC<AddSupplierCardModalProps> = observer(props => {
-  const { supplierId, supplierCardId, openModal, disabled, hideStatusButton, setOpenModal, handleUpdate } = props
+  const {
+    supplierId,
+    supplierCardId,
+    openModal,
+    disabled,
+    hideStatusButton,
+    showOnlySupplierId,
+    setOpenModal,
+    handleUpdate,
+  } = props
 
   const { classes: styles, cx } = useStyles()
   const { classes: sharedStyles } = useSharedStyles()
 
   const [form] = Form.useForm<ICreateSupplierProductModal>()
 
-  const viewModel = useMemo(() => new AddSupplierProductModalModel({ supplierId, supplierCardId }), [])
+  const viewModel = useMemo(
+    () => new AddSupplierProductModalModel({ supplierId, supplierCardId, showOnlySupplierId }),
+    [],
+  )
 
   const isPublished = SupplierCardStatus.PUBLISHED === (viewModel.currentData as unknown as ISupplierCardFull)?.status
 
