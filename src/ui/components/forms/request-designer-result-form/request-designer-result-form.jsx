@@ -16,6 +16,7 @@ import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
 import { SlideByType } from '@components/shared/slide-by-type'
 import { CrossInRectangleIcon, PhotoCameraWithPlusIcon } from '@components/shared/svg-icons'
+import { Text } from '@components/shared/text'
 
 import { createUploadFile } from '@utils/create-upload-file'
 import { getShortenStringIfLongerThanCount, minsToTime } from '@utils/text'
@@ -251,10 +252,12 @@ export const RequestDesignerResultForm = ({ onClickSendAsResult, setOpenModal, p
       <div className={styles.modalMainWrapper}>
         <div className={styles.headerWrapper}>
           <div className={styles.headerLeftSubWrapper}>
-            <p className={cx(styles.headerLabel, styles.mainTitleMargin)}>{`${t(
-              TranslationKey['Request result'],
-            )} / ID ${proposal?.request?.xid}`}</p>
-
+            <div className={styles.idWrapper}>
+              <p className={cx(styles.headerLabel, styles.mainTitleMargin)}>
+                {t(TranslationKey['Request result'])} / ID
+              </p>
+              <Text text={String(proposal?.request?.xid)} />
+            </div>
             <p className={cx(styles.headerLabel, styles.labelMargin)}>
               {t(TranslationKey['Your image recommendations'])}
             </p>

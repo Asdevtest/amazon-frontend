@@ -290,4 +290,10 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'flex-end',
     gap: 30,
   },
+
+  idWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
 }))

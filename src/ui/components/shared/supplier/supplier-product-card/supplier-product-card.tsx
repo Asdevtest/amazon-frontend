@@ -54,7 +54,7 @@ export const SupplierProductCard: FC<SupplierProductCardProps> = memo(props => {
           <Divider type="vertical" className={styles.divider} />
           <div className={styles.flexColumn}>
             <Text type="secondary" copyable={false} text="ID" />
-            <Text copyable={false} text={String(product?.xid)} />
+            <Text text={String(product?.xid)} />
           </div>
         </div>
 
