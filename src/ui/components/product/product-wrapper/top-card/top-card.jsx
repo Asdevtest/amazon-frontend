@@ -55,7 +55,6 @@ export const TopCard = memo(
     onChangeImagesForLoad,
     showBindProductModal,
     onTriggerOpenModal,
-    onClickGetProductsToBind,
     onClickHsCode,
     onClickNextButton,
     loadMorePermissionsDataHadler,
@@ -187,7 +186,6 @@ export const TopCard = memo(
           >
             <BindProductForm
               sourceProduct={product}
-              onClickGetProductsToBind={onClickGetProductsToBind}
               onClickNextButton={onClickNextButton}
               onClose={() => onTriggerOpenModal('showBindProductModal')}
             />

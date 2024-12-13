@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 
 import { UserRoleCodeMap } from '@constants/keys/user-roles'
 import { ProductStatus, ProductStatusByKey } from '@constants/product/product-status'
@@ -25,7 +25,6 @@ import { t } from '@utils/translations'
 
 import '@typings/enums/button-style'
 import { loadingStatus } from '@typings/enums/loading-status'
-import { ProductVariation } from '@typings/enums/product/product-variation'
 import { isSupervisor } from '@typings/guards/roles'
 
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
@@ -139,15 +138,6 @@ export const ProductCardModal = observer(props => {
             onClickHsCode={viewModel?.onClickHsCode}
             onClickNextButton={viewModel.bindUnbindProducts}
             onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
-            onClickGetProductsToBind={option =>
-              useProductsPermissions.getPermissionsData({
-                isChild: false,
-                isParent: option === ProductVariation.CHILD ? false : undefined,
-                shopId: viewModel.product?.shopId,
-                offset: 0,
-                filters: '',
-              })
-            }
             onClickSaveSupplierBtn={viewModel?.onClickSaveSupplierBtn}
             onRemoveSupplier={viewModel?.onRemoveSupplier}
             onSaveForceProductData={viewModel.onSaveForceProductData}
