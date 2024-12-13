@@ -303,7 +303,9 @@ export class ClientIdeasViewModel extends DataGridFilterTableModel {
           !ideaData?.variation && !!ideaData?.parentProduct?._id && ideaData,
         )
 
-        this.setFirstSupplierCardCurrent(ideaData)
+        if (!ideaData?.variation) {
+          this.setFirstSupplierCardCurrent(ideaData)
+        }
 
         this.onTriggerOpenModal('showConfirmModal')
         toast.success(t(TranslationKey['Idea status changed successfully']))

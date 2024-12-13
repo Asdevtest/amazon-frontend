@@ -435,11 +435,11 @@ export class SuppliersAndIdeasModel {
               ideaData?.supplierCards?.map(supplier => supplier._id),
             )
           }
-        }
 
-        ClientModel.updateProduct(this.productId, {
-          currentSupplierCardId: ideaData?.supplierCards?.[0]?._id,
-        })
+          ClientModel.updateProduct(this.productId, {
+            currentSupplierCardId: ideaData?.supplierCards?.[0]?._id,
+          })
+        }
 
         this.loadData()
         break

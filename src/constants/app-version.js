@@ -1,1 +1,1 @@
-export const appVersion = 'v4.23.6120' // КАЖДЫЙ РАЗ ОБНОВЛЯЙ И В manifest.json и ServiceWorker
+export const appVersion = 'v4.23.6130' // КАЖДЫЙ РАЗ ОБНОВЛЯЙ И В manifest.json и ServiceWorker
