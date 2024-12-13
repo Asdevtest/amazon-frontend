@@ -185,7 +185,7 @@ export const buyerIdeasColumns = (rowHandlers: rowHandlers) => {
 
     {
       field: 'priceWithDelivery',
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery']) + ', $'} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Price with delivery']) + ''} />,
       headerName: t(TranslationKey['Price with delivery']) + '$',
 
       renderCell: params => {

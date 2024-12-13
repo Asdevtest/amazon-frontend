@@ -19,26 +19,26 @@ import { IProduct } from '@typings/models/products/product'
 import { useStyles } from './bind-product-form.style'
 
 interface BindProductFormProps {
-  sourceProduct: IProduct
-  onClickNextButton: (option?: string, products?: string[]) => void
+  product: IProduct
   onClose: () => void
+  onSubmit?: (value?: string, productsIds?: string[]) => void
 }
 
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
-  const { sourceProduct, onClickNextButton, onClose } = props
+  const { product, onClose, onSubmit } = props
 
   const { classes: styles } = useStyles()
 
   const [selectedProducts, setSelectedProducts] = useState<Array<IProduct>>([])
   const [radioValue, setRadioValue] = useState<ProductVariation>()
 
-  const notParent = !sourceProduct?.parentProductId && sourceProduct?.hasChildren
+  const notParent = !product?.parentProductId && product?.hasChildren
 
   useEffect(() => {
     if (notParent) {
       handleChangeRadio(ProductVariation.CHILD)
     }
-  }, [sourceProduct?.parentProductId, sourceProduct?.hasChildren])
+  }, [product?.parentProductId, product?.hasChildren])
 
   const handleChangeRadio = (value: ProductVariation) => {
     setSelectedProducts([])
@@ -53,7 +53,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   const handleSubmit = () => {
     const selectedProductIds = selectedProducts.map(el => el._id)
 
-    onClickNextButton(radioValue, selectedProductIds)
+    onSubmit?.(radioValue, selectedProductIds)
   }
 
   const radioBottonsSettings = [
@@ -71,7 +71,7 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   const filterOptions = {
     isChild: false,
     isParent: radioValue === ProductVariation.CHILD ? false : undefined,
-    shopId: radioValue === ProductVariation.CHILD ? sourceProduct?.shopId : undefined,
+    shopId: radioValue === ProductVariation.CHILD ? product?.shopId : undefined,
   }
 
   return (

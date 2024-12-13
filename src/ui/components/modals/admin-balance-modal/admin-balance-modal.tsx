@@ -106,7 +106,7 @@ export const AdminBalanceModal: FC<AdminBalanceModalProps> = ({ user, isWithdraw
         )}
 
         <Field
-          label={t(TranslationKey.Amount) + ', $'}
+          label={t(TranslationKey.Amount) + ''}
           inputProps={{ maxLength: 8 }}
           value={balanceValue}
           onChange={e =>

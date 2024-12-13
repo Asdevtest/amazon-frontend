@@ -7,7 +7,6 @@ import { CustomButton } from '@components/shared/custom-button'
 import { Field } from '@components/shared/field/field'
 
 import { checkIsPositiveNummberAndNoMoreNCharactersAfterDot } from '@utils/checks'
-import { throttle } from '@utils/throttle'
 import { t } from '@utils/translations'
 
 import '@typings/enums/button-style'
@@ -78,7 +77,7 @@ export const AddOrEditWarehouseTariffForm = observer(({ onCloseModal, onCreateSu
         />
 
         <Field
-          label={t(TranslationKey['Service cost per kg, $']) + '*'}
+          label={t(TranslationKey['Service cost per kg']) + '*'}
           inputProps={{ maxLength: 10 }}
           labelClasses={styles.fieldLabel}
           tooltipInfoContent={t(TranslationKey['The cost of providing the service'])}

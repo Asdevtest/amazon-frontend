@@ -12,6 +12,7 @@ import { useStyles } from './custom-textarea.style'
 
 interface CustomTextareaProps extends TextAreaProps, IDefaultPropsExtensionAntdComponent {
   resize?: boolean
+  autoHeight?: boolean
 }
 
 export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
@@ -27,6 +28,7 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
     className,
     labelClassName,
     wrapperClassName,
+    autoHeight = false,
     ...restProps
   } = props
 
@@ -38,14 +40,20 @@ export const CustomTextarea: FC<CustomTextareaProps> = memo(props => {
   const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
 
   return (
-    <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
+    <div
+      className={cx(
+        styles.root,
+        { [styles.cell]: isCell, [styles.row]: isRow, [styles.autoHeight]: autoHeight },
+        wrapperClassName,
+      )}
+    >
       {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
       <Input.TextArea
         {...restProps}
         rows={rows}
         readOnly={readOnly}
         autoSize={readOnly && { maxRows: rows, minRows: 1 }}
-        className={cx(className, { [styles.readOnly]: readOnly })}
+        className={cx(className, { [styles.readOnly]: readOnly, [styles.autoHeight]: autoHeight })}
         style={{ resize: resize ? 'vertical' : 'none' }}
         placeholder={placeholderText}
         onKeyDown={event => event.stopPropagation()}

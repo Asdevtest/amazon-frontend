@@ -93,6 +93,7 @@ export const ProductWrapper = memo(
     onClickSaveSupplierBtn,
     onSaveForceProductData,
     onRemoveSupplier,
+    onClickGetProductsToBind,
   }) => {
     const { classes: styles } = useStyles()
 
@@ -197,6 +198,7 @@ export const ProductWrapper = memo(
             onClickSaveSupplierBtn={onClickSaveSupplierBtn}
             onSaveForceProductData={onSaveForceProductData}
             onRemoveSupplier={onRemoveSupplier}
+            onClickGetProductsToBind={onClickGetProductsToBind}
           />
           {!checkIsResearcher(curUserRole) && (
             <BottomCard

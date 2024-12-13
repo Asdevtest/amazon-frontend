@@ -6,6 +6,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { t } from '@utils/translations'
 
+import { isString } from '@typings/guards'
 import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-props-extension-component-antd'
 
 import { useStyles } from './custom-checkbox.style'
@@ -23,7 +24,11 @@ export const CustomCheckbox: FC<CustomCheckboxProps> = memo(props => {
       className={cx({ [styles.cell]: isCell }, wrapperClassName)}
     >
       <Checkbox {...restProps} className={cx(styles.checkbox, className)}>
-        {children && <span className={labelClassName}>{t(TranslationKey[children as TranslationKey])}</span>}
+        {isString(children) ? (
+          <span className={labelClassName}>{t(TranslationKey[children as TranslationKey])}</span>
+        ) : (
+          children
+        )}
       </Checkbox>
     </Tooltip>
   )

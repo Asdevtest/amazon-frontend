@@ -5,6 +5,7 @@ import { TranslationKey } from '@constants/translations/translation-key'
 import { t } from '@utils/translations'
 
 import { IShop } from '@typings/models/shops/shop'
+import { ICountry } from '@typings/shared/country'
 
 export const shopsSelectConfig = {
   selectedShopId: observable,
@@ -22,3 +23,5 @@ export const generateItems = (data: IShop[]) => {
 
   return [defaultOption, ...generatedUsetOptions]
 }
+
+export type IChangeData = (data: ICountry) => void

@@ -1,85 +1,75 @@
-import { FC, useEffect, useState } from 'react'
+import { Checkbox, Empty } from 'antd'
+import { observer } from 'mobx-react'
+import { FC, useMemo } from 'react'
 
-import { Box, FormControlLabel } from '@mui/material'
+import { TranslationKey } from '@constants/translations/translation-key'
 
-import { ProductModel } from '@models/product-model'
-
-import { CustomCheckbox } from '@components/shared/custom-checkbox'
-import { useRedFlagStyles } from '@components/shared/redFlags/red-flags.style'
-
-import { getAmazonImageUrl } from '@utils/get-amazon-image-url'
+import { t } from '@utils/translations'
 
 import { IRedFlag } from '@typings/shared/red-flag'
 
+import { useStyles } from './red-flags.style'
+
+import { CustomCheckbox } from '../custom-checkbox'
+import { CustomImage } from '../custom-image'
+import { CustomInputSearch } from '../custom-input-search'
+import { Text } from '../text'
+
+import { RedFlagsModel } from './red-flags.model'
+
 interface RedFlagsProps {
-  isEditMode?: boolean
-  activeFlags?: IRedFlag[]
-  handleSaveFlags?: (flags: IRedFlag[]) => void
+  flags?: IRedFlag[]
+  withTitle?: boolean
+  withSearch?: boolean
+  editMode?: boolean
+  isCell?: boolean
+  onChange?: (checkedValues: string[]) => void
 }
 
-export const RedFlags: FC<RedFlagsProps> = props => {
-  const { activeFlags = [], isEditMode, handleSaveFlags } = props
-  const { classes: styles } = useRedFlagStyles()
+export const RedFlags: FC<RedFlagsProps> = observer(props => {
+  const { flags, withTitle, withSearch = false, editMode, isCell, onChange } = props
 
-  const [selectedFlags, setSelectedFlags] = useState<IRedFlag[]>(activeFlags)
-  const [flags, setFlags] = useState<IRedFlag[]>([])
+  const { classes: styles, cx } = useStyles()
+  const viewModel = useMemo(() => new RedFlagsModel(flags, isCell), [])
 
-  useEffect(() => {
-    if (isEditMode) {
-      // @ts-ignore
-      ProductModel.getProductRedFlags().then(value => setFlags(value))
-    }
-  }, [])
-
-  useEffect(() => {
-    setSelectedFlags(activeFlags)
-  }, [activeFlags])
-
-  const handleFlag = (flag: IRedFlag) => {
-    let newSelectedFlags = []
-
-    if (selectedFlags.some(val => val._id === flag._id)) {
-      newSelectedFlags = selectedFlags.filter(el => el._id !== flag._id)
-    } else {
-      newSelectedFlags = [...selectedFlags, flag]
-    }
-
-    setSelectedFlags(newSelectedFlags)
-    handleSaveFlags?.(newSelectedFlags || [])
-  }
+  const option = (flag: IRedFlag) => (
+    <div className={styles.option}>
+      <CustomImage preview={false} height={18} width={18} src={flag.iconImage} />
+      <Text rows={1} copyable={false} text={flag.title} />
+    </div>
+  )
 
   return (
-    <>
-      {isEditMode &&
-        !!flags.length &&
-        flags.map(flag => (
-          <div key={flag._id}>
-            <FormControlLabel
-              label={
-                <Box display="flex" gap="15px">
-                  <Box className={styles.flagIcon}>
-                    <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} />
-                  </Box>
-                  {flag.title}
-                </Box>
-              }
-              control={
-                <CustomCheckbox
-                  checked={selectedFlags.some(val => val._id === flag._id)}
-                  onChange={() => handleFlag(flag)}
-                />
-              }
-            />
-          </div>
-        ))}
+    <div className={styles.root}>
+      {withTitle ? <p className={styles.title}>{t(TranslationKey['Red flags'])}</p> : null}
+      {withSearch ? (
+        <CustomInputSearch
+          fullWidth
+          loading={viewModel.loading}
+          placeholder="Search"
+          className={styles.search}
+          onChange={viewModel.onChangeSearchValue}
+        />
+      ) : null}
 
-      {!isEditMode &&
-        !!selectedFlags.length &&
-        selectedFlags.map(flag => (
-          <Box key={flag._id} className={styles.flagIcon}>
-            <img src={getAmazonImageUrl(flag.iconImage)} alt={flag.title} />
-          </Box>
-        ))}
-    </>
+      <Checkbox.Group
+        className={cx(styles.checkboxes, { [styles.empty]: !viewModel.filteredFlags.length })}
+        onChange={onChange}
+      >
+        {viewModel.filteredFlags.length ? (
+          viewModel.filteredFlags.map(flag =>
+            editMode ? (
+              <CustomCheckbox key={flag._id} value={flag._id}>
+                {option(flag)}
+              </CustomCheckbox>
+            ) : (
+              option(flag)
+            ),
+          )
+        ) : !isCell ? (
+          <Empty />
+        ) : null}
+      </Checkbox.Group>
+    </div>
   )
-}
+})

@@ -59,7 +59,7 @@ export const SupplierPriceVariationSelector: FC<SupplierPriceVariationSelectorPr
               containerClasses={styles.field}
               inputClasses={styles.creationInput}
               labelClasses={styles.label}
-              label={`${t(TranslationKey.Quantity)}, ${t(TranslationKey.units)}`}
+              label={`${t(TranslationKey.Quantity)}{t(TranslationKey.units)}`}
               placeholder="00"
               value={quantity}
               onChange={(e: ChangeEvent<HTMLInputElement>) => {

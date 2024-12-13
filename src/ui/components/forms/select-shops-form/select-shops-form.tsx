@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react'
-import { FC, useMemo } from 'react'
+import { FC, useState } from 'react'
 
 import { TranslationKey } from '@constants/translations/translation-key'
 
 import { CustomButton } from '@components/shared/custom-button'
-import { CustomSelect } from '@components/shared/selects/custom-select'
+import { ShopSelect } from '@components/shared/selects/shop-select/shop-select'
 import { Text } from '@components/shared/text'
 
 import { t } from '@utils/translations'
@@ -12,8 +12,6 @@ import { t } from '@utils/translations'
 import '@typings/enums/button-style'
 
 import { useStyles } from './select-shops-form.style'
-
-import { SelectShopFormModel } from './select-shops-form.model'
 
 export interface SelectShopsModalProps {
   onSubmit: (id: string | null) => void
@@ -26,32 +24,19 @@ export const SelectShopsForm: FC<SelectShopsModalProps> = observer(props => {
   const { onSubmit, onClose, title, message } = props
 
   const { classes: styles } = useStyles()
-  const viewModel = useMemo(() => new SelectShopFormModel(), [])
+  const [selectedShopId, setSelectedShopId] = useState('')
 
   return (
     <div className={styles.root}>
       <p className={styles.title}>{title}</p>
 
-      <CustomSelect
-        showSearch
-        label="Select a store"
-        placeholder="Select"
-        filterOption={false}
-        style={{ width: '300px' }}
-        defaultActiveFirstOption={false}
-        options={viewModel.items}
-        optionRender={({ label }) => <Text copyable={false} text={String(label)} rows={1} />}
-        onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
-        onSearch={viewModel.onSearchSubmit}
-        onPopupScroll={viewModel.loadMoreData}
-        onSelect={viewModel.onSelectShop}
-      />
+      <ShopSelect onChange={setSelectedShopId} />
 
       {message ? <Text copyable={false} text={message || ''} /> : null}
 
       <div className={styles.buttons}>
         <CustomButton onClick={onClose}>{t(TranslationKey.Close)}</CustomButton>
-        <CustomButton type="primary" onClick={() => onSubmit(viewModel.selectedShopId)}>
+        <CustomButton type="primary" onClick={() => onSubmit(selectedShopId)}>
           {t(TranslationKey.Save)}
         </CustomButton>
       </div>

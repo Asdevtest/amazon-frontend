@@ -11,6 +11,7 @@ export const useStyles = makeStyles()(() => ({
     display: 'flex',
     maxWidth: '150px',
     borderRadius: '25px',
+    margin: 0,
   },
 
   activeButton: {

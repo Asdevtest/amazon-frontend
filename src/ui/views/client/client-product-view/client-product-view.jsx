@@ -48,6 +48,7 @@ export const ClientProductView = observer(({ history }) => {
           onClickParseProductData={viewModel.onClickParseProductData}
           onClickSaveSupplierBtn={viewModel.onClickSaveSupplierBtn}
           onSaveForceProductData={viewModel.onSaveForceProductData}
+          onClickGetProductsToBind={viewModel.onClickGetProductsToBind}
         />
       ) : (
         <CircularProgressWithLabel />

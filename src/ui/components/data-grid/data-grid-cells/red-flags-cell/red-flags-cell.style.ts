@@ -1,33 +1,25 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   redFlags: {
-    padding: '10px 0',
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '10px',
-    alignItems: 'center',
-
-    p: {
-      padding: 0,
-      margin: 0,
-    },
+    padding: '5px 0',
+    position: 'relative',
   },
 
   hiddenFlagsPopover: {
-    display: 'flex',
-    maxWidth: '184px',
-    flexWrap: 'wrap',
-    gap: '10px',
+    maxHeight: '300px',
+    maxWidth: '200px',
   },
 
   moreFlags: {
-    width: '24px',
-    height: '24px',
-    marginLeft: '10px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'red',
+    position: 'absolute',
+    bottom: '5px',
+    right: '5px',
+    padding: '2px',
+    fontSize: '12px',
+    lineHeight: '16px',
+    color: theme.palette.text.red,
+    background: theme.palette.background.general,
+    borderRadius: '4px',
   },
 }))

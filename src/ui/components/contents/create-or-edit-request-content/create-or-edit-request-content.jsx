@@ -555,7 +555,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     <Field
                       className={styles.field}
                       inputProps={{ maxLength: 8 }}
-                      label={t(TranslationKey['Price on Amazon']) + ', $'}
+                      label={t(TranslationKey['Price on Amazon']) + ''}
                       labelClasses={styles.label}
                       containerClasses={styles.fieldContainer}
                       value={formFields.request.priceAmazon}
@@ -566,7 +566,7 @@ export const CreateOrEditRequestContent = memo(props => {
                       className={styles.field}
                       containerClasses={styles.fieldContainer}
                       inputProps={{ maxLength: 8 }}
-                      label={t(TranslationKey['Discounted price']) + ', $'}
+                      label={t(TranslationKey['Discounted price']) + ''}
                       labelClasses={styles.label}
                       value={toFixed(formFields.request.discountedPrice, 2)}
                       onChange={e => {
@@ -983,7 +983,7 @@ export const CreateOrEditRequestContent = memo(props => {
 
                       <div className={styles.infoColumn}>
                         <Field
-                          label={t(TranslationKey['Request price']) + ', $'}
+                          label={t(TranslationKey['Request price']) + ''}
                           className={styles.field}
                           containerClasses={styles.fieldContainer}
                           labelClasses={styles.label}

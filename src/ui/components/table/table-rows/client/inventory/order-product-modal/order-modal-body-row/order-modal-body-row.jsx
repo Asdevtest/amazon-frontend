@@ -378,7 +378,7 @@ export const OrderModalBodyRow = ({
               oneLine
               containerClasses={styles.containerField}
               labelClasses={styles.labelField}
-              label={`${t(TranslationKey['Production time'])}, ${t(TranslationKey.days)}`}
+              label={`${t(TranslationKey['Production time'])}{t(TranslationKey.days)}`}
               inputComponent={<p className={styles.sumText}>{productionTerm}</p>}
             />
 
@@ -395,7 +395,7 @@ export const OrderModalBodyRow = ({
                 oneLine
                 containerClasses={styles.containerField}
                 labelClasses={styles.labelField}
-                label={`${t(TranslationKey['Minimum batch'])}, ${t(TranslationKey.units)}`}
+                label={`${t(TranslationKey['Minimum batch'])}{t(TranslationKey.units)}`}
                 inputComponent={<p className={styles.sumText}>{item.currentSupplierCard?.minlot}</p>}
               />
             </div>

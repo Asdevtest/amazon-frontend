@@ -33,8 +33,8 @@ export const warehouseTariffsColumns = ({ onClickEditTariff, onRemoveWarehouseTa
   },
   {
     field: 'price',
-    headerName: t(TranslationKey['Service cost per kg, $']),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg, $'])} />,
+    headerName: t(TranslationKey['Service cost per kg']),
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['Service cost per kg'])} />,
     renderCell: ({ row }: GridRowModel) => <Text isCell text={row.price} />,
     width: 250,
   },

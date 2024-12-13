@@ -396,16 +396,6 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
   },
 
-  spanLabelSmall: {
-    fontSize: '14px',
-    color: theme.palette.text.general,
-    marginBottom: '5px',
-  },
-
-  countrySelectWrapper: {
-    gap: 0,
-  },
-
   tariffLabel: {
     display: 'flex',
     gap: '5px',
@@ -419,6 +409,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     flexWrap: 'nowrap',
     gap: '3px',
+
     span: {
       maxWidth: '100px',
       overflow: 'hidden',

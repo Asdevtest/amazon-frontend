@@ -10,7 +10,7 @@ import { OrderModel } from '@models/order-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
 import { UserModel } from '@models/user-model'
 
-import { clientProductOrdersViewColumns } from '@components/table/table-columns/client/client-product-orders-columns'
+import { ordersColumns } from '@components/forms/main-product-form/components/orders/orders.columns'
 
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { t } from '@utils/translations'
@@ -57,7 +57,7 @@ export class OrdersModel {
     onClickReorder: (item, isPendingOrder) => this.onClickReorder(item, isPendingOrder),
   }
 
-  columnsModel = clientProductOrdersViewColumns(this.rowHandlers, () => this.isSomeFilterOn)
+  columnsModel = ordersColumns(this.rowHandlers, () => this.isSomeFilterOn)
   columnVisibilityModel = {}
 
   isCheckedStatusByFilter = {}
@@ -179,7 +179,7 @@ export class OrdersModel {
   async getOrdersByProductId() {
     try {
       this.setRequestStatus(loadingStatus.IS_LOADING)
-      const result = await ClientModel.getOrdersByProductId(this.productId)
+      const result = await ClientModel.getOrdersByProductId({ guid: this.productId })
 
       runInAction(() => {
         this.orders = result

@@ -84,7 +84,7 @@ export const RequestToSendBatchesGroupBoxes = ({
           </div>
 
           <div className={styles.headerSubWrapper}>
-            <p className={styles.headerTitle}>{t(TranslationKey.Rate) + ', $'}</p>
+            <p className={styles.headerTitle}>{t(TranslationKey.Rate) + ''}</p>
 
             <p className={styles.headerSpanText}>{toFixedWithDollarSign(currentTariff, 2)}</p>
           </div>

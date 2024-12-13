@@ -80,8 +80,8 @@ export const logisticsTariffsColumns = ({
   },
   {
     field: 'rates',
-    headerName: t(TranslationKey.Rate) + ', $',
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ', $'} />,
+    headerName: t(TranslationKey.Rate) + '',
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Rate) + ''} />,
     width: 88,
     filterable: false,
     sortable: false,

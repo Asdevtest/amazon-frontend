@@ -94,7 +94,7 @@ export const FirstStep = ({
           <div className={styles.dateAndTimeWrapper}>
             <Field
               inputProps={{ maxLength: 100 }}
-              label={`${t(TranslationKey['Enter store cost'])}, $ *`}
+              label={`${t(TranslationKey['Enter store cost'])} *`}
               className={styles.nameField}
               labelClasses={styles.spanLabelSmall}
               value={formFields.price}

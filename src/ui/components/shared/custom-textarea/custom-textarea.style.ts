@@ -31,4 +31,8 @@ export const useStyles = makeStyles()(theme => ({
     boxShadow: 'none !important',
     backgroundColor: 'transparent !important',
   },
+
+  autoHeight: {
+    height: '100% !important',
+  },
 }))

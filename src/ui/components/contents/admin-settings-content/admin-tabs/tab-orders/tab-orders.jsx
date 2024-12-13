@@ -21,7 +21,7 @@ export const TabOrders = memo(props => {
   return (
     <div className={styles.wrapper}>
       <Field
-        label={`${t(TranslationKey['Client notification time before Deadline of the pending order'])}, ${t(
+        label={`${t(TranslationKey['Client notification time before Deadline of the pending order'])}{t(
           TranslationKey.hour,
         )}`}
         labelClasses={styles.label}
@@ -31,7 +31,7 @@ export const TabOrders = memo(props => {
         onChange={e => onChangeField(fieldNameObject.timeToDeadlinePendingOrder, e)}
       />
       <Field
-        label={t(TranslationKey['Minimum order amount, $'])}
+        label={t(TranslationKey['Minimum order amount'])}
         labelClasses={styles.label}
         classes={{ root: styles.textField, inputClasses: styles.input }}
         value={formFields.orderAmountLimit}

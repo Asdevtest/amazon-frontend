@@ -13,8 +13,18 @@ import { useStyles } from './custom-input-search.style'
 interface CustomInputSearchProps extends SearchProps, IDefaultPropsExtensionAntdComponent {}
 
 export const CustomInputSearch: FC<CustomInputSearchProps> = memo(props => {
-  const { isRow, isCell, label, required, placeholder, className, labelClassName, wrapperClassName, ...restProps } =
-    props
+  const {
+    isRow,
+    isCell,
+    label,
+    required,
+    placeholder,
+    className,
+    labelClassName,
+    wrapperClassName,
+    fullWidth,
+    ...restProps
+  } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -22,12 +32,18 @@ export const CustomInputSearch: FC<CustomInputSearchProps> = memo(props => {
   const labelText = `${t(TranslationKey[label as TranslationKey])}${required ? ' *' : ''}`
 
   return (
-    <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
+    <div
+      className={cx(
+        styles.root,
+        { [styles.cell]: isCell, [styles.row]: isRow, [styles.fullWidth]: fullWidth },
+        wrapperClassName,
+      )}
+    >
       {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
       <Search
         {...restProps}
         title={placeholderText}
-        className={cx(styles.input, className)}
+        className={cx(styles.fullWidth, className)}
         placeholder={placeholderText}
       />
     </div>

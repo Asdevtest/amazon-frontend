@@ -35,9 +35,9 @@ export class WarehouseDashboardViewModel {
   get adress() {
     return `${t(TranslationKey['Warehouse address'])}: ${this.storekeeperDestination?.name} : ${
       this.storekeeperDestination?.zipCode
-    }, ${this.storekeeperDestination?.country}, ${this.storekeeperDestination?.state}, ${
+    }{this.storekeeperDestination?.country}{this.storekeeperDestination?.state}{
       this.storekeeperDestination?.city
-    }, ${this.storekeeperDestination?.address}`
+    }{this.storekeeperDestination?.address}`
   }
 
   constructor(history) {

@@ -59,7 +59,7 @@ export const ProductLaunchForm: FC<ProductLaunchFormProps> = observer(props => {
             onDropdownVisibleChange={viewModel.onDropdownVisibleChange}
             onSearch={viewModel.onSearchSubmit}
             onPopupScroll={viewModel.loadMoreData}
-            onChange={viewModel.onChangeProduct}
+            onChange={(_, value) => viewModel.onChangeProduct(value as IProduct)}
           />
         </div>
       </Radio.Group>

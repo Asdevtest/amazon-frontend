@@ -60,7 +60,7 @@ export const BottomCard = observer(
                     inputProps={{ maxLength: 12 }}
                     containerClasses={styles.infoContainer}
                     inputClasses={styles.infoInput}
-                    label={t(TranslationKey['Amazon price']) + ', $'}
+                    label={t(TranslationKey['Amazon price']) + ''}
                     // error={errorMessagesTranslate(formFieldsValidationErrors.amazon)}
                     value={product?.amazon === 0 ? 0 : product?.amazon || ''}
                     onChange={onChangeField?.('amazon')}
@@ -84,7 +84,7 @@ export const BottomCard = observer(
                     error={formFieldsValidationErrors.totalFba}
                     containerClasses={styles.infoContainer}
                     inputClasses={styles.infoInput}
-                    label={t(TranslationKey['Total FBA, $'])}
+                    label={t(TranslationKey['Total FBA'])}
                     value={product.totalFba === 0 ? 0 : toFixed(product.totalFba, 2) || ''}
                     onChange={onChangeField?.('totalFba')}
                   />
@@ -173,7 +173,7 @@ export const BottomCard = observer(
                     containerClasses={styles.infoContainer}
                     inputClasses={styles.infoInput}
                     inputProps={{ maxLength: 10 }}
-                    label={t(TranslationKey['Min purchase price, $'])}
+                    label={t(TranslationKey['Min purchase price'])}
                     value={product.minpurchase === 0 ? '' : toFixed(product.minpurchase, 2) || ''}
                     onChange={onChangeField?.('minpurchase')}
                   />
@@ -204,7 +204,7 @@ export const BottomCard = observer(
                     error={formFieldsValidationErrors.profit}
                     containerClasses={styles.infoContainer}
                     inputClasses={styles.infoInput}
-                    label={t(TranslationKey['Profit, $'])}
+                    label={t(TranslationKey.Profit)}
                     value={toFixed(product.profit, 2) || 0}
                     onChange={onChangeField?.('profit')}
                   />
@@ -218,7 +218,7 @@ export const BottomCard = observer(
                     containerClasses={styles.infoContainer}
                     inputClasses={styles.infoInput}
                     inputProps={{ maxLength: 10 }}
-                    label={t(TranslationKey['Referral fee, $'])}
+                    label={t(TranslationKey['Referral fee'])}
                     value={product.reffee === 0 ? 0 : toFixed(product.reffee, 2) || ''}
                     onChange={onChangeField?.('reffee')}
                   />

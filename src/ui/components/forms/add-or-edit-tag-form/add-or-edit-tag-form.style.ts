@@ -30,7 +30,7 @@ export const useStyles = makeStyles()(theme => ({
     alignItems: 'center',
     justifyContent: 'space-around',
     borderRadius: 20,
-    background: `linear-gradient(to right, ${theme.palette.background.general} 50%, ${theme.palette.background.generalInverted} 50%) `,
+    background: `linear-gradient(to right{theme.palette.background.general} 50%{theme.palette.background.generalInverted} 50%) `,
 
     height: 40,
     width: '100%',

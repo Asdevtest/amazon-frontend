@@ -194,7 +194,7 @@ export const BatchInfoModal = observer(
               </div>
               <div className={styles.rowContainer}>
                 <Tooltip
-                  title={`${t(TranslationKey.ASIN)}, ${t(TranslationKey.Title)}, ${t(TranslationKey.Order)}, ${t(
+                  title={`${t(TranslationKey.ASIN)}{t(TranslationKey.Title)}{t(TranslationKey.Order)}{t(
                     TranslationKey['Box ID'],
                   )}, FBA Shipment, Prep Id`}
                 >

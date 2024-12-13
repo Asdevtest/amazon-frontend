@@ -3,15 +3,18 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()(() => ({
   root: {
     width: '100%',
-    padding: '5px 0',
     display: 'flex',
     alignItems: 'center',
     gap: '5px',
   },
 
+  cell: {
+    padding: '5px 0',
+  },
+
   text: {
-    fontSize: '14px',
-    lineHeight: '19px',
+    fontSize: '12px',
+    lineHeight: '16px',
   },
 
   vertical: {

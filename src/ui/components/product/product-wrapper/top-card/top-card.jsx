@@ -179,8 +179,8 @@ export const TopCard = memo(
 
         <Modal openModal={showBindProductModal} setOpenModal={() => onTriggerOpenModal('showBindProductModal')}>
           <BindProductForm
-            sourceProduct={product}
-            onClickNextButton={onClickNextButton}
+            product={product}
+            onSubmit={onClickNextButton}
             onClose={() => onTriggerOpenModal('showBindProductModal')}
           />
         </Modal>

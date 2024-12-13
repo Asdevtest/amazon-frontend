@@ -70,7 +70,7 @@ export const clientInventoryReportColumns = () => {
     {
       field: 'price',
       headerName: t(TranslationKey.Price),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price) + ', $'} />,
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Price) + ''} />,
       renderCell: (params: GridRenderCellParams) => <Text isCell text={params.value} />,
       width: 83,
 

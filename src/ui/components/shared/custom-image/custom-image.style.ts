@@ -14,6 +14,7 @@ export const useStyles = makeStyles()(theme => ({
 
     '.ant-image-img': {
       objectFit: 'contain',
+      verticalAlign: 'baseline',
     },
 
     '.ant-image-mask-info': {

@@ -56,7 +56,7 @@ export const serviceDetailsColumns = handlers => [
   {
     field: 'price',
     headerName: t(TranslationKey.Cost),
-    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost) + ', $'} />,
+    renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey.Cost) + ''} />,
     renderCell: params => <Text isCell text={toFixed(params.row.price, 2)} />,
     width: 118,
   },

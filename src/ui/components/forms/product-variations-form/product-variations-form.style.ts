@@ -1,25 +1,39 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const useStyles = makeStyles()(() => ({
+export const useStyles = makeStyles()(theme => ({
   root: {
-    width: '100%',
+    height: 'calc(100% - 75px)',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  header: {
+    paddingRight: '15px',
+    marginBottom: '5px',
     display: 'flex',
     alignItems: 'center',
-    flexDirection: 'column',
-    gap: 20,
+    justifyContent: 'space-between',
+    gap: '20px',
   },
 
-  title: {
-    fontSize: '18px',
-    fontWeight: 600,
+  label: {
+    fontSize: 12,
+    lineHeight: '16px',
+    color: theme.palette.text.secondary,
   },
 
-  interconnectedProductsBodyWrapper: {
+  content: {
+    paddingRight: '5px',
+    height: '100%',
+    maxHeight: '400px',
+    overflowY: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
-    maxHeight: 240,
-    overflowY: 'auto',
-    paddingRight: '10px',
+    gap: '5px',
+  },
+
+  empty: {
+    justifyContent: 'center',
+    padding: 0,
   },
 }))

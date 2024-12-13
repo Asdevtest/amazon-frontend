@@ -4,7 +4,7 @@ export const useStyles = makeStyles()(theme => ({
   wrapper: {
     display: 'flex',
     width: '100%',
-    height: '500px',
+    height: '100%', //  высоту задавать внешнему контейнеру
   },
 
   columnHeaderTitleContainer: {

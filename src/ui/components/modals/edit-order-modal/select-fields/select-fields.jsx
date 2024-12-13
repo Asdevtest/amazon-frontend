@@ -5,7 +5,6 @@ import { TranslationKey } from '@constants/translations/translation-key'
 
 import { UserCell } from '@components/data-grid/data-grid-cells'
 import { SlideshowGalleryModal } from '@components/modals/slideshow-gallery-modal'
-import { Button } from '@components/shared/button'
 import { CircularProgressWithLabel } from '@components/shared/circular-progress-with-label'
 import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
@@ -250,7 +249,7 @@ export const SelectFields = ({
                   inputProps={{ maxLength: 10 }}
                   inputClasses={styles.input}
                   labelClasses={styles.greenLabel}
-                  label={t(TranslationKey['Dollars per batch']) + ', $'}
+                  label={t(TranslationKey['Dollars per batch']) + ''}
                   value={
                     isPendingOrder
                       ? toFixed(calcOrderTotalPrice(orderFields?.orderSupplierCard, orderFields?.amount), 2)
@@ -266,7 +265,7 @@ export const SelectFields = ({
                   inputProps={{ maxLength: 10 }}
                   inputClasses={styles.input}
                   labelClasses={styles.label}
-                  label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ', $'}
+                  label={t(TranslationKey['Of these, for shipping to a warehouse in China']) + ''}
                   value={
                     orderFields?.deliveryCostToTheWarehouse || !orderFields?.orderSupplierCard
                       ? toFixed(orderFields?.deliveryCostToTheWarehouse, 2)
@@ -297,7 +296,7 @@ export const SelectFields = ({
               inputProps={{ maxLength: 10 }}
               inputClasses={styles.input}
               labelClasses={styles.label}
-              label={t(TranslationKey['Cost of purchase per pc.']) + ', $'}
+              label={t(TranslationKey['Cost of purchase per pc.']) + ''}
               value={
                 toFixedWithDollarSign(
                   calcPriceForItem(
@@ -317,7 +316,7 @@ export const SelectFields = ({
               inputProps={{ maxLength: 10 }}
               labelClasses={styles.greenLabel}
               inputClasses={styles.input}
-              label={t(TranslationKey['Planned cost in dollars']) + ', $'}
+              label={t(TranslationKey['Planned cost in dollars']) + ''}
               value={toFixedWithDollarSign(orderFields.totalPrice, 2)}
             />
           </div>
@@ -479,7 +478,7 @@ export const SelectFields = ({
             <Field
               disabled={disableSubmit}
               value={orderFields.tmpRefundToClient}
-              label={t(TranslationKey['Return to Client']) + ', $'}
+              label={t(TranslationKey['Return to Client']) + ''}
               labelClasses={styles.label}
               inputClasses={styles.input}
               inputProps={{ maxLength: 50 }}

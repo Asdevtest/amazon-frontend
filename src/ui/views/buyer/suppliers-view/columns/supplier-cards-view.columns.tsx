@@ -76,8 +76,8 @@ export const supplierCardsViewColumns = (handlers: IHandlers) => {
 
     {
       field: 'priceInUsd',
-      headerName: `${t(TranslationKey.Price)}, $`,
-      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Price)}, $`} />,
+      headerName: `${t(TranslationKey.Price)}`,
+      renderHeader: () => <MultilineTextHeaderCell text={`${t(TranslationKey.Price)}`} />,
       renderCell: ({ value }) => <Text isCell text={toFixed(value)} />,
       width: 100,
       columnKey: columnnsKeys.shared.NUMBER,

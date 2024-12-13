@@ -56,7 +56,7 @@ export const TabFreelance = observer(props => {
           />
           <Field
             labelClasses={styles.label}
-            label={t(TranslationKey['Minimum price per proposal to the order']) + ', $'}
+            label={t(TranslationKey['Minimum price per proposal to the order']) + ''}
             classes={{ root: styles.textField }}
             value={formFields.requestMinAmountPriceOfProposal}
             error={formFields.requestMinAmountPriceOfProposal === ''}

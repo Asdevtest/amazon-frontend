@@ -141,8 +141,8 @@ export const supervisorProductsViewColumns = ({ onClickTableRow, onClickTag }: S
 
     {
       field: 'fbafee',
-      headerName: t(TranslationKey['FBA fee , $']),
-      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee , $'])} />,
+      headerName: t(TranslationKey['FBA fee ']),
+      renderHeader: () => <MultilineTextHeaderCell text={t(TranslationKey['FBA fee '])} />,
       valueGetter: ({ row }) => (row?.fbafee ? toFixedWithDollarSign(row?.fbafee, 2) : ''),
       renderCell: ({ row }) => <Text isCell text={toFixedWithDollarSign(row?.fbafee, 2)} />,
       width: 120,

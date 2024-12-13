@@ -22,13 +22,13 @@ import { CustomButton } from '@components/shared/custom-button'
 import { CustomCheckbox } from '@components/shared/custom-checkbox'
 import { Field } from '@components/shared/field'
 import { Input } from '@components/shared/input'
-import { InterconnectedProducts } from '@components/shared/interconnected-products'
+import { InterconnectedProduct } from '@components/shared/interconnected-product'
+import { Modal } from '@components/shared/modal'
 import { RedFlags } from '@components/shared/redFlags/red-flags'
+import { CountrySelect } from '@components/shared/selects/country-select/country-select'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
-import { DownloadRoundIcon, EditIcon } from '@components/shared/svg-icons'
+import { DownloadRoundIcon } from '@components/shared/svg-icons'
 import { TagList } from '@components/shared/tag-list'
-
-import { CountrySelect } from '@views/shared/country-select/country-select'
 
 import { checkIsBuyer, checkIsClient, checkIsResearcher, checkIsSupervisor } from '@utils/checks'
 import { getFileNameFromUrl } from '@utils/get-file-name-from-url'
@@ -40,7 +40,6 @@ import '@typings/enums/button-style'
 import { TariffModal } from '@typings/enums/tariff-modal'
 
 import { useGetDestinationTariffInfo } from '@hooks/use-get-destination-tariff-info'
-import { useTariffVariation } from '@hooks/use-tariff-variation'
 
 import { useStyles } from './fields-and-suppliers.style'
 
@@ -84,8 +83,8 @@ export const FieldsAndSuppliers = memo(props => {
     onChangeField?.('shopId')({ target: { value: shopId } })
   }
 
-  const onChangeMarketPlace = marketplace => {
-    onChangeField?.('marketPlaceCountryId')({ target: { value: marketplace._id } })
+  const onChangeMarketPlace = value => {
+    onChangeField?.('marketPlaceCountryId')({ target: { value } })
   }
 
   const { tariffName, tariffRate, tariffDestination } = useGetDestinationTariffInfo(
@@ -309,7 +308,6 @@ export const FieldsAndSuppliers = memo(props => {
 
           <div className={styles.strategyWrapper}>
             <Field
-              tooltipInfoContent={t(TranslationKey['Choose a product strategy'])}
               label={t(TranslationKey['Product Strategy'])}
               inputComponent={
                 <Select
@@ -354,7 +352,7 @@ export const FieldsAndSuppliers = memo(props => {
               ) : null}
             </div>
 
-            <TagList selectedTags={product?.tags} />
+            <TagList tags={product?.tags} />
           </div>
         )}
 
@@ -505,33 +503,16 @@ export const FieldsAndSuppliers = memo(props => {
             </div>
             <div className={styles.interconnectedProductsBodyWrapper}>
               {product?.parentProductId && (
-                <InterconnectedProducts
-                  isParent
-                  showRemoveButton={checkIsClient(curUserRole)}
-                  variationProduct={{
-                    _id: productVariations?._id,
-                    asin: productVariations?.asin,
-                    skuByClient: productVariations?.skuByClient,
-                    images: productVariations?.images,
-                    shopId: productVariations?.shopId,
-                    amazonTitle: productVariations?.amazonTitle,
-                  }}
-                  navigateToProduct={navigateToProduct}
-                  unbindProductHandler={unbindProductHandler}
-                  productId={product?._id}
-                />
+                <InterconnectedProduct isParent variationProduct={productVariations} onRemove={unbindProductHandler} />
               )}
 
               {productVariations?.childProducts
                 ?.filter(variationProduct => variationProduct?._id !== product?._id)
                 .map((variationProduct, variationProductIndex) => (
-                  <InterconnectedProducts
+                  <InterconnectedProduct
                     key={variationProductIndex}
-                    showRemoveButton={!product?.parentProductId && checkIsClient(curUserRole)}
-                    productId={product?._id}
                     variationProduct={variationProduct}
-                    navigateToProduct={navigateToProduct}
-                    unbindProductHandler={unbindProductHandler}
+                    onRemove={unbindProductHandler}
                   />
                 ))}
             </div>
@@ -627,8 +608,8 @@ export const FieldsAndSuppliers = memo(props => {
             disabled={disableField}
             labelClassName={styles.spanLabelSmall}
             wrapperClassName={styles.countrySelectWrapper}
-            defaultCountry={product.marketPlaceCountry}
-            onChangeData={onChangeMarketPlace}
+            defaultValue={product.marketPlaceCountry?.title}
+            onChange={onChangeMarketPlace}
           />
 
           <div className={styles.tariffWrapper}>
@@ -646,14 +627,17 @@ export const FieldsAndSuppliers = memo(props => {
         </div>
       ) : null}
 
-      {showEditProductTagsModal ? (
+      <Modal
+        missClickModalOn
+        openModal={showEditProductTagsModal}
+        setOpenModal={() => setShowEditProductTagsModal(!showEditProductTagsModal)}
+      >
         <EditProductTags
-          openModal={showEditProductTagsModal}
-          setOpenModal={() => setShowEditProductTagsModal(false)}
           productId={product?._id}
-          handleUpdateRow={tags => onChangeField?.('tags')({ target: { value: tags } })}
+          onCloseModal={() => setShowEditProductTagsModal(!showEditProductTagsModal)}
+          onUpdateRow={tags => onChangeField?.('tags')({ target: { value: tags } })}
         />
-      ) : null}
+      </Modal>
 
       {showSelectionStorekeeperAndTariffModal ? (
         <SupplierApproximateCalculationsModal

@@ -10,10 +10,12 @@ import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-pro
 
 import { useStyles } from './custom-switch.style'
 
-interface CustomSwitchProps extends SwitchProps, IDefaultPropsExtensionAntdComponent {}
+interface CustomSwitchProps extends SwitchProps, IDefaultPropsExtensionAntdComponent {
+  medium?: boolean
+}
 
 export const CustomSwitch: FC<CustomSwitchProps> = memo(props => {
-  const { isRow, isCell, label, required, className, labelClassName, wrapperClassName, ...restProps } = props
+  const { isRow, isCell, label, required, className, labelClassName, wrapperClassName, medium, ...restProps } = props
 
   const { classes: styles, cx } = useStyles()
 
@@ -22,7 +24,7 @@ export const CustomSwitch: FC<CustomSwitchProps> = memo(props => {
   return (
     <div className={cx(styles.root, { [styles.cell]: isCell, [styles.row]: isRow }, wrapperClassName)}>
       {label ? <p className={cx(styles.label, labelClassName)}>{labelText}</p> : null}
-      <Switch {...restProps} className={cx(styles.switch, className)} />
+      <Switch {...restProps} className={cx(styles.switch, { [styles.medium]: medium }, className)} />
     </div>
   )
 })

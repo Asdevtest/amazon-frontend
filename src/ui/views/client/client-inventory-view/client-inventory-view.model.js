@@ -2,13 +2,12 @@ import { makeObservable, runInAction, toJS } from 'mobx'
 import { toast } from 'react-toastify'
 
 import { poundsWeightCoefficient } from '@constants/configs/sizes-settings'
-import { DataGridFilterTables } from '@constants/data-grid/data-grid-filter-tables'
 import { DataGridTablesKeys } from '@constants/data-grid/data-grid-tables-keys'
 import { ProductDataParser } from '@constants/product/product-data-parser'
 import { ProductStatus, ProductStatusByCode } from '@constants/product/product-status'
 import { BoxStatus } from '@constants/statuses/box-status'
 import { TranslationKey } from '@constants/translations/translation-key'
-import { creatSupplier, createOrderRequestWhiteList } from '@constants/white-list'
+import { createOrderRequestWhiteList } from '@constants/white-list'
 
 import { ClientModel } from '@models/client-model'
 import { DataGridTagsFilter } from '@models/data-grid-tags-filter'
@@ -20,7 +19,6 @@ import { ProductModel } from '@models/product-model'
 import { SellerBoardModel } from '@models/seller-board-model'
 import { SettingsModel } from '@models/settings-model'
 import { StorekeeperModel } from '@models/storekeeper-model'
-import { SupplierModel } from '@models/supplier-model'
 import { UserModel } from '@models/user-model'
 
 import { updateProductAutoCalculatedFields } from '@utils/calculation'
@@ -28,7 +26,7 @@ import { dataGridFiltersConverter } from '@utils/data-grid-filters'
 import { getFilterFields } from '@utils/data-grid-filters/data-grid-get-filter-fields'
 import { getObjectFilteredByKeyArrayWhiteList } from '@utils/object'
 import { parseFieldsAdapter } from '@utils/parse-fields-adapter'
-import { formatCamelCaseString, objectToUrlQs, toFixed } from '@utils/text'
+import { formatCamelCaseString, toFixed } from '@utils/text'
 import { t } from '@utils/translations'
 import { onSubmitPostImages } from '@utils/upload-files'
 
@@ -46,36 +44,25 @@ import { observerConfig } from './model-observer.config'
 export class ClientInventoryViewModel extends DataGridTagsFilter {
   product = undefined
   ordersDataStateToSubmit = undefined
-
   sellerBoardDailyData = []
   storekeepers = []
   destinations = []
   ideaId = undefined
   isArchive = false
-
   presetsData = []
   productsTags = []
   activeProductsTags = []
-
   receivedFiles = undefined
-
   pendingOrderQuantity = undefined
   currentRow = undefined
-
   previousSelectedRows = []
-
   curProduct = undefined
   parsingTable = undefined
-
   productsToLaunch = []
-  productVariations = []
   selectedProductToLaunch = undefined
-
   dataForOrderModal = []
-
   existingProducts = []
   selectedProduct = undefined
-
   selectedRowId = undefined
   showOrderModal = false
   showCheckPendingOrderFormModal = false
@@ -92,28 +79,24 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
   showProductDataModal = false
   showGetFilesModal = false
   showEditHSCodeModal = false
-  productCardModal = false
+  mainProductModal = false
   showProductLaunch = false
   showIdeaModal = false
   showProductVariationsForm = false
   showAddSupplierProductModal = false
   showEditProductTagsModal = false
   showParsingReportsModal = false
-
   onAmazon = false
   isBatches = false
-
   confirmMessage = ''
   currentBarcode = ''
   currentHscode = ''
-
   readyImages = []
   progressValue = 0
   showProgress = false
-
   getCustomSortFields = []
-
   setAllColumns = undefined
+  productId = undefined
 
   get userInfo() {
     return UserModel.userInfo
@@ -249,7 +232,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
       onOpenProductDataModal: (product, onAmazon) => this.onOpenProductDataModal(product, onAmazon),
       onClickOrderCell: (productId, filterStatus) => this.onClickOrderCell(productId, filterStatus),
       onClickShowProduct: row => this.onClickShowProduct(row),
-      onClickVariationButton: id => this.onClickVariationButton(id),
+      onClickVariationButton: row => this.onClickVariationButton(row),
       onClickTag: tag => this.setActiveProductsTagFromTable(tag),
       onClickEdit: productId => this.onClickEditTags(productId),
       onClickParsingReportCell: (product, table) => this.onClickParsingReportCell(product, table),
@@ -357,20 +340,18 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     win.focus()
   }
 
-  onClickProductModal(row) {
-    if (window.getSelection().toString()) {
-      return
-    }
-
-    if (row) {
+  onClickProductModal(id) {
+    if (id) {
       this.isArchive
-        ? this.history.push(`/client/inventory?product-id=${row._id}&isArchive=true`)
-        : this.history.push(`/client/inventory?product-id=${row._id}`)
+        ? this.history.push(`/client/inventory?product-id=${id}&isArchive=true`)
+        : this.history.push(`/client/inventory?product-id=${id}`)
     } else {
       this.isArchive ? this.history.push(`/client/inventory?isArchive=true`) : this.history.push(`/client/inventory`)
     }
 
-    this.onTriggerOpenModal('productCardModal')
+    this.productId = id
+
+    this.onTriggerOpenModal('mainProductModal')
   }
 
   onClickPandingOrder(id) {
@@ -396,7 +377,7 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
         : this.history.push(`/client/inventory?product-id=${productId}&show-tab=orders&status=${filterStatus}`)
     }
 
-    this.onTriggerOpenModal('productCardModal')
+    this.onTriggerOpenModal('mainProductModal')
   }
 
   onClickRequestCell(productId) {
@@ -411,18 +392,9 @@ export class ClientInventoryViewModel extends DataGridTagsFilter {
     this.onTriggerOpenModal('productCardModal')
   }
 
-  async onClickVariationButton(id) {
-    try {
-      const result = await ProductModel.getProductsVariationsByGuid(id)
-
-      runInAction(() => {
-        this.productVariations = result
-      })
-
-      this.onTriggerOpenModal('showProductVariationsForm')
-    } catch (error) {
-      console.error(error)
-    }
+  onClickVariationButton(row) {
+    this.selectedProduct = row
+    this.onTriggerOpenModal('showProductVariationsForm')
   }
 
   async uploadTemplateFile(file) {
