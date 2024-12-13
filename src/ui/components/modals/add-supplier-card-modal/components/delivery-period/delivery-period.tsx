@@ -7,7 +7,7 @@ import { CustomInputNumber } from '@components/shared/custom-input-number'
 
 import { t } from '@utils/translations'
 
-import { getRequiredRules } from '@config/form-rules/get-required-rules'
+import { requiredRule } from '@config/form-rules/get-required-rules'
 
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './delivery-period.style'
@@ -45,7 +45,11 @@ export const DeliveryPeriod = memo(() => {
         </Form.Item>
       </Space.Compact>
 
-      <Form.Item<ICreateSupplierProductModal> name="amount" className={sharedStyles.field} rules={getRequiredRules()}>
+      <Form.Item<ICreateSupplierProductModal>
+        name="amount"
+        className={sharedStyles.field}
+        rules={[requiredRule, { type: 'number', min: 1, message: '' }]}
+      >
         <CustomInputNumber
           required
           max={999999}
@@ -56,7 +60,11 @@ export const DeliveryPeriod = memo(() => {
         />
       </Form.Item>
 
-      <Form.Item<ICreateSupplierProductModal> name="minlot" className={sharedStyles.field} rules={getRequiredRules()}>
+      <Form.Item<ICreateSupplierProductModal>
+        name="minlot"
+        className={sharedStyles.field}
+        rules={[requiredRule, { type: 'number', min: 1, message: '' }]}
+      >
         <CustomInputNumber
           required
           max={999999}

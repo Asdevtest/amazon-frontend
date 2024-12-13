@@ -3,7 +3,7 @@ import { FC, memo } from 'react'
 
 import { CustomInputNumber } from '@components/shared/custom-input-number'
 
-import { getRequiredRules } from '@config/form-rules/get-required-rules'
+import { requiredRule } from '@config/form-rules/get-required-rules'
 
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './delivery-costs-inputs.style'
@@ -30,7 +30,7 @@ export const DeliveryCostsInputs: FC<DeliveryCostsInputsProps> = memo(props => {
       <Form.Item<ICreateSupplierProductModal>
         name={controllItemName}
         className={cx(sharedStyles.field, styles.deliveryField)}
-        rules={getRequiredRules()}
+        rules={[requiredRule, { type: 'number', min: 0.01, message: '' }]}
       >
         <CustomInputNumber
           required

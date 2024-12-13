@@ -12,7 +12,7 @@ import { ISupplierV2Light } from '@typings/models/suppliers/supplier-v2'
 import { ICategory } from '@typings/shared/category'
 import { UploadFileType } from '@typings/shared/upload-file'
 
-import { getRequiredRules } from '@config/form-rules/get-required-rules'
+import { getRequiredRules, requiredRule } from '@config/form-rules/get-required-rules'
 
 import { useStyles as useSharedStyles } from '../../shared.style'
 import { useStyles } from './general-info.style'
@@ -105,7 +105,19 @@ export const GeneralInfo: FC<GeneralInfoProps> = memo(props => {
           <CustomInput required size="large" label="Title" wrapperClassName={sharedStyles.input} />
         </Form.Item>
 
-        <Form.Item<ICreateSupplierProductModal> name="link" className={sharedStyles.field} rules={getRequiredRules()}>
+        <Form.Item<ICreateSupplierProductModal>
+          name="link"
+          className={sharedStyles.field}
+          rules={[
+            requiredRule,
+            {
+              pattern: new RegExp(
+                /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/,
+              ),
+              message: '',
+            },
+          ]}
+        >
           <CustomInput required size="large" label="Link" wrapperClassName={sharedStyles.input} />
         </Form.Item>
       </div>
