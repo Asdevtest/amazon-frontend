@@ -2,13 +2,12 @@ import { CheckboxOptionType, Radio, RadioGroupProps } from 'antd'
 import { FC, memo, useEffect, useRef } from 'react'
 
 import { IDefaultPropsExtensionAntdComponent } from '@typings/shared/default-props-extension-component-antd'
-import { ScrollType } from '@typings/types/scroll'
 
 import { useStyles } from './custom-radio.style'
 
 interface CustomRadioProps extends RadioGroupProps, IDefaultPropsExtensionAntdComponent {
   options: CheckboxOptionType[]
-  onScroll?: ScrollType
+  onScroll?: () => void
 }
 
 export const CustomRadio: FC<CustomRadioProps> = memo(props => {
@@ -19,6 +18,7 @@ export const CustomRadio: FC<CustomRadioProps> = memo(props => {
 
   useEffect(() => {
     const element = radioGroupRef.current
+
     if (element && onScroll) {
       element.addEventListener('scroll', onScroll as any)
 

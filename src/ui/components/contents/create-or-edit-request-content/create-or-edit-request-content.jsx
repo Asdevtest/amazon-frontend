@@ -30,7 +30,6 @@ import { CustomSelect } from '@components/shared/selects/custom-select'
 import { WithSearchSelect } from '@components/shared/selects/with-search-select'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
 import { FireIcon } from '@components/shared/svg-icons'
-import { Text } from '@components/shared/text'
 import { UploadFilesInput } from '@components/shared/upload-files-input'
 
 import { calcNumberMinusPercent, calcPercentAfterMinusNumbers } from '@utils/calculation'
@@ -533,6 +532,7 @@ export const CreateOrEditRequestContent = memo(props => {
                     label="ASIN"
                     placeholder="Select ASIN"
                     defaultValue={formFields?.request?.asin}
+                    searchFields={['asin', 'skuByClient']}
                     onChange={(_, option) => {
                       onChangeField('request')('asin')(option.asin)
                       onChangeField('request')('productId')(option._id)
