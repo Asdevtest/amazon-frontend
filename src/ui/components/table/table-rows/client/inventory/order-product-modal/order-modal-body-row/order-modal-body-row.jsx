@@ -340,6 +340,7 @@ export const OrderModalBodyRow = ({
 
         <TableCell className={styles.cell}>
           <CustomDatePicker
+            allowClear={!item?.currentSupplierCard}
             open={!item?.currentSupplierCard && undefined}
             inputReadOnly={item?.currentSupplierCard}
             format="DD.MM.YYYY"
