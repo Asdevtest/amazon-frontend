@@ -44,7 +44,15 @@ export class AddSupplierProductModalModel extends DefaultModel {
     return this.requestStatus === loadingStatus.IS_LOADING
   }
 
-  constructor({ supplierId, supplierCardId }: { supplierId?: string; supplierCardId?: string }) {
+  constructor({
+    supplierId,
+    supplierCardId,
+    showOnlySupplierId,
+  }: {
+    supplierId?: string
+    supplierCardId?: string
+    showOnlySupplierId?: boolean
+  }) {
     super({
       getMainDataMethod: SupplierV2Model.getSupplierCardByGuid,
       defaultGetCurrentDataOptions: () => supplierCardId,
@@ -58,10 +66,16 @@ export class AddSupplierProductModalModel extends DefaultModel {
     })
 
     if (supplierId) {
-      this.suppliersInfinityModel.filtersOtions = {
-        supplier: {
-          $eq: supplierId,
-        },
+      this.suppliersInfinityModel.setOptions({
+        supplierId,
+      })
+
+      if (showOnlySupplierId) {
+        this.suppliersInfinityModel.filtersOtions = {
+          supplier: {
+            $eq: supplierId,
+          },
+        }
       }
     }
 

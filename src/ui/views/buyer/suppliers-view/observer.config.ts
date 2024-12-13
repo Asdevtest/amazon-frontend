@@ -8,6 +8,7 @@ export const observerConfig = {
   isSupplierCardsActive: observable,
   supplierCardIdToEdit: observable,
   tablesHandlers: observable,
+  showOnlySupplierId: observable,
 
   showSupplierModal: observable,
   showAddSupplierModal: observable,

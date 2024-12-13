@@ -16,6 +16,7 @@ import { RequestResultModal } from '@components/modals/request-result-modal'
 import { CustomButton } from '@components/shared/custom-button'
 import { Modal } from '@components/shared/modal'
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+import { Text } from '@components/shared/text'
 import { UserLink } from '@components/user/user-link'
 
 import { getUserAvatarSrc } from '@utils/get-user-avatar'
@@ -110,10 +111,10 @@ export const OwnerRequestProposalsCard = ({
                 </div>
               </div>
             </div>
-            <p>
-              {`${t(TranslationKey['Proposal ID'])}: `}
-              <span className={styles.proposalTitle}>{item.proposal.xid}</span>
-            </p>
+            <div className={styles.idContainer}>
+              <p>{`${t(TranslationKey['Proposal ID'])}: `} </p>
+              <Text className={styles.proposalTitle} text={item.proposal.xid} />
+            </div>
             <p className={styles.proposalTitle}>{item.proposal.title}</p>
             <p className={styles.proposalDescription}>{item.proposal.comment}</p>
           </div>

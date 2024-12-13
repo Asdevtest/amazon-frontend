@@ -168,4 +168,10 @@ export const useStyles = makeStyles()(theme => ({
   standartText: {
     color: theme.palette.text.general,
   },
+
+  idContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '3px',
+  },
 }))

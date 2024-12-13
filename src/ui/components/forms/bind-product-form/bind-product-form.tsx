@@ -8,8 +8,7 @@ import { ClientModel } from '@models/client-model'
 
 import { CustomButton } from '@components/shared/custom-button'
 import { RadioButtons } from '@components/shared/radio-buttons'
-import { InfiniteScrollSelect } from '@components/shared/selects/infinite-scroll-select'
-import { AsinOption } from '@components/shared/selects/infinite-scroll-select/options'
+import { AsinOption, InfiniteScrollSelect } from '@components/shared/selects/infinite-scroll-select'
 
 import { t } from '@utils/translations'
 
@@ -21,18 +20,17 @@ import { useStyles } from './bind-product-form.style'
 
 interface BindProductFormProps {
   sourceProduct: IProduct
-  onClickGetProductsToBind: (options: string) => void
   onClickNextButton: (option?: string, products?: string[]) => void
   onClose: () => void
 }
 
 export const BindProductForm: FC<BindProductFormProps> = observer(props => {
-  const { sourceProduct, onClickGetProductsToBind, onClickNextButton, onClose } = props
+  const { sourceProduct, onClickNextButton, onClose } = props
 
   const { classes: styles } = useStyles()
 
   const [selectedProducts, setSelectedProducts] = useState<Array<IProduct>>([])
-  const [radioValue, setRadioValue] = useState<ProductVariation>(ProductVariation.PARENT)
+  const [radioValue, setRadioValue] = useState<ProductVariation>()
 
   const notParent = !sourceProduct?.parentProductId && sourceProduct?.hasChildren
 
@@ -45,11 +43,11 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
   const handleChangeRadio = (value: ProductVariation) => {
     setSelectedProducts([])
     setRadioValue(value)
-    onClickGetProductsToBind(value)
   }
 
   const handleChangeProducts = (values: any) => {
-    setSelectedProducts(values as IProduct[])
+    const products = radioValue === ProductVariation.CHILD ? values : [values]
+    setSelectedProducts(products as IProduct[])
   }
 
   const handleSubmit = () => {
@@ -62,13 +60,19 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
     {
       label: 'Add parent',
       value: ProductVariation.PARENT,
-      disabled: notParent,
+      // disabled: notParent,
     },
     {
       label: 'Add variations',
       value: ProductVariation.CHILD,
     },
   ]
+
+  const filterOptions = {
+    isChild: false,
+    isParent: radioValue === ProductVariation.CHILD ? false : undefined,
+    shopId: radioValue === ProductVariation.CHILD ? sourceProduct?.shopId : undefined,
+  }
 
   return (
     <div className={styles.root}>
@@ -80,13 +84,21 @@ export const BindProductForm: FC<BindProductFormProps> = observer(props => {
         onClickRadioButton={handleChangeRadio}
       />
 
-      {/* <AsinSelect
+      <InfiniteScrollSelect<IProduct>
+        required
+        mode={radioValue === ProductVariation.CHILD ? 'multiple' : undefined}
+        optionLabel="asin"
+        optionValue="_id"
+        filterOptions={filterOptions}
+        method={ClientModel.getProductPermissionsData}
+        optionNode={AsinOption}
+        size="large"
         label="Select products"
-        mode="multiple"
         style={{ width: '100%' }}
         placeholder="Select product"
+        value={selectedProducts}
         onChange={(_, values) => handleChangeProducts(values)}
-      /> */}
+      />
 
       <div className={styles.buttons}>
         <CustomButton type="primary" disabled={!selectedProducts.length} onClick={handleSubmit}>

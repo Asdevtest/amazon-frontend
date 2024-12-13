@@ -8,6 +8,7 @@ import { ChatMessageDataCreateNewDesignerProposalContract } from '@models/chat-m
 import { ChatMessageContract } from '@models/chat-model/contracts/chat-message.contract'
 
 import { SlideshowGallery } from '@components/shared/slideshow-gallery'
+import { Text } from '@components/shared/text'
 
 import { formatDateOnlyTime, formatNormDateTime } from '@utils/date-time'
 import { minsToTime, toFixedWithDollarSign } from '@utils/text'
@@ -35,7 +36,7 @@ export const ChatMessageCreateNewDesignerProposal: FC<Props> = ({ message, isSho
             {message.xid ? (
               <div className={styles.idWrapper}>
                 <p className={cx(styles.idText, styles.idTitle)}>ID</p>
-                <p className={styles.idText}>{message.xid}</p>
+                <Text text={String(message.xid)} className={styles.idText} />
               </div>
             ) : null}
           </div>

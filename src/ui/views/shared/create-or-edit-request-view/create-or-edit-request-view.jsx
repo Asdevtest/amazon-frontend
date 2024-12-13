@@ -58,7 +58,7 @@ export const CreateOrEditRequestView = observer(({ history }) => {
           openModal={viewModel.showConfirmModal}
           setOpenModal={() => {
             viewModel.onTriggerOpenModal('showConfirmModal')
-            viewModel.goBack()
+            viewModel.pushSuccess()
           }}
           title={t(TranslationKey.Attention)}
           message={viewModel.confirmModalSettings.message}

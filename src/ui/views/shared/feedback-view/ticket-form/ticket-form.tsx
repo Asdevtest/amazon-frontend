@@ -68,7 +68,7 @@ export const TicketForm: FC<TicketFormProps> = observer(props => {
                 text={`${t(TranslationKey.Updated)}: ${formatNormDateTime(viewModel.feedback?.updatedAt)}`}
                 className={styles.text}
               />
-              <Text type="secondary" copyable={false} text={`ID: ${viewModel.feedback?.xid}`} className={styles.text} />
+              prep id <Text type="secondary" text={`ID: ${viewModel.feedback?.xid}`} className={styles.text} />
             </div>
           </div>
 

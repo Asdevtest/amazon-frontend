@@ -67,6 +67,7 @@ export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel
 
   async onSubmitBindStockGoods() {
     try {
+      this.setLoading(true)
       const selectedItems = this.dataWithKeys.filter((item: IStockGoodWithKey) => this.targetKeys.includes(item.key))
 
       const warehouseStocks = selectedItems.map((el: IStockGoodWithKey) => ({
@@ -85,8 +86,9 @@ export class BindInventoryGoodsToStockFormModel extends DataGridFilterTableModel
       toast.success(t(TranslationKey['Goods are bound']))
     } catch (error) {
       toast.error(t(TranslationKey["You can't bind"]))
-
       console.error(error)
+    } finally {
+      this.setLoading(false)
     }
   }
 }

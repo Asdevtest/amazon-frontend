@@ -432,7 +432,7 @@ export class SuppliersAndIdeasModel {
           if (this.productId) {
             ProductModel.addSuppliersToProduct(
               this.productId,
-              ideaData?.suppliers?.map(supplier => supplier._id),
+              ideaData?.supplierCards?.map(supplier => supplier._id),
             )
           }
         }

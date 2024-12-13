@@ -22,7 +22,7 @@ interface InfiniteScrollSelectProps<T> extends CustomSelectProps {
 export const InfiniteScrollSelect = observer(<T,>(props: InfiniteScrollSelectProps<T>) => {
   const { optionNode, ...restProps } = props
 
-  const viewModel = useMemo(() => new InfiniteScrollSelectModel<T>(props), [])
+  const viewModel = useMemo(() => new InfiniteScrollSelectModel<T>(props), [props])
 
   return (
     <CustomSelect

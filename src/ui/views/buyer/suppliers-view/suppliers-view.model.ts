@@ -16,6 +16,7 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
   currentTable: TableView
 
   isSupplierCardsActive: boolean = false
+  showOnlySupplierId: boolean = false
 
   tablesHandlers: Record<TableView, IHandlers>
 
@@ -147,11 +148,18 @@ export class SuppliersViewModel extends DataGridFilterTableModel {
   }
 
   onClickAddSupplierProduct() {
+    runInAction(() => {
+      this.showOnlySupplierId = true
+    })
     this.onTriggerOpenModal('showAddSupplierProductModal', true)
   }
   onCloseAddSupplierProductModal() {
     this.onTriggerOpenModal('showAddSupplierProductModal', false)
-    this.supplierCardIdToEdit = ''
+
+    runInAction(() => {
+      this.supplierCardIdToEdit = ''
+      this.showOnlySupplierId = false
+    })
   }
 
   async onClickDeleteSupplierCard(id: string) {
