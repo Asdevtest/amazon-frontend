@@ -41,6 +41,10 @@ export class WholesaleViewModel extends InfiniteScrollModel<ISupplierExchange> {
       return
     }
 
+    if (this.showSelectShopsModal) {
+      this.supplierCardIds = []
+    }
+
     this.showSelectShopsModal = !this.showSelectShopsModal
   }
 
