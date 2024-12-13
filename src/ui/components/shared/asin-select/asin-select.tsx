@@ -8,10 +8,12 @@ import { CustomSelectProps } from '@components/shared/custom-select/custom-selec
 import { getOptions } from './asin-select.config'
 import { AsinSelectModel } from './asin-select.model'
 
-interface AsinSelectProps extends CustomSelectProps {}
+interface AsinSelectProps extends CustomSelectProps {
+  options?: any
+}
 
 export const AsinSelect: FC<AsinSelectProps> = observer(props => {
-  const viewModel = useMemo(() => new AsinSelectModel(), [])
+  const viewModel = useMemo(() => new AsinSelectModel(props.options), [props])
 
   const handlePopupScroll = useCallback(
     (e: UIEvent<HTMLElement>) => {

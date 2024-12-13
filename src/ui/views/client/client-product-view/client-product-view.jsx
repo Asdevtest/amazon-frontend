@@ -11,8 +11,6 @@ import { CircularProgressWithLabel } from '@components/shared/circular-progress-
 
 import { t } from '@utils/translations'
 
-import { ProductVariation } from '@typings/enums/product/product-variation'
-
 import { UseProductsPermissions } from '@hooks/use-products-permissions'
 
 import { ClientProductViewModel } from './client-product-view.model'
@@ -53,15 +51,6 @@ export const ClientProductView = observer(({ history }) => {
           patchProductTransparencyHandler={viewModel.patchProductTransparencyHandler}
           onClickSubmitSearch={value => useProductsPermissions.onClickSubmitSearch(value)}
           onClickNextButton={viewModel.bindUnbindProducts}
-          onClickGetProductsToBind={option =>
-            useProductsPermissions.getPermissionsData({
-              isChild: false,
-              isParent: option === ProductVariation.CHILD ? false : undefined,
-              shopId: viewModel.product?.shopId,
-              offset: 0,
-              filters: '',
-            })
-          }
           onTriggerOpenModal={viewModel.onTriggerOpenModal}
           onChangeField={viewModel.onChangeProductFields}
           onChangeImagesForLoad={viewModel.onChangeImagesForLoad}

@@ -89,7 +89,6 @@ export const ProductWrapper = memo(
     showBindProductModal,
     productsToBind,
     onTriggerOpenModal,
-    onClickGetProductsToBind,
     onClickHsCode,
     onClickNextButton,
     loadMorePermissionsDataHadler,
@@ -194,7 +193,6 @@ export const ProductWrapper = memo(
             formFieldsValidationErrors={formFieldsValidationErrors}
             onClickNextButton={onClickNextButton}
             onTriggerOpenModal={onTriggerOpenModal}
-            onClickGetProductsToBind={onClickGetProductsToBind}
             onChangeField={onChangeField}
             onClickSetProductStatusBtn={onClickSetProductStatusBtn}
             onClickParseProductData={onClickParseProductData}
